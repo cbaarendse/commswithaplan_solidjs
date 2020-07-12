@@ -1,6 +1,8 @@
 <script>
   import { fly } from "svelte/transition";
   import { quintOut } from "svelte/easing";
+
+  let anchorNames = ["commsWithAPlan", "consultancy", "about", "contact"];
   // Direction of mouse when going over navigation links determines classname for link-anchors
   $: previousOverX = 0;
   $: overX = 0;
@@ -13,6 +15,7 @@
   function out(event) {
     outX = event.pageX;
   }
+  function insertSpacesBeforeCapitals(str) {}
 </script>
 
 <style>
@@ -132,26 +135,17 @@
 </style>
 
 <!-- Direction of the mouse from previous mouseover to current mouseleave determines the class -->
-<div id="navigation-button">
-  <a id="show-navigation" href="#navigation-bar">
-    <i class="material-icons">menu</i>
-  </a>
-</div>
-
 <nav id="navigation-bar">
-  <a id="hide-navigation" href="#">
-    <i class="material-icons">remove</i>
-  </a>
-  {#each navigationPaths as { to, displayName }, index}
+  {#each { anchorNames } as { anchorName }, index}
     <a
       on:mouseover={over}
       on:mouseout={out}
-      href={to}
-      class:active={to == pathname}
+      href={'#' + anchorName}
+      class:active={to == anchorName}
       class="{outX - previousOverX > 0 ? 'transition-to-right' : ''}{outX - previousOverX < 0 ? 'transition-to-left' : ''}">
-      {#if index === 0}
-        <img src="logo_trans_1024.png" alt="Logo" />
-      {:else}{displayName}{/if}
+      {anchorName
+        .split(/[A-Z]/)[0]
+        .toUpperCase() + anchorName.split(/[A-Z]/).slice(1)}
     </a>
   {/each}
 </nav>
