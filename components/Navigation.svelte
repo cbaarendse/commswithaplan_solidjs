@@ -1,6 +1,7 @@
 <script>
   import { fly } from "svelte/transition";
   import { quintOut } from "svelte/easing";
+  import { Session } from "meteor/session";
 
   let anchorNames = ["commsWithAPlan", "consultancy", "about", "contact"];
   // Direction of mouse when going over navigation links determines classname for link-anchors
@@ -15,37 +16,13 @@
   function out(event) {
     outX = event.pageX;
   }
-  function insertSpacesBeforeCapitals(str) {}
+  function onAnchorClick(anchorName) {
+    let anchor = "#" + anchorName;
+    Session.set("target", anchor);
+  }
 </script>
 
 <style>
-  a#show-navigation {
-    display: none;
-    /* background-color: var(--ra-blue); */
-    /* color: var(--ra-white); */
-    padding: 14px;
-    font-size: 14px;
-    border: none;
-    cursor: pointer;
-  }
-  @media only screen and (max-width: 768px) {
-    a#show-navigation {
-      display: block;
-    }
-  }
-  a#hide-navigation {
-    display: none;
-    padding: 14px;
-    font-size: 14px;
-    border: none;
-    cursor: pointer;
-  }
-
-  @media only screen and (max-width: 768px) {
-    a#hide-navigation {
-      display: block;
-    }
-  }
   nav#navigation-bar {
     margin: 14px 0px;
   }
@@ -57,10 +34,6 @@
       display: block;
     }
   }
-  img {
-    height: 100%;
-    width: auto;
-  }
   a {
     display: inline-block;
     padding: 7px 0px 7px 0px;
@@ -70,7 +43,10 @@
     vertical-align: middle;
     text-decoration: none;
     font-size: 21px;
-    background-image: linear-gradient(var(--ra-green), var(--ra-green));
+    background-image: linear-gradient(
+      var(--ra-grey-bright),
+      var(--ra-grey-bright)
+    );
     background-size: 0% 4px;
     background-repeat: no-repeat;
     background-position: left bottom;
@@ -79,8 +55,7 @@
   }
   @media only screen and (max-width: 768px) {
     a {
-      display: block;
-      width: 100%;
+      display: none;
     }
   }
   a:link {
@@ -140,12 +115,14 @@
     <a
       on:mouseover={over}
       on:mouseout={out}
+      on:click={() => onAnchorClick(anchorName)}
       href={'#' + anchorName}
-      class:active={to == anchorName}
+      class:active={Session.get('target') == '#' + anchorName}
       class="{outX - previousOverX > 0 ? 'transition-to-right' : ''}{outX - previousOverX < 0 ? 'transition-to-left' : ''}">
       {anchorName
-        .split(/[A-Z]/)[0]
-        .toUpperCase() + anchorName.split(/[A-Z]/).slice(1)}
+        .split(/(?=[A-Z])/)
+        .join(' ')[0]
+        .toUpperCase()}
     </a>
   {/each}
 </nav>
