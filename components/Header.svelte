@@ -3,6 +3,7 @@
   import { Meteor } from "meteor/meteor";
   import { onMount } from "svelte";
   import { Session } from "meteor/session";
+  import { useSession } from "meteor/rdb:svelte-meteor-data";
   // Collections
   // Modules
   import { ui_translations } from "../client/constants";
@@ -14,7 +15,8 @@
   function selectLanguage(event) {
     Session.set("language", event.target.value);
   }
-  $: language = Session.get("language");
+
+  $: language = useSession("language");
 </script>
 
 <style>

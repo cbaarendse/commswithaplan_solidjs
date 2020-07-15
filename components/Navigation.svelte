@@ -20,6 +20,12 @@
     let anchor = "#" + anchorName;
     Session.set("target", anchor);
   }
+
+  function capitalizeAndSplit(str) {
+    str = str[0].toUpperCase() + str.slice(1);
+    str = str.split(/(?=[A-Z])/).join(" ");
+    return str;
+  }
 </script>
 
 <style>
@@ -37,7 +43,7 @@
   a {
     display: inline-block;
     padding: 7px 0px 7px 0px;
-    width: 14%;
+    width: 18%;
     height: 28px;
     text-align: center;
     vertical-align: middle;
@@ -73,7 +79,7 @@
 
   a:hover {
     background-color: var(--ra-grey-off-white);
-    color: var(--ra-green);
+    color: var(--ra-grey);
     background-size: 100% 4px;
   }
   a.transition-to-right:hover {
@@ -111,7 +117,7 @@
 
 <!-- Direction of the mouse from previous mouseover to current mouseleave determines the class -->
 <nav id="navigation-bar">
-  {#each { anchorNames } as { anchorName }, index}
+  {#each anchorNames as anchorName, index}
     <a
       on:mouseover={over}
       on:mouseout={out}
@@ -119,10 +125,7 @@
       href={'#' + anchorName}
       class:active={Session.get('target') == '#' + anchorName}
       class="{outX - previousOverX > 0 ? 'transition-to-right' : ''}{outX - previousOverX < 0 ? 'transition-to-left' : ''}">
-      {anchorName
-        .split(/(?=[A-Z])/)
-        .join(' ')[0]
-        .toUpperCase()}
+      {capitalizeAndSplit(anchorName)}
     </a>
   {/each}
 </nav>
