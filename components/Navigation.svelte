@@ -31,6 +31,9 @@
 <style>
   nav#navigation-bar {
     margin: 14px 0px;
+    position: fixed;
+    background-color: var(--ra-white);
+    top: 0;
   }
   @media only screen and (max-width: 768px) {
     nav#navigation-bar {
@@ -41,12 +44,13 @@
     }
   }
   a {
-    display: inline-block;
+    float: left;
+    display: block;
     padding: 7px 0px 7px 0px;
     width: 18%;
     height: 28px;
     text-align: center;
-    vertical-align: middle;
+    /* vertical-align: middle; */
     text-decoration: none;
     font-size: 21px;
     background-image: linear-gradient(

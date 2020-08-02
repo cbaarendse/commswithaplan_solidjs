@@ -19,7 +19,7 @@
 
 </style>
 
-<Header />
+<!-- <Header /> -->
 <Navigation />
 <Home />
 <Footer />
