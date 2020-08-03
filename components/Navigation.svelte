@@ -1,9 +1,15 @@
 <script>
+  // Packages
+  import { Meteor } from "meteor/meteor";
+  import { onMount } from "svelte";
+  import { Session } from "meteor/session";
+  import { useSession } from "meteor/rdb:svelte-meteor-data";
   import { fly } from "svelte/transition";
   import { quintOut } from "svelte/easing";
-  import { Session } from "meteor/session";
+  // Collections
+  // Modules
+  import { ui_translations } from "../client/constants";
 
-  let anchorNames = ["commsWithAPlan", "consultancy", "about", "contact"];
   // Direction of mouse when going over navigation links determines classname for link-anchors
   $: previousOverX = 0;
   $: overX = 0;
@@ -26,13 +32,19 @@
     str = str.split(/(?=[A-Z])/).join(" ");
     return str;
   }
+  function selectLanguage(event) {
+    Session.set("language", event.target.value);
+  }
+
+  $: language = useSession("language");
 </script>
 
 <style>
   nav#navigation-bar {
-    margin: 14px 0px;
+    margin: 0px;
     position: fixed;
     background-color: var(--ra-white);
+    width: 100%;
     top: 0;
   }
   @media only screen and (max-width: 768px) {
@@ -117,19 +129,123 @@
     background-image: linear-gradient(var(--ra-red), var(--ra-red));
     background-size: 100% 4px;
   }
+
+  header {
+    display: flex;
+    flex-direction: row-reverse;
+    width: 100%;
+    padding: 0px;
+  }
+  div.dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  button.dropdown-button {
+    background-color: var(--ra-blue);
+    color: white;
+    padding: 14px;
+    font-size: 14px;
+    min-width: 105px;
+    border: none;
+    cursor: pointer;
+  }
+  div.dropdown:hover button.dropdown-button {
+    background-color: var(--ra-green);
+  }
+
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: var(--ra-grey-off-white);
+    min-width: 105px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+  }
+
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+
+  .dropdown-content {
+    width: 100%;
+    background-color: var(--ra-white);
+  }
+  .dropdown-content button {
+    display: block;
+    color: var(--ra-blue);
+    padding: 14px;
+    width: 100%;
+    text-decoration: none;
+    align-items: baseline;
+    background-color: var(--ra-white);
+    border: none;
+    cursor: pointer;
+  }
+  .dropdown-content button:hover {
+    background-color: var(--ra-grey-off-white);
+    color: var(--ra-green);
+  }
+  i {
+    font-size: inherit;
+  }
 </style>
 
 <!-- Direction of the mouse from previous mouseover to current mouseleave determines the class -->
 <nav id="navigation-bar">
-  {#each anchorNames as anchorName, index}
-    <a
-      on:mouseover={over}
-      on:mouseout={out}
-      on:click={() => onAnchorClick(anchorName)}
-      href={'#' + anchorName}
-      class:active={Session.get('target') == '#' + anchorName}
-      class="{outX - previousOverX > 0 ? 'transition-to-right' : ''}{outX - previousOverX < 0 ? 'transition-to-left' : ''}">
-      {capitalizeAndSplit(anchorName)}
-    </a>
-  {/each}
+
+  <a
+    on:mouseover={over}
+    on:mouseout={out}
+    on:click={() => onAnchorClick('commsWithAPlan')}
+    href={'#commsWithAPlan'}
+    class:active={Session.get('target') == '#commsWithAPlan'}
+    class="{outX - previousOverX > 0 ? 'transition-to-right' : ''}{outX - previousOverX < 0 ? 'transition-to-left' : ''}">
+    {capitalizeAndSplit('commsWithAPlan')}
+  </a>
+  <a
+    on:mouseover={over}
+    on:mouseout={out}
+    on:click={() => onAnchorClick('consultancy')}
+    href={'#consultancy'}
+    class:active={Session.get('target') == '#consultancy'}
+    class="{outX - previousOverX > 0 ? 'transition-to-right' : ''}{outX - previousOverX < 0 ? 'transition-to-left' : ''}">
+    {capitalizeAndSplit('consultancy')}
+  </a>
+  <a
+    on:mouseover={over}
+    on:mouseout={out}
+    on:click={() => onAnchorClick('about')}
+    href={'#about'}
+    class:active={Session.get('target') == '#about'}
+    class="{outX - previousOverX > 0 ? 'transition-to-right' : ''}{outX - previousOverX < 0 ? 'transition-to-left' : ''}">
+    {capitalizeAndSplit('about')}
+  </a>
+  <a
+    on:mouseover={over}
+    on:mouseout={out}
+    on:click={() => onAnchorClick('contact')}
+    href={'#contact'}
+    class:active={Session.get('target') == '#contact'}
+    class="{outX - previousOverX > 0 ? 'transition-to-right' : ''}{outX - previousOverX < 0 ? 'transition-to-left' : ''}">
+    {capitalizeAndSplit('contact')}
+  </a>
+
+  <div class="dropdown">
+    <button class="dropdown-button">
+      {ui_translations[$language][$language]}
+      <i class="material-icons">arrow_drop_down</i>
+
+    </button>
+
+    <div class="dropdown-content">
+      <button value="english" on:click={selectLanguage}>
+        {ui_translations['english'][$language]}
+      </button>
+      <button value="dutch" on:click={selectLanguage}>
+        {ui_translations['dutch'][$language]}
+      </button>
+    </div>
+  </div>
+
 </nav>
