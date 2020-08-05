@@ -40,7 +40,8 @@
 </script>
 
 <style>
-  nav#navigation-bar {
+  nav {
+    display: flex;
     margin: 0px;
     position: fixed;
     background-color: var(--ra-white);
@@ -48,21 +49,21 @@
     top: 0;
   }
   @media only screen and (max-width: 768px) {
-    nav#navigation-bar {
+    nav {
       display: none;
     }
     nav#navigation-bar:target {
       display: block;
     }
   }
+
   a {
-    float: left;
-    display: block;
-    padding: 7px 0px 7px 0px;
-    width: 18%;
+    display: inline-block;
+    flex-grow: 2;
+    padding: 14px 0px 14px 0px;
+    width: 25%;
     height: 28px;
     text-align: center;
-    /* vertical-align: middle; */
     text-decoration: none;
     font-size: 21px;
     background-image: linear-gradient(
@@ -130,27 +131,22 @@
     background-size: 100% 4px;
   }
 
-  header {
-    display: flex;
-    flex-direction: row-reverse;
-    width: 100%;
-    padding: 0px;
-  }
   div.dropdown {
     position: relative;
     display: inline-block;
+    width: 100%;
   }
-  button.dropdown-button {
-    background-color: var(--ra-blue);
-    color: white;
+  a.dropdown-link {
+    flex-grow: 3;
+    color: var(--ra-blue);
     padding: 14px;
-    font-size: 14px;
-    min-width: 105px;
+    font-size: 21px;
+    width: 100%;
     border: none;
     cursor: pointer;
   }
-  div.dropdown:hover button.dropdown-button {
-    background-color: var(--ra-green);
+  div.dropdown:hover a.dropdown-link {
+    color: var(--ra-green);
   }
 
   .dropdown-content {
@@ -171,7 +167,7 @@
     width: 100%;
     background-color: var(--ra-white);
   }
-  .dropdown-content button {
+  .dropdown-content a {
     display: block;
     color: var(--ra-blue);
     padding: 14px;
@@ -182,7 +178,7 @@
     border: none;
     cursor: pointer;
   }
-  .dropdown-content button:hover {
+  .dropdown-content a:hover {
     background-color: var(--ra-grey-off-white);
     color: var(--ra-green);
   }
@@ -232,20 +228,20 @@
   </a>
 
   <div class="dropdown">
-    <button class="dropdown-button">
+    <a href={'#'} class="dropdown-link">
       {ui_translations[$language][$language]}
       <i class="material-icons">arrow_drop_down</i>
 
-    </button>
+    </a>
 
     <div class="dropdown-content">
-      <button value="english" on:click={selectLanguage}>
+      <a href={'#'} value="english" on:click={selectLanguage}>
         {ui_translations['english'][$language]}
-      </button>
-      <button value="dutch" on:click={selectLanguage}>
+      </a>
+      <a href={'#'} value="dutch" on:click={selectLanguage}>
         {ui_translations['dutch'][$language]}
-      </button>
+      </a>
     </div>
-  </div>
 
+  </div>
 </nav>
