@@ -8,11 +8,20 @@
 
 <style>
   section {
+    padding-top: 56px;
+    padding-bottom: 14px;
     background-repeat: no-repeat;
+    background-position: top center;
     background-attachment: fixed;
-    background-size: 100% 100%;
+    background-size: cover;
     width: auto;
-    min-height: 900px;
+    min-height: 570px;
+  }
+
+  @media only screen and (max-width: 768px) {
+    section {
+      overflow: hidden;
+    }
   }
   section#commsWithAPlan {
     background-image: url("City 920x570.png");
@@ -27,6 +36,7 @@
     background-image: url("Payphone old 920x570.png");
   }
   h1 {
+    margin: 0px;
     background-color: yellow;
   }
   p {

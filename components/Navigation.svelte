@@ -22,8 +22,7 @@
   function out(event) {
     outX = event.pageX;
   }
-  function onAnchorClick(anchorName) {
-    let anchor = "#" + anchorName;
+  function onAnchorClick(anchor) {
     Session.set("target", anchor);
   }
 
@@ -50,18 +49,14 @@
   }
   @media only screen and (max-width: 768px) {
     nav {
-      display: none;
-    }
-    nav#navigation-bar:target {
-      display: block;
+      /* display: none; */
     }
   }
 
   a {
     display: inline-block;
-    flex-grow: 2;
-    padding: 14px 0px 14px 0px;
-    width: 25%;
+    flex-grow: 1;
+    padding: 14px;
     height: 28px;
     text-align: center;
     text-decoration: none;
@@ -77,7 +72,8 @@
     transition-timing-function: ease-out;
   }
   @media only screen and (max-width: 768px) {
-    a {
+    nav a.nav-button,
+    div.spacer {
       display: none;
     }
   }
@@ -94,7 +90,12 @@
     color: var(--ra-blue);
   }
 
-  a:hover {
+  a.nav-button:hover {
+    background-color: var(--ra-grey-off-white);
+    color: var(--ra-grey);
+    background-size: 100% 4px;
+  }
+  a.dropdown-button:hover {
     background-color: var(--ra-grey-off-white);
     color: var(--ra-grey);
     background-size: 100% 4px;
@@ -130,14 +131,15 @@
     background-image: linear-gradient(var(--ra-red), var(--ra-red));
     background-size: 100% 4px;
   }
-
+  a.spacer {
+    flex-grow: 2;
+  }
   div.dropdown {
+    flex-grow: 1;
     position: relative;
     display: inline-block;
-    width: 100%;
   }
-  a.dropdown-link {
-    flex-grow: 3;
+  a.dropdown-button {
     color: var(--ra-blue);
     padding: 14px;
     font-size: 21px;
@@ -145,11 +147,11 @@
     border: none;
     cursor: pointer;
   }
-  div.dropdown:hover a.dropdown-link {
-    color: var(--ra-green);
+  div.dropdown:hover a.dropdown-button {
+    color: var(--ra-grey);
   }
 
-  .dropdown-content {
+  .dropdown-select {
     display: none;
     position: absolute;
     right: 0;
@@ -159,15 +161,15 @@
     z-index: 1;
   }
 
-  .dropdown:hover .dropdown-content {
+  .dropdown:hover .dropdown-select {
     display: block;
   }
 
-  .dropdown-content {
+  .dropdown-select {
     width: 100%;
     background-color: var(--ra-white);
   }
-  .dropdown-content a {
+  .dropdown-select a {
     display: block;
     color: var(--ra-blue);
     padding: 14px;
@@ -178,9 +180,9 @@
     border: none;
     cursor: pointer;
   }
-  .dropdown-content a:hover {
+  .dropdown-select a:hover {
     background-color: var(--ra-grey-off-white);
-    color: var(--ra-green);
+    color: var(--ra-grey);
   }
   i {
     font-size: inherit;
@@ -188,57 +190,74 @@
 </style>
 
 <!-- Direction of the mouse from previous mouseover to current mouseleave determines the class -->
-<nav id="navigation-bar">
+<nav>
 
   <a
     on:mouseover={over}
     on:mouseout={out}
-    on:click={() => onAnchorClick('commsWithAPlan')}
+    on:click={() => onAnchorClick('#commsWithAPlan')}
     href={'#commsWithAPlan'}
     class:active={Session.get('target') == '#commsWithAPlan'}
-    class="{outX - previousOverX > 0 ? 'transition-to-right' : ''}{outX - previousOverX < 0 ? 'transition-to-left' : ''}">
+    class="nav-button {outX - previousOverX > 0 ? 'transition-to-right' : ''}{outX - previousOverX < 0 ? 'transition-to-left' : ''}">
     {capitalizeAndSplit('commsWithAPlan')}
   </a>
   <a
     on:mouseover={over}
     on:mouseout={out}
-    on:click={() => onAnchorClick('consultancy')}
+    on:click={() => onAnchorClick('#consultancy')}
     href={'#consultancy'}
     class:active={Session.get('target') == '#consultancy'}
-    class="{outX - previousOverX > 0 ? 'transition-to-right' : ''}{outX - previousOverX < 0 ? 'transition-to-left' : ''}">
+    class="nav-button {outX - previousOverX > 0 ? 'transition-to-right' : ''}{outX - previousOverX < 0 ? 'transition-to-left' : ''}">
     {capitalizeAndSplit('consultancy')}
   </a>
   <a
     on:mouseover={over}
     on:mouseout={out}
-    on:click={() => onAnchorClick('about')}
+    on:click={() => onAnchorClick('#about')}
     href={'#about'}
     class:active={Session.get('target') == '#about'}
-    class="{outX - previousOverX > 0 ? 'transition-to-right' : ''}{outX - previousOverX < 0 ? 'transition-to-left' : ''}">
+    class="nav-button {outX - previousOverX > 0 ? 'transition-to-right' : ''}{outX - previousOverX < 0 ? 'transition-to-left' : ''}">
     {capitalizeAndSplit('about')}
   </a>
   <a
     on:mouseover={over}
     on:mouseout={out}
-    on:click={() => onAnchorClick('contact')}
+    on:click={() => onAnchorClick('#contact')}
     href={'#contact'}
     class:active={Session.get('target') == '#contact'}
-    class="{outX - previousOverX > 0 ? 'transition-to-right' : ''}{outX - previousOverX < 0 ? 'transition-to-left' : ''}">
+    class="nav-button {outX - previousOverX > 0 ? 'transition-to-right' : ''}{outX - previousOverX < 0 ? 'transition-to-left' : ''}">
     {capitalizeAndSplit('contact')}
   </a>
-
+  <a
+    on:mouseover={over}
+    on:mouseout={out}
+    class="nav-button spacer {outX - previousOverX > 0 ? 'transition-to-right' : ''}{outX - previousOverX < 0 ? 'transition-to-left' : ''}"
+    href={'#'}>
+    {''}
+  </a>
   <div class="dropdown">
-    <a href={'#'} class="dropdown-link">
+    <a
+      on:mouseover={over}
+      on:mouseout={out}
+      href={'#'}
+      class="dropdown-button {outX - previousOverX > 0 ? 'transition-to-right' : ''}{outX - previousOverX < 0 ? 'transition-to-left' : ''}">
       {ui_translations[$language][$language]}
       <i class="material-icons">arrow_drop_down</i>
-
     </a>
 
-    <div class="dropdown-content">
-      <a href={'#'} value="english" on:click={selectLanguage}>
+    <div class="dropdown-select">
+      <a
+        class="dropdown-option"
+        href={'#'}
+        value="english"
+        on:click={selectLanguage}>
         {ui_translations['english'][$language]}
       </a>
-      <a href={'#'} value="dutch" on:click={selectLanguage}>
+      <a
+        class="dropdown-option"
+        href={'#'}
+        value="dutch"
+        on:click={selectLanguage}>
         {ui_translations['dutch'][$language]}
       </a>
     </div>
