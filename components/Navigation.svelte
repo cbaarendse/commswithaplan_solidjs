@@ -32,7 +32,8 @@
     return str;
   }
   function selectLanguage(event) {
-    Session.set("language", event.target.value);
+    console.log("language event.target.value", event.target.lang);
+    Session.set("language", event.target.lang);
   }
 
   $: language = useSession("language");
@@ -46,11 +47,6 @@
     background-color: var(--ra-white);
     width: 100%;
     top: 0;
-  }
-  @media only screen and (max-width: 768px) {
-    nav {
-      /* display: none; */
-    }
   }
 
   a {
@@ -72,8 +68,7 @@
     transition-timing-function: ease-out;
   }
   @media only screen and (max-width: 768px) {
-    nav a.nav-button,
-    div.spacer {
+    nav a.nav-button {
       display: none;
     }
   }
@@ -98,7 +93,6 @@
   a.dropdown-button:hover {
     background-color: var(--ra-grey-off-white);
     color: var(--ra-grey);
-    background-size: 100% 4px;
   }
   a.transition-to-right:hover {
     background-position: left bottom;
@@ -131,7 +125,7 @@
     background-image: linear-gradient(var(--ra-red), var(--ra-red));
     background-size: 100% 4px;
   }
-  a.spacer {
+  div.spacer {
     flex-grow: 2;
   }
   div.dropdown {
@@ -147,7 +141,7 @@
     border: none;
     cursor: pointer;
   }
-  div.dropdown:hover a.dropdown-button {
+  div.dropdown:hover a.dropdown-button:hover {
     color: var(--ra-grey);
   }
 
@@ -191,7 +185,6 @@
 
 <!-- Direction of the mouse from previous mouseover to current mouseleave determines the class -->
 <nav>
-
   <a
     on:mouseover={over}
     on:mouseout={out}
@@ -228,19 +221,9 @@
     class="nav-button {outX - previousOverX > 0 ? 'transition-to-right' : ''}{outX - previousOverX < 0 ? 'transition-to-left' : ''}">
     {capitalizeAndSplit('contact')}
   </a>
-  <a
-    on:mouseover={over}
-    on:mouseout={out}
-    class="nav-button spacer {outX - previousOverX > 0 ? 'transition-to-right' : ''}{outX - previousOverX < 0 ? 'transition-to-left' : ''}"
-    href={'#'}>
-    {''}
-  </a>
+  <div class="spacer" />
   <div class="dropdown">
-    <a
-      on:mouseover={over}
-      on:mouseout={out}
-      href={'#'}
-      class="dropdown-button {outX - previousOverX > 0 ? 'transition-to-right' : ''}{outX - previousOverX < 0 ? 'transition-to-left' : ''}">
+    <a href={'#'} class="dropdown-button">
       {ui_translations[$language][$language]}
       <i class="material-icons">arrow_drop_down</i>
     </a>
@@ -249,15 +232,15 @@
       <a
         class="dropdown-option"
         href={'#'}
-        value="english"
-        on:click={selectLanguage}>
+        lang="english"
+        on:click|preventDefault={selectLanguage}>
         {ui_translations['english'][$language]}
       </a>
       <a
         class="dropdown-option"
         href={'#'}
-        value="dutch"
-        on:click={selectLanguage}>
+        lang="dutch"
+        on:click|preventDefault={selectLanguage}>
         {ui_translations['dutch'][$language]}
       </a>
     </div>

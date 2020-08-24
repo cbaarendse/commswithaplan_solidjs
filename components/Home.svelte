@@ -39,43 +39,91 @@
     margin: 0px;
     background-color: yellow;
   }
+  h2 {
+    margin-left: 1rem;
+    color: yellow;
+  }
+  h3 {
+    background-color: white;
+  }
   p {
     background-color: white;
+    font-size: 1rem;
     margin: 2rem;
     padding: 1rem;
+  }
+  ul {
+    list-style-type: disc;
+  }
+  li {
+    margin: 2rem;
+    padding: 1rem;
+    background-color: white;
   }
 </style>
 
 <section id="commsWithAPlan">
   <article>
     <h1>Comms With A Plan</h1>
-    {#if $language == 'english'}
+    {#if $language == 'dutch'}
       <p>
-        Comms With A Plan is a consultancy for advertisers. At your service we
-        initiate and evaluate your marketing communications strategy, we manage
-        your agencies and your budget.
+        Comms With A Plan is een Media Management consultancy voor
+        adverteerders.
       </p>
       <p>
-        We happily pass the creative work to your creative agencies. Though not
-        without an opinion and/or briefing.
+        Ik initieer en evalueer je media strategie, ik manage je bureaus en
+        budget.
       </p>
-    {:else if $language == 'dutch'}
-      <p>Hello Comms With A Plan</p>
+    {:else}
+      <p>
+        Comms With A Plan is a consultancy for advertisers. At your service I
+        initiate and evaluate your media strategy, I manage your agencies and
+        your budget.
+      </p>
     {/if}
   </article>
 </section>
 <section id="consultancy">
   <h1>Consultancy</h1>
-  <article>
-    <h2>Consultancy</h2>
-    <p>Hello Comms With A Plan</p>
-    <p>Hello Comms With A Plan</p>
-  </article>
-  <article>
-    <h2>Consultancy</h2>
-    <p>Hello Comms With A Plan</p>
-    <p>Hello Comms With A Plan</p>
-  </article>
+  {#if $language == 'dutch'}
+    <article>
+      <h2>Consultancy</h2>
+      <p>Hello Comms With A Plan</p>
+      <p>Hello Comms With A Plan</p>
+    </article>
+    <article>
+      <h2>Work</h2>
+
+      <ul>
+        <h3>Things I'll manage along the process:</h3>
+        <li>Research and analysis</li>
+        <li>Briefing</li>
+        <li>Coördination</li>
+        <li>Planning</li>
+        <li>Execution</li>
+        <li>Evaluation & adjustment</li>
+        <li>Contracts</li>
+        <li>Budget management</li>
+        <li>Creation</li>
+        <li>Agency management</li>
+        <li>Reporting</li>
+
+      </ul>
+
+      <p>Hello Comms With A Plan</p>
+    </article>
+  {:else}
+    <article>
+      <h2>Consultancy</h2>
+      <p>Hello Comms With A Plan</p>
+      <p>Hello Comms With A Plan</p>
+    </article>
+    <article>
+      <h2>Consultancy</h2>
+      <p>Hello Comms With A Plan</p>
+      <p>Hello Comms With A Plan</p>
+    </article>
+  {/if}
 </section>
 <section id="about">
   <article>
@@ -87,7 +135,8 @@
 <section id="contact">
   <article>
     <h1>Contact</h1>
-    <p>Hello Comms With A Plan</p>
-    <p>Hello Comms With A Plan</p>
+    <p>mail: cbaarendse@commswithaplan.com</p>
+    <p>LinkedIn</p>
   </article>
 </section>
+<section id="spacer" />

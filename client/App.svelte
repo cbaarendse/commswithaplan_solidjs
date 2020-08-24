@@ -4,7 +4,6 @@
   import { onMount } from "svelte";
   // Collections
   // Components
-  import Header from "../components/Header.svelte";
   import Navigation from "../components/Navigation.svelte";
   import Home from "../components/Home.svelte";
   import Footer from "../components/Footer.svelte";
@@ -19,7 +18,6 @@
 
 </style>
 
-<!-- <Header /> -->
 <Navigation />
 <Home />
 <Footer />
