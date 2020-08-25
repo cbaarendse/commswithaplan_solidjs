@@ -40,25 +40,30 @@
     background-color: yellow;
   }
   h2 {
-    margin-left: 1rem;
+    margin: 1rem;
     color: yellow;
   }
   h3 {
+    margin: 1rem;
+    padding: 0rem 1rem;
+    width: fit-content;
     background-color: white;
   }
   p {
+    font-size: 21px;
+    margin: 28px;
+    padding: 14px;
+    width: fit-content;
     background-color: white;
-    font-size: 1rem;
-    margin: 2rem;
-    padding: 1rem;
   }
   ul {
-    list-style-type: disc;
+    list-style-type: square;
   }
   li {
-    margin: 2rem;
-    padding: 1rem;
+    margin: 28px;
+    padding: 14px;
     background-color: white;
+    width: fit-content;
   }
 </style>
 
@@ -76,9 +81,11 @@
       </p>
     {:else}
       <p>
-        Comms With A Plan is a consultancy for advertisers. At your service I
-        initiate and evaluate your media strategy, I manage your agencies and
-        your budget.
+        Comms With A Plan is a Media Management consultancy for advertisers.
+      </p>
+      <p>
+        At your service I initiate and evaluate your media strategy, I manage
+        your agencies and your budget.
       </p>
     {/if}
   </article>
@@ -88,8 +95,11 @@
   {#if $language == 'dutch'}
     <article>
       <h2>Consultancy</h2>
-      <p>Hello Comms With A Plan</p>
-      <p>Hello Comms With A Plan</p>
+      <p>
+        Comms With A Plan is a flexible unit in the sense that work can be
+        project base, or more continuous, based on demand. (Give me a call to
+        explain.)
+      </p>
     </article>
     <article>
       <h2>Work</h2>
@@ -110,33 +120,84 @@
 
       </ul>
 
-      <p>Hello Comms With A Plan</p>
     </article>
   {:else}
     <article>
       <h2>Consultancy</h2>
-      <p>Hello Comms With A Plan</p>
-      <p>Hello Comms With A Plan</p>
+      <p>
+        Comms With A Plan is a flexible unit in the sense that work can be
+        project base, or more continuous, based on demand. (Give me a call to
+        explain.)
+      </p>
     </article>
     <article>
-      <h2>Consultancy</h2>
-      <p>Hello Comms With A Plan</p>
-      <p>Hello Comms With A Plan</p>
+      <h2>Work</h2>
+
+      <ul>
+        <h3>Things I'll manage along the process:</h3>
+        <li>Research and analysis</li>
+        <li>Briefing</li>
+        <li>Coördination</li>
+        <li>Planning</li>
+        <li>Execution</li>
+        <li>Evaluation & adjustment</li>
+        <li>Contracts</li>
+        <li>Budget management</li>
+        <li>Creation</li>
+        <li>Agency management</li>
+        <li>Reporting</li>
+
+      </ul>
+
     </article>
   {/if}
 </section>
 <section id="about">
   <article>
     <h1>About</h1>
-    <p>Hello Comms With A Plan</p>
-    <p>Hello Comms With A Plan</p>
+    {#if $language == 'dutch'}
+      <p>
+        Ik ben Constantijn Baarendse.Ik werk in marketing communicatie sinds ik
+        ben begonnen, in een mediabureau.
+        <br />
+        Ik heb sindsdien gewerkt op verschillende continenten, voor 'blue chip'
+        bureaus en adverteerders.
+      </p>
+      <p>
+        Maar dat kun je hier ook allemaal zien:
+        <a href="https://www.linkedin.com/in/cbaarendse/">
+          https://www.linkedin.com/in/cbaarendse/
+        </a>
+      </p>
+    {:else}
+      <p>
+        I'm Constantijn Baarendse. I'm working in marketing communications ever
+        since I started out, working for a media agency.
+        <br />
+        I've worked on different continents since, for blue chip agencies and
+        advertisers.
+      </p>
+      <p>
+        But you'll see all that here as well:
+        <a href="https://www.linkedin.com/in/cbaarendse/">
+          https://www.linkedin.com/in/cbaarendse/
+        </a>
+      </p>
+    {/if}
   </article>
 </section>
 <section id="contact">
   <article>
     <h1>Contact</h1>
-    <p>mail: cbaarendse@commswithaplan.com</p>
-    <p>LinkedIn</p>
+    {#if $language == 'dutch'}
+      <p>e-mail: cbaarendse@commswithaplan.com</p>
+      <p>telefoon: nul zes een twee drie negen acht zeven drie vier</p>
+    {:else}
+      <p>e-mail: cbaarendse@commswithaplan.com</p>
+      <p>
+        telephone: plus three one six one two three nine eight seven three four
+      </p>
+    {/if}
   </article>
 </section>
 <section id="spacer" />
