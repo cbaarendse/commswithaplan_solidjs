@@ -3,6 +3,134 @@
   import { Session } from "meteor/session";
   import { useSession } from "meteor/rdb:svelte-meteor-data";
 
+  const processItems = [
+    {
+      english: {
+        name: "Research and analysis",
+        description: "Interpretation of past campaigns / years etc.",
+        visibility: "hidden"
+      },
+      dutch: {
+        name: "Onderzoek en analyse",
+        description: " Interpretatie van afgelopen campagnes / jaren etc."
+      }
+    },
+    {
+      english: {
+        name: "Briefing",
+        description:
+          " Instruct the agencies to develop (media) campaigns. Wit the input of former results, all marketing functions, objectives etc. In principle I follow the steps (1) strategy (2) planning (3) execution (4) evaluation & adjust."
+      },
+      dutch: {
+        name: "Briefing",
+        description:
+          "Opdracht geven aan de bureaus om (media)campagnes te ontwikkelen. Met input van eerdere resultaten, alle marketing functies, doelstellingen etcetera. In principe volg ik de stappen (1) strategie (2) planning (3) uitvoering (4) evaluatie & bijstellen."
+      }
+    },
+    {
+      english: {
+        name: "Coördination",
+        description:
+          "I make sure the strategies are integrated. Possibly in a joint development effort by the agencies."
+      },
+      dutch: {
+        name: "Coördinatie",
+        description:
+          "Ik zorg dat de strategieën geïntegreerd zijn. Eventueel door middel van gezamenlijke ontwikkeling door de bureaus."
+      }
+    },
+    {
+      english: {
+        name: "Planning",
+        description: "Precise elaboration of the strategy by the agencies."
+      },
+      dutch: {
+        name: "Planning",
+        description: "Precieze uitwerking van de strategie door de bureaus."
+      }
+    },
+    {
+      english: {
+        name: "Execution",
+        description:
+          "Buying, negotiation, implementation, placement by the agencies."
+      },
+      dutch: {
+        name: "Executie",
+        description:
+          "Inkoop, onderhandeling, implementatie, plaatsing door de bureaus."
+      }
+    },
+    {
+      english: {
+        name: "Evaluation & adjustment",
+        description: "Undertake action based on interim results."
+      },
+      dutch: {
+        name: "Evaluatie & aanpassingen",
+        description: "Actie ondernemen op basis van tussenresultaten."
+      }
+    },
+    {
+      english: {
+        name: "Contracts",
+        description: "Arrange yearly agreements with important media parties."
+      },
+      dutch: {
+        name: "Contracten",
+        description: "Regelen van jaarafspraken met belangrijke mediapartijen."
+      }
+    },
+    {
+      english: {
+        name: "Budget management",
+        description:
+          "Make sure that no one spends more than he/she turns out to have at the end of the year."
+      },
+      dutch: {
+        name: "Budget management",
+        description:
+          "Ervoor zorgen dat niemand uitgeeft wat hij/zij op het einde van het jaar niet blijkt te hebben."
+      }
+    },
+    {
+      english: {
+        name: "Creation",
+        description:
+          "Do I know the difference between indigo, azure, navy or cobalt? No. But I do know whether a proposal is on or off strategy."
+      },
+      dutch: {
+        name: "Creatie",
+        description:
+          "Weet ik het verschil tussen indigo, azuur, navy en kobalt? Nee. Maar ik weet wel of een voorstel op of naast strategie is."
+      }
+    },
+    {
+      english: {
+        name: "Agency management",
+        description: "Team composition, cost, performance rewarding etc."
+      },
+      dutch: {
+        name: "Bureau management",
+        description: "Team samenstelling, kosten, prestatiebeloning etcetera."
+      }
+    },
+    {
+      english: {
+        name: "Reporting",
+        description:
+          "Interpret, set up, manage dashboards or other kinds of reports."
+      },
+      dutch: {
+        name: "Rapportage",
+        description:
+          "Inpreteren, opzetten, managen van dashboards of andersoortige rapporten."
+      }
+    }
+  ];
+  let v;
+  function makeDescriptionVisible(event) {}
+  function makeDescriptionInvisible(event) {}
   $: language = useSession("language");
 </script>
 
@@ -56,14 +184,30 @@
     width: fit-content;
     background-color: white;
   }
-  ul {
-    list-style-type: square;
-  }
+
   li {
     margin: 28px;
+  }
+  button {
+    margin-right: 4px;
     padding: 14px;
     background-color: white;
     width: fit-content;
+    font-size: 21px;
+    box-shadow: 4px 4px dimgrey;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.5s;
+  }
+  button:hover {
+    background-color: var(--ra-grey-bright);
+  }
+  span {
+    visibility: visible;
+    padding: 14px;
+    background-color: white;
+    width: fit-content;
+    font-size: 21px;
   }
 </style>
 
@@ -92,65 +236,48 @@
 </section>
 <section id="consultancy">
   <h1>Consultancy</h1>
-  {#if $language == 'dutch'}
-    <article>
-      <h2>Consultancy</h2>
+
+  <article>
+    <h2>Consultancy</h2>
+    {#if $language == 'dutch'}
+      <p>
+        Comms With A Plan is een flexibele partner in die zin dat het werk
+        project gebaseerd kan zijn, maar ook meer continu. Gebaseerd op vraag.
+        (Bel me zodat ik het kan uitleggen.)
+      </p>
+    {:else}
       <p>
         Comms With A Plan is a flexible unit in the sense that work can be
         project base, or more continuous, based on demand. (Give me a call to
         explain.)
       </p>
-    </article>
-    <article>
-      <h2>Work</h2>
-
-      <ul>
-        <h3>Things I'll manage along the process:</h3>
-        <li>Research and analysis</li>
-        <li>Briefing</li>
-        <li>Coördination</li>
-        <li>Planning</li>
-        <li>Execution</li>
-        <li>Evaluation & adjustment</li>
-        <li>Contracts</li>
-        <li>Budget management</li>
-        <li>Creation</li>
-        <li>Agency management</li>
-        <li>Reporting</li>
-
-      </ul>
-
-    </article>
-  {:else}
-    <article>
-      <h2>Consultancy</h2>
-      <p>
-        Comms With A Plan is a flexible unit in the sense that work can be
-        project base, or more continuous, based on demand. (Give me a call to
-        explain.)
-      </p>
-    </article>
-    <article>
-      <h2>Work</h2>
-
-      <ul>
-        <h3>Things I'll manage along the process:</h3>
-        <li>Research and analysis</li>
-        <li>Briefing</li>
-        <li>Coördination</li>
-        <li>Planning</li>
-        <li>Execution</li>
-        <li>Evaluation & adjustment</li>
-        <li>Contracts</li>
-        <li>Budget management</li>
-        <li>Creation</li>
-        <li>Agency management</li>
-        <li>Reporting</li>
-
-      </ul>
-
-    </article>
-  {/if}
+    {/if}
+  </article>
+  <article>
+    <h2>Work</h2>
+    <ul>
+      {#if $language == 'dutch'}
+        <h3>
+          Zaken die ik manage gedurende het proces (je kan kiezen en mixen):
+        </h3>
+      {:else}
+        <h3>Things I'll manage along the process (you can pick and mix):</h3>
+      {/if}
+      {#each processItems as item, index}
+        <li>
+          <button
+            value={'description' + index}
+            on:mouseover|preventDefault={makeDescriptionVisible}
+            on:mouseleave|preventDefault={makeDescriptionInvisible}>
+            {item.english.name}
+          </button>
+          <span id={'description' + index} visibility={item.english.visibility}>
+            {item.english.description}
+          </span>
+        </li>
+      {/each}
+    </ul>
+  </article>
 </section>
 <section id="about">
   <article>
