@@ -1,5 +1,11 @@
 {
   "name": "commswithaplan",
+  "version": "1.1.0",
+  "description": "media management consultancy",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cbaarendse/reachapp"
+  },
   "private": true,
   "scripts": {
     "start": "meteor run",

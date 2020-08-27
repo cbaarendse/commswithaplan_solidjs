@@ -2,13 +2,13 @@
   // Packages
   import { Session } from "meteor/session";
   import { useSession } from "meteor/rdb:svelte-meteor-data";
+  import ProjectItem from "./ProjectItem.svelte";
 
   const processItems = [
     {
       english: {
         name: "Research and analysis",
-        description: "Interpretation of past campaigns / years etc.",
-        visibility: "hidden"
+        description: "Interpretation of past campaigns / years etc."
       },
       dutch: {
         name: "Onderzoek en analyse",
@@ -19,7 +19,7 @@
       english: {
         name: "Briefing",
         description:
-          " Instruct the agencies to develop (media) campaigns. Wit the input of former results, all marketing functions, objectives etc. In principle I follow the steps (1) strategy (2) planning (3) execution (4) evaluation & adjust."
+          "Instruct the agencies to develop (media) campaigns. Wit the input of former results, all marketing functions, objectives etc. In principle I follow the steps (1) strategy (2) planning (3) execution (4) evaluation & adjust."
       },
       dutch: {
         name: "Briefing",
@@ -128,9 +128,7 @@
       }
     }
   ];
-  let v;
-  function makeDescriptionVisible(event) {}
-  function makeDescriptionInvisible(event) {}
+
   $: language = useSession("language");
 </script>
 
@@ -150,6 +148,9 @@
     section {
       overflow: hidden;
     }
+  }
+  section#spacer {
+    background-image: linear-gradient(to bottom right, LemonChiffon, white);
   }
   section#commsWithAPlan {
     background-image: url("City 920x570.png");
@@ -184,30 +185,8 @@
     width: fit-content;
     background-color: white;
   }
-
-  li {
-    margin: 28px;
-  }
-  button {
-    margin-right: 4px;
-    padding: 14px;
-    background-color: white;
-    width: fit-content;
-    font-size: 21px;
-    box-shadow: 4px 4px dimgrey;
-    cursor: pointer;
-    border: none;
-    transition: background-color 0.5s;
-  }
-  button:hover {
-    background-color: var(--ra-grey-bright);
-  }
-  span {
-    visibility: visible;
-    padding: 14px;
-    background-color: white;
-    width: fit-content;
-    font-size: 21px;
+  ul {
+    list-style-type: none;
   }
 </style>
 
@@ -220,16 +199,16 @@
         adverteerders.
       </p>
       <p>
-        Ik initieer en evalueer je media strategie, ik manage je bureaus en
-        budget.
+        Ik initieer, onderhoud en evalueer je media strategie, ik manage je
+        bureaus en budget.
       </p>
     {:else}
       <p>
         Comms With A Plan is a Media Management consultancy for advertisers.
       </p>
       <p>
-        At your service I initiate and evaluate your media strategy, I manage
-        your agencies and your budget.
+        At your service I initiate, maintain and evaluate your media strategy, I
+        manage your agencies and your budget.
       </p>
     {/if}
   </article>
@@ -264,17 +243,7 @@
         <h3>Things I'll manage along the process (you can pick and mix):</h3>
       {/if}
       {#each processItems as item, index}
-        <li>
-          <button
-            value={'description' + index}
-            on:mouseover|preventDefault={makeDescriptionVisible}
-            on:mouseleave|preventDefault={makeDescriptionInvisible}>
-            {item.english.name}
-          </button>
-          <span id={'description' + index} visibility={item.english.visibility}>
-            {item.english.description}
-          </span>
-        </li>
+        <ProjectItem {item} {index} />
       {/each}
     </ul>
   </article>
@@ -284,11 +253,8 @@
     <h1>About</h1>
     {#if $language == 'dutch'}
       <p>
-        Ik ben Constantijn Baarendse.Ik werk in marketing communicatie sinds ik
-        ben begonnen, in een mediabureau.
-        <br />
-        Ik heb sindsdien gewerkt op verschillende continenten, voor 'blue chip'
-        bureaus en adverteerders.
+        Ik ben Constantijn Baarendse. Ik heb gewerkt op verschillende
+        continenten, voor 'blue chip' adverteerders, media- en reclamebureaus.
       </p>
       <p>
         Maar dat kun je hier ook allemaal zien:
@@ -298,11 +264,8 @@
       </p>
     {:else}
       <p>
-        I'm Constantijn Baarendse. I'm working in marketing communications ever
-        since I started out, working for a media agency.
-        <br />
-        I've worked on different continents since, for blue chip agencies and
-        advertisers.
+        I'm Constantijn Baarendse. I've worked on different continents, for blue
+        chip advertisers, media and advertising agencies.
       </p>
       <p>
         But you'll see all that here as well:

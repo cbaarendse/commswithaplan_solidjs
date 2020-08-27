@@ -136,7 +136,7 @@
   a.dropdown-button {
     color: var(--ra-blue);
     padding: 14px;
-    font-size: 21px;
+    font-size: 18px;
     width: 100%;
     border: none;
     cursor: pointer;
@@ -177,6 +177,9 @@
   .dropdown-select a:hover {
     background-color: var(--ra-grey-off-white);
     color: var(--ra-grey);
+  }
+  a.dropdown-option {
+    font-size: 18px;
   }
   i {
     font-size: inherit;
