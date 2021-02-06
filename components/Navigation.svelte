@@ -39,6 +39,71 @@
   $: language = useSession("language");
 </script>
 
+<!-- Direction of the mouse from previous mouseover to current mouseleave determines the class -->
+<nav>
+  <a
+    on:mouseover={over}
+    on:mouseout={out}
+    on:click={() => onAnchorClick('#commsWithAPlan')}
+    href={'#commsWithAPlan'}
+    class:active={Session.get('target') == '#commsWithAPlan'}
+    class="nav-button {outX - previousOverX > 0 ? 'transition-to-right' : ''}{outX - previousOverX < 0 ? 'transition-to-left' : ''}">
+    {capitalizeAndSplit('commsWithAPlan')}
+  </a>
+  <a
+    on:mouseover={over}
+    on:mouseout={out}
+    on:click={() => onAnchorClick('#consultancy')}
+    href={'#consultancy'}
+    class:active={Session.get('target') == '#consultancy'}
+    class="nav-button {outX - previousOverX > 0 ? 'transition-to-right' : ''}{outX - previousOverX < 0 ? 'transition-to-left' : ''}">
+    {capitalizeAndSplit('consultancy')}
+  </a>
+  <a
+    on:mouseover={over}
+    on:mouseout={out}
+    on:click={() => onAnchorClick('#about')}
+    href={'#about'}
+    class:active={Session.get('target') == '#about'}
+    class="nav-button {outX - previousOverX > 0 ? 'transition-to-right' : ''}{outX - previousOverX < 0 ? 'transition-to-left' : ''}">
+    {capitalizeAndSplit('about')}
+  </a>
+  <a
+    on:mouseover={over}
+    on:mouseout={out}
+    on:click={() => onAnchorClick('#contact')}
+    href={'#contact'}
+    class:active={Session.get('target') == '#contact'}
+    class="nav-button {outX - previousOverX > 0 ? 'transition-to-right' : ''}{outX - previousOverX < 0 ? 'transition-to-left' : ''}">
+    {capitalizeAndSplit('contact')}
+  </a>
+  <div class="spacer" />
+  <div class="dropdown">
+    <a href={'#'} class="dropdown-button">
+      {ui_translations[$language][$language]}
+      <i class="material-icons">arrow_drop_down</i>
+    </a>
+
+    <div class="dropdown-select">
+      <a
+        class="dropdown-option"
+        href={'#'}
+        lang="english"
+        on:click|preventDefault={selectLanguage}>
+        {ui_translations['english'][$language]}
+      </a>
+      <a
+        class="dropdown-option"
+        href={'#'}
+        lang="dutch"
+        on:click|preventDefault={selectLanguage}>
+        {ui_translations['dutch'][$language]}
+      </a>
+    </div>
+
+  </div>
+</nav>
+
 <style>
   nav {
     display: flex;
@@ -186,67 +251,3 @@
   }
 </style>
 
-<!-- Direction of the mouse from previous mouseover to current mouseleave determines the class -->
-<nav>
-  <a
-    on:mouseover={over}
-    on:mouseout={out}
-    on:click={() => onAnchorClick('#commsWithAPlan')}
-    href={'#commsWithAPlan'}
-    class:active={Session.get('target') == '#commsWithAPlan'}
-    class="nav-button {outX - previousOverX > 0 ? 'transition-to-right' : ''}{outX - previousOverX < 0 ? 'transition-to-left' : ''}">
-    {capitalizeAndSplit('commsWithAPlan')}
-  </a>
-  <a
-    on:mouseover={over}
-    on:mouseout={out}
-    on:click={() => onAnchorClick('#consultancy')}
-    href={'#consultancy'}
-    class:active={Session.get('target') == '#consultancy'}
-    class="nav-button {outX - previousOverX > 0 ? 'transition-to-right' : ''}{outX - previousOverX < 0 ? 'transition-to-left' : ''}">
-    {capitalizeAndSplit('consultancy')}
-  </a>
-  <a
-    on:mouseover={over}
-    on:mouseout={out}
-    on:click={() => onAnchorClick('#about')}
-    href={'#about'}
-    class:active={Session.get('target') == '#about'}
-    class="nav-button {outX - previousOverX > 0 ? 'transition-to-right' : ''}{outX - previousOverX < 0 ? 'transition-to-left' : ''}">
-    {capitalizeAndSplit('about')}
-  </a>
-  <a
-    on:mouseover={over}
-    on:mouseout={out}
-    on:click={() => onAnchorClick('#contact')}
-    href={'#contact'}
-    class:active={Session.get('target') == '#contact'}
-    class="nav-button {outX - previousOverX > 0 ? 'transition-to-right' : ''}{outX - previousOverX < 0 ? 'transition-to-left' : ''}">
-    {capitalizeAndSplit('contact')}
-  </a>
-  <div class="spacer" />
-  <div class="dropdown">
-    <a href={'#'} class="dropdown-button">
-      {ui_translations[$language][$language]}
-      <i class="material-icons">arrow_drop_down</i>
-    </a>
-
-    <div class="dropdown-select">
-      <a
-        class="dropdown-option"
-        href={'#'}
-        lang="english"
-        on:click|preventDefault={selectLanguage}>
-        {ui_translations['english'][$language]}
-      </a>
-      <a
-        class="dropdown-option"
-        href={'#'}
-        lang="dutch"
-        on:click|preventDefault={selectLanguage}>
-        {ui_translations['dutch'][$language]}
-      </a>
-    </div>
-
-  </div>
-</nav>
