@@ -10,8 +10,10 @@
   // components
   import Navigation from '../imports/ui/layout/Navigation.svelte';
   import Page from '../imports/ui/layout/Page.svelte';
+  import Home from '../imports/ui/pages/Home.svelte';
+  import CommsWithAPlan from '../imports/ui/pages/CommsWithAPlan.svelte';
+  import NotFound from '../imports/ui/pages/NotFound.svelte';
   import Footer from '../imports/ui/layout/Footer.svelte';
-  import NotFound from '../imports/ui/components/NotFound.svelte';
 
   router.configure({window: window});
   // variables
@@ -22,15 +24,21 @@
     console.log('App is mounted');
   });
 
-  router(routes[0].to, (context) => {
-    page = routes[0].page;
-    activeRoute = routes[0].to;
-  });
+  router('/', () => (page = Home));
+  router('/commswithaplan', () => (page = CommsWithAPlan));
+  router('/*', () => (page = NotFound));
 
-  router(routes[1].to, (context) => {
-    page = routes[1].page;
-    activeRoute = routes[1].to;
-  });
+  router.start();
+
+  // router(routes[0].to, (context) => {
+  //   page = routes[0].page;
+  //   activeRoute = routes[0].to;
+  // });
+
+  // router(routes[1].to, (context) => {
+  //   page = routes[1].page;
+  //   activeRoute = routes[1].to;
+  // });
 </script>
 
 <Navigation {activeRoute} />

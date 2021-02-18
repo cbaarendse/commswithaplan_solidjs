@@ -43,10 +43,18 @@
     on:click={() => (activeRoute = 'commswithaplan')}
     href={'/commswithaplan'}
     class:active={activeRoute === 'commswithaplan'}
+    class="brand"
   >
-    {capitalizeAndSplit('commsWithAPlan')}
+    <span style="color:var(--ra-blue)">Comms</span>&nbsp;<span style="color:var(--ra-green)">With&nbsp;A</span
+    >&nbsp;<span style="color:var(--ra-red)">Plan</span>
   </a>
 
+  <a on:click={() => (activeRoute = 'schedule')} href={'/commswithaplan'} class:active={activeRoute === 'schedule'}>
+    {capitalizeAndSplit('schedule')}
+  </a>
+  <a on:click={() => (activeRoute = 'bereik')} href={'/commswithaplan'} class:active={activeRoute === 'bereik'}>
+    {capitalizeAndSplit('bereik')}
+  </a>
   <div class="dropdown">
     <a href={'#'} class="dropdown-button">
       {ui_translations[$language][$language]}
@@ -94,6 +102,9 @@
     nav a {
       display: none;
     }
+  }
+  nav a.brand {
+    font-family: 'Trebuchet MS';
   }
   nav a:link {
     color: var(--ra-grey-light);

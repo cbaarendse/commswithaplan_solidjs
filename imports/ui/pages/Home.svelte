@@ -1,23 +1,45 @@
 <script>
+  import Main from '../components/reusable/Main.svelte';
+  import Section from '../components/reusable/Section.svelte';
+  import Card from '../components/reusable/Card.svelte';
 </script>
 
-<div class="grid">
-  <div class="row">
-    <div class="col">Comms With A Plan</div>
-    <div class="col">Schema</div>
-    <div class="col">Bereik</div>
-  </div>
-</div>
+<Main>
+  <Section>
+    <div class="grid">
+      <div class="item">
+        <Card backgroundColor={'DarkSeaGreen'} color={'LightGreen'} cardTitle={'Comms With A Plan'}
+          ><p slot="cardContent">Comms With A Plan provides Media Management consultancy. Read more...</p></Card
+        >
+      </div>
+      <div class="item">
+        <Card backgroundColor={'DarkMagenta'} color={'White'} cardTitle={'Schema'}
+          ><p slot="cardContent">All your campaigns in one place with Schedule. Read more...</p></Card
+        >
+      </div>
+      <div class="item">
+        <Card backgroundColor={'DarkOrange'} color={'Red'} cardTitle={'Bereik'}
+          ><p slot="cardContent">A handy tool to estimate your total reach. Read more...</p></Card
+        >
+      </div>
+    </div>
+  </Section>
+</Main>
 
 <style>
   div.grid {
+    width: 60%;
+    margin: auto;
     display: grid;
+    grid-template-columns: auto auto auto;
+    grid-template-rows: auto;
+    row-gap: 21px;
+    column-gap: 21px;
+    justify-content: space-evenly;
+    background-color: beige;
   }
 
-  div.col {
-    width: 150px;
-    height: 150px;
+  div.item {
     background-color: skyblue;
-    color: snow;
   }
 </style>
