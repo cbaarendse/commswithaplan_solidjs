@@ -16,7 +16,7 @@
   <div class="modal">
     <div class="modal-header">
       <h4 class="modal-title">{title}</h4>
-      <Button size="small" color="transparantnoborder" type="button" on:click={closeModal}>
+      <Button size="small" backgroundColor="transparantnoborder" type="button" on:click={closeModal}>
         <span aria-hidden="true">&times;</span>
       </Button>
     </div>

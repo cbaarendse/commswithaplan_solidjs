@@ -5,14 +5,16 @@
   import Home from '../pages/CommsWithAPlan.svelte';
   import CommsWithAPlan from '../pages/CommsWithAPlan.svelte';
   // variables
+  export let language;
   export let page;
+
   onMount(() => {
     console.log('page =', page);
   });
 </script>
 
 <div>
-  <svelte:component this={page} />
+  <svelte:component this={page} {language} />
 </div>
 
 <style>

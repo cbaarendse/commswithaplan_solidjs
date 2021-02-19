@@ -1,6 +1,10 @@
 <script>
-
+  export let language;
 </script>
+
+<footer>
+  <span>© 2013-2020 Comms With A Plan</span>
+</footer>
 
 <style>
   footer {
@@ -18,7 +22,3 @@
     margin: 0px 14px;
   }
 </style>
-
-<footer>
-  <span>© 2013-2020 Comms With A Plan</span>
-</footer>

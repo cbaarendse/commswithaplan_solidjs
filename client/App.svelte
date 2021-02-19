@@ -17,6 +17,7 @@
 
   router.configure({window: window});
   // variables
+  let language = 'dutch';
   let page;
   let activeRoute = '/';
 
@@ -41,7 +42,7 @@
   // });
 </script>
 
-<Navigation {activeRoute} />
+<Navigation {activeRoute} {language} />
 <!-- <Notifications /> -->
-<Page {page} />
-<Footer />
+<Page {page} {language} />
+<Footer {language} />

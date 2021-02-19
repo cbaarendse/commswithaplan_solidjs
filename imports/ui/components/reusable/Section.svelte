@@ -13,16 +13,21 @@
 
 <style>
   section {
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: center;
-    align-content: stretch;
+    display: grid;
+    row-gap: 1em;
+    column-gap: 2em;
     padding: 14px;
     margin-bottom: 7px;
   }
   @media only screen and (max-width: 375px) {
     section {
       padding: 0px;
+    }
+  }
+
+  @media only screen and (max-width: 768px) {
+    section {
+      overflow: hidden;
     }
   }
 

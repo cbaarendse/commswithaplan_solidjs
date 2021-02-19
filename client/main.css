@@ -1,24 +1,15 @@
-html,
-body {
-  position: relative;
-  width: 100%;
-  min-height: 100%;
-}
-
-body {
-  color: #333333;
-  margin: auto;
-  padding: 0px 0px 34px 0px;
-  box-sizing: border-box;
-}
-
 html:root {
+  font-family: Nobile, 'Source Sans Pro', Helvetica, Geneva, 'Trebuchet MS', sans-serif;
+  font-size: 16px;
   /* on light primary */
   --ra-blue: #003366;
   --ra-green: #669900;
   --ra-red: #cc0000;
   --ra-black: black;
   --ra-grey: #333333;
+  --ra-blue-grayscale: #292929;
+  --ra-green-grayscale: #787878;
+  --ra-red-grayscale: #3d3d3d;
   /* on light secondary */
   --ra-grey-medium: #666666;
   --ra-blue-light: #006699;
@@ -44,8 +35,25 @@ html:root {
   --ra-xxl: 35px;
 }
 
+html,
+body {
+  position: relative;
+  width: 100%;
+  min-height: 100%;
+ 
+}
+
+body {
+  color: #333333;
+  margin: auto;
+  padding: 0px 0px 34px 0px;
+  box-sizing: border-box;
+}
+
+
+
 /* Svelte defaults */
-div#app {
+div.app {
   height: 100%;
   width: auto;
 }

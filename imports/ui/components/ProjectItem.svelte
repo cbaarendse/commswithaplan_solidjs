@@ -1,64 +1,35 @@
 <script>
-  // Packages
-  import { Session } from "meteor/session";
-  import { useSession } from "meteor/rdb:svelte-meteor-data";
-  // Variables
+  // packages
+
+  // components
+  import Button from '../components/reusable/Button.svelte';
+  // variables
   export let item;
-  export let index;
-  let visibility = false;
-  // Functions
-  function toggleVisibility() {
-    console.log("toggleVisibility executed, visibility = ", visibility);
-    return visibility == false
-      ? (visibility = true)
-      : visibility == true
-      ? (visibility = false)
-      : (visibility = false);
-  }
-  $: language = useSession("language");
+  export let language = 'dutch';
+  let visibilityValue = 'hidden';
 </script>
 
+<Button
+  size={'large'}
+  backgroundColor={'blue'}
+  type={'button'}
+  on:mouseenter={() => (visibilityValue = 'visible')}
+  on:mouseleave={() => (visibilityValue = 'hidden')}
+  on:click={() => console.log('Buttton geklikt')}
+>
+  {item[language].name}
+</Button>
+<p style="visibility:{visibilityValue};">
+  <span>
+    {item[language].description}
+  </span>
+</p>
+
 <style>
-  li {
-    margin: 21px;
-    height: fit-content;
-  }
-  button {
-    margin-right: 4px;
-    padding: 14px;
-    background-color: white;
-    width: fit-content;
-    font-size: 21px;
-    box-shadow: 4px 4px dimgrey;
-    cursor: pointer;
-    border: none;
-    transition: background-color 0.5s;
-  }
-  button:hover {
-    color: yellow;
-    background-color: var(--ra-grey-bright);
-    box-shadow: 2px 2px dimgrey;
+  p {
+    background-color: var(--ra-grey-off-white);
   }
   span {
-    margin-bottom: 7px;
-    padding: 14px;
-    background-color: white;
-    width: fit-content;
-    line-height: 3.5;
-    font-size: 21px;
+    font-size: 1.4rem;
   }
 </style>
-
-<li>
-  <button
-    value={'description' + index}
-    on:mouseenter|preventDefault={toggleVisibility}
-    on:mouseleave|preventDefault={toggleVisibility}>
-    {item[$language].name}
-  </button>
-  <span
-    id={'description' + index}
-    style={visibility == true ? 'visibility:visible;' : 'visibility:hidden;'}>
-    {item[$language].description}
-  </span>
-</li>

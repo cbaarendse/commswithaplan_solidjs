@@ -1,6 +1,6 @@
 <script>
   export let size = 'normal'; // or small, large, xlarge
-  export let color = 'blue'; // or green, red, grey, transparant
+  export let backgroundColor = 'blue'; // or green, red, grey, transparant
   export let type = 'button'; // or reset, submit
   export let dataDismiss;
   export let ariaLabel;
@@ -8,9 +8,11 @@
 </script>
 
 <button
-  class={`${size}+" "+${color}`}
+  class="{size} {backgroundColor}"
   {type}
   on:click|preventDefault
+  on:mouseenter|preventDefault
+  on:mouseleave|preventDefault
   {disabled}
   data-dismiss={dataDismiss}
   aria-label={ariaLabel}
@@ -20,42 +22,56 @@
 
 <style>
   button {
-    border: none;
+    width: fit-content;
+    padding: 0.8em 1em;
+    cursor: pointer;
   }
 
   .small {
-    height: 0.5rem;
-    width: 1rem;
+    min-width: 4rem;
+    font-size: 0.7rem;
   }
 
   .normal {
-    height: 1rem;
-    width: 2rem;
+    min-width: 6rem;
+    font-size: 1rem;
   }
   .large {
-    height: 1.5rem;
-    width: 3rem;
+    min-width: 8rem;
+    font-size: 1.2rem;
   }
   .xlarge {
-    height: 2rem;
-    width: 4rem;
+    min-width: 10rem;
+    font-size: 1.5rem;
   }
-
+  .blue,
+  .green,
+  .red,
+  .grey,
+  .transparant {
+    border-radius: 5%;
+  }
+  .blue,
+  .green,
+  .red,
+  .grey {
+    color: var(--ra-white);
+  }
   .blue {
     background-color: var(--ra-blue);
-    color: white;
+    border: 1px solid var(--ra-blue);
   }
   .green {
     background-color: var(--ra-green);
-    color: white;
+    border: 1px solid var(--ra-green);
   }
   .red {
     background-color: var(--ra-red);
-    color: white;
+    border: 1px solid var(--ra-red);
   }
   .grey {
     background-color: var(--ra-grey);
-    color: white;
+    border: 1px solid var(--ra-grey);
   }
 
   .transparant {

@@ -5,11 +5,13 @@
 <style>
   main {
     display: flex;
-
-    padding: 7px;
-    width: 80%;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: flex-start;
+    padding: 0.5em;
+    width: 90%;
     height: 100%;
     margin: auto;
-    background-color: white;
+    background-color: lightgray;
   }
 </style>

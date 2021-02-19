@@ -2,6 +2,9 @@
   import Main from '../components/reusable/Main.svelte';
   import Section from '../components/reusable/Section.svelte';
   import Card from '../components/reusable/Card.svelte';
+
+  // variables
+  export let language;
 </script>
 
 <Main>
@@ -13,12 +16,12 @@
         >
       </div>
       <div class="item">
-        <Card backgroundColor={'DarkMagenta'} color={'White'} cardTitle={'Schema'}
+        <Card backgroundColor={'LightBlue'} color={'White'} cardTitle={'Schema'}
           ><p slot="cardContent">All your campaigns in one place with Schedule. Read more...</p></Card
         >
       </div>
       <div class="item">
-        <Card backgroundColor={'DarkOrange'} color={'Red'} cardTitle={'Bereik'}
+        <Card backgroundColor={'DarkSalmon'} color={'var(--ra-red)'} cardTitle={'Bereik'}
           ><p slot="cardContent">A handy tool to estimate your total reach. Read more...</p></Card
         >
       </div>
