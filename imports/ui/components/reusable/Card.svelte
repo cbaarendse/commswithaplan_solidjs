@@ -5,11 +5,9 @@
   export let color = 'var(--ra-grey)';
   export let cardTitle;
   export let imgUrl;
-  export let cardFooter;
-  export let cardLink_1;
-  export let cardLinkText_1;
-  export let cardLink_2;
-  export let cardLinkText_2;
+  export let cardFooterText;
+  export let cardLink;
+  export let cardLinkText;
 </script>
 
 <div class="card" style="background-color:{backgroundColor};color:{color};">
@@ -18,44 +16,37 @@
       <h4>{cardTitle}</h4>
     </div>
   {/if}
-  {#if $$slots.cardContent}
-    <div class="card-content">
-      <slot name="cardContent" />
-    </div>
-  {/if}
-  {#if $$slots.cardImage}
+  <p>
+    <slot />
+  </p>
+  {#if imgUrl}
     <img src={imgUrl} alt={cardTitle} />
     <hr />
   {/if}
-  {#if cardFooter}
+  {#if cardFooterText || cardLink}
     <div class="card-footer">
-      {cardFooter}
-      <slot name="footerLinks">
-        {#if cardLink_1}
-          <a href={cardLink_1}>{cardLinkText_1}</a>
-        {/if}
-        {#if cardLink_2}
-          <a href={cardLink_2}>{cardLinkText_2}</a>
-        {/if}
-      </slot>
+      {#if cardFooterText}
+        <p>
+          {cardFooterText}
+        </p>
+      {/if}
+      {#if cardLink}
+        <a href={cardLink}>{cardLinkText}</a>
+      {/if}
     </div>
   {/if}
 </div>
 
 <style>
   div.card {
-    flex-basis: 320px;
-    flex-grow: 1;
-    flex-shrink: 1;
-    min-width: 25em;
-    min-height: 20em;
+    max-width: 25em;
+    min-height: 15em;
     padding: 2em;
-    margin: 0.5em 0.5em 0 0.5em;
+    margin: 2em;
     border: 1px solid rgba(0, 0, 0, 0.1);
   }
   @media only screen and (max-width: 768px) {
     div.card {
-      margin: auto;
       min-width: 15em;
     }
   }
@@ -64,16 +55,14 @@
     color: var(--ra-blue);
     text-align: center;
   }
-  div.card-content {
-    margin: 2em 0;
-    font-size: 2rem;
-    text-align: left;
+  p {
+    margin: 1em;
+    font-size: 1.5rem;
   }
   img {
     display: block;
     width: 80%;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 0 auto;
   }
   hr {
     border-top: 0.5px solid rgba(0, 0, 0, 0.1);
@@ -81,8 +70,8 @@
   }
 
   div.card-footer {
-    padding: 7px;
-    text-align: center;
+    padding: 0.5em;
+    text-align: left;
     color: var(--ra-grey-light);
   }
 </style>
