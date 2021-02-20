@@ -9,7 +9,6 @@
 
   // components
   import Navigation from '../imports/ui/layout/Navigation.svelte';
-  import Page from '../imports/ui/layout/Page.svelte';
   import Home from '../imports/ui/pages/Home.svelte';
   import CommsWithAPlan from '../imports/ui/pages/CommsWithAPlan.svelte';
   import NotFound from '../imports/ui/pages/NotFound.svelte';
@@ -44,5 +43,5 @@
 
 <Navigation {activeRoute} {language} />
 <!-- <Notifications /> -->
-<Page {page} {language} />
+<svelte:component this={page} {language} />
 <Footer {language} />

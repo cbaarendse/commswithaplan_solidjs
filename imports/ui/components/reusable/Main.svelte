@@ -6,12 +6,12 @@
   main {
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
-    align-items: flex-start;
-    padding: 0.5em;
-    width: 90%;
+    justify-content: space-between;
+    align-items: stretch;
+    width: 100%;
     height: 100%;
-    margin: auto;
-    background-color: lightgray;
+    margin: calc(3 * var(--ra-bar-height)) auto 0 auto;
+    padding: 1em;
+    border: 1px dashed var(--ra-blue);
   }
 </style>

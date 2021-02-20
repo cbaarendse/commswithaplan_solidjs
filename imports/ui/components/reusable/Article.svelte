@@ -5,5 +5,6 @@
 
 <style>
   article {
+    border: 1px dashed var(--ra-red);
   }
 </style>

@@ -30,6 +30,7 @@
     }}
     href={'/'}
     class:active={() => activeRoute === '/'}
+    class="logo"
   >
     <LogoCommsWithAPlan size={'3.5rem'} colored={activeRoute === '/'} />
   </a>
@@ -42,13 +43,14 @@
   >
     <span class="blue">Comms</span>&nbsp;<span class="green">With&nbsp;A</span>&nbsp;<span class="red">Plan</span>
   </a>
+  <a on:click={() => (activeRoute = 'bereik')} href={'/commswithaplan'} class:active={activeRoute === 'bereik'}>
+    {capitalizeAndSplit('bereik')}
+  </a>
 
   <a on:click={() => (activeRoute = 'schedule')} href={'/commswithaplan'} class:active={activeRoute === 'schedule'}>
     {capitalizeAndSplit('schedule')}
   </a>
-  <a on:click={() => (activeRoute = 'bereik')} href={'/commswithaplan'} class:active={activeRoute === 'bereik'}>
-    {capitalizeAndSplit('bereik')}
-  </a>
+
   <form>
     <label for="en">Engels</label><input type="radio" id="en" bind:group={language} value="english" />
     <label for="nl">Nederlands</label><input type="radio" id="nl" bind:group={language} value="dutch" />
@@ -59,20 +61,22 @@
 <style>
   nav {
     display: flex;
-    margin: 0px;
-    padding: 14px;
+    margin: 0;
+    padding: 0 1em;
     position: fixed;
-    background-color: var(--ra-white);
+    background-color: var(--ra-white-transparant);
+    height: var(--ra-bar-height);
     width: 100%;
     top: 0;
     font-size: 1.4rem;
+    z-index: 999;
   }
 
   nav a {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 0px 14px;
+    padding: 0 1em;
     text-decoration: none;
   }
   @media only screen and (max-width: 768px) {
@@ -93,12 +97,21 @@
   }
 
   nav a:hover {
-    background-color: var(--ra-grey-off-white);
+    background-color: lightcyan;
     color: var(--ra-grey);
-    background-size: 100% 4px;
   }
 
   nav a.active {
+    background-color: lightcyan;
+    color: var(--ra-blue);
+  }
+  nav a.logo:hover {
+    background-color: transparent;
+    color: var(--ra-grey);
+  }
+
+  nav a.logo.active {
+    background-color: transparent;
     color: var(--ra-blue);
   }
   nav a.active span.blue {

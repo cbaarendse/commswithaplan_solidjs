@@ -1,8 +1,10 @@
 <script>
+  import {compute_slots} from 'svelte/internal';
+
   export let backgroundColor = 'var(--ra-grey-off-white)';
   export let color = 'var(--ra-grey)';
   export let cardTitle;
-  export let imgUrls;
+  export let imgUrl;
   export let cardFooter;
   export let cardLink_1;
   export let cardLinkText_1;
@@ -13,7 +15,7 @@
 <div class="card" style="background-color:{backgroundColor};color:{color};">
   {#if cardTitle}
     <div class="card-title">
-      <h5>{cardTitle}</h5>
+      <h4>{cardTitle}</h4>
     </div>
   {/if}
   {#if $$slots.cardContent}
@@ -21,11 +23,9 @@
       <slot name="cardContent" />
     </div>
   {/if}
-  {#if imgUrls}
-    {#each imgUrls as imgUrl, index}
-      <img src={imgUrl} alt="{cardTitle}_{index}" />
-      <hr />
-    {/each}
+  {#if $$slots.cardImage}
+    <img src={imgUrl} alt={cardTitle} />
+    <hr />
   {/if}
   {#if cardFooter}
     <div class="card-footer">
@@ -47,15 +47,16 @@
     flex-basis: 320px;
     flex-grow: 1;
     flex-shrink: 1;
-    min-width: 370px;
-    padding: 21px;
-    margin: 7px 7px 0px 7px;
+    min-width: 25em;
+    min-height: 20em;
+    padding: 2em;
+    margin: 0.5em 0.5em 0 0.5em;
     border: 1px solid rgba(0, 0, 0, 0.1);
   }
   @media only screen and (max-width: 768px) {
     div.card {
       margin: auto;
-      min-width: 270px;
+      min-width: 15em;
     }
   }
 
@@ -64,6 +65,8 @@
     text-align: center;
   }
   div.card-content {
+    margin: 2em 0;
+    font-size: 2rem;
     text-align: left;
   }
   img {

@@ -1,11 +1,13 @@
 <script>
   export let sectionTitle;
+  export let titleColor = 'var(--ra-blue)';
+  export let height = 'fit-content';
 </script>
 
 <section>
   {#if sectionTitle}
-    <div class="section-title">
-      <h2>{sectionTitle}</h2>
+    <div class="section-title" style="height:{height};">
+      <h2 style="color:{titleColor};">{sectionTitle}</h2>
     </div>
   {/if}
   <slot />
@@ -13,27 +15,17 @@
 
 <style>
   section {
+    border: 1px dashed var(--ra-green);
     display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(20em, 1fr));
     row-gap: 1em;
     column-gap: 2em;
-    padding: 14px;
-    margin-bottom: 7px;
-  }
-  @media only screen and (max-width: 375px) {
-    section {
-      padding: 0px;
-    }
-  }
-
-  @media only screen and (max-width: 768px) {
-    section {
-      overflow: hidden;
-    }
+    padding: 1em;
+    margin-bottom: 0.5em;
   }
 
   div.section-title {
-    color: var(--ra-blue);
-    padding: 7px;
+    padding: 2em;
     text-align: center;
   }
 </style>

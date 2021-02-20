@@ -24,6 +24,7 @@
   button {
     width: fit-content;
     padding: 0.8em 1em;
+    margin: 0 1em;
     cursor: pointer;
   }
 
