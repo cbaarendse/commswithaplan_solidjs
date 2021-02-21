@@ -1,5 +1,4 @@
 <script>
-  import Main from '../components/reusable/Main.svelte';
   import Section from '../components/reusable/Section.svelte';
   import Article from '../components/reusable/Article.svelte';
   import Card from '../components/reusable/Card.svelte';
@@ -8,7 +7,7 @@
   export let language;
 </script>
 
-<Main>
+<main>
   <Section sectionTitle={'Comms With A Plan'} titleColor={'Plum'}
     ><Article>Media hulp bij marketing communicatie</Article><Article>
       Media hulp bij marketing communicatie</Article
@@ -46,7 +45,7 @@
     </Article>
   </Section>
   <Section />
-</Main>
+</main>
 
 <style>
 </style>

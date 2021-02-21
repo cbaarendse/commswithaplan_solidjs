@@ -3,7 +3,6 @@
   import {useSession} from 'meteor/rdb:svelte-meteor-data';
 
   // components
-  import Main from '../components/reusable/Main.svelte';
   import Section from '../components/reusable/Section.svelte';
   import Article from '../components/reusable/Article.svelte';
   import ProjectItem from '../components/ProjectItem.svelte';
@@ -15,7 +14,7 @@
   export let language;
 </script>
 
-<Main>
+<main>
   <Section sectionTitle={'Comms With A Plan'}>
     <Article>
       {#if language == 'dutch'}
@@ -92,7 +91,7 @@
       {/if}
     </Article>
   </Section>
-</Main>
+</main>
 
 <style>
   p {

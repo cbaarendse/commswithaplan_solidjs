@@ -4,8 +4,7 @@
   import {} from 'os';
 
   // components
-  // import Select from '../components/reusable/Select.svelte';
-  import LogoCommsWithAPlan from '../components/reusable/LogoCommsWithAPlan.svelte';
+  import LogoReachApp from './reusable/LogoReachApp.svelte';
 
   // modules
   import {ui_translations} from '../../../client/constants';
@@ -32,42 +31,36 @@
     class:active={() => activeRoute === '/'}
     class="logo"
   >
-    <LogoCommsWithAPlan size={'3.5rem'} colored={activeRoute === '/'} />
+    <LogoReachApp size={'2rem'} colored={activeRoute === '/'} />
   </a>
 
   <a
-    on:click={() => (activeRoute = 'commswithaplan')}
-    href={'/commswithaplan'}
-    class:active={activeRoute === 'commswithaplan'}
+    on:click={() => (activeRoute = 'reachapp')}
+    href={'/reachapp'}
+    class:active={activeRoute === 'reachapp'}
     class="brand"
   >
-    <span class="blue">Comms</span>&nbsp;<span class="green">With&nbsp;A</span>&nbsp;<span class="red">Plan</span>
+    <span>ReachApp</span>
   </a>
   <a on:click={() => (activeRoute = 'bereik')} href={'/commswithaplan'} class:active={activeRoute === 'bereik'}>
-    {capitalizeAndSplit('bereik')}
+    {capitalizeAndSplit('app')}
   </a>
 
   <a on:click={() => (activeRoute = 'schedule')} href={'/commswithaplan'} class:active={activeRoute === 'schedule'}>
-    {capitalizeAndSplit('schedule')}
+    {capitalizeAndSplit('manual')}
   </a>
-
-  <form>
-    <label for="en">Engels</label><input type="radio" id="en" bind:group={language} value="english" />
-    <label for="nl">Nederlands</label><input type="radio" id="nl" bind:group={language} value="dutch" />
-  </form>
 </nav>
 
 <!-- Direction of the mouse from previous mouseover to current mouseleave determines the class -->
 <style>
   nav {
     display: flex;
+    justify-content: center;
     margin: 0;
     padding: 0 1em;
-    position: fixed;
-    background-color: var(--ra-white-transparant);
-    height: var(--ra-bar-height);
+    background-color: var(--ra-teal-light-transparant);
+    height: var(--ra-nav-sub-height);
     width: 100%;
-    top: 0;
     font-size: 1.4rem;
     z-index: 999;
   }
@@ -89,48 +82,25 @@
     font-family: 'Trebuchet MS';
   }
   nav a:link {
-    color: var(--ra-grey-light);
+    color: var(--ra-white);
   }
 
   nav a:visited {
-    color: var(--ra-grey-light);
+    color: var(--ra-white);
   }
 
   nav a:hover {
-    background-color: lightcyan;
+    background-color: var(--ra-white);
     color: var(--ra-grey);
   }
 
   nav a.active {
-    background-color: lightcyan;
+    background-color: var(--ra-white);
     color: var(--ra-blue);
-  }
-  nav a.logo:hover {
-    background-color: transparent;
-    color: var(--ra-grey);
   }
 
   nav a.logo.active {
     background-color: transparent;
     color: var(--ra-blue);
-  }
-  nav a.active span.blue {
-    color: var(--ra-blue);
-  }
-  nav a.active span.green {
-    color: var(--ra-green);
-  }
-  nav a.active span.red {
-    color: var(--ra-red);
-  }
-  form {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-left: auto;
-    margin-right: 1em;
-  }
-  label {
-    padding: 0em 0.5em;
   }
 </style>

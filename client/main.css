@@ -19,6 +19,7 @@
   --ra-green-light: #aacc66;
   --ra-red-light: #ff6666;
   --ra-grey-light: #999999;
+  --ra-teal-light: #accdc6;
   /* on dark */
   --ra-blue-bright: #3399ff;
   --ra-green-bright: #00ff33;
@@ -27,17 +28,24 @@
   --ra-white: white;
   /* surfaces */
   --ra-white-transparant: rgba(255,255,255,0.9);
+  --ra-teal: #75aea2;
+  --ra-teal-transparant: rgba(117,174,162,0.9);
+  /* f2 transparancy */
+  --ra-teal-light-transparant:rgba(172,205,198,0.95);
   --ra-blue-off-white: #f0ffff;
   --ra-green-off-white: #f0fff0;
   --ra-red-off-white: #faf0e6;
   --ra-grey-off-white: #fcfcfc;
+  --ra-teal-off-white: #ddebe8;
   /* sizes in em */
   --ra-s: 0.5em;
   --ra-m: 1em;
   --ra-l: 1.5em;
   --ra-xl: 2em;
   --ra-xxl: 2.5em;
-  --ra-bar-height: 4em;
+  --ra-nav-main-height: 4em;
+  --ra-nav-sub-height: 2em;
+  --ra-notifications-height: 2em;
 }
 
 html{
@@ -59,6 +67,40 @@ body {
 div.app {
   height: 100%;
   width: 100%;
+}
+
+/* page layout */
+header{
+  top: 0;
+  width: 100%;
+  position: fixed;
+  height: fit-content;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  width: 100%;
+  height: 100%;
+  margin: calc(var(--ra-nav-main-height) + var(--ra-nav-sub-height) + var(--ra-notifications-height)) auto 0 auto;
+  padding: 1em;
+  border: 1px dashed var(--ra-blue);
+}
+
+footer{
+  display:flex;
+  justify-content: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding: 0.5em;
+    background-color: var(--ra-white-transparant);
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+footer a {
+  color: var(--ra-blue);
+  text-decoration: none;
 }
 
 
