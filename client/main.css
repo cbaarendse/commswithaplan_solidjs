@@ -87,7 +87,6 @@ main {
   padding: 1em;
   border: 1px dashed var(--ra-blue);
 }
-
 footer{
   display:flex;
   justify-content: center;
@@ -102,6 +101,39 @@ footer a {
   color: var(--ra-blue);
   text-decoration: none;
 }
+
+section {
+  border: 1px dashed var(--ra-green);
+  padding: 1em;
+  margin-bottom: 0.5em;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: stretch;
+}
+
+section > header, article {
+  all: unset;
+  /* Doesn't grow, doesn't shrink, wants to be 100%, so forces everything else on other lines */
+  flex: 0 0 100%;
+}
+
+section > header {
+  padding: 2em;
+  width: 100%;
+  text-align: center;
+}
+
+section > footer {
+  all: unset;
+  padding: 2em;
+  flex: 0 0 100%;
+}
+
+
+
+
+
 
 
 /* schedule */

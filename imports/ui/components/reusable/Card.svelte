@@ -39,6 +39,7 @@
 
 <style>
   div.card {
+    flex: 1 1 40em;
     max-width: 25em;
     min-height: 15em;
     padding: 2em;
@@ -67,6 +68,9 @@
   hr {
     border-top: 0.5px solid rgba(0, 0, 0, 0.1);
     width: 86%;
+  }
+  a {
+    color: var(--ra-blue);
   }
 
   div.card-footer {

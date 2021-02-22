@@ -15,19 +15,25 @@
 </script>
 
 <main>
-  <Section sectionTitle={'Comms With A Plan'}>
-    <Article>
+  <section sectionTitle={'Comms With A Plan'}>
+    <header><h2>Comms With A Plan</h2></header>
+    <article>
       {#if language == 'dutch'}
-        <p>Comms With A Plan is een Media Management consultancy voor adverteerders.</p>
-        <p>Ik initieer, onderhoud en evalueer je media strategie, ik manage je bureaus en budget.</p>
+        <p>
+          Comms With A Plan is een Media Management consultancy voor adverteerders. Ik initieer, onderhoud en evalueer
+          je media strategie, ik manage je bureaus en budget.
+        </p>
       {:else}
         <p>Comms With A Plan is a Media Management consultancy for advertisers.</p>
         <p>
           At your service I initiate, maintain and evaluate your media strategy, I manage your agencies and your budget.
         </p>
       {/if}
-    </Article>
-  </Section>
+    </article>
+
+    <footer>Read more...</footer>
+  </section>
+
   <Section sectionTitle={'Consultancy'}>
     <Article>
       <h3>Consultancy</h3>
@@ -83,11 +89,16 @@
   <Section sectionTitle={'Contact'}>
     <Article>
       {#if language == 'dutch'}
-        <p>e-mail: cbaarendse@commswithaplan.com</p>
-        <p>telefoon: nul zes een twee drie negen acht zeven drie vier</p>
+        <address>
+          <p>e-mail: cbaarendse@commswithaplan.com</p>
+          <input type="textarea" />
+          <p>telefoon: nul zes een twee drie negen acht zeven drie vier</p>
+        </address>
       {:else}
-        <p>e-mail: cbaarendse@commswithaplan.com</p>
-        <p>telephone: plus three one six one two three nine eight seven three four</p>
+        <address>
+          <p>e-mail: cbaarendse@commswithaplan.com</p>
+          <p>telephone: plus three one six one two three nine eight seven three four</p>
+        </address>
       {/if}
     </Article>
   </Section>
