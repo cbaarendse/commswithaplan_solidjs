@@ -3,9 +3,7 @@
   import {useSession} from 'meteor/rdb:svelte-meteor-data';
 
   // components
-  import Section from '../components/reusable/Section.svelte';
-  import Article from '../components/reusable/Article.svelte';
-  import ProjectItem from '../components/ProjectItem.svelte';
+  import Accordion from '../components/reusable/Accordion.svelte';
 
   // content
   import {processItems} from '../../../client/content';
@@ -15,8 +13,8 @@
 </script>
 
 <main>
-  <section sectionTitle={'Comms With A Plan'}>
-    <header><h2>Comms With A Plan</h2></header>
+  <section>
+    <header><h1>Comms With A Plan</h1></header>
     <article>
       {#if language == 'dutch'}
         <p>
@@ -30,13 +28,12 @@
         </p>
       {/if}
     </article>
-
     <footer>Read more...</footer>
   </section>
 
-  <Section sectionTitle={'Consultancy'}>
-    <Article>
-      <h3>Consultancy</h3>
+  <section>
+    <header><h2>Consultancy</h2></header>
+    <article>
       {#if language == 'dutch'}
         <p>
           Comms With A Plan is een flexibele partner in die zin dat het werk project gebaseerd kan zijn, maar ook meer
@@ -48,23 +45,31 @@
           demand. (Give me a call to explain.)
         </p>
       {/if}
-    </Article>
-    <Article>
-      <h3>Work</h3>
+    </article>
+  </section>
+  <section>
+    <header><h2>Work</h2></header>
+    <article>
+      {#if language == 'dutch'}
+        <h4>Zaken die ik manage gedurende het proces (je kan kiezen en mixen):</h4>
+      {:else}
+        <h4>Things I'll manage along the process (you can pick and mix):</h4>
+      {/if}
       <ul>
-        {#if language == 'dutch'}
-          <h5>Zaken die ik manage gedurende het proces (je kan kiezen en mixen):</h5>
-        {:else}
-          <h5>Things I'll manage along the process (you can pick and mix):</h5>
-        {/if}
         {#each processItems as item, index}
-          <li><ProjectItem {item} {index} /></li>
+          <li>
+            <Accordion>
+              <h4 slot="title">{item[language].name}</h4>
+              {item[language].description}
+            </Accordion>
+          </li>
         {/each}
       </ul>
-    </Article>
-  </Section>
-  <Section sectionTitle={'About'}>
-    <Article>
+    </article>
+  </section>
+  <section>
+    <header><h2>About</h2></header>
+    <article>
       {#if language == 'dutch'}
         <p>
           Ik ben Constantijn Baarendse. Ik heb gewerkt op verschillende continenten, voor 'blue chip' adverteerders,
@@ -84,10 +89,12 @@
           <a href="https://www.linkedin.com/in/cbaarendse/"> https://www.linkedin.com/in/cbaarendse/ </a>
         </p>
       {/if}
-    </Article>
-  </Section>
-  <Section sectionTitle={'Contact'}>
-    <Article>
+    </article>
+  </section>
+  <section>
+    <header><h2>Contact</h2></header>
+    >
+    <article>
       {#if language == 'dutch'}
         <address>
           <p>e-mail: cbaarendse@commswithaplan.com</p>
@@ -100,8 +107,8 @@
           <p>telephone: plus three one six one two three nine eight seven three four</p>
         </address>
       {/if}
-    </Article>
-  </Section>
+    </article>
+  </section>
 </main>
 
 <style>

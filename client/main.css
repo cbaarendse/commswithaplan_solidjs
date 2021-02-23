@@ -130,7 +130,11 @@ section > footer {
   flex: 0 0 100%;
 }
 
-
+article {
+  flex: 1;
+  border: 1px dashed var(--ra-red);
+  margin: 1em;
+}
 
 
 

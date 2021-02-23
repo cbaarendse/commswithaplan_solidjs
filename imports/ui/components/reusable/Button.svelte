@@ -1,6 +1,6 @@
 <script>
   export let size = 'normal'; // or small, large, xlarge
-  export let backgroundColor = 'blue'; // or green, red, grey, transparant
+  export let backgroundColor = 'blue'; // or green, red, grey, transparant, transparantnoborder
   export let type = 'button'; // or reset, submit
   export let dataDismiss;
   export let ariaLabel;
@@ -45,6 +45,7 @@
     min-width: 10rem;
     font-size: 1.5rem;
   }
+
   .blue,
   .green,
   .red,
@@ -77,13 +78,15 @@
 
   .transparant {
     background-color: none;
-    color: var(--ra-grey);
+    color: var(--ra-grey-light);
     border: 1px solid var(--ra-grey);
   }
 
   .transparantnoborder {
-    background-color: none;
-    color: var(--ra-grey);
+    /* since the button is invisible, min-width is set to initial, so square buttons are possible */
+    min-width: none;
+    background-color: transparent;
+    color: var(--ra-grey-light);
     border: none;
   }
 
@@ -99,5 +102,17 @@
   }
   button.grey:hover {
     background-color: var(--ra-grey-light);
+  }
+
+  button.transparant:hover {
+    color: var(--ra-grey);
+  }
+
+  button.transparantnoborder:hover {
+    /* since the button is invisible, min-width is set to initial, so square buttons are possible */
+    min-width: none;
+    background-color: transparent;
+    color: var(--ra-grey);
+    border: none;
   }
 </style>

@@ -1,6 +1,4 @@
 <script>
-  import Section from '../components/reusable/Section.svelte';
-  import Article from '../components/reusable/Article.svelte';
   import Card from '../components/reusable/Card.svelte';
 
   // variables
