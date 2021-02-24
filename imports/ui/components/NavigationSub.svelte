@@ -11,6 +11,7 @@
 
   // variables
   export let activeRoute;
+  export let params;
   export let language;
 
   // functions
@@ -21,35 +22,44 @@
   }
 </script>
 
-<nav>
-  <a
-    on:click={() => {
-      console.log('clicked Home');
-      activeRoute = '/';
-    }}
-    href={'/'}
-    class:active={() => activeRoute === '/'}
-    class="logo"
-  >
-    <LogoReachApp size={'2rem'} colored={activeRoute === '/'} />
-  </a>
+{#if activeRoute === '/' || activeRoute === '/commswithaplan'}
+  <nav />
+{/if}
+{#if activeRoute === '/reach'}
+  <nav>
+    <a
+      on:click={() => {
+        console.log('clicked Home');
+        activeRoute = '/reach/';
+      }}
+      href={'/reach/'}
+      class:active={() => activeRoute === '/reach/'}
+      class="logo"
+    >
+      <LogoReachApp size={'2rem'} colored={activeRoute === '/reach/'} />
+    </a>
 
-  <a
-    on:click={() => (activeRoute = 'reachapp')}
-    href={'/reachapp'}
-    class:active={activeRoute === 'reachapp'}
-    class="brand"
-  >
-    <span>ReachApp</span>
-  </a>
-  <a on:click={() => (activeRoute = 'bereik')} href={'/commswithaplan'} class:active={activeRoute === 'bereik'}>
-    {capitalizeAndSplit('app')}
-  </a>
+    <a
+      on:click={() => (activeRoute = 'reach/reachapp')}
+      href={'/reach/reachapp'}
+      class:active={activeRoute === 'reach/reachapp'}
+      class="brand"
+    >
+      <span>ReachApp</span>
+    </a>
+    <a on:click={() => (activeRoute = 'reach/app')} href={'/reach/app'} class:active={activeRoute === 'reach/app'}>
+      {capitalizeAndSplit('app')}
+    </a>
 
-  <a on:click={() => (activeRoute = 'schedule')} href={'/commswithaplan'} class:active={activeRoute === 'schedule'}>
-    {capitalizeAndSplit('manual')}
-  </a>
-</nav>
+    <a
+      on:click={() => (activeRoute = 'reach/manual')}
+      href={'/reach/manual'}
+      class:active={activeRoute === 'reach/manual'}
+    >
+      {capitalizeAndSplit('manual')}
+    </a>
+  </nav>
+{/if}
 
 <!-- Direction of the mouse from previous mouseover to current mouseleave determines the class -->
 <style>

@@ -36,19 +36,15 @@
   </a>
 
   <a
-    on:click={() => (activeRoute = 'commswithaplan')}
+    on:click={() => (activeRoute = '/commswithaplan')}
     href={'/commswithaplan'}
-    class:active={activeRoute === 'commswithaplan'}
+    class:active={activeRoute === '/commswithaplan'}
     class="brand"
   >
     <span class="blue">Comms</span>&nbsp;<span class="green">With&nbsp;A</span>&nbsp;<span class="red">Plan</span>
   </a>
-  <a on:click={() => (activeRoute = 'bereik')} href={'/commswithaplan'} class:active={activeRoute === 'bereik'}>
-    {capitalizeAndSplit('bereik')}
-  </a>
-
-  <a on:click={() => (activeRoute = 'schedule')} href={'/commswithaplan'} class:active={activeRoute === 'schedule'}>
-    {capitalizeAndSplit('schedule')}
+  <a on:click={() => (activeRoute = '/reach/')} href={'/reach/'} class:active={activeRoute === '/reach/'}>
+    {capitalizeAndSplit('reach')}
   </a>
 
   <form>

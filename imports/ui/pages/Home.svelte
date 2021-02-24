@@ -6,7 +6,7 @@
 </script>
 
 <main>
-  <section sectionTitle={'Comms With A Plan'}>
+  <section>
     <header><h4>Comms With A Plan</h4></header>
     <Card>Media hulp bij marketing communicatie</Card>
     <article>Media hulp bij marketing communicatie</article>
