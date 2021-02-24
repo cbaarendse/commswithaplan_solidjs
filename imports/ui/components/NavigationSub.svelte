@@ -1,18 +1,19 @@
 <script>
   // packages
   import {useSession} from 'meteor/rdb:svelte-meteor-data';
-  import {} from 'os';
 
   // components
   import LogoReachApp from './reusable/LogoReachApp.svelte';
 
   // modules
   import {ui_translations} from '../../../client/constants';
+  import {onMount} from 'svelte';
 
   // variables
-  export let activeRoute;
-  export let params;
+  export let path;
+  export let pathname;
   export let language;
+  onMount(async () => console.log('path:', path, 'pathname: ', pathname));
 
   // functions
   function capitalizeAndSplit(str) {
@@ -22,40 +23,23 @@
   }
 </script>
 
-{#if activeRoute === '/' || activeRoute === '/commswithaplan'}
+{#if path === '/' || path === '/commswithaplan'}
   <nav />
 {/if}
-{#if activeRoute === '/reach'}
+{#if pathname === '/reach'}
   <nav>
-    <a
-      on:click={() => {
-        console.log('clicked Home');
-        activeRoute = '/reach/';
-      }}
-      href={'/reach/'}
-      class:active={() => activeRoute === '/reach/'}
-      class="logo"
-    >
-      <LogoReachApp size={'2rem'} colored={activeRoute === '/reach/'} />
+    <a href={'/reach/'} class:active={path === '/reach'} class="logo">
+      <LogoReachApp size={'2rem'} colored={path === '/reach'} />
     </a>
 
-    <a
-      on:click={() => (activeRoute = 'reach/reachapp')}
-      href={'/reach/reachapp'}
-      class:active={activeRoute === 'reach/reachapp'}
-      class="brand"
-    >
+    <a href={'/reach/reachapp'} class:active={path === '/reach/reachapp'} class="brand">
       <span>ReachApp</span>
     </a>
-    <a on:click={() => (activeRoute = 'reach/app')} href={'/reach/app'} class:active={activeRoute === 'reach/app'}>
+    <a href={'/reach/app'} class:active={path === '/reach/app'}>
       {capitalizeAndSplit('app')}
     </a>
 
-    <a
-      on:click={() => (activeRoute = 'reach/manual')}
-      href={'/reach/manual'}
-      class:active={activeRoute === 'reach/manual'}
-    >
+    <a href={'/reach/manual'} class:active={path === '/reach/manual'}>
       {capitalizeAndSplit('manual')}
     </a>
   </nav>

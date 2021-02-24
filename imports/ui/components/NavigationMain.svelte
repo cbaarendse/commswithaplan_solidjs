@@ -1,7 +1,6 @@
 <script>
   // packages
   import {useSession} from 'meteor/rdb:svelte-meteor-data';
-  import {} from 'os';
 
   // components
   // import Select from '../components/reusable/Select.svelte';
@@ -11,7 +10,7 @@
   import {ui_translations} from '../../../client/constants';
 
   // variables
-  export let activeRoute;
+  export let path;
   export let language;
 
   // functions
@@ -23,27 +22,14 @@
 </script>
 
 <nav>
-  <a
-    on:click={() => {
-      console.log('clicked Home');
-      activeRoute = '/';
-    }}
-    href={'/'}
-    class:active={() => activeRoute === '/'}
-    class="logo"
-  >
-    <LogoCommsWithAPlan size={'3.5rem'} colored={activeRoute === '/'} />
+  <a href={'/'} class:active={path === '/'} class="logo">
+    <LogoCommsWithAPlan size={'3.5rem'} colored={path === '/'} />
   </a>
 
-  <a
-    on:click={() => (activeRoute = '/commswithaplan')}
-    href={'/commswithaplan'}
-    class:active={activeRoute === '/commswithaplan'}
-    class="brand"
-  >
+  <a href={'/commswithaplan'} class:active={path === '/commswithaplan'} class="brand">
     <span class="blue">Comms</span>&nbsp;<span class="green">With&nbsp;A</span>&nbsp;<span class="red">Plan</span>
   </a>
-  <a on:click={() => (activeRoute = '/reach/')} href={'/reach/'} class:active={activeRoute === '/reach/'}>
+  <a href={'/reach'} class:active={path === '/reach'}>
     {capitalizeAndSplit('reach')}
   </a>
 

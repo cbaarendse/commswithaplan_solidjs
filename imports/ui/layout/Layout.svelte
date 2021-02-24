@@ -14,25 +14,38 @@
 
   // routes
   import routes from '../../../client/routes';
-  import {claim_text} from 'svelte/internal';
 
   router.configure({window: window});
   // variables
   let language = 'dutch';
   let page;
-  let params;
-  let activeRoute = '/';
+  let path;
+  let pathname;
 
   onMount(async () => {
     console.log('App is mounted');
   });
 
-  router('/', () => (page = Home));
-  router('/commswithaplan', () => (page = CommsWithAPlan));
   router(
-    '/reach/',
+    '/',
     (ctx, next) => {
-      params = ctx.params;
+      path = ctx.path;
+      next();
+    },
+    () => (page = Home)
+  );
+  router(
+    '/commswithaplan',
+    (ctx, next) => {
+      path = ctx.path;
+      next();
+    },
+    () => (page = CommsWithAPlan)
+  );
+  router(
+    '/reach',
+    (ctx, next) => {
+      path = ctx.path;
       next();
     },
     () => (page = Reach)
@@ -40,7 +53,8 @@
   router(
     '/reach/reachapp',
     (ctx, next) => {
-      params = ctx.params;
+      path = ctx.path;
+      pathname = ctx.pathname;
       next();
     },
     () => (page = ReachApp)
@@ -48,7 +62,7 @@
   router(
     '/reach/app',
     (ctx, next) => {
-      params = ctx.params;
+      path = ctx.path;
       next();
     },
     () => (page = App)
@@ -56,7 +70,7 @@
   router(
     '/reach/manual',
     (ctx, next) => {
-      params = ctx.params;
+      path = ctx.path;
       next();
     },
     () => (page = Manual)
@@ -77,11 +91,11 @@
 </script>
 
 <header>
-  <NavigationMain {activeRoute} {language} />
-  <NavigationSub {activeRoute} />
+  <NavigationMain {path} {language} />
+  <NavigationSub {path} />
   <!-- <Notifications /> -->
 </header>
-<svelte:component this={page} {params} {language} />
+<svelte:component this={page} {language} />
 <footer>
   <Footer {language} />
 </footer>
