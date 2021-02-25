@@ -11,9 +11,8 @@
 
   // variables
   export let path;
-  export let pathname;
   export let language;
-  onMount(async () => console.log('path:', path, 'pathname: ', pathname));
+  // onMount(async () => console.log('path:', path, 'base: ', base));
 
   // functions
   function capitalizeAndSplit(str) {
@@ -23,13 +22,10 @@
   }
 </script>
 
-{#if path === '/' || path === '/commswithaplan'}
-  <nav />
-{/if}
-{#if pathname === '/reach'}
+{#if path === '/reach/' || path === '/reach/reachapp' || path === '/reach/app' || path === '/reach/manual'}
   <nav>
-    <a href={'/reach/'} class:active={path === '/reach'} class="logo">
-      <LogoReachApp size={'2rem'} colored={path === '/reach'} />
+    <a href={'/reach/'} class:active={path === '/reach/'} class="logo">
+      <LogoReachApp size={'2rem'} colored={path === '/reach/'} />
     </a>
 
     <a href={'/reach/reachapp'} class:active={path === '/reach/reachapp'} class="brand">
@@ -43,6 +39,8 @@
       {capitalizeAndSplit('manual')}
     </a>
   </nav>
+{:else}
+  <nav />
 {/if}
 
 <!-- Direction of the mouse from previous mouseover to current mouseleave determines the class -->

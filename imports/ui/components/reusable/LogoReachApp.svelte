@@ -1,11 +1,15 @@
 <script>
   export let size = '3em';
+  export let colored = true;
+  $: backgroundColor1 = colored ? 'var(--ra-blue)' : 'var(--ra-blue-grayscale)';
+  $: backgroundColor2 = colored ? 'var(--ra-green)' : 'var(--ra-green-grayscale)';
+  $: backgroundColor3 = colored ? 'var(--ra-red)' : 'var(--ra-red-grayscale)';
 </script>
 
 <div class="logo" style="width:{size}; height:{size};">
-  <div class="blue" />
-  <div class="green" />
-  <div class="red" />
+  <div class="circle1" style="background-color:{backgroundColor1};" />
+  <div class="circle2" style="background-color:{backgroundColor2};" />
+  <div class="circle3" style="background-color:{backgroundColor3};" />
 </div>
 
 <style>
@@ -13,33 +17,30 @@
     position: relative;
     background-color: transparent;
   }
-  div.blue,
-  div.green,
-  div.red {
+  div.circle1,
+  div.circle2,
+  div.circle3 {
     position: absolute;
     width: 75%;
     height: 75%;
     border-radius: 50%;
   }
 
-  div.blue {
+  div.circle1 {
     top: 14%;
     right: 0%;
-    background-color: var(--ra-blue);
     z-index: 999;
   }
 
-  div.green {
+  div.circle2 {
     top: 5%;
     left: 7.5%;
-    background-color: var(--ra-green);
     z-index: 666;
   }
 
-  div.red {
+  div.circle3 {
     left: 0%;
     bottom: 5%;
-    background-color: var(--ra-red);
     z-index: 333;
   }
 </style>

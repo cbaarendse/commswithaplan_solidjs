@@ -29,7 +29,10 @@
   <a href={'/commswithaplan'} class:active={path === '/commswithaplan'} class="brand">
     <span class="blue">Comms</span>&nbsp;<span class="green">With&nbsp;A</span>&nbsp;<span class="red">Plan</span>
   </a>
-  <a href={'/reach'} class:active={path === '/reach'}>
+  <a
+    href={'/reach/'}
+    class:active={path === '/reach/' || path === '/reach/reachapp' || path === '/reach/app' || path === '/reach/manual'}
+  >
     {capitalizeAndSplit('reach')}
   </a>
 

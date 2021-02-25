@@ -1,6 +1,6 @@
 // pages
-import Home from '../imports/ui/pages/CommsWithAPlan.svelte';
-import CommsWithAPlan from '../imports/ui/pages/CommsWithAPlan.svelte';
+import Home from '../imports/ui/pages/commswithaplan/CommsWithAPlan.svelte';
+import CommsWithAPlan from '../imports/ui/pages/commswithaplan/CommsWithAPlan.svelte';
 // import ReachApp from './components/ReachApp.svelte'
 // import Download from './components/Download.svelte'
 // import Schedule from './components/Schedule.svelte'

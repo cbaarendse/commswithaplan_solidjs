@@ -3,10 +3,10 @@
   import {useSession} from 'meteor/rdb:svelte-meteor-data';
 
   // components
-  import Accordion from '../components/reusable/Accordion.svelte';
+  import Accordion from '../../components/reusable/Accordion.svelte';
 
   // content
-  import {processItems} from '../../../client/content';
+  import {processItems} from '../../../../client/content';
 
   // variables
   export let language;

@@ -1,22 +1,17 @@
 <script>
   export let size = '3rem';
   export let colored = true;
+  $: backgroundColor1 = colored ? 'var(--ra-blue)' : 'var(--ra-blue-grayscale)';
+  $: backgroundColor2 = colored ? 'var(--ra-green)' : 'var(--ra-green-grayscale)';
+  $: backgroundColor3 = colored ? 'var(--ra-red)' : 'var(--ra-red-grayscale)';
 </script>
 
-{#if colored}
-  <div
-    style="width:{size}; height:{size};font-size:{size}; background: linear-gradient(to bottom, var(--ra-red) 33%,
-  var(--ra-green) 33% 67%, var(--ra-blue) 67%);"
-  >
-    <span>P</span>
-  </div>
-{:else}
-  <div
-    style="width:{size}; height:{size};font-size:{size}; background: linear-gradient(to bottom, var(--ra-red-grayscale) 33%, var(--ra-green-grayscale) 33% 67%, var(--ra-blue-grayscale) 67%);"
-  >
-    <span>P</span>
-  </div>
-{/if}
+<div
+  style="width:{size}; height:{size};font-size:{size}; background: linear-gradient(to bottom, {backgroundColor3} 33%,
+  {backgroundColor2} 33% 67%, {backgroundColor1} 67%);"
+>
+  <span>P</span>
+</div>
 
 <style>
   div {

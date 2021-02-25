@@ -6,10 +6,13 @@
   // components
   import NavigationMain from '../components/NavigationMain.svelte';
   import NavigationSub from '../components/NavigationSub.svelte';
-  import Home from '../pages/Home.svelte';
-  import CommsWithAPlan from '../pages/CommsWithAPlan.svelte';
-  import Reach from '../pages/Reach.svelte';
-  import NotFound from '../pages/NotFound.svelte';
+  import Home from '../pages/home/Home.svelte';
+  import CommsWithAPlan from '../pages/commswithaplan/CommsWithAPlan.svelte';
+  import Reach from '../pages/reach/Reach.svelte';
+  import ReachApp from '../pages/reach/ReachApp.svelte';
+  import App from '../pages/reach/App.svelte';
+  import Manual from '../pages/reach/Manual.svelte';
+  import NotFound from '../pages/notfound/NotFound.svelte';
   import Footer from '../components/Footer.svelte';
 
   // routes
@@ -20,7 +23,6 @@
   let language = 'dutch';
   let page;
   let path;
-  let pathname;
 
   onMount(async () => {
     console.log('App is mounted');
@@ -28,6 +30,7 @@
 
   router(
     '/',
+
     (ctx, next) => {
       path = ctx.path;
       next();
@@ -36,6 +39,7 @@
   );
   router(
     '/commswithaplan',
+
     (ctx, next) => {
       path = ctx.path;
       next();
@@ -44,6 +48,15 @@
   );
   router(
     '/reach',
+
+    (ctx, next) => {
+      path = ctx.path;
+      next();
+    },
+    () => (page = Reach)
+  );
+  router(
+    '/reach/',
     (ctx, next) => {
       path = ctx.path;
       next();
@@ -54,7 +67,7 @@
     '/reach/reachapp',
     (ctx, next) => {
       path = ctx.path;
-      pathname = ctx.pathname;
+      params = ctx.params;
       next();
     },
     () => (page = ReachApp)
