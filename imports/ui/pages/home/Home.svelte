@@ -16,24 +16,25 @@
   </section>
   <section>
     <Card
-      backgroundColor={'DarkSeaGreen'}
-      color={'LightGreen'}
+      backgroundColor={'HoneyDew'}
+      color={'var(--ra-blue)'}
       cardTitle={'Comms With A Plan'}
       cardLink={'/commswithaplan'}
       cardLinkText={'Read more...'}>Comms With A Plan provides Media Management consultancy.</Card
     >
 
     <Card
-      backgroundColor={'DarkSalmon'}
-      color={'var(--ra-red)'}
+      backgroundColor={'LavenderBlush'}
+      color={'var(--ra-blue)'}
       cardTitle={'Bereik'}
-      cardLink={'/reach'}
+      imgUrl={'/castle.jpg'}
+      cardLink={'/reach/'}
       cardLinkText={'Read more...'}>A handy tool to estimate your total reach.</Card
     >
 
     <Card
-      backgroundColor={'LightBlue'}
-      color={'White'}
+      backgroundColor={'AliceBlue'}
+      color={'var(--ra-blue)'}
       cardTitle={'Schema'}
       cardLink={'/schedule'}
       cardLinkText={'Read more...'}>All your campaigns in one place with Schedule.</Card

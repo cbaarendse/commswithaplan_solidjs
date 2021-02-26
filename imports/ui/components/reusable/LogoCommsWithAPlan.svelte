@@ -24,7 +24,7 @@
   span {
     color: var(--ra-white);
     font-family: 'Stencil Std' 'Trebuchet MS', 'American Typewriter', serif;
-    font-size: 0.65em;
+    font-size: 0.9em;
     transform: rotate(-90deg);
     -webkit-transform: rotate(-90deg);
     -moz-transform: rotate(-90deg);

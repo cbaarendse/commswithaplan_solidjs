@@ -13,7 +13,7 @@
 <div class="card" style="background-color:{backgroundColor};color:{color};">
   {#if cardTitle}
     <div class="card-title">
-      <h4>{cardTitle}</h4>
+      <h2>{cardTitle}</h2>
     </div>
   {/if}
   <p>
@@ -21,7 +21,6 @@
   </p>
   {#if imgUrl}
     <img src={imgUrl} alt={cardTitle} />
-    <hr />
   {/if}
   {#if cardFooterText || cardLink}
     <div class="card-footer">
@@ -40,11 +39,16 @@
 <style>
   div.card {
     flex: 1 1 40em;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
     max-width: 25em;
     min-height: 15em;
     padding: 2em;
     margin: 2em;
-    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 0.2em;
+    box-shadow: 0.1em 0.1em 0.2em 0 rgba(0, 0, 0, 0.1);
   }
   @media only screen and (max-width: 768px) {
     div.card {
@@ -54,27 +58,25 @@
 
   div.card-title {
     color: var(--ra-blue);
-    text-align: center;
+    text-align: left;
   }
   p {
-    margin: 1em;
-    font-size: 1.5rem;
+    flex: 1 1 auto;
+    padding: 1em 0;
+    font-size: 1.2rem;
   }
   img {
     display: block;
     width: 80%;
     margin: 0 auto;
   }
-  hr {
-    border-top: 0.5px solid rgba(0, 0, 0, 0.1);
-    width: 86%;
-  }
+
   a {
     color: var(--ra-blue);
   }
 
   div.card-footer {
-    padding: 0.5em;
+    padding: 0.5em 0;
     text-align: left;
     color: var(--ra-grey-light);
   }
