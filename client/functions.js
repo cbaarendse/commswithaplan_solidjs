@@ -164,14 +164,6 @@ export function defaultInputType(touchPointName) {
   return 'contacts';
 }
 
-   export function translate(input) {
-    return translations.find((element) => element.name === input)[language].displayName || undefined;
-  }
-
-  export function describe(input) {
-    return translations.find((element) => element.name === input)[language].description || undefined;
-  }
-
   export function nameTouchPoint(name) {
   return TouchPointsBasics.findOne({name})[language].displayName || 'new name';
 }

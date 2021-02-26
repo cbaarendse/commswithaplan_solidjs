@@ -1,0 +1,77 @@
+<template name="strategy_touchpoints">
+  {{#each touchPoints}}
+  {{> strategy_touchpoint}}
+  {{/each}}
+</template>
+
+<template name="strategy_touchpoint">
+  <div class="row input {{ hidden }}">
+    <div class="col-3">
+      {{! TODO: put input in form, make sure it is inline with media box, with least classes possible }}
+      <input type="checkbox" aria-label="..." class="pull-0 check d-inline" {{checked}} />
+      <div class="media d-inline">
+        <img class="align-self-center mr-2 touchPointIcon {{ checked }}" alt="{{ name }}-Icon" src="/{{ name }}.png" />
+        <div class="media-body d-none d-lg-inline">
+          <span class="display-name {{ checked }}">{{translate name}}</span>
+        </div>
+      </div>
+    </div>
+    {{ !SLIDER }}
+    <div class="col-3 d-none d-lg-block">
+      <form>
+        <div class="form-group">
+          <input
+            type="range"
+            class="custom-range touchpoint-slider"
+            id="slider-{{ _id }}"
+            min="{{ minValue }}"
+            max="{{ toFixed maxValue 0}}"
+            step="{{ stepByType }}"
+            defaultValue="{{ input }}"
+            value="{{ input }}"
+          />
+        </div>
+      </form>
+    </div>
+    {{ !INPUT }}
+    <div class="col-2 text-right">
+      {{#unless updating}}
+      <span class="input-box">
+        {{#if sliding}}
+        {{toStringFormat slidingInput}}
+        {{else}}
+        {{toStringFormat input}}
+        {{/if}}
+        {{#if thisInputTypeIsReach}}
+        &nbsp;%
+        {{/if}}
+      </span>
+      {{else}}
+      <form class="touchpoint-input-form float-right">
+        <div class="form-group">
+          <input type="text" class="form-control text-right touchpoint-input" placeholder="{{ translate "input" }}"
+          aria-describedby="sizing-addon2" />
+        </div>
+      </form>
+      {{/unless}}
+    </div>
+    {{! INPUT TYPE }}
+    <div class="col-2 d-none d-lg-block">
+      <span>{{translate inputType}}</span>
+    </div>
+    {{ !REACH }}
+
+    <div class="col-1 text-right">
+      {{#if marketData}}
+      <span>{{toFixed reach 1}}%</span>
+      {{/if}}
+    </div>
+    {{ !ots }}
+
+    <div class="col-1 text-right">
+      {{#if marketData}}
+      <span>{{toFixed ots 2}}</span>
+      {{/if}}
+    </div>
+  </div>
+</template>

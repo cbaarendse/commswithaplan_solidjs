@@ -1,0 +1,13 @@
+<template name="strategy_top">
+  <div class="row">
+    <div class="col-3 col-lg-6 text-left columnHeader">
+      {{translate "touchpoint"}}&nbsp;<i class="{{ sortIconCol1 }}"></i>
+    </div>
+    <!-- <div class="col-2 d-none d-lg-block text-center columnHeader"></div> -->
+    <div class="col-2 col-lg-4 text-center columnHeader">
+      {{translate "input"}}&nbsp;<i class="{{ sortIconCol2 }}"></i>
+    </div>
+    <div class="col-1 text-right">{{#if marketData}}{{translate "reach"}}{{/if}}</div>
+    <div class="col-1 text-right">{{#if marketData}}{{translate "ots"}}{{/if}}</div>
+  </div>
+</template>

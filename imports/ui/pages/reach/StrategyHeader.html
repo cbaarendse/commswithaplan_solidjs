@@ -1,0 +1,37 @@
+<template name="strategy_header">
+  <div class="row mb-4 mt-4 rounded" id="strategy-header-row">
+    <div class="col">
+      <div class="row">
+        <div class="col">
+          {{brandName strategy.brandId}}&nbsp;&gt;&nbsp; {{productName strategy.productId}}&nbsp;&gt;&nbsp;
+          {{translate "strategy"}}:&nbsp;{{strategyTitle strategy.title}}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg">
+          {{describe strategy.market}}
+          {{#if strategy.marketData}}
+          &nbsp;&middot;&nbsp;
+          {{#if strategy.female}}
+          <i class="fa fa-female"></i>
+          {{/if}} {{#if strategy.male}}
+          <i class="fa fa-male"></i>
+          {{/if}}
+          &nbsp;&middot;&nbsp;
+          {{ startAge }}-{{ endAge }}&nbsp; {{translate "year"}}&nbsp; ({{toStringFormat strategy.peopleInAgeRange}})
+          {{/if}}
+        </div>
+        <div class="col-xl-3">
+          {{translate "total_reach"}}:&nbsp;
+          {{#unless calculating}}{{toFixed strategy.reach 1}} {{else}}... {{/unless}}%
+        </div>
+        <div class="col-xl-2">
+          {{translate "locus"}}:&nbsp;
+          {{#unless calculating}}
+          {{toFixed strategy.locus 2}}
+          {{else}}... {{/unless}}%
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
