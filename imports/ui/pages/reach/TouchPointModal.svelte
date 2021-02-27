@@ -1,4 +1,6 @@
-// ====== IMPORTS ===============================
+<script>
+
+    // ====== IMPORTS ===============================
 import { Template } from 'meteor/templating';
 import { Session } from 'meteor/session';
 
@@ -19,3 +21,16 @@ Template.description.helpers({
         return describeTouchPoint(Session.get('selectedTouchPoint'));
     }
 });
+</script>
+
+<template name="touchpoint_modal">
+    {{> Modal id="touchpoint-modal" titleTemplate="title" bodyTemplate="description" modalFooter=false}}
+</template>
+
+<template name="title">
+    {{displayName}}
+</template>
+
+<template name="description">
+    <p>{{description}}</p>
+</template>

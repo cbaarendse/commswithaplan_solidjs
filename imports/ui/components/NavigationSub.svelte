@@ -31,8 +31,8 @@
     <a href={'/reach/reachapp'} class:active={path === '/reach/reachapp'} class="brand">
       <span>ReachApp</span>
     </a>
-    <a href={'/reach/app'} class:active={path === '/reach/app'}>
-      {capitalizeAndSplit('app')}
+    <a href={'/reach/download'} class:active={path === '/reach/download'}>
+      {capitalizeAndSplit('download')}
     </a>
 
     <a href={'/reach/manual'} class:active={path === '/reach/manual'}>

@@ -55,9 +55,10 @@ html{
 }
 
 body {
-    width: 100%;
+  margin: 0;
+    /* width: 100%; */
   /* % because it takes into account space that is taken up by a vertical scroll bar */
-  min-height: 100vh;
+  /* min-height: 100vh; */
     /* vh because it takes up 100 points of the viewport, the html element follows this as well */
  
 }
@@ -65,78 +66,68 @@ body {
 
 /* Svelte defaults */
 div.app {
-  height: 100%;
-  width: 100%;
+  display:grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas: 
+  "header" 
+  "main" 
+  "footer";
+  height: 100vh;
 }
 
 /* page layout */
-header{
-  top: 0;
-  width: 100%;
-  position: fixed;
-  height: fit-content;
+div.app > header{
+grid-area: header;
 }
 
-main {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  width: 100%;
-  height: 100%;
-  margin: calc(var(--ra-nav-main-height) + var(--ra-nav-sub-height) + var(--ra-notifications-height)) auto 0 auto;
+div.app > main {
+  grid-area: main;
+  overflow: auto;
+
+  display: grid;
+grid-template-columns: 1fr;
+grid-template-rows: auto 1fr;
+grid-template-areas: "main-header" "main-section";
+
   padding: 1em;
   border: 1px dashed var(--ra-blue);
 }
-footer{
-  display:flex;
-  justify-content: center;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    padding: 0.5em;
-    background-color: var(--ra-white-transparant);
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
+
+div.app > footer{
+grid-area: footer;
+display:flex;
+justify-content: center;
+padding: 0.5em;
+background-color: var(--ra-white);
+border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
-footer a {
+div.app > footer a {
   color: var(--ra-blue);
   text-decoration: none;
 }
 
-section {
+main > header {
+  grid-area: main-header;
+  padding: 1em;
+  border: 1px dotted orange;
+}
+
+main > section {
+  grid-area: main-section;
   border: 1px dashed var(--ra-green);
   padding: 1em;
   margin-bottom: 0.5em;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    align-items: stretch;
-}
 
-section > header, article {
-  all: unset;
-  /* Doesn't grow, doesn't shrink, wants to be 100%, so forces everything else on other lines */
-  flex: 0 0 100%;
-}
-
-section > header {
-  padding: 2em;
-  width: 100%;
-  text-align: center;
-}
-
-section > footer {
-  all: unset;
-  padding: 2em;
-  flex: 0 0 100%;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 article {
-  flex: 1;
+  flex: 1 1 100%;
   border: 1px dashed var(--ra-red);
-  margin: 1em;
+  padding: 1em;
 }
-
-
 
 
 

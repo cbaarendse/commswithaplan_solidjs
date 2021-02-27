@@ -4,6 +4,7 @@
 
   // components
   import Accordion from '../../components/reusable/Accordion.svelte';
+  import Card from '../../components/reusable/Card.svelte';
 
   // content
   import {processItems} from '../../../../client/content';
@@ -13,9 +14,9 @@
 </script>
 
 <main>
+  <header><h1>Comms With A Plan</h1></header>
   <section>
-    <header><h1>Comms With A Plan</h1></header>
-    <article>
+    <Card cardTitle="Comms With A Plan" cardLink="/commswithaplan" cardLinkText="Read more...">
       {#if language == 'dutch'}
         <p>
           Comms With A Plan is een Media Management consultancy voor adverteerders. Ik initieer, onderhoud en evalueer
@@ -27,13 +28,9 @@
           At your service I initiate, maintain and evaluate your media strategy, I manage your agencies and your budget.
         </p>
       {/if}
-    </article>
-    <footer>Read more...</footer>
-  </section>
+    </Card>
 
-  <section>
-    <header><h2>Consultancy</h2></header>
-    <article>
+    <Card cardTitle="Consultancy">
       {#if language == 'dutch'}
         <p>
           Comms With A Plan is een flexibele partner in die zin dat het werk project gebaseerd kan zijn, maar ook meer
@@ -45,15 +42,14 @@
           demand. (Give me a call to explain.)
         </p>
       {/if}
-    </article>
-  </section>
-  <section>
-    <header><h2>Work</h2></header>
+    </Card>
+
     <article>
+      <h2>Work</h2>
       {#if language == 'dutch'}
-        <h4>Zaken die ik manage gedurende het proces (je kan kiezen en mixen):</h4>
+        <p>Zaken die ik manage gedurende het proces (je kan kiezen en mixen):</p>
       {:else}
-        <h4>Things I'll manage along the process (you can pick and mix):</h4>
+        <p>Things I'll manage along the process (you can pick and mix):</p>
       {/if}
       <ul>
         {#each processItems as item, index}
@@ -66,10 +62,9 @@
         {/each}
       </ul>
     </article>
-  </section>
-  <section>
-    <header><h2>About</h2></header>
+
     <article>
+      <h2>About</h2>
       {#if language == 'dutch'}
         <p>
           Ik ben Constantijn Baarendse. Ik heb gewerkt op verschillende continenten, voor 'blue chip' adverteerders,
@@ -90,11 +85,9 @@
         </p>
       {/if}
     </article>
-  </section>
-  <section>
-    <header><h2>Contact</h2></header>
-    >
+
     <article>
+      <h2>Contact</h2>
       {#if language == 'dutch'}
         <address>
           <p>e-mail: cbaarendse@commswithaplan.com</p>
@@ -112,14 +105,10 @@
 </main>
 
 <style>
-  p {
-    font-size: 1.4rem;
-    margin: 1em;
-    padding: 2em;
-    width: fit-content;
-    background-color: white;
-  }
   ul {
     list-style-type: none;
+  }
+  li {
+    margin-bottom: 1em;
   }
 </style>

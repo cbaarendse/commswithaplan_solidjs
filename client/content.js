@@ -1,5 +1,5 @@
 // exports
-export const  processItems = [
+export const processItems = [
     {
       english: {
         name: 'Research and analysis',

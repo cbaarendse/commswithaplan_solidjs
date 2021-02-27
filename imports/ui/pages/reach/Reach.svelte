@@ -3,8 +3,8 @@
 </script>
 
 <main>
+  <header><h1>Reach Estimation</h1></header>
   <section>
-    <header><h1>Reach Estimation</h1></header>
     <Card>Reach in marketing communication</Card>
     <article>Reach in marketing communication</article>
     <article>Reach in marketing communication</article>
