@@ -1,20 +1,25 @@
 <script>
   // packages
-  import {Meteor} from 'meteor/meteor';
+  import {useSession} from 'meteor/rdb:svelte-meteor-data';
   import {onMount} from 'svelte';
+  // components
+  import TouchPointModal from '../../components/reach/TouchPointModal.svelte';
+  import ReachHeader from '../../components/reach/ReachHeader.svelte';
+  import ReachTouchPoint from '../../components/reach/ReachTouchPoint.svelte';
+
+  // constants
+  import {touchPointsBasics, tranlations} from '../../../../client/constants';
 
   // providers
   import ReachProvider from '../../../both/reachProvider';
+  import UiProvider from '../../../both/uiProvider';
 
-  // components
-  import ReachHeader from '../reach/ReachHeader.svelte';
-  import ReachTouchPoint from '../reach/ReachTouchPoint.svelte';
-  import TouchPointModal from '../reach/TouchPointModal.svelte';
+  // variable
+  $: language = useSession('language');
+  const thisReachApp = new ReachProvider(touchPointsBasics, $language);
+  const thisUi = newUiProvider(translations);
 
-  // variables
-  const thisReachApp = new ReachProvider();
   const touchPoints = thisReachApp.touchPoints;
-
   let input;
   let reach;
   let locus;

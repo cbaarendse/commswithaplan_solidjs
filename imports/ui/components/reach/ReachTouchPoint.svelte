@@ -3,7 +3,7 @@
   import {Meteor} from 'meteor/meteor';
 
   // components
-  import Slider from '../../components/reusable/Slider.svelte';
+  import Slider from '../reusable/Slider.svelte';
 
   // variables
   export let touchPoint;

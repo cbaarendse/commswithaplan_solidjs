@@ -119,17 +119,38 @@ main > section {
   padding: 1em;
   margin-bottom: 0.5em;
 
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
 }
 
-article {
-  flex: 1 1 100%;
+main > section > article {
+  grid-column: 1/-1;
   border: 1px dashed var(--ra-red);
   padding: 1em;
 }
 
+main > section > div.card {
+ 
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  max-width: 25em;
+  min-height: 15em;
+  padding: 2em;
+  margin: 2em;
+  border-radius: 0.2em;
+  box-shadow: 0.1em 0.1em 0.2em 0 rgba(0, 0, 0, 0.1);
+}
+@media only screen and (max-width: 768px) {
+  div.card {
+    min-width: 15em;
+  }
+}
 
+p {
+  padding: 1em 0;
+}
 
 /* schedule */
 div.schedule-button-space {

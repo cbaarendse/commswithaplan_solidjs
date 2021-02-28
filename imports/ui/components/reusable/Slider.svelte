@@ -8,7 +8,7 @@
 
 <form>
   <label for={name}>display(name)</label>
-  <input type="range" id={name} {name} min="0" max="50" step="1" />
+  <input type="range" step="1" id={name} {name} {min} {max} bind:value />
 </form>
 
 <style>

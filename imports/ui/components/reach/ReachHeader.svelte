@@ -2,7 +2,7 @@
   // packages
 
   // components
-  import LogoReachApp from '../../components/reusable/LogoReachApp.svelte';
+  import LogoReachApp from '../reusable/LogoReachApp.svelte';
 
   // functions
   import {translate, toStringFormat} from '../../../../client/functions';

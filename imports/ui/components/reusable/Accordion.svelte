@@ -19,26 +19,27 @@
 </script>
 
 <div class="accordion">
-  <div class="accordion-top">
+  <header>
     <button on:click|preventDefault={toggleDisplay}>Open / Dicht</button>
     <slot name="title" />
     {#if display === 'none'}<Icon data={faWindowMaximize} />
     {:else}<Icon data={faWindowMinimize} />{/if}
-  </div>
+  </header>
   <div
-    class="accordion-bottom"
+    class="accordion-main"
     style="display:{display}"
     transition:slide={{delay: 250, duration: 800, easing: quintOut}}
   >
     <slot />
   </div>
+  <footer><slot name="footer" /></footer>
 </div>
 
 <style>
   div.accordion {
     width: 100%;
   }
-  div.accordion-top {
+  div.accordion > header {
     border: 1px dashed var(--ra-grey);
     border-top-left-radius: 0.2em;
     border-top-right-radius: 0.2em;
@@ -49,10 +50,15 @@
     background-color: var(--ra-grey-offwhite);
     cursor: pointer;
   }
-  div.accordion-bottom {
-    border-bottom-left-radius: 0.2em;
-    border-bottom-right-radius: 0.2em;
+  div.accordion-main {
     background-color: var(--ra-white);
     padding: 1em 2em;
+  }
+  div.accordion > footer {
+    background-color: lightgoldenrodyellow;
+    border: 1px dashed var(--ra-grey);
+    border-bottom-left-radius: 0.2em;
+    border-bottom-right-radius: 0.2em;
+    padding: 0.5em 1em;
   }
 </style>
