@@ -35,6 +35,9 @@
   <button type="button">Reset</button>
   <button type="button">Sort</button>
   <button type="button">Hide</button>
+  <!-- space? -->
+  <button type="button">Print</button>
+  <button type="button">PDF</button>
 </div>
 
 <style>

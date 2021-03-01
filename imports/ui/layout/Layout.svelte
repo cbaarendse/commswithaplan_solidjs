@@ -8,7 +8,7 @@
   import NavigationSub from '../components/NavigationSub.svelte';
   import Home from '../pages/home/Home.svelte';
   import CommsWithAPlan from '../pages/commswithaplan/CommsWithAPlan.svelte';
-  import Reach from '../pages/reach/Reach.svelte';
+  import ReachHome from '../pages/reach/Reach.svelte';
   import ReachApp from '../pages/reach/ReachApp.svelte';
   import Download from '../pages/reach/Download.svelte';
   import Manual from '../pages/reach/Manual.svelte';
@@ -21,8 +21,8 @@
   router.configure({window: window});
   // variables
   let language = 'dutch';
-  let page;
   let path;
+  let page;
 
   onMount(async () => {
     console.log('App is mounted');
@@ -30,7 +30,6 @@
 
   router(
     '/',
-
     (ctx, next) => {
       path = ctx.path;
       next();
@@ -47,21 +46,12 @@
     () => (page = CommsWithAPlan)
   );
   router(
-    '/reach',
-
-    (ctx, next) => {
-      path = ctx.path;
-      next();
-    },
-    () => (page = Reach)
-  );
-  router(
     '/reach/',
     (ctx, next) => {
       path = ctx.path;
       next();
     },
-    () => (page = Reach)
+    () => (page = ReachHome)
   );
   router(
     '/reach/reachapp',
@@ -108,7 +98,9 @@
   <NavigationSub {path} />
   <!-- <Notifications /> -->
 </header>
-<svelte:component this={page} {language} />
+<main>
+  <svelte:component this={page} {language} />
+</main>
 <footer>
   <Footer {language} />
 </footer>

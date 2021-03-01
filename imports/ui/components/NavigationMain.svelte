@@ -31,7 +31,10 @@
   </a>
   <a
     href={'/reach/'}
-    class:active={path === '/reach/' || path === '/reach/reachapp' || path === '/reach/app' || path === '/reach/manual'}
+    class:active={path === '/reach/' ||
+      path === '/reach/reachapp' ||
+      path === '/reach/download' ||
+      path === '/reach/manual'}
   >
     {capitalizeAndSplit('reach')}
   </a>

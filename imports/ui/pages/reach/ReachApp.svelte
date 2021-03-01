@@ -25,10 +25,8 @@
   let locus;
 </script>
 
-<main>
-  <ReachHeader {reach} {locus} {touchPoints} />
-  {#each touchPoints as touchPoint}
-    <ReachTouchPoint {input} {touchPoint} />
-  {/each}
-  <TouchPointModal />
-</main>
+<ReachHeader {reach} {locus} {touchPoints} />
+{#each touchPoints as touchPoint}
+  <ReachTouchPoint {input} {touchPoint} />
+{/each}
+<TouchPointModal />

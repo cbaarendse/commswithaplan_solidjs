@@ -1,6 +1,7 @@
 <script>
-
 </script>
+
+<span>404 - Content is not found</span>
 
 <style>
   span {
@@ -8,5 +9,3 @@
     margin: 0px 14px;
   }
 </style>
-
-<span>404 - Content is not found</span>
