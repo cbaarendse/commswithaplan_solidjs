@@ -11,12 +11,13 @@
   import {touchPointsBasics, tranlations} from '../../../../client/constants';
 
   // providers
-  import ReachProvider from '../../../both/reachProvider';
+  import ReachAppProvider from '../../../both/reachAppProvider';
   import UiProvider from '../../../both/uiProvider';
 
   // variable
   $: language = useSession('language');
-  const thisReachApp = new ReachProvider(touchPointsBasics, $language);
+  // TODO: touchpointsbasics in reachprovider? Language in ui?
+  const thisReachApp = new ReachAppProvider(touchPointsBasics, $language);
   const thisUi = newUiProvider(translations);
 
   const touchPoints = thisReachApp.touchPoints;

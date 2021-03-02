@@ -95,7 +95,7 @@
 
 <header>
   <NavigationMain {path} {language} />
-  <NavigationSub {path} />
+  <!-- <NavigationSub {path} /> -->
   <!-- <Notifications /> -->
 </header>
 <main>

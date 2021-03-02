@@ -90,7 +90,7 @@ grid-template-columns: 1fr;
 grid-template-rows: auto 1fr;
 grid-template-areas: "main-header" "main-section";
 
-  padding: 1em;
+padding: 1em;
   border: 1px dashed var(--ra-blue);
 }
 
@@ -110,7 +110,9 @@ div.app > footer a {
 main > header {
   grid-area: main-header;
   padding: 1em;
+  margin: 2em 1em;
   border: 1px dotted orange;
+  border-radius: 0.2em;
 }
 
 main > section {
