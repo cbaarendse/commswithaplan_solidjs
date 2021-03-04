@@ -141,11 +141,19 @@
     color: var(--ra-blue);
   }
 
-  nav a.active {
+  nav.sub-nav a.active {
     background-color: transparent;
     color: var(--ra-blue);
   }
-
+  nav a ~ nav.sub-nav {
+    display: none;
+  }
+  nav a:hover ~ nav.sub-nav {
+    display: flex;
+  }
+  nav a:active ~ nav.sub-nav {
+    display: flex;
+  }
   nav a.active span.blue {
     color: var(--ra-blue);
   }
