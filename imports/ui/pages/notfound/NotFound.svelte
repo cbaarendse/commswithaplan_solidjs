@@ -1,4 +1,6 @@
 <script>
+  // variables
+  export let language;
 </script>
 
 <span>404 - Content is not found</span>

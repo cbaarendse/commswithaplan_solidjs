@@ -13,6 +13,7 @@
   // variables
   export let path;
   export let language;
+  const reachPaths = ['/reach/reach', '/reach/app,', '/reach/download', '/reach/manual'];
   let uiProvider = new UiProvider(language);
 </script>
 
@@ -22,52 +23,18 @@
       <a href={'/'} class:active={path === '/'}>
         <LogoCommsWithAPlan size={'3.5rem'} colored={path === '/'} />
       </a>
-      <nav class="sub-nav" />
     </li>
-
     <li class="brand">
       <a href={'/commswithaplan'} class:active={path === '/commswithaplan'}>
         <span class="brand blue">Comms</span>&nbsp;<span class="brand green">With&nbsp;A</span>&nbsp;<span
           class="brand red">Plan</span
         >
       </a>
-      <nav class="sub-nav" />
     </li>
     <li>
-      <a
-        href={'/reach/'}
-        class:active={path === '/reach/' ||
-          path === '/reach/reachapp' ||
-          path === '/reach/download' ||
-          path === '/reach/manual'}
-      >
+      <a href={'/reach/reach'} class:active={reachPaths.some((item) => item === path)}>
         {uiProvider.capitalizeAndSplit('reach')}
       </a>
-      <nav class="sub-nav">
-        <ul>
-          <li>
-            <a href={'/reach/'} class:active={path === '/reach/'}>
-              <LogoReachApp size={'2rem'} colored={path === '/reach/'} />
-            </a>
-          </li>
-
-          <li>
-            <a href={'/reach/reachapp'} class:active={path === '/reach/reachapp'}>
-              <span class="brand">ReachApp</span>
-            </a>
-          </li>
-          <li>
-            <a href={'/reach/download'} class:active={path === '/reach/download'}>
-              {uiProvider.capitalizeAndSplit('download')}
-            </a>
-          </li>
-          <li>
-            <a href={'/reach/manual'} class:active={path === '/reach/manual'}>
-              {uiProvider.capitalizeAndSplit('manual')}
-            </a>
-          </li>
-        </ul>
-      </nav>
     </li>
   </ul>
 
@@ -76,6 +43,39 @@
     <label for="nl">Nederlands</label><input type="radio" id="nl" bind:group={language} value="dutch" />
   </form>
 </nav>
+{#if path === '/'}
+  <nav class="sub-nav" />
+{/if}
+{#if path === '/commswithaplan'}
+  <nav class="sub-nav" />
+{/if}
+{#if reachPaths.some((item) => item === path)}
+  <nav class="sub-nav">
+    <ul>
+      <li>
+        <a href={'/reach/reach'} class:active={path === '/reach/reach'}>
+          <LogoReachApp size={'2rem'} colored={path === '/reach/reach'} />
+        </a>
+      </li>
+
+      <li>
+        <a href={'/reach/app'} class:active={path === '/reach/app'}>
+          <span class="brand">ReachApp</span>
+        </a>
+      </li>
+      <li>
+        <a href={'/reach/download'} class:active={path === '/reach/download'}>
+          {uiProvider.capitalizeAndSplit('download')}
+        </a>
+      </li>
+      <li>
+        <a href={'/reach/manual'} class:active={path === '/reach/manual'}>
+          {uiProvider.capitalizeAndSplit('manual')}
+        </a>
+      </li>
+    </ul>
+  </nav>
+{/if}
 
 <style>
   nav {
@@ -102,57 +102,60 @@
     margin: 0;
     padding: 0;
   }
-  nav ul:first-child a.active {
-    background-color: transparent;
-    color: var(--ra-blue);
-  }
-  nav li {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
   @media only screen and (max-width: 768px) {
     nav ul {
       flex-direction: column;
     }
   }
+  nav li {
+    padding: 0 1em;
+  }
+
   li a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
     text-decoration: none;
   }
 
   nav a span.brand {
     font-family: 'Trebuchet MS';
   }
+
+  /* :link */
   nav a:link {
     color: var(--ra-white);
   }
-
+  /* :visited */
   nav a:visited {
     color: var(--ra-white);
   }
-
+  /* :hover */
   nav a:hover {
-    background-color: var(--ra-teal-light-transparant);
     color: var(--ra-grey);
   }
-
-  nav a.active {
+  nav.main-nav a:hover {
     background-color: var(--ra-teal-light-transparant);
+  }
+
+  nav.sub-nav a:hover {
+    background-color: var(--ra-white);
+  }
+
+  /* :active */
+  nav a:active {
     color: var(--ra-blue);
+  }
+  nav ul:first-child a.active {
+    background-color: transparent;
+  }
+  nav.main-nav a.active {
+    background-color: var(--ra-teal-light-transparant);
   }
 
   nav.sub-nav a.active {
-    background-color: transparent;
-    color: var(--ra-blue);
-  }
-  nav a ~ nav.sub-nav {
-    display: none;
-  }
-  nav a:hover ~ nav.sub-nav {
-    display: flex;
-  }
-  nav a:active ~ nav.sub-nav {
-    display: flex;
+    background-color: var(--ra-white);
   }
   nav a.active span.blue {
     color: var(--ra-blue);

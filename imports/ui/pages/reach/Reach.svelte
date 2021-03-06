@@ -1,5 +1,8 @@
 <script>
   import Card from '../../components/reusable/Card.svelte';
+
+  // variables
+  export let language;
 </script>
 
 <header><h1>Reach Estimation</h1></header>

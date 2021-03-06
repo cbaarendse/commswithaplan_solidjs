@@ -2,7 +2,7 @@
   //packages
 
   // functions
-  import {nameTouchPoint, describeTouchPoint} from '../../../startup/both/functions';
+  import {nameTouchPoint, describeTouchPoint} from '../../../../client/functions';
 
   import Modal from '../reusable/Modal.svelte';
 </script>

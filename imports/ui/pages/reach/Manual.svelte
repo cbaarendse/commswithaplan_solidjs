@@ -1,4 +1,6 @@
 <script>
+  // variables
+  export let language;
 </script>
 
 <section>

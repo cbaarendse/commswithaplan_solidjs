@@ -1,13 +1,15 @@
 <script>
   // packages
-  import {Meteor} from 'meteor/meteor';
 
   // components
   import Slider from '../reusable/Slider.svelte';
 
   // variables
-  export let touchPoint;
   export let input;
+  export let touchPointName;
+  export let touchPointDisplayName;
+  export let inputDisplayName;
+
   let checked;
   let display = 'block';
   let sliding = false;
@@ -15,7 +17,7 @@
   const defaultInput = 50;
   let updating = false;
 
-  import {translate, toStringFormat} from '../../../../client/functions';
+  import {toStringFormat} from '../../../../client/functions';
   //import {notify} from '../../notifications/NotificationsFunctions';
 
   // functions
@@ -52,12 +54,12 @@
 <div {display}>
   <img
     class="align-self-center mr-2 touchPointIcon {checked}"
-    alt="{touchPoint.name}-Icon"
-    src="/{touchPoint.name}.png"
+    alt="{touchPointName}-Icon"
+    src="/{touchPointName}.png"
   />
-  <span class="display-name {checked}">{translate(touchPoint.name)}</span>
+  <span class="display-name {checked}">{touchPointDisplayName}</span>
 
-  <Slider defaultValue={defaultInput} value={input} />
+  <Slider defaultValue={defaultInput} bind:value={input} />
 
   {#if updating}
     <form class="touchpoint-input-form float-right">
@@ -65,7 +67,7 @@
         <input
           type="text"
           class="form-control text-right touchpoint-input"
-          placeholder={translate('input')}
+          placeholder={inputDisplayName}
           aria-describedby="sizing-addon2"
         />
       </div>

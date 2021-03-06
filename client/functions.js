@@ -2,18 +2,16 @@
   // packages
   import { Meteor } from 'meteor/meteor';
 import { Roles } from 'meteor/alanning:roles';
-  import {useSession, useTracker} from 'meteor/rdb:meteor-svelte-data';
+  import {useSession, useTracker} from 'meteor/rdb:svelte-meteor-data';
   import dayjs from 'dayjs';
   import advancedFormat from 'dayjs/plugin/advancedFormat';
 dayjs.extend(advancedFormat);
 
   //collections
-  import Translations from '../api/translations/translations';
-  import TouchPointsBasics from '../api/touchpointsbasics/touchpointsbasics';
+  // import Translations from '../api/translations/translations';
+  // import TouchPointsBasics from '../api/touchpointsbasics/touchpointsbasics';
  
   // variables
- const translations = Translations.find({}).fetch();
- const touchPointsBasics = TouchPointsBasics.find({}).fetch();
  const language = useSession('language');
 
   // schedule functions
@@ -162,14 +160,6 @@ export function defaultInputType(touchPointName) {
     return 'contacts';
   }
   return 'contacts';
-}
-
-  export function nameTouchPoint(name) {
-  return TouchPointsBasics.findOne({name})[language].displayName || 'new name';
-}
-
-export function describeTouchPoint(name) {
-  return TouchPointsBasics.findOne({name})[language].description || 'new description';
 }
 
   export function findObjectAndProject(input, searchKey, collection, projectKey1, projectKey2) {
