@@ -4,11 +4,18 @@
   // components
   import Slider from '../reusable/Slider.svelte';
 
+  // providers
+  import UiProvider from '../../../both/uiProvider';
+  import {translations} from '../../../../client/constants';
+
   // variables
   export let input;
   export let touchPointName;
   export let touchPointDisplayName;
   export let inputDisplayName;
+  export let language;
+
+  const thisUi = new UiProvider(translations, language);
 
   let checked;
   let display = 'block';
@@ -17,7 +24,6 @@
   const defaultInput = 50;
   let updating = false;
 
-  import {toStringFormat} from '../../../../client/functions';
   //import {notify} from '../../notifications/NotificationsFunctions';
 
   // functions
@@ -73,9 +79,9 @@
       </div>
     </form>
   {:else if sliding}
-    {toStringFormat(slidingInput)}
+    {thisUi.toStringFormat(slidingInput)}
   {:else}
-    {toStringFormat(input)}
+    {thisUi.toStringFormat(input)}
   {/if}
 </div>
 

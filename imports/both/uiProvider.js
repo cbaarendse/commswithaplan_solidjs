@@ -16,7 +16,12 @@ export default function UiProvider(translations, language) {
         str = str.split(/(?=[A-Z])/).join(' ');
         return str;
       }
+
+      this.toStringFormat = function (value) {return value.toLocaleString()};
+      
 }
+
+
 
 
   

@@ -23,13 +23,21 @@
   let locus;
 </script>
 
-<ReachHeader {reach} {locus} {touchPoints} {thisReachApp} />
+<ReachHeader
+  {reach}
+  {locus}
+  {touchPoints}
+  {thisReachApp}
+  totalReachDisplayName={thisUi.translate('totalReach')}
+  locusDisplayName={thisUi.translate('locus')}
+/>
 {#each thisReachApp.touchPoints as touchPoint}
   <ReachTouchPoint
+    {language}
     input={touchPoint.input}
     touchPointName={touchPoint.name}
     displayName={thisReachApp.displayTouchPoint(touchPoint.name)}
-    inputDisplayName={thisUi.display('input')}
+    inputDisplayName={thisUi.translate('input')}
   />
 {/each}
 <TouchPointModal />

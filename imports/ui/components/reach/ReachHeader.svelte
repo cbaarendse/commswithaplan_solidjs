@@ -11,6 +11,8 @@
   let calculating = false; // when false, calculation is being executed
   export let reach;
   export let locus;
+  export let totalReachDisplayName;
+  export let locusDisplayName;
   const sort = () => {};
 
   const resetInput = () => {};
@@ -27,8 +29,8 @@
 </div>
 <!-- outcome  -->
 <div class="outcome">
-  {translate('totalReach')}: <span>{reach}&nbsp;%</span>
-  {translate('locus')}:<span>{locus}&nbsp;%</span>
+  {totalReachDisplayName}: <span>{reach}&nbsp;%</span>
+  {locusDisplayName}:<span>{locus}&nbsp;%</span>
 </div>
 
 <div class="controls">

@@ -13,7 +13,7 @@
   // variables
   export let path;
   export let language;
-  const reachPaths = ['/reach/reach', '/reach/app,', '/reach/download', '/reach/manual'];
+  const reachPaths = ['/reach/', '/reach/reach', '/reach/reachapp,', '/reach/download', '/reach/manual'];
   let uiProvider = new UiProvider(language);
 </script>
 
@@ -59,7 +59,7 @@
       </li>
 
       <li>
-        <a href={'/reach/app'} class:active={path === '/reach/app'}>
+        <a href={'/reach/reachapp'} class:active={path === '/reach/reachapp'}>
           <span class="brand">ReachApp</span>
         </a>
       </li>
@@ -96,43 +96,37 @@
     background-color: var(--ra-teal-light-transparant);
     height: var(--ra-nav-sub-height);
   }
-  nav ul {
+  ul {
     display: flex;
     list-style-type: none;
     margin: 0;
     padding: 0;
   }
   @media only screen and (max-width: 768px) {
-    nav ul {
+    ul {
       flex-direction: column;
     }
   }
-  nav li {
-    padding: 0 1em;
-  }
 
-  li a {
+  a {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100%;
+    padding: 0 1em;
     text-decoration: none;
   }
 
-  nav a span.brand {
-    font-family: 'Trebuchet MS';
-  }
-
   /* :link */
-  nav a:link {
+  a:link {
     color: var(--ra-white);
   }
   /* :visited */
-  nav a:visited {
+  a:visited {
     color: var(--ra-white);
   }
   /* :hover */
-  nav a:hover {
+  a:hover {
     color: var(--ra-grey);
   }
   nav.main-nav a:hover {
@@ -144,26 +138,29 @@
   }
 
   /* :active */
-  nav a:active {
+  a.active {
     color: var(--ra-blue);
   }
-  nav ul:first-child a.active {
+  ul:first-child a.active {
     background-color: transparent;
   }
   nav.main-nav a.active {
     background-color: var(--ra-teal-light-transparant);
   }
-
   nav.sub-nav a.active {
     background-color: var(--ra-white);
   }
-  nav a.active span.blue {
+
+  span.brand {
+    font-family: 'Trebuchet MS';
+  }
+  a.active span.blue {
     color: var(--ra-blue);
   }
-  nav a.active span.green {
+  a.active span.green {
     color: var(--ra-green);
   }
-  nav a.active span.red {
+  a.active span.red {
     color: var(--ra-red);
   }
 

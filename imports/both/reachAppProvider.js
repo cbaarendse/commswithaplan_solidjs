@@ -3,23 +3,22 @@
 * In some cases public properties of this class are accessed directly.
 */
 function  ReachAppProvider(touchPointsBasics, language) {
-    // public properties
-    this.touchPointsBasics = touchPointsBasics;
+  // public properties
+  this.touchPointsBasics = touchPointsBasics;
+  this.language = language;
+
+ // private properties
+ const _touchPoints =  this.touchPointsBasics.map(touchPoint => {return {name:touchPoint.name, value: 0.0}});
+ let _totalReach = 0.0;
+ let _locus = 0.0;
+
+  // public settings
     this.showAll = true;
   this.sortingByName = true; // False means the sorting is done by reach
   this.planIsAllZeros = !_touchPoints.some((touchPoint) => touchPoint.value > 0.0 );
-
-    // private properties
-    const _touchPoints = [];
-    let _totalReach = 0.0;
-    let _locus = 0.0;
-     
-
-  // setting up a new plan
-   _touchPoints = this.touchPointBasics.map(touchPoint => {return {name:touchPoint.name, value: 0.0}});
-
+  
     // public methods
-      this.changeReachForTouchPoint = function (touchPointName, input) {
+          this.changeReachForTouchPoint = function (touchPointName, input) {
       let touchPointToChange = _touchPoints.find(touchPoint => touchPoint.name === touchPointName);
       touchPointToChange.value = input;
     }
@@ -114,10 +113,7 @@ if  (touchPointToBeSorted) {         _sortedTouchPoints.push(touchPointToBeSorte
     Object.defineProperty(this, 'touchPoints', {get: function() {
       return _touchPoints;}
     });
-    Object.defineProperty(this, 'touchPoints', {get: function() {
-      return _touchPoints;}
-    });
-  
+    
     Object.defineProperty(this, 'totalReach', {get: function() {
       return _totalReach;}
     });

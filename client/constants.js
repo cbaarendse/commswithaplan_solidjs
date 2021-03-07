@@ -3,7 +3,7 @@ import {useSession} from 'meteor/rdb:svelte-meteor-data';
 
 useSession('language', 'english');
 
-export const touchPointBasics = [{name:"advocacy",english:{displayName:"Advocacy",description:"Consumers spread information about your brand."},dutch:{displayName:"Advocacy",description:"Consumenten verspreiden informatie over je merk."}},
+export const touchPointsBasics = [{name:"advocacy",english:{displayName:"Advocacy",description:"Consumers spread information about your brand."},dutch:{displayName:"Advocacy",description:"Consumenten verspreiden informatie over je merk."}},
 {name:"ambassador",english:{displayName:"Ambassador",description:"A (known) person acts as spokesperson for your brand."},dutch:{displayName:"Ambassador",description:"Een (bekend) persoon treedt op als woordvoerder voor je merk."}},
 {name:"app",english:{displayName:"App",description:"A branded software program that can be used on smartphones."},dutch:{displayName:"App",description:"Een branded software programma dat werkt op smartphones."}},
 {name:"asset",english:{displayName:"Asset",description:"A proprietary tool or platform that a brand owns and that can be used to further build it."},dutch:{displayName:"Asset",description:"Een hulpmiddel of programma dat eigendom is van een merk en dat gebruikt kan worden om het verder te bouwen."}},
@@ -44,8 +44,10 @@ export const   translations =
 {name: 'reset', english: {displayName: 'RESET'}, dutch: {displayName: 'RESET'} }, 
 {name: 'hide',  english: {displayName: 'HIDE'}, dutch: {displayName: 'VERBERG'} },
 {name: 'show', english: {displayName: 'SHOW'}, dutch: {displayName: 'TOON'} }, 
-{name: 'could_not_be_launched',  english: {displayName: ' could not be opened'}, dutch: {displayName: ' kon niet worden geopend'} },
+{name: 'input',  english: {displayName: 'Input'}, dutch: {displayName: 'Input'} },
 {name: 'reach', english: {displayName: 'Reach'}, dutch: {displayName: 'Bereik'} }, 
+{name: 'totalReach', english: {displayName: 'Total Reach'}, dutch: {displayName: 'Totaal Bereik'} },
+ {name: 'locus', english: {displayName: 'Locus'}, dutch: {displayName: 'Locus'} }, 
 {name: 'enter_reach', english: {displayName: 'Enter Reach for'}, dutch: {displayName: 'Vul Bereik in voor'} }, 
 {name: 'reach_error',  english: {displayName: 'Reach can be maximum 100, minimum 0'}, dutch: {displayName: 'Bereik mag maximaal 100 zijn, minimaal 0'} },
 {name: 'advertisement',  english: {displayName: 'Advertisement'}, dutch: {displayName: 'Advertentie'} },

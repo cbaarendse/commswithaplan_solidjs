@@ -8,7 +8,7 @@
   import Home from '../pages/home/Home.svelte';
   import CommsWithAPlan from '../pages/commswithaplan/CommsWithAPlan.svelte';
   import Reach from '../pages/reach/Reach.svelte';
-  import App from '../pages/reach/App.svelte';
+  import ReachApp from '../pages/reach/ReachApp.svelte';
   import Download from '../pages/reach/Download.svelte';
   import Manual from '../pages/reach/Manual.svelte';
   import NotFound from '../pages/notfound/NotFound.svelte';
@@ -41,6 +41,14 @@
     () => (page = CommsWithAPlan)
   );
   router(
+    '/reach/',
+    (ctx, next) => {
+      path = ctx.path;
+      next();
+    },
+    () => (page = Reach)
+  );
+  router(
     '/reach/reach',
     (ctx, next) => {
       path = ctx.path;
@@ -49,12 +57,12 @@
     () => (page = Reach)
   );
   router(
-    '/reach/app',
+    '/reach/reachapp',
     (ctx, next) => {
       path = ctx.path;
       next();
     },
-    () => (page = App)
+    () => (page = ReachApp)
   );
   router(
     '/reach/download',
