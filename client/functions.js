@@ -169,17 +169,4 @@ export function defaultInputType(touchPointName) {
       return collection.find((element) => element[searchKey] === input)[projectKey1][projectKey2];
     }
   }
-  export function percentFixed(input, digits) {
-    return (input / 100).toFixed(digits);
-  }
-  export function toDateFormat(date) {
-    return dayjs(date).format('DD-MMM-YYYY');
-  }
-  export function toNumberFormat(value) {
-    return `${value.toLocaleString(undefined, {maximumFractionDigits: 0})}`;
-  }
-
-  export function toCurrencySymbol(currency) {
-    const symbol = currency === 'EUR' ? '€' : currency === 'GBP' ? '£' : currency === 'USD' ? '$' : '?';
-    return `${symbol}`;
-  }
+ 

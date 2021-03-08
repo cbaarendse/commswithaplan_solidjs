@@ -10,11 +10,14 @@
   // modules
   import UiProvider from '../../both/uiProvider';
 
+  // constants
+  import {translations} from '../../../client/constants';
+
   // variables
   export let path;
   export let language;
-  const reachPaths = ['/reach/', '/reach/reach', '/reach/reachapp,', '/reach/download', '/reach/manual'];
-  let uiProvider = new UiProvider(language);
+  const reachPaths = ['/reach/', '/reach/reach', '/reach/reachapp', '/reach/download', '/reach/manual'];
+  let uiProvider = new UiProvider(translations, language);
 </script>
 
 <nav class="main-nav">

@@ -1,13 +1,14 @@
 <script>
   //variables
   export let name;
+  export let displayName;
   export let value = 50;
   export let min = 0;
   export let max = 100;
 </script>
 
 <form>
-  <label for={name}>display(name)</label>
+  <label for={name}>{displayName}</label>
   <input type="range" step="1" id={name} {name} {min} {max} bind:value />
 </form>
 

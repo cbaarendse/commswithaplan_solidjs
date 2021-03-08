@@ -3,24 +3,29 @@
 
   // components
   import Slider from '../reusable/Slider.svelte';
+  import Modal from '../reusable/Modal.svelte';
+
+  // constants
+  import {translations} from '../../../../client/constants';
 
   // providers
   import UiProvider from '../../../both/uiProvider';
-  import {translations} from '../../../../client/constants';
 
   // variables
-  export let input;
+  export let input = 0;
   export let touchPointName;
   export let touchPointDisplayName;
-  export let inputDisplayName;
+  export let touchPointDescription;
+  export let inputPlaceholder;
   export let language;
 
   const thisUi = new UiProvider(translations, language);
 
+  let slidingInput;
   let checked;
   let display = 'block';
   let sliding = false;
-  let slidingInput;
+
   const defaultInput = 50;
   let updating = false;
 
@@ -58,14 +63,11 @@
 </script>
 
 <div {display}>
-  <img
-    class="align-self-center mr-2 touchPointIcon {checked}"
-    alt="{touchPointName}-Icon"
-    src="/{touchPointName}.png"
-  />
-  <span class="display-name {checked}">{touchPointDisplayName}</span>
-
-  <Slider defaultValue={defaultInput} bind:value={input} />
+  <button>
+    <img class={checked} alt="{touchPointName}-Icon" src="/{touchPointName}.png" />
+  </button>
+  <!-- TODO: touchpoint name in label -->
+  <Slider defaultValue={defaultInput} bind:value={input} displayName={touchPointDisplayName} />
 
   {#if updating}
     <form class="touchpoint-input-form float-right">
@@ -73,7 +75,7 @@
         <input
           type="text"
           class="form-control text-right touchpoint-input"
-          placeholder={inputDisplayName}
+          placeholder={inputPlaceholder}
           aria-describedby="sizing-addon2"
         />
       </div>
@@ -83,11 +85,28 @@
   {:else}
     {thisUi.toStringFormat(input)}
   {/if}
+  <Modal title={touchPointDisplayName}>{touchPointDescription}</Modal>
 </div>
 
 <style>
   div {
     display: flex;
-    background-color: var(--ra-teal-surface);
+    justify-content: center;
+    align-items: center;
+    background-color: var(--ra-teal-off-white);
+    margin: 0.5em 0;
+  }
+
+  button {
+    height: 4em;
+    width: 4em;
+    padding: 0.5em;
+    border-radius: 50%;
+    background-color: transparent;
+    cursor: pointer;
+  }
+  img {
+    width: 100%;
+    height: 100%;
   }
 </style>

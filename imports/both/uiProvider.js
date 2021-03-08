@@ -18,6 +18,21 @@ export default function UiProvider(translations, language) {
       }
 
       this.toStringFormat = function (value) {return value.toLocaleString()};
+      export function percentFixed(input, digits) {
+        return (input / 100).toFixed(digits);
+      }
+      this.toDateFormat=function(date) {
+        return dayjs(date).format('DD-MMM-YYYY');
+      }
+      this.toNumberFormat = function(value) {
+        return `${value.toLocaleString(undefined, {maximumFractionDigits: 0})}`;
+      }
+    
+      this.toCurrencySymbol=function (currency) {
+        const symbol = currency === 'EUR' ? '€' : currency === 'GBP' ? '£' : currency === 'USD' ? '$' : '?';
+        return `${symbol}`;
+      }
+    
       
 }
 

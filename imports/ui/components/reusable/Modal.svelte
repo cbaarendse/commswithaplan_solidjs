@@ -1,6 +1,5 @@
 <script>
   // packages
-  import {Meteor} from 'meteor/meteor';
   import {fade} from 'svelte/transition';
   import Button from './Button.svelte';
 
@@ -12,7 +11,7 @@
   const closeModal = () => (display = 'none');
 </script>
 
-<div class="modal-container" style={display} transition:fade={{delay: 0, duration: 400}}>
+<div class="modal-container" style="display:{display}" transition:fade={{delay: 0, duration: 400}}>
   <div class="modal">
     <div class="modal-header">
       <h4 class="modal-title">{title}</h4>
