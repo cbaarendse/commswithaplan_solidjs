@@ -15,6 +15,7 @@
   import Footer from '../components/Footer.svelte';
 
   router.configure({window: window});
+
   // variables
   $: language = 'english';
   let page;

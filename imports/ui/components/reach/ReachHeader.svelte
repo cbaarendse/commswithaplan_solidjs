@@ -29,8 +29,10 @@
 </div>
 <!-- outcome  -->
 <div class="outcome">
-  {totalReachDisplayName}: <span>{reach}&nbsp;%</span>
-  {locusDisplayName}:<span>{locus}&nbsp;%</span>
+  <div class="total-reach-outcome">{totalReachDisplayName}: <span>{reach}&nbsp;%</span></div>
+  <div class="locus-outcome">{locusDisplayName}:<span>{locus}&nbsp;%</span></div>
+  <progress class="total-reach-progress" />
+  <progress class="locus-progress" />
 </div>
 
 <div class="controls">
@@ -43,6 +45,34 @@
 </div>
 
 <style>
+  span {
+    font-size: 1.6rem;
+    font-family: 'Trebuchet MS';
+    margin-left: 1em;
+  }
+  div.logo {
+    display: flex;
+    align-items: center;
+  }
+  div.outcome {
+    display: grid;
+    grid-template-areas:
+      'totalReachOutcome locusOutcome'
+      'totalReachProgress locusProgress';
+  }
+  div.total-reach-outcome {
+    grid-area: 'totalReachOutcome';
+  }
+  div.locus-outcome {
+    grid-area: 'locusOutcome';
+  }
+  progress.total-reach-progress {
+    grid-area: 'totalReachProgress';
+  }
+  progress.locus-progress {
+    grid-area: 'locusProgress';
+  }
+
   button {
     font-size: 1.2rem;
     width: fit-content;

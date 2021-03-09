@@ -24,17 +24,18 @@
   let locus;
 </script>
 
-<div class="reach-app">
-  <header>
-    <ReachHeader
-      {reach}
-      {locus}
-      {touchPoints}
-      {thisReachApp}
-      totalReachDisplayName={thisUi.translate('totalReach')}
-      locusDisplayName={thisUi.translate('locus')}
-    />
-  </header>
+<header>
+  <ReachHeader
+    {reach}
+    {locus}
+    {touchPoints}
+    {thisReachApp}
+    totalReachDisplayName={thisUi.translate('totalReach')}
+    locusDisplayName={thisUi.translate('locus')}
+  />
+</header>
+<section>
+  <aside class="left-aside" />
   {#each thisReachApp.touchPoints as touchPoint}
     <ReachTouchPoint
       {language}
@@ -45,14 +46,25 @@
       touchPointDescription={thisReachApp.describeTouchPoint(touchPoint.name)}
     />
   {/each}
-</div>
+  <aside class="right-aside" />
+</section>
 
 <style>
-  div.reach-app {
+  section {
     display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: auto;
-    justify-content: center;
-    align-items: center;
+    grid-template-columns: auto 1fr auto;
+    grid-template-rows: repeat(auto-fill, minmax(2em, 1fr));
+  }
+  aside.left-aside {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 1;
+    grid-row-end: -1;
+  }
+  aside.right-aside {
+    grid-column-start: 5;
+    grid-column-end: 6;
+    grid-row-start: 1;
+    grid-row-end: -1;
   }
 </style>

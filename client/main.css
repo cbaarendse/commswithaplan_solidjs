@@ -113,6 +113,10 @@ main > header {
   margin: 2em 1em;
   border: 1px dotted orange;
   border-radius: 0.2em;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 main > section {
@@ -120,19 +124,11 @@ main > section {
   border: 1px dashed var(--ra-green);
   padding: 1em;
   margin-bottom: 0.5em;
-
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
 }
 
-main > section > article {
-  grid-column: 1/-1;
-  border: 1px dashed var(--ra-red);
-  padding: 1em;
-}
+
 
 main > section > div.card {
- 
   display: flex;
   flex-direction: column;
   justify-content: space-between;
