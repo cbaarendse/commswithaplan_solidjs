@@ -25,59 +25,74 @@
 
 <div class="logo">
   <LogoReachApp />
-  <span>ReachApp</span>
+  <span class="brand">ReachApp</span>
 </div>
 <!-- outcome  -->
 <div class="outcome">
-  <div class="total-reach-outcome">{totalReachDisplayName}: <span>{reach}&nbsp;%</span></div>
-  <div class="locus-outcome">{locusDisplayName}:<span>{locus}&nbsp;%</span></div>
-  <progress class="total-reach-progress" />
-  <progress class="locus-progress" />
+  <div>{totalReachDisplayName}: <span>100&nbsp;%</span></div>
+  <div>{locusDisplayName}:<span>100&nbsp;%</span></div>
+  <progress />
+  <progress />
 </div>
 
 <div class="controls">
-  <button type="button">Reset</button>
-  <button type="button">Sort</button>
-  <button type="button">Hide</button>
+  <button class="red" type="button">Res</button>
+  <button class="green" type="button">Sor</button>
+  <button class="green" type="button">Hid</button>
   <!-- space? -->
-  <button type="button">Print</button>
-  <button type="button">PDF</button>
+  <button class="blue" type="button">Pri</button>
+  <button class="blue" type="button">PDF</button>
 </div>
 
 <style>
-  span {
+  span.brand {
     font-size: 1.6rem;
     font-family: 'Trebuchet MS';
-    margin-left: 1em;
   }
   div.logo {
-    display: flex;
+    display: grid;
+    grid-template-columns: auto auto;
     align-items: center;
+    gap: 0.4em;
   }
   div.outcome {
+    font-size: 1.4rem;
     display: grid;
-    grid-template-areas:
-      'totalReachOutcome locusOutcome'
-      'totalReachProgress locusProgress';
+    grid-template-columns: 1fr 1fr;
+    gap: 0.4em;
   }
-  div.total-reach-outcome {
-    grid-area: 'totalReachOutcome';
-  }
-  div.locus-outcome {
-    grid-area: 'locusOutcome';
-  }
-  progress.total-reach-progress {
-    grid-area: 'totalReachProgress';
-  }
-  progress.locus-progress {
-    grid-area: 'locusProgress';
+  div.controls {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    gap: 0.4em;
   }
 
   button {
-    font-size: 1.2rem;
-    width: fit-content;
-    height: fit-content;
+    font-size: 1rem;
+    width: 3em;
+    height: 3em;
+    border-radius: 50%;
     background-color: transparent;
+    border: none;
     color: var(--ra-white);
+    cursor: pointer;
+  }
+  button.red {
+    background-color: var(--ra-red);
+  }
+  button.green {
+    background-color: var(--ra-green);
+  }
+  button.blue {
+    background-color: var(--ra-blue);
+  }
+  button.red:hover {
+    background-color: var(--ra-red-light);
+  }
+  button.green:hover {
+    background-color: var(--ra-green-light);
+  }
+  button.blue:hover {
+    background-color: var(--ra-blue-light);
   }
 </style>

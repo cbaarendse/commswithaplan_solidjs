@@ -22,12 +22,12 @@
 
 <nav class="main-nav">
   <ul>
-    <li class="logo">
+    <li>
       <a href={'/'} class:active={path === '/'}>
         <LogoCommsWithAPlan size={'3.5rem'} colored={path === '/'} />
       </a>
     </li>
-    <li class="brand">
+    <li>
       <a href={'/commswithaplan'} class:active={path === '/commswithaplan'}>
         <span class="brand blue">Comms</span>&nbsp;<span class="brand green">With&nbsp;A</span>&nbsp;<span
           class="brand red">Plan</span
