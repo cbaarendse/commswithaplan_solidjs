@@ -16,8 +16,8 @@
   // variables
   export let path;
   export let language;
-  const reachPaths = ['/reach/', '/reach/reach', '/reach/reachapp', '/reach/download', '/reach/manual'];
-  let uiProvider = new UiProvider(translations, language);
+  const reachPaths = ['/reach/reach', '/reach/reachapp', '/reach/download', '/reach/manual'];
+  let thisUi = new UiProvider(translations, language);
 </script>
 
 <nav class="main-nav">
@@ -36,7 +36,7 @@
     </li>
     <li>
       <a href={'/reach/reach'} class:active={reachPaths.some((item) => item === path)}>
-        {uiProvider.capitalizeAndSplit('reach')}
+        {thisUi.capitalizeAndSplit('reach')}
       </a>
     </li>
   </ul>
@@ -68,12 +68,12 @@
       </li>
       <li>
         <a href={'/reach/download'} class:active={path === '/reach/download'}>
-          {uiProvider.capitalizeAndSplit('download')}
+          {thisUi.capitalizeAndSplit('download')}
         </a>
       </li>
       <li>
         <a href={'/reach/manual'} class:active={path === '/reach/manual'}>
-          {uiProvider.capitalizeAndSplit('manual')}
+          {thisUi.capitalizeAndSplit('manual')}
         </a>
       </li>
     </ul>
@@ -153,7 +153,7 @@
   nav.sub-nav a.active {
     background-color: var(--ra-white);
   }
-
+  /* brand */
   span.brand {
     font-family: 'Trebuchet MS';
   }

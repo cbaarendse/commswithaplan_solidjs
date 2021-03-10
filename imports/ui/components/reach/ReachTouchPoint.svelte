@@ -91,10 +91,16 @@
 <style>
   div {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     background-color: var(--ra-teal-off-white);
     margin: 0.5em 0;
+    padding: 1em;
+    border-radius: 0.6em;
+  }
+
+  img {
+    background-color: var(--ra-teal-light);
   }
 
   button {
@@ -102,7 +108,8 @@
     width: 4em;
     padding: 0.5em;
     border-radius: 50%;
-    background-color: transparent;
+    border: none;
+    background-color: var(--ra-white);
     cursor: pointer;
   }
   img {

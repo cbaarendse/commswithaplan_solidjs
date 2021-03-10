@@ -16,6 +16,15 @@
 
   router.configure({window: window});
 
+  // constants
+  const routes = {
+    '/': Home,
+    '/commswithaplan': CommsWithAPlan,
+    '/reach/reach': Reach,
+    '/reach/reachapp': ReachApp,
+    '/reach/download': Download,
+    '/reach/manual': Manual,
+  };
   // variables
   $: language = 'english';
   let page;
@@ -25,65 +34,77 @@
     console.log('App is mounted');
   });
 
-  router(
-    '/',
-    (ctx, next) => {
-      path = ctx.path;
-      next();
-    },
-    () => (page = Home)
-  );
-  router(
-    '/commswithaplan',
-    (ctx, next) => {
-      path = ctx.path;
-      next();
-    },
-    () => (page = CommsWithAPlan)
-  );
-  router(
-    '/reach/',
-    (ctx, next) => {
-      path = ctx.path;
-      next();
-    },
-    () => (page = Reach)
-  );
-  router(
-    '/reach/reach',
-    (ctx, next) => {
-      path = ctx.path;
-      next();
-    },
-    () => (page = Reach)
-  );
-  router(
-    '/reach/reachapp',
-    (ctx, next) => {
-      path = ctx.path;
-      next();
-    },
-    () => (page = ReachApp)
-  );
-  router(
-    '/reach/download',
-    (ctx, next) => {
-      path = ctx.path;
-      next();
-    },
-    () => (page = Download)
-  );
-  router(
-    '/reach/manual',
-    (ctx, next) => {
-      path = ctx.path;
-      next();
-    },
-    () => (page = Manual)
-  );
+  for (const route in routes) {
+    router(
+      route,
+      (ctx, next) => {
+        path = ctx.path;
+        next();
+      },
+      () => (page = routes[route])
+    );
+  }
+
   router('/*', () => (page = NotFound));
 
   router.start();
+
+  // router(
+  //   '/',
+  //   (ctx, next) => {
+  //     path = ctx.path;
+  //     next();
+  //   },
+  //   () => (page = Home)
+  // );
+  // router(
+  //   '/commswithaplan',
+  //   (ctx, next) => {
+  //     path = ctx.path;
+  //     next();
+  //   },
+  //   () => (page = CommsWithAPlan)
+  // );
+  // router(
+  //   '/reach/',
+  //   (ctx, next) => {
+  //     path = ctx.path;
+  //     next();
+  //   },
+  //   () => (page = Reach)
+  // );
+  // router(
+  //   '/reach/reach',
+  //   (ctx, next) => {
+  //     path = ctx.path;
+  //     next();
+  //   },
+  //   () => (page = Reach)
+  // );
+  // router(
+  //   '/reach/reachapp',
+  //   (ctx, next) => {
+  //     path = ctx.path;
+  //     next();
+  //   },
+  //   () => (page = ReachApp)
+  // );
+  // router(
+  //   '/reach/download',
+  //   (ctx, next) => {
+  //     path = ctx.path;
+  //     next();
+  //   },
+  //   () => (page = Download)
+  // );
+  // router(
+  //   '/reach/manual',
+  //   (ctx, next) => {
+  //     path = ctx.path;
+  //     next();
+  //   },
+  //   () => (page = Manual)
+  // );
 </script>
 
 <header>

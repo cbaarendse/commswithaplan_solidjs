@@ -35,7 +35,7 @@
   />
 </header>
 <section>
-  <aside class="left-aside" />
+  <div class="left" />
   {#each thisReachApp.touchPoints as touchPoint}
     <ReachTouchPoint
       {language}
@@ -46,25 +46,22 @@
       touchPointDescription={thisReachApp.describeTouchPoint(touchPoint.name)}
     />
   {/each}
-  <aside class="right-aside" />
+  <div class="right" />
 </section>
 
 <style>
   section {
     display: grid;
-    grid-template-columns: auto 1fr auto;
-    grid-template-rows: repeat(auto-fill, minmax(2em, 1fr));
+    grid-template-columns: 1fr 3fr 1fr;
+    grid-auto-rows: 1fr;
+    justify-content: center;
   }
-  aside.left-aside {
-    grid-column-start: 1;
-    grid-column-end: 2;
-    grid-row-start: 1;
-    grid-row-end: -1;
+  div.left {
+    grid-row: 1/34;
+    grid-column: 1/2;
   }
-  aside.right-aside {
-    grid-column-start: 5;
-    grid-column-end: 6;
-    grid-row-start: 1;
-    grid-row-end: -1;
+  div.right {
+    grid-row: 1/34;
+    grid-column: 3/4;
   }
 </style>
