@@ -23,7 +23,7 @@
 <style>
   button {
     width: fit-content;
-    padding: 0.8em 1em;
+    padding: 0.4em 0.6em;
     margin: 0 1em;
     cursor: pointer;
   }
@@ -84,7 +84,7 @@
 
   .transparantnoborder {
     /* since the button is invisible, min-width is set to initial, so square buttons are possible */
-    min-width: none;
+    min-width: 0;
     background-color: transparent;
     color: var(--ra-grey-light);
     border: none;
@@ -110,7 +110,7 @@
 
   button.transparantnoborder:hover {
     /* since the button is invisible, min-width is set to initial, so square buttons are possible */
-    min-width: none;
+    min-width: 0;
     background-color: transparent;
     color: var(--ra-grey);
     border: none;

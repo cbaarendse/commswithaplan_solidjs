@@ -20,13 +20,13 @@
   const touchPoints = thisReachApp.touchPoints;
 
   let inputPlaceholder = thisUi.translate('input');
-  let reach;
+  let totalReach;
   let locus;
 </script>
 
 <header>
   <ReachHeader
-    {reach}
+    {totalReach}
     {locus}
     {touchPoints}
     {thisReachApp}
@@ -35,33 +35,38 @@
   />
 </header>
 <section>
-  <div class="left" />
-  {#each thisReachApp.touchPoints as touchPoint}
-    <ReachTouchPoint
-      {language}
-      {inputPlaceholder}
-      input={touchPoint.input}
-      touchPointName={touchPoint.name}
-      touchPointDisplayName={thisReachApp.displayTouchPoint(touchPoint.name)}
-      touchPointDescription={thisReachApp.describeTouchPoint(touchPoint.name)}
-    />
-  {/each}
-  <div class="right" />
+  <div />
+  <!-- TODO: dispatch on:change and on:input -->
+  <div class="center">
+    {#each thisReachApp.touchPoints as touchPoint}
+      <ReachTouchPoint
+        {language}
+        {inputPlaceholder}
+        input={touchPoint.input}
+        touchPointName={touchPoint.name}
+        touchPointDisplayName={thisReachApp.displayTouchPoint(touchPoint.name)}
+        touchPointDescription={thisReachApp.describeTouchPoint(touchPoint.name)}
+        on:change
+        on:input
+      />
+    {/each}
+  </div>
+  <div />
 </section>
 
 <style>
+  header {
+    background-color: var(--ra-teal-off-white);
+  }
   section {
     display: grid;
-    grid-template-columns: 1fr 3fr 1fr;
-    grid-auto-rows: 1fr;
+    grid-template-columns: 1fr 5fr 1fr;
+    grid-template-rows: auto;
     justify-content: center;
   }
-  div.left {
-    grid-row: 1/34;
-    grid-column: 1/2;
-  }
-  div.right {
-    grid-row: 1/34;
-    grid-column: 3/4;
+  @media screen and (max-width: 500px) {
+    section {
+      grid-template-columns: 1fr;
+    }
   }
 </style>

@@ -9,7 +9,7 @@
 
   // variables
   let calculating = false; // when false, calculation is being executed
-  export let reach;
+  export let totalReach;
   export let locus;
   export let totalReachDisplayName;
   export let locusDisplayName;
@@ -29,10 +29,16 @@
 </div>
 <!-- outcome  -->
 <div class="outcome">
-  <div>{totalReachDisplayName}: <span>100&nbsp;%</span></div>
-  <div>{locusDisplayName}:<span>100&nbsp;%</span></div>
-  <progress />
-  <progress />
+  <div class="total-reach">{totalReachDisplayName}: <span>100&nbsp;%</span></div>
+  <div class="meter">
+    <span style="width:50%;">Disk Usage - 55.93GB out of 120GB</span>
+  </div>
+</div>
+<div class="outcome">
+  <div class="locus">{locusDisplayName}:<span>100&nbsp;%</span></div>
+  <div class="meter">
+    <span style="width:4%;">Disk Usage - 55.93GB out of 120GB</span>
+  </div>
 </div>
 
 <div class="controls">
@@ -45,32 +51,58 @@
 </div>
 
 <style>
+  div {
+    margin: 0.4em;
+  }
+  div.logo {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
   span.brand {
     font-size: 1.6rem;
     font-family: 'Trebuchet MS';
   }
-  div.logo {
-    display: grid;
-    grid-template-columns: auto auto;
-    align-items: center;
-    gap: 0.4em;
-  }
   div.outcome {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
     font-size: 1.4rem;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0.4em;
   }
+  div.total-reach,
+  div.locus {
+    margin: 0.2em;
+  }
+  div.meter {
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    background-color: whiteSmoke;
+    box-shadow: 0 5px 5px -5px rgba(0, 0, 0, 0.4) inset;
+    width: 120px;
+    height: 25px;
+    display: block;
+  }
+
+  .meter > span {
+    height: inherit;
+    box-shadow: 0 5px 5px -5px #999 inset;
+    background-color: blue;
+    background-image: linear-gradient(90deg, var(--ra-blue) 0%, var(--ra-blue) 100%);
+    background-size: 100% 100%;
+    display: block;
+    text-indent: -9999px;
+  }
+
   div.controls {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    gap: 0.4em;
+    display: flex;
+    justify-content: space-around;
   }
 
   button {
     font-size: 1rem;
     width: 3em;
     height: 3em;
+    margin: 0 0.2em;
     border-radius: 50%;
     background-color: transparent;
     border: none;

@@ -84,7 +84,7 @@ grid-area: header;
 div.app > main {
   grid-area: main;
   overflow: auto;
-
+/* TODO: main is normal, display:block, div container per page, styled in page */
   display: grid;
 grid-template-columns: 1fr;
 grid-template-rows: auto 1fr;
@@ -107,6 +107,7 @@ div.app > footer a {
   text-decoration: none;
 }
 
+/* TODO: this will go, styling per page */
 main > header {
   grid-area: main-header;
   padding: 1em;
@@ -115,19 +116,16 @@ main > header {
   border-radius: 0.2em;
 
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
 }
-
 main > section {
   grid-area: main-section;
   border: 1px dashed var(--ra-green);
   padding: 1em;
   margin-bottom: 0.5em;
 }
-
-
-
 main > section > div.card {
   display: flex;
   flex-direction: column;
@@ -146,6 +144,7 @@ main > section > div.card {
   }
 }
 
+/* p */
 p {
   padding: 1em 0;
 }
