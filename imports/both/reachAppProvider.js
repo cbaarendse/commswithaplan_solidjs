@@ -21,6 +21,7 @@ function  ReachAppProvider(touchPointsBasics, language) {
           this.changeReachForTouchPoint = function (touchPointName, input) {
       let touchPointToChange = _touchPoints.find(touchPoint => touchPoint.name === touchPointName);
       touchPointToChange.value = input;
+      console.log('changedTouchPoint in provider function=', _touchPoints.find(touchPoint => touchPoint.name === touchPointName))
     }
     this.displayTouchPoint = function (input) {
       return this.touchPointsBasics.find((element) => element.name === input)[this.language].displayName || undefined;
@@ -67,20 +68,21 @@ if  (touchPointToBeSorted) {         _sortedTouchPoints.push(touchPointToBeSorte
   
     // Hide the touchpoints in the plan, where reach == 0
     this.removeZeros = function () {
-      _plan.removeWhere((key, value) => value == 0.0);
+      _touchPoints = _touchPoints.filter((touchPoint) => touchPoint.value > 0);
     }
   
   // Insert touchpoints with reach == 0 back into the plan
     this.replenishPlan = function() {
-      for (touchPointName of _touchPointNames) {
-        if (!_touchPoints.some(touchPoint=>touchPoint.name === touchPointName)) {
-          _touchPoints.push({name: touchPointName, value: 0.0});
+      for (const touchPointBasics of touchPointsBasics) {
+        if (!_touchPoints.some((touchPoint)=>{touchPoint.name === touchPointBasics.name})) {
+          _touchPoints.push({name: touchPointBasics.name, value: 0.0});
         }
       }
     }
   
   // Execute result calculations
     this.calculateResults=function() {
+      console.log('results being calculated');
       _calculateTotalNetReach();
       _calculateLocus();
     }
@@ -92,6 +94,7 @@ if  (touchPointToBeSorted) {         _sortedTouchPoints.push(touchPointToBeSorte
         let r = touchPoint.value / 100;
         totalReachPortion = totalReachPortion + ((1 - totalReachPortion) * r);
       }
+      console.log('total reach in provider function', 100 * totalReachPortion);
       _totalReach = 100 * totalReachPortion;
     }
   
@@ -99,13 +102,14 @@ if  (touchPointToBeSorted) {         _sortedTouchPoints.push(touchPointToBeSorte
       let duplicateReachPortion = 0.0;
       for (const touchPoint of _touchPoints) {
         if (touchPoint.value != 0.0 && duplicateReachPortion != 0.0) {
-          let r = _plan[touchPointName] / 100;
+          let r = touchPoint.value / 100;
           duplicateReachPortion *= r;
         }
         if (touchPoint.value != 0.0 && duplicateReachPortion == 0.0) {
           duplicateReachPortion = touchPoint.value / 100;
         }
       }
+      console.log('locus in provider function', 100 * duplicateReachPortion);
       _locus = 100 * duplicateReachPortion;
     }
 

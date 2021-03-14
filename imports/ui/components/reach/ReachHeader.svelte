@@ -1,24 +1,17 @@
 <script>
   // packages
-
+  import {createEventDispatcher} from 'svelte';
   // components
   import LogoReachApp from '../reusable/LogoReachApp.svelte';
 
-  // functions
-  import {translate, toStringFormat} from '../../../../client/functions';
+  // constants
+  const dispatch = createEventDispatcher();
 
   // variables
-  let calculating = false; // when false, calculation is being executed
   export let totalReach;
   export let locus;
   export let totalReachDisplayName;
   export let locusDisplayName;
-  const sort = () => {};
-
-  const resetInput = () => {};
-  const resetReach = () => {};
-
-  const hide = () => {};
 </script>
 
 <!-- header -->
@@ -29,25 +22,24 @@
 </div>
 <!-- outcome  -->
 <div class="outcome">
-  <div class="total-reach">{totalReachDisplayName}: <span>100&nbsp;%</span></div>
+  <div class="total-reach">{totalReachDisplayName}: <span>{totalReach}&nbsp;%</span></div>
   <div class="meter">
     <span style="width:50%;">Disk Usage - 55.93GB out of 120GB</span>
   </div>
 </div>
 <div class="outcome">
-  <div class="locus">{locusDisplayName}:<span>100&nbsp;%</span></div>
+  <div class="locus">{locusDisplayName}:<span>{locus}&nbsp;%</span></div>
   <div class="meter">
     <span style="width:4%;">Disk Usage - 55.93GB out of 120GB</span>
   </div>
 </div>
 
 <div class="controls">
-  <button class="red" type="button">Res</button>
-  <button class="green" type="button">Sor</button>
-  <button class="green" type="button">Hid</button>
-  <!-- space? -->
-  <button class="blue" type="button">Pri</button>
-  <button class="blue" type="button">PDF</button>
+  <button class="red" type="button" on:click={() => dispatch('reset')}>Res</button>
+  <button class="green" type="button" on:click={() => dispatch('sort')}>Sor</button>
+  <button class="green" type="button" on:click={() => dispatch('hide')}>Hid</button>
+  <button class="blue" type="button" on:click={() => dispatch('print')}>Pri</button>
+  <button class="blue" type="button" on:click={() => dispatch('pdf')}>PDF</button>
 </div>
 
 <style>

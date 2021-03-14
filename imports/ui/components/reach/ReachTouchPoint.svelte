@@ -1,6 +1,6 @@
 <script>
   // packages
-
+  import {createEventDispatcher} from 'svelte';
   // components
   import Slider from '../reusable/Slider.svelte';
   import Modal from '../reusable/Modal.svelte';
@@ -11,21 +11,21 @@
   // constants
   import {translations} from '../../../../client/constants';
   const defaultValue = 50;
+  const dispatch = createEventDispatcher();
 
   // variables
-  export let input = 0;
-  export let touchPointName;
+  export let displayTouchPoint = 'grid';
+  export let language;
+  export let touchPoint;
   export let touchPointDisplayName;
   export let touchPointDescription;
   export let inputPlaceholder;
-  export let language;
-  export let displayTouchPoint = 'grid';
+
+  let input;
   let manualInput = false;
+  let displayModal;
 
   const thisUi = new UiProvider(translations, language);
-
-  let checked;
-  let displayModal;
 
   //import {notify} from '../../notifications/NotificationsFunctions';
 
@@ -33,18 +33,18 @@
   const showModal = () => {
     displayModal = 'flex';
   };
-  const handleChange = (event) => {
-    input = event.detail.value;
-  };
-  const handleInput = (event) => {
-    input = event.detail.value;
-  };
 </script>
 
 <div style="display:{displayTouchPoint};">
   <div class="left">
     <button on:click|preventDefault={showModal}>
-      <img class={checked} alt="{touchPointName}-Icon" src="/{touchPointName}.png" />
+      <img
+        alt="{touchPoint.name}-Icon"
+        src="/{touchPoint.name}.png"
+        style="background-color:{() => {
+          touchPoint.value > 0 ? 'var(--ra-green)' : 'var(--ra-teal-light)';
+        }};"
+      />
     </button>
   </div>
   <div class="center">
@@ -52,8 +52,8 @@
       {defaultValue}
       bind:value={input}
       displayName={touchPointDisplayName}
-      on:change={handleChange}
-      on:input={handleInput}
+      on:change={() => dispatch('handleChange', {name: touchPoint.name, value: input})}
+      on:input={() => dispatch('handleInput', {name: touchPoint.name, value: input})}
     />
   </div>
   <div class="right">
@@ -69,7 +69,7 @@
         </div>
       </form>
     {:else}
-      <button class="button-input"><span>{thisUi.toStringFormat(input)}&nbsp;%</span></button>
+      <button class="button-input"><span>{touchPoint.value}&nbsp;%</span></button>
     {/if}
   </div>
   <Modal title={touchPointDisplayName} {displayModal}>{touchPointDescription}</Modal>
@@ -103,7 +103,6 @@
     width: fit-content;
   }
   img {
-    background-color: var(--ra-teal-light);
     width: 100%;
     height: 100%;
   }

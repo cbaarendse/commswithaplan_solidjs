@@ -17,37 +17,64 @@
   export let language = 'english';
   const thisReachApp = new ReachAppProvider(touchPointsBasics, language);
   const thisUi = new UiProvider(translations, language);
-  const touchPoints = thisReachApp.touchPoints;
+  $: touchPoints = thisReachApp.touchPoints;
 
   let inputPlaceholder = thisUi.translate('input');
-  let totalReach;
-  let locus;
+  let totalReach = thisReachApp.totalReach;
+  let locus = thisReachApp.locus;
+
+  // functions
+  const hide = () => {
+    thisReachApp.showAll = !thisReachApp.showAll;
+  };
+  const sort = () => {};
+  const reset = () => {};
+  const print = () => {};
+  const pdf = () => {};
+  const displayTouchPoint = () => {
+    !thisReachApp.showAll && touchPoint.value === 0 ? 'none' : 'grid';
+  };
+  const changeReach = (event) => {
+    const touchPoint = event.detail;
+    console.log('change for', touchPoint);
+    thisReachApp.changeReachForTouchPoint(touchPoint.name, touchPoint.value);
+    thisReachApp.calculateResults();
+  };
+  const inputReach = (event) => {
+    const touchPoint = event.detail;
+    console.log('input for', touchPoint);
+    thisReachApp.changeReachForTouchPoint(touchPoint.name, touchPoint.value);
+    thisReachApp.calculateResults();
+  };
 </script>
 
 <header>
   <ReachHeader
     {totalReach}
     {locus}
-    {touchPoints}
-    {thisReachApp}
     totalReachDisplayName={thisUi.translate('totalReach')}
     locusDisplayName={thisUi.translate('locus')}
+    on:reset={reset}
+    on:sort={sort}
+    on:hide={hide}
+    on:print={print}
+    on:pdf={pdf}
   />
 </header>
 <section>
   <div />
   <!-- TODO: dispatch on:change and on:input -->
   <div class="center">
-    {#each thisReachApp.touchPoints as touchPoint}
+    {#each touchPoints as touchPoint}
       <ReachTouchPoint
+        {displayTouchPoint}
         {language}
         {inputPlaceholder}
-        input={touchPoint.input}
-        touchPointName={touchPoint.name}
+        {touchPoint}
         touchPointDisplayName={thisReachApp.displayTouchPoint(touchPoint.name)}
         touchPointDescription={thisReachApp.describeTouchPoint(touchPoint.name)}
-        on:change
-        on:input
+        on:handleChange={changeReach}
+        on:handleInput={inputReach}
       />
     {/each}
   </div>
