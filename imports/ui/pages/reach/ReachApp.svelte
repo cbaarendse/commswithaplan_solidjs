@@ -39,50 +39,75 @@
     console.log('change for', touchPoint);
     thisReachApp.changeReachForTouchPoint(touchPoint.name, touchPoint.value);
     thisReachApp.calculateResults();
+    totalReach = thisReachApp.totalReach;
+    locus = thisReachApp.locus;
   };
   const inputReach = (event) => {
     const touchPoint = event.detail;
     console.log('input for', touchPoint);
     thisReachApp.changeReachForTouchPoint(touchPoint.name, touchPoint.value);
     thisReachApp.calculateResults();
+    totalReach = thisReachApp.totalReach;
+    locus = thisReachApp.locus;
   };
 </script>
 
-<header>
-  <ReachHeader
-    {totalReach}
-    {locus}
-    totalReachDisplayName={thisUi.translate('totalReach')}
-    locusDisplayName={thisUi.translate('locus')}
-    on:reset={reset}
-    on:sort={sort}
-    on:hide={hide}
-    on:print={print}
-    on:pdf={pdf}
-  />
-</header>
-<section>
-  <div />
-  <!-- TODO: dispatch on:change and on:input -->
-  <div class="center">
-    {#each touchPoints as touchPoint}
-      <ReachTouchPoint
-        {displayTouchPoint}
-        {language}
-        {inputPlaceholder}
-        {touchPoint}
-        touchPointDisplayName={thisReachApp.displayTouchPoint(touchPoint.name)}
-        touchPointDescription={thisReachApp.describeTouchPoint(touchPoint.name)}
-        on:handleChange={changeReach}
-        on:handleInput={inputReach}
-      />
-    {/each}
-  </div>
-  <div />
-</section>
+<main>
+  <header>
+    <ReachHeader
+      {totalReach}
+      {locus}
+      totalReachDisplayName={thisUi.translate('totalReach')}
+      locusDisplayName={thisUi.translate('locus')}
+      on:reset={reset}
+      on:sort={sort}
+      on:hide={hide}
+      on:print={print}
+      on:pdf={pdf}
+    />
+  </header>
+  <section>
+    <div />
+    <!-- TODO: dispatch on:change and on:input -->
+    <div class="center">
+      {#each touchPoints as touchPoint}
+        <ReachTouchPoint
+          {displayTouchPoint}
+          {language}
+          {inputPlaceholder}
+          {touchPoint}
+          touchPointDisplayName={thisReachApp.displayTouchPoint(touchPoint.name)}
+          touchPointDescription={thisReachApp.describeTouchPoint(touchPoint.name)}
+          on:handleChange={changeReach}
+          on:handleInput={inputReach}
+        />
+      {/each}
+    </div>
+    <div />
+  </section>
+</main>
 
 <style>
+  main {
+    all: unset;
+    overflow: auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+    grid-template-areas: 'main-header' 'main-section';
+    padding: 1em;
+    border: 1px dashed var(--ra-blue);
+  }
   header {
+    grid-area: main-header;
+    padding: 1em;
+    margin: 2em 1em;
+    border: 1px dotted orange;
+    border-radius: 0.2em;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
     background-color: var(--ra-teal-off-white);
   }
   section {

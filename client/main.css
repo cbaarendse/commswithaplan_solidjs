@@ -63,39 +63,15 @@ body {
  
 }
 
-
 /* Svelte defaults */
 div.app {
   display:grid;
   grid-template-columns: 1fr;
   grid-template-rows: auto 1fr auto;
-  grid-template-areas: 
-  "header" 
-  "main" 
-  "footer";
   height: 100vh;
 }
-
 /* page layout */
-div.app > header{
-grid-area: header;
-}
-
-div.app > main {
-  grid-area: main;
-  overflow: auto;
-/* TODO: main is normal, display:block, div container per page, styled in page */
-  display: grid;
-grid-template-columns: 1fr;
-grid-template-rows: auto 1fr;
-grid-template-areas: "main-header" "main-section";
-
-padding: 1em;
-  border: 1px dashed var(--ra-blue);
-}
-
 div.app > footer{
-grid-area: footer;
 display:flex;
 justify-content: center;
 padding: 0.5em;
@@ -105,43 +81,6 @@ border-top: 1px solid rgba(0, 0, 0, 0.1);
 div.app > footer a {
   color: var(--ra-blue);
   text-decoration: none;
-}
-
-/* TODO: this will go, styling per page */
-main > header {
-  grid-area: main-header;
-  padding: 1em;
-  margin: 2em 1em;
-  border: 1px dotted orange;
-  border-radius: 0.2em;
-
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
-}
-main > section {
-  grid-area: main-section;
-  border: 1px dashed var(--ra-green);
-  padding: 1em;
-  margin-bottom: 0.5em;
-}
-main > section > div.card {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: flex-start;
-  max-width: 25em;
-  min-height: 15em;
-  padding: 2em;
-  margin: 2em;
-  border-radius: 0.2em;
-  box-shadow: 0.1em 0.1em 0.2em 0 rgba(0, 0, 0, 0.1);
-}
-@media only screen and (max-width: 768px) {
-  div.card {
-    min-width: 15em;
-  }
 }
 
 /* p */
@@ -162,8 +101,6 @@ div.schedule-preamble {
 div.schedule-fixed-preamble{
   width:0%;
 min-height: 1px;}
-
-
 
 /* 
 a {

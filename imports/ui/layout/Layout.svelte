@@ -111,9 +111,7 @@
   <Navigation {path} {language} />
   <!-- <Notifications /> -->
 </header>
-<main>
-  <svelte:component this={page} {language} />
-</main>
+<svelte:component this={page} {language} />
 <footer>
   <Footer {language} />
 </footer>

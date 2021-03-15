@@ -37,7 +37,23 @@
 </div>
 
 <style>
-  /* div.card style is in main.css */
+  div.card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    max-width: 25em;
+    min-height: 15em;
+    padding: 2em;
+    margin: 2em;
+    border-radius: 0.2em;
+    box-shadow: 0.1em 0.1em 0.2em 0 rgba(0, 0, 0, 0.1);
+  }
+  @media only screen and (max-width: 768px) {
+    div.card {
+      min-width: 15em;
+    }
+  }
   div.card-title {
     color: var(--ra-blue);
     text-align: left;

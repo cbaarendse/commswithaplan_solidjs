@@ -18,7 +18,7 @@ export default function UiProvider(translations, language) {
       }
 
       this.toStringFormat = function (value) {return value.toLocaleString()};
-      export function percentFixed(input, digits) {
+      this.percentFixed= function(input, digits) {
         return (input / 100).toFixed(digits);
       }
       this.toDateFormat=function(date) {

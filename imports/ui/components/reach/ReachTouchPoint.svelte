@@ -10,7 +10,7 @@
 
   // constants
   import {translations} from '../../../../client/constants';
-  const defaultValue = 50;
+  const defaultValue = 0;
   const dispatch = createEventDispatcher();
 
   // variables
@@ -69,7 +69,7 @@
         </div>
       </form>
     {:else}
-      <button class="button-input"><span>{touchPoint.value}&nbsp;%</span></button>
+      <button class="button-input"><span> {thisUi.toStringFormat(touchPoint.value)}&nbsp;%</span></button>
     {/if}
   </div>
   <Modal title={touchPointDisplayName} {displayModal}>{touchPointDescription}</Modal>

@@ -1,17 +1,25 @@
 <script>
   // packages
   import {createEventDispatcher} from 'svelte';
+
   // components
   import LogoReachApp from '../reusable/LogoReachApp.svelte';
 
+  // providers
+  import UiProvider from '../../../both/uiProvider';
+
   // constants
+  import {translations} from '../../../../client/constants';
   const dispatch = createEventDispatcher();
 
   // variables
+  export let language;
   export let totalReach;
   export let locus;
   export let totalReachDisplayName;
   export let locusDisplayName;
+
+  const thisUi = new UiProvider(translations, language);
 </script>
 
 <!-- header -->
@@ -22,15 +30,17 @@
 </div>
 <!-- outcome  -->
 <div class="outcome">
-  <div class="total-reach">{totalReachDisplayName}: <span>{totalReach}&nbsp;%</span></div>
+  <div class="total-reach">
+    {totalReachDisplayName}:&nbsp;<span>{thisUi.toNumberFormat(totalReach.toFixed(0))}&nbsp;%</span>
+  </div>
   <div class="meter">
-    <span style="width:50%;">Disk Usage - 55.93GB out of 120GB</span>
+    <span style="width:{totalReach}%;">Disk Usage - 55.93GB out of 120GB</span>
   </div>
 </div>
 <div class="outcome">
-  <div class="locus">{locusDisplayName}:<span>{locus}&nbsp;%</span></div>
+  <div class="locus">{locusDisplayName}:&nbsp;<span>{thisUi.toNumberFormat(locus.toFixed(1))}&nbsp;%</span></div>
   <div class="meter">
-    <span style="width:4%;">Disk Usage - 55.93GB out of 120GB</span>
+    <span style="width:{locus}%;">Disk Usage - 55.93GB out of 120GB</span>
   </div>
 </div>
 
