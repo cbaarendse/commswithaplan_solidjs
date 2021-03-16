@@ -14,7 +14,7 @@
   const dispatch = createEventDispatcher();
 
   // variables
-  export let displayTouchPoint = 'grid';
+  export let displayTouchPoint;
   export let language;
   export let touchPoint;
   export let touchPointDisplayName;
@@ -77,6 +77,7 @@
 
 <style>
   div {
+    display: grid;
     grid-template-columns: 1fr 5fr 1fr;
     align-items: center;
     background-color: var(--ra-teal-off-white);
