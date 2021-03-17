@@ -17,7 +17,7 @@
   export let language = 'english';
   const thisReachApp = new ReachAppProvider(touchPointsBasics, language);
   const thisUi = new UiProvider(translations, language);
-  $: touchPoints = thisReachApp.touchPoints;
+  let touchPoints = thisReachApp.touchPoints;
 
   let inputPlaceholder = thisUi.translate('input');
   let totalReach = thisReachApp.totalReach;
@@ -26,6 +26,7 @@
   // functions
   const hide = () => {
     thisReachApp.showAll = !thisReachApp.showAll;
+    touchPoints = thisReachApp.touchPoints;
   };
   const sort = () => {};
   const reset = () => {};
@@ -38,6 +39,7 @@
     const touchPoint = event.detail;
     console.log('change for', touchPoint);
     thisReachApp.changeReachForTouchPoint(touchPoint.name, touchPoint.value);
+    touchPoints = thisReachApp.touchPoints;
     thisReachApp.calculateResults();
     totalReach = thisReachApp.totalReach;
     locus = thisReachApp.locus;
@@ -46,6 +48,7 @@
     const touchPoint = event.detail;
     console.log('input for', touchPoint);
     thisReachApp.changeReachForTouchPoint(touchPoint.name, touchPoint.value);
+    touchPoints = thisReachApp.touchPoints;
     thisReachApp.calculateResults();
     totalReach = thisReachApp.totalReach;
     locus = thisReachApp.locus;
@@ -75,7 +78,7 @@
           {displayTouchPoint}
           {language}
           {inputPlaceholder}
-          {touchPoint}
+          {...touchPoint}
           touchPointDisplayName={thisReachApp.displayTouchPoint(touchPoint.name)}
           touchPointDescription={thisReachApp.describeTouchPoint(touchPoint.name)}
           on:handleChange={changeReach}

@@ -3,7 +3,7 @@
   export let name;
   export let displayName;
   export let defaultValue;
-  export let value;
+  export let sliderValue;
   export let min = 0;
   export let max = 100;
 </script>
@@ -18,7 +18,7 @@
     {min}
     {max}
     {defaultValue}
-    bind:value
+    bind:value={sliderValue}
     on:change|preventDefault
     on:input|preventDefault
   />

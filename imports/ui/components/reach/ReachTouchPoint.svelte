@@ -10,18 +10,21 @@
 
   // constants
   import {translations} from '../../../../client/constants';
-  const defaultValue = 0;
   const dispatch = createEventDispatcher();
 
   // variables
   export let displayTouchPoint;
   export let language;
-  export let touchPoint;
+  // these two are extracted through {...touchPoint} in the parent component
+  export let name;
+  export let value;
+
   export let touchPointDisplayName;
   export let touchPointDescription;
   export let inputPlaceholder;
 
-  let input;
+  // this is the value from the slider
+  let sliderValue = value;
   let manualInput = false;
   let displayModal;
 
@@ -35,25 +38,22 @@
   };
 </script>
 
-<div style="display:{displayTouchPoint};">
+<div class="container" style="display:{displayTouchPoint};">
   <div class="left">
     <button on:click|preventDefault={showModal}>
       <img
-        alt="{touchPoint.name}-Icon"
-        src="/{touchPoint.name}.png"
-        style="background-color:{() => {
-          touchPoint.value > 0 ? 'var(--ra-green)' : 'var(--ra-teal-light)';
-        }};"
+        alt="{name}-Icon"
+        src="/{name}.png"
+        style="background-color:{value > 0 ? 'var(--ra-green)' : 'var(--ra-teal-light)'};"
       />
     </button>
   </div>
   <div class="center">
     <Slider
-      {defaultValue}
-      bind:value={input}
+      bind:sliderValue
       displayName={touchPointDisplayName}
-      on:change={() => dispatch('handleChange', {name: touchPoint.name, value: input})}
-      on:input={() => dispatch('handleInput', {name: touchPoint.name, value: input})}
+      on:change={() => dispatch('handleChange', {name: name, value: sliderValue})}
+      on:input={() => dispatch('handleInput', {name: name, value: sliderValue})}
     />
   </div>
   <div class="right">
@@ -69,15 +69,16 @@
         </div>
       </form>
     {:else}
-      <button class="button-input"><span> {thisUi.toStringFormat(touchPoint.value)}&nbsp;%</span></button>
+      <button class="button-input"><span> {thisUi.toStringFormat(value)}&nbsp;%</span></button>
     {/if}
   </div>
   <Modal title={touchPointDisplayName} {displayModal}>{touchPointDescription}</Modal>
 </div>
 
 <style>
-  div {
+  div.container {
     display: grid;
+    gap: 2em;
     grid-template-columns: 1fr 5fr 1fr;
     align-items: center;
     background-color: var(--ra-teal-off-white);
@@ -109,5 +110,10 @@
   }
   span {
     font-size: 1.4rem;
+  }
+  div.left,
+  div.right {
+    display: flex;
+    justify-content: center;
   }
 </style>
