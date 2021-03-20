@@ -1,106 +1,119 @@
-*{
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-:root {
-    /* on light primary */
-  --ra-blue: #003366;
-  --ra-green: #669900;
-  --ra-red: #cc0000;
-  --ra-black: black;
-  --ra-grey: #333333;
-  --ra-blue-grayscale: #292929;
-  --ra-green-grayscale: #787878;
-  --ra-red-grayscale: #3d3d3d;
-  /* on light secondary */
-  --ra-grey-medium: #666666;
-  --ra-blue-light: #006699;
-  --ra-green-light: #aacc66;
-  --ra-red-light: #ff6666;
-  --ra-grey-light: #999999;
-  --ra-teal-light: #accdc6;
-  /* on dark */
-  --ra-blue-bright: #3399ff;
-  --ra-green-bright: #00ff33;
-  --ra-red-bright: #ff3366;
-  --ra-grey-bright: #cccccc;
-  --ra-white: white;
-  /* surfaces */
-  --ra-white-transparant: rgba(255,255,255,0.9);
-  --ra-teal: #75aea2;
-  --ra-teal-transparant: rgba(117,174,162,0.9);
-  /* f2 transparancy */
-  --ra-teal-light-transparant:rgba(172,205,198,0.95);
-  --ra-blue-off-white: #f0ffff;
-  --ra-green-off-white: #f0fff0;
-  --ra-red-off-white: #faf0e6;
-  --ra-grey-off-white: #fcfcfc;
-  --ra-teal-off-white: #ddebe8;
-  /* sizes in em */
-  --ra-s: 0.5em;
-  --ra-m: 1em;
-  --ra-l: 1.5em;
-  --ra-xl: 2em;
-  --ra-xxl: 2.5em;
-  --ra-nav-main-height: 4em;
-  --ra-nav-sub-height: 2em;
-  --ra-notifications-height: 2em;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-html{
-  font-family: Nobile, 'Source Sans Pro', Helvetica, Geneva, 'Trebuchet MS', sans-serif;
-  font-size: 16px;
-  color: #333333; /* is ra-grey */
+:root {
+    /* on light primary */
+    --ra-blue: #003366;
+    --ra-green: #669900;
+    --ra-red: #cc0000;
+    --ra-black: black;
+    --ra-grey: #333333;
+    --ra-blue-grayscale: #292929;
+    --ra-green-grayscale: #787878;
+    --ra-red-grayscale: #3d3d3d;
+    /* on light secondary */
+    --ra-grey-medium: #666666;
+    --ra-blue-light: #006699;
+    --ra-green-light: #aacc66;
+    --ra-red-light: #ff6666;
+    --ra-grey-light: #999999;
+    --ra-teal-light: #accdc6;
+    /* on dark */
+    --ra-blue-bright: #3399ff;
+    --ra-green-bright: #00ff33;
+    --ra-red-bright: #ff3366;
+    --ra-grey-bright: #cccccc;
+    --ra-white: white;
+    /* surfaces */
+    --ra-white-transparant: rgba(255, 255, 255, 0.9);
+    --ra-teal: #75aea2;
+    --ra-teal-transparant: rgba(117, 174, 162, 0.9);
+    /* f2 transparancy */
+    --ra-teal-light-transparant: rgba(172, 205, 198, 0.95);
+    --ra-blue-off-white: #f0ffff;
+    --ra-green-off-white: #f0fff0;
+    --ra-red-off-white: #faf0e6;
+    --ra-grey-off-white: #fcfcfc;
+    --ra-teal-off-white: #ddebe8;
+    /* sizes in em */
+    --ra-s: 0.5em;
+    --ra-m: 1em;
+    --ra-l: 1.5em;
+    --ra-xl: 2em;
+    --ra-xxl: 2.5em;
+    --ra-nav-main-height: 4em;
+    --ra-nav-sub-height: 2em;
+    --ra-notifications-height: 2em;
+}
+
+html {
+    font-family: Nobile, 'Source Sans Pro', Helvetica, Geneva, 'Trebuchet MS', sans-serif;
+    font-size: 16px;
+    color: #333333;
+    /* is ra-grey */
 }
 
 body {
-  margin: 0;
+    margin: 0;
     /* width: 100%; */
-  /* % because it takes into account space that is taken up by a vertical scroll bar */
-  /* min-height: 100vh; */
+    /* % because it takes into account space that is taken up by a vertical scroll bar */
+    /* min-height: 100vh; */
     /* vh because it takes up 100 points of the viewport, the html element follows this as well */
- 
 }
+
 
 /* Svelte defaults */
+
 div.app {
-  display:grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: auto 1fr auto;
-  height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr auto;
+    height: 100vh;
 }
+
+
 /* page layout */
-div.app > footer{
-display:flex;
-justify-content: center;
-padding: 0.5em;
-background-color: var(--ra-white);
-border-top: 1px solid rgba(0, 0, 0, 0.1);
+
+div.app>footer {
+    display: flex;
+    justify-content: center;
+    padding: 0.5em;
+    background-color: var(--ra-white);
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
-div.app > footer a {
-  color: var(--ra-blue);
-  text-decoration: none;
+
+div.app>footer a {
+    color: var(--ra-blue);
+    text-decoration: none;
 }
+
 
 /* p */
+
 p {
-  padding: 1em 0;
+    padding: 1em 0;
 }
 
+
 /* schedule */
+
 div.schedule-button-space {
-  width: 2em;
-  min-height: 1px;
+    width: 2em;
+    min-height: 1px;
 }
 
 div.schedule-preamble {
-  min-height: 1px;
+    min-height: 1px;
 }
 
-div.schedule-fixed-preamble{
-  width:0%;
-min-height: 1px;}
+div.schedule-fixed-preamble {
+    width: 0%;
+    min-height: 1px;
+}
+
 
 /* 
 a {

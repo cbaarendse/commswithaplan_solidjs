@@ -25,11 +25,29 @@
 
   // functions
   const hide = () => {
-    thisReachApp.showAll = !thisReachApp.showAll;
+    thisReachApp.toggleShowAll();
     touchPoints = thisReachApp.touchPoints;
   };
-  const sort = () => {};
-  const reset = () => {};
+  const sort = () => {
+    if (thisReachApp.sortByName) {
+      thisReachApp.sortByName();
+    } else {
+      thisReachApp.sortByReach();
+    }
+    thisReachApp.toggleSortingByName();
+    touchPoints = thisReachApp.touchPoints;
+  };
+  const reset = () => {
+    if (thisReachApp.planIsAllZeros) {
+      thisReachApp.resetAllTouchPoints;
+    } else {
+      thisReachApp.resetVisibleTouchPoints;
+    }
+    touchPoints = thisReachApp.touchPoints;
+    thisReachApp.calculateResults();
+    totalReach = thisReachApp.totalReach;
+    locus = thisReachApp.locus;
+  };
   const print = () => {};
   const pdf = () => {};
   const displayTouchPoint = () => {
