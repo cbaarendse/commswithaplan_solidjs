@@ -1,7 +1,8 @@
 <script>
   // packages
   import {createEventDispatcher} from 'svelte';
-
+  import Icon from 'svelte-awesome';
+  import {history, circleO, sortAmountDesc, sortAlphaAsc, bars, minus, print, filePdfO} from 'svelte-awesome/icons';
   // components
   import LogoReachApp from '../reusable/LogoReachApp.svelte';
 
@@ -18,6 +19,9 @@
   export let locus;
   export let totalReachDisplayName;
   export let locusDisplayName;
+  export let allTouchPointValuesAreZero;
+  export let sortingByName;
+  export let showAll;
 
   const thisUi = new UiProvider(translations, language);
 </script>
@@ -45,11 +49,17 @@
 </div>
 
 <div class="controls">
-  <button class="red" type="button" on:click={() => dispatch('reset')}>Res</button>
-  <button class="green" type="button" on:click={() => dispatch('sort')}>Sor</button>
-  <button class="green" type="button" on:click={() => dispatch('hide')}>Hid</button>
-  <button class="blue" type="button" on:click={() => dispatch('print')}>Pri</button>
-  <button class="blue" type="button" on:click={() => dispatch('pdf')}>PDF</button>
+  <button class="red" type="button" on:click={() => dispatch('reset')}
+    >{#if allTouchPointValuesAreZero}<Icon data={history} /> {:else}<span>0</span>{/if}</button
+  >
+  <button class="green" type="button" on:click={() => dispatch('sort')}
+    >{#if sortingByName}<Icon data={sortAlphaAsc} />{:else}<Icon data={sortAmountDesc} />{/if}</button
+  >
+  <button class="green" type="button" on:click={() => dispatch('hide')}
+    >{#if showAll}<Icon data={minus} />{:else}<Icon data={bars} />{/if}</button
+  >
+  <button class="blue" type="button" on:click={() => dispatch('print')}><Icon data={print} /></button>
+  <button class="blue" type="button" on:click={() => dispatch('pdf')}><Icon data={filePdfO} /></button>
 </div>
 
 <style>

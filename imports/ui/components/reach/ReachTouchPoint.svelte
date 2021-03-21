@@ -18,13 +18,14 @@
   // these two are extracted through {...touchPoint} in the parent component
   export let name;
   export let value;
-
+  /* translation and appearance are being done in the parent component, through the reachAppProvider object instance.
+This way it only has to be instantiated once */
   export let touchPointDisplayName;
   export let touchPointDescription;
   export let inputPlaceholder;
 
   // this is the value from the slider
-  let sliderValue = value;
+  $: sliderValue = value;
   let manualInput = false;
   let displayModal;
 

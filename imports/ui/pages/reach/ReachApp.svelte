@@ -22,31 +22,43 @@
   let inputPlaceholder = thisUi.translate('input');
   let totalReach = thisReachApp.totalReach;
   let locus = thisReachApp.locus;
+  $: allTouchPointValuesAreZero = thisReachApp.areAllTouchPointsValuesZero();
+  let sortingByName = thisReachApp.sortingByName;
+  let showAll = thisReachApp.showAll;
 
   // functions
-  const hide = () => {
-    thisReachApp.toggleShowAll();
-    touchPoints = thisReachApp.touchPoints;
-  };
-  const sort = () => {
-    if (thisReachApp.sortByName) {
-      thisReachApp.sortByName();
-    } else {
-      thisReachApp.sortByReach();
-    }
-    thisReachApp.toggleSortingByName();
-    touchPoints = thisReachApp.touchPoints;
-  };
   const reset = () => {
-    if (thisReachApp.planIsAllZeros) {
-      thisReachApp.resetAllTouchPoints;
+    if (thisReachApp.areAllTouchPointsValuesZero()) {
+      console.log('OK');
+      thisReachApp.resetAllTouchPoints();
     } else {
-      thisReachApp.resetVisibleTouchPoints;
+      thisReachApp.resetVisibleTouchPoints();
     }
     touchPoints = thisReachApp.touchPoints;
     thisReachApp.calculateResults();
     totalReach = thisReachApp.totalReach;
     locus = thisReachApp.locus;
+  };
+  const sort = () => {
+    if (thisReachApp.sortingByName) {
+      thisReachApp.sortByName();
+    } else {
+      thisReachApp.sortByReach();
+    }
+    touchPoints = thisReachApp.touchPoints;
+    thisReachApp.toggleSortingByName();
+  };
+  const hide = () => {
+    if (!thisReachApp.showAll) {
+      thisReachApp.replenishTouchPoints();
+      thisReachApp.sortByName();
+    } else {
+      if (!thisReachApp.areAllTouchPointsValuesZero()) {
+        thisReachApp.removeZeros();
+      }
+    }
+    touchPoints = thisReachApp.touchPoints;
+    thisReachApp.toggleShowAll();
   };
   const print = () => {};
   const pdf = () => {};
@@ -78,6 +90,9 @@
     <ReachHeader
       {totalReach}
       {locus}
+      {allTouchPointValuesAreZero}
+      {sortingByName}
+      {showAll}
       totalReachDisplayName={thisUi.translate('totalReach')}
       locusDisplayName={thisUi.translate('locus')}
       on:reset={reset}
