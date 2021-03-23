@@ -2,7 +2,6 @@
   // packages
 
   // components
-  import Modal from '../../components/reusable/Modal.svelte';
   import ReachHeader from '../../components/reach/ReachHeader.svelte';
   import ReachTouchPoint from '../../components/reach/ReachTouchPoint.svelte';
 
@@ -22,7 +21,7 @@
   let inputPlaceholder = thisUi.translate('input');
   let totalReach = thisReachApp.totalReach;
   let locus = thisReachApp.locus;
-  $: allTouchPointValuesAreZero = thisReachApp.areAllTouchPointsValuesZero();
+  let allTouchPointValuesAreZero = thisReachApp.areAllTouchPointsValuesZero();
   let sortingByName = thisReachApp.sortingByName;
   let showAll = thisReachApp.showAll;
 
@@ -38,6 +37,7 @@
     thisReachApp.calculateResults();
     totalReach = thisReachApp.totalReach;
     locus = thisReachApp.locus;
+    allTouchPointValuesAreZero = thisReachApp.areAllTouchPointsValuesZero();
   };
   const sort = () => {
     if (thisReachApp.sortingByName) {
@@ -47,6 +47,7 @@
     }
     touchPoints = thisReachApp.touchPoints;
     thisReachApp.toggleSortingByName();
+    sortingByName = thisReachApp.sortingByName;
   };
   const hide = () => {
     if (!thisReachApp.showAll) {
@@ -59,6 +60,7 @@
     }
     touchPoints = thisReachApp.touchPoints;
     thisReachApp.toggleShowAll();
+    showAll = thisReachApp.showAll;
   };
   const print = () => {};
   const pdf = () => {};

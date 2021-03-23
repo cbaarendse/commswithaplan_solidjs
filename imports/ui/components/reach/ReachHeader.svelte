@@ -47,7 +47,7 @@
     <span style="width:{locus}%;">Disk Usage - 55.93GB out of 120GB</span>
   </div>
 </div>
-
+<!-- TODO: variables sorting by name etc to be reactive and simple -->
 <div class="controls">
   <button class="red" type="button" on:click={() => dispatch('reset')}
     >{#if allTouchPointValuesAreZero}<Icon data={history} /> {:else}<span>0</span>{/if}</button

@@ -56,11 +56,13 @@
   }
   div.card-title {
     color: var(--ra-blue);
+
     text-align: left;
   }
   p {
     flex: 1 1 auto;
     font-size: 1.2rem;
+    line-height: 1.7rem;
   }
   img {
     display: block;
