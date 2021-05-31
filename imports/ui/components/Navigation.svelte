@@ -16,7 +16,8 @@
   // variables
   export let path;
   export let language;
-  const reachPaths = ['/reach/reach', '/reach/reachapp', '/reach/download', '/reach/manual'];
+  const commsWithAPlanPaths = ['/commswithaplan/home'];
+  const reachPaths = ['/reach/home', '/reach/reachapp', '/reach/download', '/reach/manual'];
   let thisUi = new UiProvider(translations, language);
 </script>
 
@@ -28,14 +29,14 @@
       </a>
     </li>
     <li>
-      <a href={'/commswithaplan'} class:active={path === '/commswithaplan'}>
+      <a href={'/commswithaplan/home'} class:active={commsWithAPlanPaths.some((item) => item === path)}>
         <span class="brand blue">Comms</span>&nbsp;<span class="brand green">With&nbsp;A</span>&nbsp;<span
           class="brand red">Plan</span
         >
       </a>
     </li>
     <li>
-      <a href={'/reach/reach'} class:active={reachPaths.some((item) => item === path)}>
+      <a href={'/reach/home'} class:active={reachPaths.some((item) => item === path)}>
         {thisUi.capitalizeAndSplit('reach')}
       </a>
     </li>
@@ -49,15 +50,23 @@
 {#if path === '/'}
   <nav class="sub-nav" />
 {/if}
-{#if path === '/commswithaplan'}
-  <nav class="sub-nav" />
+{#if commsWithAPlanPaths.some((item) => item === path)}
+  <nav class="sub-nav">
+    <ul>
+      <li>
+        <a href={'/commswithaplan/home'} class:active={path === '/commswithaplan/home'}>
+          <LogoCommsWithAPlan size={'2rem'} colored={path === '/commswithaplan/home'} />
+        </a>
+      </li>
+    </ul>
+  </nav>
 {/if}
 {#if reachPaths.some((item) => item === path)}
   <nav class="sub-nav">
     <ul>
       <li>
-        <a href={'/reach/reach'} class:active={path === '/reach/reach'}>
-          <LogoReachApp size={'2rem'} colored={path === '/reach/reach'} />
+        <a href={'/reach/home'} class:active={path === '/reach/home'}>
+          <LogoReachApp size={'2rem'} colored={path === '/reach/home'} />
         </a>
       </li>
 

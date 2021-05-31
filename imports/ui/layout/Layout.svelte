@@ -19,8 +19,8 @@
   // constants
   const routes = {
     '/': Home,
-    '/commswithaplan': CommsWithAPlan,
-    '/reach/reach': Reach,
+    '/commswithaplan/home': CommsWithAPlan,
+    '/reach/home': Reach,
     '/reach/reachapp': ReachApp,
     '/reach/download': Download,
     '/reach/manual': Manual,
@@ -31,7 +31,7 @@
   let path;
 
   onMount(async () => {
-    console.log('App is mounted');
+    console.log('Layout is mounted');
   });
 
   for (const route in routes) {
@@ -48,63 +48,6 @@
   router('/*', () => (page = NotFound));
 
   router.start();
-
-  // router(
-  //   '/',
-  //   (ctx, next) => {
-  //     path = ctx.path;
-  //     next();
-  //   },
-  //   () => (page = Home)
-  // );
-  // router(
-  //   '/commswithaplan',
-  //   (ctx, next) => {
-  //     path = ctx.path;
-  //     next();
-  //   },
-  //   () => (page = CommsWithAPlan)
-  // );
-  // router(
-  //   '/reach/',
-  //   (ctx, next) => {
-  //     path = ctx.path;
-  //     next();
-  //   },
-  //   () => (page = Reach)
-  // );
-  // router(
-  //   '/reach/reach',
-  //   (ctx, next) => {
-  //     path = ctx.path;
-  //     next();
-  //   },
-  //   () => (page = Reach)
-  // );
-  // router(
-  //   '/reach/reachapp',
-  //   (ctx, next) => {
-  //     path = ctx.path;
-  //     next();
-  //   },
-  //   () => (page = ReachApp)
-  // );
-  // router(
-  //   '/reach/download',
-  //   (ctx, next) => {
-  //     path = ctx.path;
-  //     next();
-  //   },
-  //   () => (page = Download)
-  // );
-  // router(
-  //   '/reach/manual',
-  //   (ctx, next) => {
-  //     path = ctx.path;
-  //     next();
-  //   },
-  //   () => (page = Manual)
-  // );
 </script>
 
 <header>

@@ -28,7 +28,7 @@
   // functions
   const reset = () => {
     if (thisReachApp.areAllTouchPointsValuesZero()) {
-      console.log('OK');
+      console.log('all touchpoints values are zero in reset');
       thisReachApp.resetAllTouchPoints();
     } else {
       thisReachApp.resetVisibleTouchPoints();
