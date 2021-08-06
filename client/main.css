@@ -77,6 +77,16 @@ div.app {
 
 /* page layout */
 
+div.app>main {
+    all: unset;
+    overflow: auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto auto;
+    padding: 1em;
+    border: 1px dashed var(--ra-blue);
+}
+
 div.app>footer {
     display: flex;
     justify-content: center;

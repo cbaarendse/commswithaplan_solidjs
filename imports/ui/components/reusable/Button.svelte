@@ -5,6 +5,7 @@
   export let dataDismiss;
   export let ariaLabel;
   export let disabled = false;
+  export let value;
 </script>
 
 <button
@@ -16,6 +17,7 @@
   {disabled}
   data-dismiss={dataDismiss}
   aria-label={ariaLabel}
+  {value}
 >
   <slot />
 </button>

@@ -22,7 +22,6 @@
     "jquery": "^3.4.1",
     "meteor-node-stubs": "^1.0.0",
     "moment": "^2.27.0",
-    "page": "^1.11.6",
     "stripe": "^8.137.0",
     "svelte": "^3.31.2",
     "svelte-awesome": "^2.3.0"
@@ -33,5 +32,8 @@
       "server": "server/main.js"
     },
     "testModule": "tests/main.js"
+  },
+  "devDependencies": {
+    "tinro": "^0.6.5"
   }
 }

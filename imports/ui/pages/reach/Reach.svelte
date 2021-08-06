@@ -5,28 +5,16 @@
   export let language;
 </script>
 
-<main>
-  <header><h1>Reach Estimation</h1></header>
-  <section>
-    <Card>Reach in marketing communication</Card>
-    <article>Reach in marketing communication</article>
-    <article>Reach in marketing communication</article>
-    <Card>Reach in marketing communicatione</Card>
-    <footer>goodbye</footer>
-  </section>
-</main>
+<header><h1>Reach Estimation</h1></header>
+<section>
+  <Card>Reach in marketing communication</Card>
+  <article>Reach in marketing communication</article>
+  <article>Reach in marketing communication</article>
+  <Card>Reach in marketing communicatione</Card>
+  <footer>goodbye</footer>
+</section>
 
 <style>
-  main {
-    all: unset;
-    overflow: auto;
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: auto 1fr;
-    grid-template-areas: 'main-header' 'main-section';
-    padding: 1em;
-    border: 1px dashed var(--ra-blue);
-  }
   header {
     grid-area: main-header;
     padding: 1em;

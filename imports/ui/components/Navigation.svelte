@@ -1,6 +1,6 @@
 <script>
   // packages
-  import {useSession} from 'meteor/rdb:svelte-meteor-data';
+  import {Route, active, router} from 'tinro';
 
   // components
   // import Select from '../components/reusable/Select.svelte';
@@ -12,76 +12,69 @@
 
   // constants
   import {translations} from '../../../client/constants';
+  import {home} from 'svelte-awesome/icons';
 
   // variables
-  export let path;
   export let language;
-  const commsWithAPlanPaths = ['/commswithaplan/home'];
-  const reachPaths = ['/reach/home', '/reach/reachapp', '/reach/download', '/reach/manual'];
   let thisUi = new UiProvider(translations, language);
 </script>
 
 <nav class="main-nav">
   <ul>
     <li>
-      <a href={'/'} class:active={path === '/'}>
-        <LogoCommsWithAPlan size={'3.5rem'} colored={path === '/'} />
+      <a href={'/'} use:active>
+        <LogoCommsWithAPlan size={'3.5rem'} colored={$router.url === '/'} />
       </a>
     </li>
     <li>
-      <a href={'/commswithaplan/home'} class:active={commsWithAPlanPaths.some((item) => item === path)}>
+      <a href={'/plan/home'} use:active>
         <span class="brand blue">Comms</span>&nbsp;<span class="brand green">With&nbsp;A</span>&nbsp;<span
           class="brand red">Plan</span
         >
       </a>
     </li>
     <li>
-      <a href={'/reach/home'} class:active={reachPaths.some((item) => item === path)}>
+      <a href={'/reach/home'} use:active>
         {thisUi.capitalizeAndSplit('reach')}
       </a>
     </li>
   </ul>
-
-  <form>
-    <label for="en">Engels</label><input type="radio" id="en" bind:group={language} value="english" />
-    <label for="nl">Nederlands</label><input type="radio" id="nl" bind:group={language} value="dutch" />
-  </form>
 </nav>
-{#if path === '/'}
+{#if $router.url === '/'}
   <nav class="sub-nav" />
 {/if}
-{#if commsWithAPlanPaths.some((item) => item === path)}
+{#if $router.url === path}
   <nav class="sub-nav">
     <ul>
       <li>
-        <a href={'/commswithaplan/home'} class:active={path === '/commswithaplan/home'}>
-          <LogoCommsWithAPlan size={'2rem'} colored={path === '/commswithaplan/home'} />
+        <a href={'/commswithaplan/home'} use:active>
+          <LogoCommsWithAPlan size={'2rem'} colored={$router.url === '/commswithaplan/home'} />
         </a>
       </li>
     </ul>
   </nav>
 {/if}
-{#if reachPaths.some((item) => item === path)}
+{#if $router.url === path}
   <nav class="sub-nav">
     <ul>
       <li>
-        <a href={'/reach/home'} class:active={path === '/reach/home'}>
-          <LogoReachApp size={'2rem'} colored={path === '/reach/home'} />
+        <a href={'/reach/home'} use:active>
+          <LogoReachApp size={'2rem'} colored={$router.url === '/reach/home'} />
         </a>
       </li>
 
       <li>
-        <a href={'/reach/reachapp'} class:active={path === '/reach/reachapp'}>
+        <a href={'/reach/reachapp'} use:active>
           <span class="brand">ReachApp</span>
         </a>
       </li>
       <li>
-        <a href={'/reach/download'} class:active={path === '/reach/download'}>
+        <a href={'/reach/download'} use:active>
           {thisUi.capitalizeAndSplit('download')}
         </a>
       </li>
       <li>
-        <a href={'/reach/manual'} class:active={path === '/reach/manual'}>
+        <a href={'/reach/manual'} use:active>
           {thisUi.capitalizeAndSplit('manual')}
         </a>
       </li>
