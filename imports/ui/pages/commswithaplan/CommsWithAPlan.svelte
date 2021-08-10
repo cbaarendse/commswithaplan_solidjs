@@ -62,8 +62,7 @@
       {/each}
     </ul>
   </article>
-</section>
-<section class="about">
+
   <article>
     <h2>About</h2>
     {#if language == 'dutch'}
@@ -121,9 +120,7 @@
     flex-wrap: wrap;
     justify-content: flex-start;
   }
-  section.about {
-    flex-direction: column;
-  }
+
   article {
     flex-grow: 1;
     margin: 0 2em;

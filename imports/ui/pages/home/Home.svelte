@@ -10,8 +10,6 @@
   <Card>Media hulp bij marketing communicatie</Card>
   <Card>Media hulp bij marketing communicatie</Card>
   <Card>Media hulp bij marketing communicatie</Card>
-</section>
-<section>
   <Card
     backgroundColor={'HoneyDew'}
     color={'var(--ra-blue)'}
@@ -37,7 +35,6 @@
     cardLinkText={'Read more...'}>All your campaigns in one place with Schedule.</Card
   >
 </section>
-<section />
 
 <style>
   /* TODO: this will go, styling per page */
@@ -58,7 +55,6 @@
     border: 1px dashed var(--ra-green);
     padding: 1em;
     margin-bottom: 0.5em;
-
     display: flex;
     justify-content: flex-start;
     flex-wrap: wrap;
