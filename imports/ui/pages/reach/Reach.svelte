@@ -7,7 +7,9 @@
 
 <header><h1>Reach Estimation</h1></header>
 <section>
-  <Card>Reach in marketing communication</Card>
+  <Card
+    >{#if language == 'dutch'}Reach in marketing communication{:else} Reach in marketing communication{/if}</Card
+  >
   <article>Reach in marketing communication</article>
   <article>Reach in marketing communication</article>
   <Card>Reach in marketing communicatione</Card>

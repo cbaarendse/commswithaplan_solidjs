@@ -7,7 +7,9 @@
 
 <header><h1>Comms With A Plan</h1></header>
 <section>
-  <Card>Media hulp bij marketing communicatie</Card>
+  <Card
+    >{#if language === 'english'}Media help with marketing communication{:else}Media hulp bij marketing communicatie{/if}</Card
+  >
   <Card>Media hulp bij marketing communicatie</Card>
   <Card>Media hulp bij marketing communicatie</Card>
   <Card

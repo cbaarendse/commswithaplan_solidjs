@@ -42,8 +42,7 @@
       </p>
     {/if}
   </Card>
-</section>
-<section>
+
   <article>
     <h2>Work</h2>
     {#if language == 'dutch'}

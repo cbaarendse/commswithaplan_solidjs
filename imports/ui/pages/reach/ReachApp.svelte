@@ -2,8 +2,8 @@
   // packages
 
   // components
-  import ReachHeader from '../../components/reach/ReachHeader.svelte';
-  import ReachTouchPoint from '../../components/reach/ReachTouchPoint.svelte';
+  import ReachHeader from '../../components/reachapp/ReachHeader.svelte';
+  import ReachTouchPoint from '../../components/reachapp/ReachTouchPoint.svelte';
 
   // constants
   import {touchPointsBasics, translations} from '../../../../client/constants';

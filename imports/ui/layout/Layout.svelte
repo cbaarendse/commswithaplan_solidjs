@@ -14,7 +14,6 @@
   import Footer from '../components/Footer.svelte';
   import LogoCommsWithAPlan from '../components/reusable/LogoCommsWithAPlan.svelte';
   import LogoReachApp from '../components/reusable/LogoReachApp.svelte';
-  import Button from '../components/reusable/Button.svelte';
 
   // modules
   import UiProvider from '../../both/uiProvider';
@@ -34,16 +33,20 @@
 
 <header>
   <nav>
-    <a href={'/'} use:active>
-      <LogoCommsWithAPlan size={'3.5rem'} colored={$router.url === '/'} />
+    <a href={'/home'} use:active>
+      <LogoCommsWithAPlan size={'3.5rem'} colored={$router.url === '/home'} />
     </a>
-    <a href={'/commswithaplan/home'} use:active>
+
+    <a href={'/commswithaplan'} use:active>
       <span class="brand blue">Comms</span>&nbsp;<span class="brand green">With&nbsp;A</span>&nbsp;<span
         class="brand red">Plan</span
       >
     </a>
-    <a href={'/reach/home'} use:active>
-      {thisUi.capitalizeAndSplit('reach')}
+    <a href={'/reach'} use:active>
+      <LogoReachApp size={'2rem'} colored={$router.url === '/reach'} />
+    </a>
+    <a href={'/reachapp'} use:active>
+      <span class="brand">ReachApp</span>
     </a>
     <div>
       <a href={'#'} class:active={language === 'english'} on:click={() => (language = 'english')} tinro-ignore>Engels</a
@@ -54,30 +57,18 @@
     </div>
   </nav>
   <nav>
-    <a href={'/commswithaplan/home'} use:active>{thisUi.capitalizeAndSplit('commsWithAPlan')}</a>
-    <a href={'/reach/home'} use:active>
-      <LogoReachApp size={'2rem'} colored={$router.url === '/reach/home'} />
-    </a>
-    <a href={'/reach/reachapp'} use:active>
-      <span class="brand">ReachApp</span>
-    </a>
-    <a href={'/reach/download'} use:active>
-      {thisUi.capitalizeAndSplit('download')}
-    </a>
-    <a href={'/reach/manual'} use:active>
-      {thisUi.capitalizeAndSplit('manual')}
-    </a>
+    <span>Sub-Nav</span>
   </nav>
 </header>
 
 <main>
   <!-- <Notifications /> -->
-  <Route path="/"><Home {language} /></Route>
-  <Route path="/commswithaplan/home"><CommsWithAPlan {language} /></Route>
-  <Route path="/reach/home"><Reach {language} /></Route>
-  <Route path="/reach/reachapp"><ReachApp {language} /></Route>
-  <Route path="/reach/download"><Download {language} /></Route>
-  <Route path="/reach/manual"><Manual {language} /></Route>
+  <Route path="/home"><Home {language} /></Route>
+  <Route path="/commswithaplan"><CommsWithAPlan {language} /></Route>
+  <Route path="/reach"><Reach {language} /></Route>
+  <Route path="/reachapp"><ReachApp {language} /></Route>
+  <Route path="/download"><Download {language} /></Route>
+  <Route path="/manual"><Manual {language} /></Route>
   <Route fallback><NotFound {language} /></Route>
 </main>
 
@@ -123,12 +114,12 @@
   }
 
   /* :hover */
-  nav:nth-child(1) a:hover {
+  nav:nth-child(1) > a:hover {
     color: var(--ra-grey-light);
     background-color: var(--ra-teal-light-transparant);
   }
 
-  nav:nth-child(2) a:hover {
+  nav:nth-child(2) > a:hover {
     color: var(--ra-grey-light);
     background-color: var(--ra-white);
   }
@@ -138,7 +129,7 @@
     color: var(--ra-blue);
   }
 
-  nav:nth-child(1) a.active {
+  nav:nth-child(1) > a.active {
     background-color: var(--ra-teal-light-transparant);
   }
   nav:nth-child(1) > a.active span.blue {
@@ -150,11 +141,11 @@
   nav:nth-child(1) > a.active span.red {
     color: var(--ra-red);
   }
-  nav:nth-child(2) a.active {
+  nav:nth-child(2) > a.active {
     background-color: var(--ra-white);
   }
   /* brand */
-  span.brand {
+  a > brand {
     font-family: 'Trebuchet MS';
   }
 
@@ -169,8 +160,15 @@
     font-size: 0.8rem;
   }
 
-  nav div a.active {
+  div > a:hover {
+    color: var(--ra-blue-bright);
+  }
+
+  div > a.active {
     background-color: transparent;
+  }
+  div > span {
+    color: var(--ra-white);
   }
 
   main {
