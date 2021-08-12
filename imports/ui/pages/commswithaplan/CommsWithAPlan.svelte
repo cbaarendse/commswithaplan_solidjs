@@ -5,6 +5,7 @@
   // components
   import Accordion from '../../components/reusable/Accordion.svelte';
   import Card from '../../components/reusable/Card.svelte';
+  import LogoCommsWithAPlan from '../../components/reusable/LogoCommsWithAPlan.svelte';
 
   // content
   import {processItems} from '../../../../client/content';
@@ -13,7 +14,12 @@
   export let language;
 </script>
 
-<header><h1>Comms With A Plan</h1></header>
+<header>
+  <div class="logo">
+    <LogoCommsWithAPlan />
+    <span class="brand">Comms With A Plan</span>
+  </div>
+</header>
 <section>
   <Card cardTitle="Comms With A Plan" cardLink="/commswithaplan" cardLinkText="Read more...">
     {#if language == 'dutch'}
@@ -110,9 +116,22 @@
     border-radius: 0.2em;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
     background-color: var(--ra-teal-off-white);
+  }
+  div {
+    margin: 0.4em;
+  }
+  div.logo {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+  span.brand {
+    font-size: 1.6rem;
+    font-family: 'Trebuchet MS';
+    padding: 0 1em;
   }
   section {
     display: flex;

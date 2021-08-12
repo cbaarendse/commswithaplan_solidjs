@@ -1,21 +1,23 @@
 <script>
   import Card from '../../components/reusable/Card.svelte';
+  import LogoCommsWithAPlan from '../../components/reusable/LogoCommsWithAPlan.svelte';
 
   // variables
   export let language;
 </script>
 
-<header><h1>Comms With A Plan</h1></header>
+<header>
+  <div class="logo">
+    <LogoCommsWithAPlan />
+    <span class="brand">Comms With A Plan</span>
+  </div>
+</header>
 <section>
-  <Card
-    >{#if language === 'english'}Media help with marketing communication{:else}Media hulp bij marketing communicatie{/if}</Card
-  >
-  <Card>Media hulp bij marketing communicatie</Card>
-  <Card>Media hulp bij marketing communicatie</Card>
   <Card
     backgroundColor={'HoneyDew'}
     color={'var(--ra-blue)'}
     cardTitle={'Comms With A Plan'}
+    imgUrl={'/castle.jpg'}
     cardLink={'/commswithaplan'}
     cardLinkText={'Read more...'}>Comms With A Plan provides Media Management consultancy.</Card
   >
@@ -24,7 +26,7 @@
     backgroundColor={'LavenderBlush'}
     color={'var(--ra-blue)'}
     cardTitle={'Bereik'}
-    imgUrl={'/castle.jpg'}
+    imgUrl={'/organ.jpg'}
     cardLink={'/reach/'}
     cardLinkText={'Read more...'}>A handy tool to estimate your total reach.</Card
   >
@@ -33,6 +35,7 @@
     backgroundColor={'AliceBlue'}
     color={'var(--ra-blue)'}
     cardTitle={'Schema'}
+    imgUrl={'/gates.jpg'}
     cardLink={'/schedule'}
     cardLinkText={'Read more...'}>All your campaigns in one place with Schedule.</Card
   >
@@ -48,9 +51,23 @@
     border-radius: 0.2em;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
     background-color: var(--ra-teal-off-white);
+  }
+
+  div {
+    margin: 0.4em;
+  }
+  div.logo {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+  span.brand {
+    font-size: 1.6rem;
+    font-family: 'Trebuchet MS';
+    padding: 0 1em;
   }
 
   section {

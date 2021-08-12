@@ -74,6 +74,7 @@
   span.brand {
     font-size: 1.6rem;
     font-family: 'Trebuchet MS';
+    padding: 0 1em;
   }
   div.outcome {
     display: flex;
