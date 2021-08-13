@@ -23,8 +23,7 @@
     "meteor-node-stubs": "^1.0.0",
     "moment": "^2.27.0",
     "stripe": "^8.137.0",
-    "svelte": "^3.31.2",
-    "svelte-awesome": "^2.3.0"
+    "svelte": "^3.31.2"
   },
   "meteor": {
     "mainModule": {

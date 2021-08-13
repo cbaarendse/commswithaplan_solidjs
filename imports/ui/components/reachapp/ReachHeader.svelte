@@ -1,8 +1,7 @@
 <script>
   // packages
   import {createEventDispatcher} from 'svelte';
-  import Icon from 'svelte-awesome';
-  import {history, circleO, sortAmountDesc, sortAlphaAsc, bars, minus, print, filePdfO} from 'svelte-awesome/icons';
+
   // components
   import LogoReachApp from '../reusable/LogoReachApp.svelte';
 
@@ -50,16 +49,16 @@
 <!-- TODO: variables sorting by name etc to be reactive and simple -->
 <div class="controls">
   <button class="red" type="button" on:click={() => dispatch('reset')}
-    >{#if allTouchPointValuesAreZero}<Icon data={history} /> {:else}<span>0</span>{/if}</button
+    >{#if allTouchPointValuesAreZero}iconHere {:else}<span>0</span>{/if}</button
   >
   <button class="green" type="button" on:click={() => dispatch('sort')}
-    >{#if sortingByName}<Icon data={sortAlphaAsc} />{:else}<Icon data={sortAmountDesc} />{/if}</button
+    >{#if sortingByName}iconHere{:else}iconHere{/if}</button
   >
   <button class="green" type="button" on:click={() => dispatch('hide')}
-    >{#if showAll}<Icon data={minus} />{:else}<Icon data={bars} />{/if}</button
+    >{#if showAll}iconHere{:else}iconHere{/if}</button
   >
-  <button class="blue" type="button" on:click={() => dispatch('print')}><Icon data={print} /></button>
-  <button class="blue" type="button" on:click={() => dispatch('pdf')}><Icon data={filePdfO} /></button>
+  <button class="blue" type="button" on:click={() => dispatch('print')}>iconHere</button>
+  <button class="blue" type="button" on:click={() => dispatch('pdf')}>iconHere</button>
 </div>
 
 <style>

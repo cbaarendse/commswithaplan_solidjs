@@ -3,7 +3,6 @@
   import {slide} from 'svelte/transition';
   import {quintOut} from 'svelte/easing';
 
-  import Icon from 'svelte-awesome';
   import {faWindowMaximize, faWindowMinimize} from '@fortawesome/free-regular-svg-icons';
 
   // components
@@ -22,8 +21,8 @@
   <header>
     <button on:click|preventDefault={toggleDisplay}>Open / Dicht</button>
     <slot name="title" />
-    {#if display === 'none'}<Icon data={faWindowMaximize} />
-    {:else}<Icon data={faWindowMinimize} />{/if}
+    {#if display === 'none'}iconHere
+    {:else}iconHere{/if}
   </header>
   <div
     class="accordion-main"
