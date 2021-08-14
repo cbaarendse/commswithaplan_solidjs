@@ -1,7 +1,8 @@
 <script>
   // packages
   import {Route, router, active} from 'tinro';
-  import {Person} from 'svelte-material-icons/';
+  import Fa from 'svelte-fa/src/fa.svelte';
+  import {faUser} from '@fortawesome/free-solid-svg-icons';
 
   // components
   import Home from '../imports/ui/pages/home/Home.svelte';
@@ -42,7 +43,7 @@
         tinro-ignore>Nederlands</a
       >
     </div>
-    <i class="material-icons">person</i>
+    <Fa icon={faUser} size="0.6em" />
   </nav>
   <nav>
     <a href={'/'} on:mouseover={() => (hovered = true)} on:mouseleave={() => (hovered = false)} use:active>

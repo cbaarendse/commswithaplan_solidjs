@@ -1,6 +1,8 @@
 <script>
   // packages
   import {createEventDispatcher} from 'svelte';
+  import Fa from 'svelte-fa';
+  import {faFlag} from '@fortawesome/free-solid-svg-icons';
 
   // components
   import LogoReachApp from '../reusable/LogoReachApp.svelte';
@@ -49,16 +51,16 @@
 <!-- TODO: variables sorting by name etc to be reactive and simple -->
 <div class="controls">
   <button class="red" type="button" on:click={() => dispatch('reset')}
-    >{#if allTouchPointValuesAreZero}iconHere {:else}<span>0</span>{/if}</button
+    >{#if allTouchPointValuesAreZero}<History size="2em" /> {:else}<span>0</span>{/if}</button
   >
   <button class="green" type="button" on:click={() => dispatch('sort')}
-    >{#if sortingByName}iconHere{:else}iconHere{/if}</button
+    >{#if sortingByName}<SortAlphabetical size="2em" />{:else}<SortVariant size="2em" />{/if}</button
   >
   <button class="green" type="button" on:click={() => dispatch('hide')}
-    >{#if showAll}iconHere{:else}iconHere{/if}</button
+    >{#if showAll}<Minus size="2em" />{:else}<Menu size="2em" />{/if}</button
   >
-  <button class="blue" type="button" on:click={() => dispatch('print')}>iconHere</button>
-  <button class="blue" type="button" on:click={() => dispatch('pdf')}>iconHere</button>
+  <button class="blue" type="button" on:click={() => dispatch('print')}><Printer size="2em" /></button>
+  <button class="blue" type="button" on:click={() => dispatch('pdf')}><FilePdf size="2em" /></button>
 </div>
 
 <style>

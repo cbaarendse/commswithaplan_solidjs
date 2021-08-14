@@ -16,6 +16,7 @@
   "dependencies": {
     "@babel/runtime": "^7.8.3",
     "@fortawesome/free-regular-svg-icons": "^5.15.2",
+    "@fortawesome/free-solid-svg-icons": "^5.15.4",
     "@types/meteor": "^1.4.67",
     "@types/meteor-roles": "^1.2.32",
     "dayjs": "^1.10.4",
@@ -23,7 +24,8 @@
     "meteor-node-stubs": "^1.0.0",
     "moment": "^2.27.0",
     "stripe": "^8.137.0",
-    "svelte": "^3.31.2"
+    "svelte": "^3.31.2",
+    "svelte-fa": "^2.2.1"
   },
   "meteor": {
     "mainModule": {
