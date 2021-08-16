@@ -1,6 +1,7 @@
 <script>
   // packages
   import {Route, router, active} from 'tinro';
+  //import Fa from 'svelte-fa';
   import Fa from 'svelte-fa/src/fa.svelte';
   import {faUser} from '@fortawesome/free-solid-svg-icons';
 
@@ -9,7 +10,7 @@
   import CommsWithAPlan from '../imports/ui/pages/commswithaplan/CommsWithAPlan.svelte';
   import ReachApp from '../imports/ui/pages/reach/ReachApp.svelte';
   import NotFound from '../imports/ui/pages/notfound/NotFound.svelte';
-  import Footer from '../imports/ui/components/Footer.svelte';
+  import Footer from '../imports/ui/components/footer/Footer.svelte';
   import LogoCommsWithAPlan from '../imports/ui/components/reusable/LogoCommsWithAPlan.svelte';
 
   // modules
@@ -43,7 +44,7 @@
         tinro-ignore>Nederlands</a
       >
     </div>
-    <Fa icon={faUser} size="0.6em" />
+    <Fa icon={faUser} size="0.6x" />
   </nav>
   <nav>
     <a href={'/'} on:mouseover={() => (hovered = true)} on:mouseleave={() => (hovered = false)} use:active>
@@ -59,6 +60,7 @@
       <span class="brand">ReachApp</span>
     </a>
   </nav>
+
   <!-- <Notifications /> -->
 </header>
 

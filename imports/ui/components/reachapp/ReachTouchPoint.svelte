@@ -20,6 +20,9 @@
   export let value;
   /* translation and appearance are being done in the parent component, through the reachAppProvider object instance.
 This way it only has to be instantiated once */
+  // TODO: export let touchPoint;
+  // TODO: $: touchPointDisplayName = displayTouchPoint(touchPoint, language);
+  // TODO: $: touchPointDescription = describeTouchPoint(touchPoint, language);
   export let touchPointDisplayName;
   export let touchPointDescription;
   export let inputPlaceholder;

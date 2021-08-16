@@ -42,9 +42,8 @@
 </section>
 
 <style>
-  /* TODO: this will go, styling per page */
-
   header {
+    max-height: 6em;
     padding: 1em;
     margin: 2em 1em;
     border: 1px dotted orange;

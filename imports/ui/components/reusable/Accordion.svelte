@@ -3,8 +3,6 @@
   import {slide} from 'svelte/transition';
   import {quintOut} from 'svelte/easing';
 
-  import {faWindowMaximize, faWindowMinimize} from '@fortawesome/free-regular-svg-icons';
-
   // components
 
   // variables

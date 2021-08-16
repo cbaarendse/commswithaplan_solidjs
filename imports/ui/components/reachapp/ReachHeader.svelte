@@ -1,8 +1,16 @@
 <script>
   // packages
   import {createEventDispatcher} from 'svelte';
-  import Fa from 'svelte-fa';
-  import {faFlag} from '@fortawesome/free-solid-svg-icons';
+  import Fa from 'svelte-fa/src/fa.svelte';
+  import {
+    faHistory,
+    faSortAlphaUp,
+    faSortNumericUp,
+    faMinus,
+    faHamburger,
+    faPrint,
+    faFilePdf,
+  } from '@fortawesome/free-solid-svg-icons';
 
   // components
   import LogoReachApp from '../reusable/LogoReachApp.svelte';
@@ -39,28 +47,31 @@
     {totalReachDisplayName}:&nbsp;<span>{thisUi.toNumberFormat(totalReach.toFixed(0))}&nbsp;%</span>
   </div>
   <div class="meter">
-    <span style="width:{totalReach}%;">Disk Usage - 55.93GB out of 120GB</span>
+    <span style="width:{totalReach}%;">Reach</span>
   </div>
 </div>
 <div class="outcome">
   <div class="locus">{locusDisplayName}:&nbsp;<span>{thisUi.toNumberFormat(locus.toFixed(1))}&nbsp;%</span></div>
   <div class="meter">
-    <span style="width:{locus}%;">Disk Usage - 55.93GB out of 120GB</span>
+    <span style="width:{locus}%;">Locus</span>
   </div>
 </div>
 <!-- TODO: variables sorting by name etc to be reactive and simple -->
 <div class="controls">
   <button class="red" type="button" on:click={() => dispatch('reset')}
-    >{#if allTouchPointValuesAreZero}<History size="2em" /> {:else}<span>0</span>{/if}</button
+    >{#if allTouchPointValuesAreZero}<Fa icon={faHistory} size="1.4x" /> {:else}<span>0</span>{/if}</button
   >
   <button class="green" type="button" on:click={() => dispatch('sort')}
-    >{#if sortingByName}<SortAlphabetical size="2em" />{:else}<SortVariant size="2em" />{/if}</button
+    >{#if sortingByName}<Fa icon={faSortAlphaUp} size="1.4x" />{:else}<Fa
+        icon={faSortNumericUp}
+        size="1.4x"
+      />{/if}</button
   >
   <button class="green" type="button" on:click={() => dispatch('hide')}
-    >{#if showAll}<Minus size="2em" />{:else}<Menu size="2em" />{/if}</button
+    >{#if showAll}<Fa icon={faMinus} size="1.4x" />{:else}<Fa icon={faHamburger} size="1.4x" />{/if}</button
   >
-  <button class="blue" type="button" on:click={() => dispatch('print')}><Printer size="2em" /></button>
-  <button class="blue" type="button" on:click={() => dispatch('pdf')}><FilePdf size="2em" /></button>
+  <button class="blue" type="button" on:click={() => dispatch('print')}><Fa icon={faPrint} size="1.4x" /></button>
+  <button class="blue" type="button" on:click={() => dispatch('pdf')}><Fa icon={faFilePdf} size="1.4x" /></button>
 </div>
 
 <style>

@@ -13,7 +13,7 @@
   import UiProvider from '../../../both/uiProvider';
 
   // variables
-  export let language = 'english';
+  export let language;
   const thisReachApp = new ReachAppProvider(touchPointsBasics, language);
   const thisUi = new UiProvider(translations, language);
   let touchPoints = thisReachApp.touchPoints;
@@ -126,6 +126,7 @@
 <style>
   header {
     all: unset;
+    max-height: 6em;
     padding: 1em;
     margin: 2em 1em;
     border: 1px dotted orange;

@@ -12,11 +12,11 @@ export const processItems = [{
     {
         english: {
             name: 'Briefing',
-            description: 'Instruct the agencies to develop (media) campaigns. Wit the input of former results, all marketing functions, objectives etc. In principle I follow the steps (1) strategy (2) planning (3) execution (4) evaluation & adjust.',
+            description: 'Instruct the agencies to develop (media) campaigns. Wit the input of former results, all marketing functions, objectives etc. In principle I follow the steps (1) strategy (2) planning (3) execution (4) evaluation & adjustment.',
         },
         dutch: {
             name: 'Briefing',
-            description: 'Opdracht geven aan de bureaus om (media)campagnes te ontwikkelen. Met input van eerdere resultaten, alle marketing functies, doelstellingen etcetera. In principe volg ik de stappen (1) strategie (2) planning (3) uitvoering (4) evaluatie & bijstellen.',
+            description: 'Opdracht geven aan de bureaus om (media)campagnes te ontwikkelen. Met input van eerdere resultaten, alle marketing functies, doelstellingen etcetera. In principe volg ik de stappen (1) strategie (2) planning (3) uitvoering (4) evaluatie & bijstelling.',
         },
     },
     {
