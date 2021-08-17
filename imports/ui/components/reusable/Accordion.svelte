@@ -2,21 +2,24 @@
   // packages
   import {slide} from 'svelte/transition';
   import {quintOut} from 'svelte/easing';
+  import Fa from 'svelte-fa/src/fa.svelte';
+  import {faPlus, faMinus} from '@fortawesome/free-solid-svg-icons';
 
   // components
+  import {Button} from './Button.svelte';
 
   // variables
   let display = 'none';
 
   // functions
   const toggleDisplay = (event) => {
-    console.log('clicked ', event.detail);
     display === 'none' ? (display = 'block') : (display = 'none');
   };
 </script>
 
 <div class="accordion">
   <header>
+    <Button backgroundColor="transparantnoborder"><Fa icon={faPlus} /></Button>
     <button on:click|preventDefault={toggleDisplay}>Open / Dicht</button>
     <slot name="title" />
     {#if display === 'none'}iconHere

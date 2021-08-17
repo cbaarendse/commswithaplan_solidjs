@@ -10,11 +10,11 @@ function ReachAppProvider(touchPointsBasics, language) {
     let _locus = 0.0;
 
     // ui
-    this.displayTouchPoint = function(input) {
-        return this.touchPointsBasics.find((touchPointBasics) => touchPointBasics.name === input)[this.language].displayName || undefined;
+    this.displayTouchPoint = function(input, language) {
+        return this.touchPointsBasics.find((touchPointBasics) => touchPointBasics.name === input)[language].displayName || undefined;
     }
-    this.describeTouchPoint = function(input) {
-        return this.touchPointsBasics.find((touchPointBasics) => touchPointBasics.name === input)[this.language].description || undefined;
+    this.describeTouchPoint = function(input, language) {
+        return this.touchPointsBasics.find((touchPointBasics) => touchPointBasics.name === input)[language].description || undefined;
     }
 
     // reset
@@ -31,7 +31,7 @@ function ReachAppProvider(touchPointsBasics, language) {
     this.toggleSortingByName = function() {
         this.sortingByName = !this.sortingByName;
     }
-    this.sortByName = function() {
+    this.sortByName = function(language) {
         let _sortedTouchPoints = [];
         const touchPointsBasicsSorted = this.touchPointsBasics;
         touchPointsBasicsSorted.sort((a, b) => a[language].displayName - b[language].displayName);
@@ -112,6 +112,5 @@ function ReachAppProvider(touchPointsBasics, language) {
         }
     });
 }
-
 
 export default ReachAppProvider;

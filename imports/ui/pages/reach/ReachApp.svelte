@@ -14,11 +14,11 @@
 
   // variables
   export let language;
-  const thisReachApp = new ReachAppProvider(touchPointsBasics, language);
-  const thisUi = new UiProvider(translations, language);
+  const thisReachApp = new ReachAppProvider(touchPointsBasics);
+  const thisUi = new UiProvider(translations);
   let touchPoints = thisReachApp.touchPoints;
 
-  let inputPlaceholder = thisUi.translate('input');
+  let inputPlaceholder = thisUi.translate('input', language);
   let totalReach = thisReachApp.totalReach;
   let locus = thisReachApp.locus;
   let allTouchPointValuesAreZero = thisReachApp.areAllTouchPointsValuesZero();
@@ -41,7 +41,7 @@
   };
   const sort = () => {
     if (thisReachApp.sortingByName) {
-      thisReachApp.sortByName();
+      thisReachApp.sortByName(language);
     } else {
       thisReachApp.sortByReach();
     }
@@ -91,11 +91,11 @@
   <ReachHeader
     {totalReach}
     {locus}
+    totalReachDisplayName={thisUi.translate('totalReach', language)}
+    locusDisplayName={thisUi.translate('locus', language)}
     {allTouchPointValuesAreZero}
     {sortingByName}
     {showAll}
-    totalReachDisplayName={thisUi.translate('totalReach')}
-    locusDisplayName={thisUi.translate('locus')}
     on:reset={reset}
     on:sort={sort}
     on:hide={hide}
@@ -113,8 +113,8 @@
         {language}
         {inputPlaceholder}
         {...touchPoint}
-        touchPointDisplayName={thisReachApp.displayTouchPoint(touchPoint.name)}
-        touchPointDescription={thisReachApp.describeTouchPoint(touchPoint.name)}
+        touchPointDisplayName={thisReachApp.displayTouchPoint(touchPoint.name, language)}
+        touchPointDescription={thisReachApp.describeTouchPoint(touchPoint.name, language)}
         on:handleChange={changeReach}
         on:handleInput={inputReach}
       />

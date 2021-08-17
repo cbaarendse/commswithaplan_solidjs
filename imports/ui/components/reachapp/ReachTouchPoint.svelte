@@ -14,25 +14,20 @@
 
   // variables
   export let displayTouchPoint;
-  export let language;
-  // these two are extracted through {...touchPoint} in the parent component
-  export let name;
-  export let value;
-  /* translation and appearance are being done in the parent component, through the reachAppProvider object instance.
-This way it only has to be instantiated once */
-  // TODO: export let touchPoint;
-  // TODO: $: touchPointDisplayName = displayTouchPoint(touchPoint, language);
-  // TODO: $: touchPointDescription = describeTouchPoint(touchPoint, language);
   export let touchPointDisplayName;
   export let touchPointDescription;
   export let inputPlaceholder;
-
-  // this is the value from the slider
-  $: sliderValue = value;
   let manualInput = false;
   let displayModal;
 
-  const thisUi = new UiProvider(translations, language);
+  // these two are extracted through {...touchPoint} in the parent component
+  export let name;
+  export let value;
+
+  // this is the value from the slider
+  $: sliderValue = value;
+
+  const thisUi = new UiProvider(translations);
 
   //import {notify} from '../../notifications/NotificationsFunctions';
 

@@ -48,7 +48,8 @@
       </p>
     {/if}
   </Card>
-
+</section>
+<section>
   <article>
     <h2>Work</h2>
     {#if language == 'dutch'}
@@ -141,7 +142,7 @@
   }
 
   article {
-    flex-grow: 1;
+    flex: 1 1 100%;
     margin: 0 2em;
   }
 

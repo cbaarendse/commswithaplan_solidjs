@@ -5,7 +5,7 @@
   import {
     faHistory,
     faSortAlphaUp,
-    faSortNumericUp,
+    faSortNumericDownAlt,
     faMinus,
     faHamburger,
     faPrint,
@@ -23,7 +23,6 @@
   const dispatch = createEventDispatcher();
 
   // variables
-  export let language;
   export let totalReach;
   export let locus;
   export let totalReachDisplayName;
@@ -32,7 +31,7 @@
   export let sortingByName;
   export let showAll;
 
-  const thisUi = new UiProvider(translations, language);
+  const thisUi = new UiProvider(translations);
 </script>
 
 <!-- header -->
@@ -47,13 +46,15 @@
     {totalReachDisplayName}:&nbsp;<span>{thisUi.toNumberFormat(totalReach.toFixed(0))}&nbsp;%</span>
   </div>
   <div class="meter">
-    <span style="width:{totalReach}%;">Reach</span>
+    <span style="width:{totalReach}%;">{totalReachDisplayName}</span>
   </div>
 </div>
 <div class="outcome">
-  <div class="locus">{locusDisplayName}:&nbsp;<span>{thisUi.toNumberFormat(locus.toFixed(1))}&nbsp;%</span></div>
+  <div class="locus">
+    {locusDisplayName}:&nbsp;<span>{thisUi.toNumberFormat(locus.toFixed(1))}&nbsp;%</span>
+  </div>
   <div class="meter">
-    <span style="width:{locus}%;">Locus</span>
+    <span style="width:{locus}%;">{locusDisplayName}</span>
   </div>
 </div>
 <!-- TODO: variables sorting by name etc to be reactive and simple -->
@@ -63,7 +64,7 @@
   >
   <button class="green" type="button" on:click={() => dispatch('sort')}
     >{#if sortingByName}<Fa icon={faSortAlphaUp} size="1.4x" />{:else}<Fa
-        icon={faSortNumericUp}
+        icon={faSortNumericDownAlt}
         size="1.4x"
       />{/if}</button
   >

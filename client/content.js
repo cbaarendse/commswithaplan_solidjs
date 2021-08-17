@@ -2,7 +2,7 @@
 export const processItems = [{
         english: {
             name: 'Research and analysis',
-            description: 'Interpretation of past campaigns / years etc.',
+            description: 'Interpretation of past campaigns / years etc.'
         },
         dutch: {
             name: 'Onderzoek en analyse',

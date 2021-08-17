@@ -1,14 +1,13 @@
-export default function UiProvider(translations, language) {
+export default function UiProvider(translations) {
     // functions should be in prototype, and reuseable for reachAppProvider
     this.translations = translations;
-    this.language = language;
 
-    this.translate = function(input) {
-        return this.translations.find((element) => element.name === input)[this.language].displayName || undefined;
+    this.translate = function(input, language) {
+        return this.translations.find((element) => element.name === input)[language].displayName || input;
     }
 
-    this.describe = function(input) {
-        return this.translations.find((element) => element.name === input)[this.language].description || undefined;
+    this.describe = function(input, language) {
+        return this.translations.find((element) => element.name === input)[language].description || input;
     }
 
     this.capitalizeAndSplit = function(str) {

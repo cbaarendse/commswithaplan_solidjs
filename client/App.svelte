@@ -60,6 +60,27 @@
       <span class="brand">ReachApp</span>
     </a>
   </nav>
+  {#if $router.path.startsWith('/reachapp')}
+    <nav>
+      <a href={'/app'} use:active>
+        <span class="brand">App</span>
+      </a>
+      <a href={'/download'} use:active>
+        <span class="brand">Download</span>
+      </a>
+      <a href={'/manual'} use:active>
+        <span class="brand">Manual</span>
+      </a>
+    </nav>
+  {:else if $router.path.startsWith('/commswithaplan')}
+    <nav>
+      <a href={'/consultancy'} use:active>
+        <span class="brand">Consultancy</span>
+      </a>
+    </nav>
+  {:else}
+    <nav />
+  {/if}
 
   <!-- <Notifications /> -->
 </header>
@@ -100,6 +121,11 @@
     height: var(--ra-nav-main-height);
   }
 
+  nav:nth-child(3) {
+    justify-content: center;
+    background-color: var(--ra-teal-light);
+    height: var(--ra-nav-sub-height);
+  }
   nav a {
     display: flex;
     justify-content: center;
