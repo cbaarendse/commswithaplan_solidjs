@@ -27,7 +27,7 @@
     color={'var(--ra-blue)'}
     cardTitle={'Bereik'}
     imgUrl={'/organ.jpg'}
-    cardLink={'/reach/'}
+    cardLink={'/reachapp'}
     cardLinkText={'Read more...'}>A handy tool to estimate your total reach.</Card
   >
 

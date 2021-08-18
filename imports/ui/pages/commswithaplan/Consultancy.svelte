@@ -21,12 +21,10 @@
   </div>
 </header>
 <section>
-  <Card cardTitle="Comms With A Plan" cardLink="/commswithaplan" cardLinkText="Read more...">
+  <Card cardTitle="Comms With A Plan">
     {#if language == 'dutch'}
-      <p>
-        Comms With A Plan is een Media Management consultancy voor adverteerders. Ik initieer, onderhoud en evalueer je
-        media strategie, ik manage je bureaus en budget.
-      </p>
+      <p>Comms With A Plan is een Media Management consultancy voor adverteerders.</p>
+      <p>Ik initieer, onderhoud en evalueer je media strategie, ik manage je bureaus en budget.</p>
     {:else}
       <p>Comms With A Plan is a Media Management consultancy for advertisers.</p>
       <p>
@@ -38,12 +36,12 @@
   <Card cardTitle="Consultancy">
     {#if language == 'dutch'}
       <p>
-        Comms With A Plan is een flexibele partner in die zin dat het werk project gebaseerd kan zijn, maar ook meer
-        continu. Gebaseerd op vraag. (Bel me zodat ik het kan uitleggen.)
+        Comms With A Plan is een flexibele partner in die zin dat het werk per project kan zijn, maar ook meer continu.
+        Gebaseerd op vraag. (Bel me zodat ik het kan uitleggen.)
       </p>
     {:else}
       <p>
-        Comms With A Plan is a flexible unit in the sense that work can be project base, or more continuous, based on
+        Comms With A Plan is a flexible unit in the sense that work can be project based, or more continuous, based on
         demand. (Give me a call to explain.)
       </p>
     {/if}
@@ -96,13 +94,13 @@
     <h2>Contact</h2>
     {#if language == 'dutch'}
       <address>
-        <p>e-mail: cbaarendse@commswithaplan.com</p>
+        <p>e-mail: cbaarendse[at]commswithaplan.com</p>
         <input type="textarea" />
         <p>telefoon: nul zes een twee drie negen acht zeven drie vier</p>
       </address>
     {:else}
       <address>
-        <p>e-mail: cbaarendse@commswithaplan.com</p>
+        <p>e-mail: cbaarendse[at]commswithaplan.com</p>
         <p>telephone: plus three one six one two three nine eight seven three four</p>
       </address>
     {/if}
@@ -138,7 +136,7 @@
   section {
     display: flex;
     flex-wrap: wrap;
-    justify-content: flex-start;
+    justify-content: center;
   }
 
   article {

@@ -1,37 +1,34 @@
 <script>
   // packages
   import {slide} from 'svelte/transition';
-  import {quintOut} from 'svelte/easing';
+  import {linear, quintInOut, expoInOut, backInOut} from 'svelte/easing';
   import Fa from 'svelte-fa/src/fa.svelte';
   import {faPlus, faMinus} from '@fortawesome/free-solid-svg-icons';
 
   // components
-  import {Button} from './Button.svelte';
+  import Button from './Button.svelte';
 
   // variables
-  let display = 'none';
+  let visible = false;
 
   // functions
-  const toggleDisplay = (event) => {
-    display === 'none' ? (display = 'block') : (display = 'none');
+  const toggleVisibility = () => {
+    visible = !visible;
   };
 </script>
 
 <div class="accordion">
   <header>
-    <Button backgroundColor="transparantnoborder"><Fa icon={faPlus} /></Button>
-    <button on:click|preventDefault={toggleDisplay}>Open / Dicht</button>
+    <Button backgroundColor={'transparantnoborder'} on:click={toggleVisibility}
+      >{#if visible}<Fa icon={faMinus} />{:else}<Fa icon={faPlus} />{/if}</Button
+    >
     <slot name="title" />
-    {#if display === 'none'}iconHere
-    {:else}iconHere{/if}
   </header>
-  <div
-    class="accordion-main"
-    style="display:{display}"
-    transition:slide={{delay: 250, duration: 800, easing: quintOut}}
-  >
-    <slot />
-  </div>
+  {#if visible}
+    <div class="accordion-main" transition:slide={{duration: 1000, easing: backInOut}}>
+      <slot />
+    </div>
+  {/if}
   <footer><slot name="footer" /></footer>
 </div>
 
@@ -39,24 +36,26 @@
   div.accordion {
     width: 100%;
   }
-  div.accordion > header {
-    border: 1px dashed var(--ra-grey);
+  header {
+    min-height: 4em;
+    border: none;
     border-top-left-radius: 0.2em;
     border-top-right-radius: 0.2em;
     padding: 0.5em 1em;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
-    background-color: var(--ra-grey-offwhite);
+    background-color: var(--ra-teal-off-white);
     cursor: pointer;
   }
   div.accordion-main {
     background-color: var(--ra-white);
     padding: 1em 2em;
   }
-  div.accordion > footer {
-    background-color: lightgoldenrodyellow;
-    border: 1px dashed var(--ra-grey);
+  footer {
+    min-height: 3em;
+    background-color: var(--ra-grey-off-white);
+    border: none;
     border-bottom-left-radius: 0.2em;
     border-bottom-right-radius: 0.2em;
     padding: 0.5em 1em;

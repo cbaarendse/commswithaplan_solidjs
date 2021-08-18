@@ -7,8 +7,10 @@
 
   // components
   import Home from '../imports/ui/pages/home/Home.svelte';
-  import CommsWithAPlan from '../imports/ui/pages/commswithaplan/CommsWithAPlan.svelte';
-  import ReachApp from '../imports/ui/pages/reach/ReachApp.svelte';
+  import Consultancy from '../imports/ui/pages/commswithaplan/Consultancy.svelte';
+  import App from '../imports/ui/pages/reachapp/App.svelte';
+  import Download from '../imports/ui/pages/reachapp/Download.svelte';
+  import Manual from '../imports/ui/pages/reachapp/Manual.svelte';
   import NotFound from '../imports/ui/pages/notfound/NotFound.svelte';
   import Footer from '../imports/ui/components/footer/Footer.svelte';
   import LogoCommsWithAPlan from '../imports/ui/components/reusable/LogoCommsWithAPlan.svelte';
@@ -62,19 +64,19 @@
   </nav>
   {#if $router.path.startsWith('/reachapp')}
     <nav>
-      <a href={'/app'} use:active>
+      <a href={'/reachapp'} use:active exact>
         <span class="brand">App</span>
       </a>
-      <a href={'/download'} use:active>
+      <a href={'/reachapp/download'} use:active>
         <span class="brand">Download</span>
       </a>
-      <a href={'/manual'} use:active>
+      <a href={'/reachapp/manual'} use:active>
         <span class="brand">Manual</span>
       </a>
     </nav>
   {:else if $router.path.startsWith('/commswithaplan')}
     <nav>
-      <a href={'/consultancy'} use:active>
+      <a href={'/commswithaplan'} use:active exact>
         <span class="brand">Consultancy</span>
       </a>
     </nav>
@@ -87,8 +89,14 @@
 
 <main>
   <Route path="/"><Home {language} /></Route>
-  <Route path="/commswithaplan"><CommsWithAPlan {language} /></Route>
-  <Route path="/reachapp"><ReachApp {language} /></Route>
+  <Route path="/commswithaplan/*">
+    <Route path="/"><Consultancy {language} /></Route>
+  </Route>
+  <Route path="/reachapp/*">
+    <Route path="/"><App {language} /></Route>
+    <Route path="/download"><Download {language} /></Route>
+    <Route path="/manual"><Manual {language} /></Route>
+  </Route>
   <Route fallback><NotFound {language} /></Route>
 </main>
 

@@ -26,7 +26,7 @@
   button {
     width: fit-content;
     padding: 0.4em 0.6em;
-    margin: 0 1em;
+    margin: 0 0.4em;
     cursor: pointer;
   }
 
