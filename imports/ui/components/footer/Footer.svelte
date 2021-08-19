@@ -1,4 +1,8 @@
 <script>
+  // Packages
+  import {Route, router, active} from 'tinro';
+
+  // Variables
   export let language;
 </script>
 

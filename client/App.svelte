@@ -12,6 +12,7 @@
   import Download from '../imports/ui/pages/reachapp/Download.svelte';
   import Manual from '../imports/ui/pages/reachapp/Manual.svelte';
   import NotFound from '../imports/ui/pages/notfound/NotFound.svelte';
+  import Contact from '../imports/ui/pages/contact/Contact.svelte';
   import Footer from '../imports/ui/components/footer/Footer.svelte';
   import LogoCommsWithAPlan from '../imports/ui/components/reusable/LogoCommsWithAPlan.svelte';
 
@@ -97,6 +98,7 @@
     <Route path="/download"><Download {language} /></Route>
     <Route path="/manual"><Manual {language} /></Route>
   </Route>
+  <Route path="/contact"><Contact {language} /></Route>
   <Route fallback><NotFound {language} /></Route>
 </main>
 

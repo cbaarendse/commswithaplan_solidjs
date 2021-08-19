@@ -1,6 +1,4 @@
 <script>
-  import {compute_slots} from 'svelte/internal';
-
   export let backgroundColor = 'var(--ra-grey-off-white)';
   export let color = 'var(--ra-grey)';
   export let cardTitle;
