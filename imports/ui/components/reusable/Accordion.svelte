@@ -9,17 +9,13 @@
   import Button from './Button.svelte';
 
   // variables
-  let visible = false;
-
-  // functions
-  const toggleVisibility = () => {
-    visible = !visible;
-  };
+  export let visible = false;
+  export let selectedIndex;
 </script>
 
 <div class="accordion">
   <header>
-    <Button backgroundColor={'transparantnoborder'} on:click={toggleVisibility}
+    <Button backgroundColor={'transparantnoborder'} on:click
       >{#if visible}<Fa icon={faMinus} />{:else}<Fa icon={faPlus} />{/if}</Button
     >
     <slot name="title" />

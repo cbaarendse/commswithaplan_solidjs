@@ -128,7 +128,7 @@
     all: unset;
     max-height: 6em;
     padding: 1em;
-    margin: 2em 1em;
+    margin: 2em 0;
     border: 1px dotted orange;
     border-radius: 0.2em;
     display: flex;

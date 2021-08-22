@@ -10,8 +10,15 @@
   // content
   import {processItems} from '../../../../client/content';
 
+  // functions
+  const select = (thisEvn) => {
+    console.log(thisEvn);
+    selectedIndex = index;
+  };
+
   // variables
   export let language;
+  let selectedIndex;
 </script>
 
 <header>
@@ -48,7 +55,7 @@
   </Card>
 </section>
 <section>
-  <article>
+  <article id="work">
     <h2>Work</h2>
     {#if language == 'dutch'}
       <p>Zaken die ik manage gedurende het proces (je kan kiezen en mixen):</p>
@@ -58,7 +65,7 @@
     <ul>
       {#each processItems as item, index}
         <li>
-          <Accordion>
+          <Accordion visible={selectedIndex === index} on:click={() => (selectedIndex = index)}>
             <h4 slot="title">{item[language].name}</h4>
             {item[language].description}
           </Accordion>
@@ -67,7 +74,7 @@
     </ul>
   </article>
 
-  <article>
+  <article id="about">
     <h2>About</h2>
     {#if language == 'dutch'}
       <p>
@@ -90,7 +97,7 @@
     {/if}
   </article>
 
-  <article>
+  <article id="contact">
     <h2>Contact</h2>
     {#if language == 'dutch'}
       <address>
@@ -111,7 +118,7 @@
   header {
     max-height: 6em;
     padding: 1em;
-    margin: 2em 1em;
+    margin: 2em 0;
     border: 1px dotted orange;
     border-radius: 0.2em;
     display: flex;
@@ -133,12 +140,45 @@
     font-family: 'Trebuchet MS';
     padding: 0 1em;
   }
-  section {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+  section:nth-of-type(1) {
+    display: grid;
+    grid-auto-flow: row;
+    grid-template-rows: 28ch;
+    gap: 2em;
   }
 
+  @media (min-width: 119ch) {
+    section:nth-of-type(1) {
+      grid-auto-flow: column;
+    }
+  }
+
+  section:nth-of-type(2) {
+    display: grid;
+    grid-template-areas:
+      'work'
+      'about'
+      'contact';
+    gap: 2em;
+  }
+
+  @media (min-width: 119ch) {
+    section:nth-of-type(2) {
+      grid-template-areas:
+        'work'
+        'about contact';
+    }
+  }
+  article#work {
+    grid-area: work;
+  }
+
+  article#about {
+    grid-area: work;
+  }
+  article#contact {
+    grid-area: work;
+  }
   article {
     flex: 1 1 100%;
     margin: 0 2em;

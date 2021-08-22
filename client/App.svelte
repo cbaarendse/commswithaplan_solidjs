@@ -8,7 +8,7 @@
   // components
   import Home from '../imports/ui/pages/home/Home.svelte';
   import Consultancy from '../imports/ui/pages/commswithaplan/Consultancy.svelte';
-  import App from '../imports/ui/pages/reachapp/App.svelte';
+  import AppApp from '../imports/ui/pages/reachapp/AppApp.svelte';
   import Download from '../imports/ui/pages/reachapp/Download.svelte';
   import Manual from '../imports/ui/pages/reachapp/Manual.svelte';
   import NotFound from '../imports/ui/pages/notfound/NotFound.svelte';
@@ -94,7 +94,7 @@
     <Route path="/"><Consultancy {language} /></Route>
   </Route>
   <Route path="/reachapp/*">
-    <Route path="/"><App {language} /></Route>
+    <Route path="/"><AppApp {language} /></Route>
     <Route path="/download"><Download {language} /></Route>
     <Route path="/manual"><Manual {language} /></Route>
   </Route>
@@ -206,9 +206,10 @@
   main {
     all: unset;
     overflow: auto;
-    display: grid;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
     padding: 1em;
-    border: 1px dashed var(--ra-blue);
   }
 
   footer {

@@ -10,8 +10,8 @@ mobile-experience@1.1.0       # Packages for a great mobile UX
 standard-minifier-css@1.7.3   # CSS minifier run for production mode
 standard-minifier-js@2.6.1    # JS minifier run for production mode
 es5-shim@4.8.0                # ECMAScript 5 compatibility for older browsers
-ecmascript@0.15.2              # Enable ECMAScript2015+ syntax in app code
-typescript@4.3.2              # Enable TypeScript syntax in .ts and .tsx modules
+ecmascript@0.15.3              # Enable ECMAScript2015+ syntax in app code
+typescript@4.3.5              # Enable TypeScript syntax in .ts and .tsx modules
 shell-server@0.5.0            # Server-side component of the `meteor shell` command
 
 svelte:compiler

@@ -45,7 +45,7 @@
   header {
     max-height: 6em;
     padding: 1em;
-    margin: 2em 1em;
+    margin: 2em 0;
     border: 1px dotted orange;
     border-radius: 0.2em;
     display: flex;
@@ -70,11 +70,17 @@
   }
 
   section {
-    border: 1px dashed var(--ra-green);
     padding: 1em;
     margin-bottom: 0.5em;
-    display: flex;
-    justify-content: flex-start;
-    flex-wrap: wrap;
+    display: grid;
+    grid-auto-flow: row;
+    grid-template-rows: 49ch;
+    gap: 2em;
+  }
+
+  @media (min-width: 119ch) {
+    section {
+      grid-auto-flow: column;
+    }
   }
 </style>

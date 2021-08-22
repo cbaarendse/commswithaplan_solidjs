@@ -25,9 +25,15 @@
 <style>
   section {
     display: grid;
-    grid-auto-flow: column;
-    grid-auto-columns: minmax(max-width, 1fr);
-    grid-auto-rows: 25em;
+    grid-auto-flow: row;
+    grid-template-rows: 28ch;
+    gap: 2em;
+  }
+
+  @media (min-width: 119ch) {
+    section {
+      grid-auto-flow: column;
+    }
   }
 
   span {
