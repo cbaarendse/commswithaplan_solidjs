@@ -87,22 +87,21 @@
   };
 </script>
 
-<header>
-  <ReachHeader
-    {totalReach}
-    {locus}
-    totalReachDisplayName={thisUi.translate('totalReach', language)}
-    locusDisplayName={thisUi.translate('locus', language)}
-    {allTouchPointValuesAreZero}
-    {sortingByName}
-    {showAll}
-    on:reset={reset}
-    on:sort={sort}
-    on:hide={hide}
-    on:print={print}
-    on:pdf={pdf}
-  />
-</header>
+<ReachHeader
+  {totalReach}
+  {locus}
+  totalReachDisplayName={thisUi.translate('totalReach', language)}
+  locusDisplayName={thisUi.translate('locus', language)}
+  {allTouchPointValuesAreZero}
+  {sortingByName}
+  {showAll}
+  on:reset={reset}
+  on:sort={sort}
+  on:hide={hide}
+  on:print={print}
+  on:pdf={pdf}
+/>
+
 <section>
   <div />
   <!-- TODO: dispatch on:change and on:input -->
@@ -124,19 +123,6 @@
 </section>
 
 <style>
-  header {
-    all: unset;
-    max-height: 6em;
-    padding: 1em;
-    margin: 2em 0;
-    border: 1px dotted orange;
-    border-radius: 0.2em;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    background-color: var(--ra-teal-off-white);
-  }
   section {
     display: grid;
     grid-template-columns: 1fr 5fr 1fr;

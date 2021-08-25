@@ -110,4 +110,14 @@ export const processItems = [{
             description: 'Inpreteren, opzetten, managen van dashboards of andersoortige rapporten.',
         },
     },
+    {
+        english: {
+            name: 'Auditing',
+            description: 'As an independent party I check spending, prices, timings, results against previous agreed benchmarks, like pitch documents, contracts, plans, previous years etcetera. Only in case I haven\'t worked for you in the previous 2 fiscal years, in one of the capacities above.',
+        },
+        dutch: {
+            name: 'Audit',
+            description: 'Als een onafhankelijke partij vergelijk ik uitgaven, prijzen, timings, resultaten met vooraf overeengekomen ijkpunten, zoals pitch documenten, contracten, plannen, voorgaande jaren etcetera. \n Alleen als ik in de 2 voorafgaande fiscale jaren niet voor je bedrijf heb gewerkt, in een van de bovenstaande capaciteiten.',
+        },
+    },
 ];

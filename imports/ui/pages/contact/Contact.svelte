@@ -11,7 +11,7 @@
 <section>
   <Card cardTitle={'Online'}
     >cbaarendse[at]commswithaplan.com<br /> +31 6 123 987 34<br />
-    <a href="https://www.linkedin.com/in/cbaarendse/"> <Fa icon={faLinkedin} size="1.4em" /></a></Card
+    <a href="https://www.linkedin.com/in/cbaarendse/"> <Fa icon={faLinkedin} size="1.4em" color="#003366" /></a></Card
   >
   <Card cardTitle={'Offline'}>Erich Salomonstraat 507<br /> 1087 GT Amsterdam <br /> The Netherlands</Card>
 
@@ -37,6 +37,6 @@
   }
 
   span {
-    color: goldenrod;
+    color: var(--ra-red);
   }
 </style>

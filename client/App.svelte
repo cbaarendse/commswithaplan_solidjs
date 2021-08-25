@@ -8,7 +8,7 @@
   // components
   import Home from '../imports/ui/pages/home/Home.svelte';
   import Consultancy from '../imports/ui/pages/commswithaplan/Consultancy.svelte';
-  import AppApp from '../imports/ui/pages/reachapp/AppApp.svelte';
+  import ReachAppApp from '../imports/ui/pages/reachapp/ReachAppApp.svelte';
   import Download from '../imports/ui/pages/reachapp/Download.svelte';
   import Manual from '../imports/ui/pages/reachapp/Manual.svelte';
   import NotFound from '../imports/ui/pages/notfound/NotFound.svelte';
@@ -94,7 +94,7 @@
     <Route path="/"><Consultancy {language} /></Route>
   </Route>
   <Route path="/reachapp/*">
-    <Route path="/"><AppApp {language} /></Route>
+    <Route path="/"><ReachAppApp {language} /></Route>
     <Route path="/download"><Download {language} /></Route>
     <Route path="/manual"><Manual {language} /></Route>
   </Route>
@@ -118,20 +118,20 @@
     z-index: 999;
   }
 
-  nav:nth-child(1) {
+  nav:nth-of-type(1) {
     justify-content: flex-end;
     align-items: center;
     background-color: var(--ra-grey-off-white);
     height: var(--ra-nav-top-height);
   }
 
-  nav:nth-child(2) {
+  nav:nth-of-type(2) {
     justify-content: flex-start;
     background-color: var(--ra-teal-transparant);
     height: var(--ra-nav-main-height);
   }
 
-  nav:nth-child(3) {
+  nav:nth-of-type(3) {
     justify-content: center;
     background-color: var(--ra-teal-light);
     height: var(--ra-nav-sub-height);
@@ -152,7 +152,7 @@
   }
 
   /* :hover */
-  nav:nth-child(1) > a:hover {
+  nav:nth-of-type(1) > a:hover {
     color: var(--ra-grey-light);
   }
 
@@ -161,24 +161,21 @@
     color: var(--ra-blue);
   }
 
-  nav:nth-child(2) > a:hover span.blue,
-  nav:nth-child(2) > a:hover span.brand,
-  nav:nth-child(2) > a:active span.blue,
-  nav:nth-child(2) > a.active span.brand {
+  nav:nth-of-type(2) > a:hover span.blue,
+  nav:nth-of-type(2) > a:hover span.brand,
+  nav:nth-of-type(2) > a:active span.blue,
+  nav:nth-of-type(2) > a.active span.brand {
     color: var(--ra-blue);
   }
-  nav:nth-child(2) > a:hover span.green,
-  nav:nth-child(2) > a.active span.green {
+  nav:nth-of-type(2) > a:hover span.green,
+  nav:nth-of-type(2) > a.active span.green {
     color: var(--ra-green);
   }
-  nav:nth-child(2) > a:hover span.red,
-  nav:nth-child(2) > a.active span.red {
+  nav:nth-of-type(2) > a:hover span.red,
+  nav:nth-of-type(2) > a.active span.red {
     color: var(--ra-red);
   }
 
-  nav > span {
-    padding: 0 1em;
-  }
   div {
     align-self: center;
     display: flex;

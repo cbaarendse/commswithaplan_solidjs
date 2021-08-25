@@ -10,7 +10,6 @@
 
   // variables
   export let visible = false;
-  export let selectedIndex;
 </script>
 
 <div class="accordion">
@@ -44,6 +43,7 @@
     background-color: var(--ra-teal-off-white);
     cursor: pointer;
   }
+
   div.accordion-main {
     background-color: var(--ra-white);
     padding: 1em 2em;

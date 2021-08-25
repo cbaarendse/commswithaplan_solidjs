@@ -11,10 +11,6 @@
   import {processItems} from '../../../../client/content';
 
   // functions
-  const select = (thisEvn) => {
-    console.log(thisEvn);
-    selectedIndex = index;
-  };
 
   // variables
   export let language;
@@ -65,7 +61,10 @@
     <ul>
       {#each processItems as item, index}
         <li>
-          <Accordion visible={selectedIndex === index} on:click={() => (selectedIndex = index)}>
+          <Accordion
+            visible={selectedIndex === index}
+            on:click={() => (selectedIndex === index ? (selectedIndex = '') : (selectedIndex = index))}
+          >
             <h4 slot="title">{item[language].name}</h4>
             {item[language].description}
           </Accordion>
@@ -102,7 +101,6 @@
     {#if language == 'dutch'}
       <address>
         <p>e-mail: cbaarendse[at]commswithaplan.com</p>
-        <input type="textarea" />
         <p>telefoon: nul zes een twee drie negen acht zeven drie vier</p>
       </address>
     {:else}
@@ -143,7 +141,7 @@
   section:nth-of-type(1) {
     display: grid;
     grid-auto-flow: row;
-    grid-template-rows: 28ch;
+    grid-template-rows: auto;
     gap: 2em;
   }
 
@@ -165,7 +163,7 @@
   @media (min-width: 119ch) {
     section:nth-of-type(2) {
       grid-template-areas:
-        'work'
+        'work work'
         'about contact';
     }
   }
@@ -174,14 +172,15 @@
   }
 
   article#about {
-    grid-area: work;
+    grid-area: about;
   }
+
   article#contact {
-    grid-area: work;
+    grid-area: contact;
   }
+
   article {
-    flex: 1 1 100%;
-    margin: 0 2em;
+    margin: 1em 2em;
   }
 
   ul {
