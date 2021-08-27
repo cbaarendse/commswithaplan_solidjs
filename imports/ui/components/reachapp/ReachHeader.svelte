@@ -35,84 +35,84 @@
 </script>
 
 <header>
-  <div class="logo">
-    <LogoReachApp />
-    <span class="brand">ReachApp</span>
+  <!-- <div class="brand"> -->
+  <LogoReachApp />
+  <span>ReachApp</span>
+  <!-- </div> -->
+  <!-- <div class="outcome"> -->
+  <div class="outcome">
+    {totalReachDisplayName}:&nbsp;<span>{thisUi.toNumberFormat(totalReach.toFixed(0))}&nbsp;%</span>
   </div>
-  <!-- outcome  -->
-  <div class="reach-container">
-    <div class="total-reach">
-      {totalReachDisplayName}:&nbsp;<span>{thisUi.toNumberFormat(totalReach.toFixed(0))}&nbsp;%</span>
-    </div>
-    <div class="meter">
-      <span style="width:{totalReach}%;">{totalReachDisplayName}</span>
-    </div>
+  <div class="meter">
+    <span style="width:{totalReach}%;">{totalReachDisplayName}</span>
   </div>
-  <div class="locus-container">
-    <div class="locus">
-      {locusDisplayName}:&nbsp;<span>{thisUi.toNumberFormat(locus.toFixed(1))}&nbsp;%</span>
-    </div>
-    <div class="meter">
-      <span style="width:{locus}%;">{locusDisplayName}</span>
-    </div>
+  <div class="outcome">
+    {locusDisplayName}:&nbsp;<span>{thisUi.toNumberFormat(locus.toFixed(1))}&nbsp;%</span>
   </div>
+  <div class="meter">
+    <span style="width:{locus}%;">{locusDisplayName}</span>
+  </div>
+  <!-- </div> -->
+
   <!-- TODO: variables sorting by name etc to be reactive and simple -->
-  <div class="controls">
-    <button class="red" type="button" on:click={() => dispatch('reset')}
-      >{#if allTouchPointValuesAreZero}<Fa icon={faHistory} size="1.4x" /> {:else}<span>0</span>{/if}</button
-    >
-    <button class="green" type="button" on:click={() => dispatch('sort')}
-      >{#if sortingByName}<Fa icon={faSortAlphaUp} size="1.4x" />{:else}<Fa
-          icon={faSortNumericDownAlt}
-          size="1.4x"
-        />{/if}</button
-    >
-    <button class="green" type="button" on:click={() => dispatch('hide')}
-      >{#if showAll}<Fa icon={faMinus} size="1.4x" />{:else}<Fa icon={faHamburger} size="1.4x" />{/if}</button
-    >
-    <button class="blue" type="button" on:click={() => dispatch('print')}><Fa icon={faPrint} size="1.4x" /></button>
-    <button class="blue" type="button" on:click={() => dispatch('pdf')}><Fa icon={faFilePdf} size="1.4x" /></button>
-  </div>
+  <!-- <div class="controls"> -->
+  <button class="red" type="button" on:click={() => dispatch('reset')}
+    >{#if allTouchPointValuesAreZero}<Fa icon={faHistory} size="1.4x" /> {:else}<span>0</span>{/if}</button
+  >
+  <button class="green" type="button" on:click={() => dispatch('sort')}
+    >{#if sortingByName}<Fa icon={faSortAlphaUp} size="1.4x" />{:else}<Fa
+        icon={faSortNumericDownAlt}
+        size="1.4x"
+      />{/if}</button
+  >
+  <button class="green" type="button" on:click={() => dispatch('hide')}
+    >{#if showAll}<Fa icon={faMinus} size="1.4x" />{:else}<Fa icon={faHamburger} size="1.4x" />{/if}</button
+  >
+  <button class="blue" type="button" on:click={() => dispatch('print')}><Fa icon={faPrint} size="1.4x" /></button>
+  <button class="blue" type="button" on:click={() => dispatch('pdf')}><Fa icon={faFilePdf} size="1.4x" /></button>
+  <!-- </div> -->
 </header>
 
 <style>
   header {
-    all: unset;
     padding: 1em;
     margin: 2em 0;
     border: 1px dotted orange;
     border-radius: 0.2em;
     display: grid;
     gap: 0.4em;
-    grid-template-columns: 3fr 7fr 7fr 5fr;
+    grid-template-columns: auto auto auto 1fr auto 1fr auto auto auto auto auto;
+    grid-auto-flow: column;
     align-items: center;
     background-color: var(--ra-teal-off-white);
   }
 
   @media screen and (max-width: 1200px) {
     header {
+      grid-auto-flow: row;
+      grid-template-columns: 1fr;
     }
   }
 
-  div.logo {
+  div.brand {
     display: grid;
-    grid-template-columns: 1fr 2fr;
+    grid-template-columns: auto 1fr;
+    gap: 1em;
+    justify-items: start;
     align-items: center;
   }
-  div.logo > span.brand {
+  header > span {
     font-size: 1.6rem;
     font-family: 'Trebuchet MS';
   }
-  div.reach-container,
-  div.locus-container {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
+  div.outcome {
     align-items: center;
     font-size: 1.4rem;
   }
-  div.total-reach,
-  div.locus {
-    flex-shrink: 0;
+  @media screen and (max-width: 1200px) {
+    div.controls {
+      margin-top: 1em;
+    }
   }
 
   div.meter {
@@ -138,7 +138,16 @@
 
   div.controls {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-auto-flow: column;
+    grid-template-columns: 1fr auto auto auto auto;
+    justify-items: end;
+  }
+  @media screen and (max-width: 1200px) {
+    div.controls {
+      justify-items: start;
+      grid-template-columns: auto auto auto auto 1fr;
+      margin-top: 1em;
+    }
   }
 
   button {

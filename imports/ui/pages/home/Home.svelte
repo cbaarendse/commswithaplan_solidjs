@@ -74,7 +74,7 @@
     margin-bottom: 0.5em;
     display: grid;
     grid-auto-flow: row;
-    grid-template-rows: 49ch;
+    grid-template-rows: auto;
     gap: 2em;
   }
 
