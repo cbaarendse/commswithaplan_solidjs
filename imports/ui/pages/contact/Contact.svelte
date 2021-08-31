@@ -10,10 +10,14 @@
 
 <section>
   <Card cardTitle={'Online'}
-    >cbaarendse[at]commswithaplan.com<br /> +31 6 123 987 34<br />
-    <a href="https://www.linkedin.com/in/cbaarendse/"> <Fa icon={faLinkedin} size="1.4em" color="#003366" /></a></Card
+    ><address>
+      cbaarendse[at]commswithaplan.com<br /> +31 6 123 987 34<br />
+      <a href="https://www.linkedin.com/in/cbaarendse/"> <Fa icon={faLinkedin} size="1.4em" color="#003366" /></a>
+    </address></Card
   >
-  <Card cardTitle={'Offline'}>Erich Salomonstraat 507<br /> 1087 GT Amsterdam <br /> The Netherlands</Card>
+  <Card cardTitle={'Offline'}
+    ><address>Erich Salomonstraat 507<br /> 1087 GT Amsterdam <br /> The Netherlands</address></Card
+  >
 
   <Card>
     <span

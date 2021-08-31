@@ -25,7 +25,8 @@
     "moment": "^2.27.0",
     "stripe": "^8.137.0",
     "svelte": "^3.31.2",
-    "svelte-fa": "^2.2.1"
+    "svelte-fa": "^2.2.1",
+    "svelte-preprocess": "^4.8.0"
   },
   "meteor": {
     "mainModule": {
