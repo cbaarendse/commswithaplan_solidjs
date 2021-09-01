@@ -176,6 +176,9 @@
     color: var(--ra-red);
   }
 
+  nav:nth-of-type(3) > a:hover span.brand {
+    color: var(--ra-blue);
+  }
   div {
     align-self: center;
     display: flex;
@@ -203,9 +206,6 @@
   main {
     all: unset;
     overflow: auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
     padding: 1em;
   }
 

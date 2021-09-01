@@ -103,34 +103,29 @@
 />
 
 <section>
-  <div />
   <!-- TODO: dispatch on:change and on:input -->
-  <div class="center">
-    {#each touchPoints as touchPoint}
-      <ReachTouchPoint
-        {displayTouchPoint}
-        {language}
-        {inputPlaceholder}
-        {...touchPoint}
-        touchPointDisplayName={thisReachApp.displayTouchPoint(touchPoint.name, language)}
-        touchPointDescription={thisReachApp.describeTouchPoint(touchPoint.name, language)}
-        on:handleChange={changeReach}
-        on:handleInput={inputReach}
-      />
-    {/each}
-  </div>
-  <div />
+  {#each touchPoints as touchPoint}
+    <ReachTouchPoint
+      {displayTouchPoint}
+      {language}
+      {inputPlaceholder}
+      {...touchPoint}
+      touchPointDisplayName={thisReachApp.displayTouchPoint(touchPoint.name, language)}
+      touchPointDescription={thisReachApp.describeTouchPoint(touchPoint.name, language)}
+      on:handleChange={changeReach}
+      on:handleInput={inputReach}
+    />
+  {/each}
 </section>
 
 <style>
   section {
     display: grid;
-    grid-template-columns: 1fr 5fr 1fr;
+    grid-template-columns: 1fr;
     grid-template-rows: auto;
-    justify-content: center;
   }
 
-  @media screen and (max-width: 500px) {
+  @media screen and (min-width: 1200px) {
     section {
       grid-template-columns: 1fr;
     }

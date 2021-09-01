@@ -24,7 +24,7 @@
   export let name;
   export let value;
 
-  // this is the value from the slider
+  // this is the value of the slider
   $: sliderValue = value;
 
   const thisUi = new UiProvider(translations);
@@ -39,13 +39,7 @@
 
 <div class="container" style="display:{displayTouchPoint};">
   <div class="left">
-    <button on:click|preventDefault={showModal}>
-      <img
-        alt="{name}-Icon"
-        src="/{name}.png"
-        style="background-color:{value > 0 ? 'var(--ra-green)' : 'var(--ra-teal-light)'};"
-      />
-    </button>
+    <button class="touchpoint" on:click|preventDefault={showModal} style="background-image:url(/{name}.png);" />
   </div>
   <div class="center">
     <Slider
@@ -94,19 +88,25 @@
     height: 5em;
     width: 5em;
     padding: 0.5em;
-    border-radius: 50%;
+    border-radius: 7%;
     border: none;
-    background-color: var(--ra-white);
+    opacity: 0.7;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 100%;
+    background-color: var(--ra-teal-off-white);
     cursor: pointer;
+  }
+  button.touchpoint:hover {
+    opacity: 1;
   }
   button.button-input {
     min-width: 5em;
     width: fit-content;
+    border-radius: 50%;
+    background-color: var(--ra-white);
   }
-  img {
-    width: 100%;
-    height: 100%;
-  }
+
   span {
     font-size: 1.4rem;
   }

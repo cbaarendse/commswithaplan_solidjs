@@ -7,7 +7,7 @@
     faSortAlphaUp,
     faSortNumericDownAlt,
     faMinus,
-    faHamburger,
+    fa,
     faPrint,
     faFilePdf,
   } from '@fortawesome/free-solid-svg-icons';
@@ -43,14 +43,14 @@
     <span>{totalReachDisplayName}:&nbsp;</span>
     <span>{thisUi.toNumberFormat(totalReach.toFixed(0))}&nbsp;%</span>
     <div class="meter">
-      <span style="width:{totalReach}%;">{totalReachDisplayName}</span>
+      <span style="width:{totalReach}%;" />
     </div>
   </div>
   <div class="outcome">
     <span>{locusDisplayName}:&nbsp;</span>
     <span>{thisUi.toNumberFormat(locus.toFixed(1))}&nbsp;%</span>
     <div class="meter">
-      <span style="width:{locus}%;">{locusDisplayName}</span>
+      <span style="width:{locus}%;" />
     </div>
   </div>
   <div class="controls">
@@ -64,7 +64,7 @@
         />{/if}</button
     >
     <button type="button" on:click={() => dispatch('hide')}
-      >{#if showAll}<Fa icon={faMinus} size="1.4x" />{:else}<Fa icon={faHamburger} size="1.4x" />{/if}</button
+      >{#if showAll}<Fa icon={faMinus} size="1.4x" />{:else}<Fa icon={faMenu} size="1.4x" />{/if}</button
     >
     <button type="button" on:click={() => dispatch('print')}><Fa icon={faPrint} size="1.4x" /></button>
     <button type="button" on:click={() => dispatch('pdf')}><Fa icon={faFilePdf} size="1.4x" /></button>
@@ -86,8 +86,10 @@
 
   @media screen and (min-width: 1200px) {
     header {
+      grid-auto-flow: row;
+      grid-template-columns: 1fr 2fr 2fr auto;
+      grid-template-rows: min-content;
       column-gap: 0.4em;
-      grid-template-columns: auto auto auto 1fr auto 1fr auto auto auto auto auto;
       align-items: center;
     }
   }
@@ -103,7 +105,7 @@
 
   div.outcome {
     display: grid;
-    grid-template-columns: 1fr auto 3fr;
+    grid-template-columns: 10ch 3ch 1fr;
     align-items: center;
     column-gap: 1em;
     font-size: 1.4rem;
@@ -131,7 +133,7 @@
   div.controls {
     display: grid;
     grid-template-columns: repeat(5, auto) 1fr;
-    column-gap: 0.4em;
+    column-gap: 0.7em;
     align-items: center;
   }
 
