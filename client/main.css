@@ -44,9 +44,12 @@
     --ra-l: 1.5em;
     --ra-xl: 2em;
     --ra-xxl: 2.5em;
-    --ra-nav-top-height: 1.4em;
-    --ra-nav-main-height: 4em;
-    --ra-nav-sub-height: 2em;
+    --ra-nav-1-height-xl: 1.4em;
+    --ra-nav-1-height-xs: 1.4em;
+    --ra-nav-2-height-xl: 4em;
+    --ra-nav-2-height-xs: 8em;
+    --ra-nav-3-height-xl: 2em;
+    --ra-nav-3-height-xs: 4em;
     --ra-notifications-height: 2em;
 }
 

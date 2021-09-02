@@ -7,7 +7,7 @@
     faSortAlphaUp,
     faSortNumericDownAlt,
     faMinus,
-    fa,
+    faBars,
     faPrint,
     faFilePdf,
   } from '@fortawesome/free-solid-svg-icons';
@@ -64,7 +64,7 @@
         />{/if}</button
     >
     <button type="button" on:click={() => dispatch('hide')}
-      >{#if showAll}<Fa icon={faMinus} size="1.4x" />{:else}<Fa icon={faMenu} size="1.4x" />{/if}</button
+      >{#if showAll}<Fa icon={faMinus} size="1.4x" />{:else}<Fa icon={faBars} size="1.4x" />{/if}</button
     >
     <button type="button" on:click={() => dispatch('print')}><Fa icon={faPrint} size="1.4x" /></button>
     <button type="button" on:click={() => dispatch('pdf')}><Fa icon={faFilePdf} size="1.4x" /></button>

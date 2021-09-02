@@ -19,6 +19,7 @@
   export let inputPlaceholder;
   let manualInput = false;
   let displayModal;
+  let hovered = false;
 
   // these two are extracted through {...touchPoint} in the parent component
   export let name;
@@ -39,7 +40,13 @@
 
 <div class="container" style="display:{displayTouchPoint};">
   <div class="left">
-    <button class="touchpoint" on:click|preventDefault={showModal} style="background-image:url(/{name}.png);" />
+    <button
+      class="touchpoint"
+      on:click|preventDefault={showModal}
+      on:mouseover={() => (hovered = true)}
+      on:mouseleave={() => (hovered = false)}
+      style="background-image:url(/{name}.png);opacity:{hovered | (value > 0) ? 1 : 0.7};"
+    />
   </div>
   <div class="center">
     <Slider
@@ -90,16 +97,13 @@
     padding: 0.5em;
     border-radius: 7%;
     border: none;
-    opacity: 0.7;
     background-repeat: no-repeat;
     background-position: center center;
     background-size: 100%;
     background-color: var(--ra-teal-off-white);
     cursor: pointer;
   }
-  button.touchpoint:hover {
-    opacity: 1;
-  }
+
   button.button-input {
     min-width: 5em;
     width: fit-content;
