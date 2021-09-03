@@ -30,8 +30,9 @@
     /* surfaces */
     --ra-white-transparant: rgba(255, 255, 255, 0.9);
     --ra-teal: #75aea2;
-    --ra-teal-transparant: rgba(117, 174, 162, 0.9);
+    --ra-teal-light: rgba(172, 205, 198, 1);
     /* f2 transparancy */
+    --ra-teal-transparant: rgba(117, 174, 162, 0.9);
     --ra-teal-light-transparant: rgba(172, 205, 198, 0.95);
     --ra-blue-off-white: #f0ffff;
     --ra-green-off-white: #f0fff0;
@@ -87,6 +88,9 @@ p {
 
 
 /* schedule */
+
+
+/* TODO: to be turned into grid, with fixed dimensions in var() */
 
 div.schedule-button-space {
     width: 2em;

@@ -113,29 +113,37 @@
 
 <!-- TODO: reselect a-links -->
 <style>
+  header {
+    position: absolute;
+    width: 100%;
+    z-index: 1000;
+  }
   input {
     display: none;
   }
   label {
-    margin: 1em;
+    padding: 1em;
+    background-color: var(--ra-white);
+    width: 100%;
   }
   input ~ nav {
     display: none;
   }
 
-  input:checked ~ nav {
+  input:checked ~ nav:nth-of-type(1) {
     transform: scale(1, 0);
     transform-origin: top;
-  }
-
-  input:checked ~ nav:nth-of-type(1) {
-    transition: transform 150ms ease 300ms;
+    transition: transform 150ms ease-out 300ms;
   }
   input:checked ~ nav:nth-of-type(2) {
-    transition: transform 150ms ease 150ms;
+    transform: scale(1, 0);
+    transform-origin: top;
+    transition: transform 150ms linear 150ms;
   }
   input:checked ~ nav:nth-of-type(3) {
-    transition: transform 150ms ease;
+    transform: scale(1, 0);
+    transform-origin: top;
+    transition: transform 150ms ease-in;
   }
 
   input ~ label.bars {
@@ -157,46 +165,46 @@
     font-family: 'Trebuchet MS';
     font-size: 1.4rem;
     z-index: 999;
-    transform: scale(1, 1);
-    transform-origin: top;
   }
 
   nav:nth-of-type(1) {
     display: grid;
-    grid-auto-flow: column;
     grid-template-columns: 1fr auto auto;
     justify-items: end;
     align-items: center;
     padding: 0.4em 1em;
     background-color: var(--ra-grey-off-white);
-    height: var(--ra-nav-1-height-xs);
-    transition: transform 150ms ease;
+    transform: scale(1, 1);
+    transform-origin: top;
+    transition: transform 150ms ease-in;
   }
 
   nav:nth-of-type(2) {
     display: grid;
-    grid-auto-flow: column;
-    grid-template-rows: auto auto auto;
+    grid-template-columns: auto;
+    grid-template-rows: auto;
     justify-items: start;
     align-items: center;
     row-gap: 0.3em;
     padding: 0.4em 1em;
-    background-color: var(--ra-teal-transparant);
-    height: var(--ra-nav-2-height-xs);
-    transition: transform 150ms ease 150ms;
+    background-color: var(--ra-teal);
+    transform: scale(1, 1);
+    transform-origin: top;
+    transition: transform 150ms linear 150ms;
   }
 
   nav:nth-of-type(3) {
     display: grid;
-    grid-auto-flow: column;
-    grid-template-rows: auto auto auto;
+    grid-template-columns: auto;
+    grid-template-rows: auto;
     justify-items: start;
     align-items: center;
     row-gap: 0.3em;
-    padding: 0.4em 1em;
+    padding: 0.6em 1em;
     background-color: var(--ra-teal-light);
-    height: var(--ra-nav-3-height-xs);
-    transition: transform 150ms ease 300ms;
+    transform: scale(1, 1);
+    transform-origin: top;
+    transition: transform 150ms ease-out 300ms;
   }
   nav a {
     display: flex;
