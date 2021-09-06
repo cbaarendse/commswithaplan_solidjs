@@ -29,18 +29,18 @@
   div.circle1 {
     top: 14%;
     right: 0%;
-    z-index: 999;
+    z-index: 50;
   }
 
   div.circle2 {
     top: 5%;
     left: 7.5%;
-    z-index: 666;
+    z-index: 40;
   }
 
   div.circle3 {
     left: 0%;
     bottom: 5%;
-    z-index: 333;
+    z-index: 30;
   }
 </style>

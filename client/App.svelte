@@ -3,7 +3,7 @@
   import {Route, router, active} from 'tinro';
   //import Fa from 'svelte-fa';
   import Fa from 'svelte-fa/src/fa.svelte';
-  import {faUser, faBars, faMinus} from '@fortawesome/free-solid-svg-icons';
+  import {faUser, faBars, faMinus, faPlus, faTimes} from '@fortawesome/free-solid-svg-icons';
 
   // components
   import Home from '../imports/ui/pages/home/Home.svelte';
@@ -31,12 +31,14 @@
 </script>
 
 <header>
-  <input type="checkbox" id="nav-toggle" class="nav-toggle" checked />
-  <label for="nav-toggle" class="bars"><Fa icon={faBars} size="1.6x" /></label>
-  <label for="nav-toggle" class="minus"><Fa icon={faMinus} size="1.6x" /></label>
+  <input type="checkbox" id="nav-toggle" class="nav-toggle" />
+  <label for="nav-toggle">
+    <div class="expand"><Fa icon={faBars} size="1.6x" /></div>
+    <div class="collapse"><Fa icon={faPlus} size="1.6x" /></div>
+  </label>
 
   <nav>
-    <div>
+    <div class="nav-1-wrapper">
       <a
         href={'javascript:void(0)'}
         class:active={language === 'english'}
@@ -56,7 +58,7 @@
 
   <nav>
     <a href={'/'} on:mouseover={() => (hovered = true)} on:mouseleave={() => (hovered = false)} use:active>
-      <LogoCommsWithAPlan size={'3.5rem'} colored={$router.url === '/' || hovered} />
+      <LogoCommsWithAPlan size={'3.5rem'} colored={$router.url === '/commswithaplan/' || hovered} />
     </a>
 
     <a href={'/commswithaplan'} use:active>
@@ -83,20 +85,22 @@
   {:else if $router.path.startsWith('/commswithaplan')}
     <nav>
       <a href={'/commswithaplan'} use:active exact>
+        <span class="brand">Comms With A Plan</span>
+      </a>
+      <a href={'/commswithaplan/consultancy'} use:active exact>
         <span class="brand">Consultancy</span>
       </a>
     </nav>
-  {:else}
-    <nav />
   {/if}
 
   <!-- <Notifications /> -->
 </header>
 
 <main>
-  <Route path="/"><Home {language} /></Route>
+  <Route path="/" redirect="/commswithaplan/" />
   <Route path="/commswithaplan/*">
-    <Route path="/"><Consultancy {language} /></Route>
+    <Route path="/"><Home {language} /></Route>
+    <Route path="/consultancy"><Consultancy {language} /></Route>
   </Route>
   <Route path="/reachapp/*">
     <Route path="/"><ReachAppApp {language} /></Route>
@@ -115,97 +119,136 @@
 <style>
   header {
     position: absolute;
+    display: grid;
+    grid-template-columns: auto 1fr;
     width: 100%;
-    z-index: 1000;
+    z-index: 999;
   }
   input {
     display: none;
+    grid-column: 1/2;
   }
   label {
+    grid-column: 1/2;
     padding: 1em;
-    background-color: var(--ra-white);
-    width: 100%;
-  }
-  input ~ nav {
-    display: none;
+    background-color: transparent;
+    border: none;
+    width: fit-content;
   }
 
-  input:checked ~ nav:nth-of-type(1) {
-    transform: scale(1, 0);
-    transform-origin: top;
-    transition: transform 150ms ease-out 300ms;
-  }
-  input:checked ~ nav:nth-of-type(2) {
-    transform: scale(1, 0);
-    transform-origin: top;
-    transition: transform 150ms linear 150ms;
-  }
-  input:checked ~ nav:nth-of-type(3) {
-    transform: scale(1, 0);
-    transform-origin: top;
-    transition: transform 150ms ease-in;
+  input ~ label {
+    transform: rotate(0deg);
+    transition: transform 400ms ease-in-out 0ms;
   }
 
-  input ~ label.bars {
-    display: none;
-  }
-
-  input ~ label.minus {
+  input ~ label > div.expand {
     display: inline-block;
   }
-  input:checked ~ label.bars {
-    display: inline-block;
-  }
-  input:checked ~ label.minus {
+
+  input ~ label > div.collapse {
     display: none;
   }
+
+  input:checked ~ label {
+    transform: rotate(-45deg);
+    transition: transform 400ms ease-in-out 0ms;
+  }
+
+  input:checked ~ label > div.expand {
+    display: none;
+  }
+
+  input:checked ~ label > div.collapse {
+    display: inline-block;
+  }
+
   nav {
+    display: none;
     margin: 0;
     width: 100%;
     font-family: 'Trebuchet MS';
     font-size: 1.4rem;
-    z-index: 999;
   }
 
   nav:nth-of-type(1) {
-    display: grid;
-    grid-template-columns: 1fr auto auto;
-    justify-items: end;
-    align-items: center;
-    padding: 0.4em 1em;
     background-color: var(--ra-grey-off-white);
-    transform: scale(1, 1);
+    transform: scale(1, 0);
     transform-origin: top;
-    transition: transform 150ms ease-in;
+    transition: transform 150ms ease-in 300ms;
   }
 
   nav:nth-of-type(2) {
-    display: grid;
-    grid-template-columns: auto;
-    grid-template-rows: auto;
-    justify-items: start;
-    align-items: center;
-    row-gap: 0.3em;
-    padding: 0.4em 1em;
     background-color: var(--ra-teal);
-    transform: scale(1, 1);
+    transform: scale(1, 0);
     transform-origin: top;
     transition: transform 150ms linear 150ms;
   }
 
   nav:nth-of-type(3) {
-    display: grid;
-    grid-template-columns: auto;
-    grid-template-rows: auto;
-    justify-items: start;
-    align-items: center;
-    row-gap: 0.3em;
-    padding: 0.6em 1em;
     background-color: var(--ra-teal-light);
+    transform: scale(1, 0);
+    transform-origin: top;
+    transition: transform 150ms ease-out 0ms;
+  }
+  input:checked ~ nav:nth-of-type(1) {
     transform: scale(1, 1);
     transform-origin: top;
-    transition: transform 150ms ease-out 300ms;
+    transition: transform 150ms ease-out 0ms;
   }
+  input:checked ~ nav:nth-of-type(2) {
+    transform: scale(1, 1);
+    transform-origin: top;
+    transition: transform 150ms linear 150ms;
+  }
+  input:checked ~ nav:nth-of-type(3) {
+    transform: scale(1, 1);
+    transform-origin: top;
+    transition: transform 150ms ease-in 300ms;
+  }
+
+  @media screen and (min-width: 476px) {
+    input,
+    label {
+      display: none;
+    }
+    nav {
+      display: grid;
+      grid-column: auto;
+    }
+    nav:nth-of-type(1) {
+      grid-column: 2/3;
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      grid-template-rows: auto;
+      justify-items: end;
+      align-items: center;
+      transform: none;
+    }
+    nav:nth-of-type(2) {
+      grid-column: 1/3;
+      display: grid;
+      grid-template-columns: auto;
+      grid-template-rows: auto;
+      justify-items: start;
+      align-items: center;
+      row-gap: 0.3em;
+      transform: none;
+    }
+    nav:nth-of-type(3) {
+      grid-column: 1/3;
+      display: grid;
+      grid-template-columns: auto;
+      grid-template-rows: auto;
+      justify-items: start;
+      align-items: center;
+      row-gap: 0.3em;
+      transform: none;
+    }
+    header {
+      position: relative;
+    }
+  }
+
   nav a {
     display: flex;
     justify-content: center;
@@ -249,26 +292,26 @@
   nav:nth-of-type(3) > a:hover span.brand {
     color: var(--ra-blue);
   }
-  div {
+  div.nav-1-wrapper {
     align-self: center;
     display: flex;
     align-items: center;
   }
 
-  div > a,
-  div > a:visited {
+  div.nav-1-wrapper > a,
+  div.nav-1-wrapper > a:visited {
     font-size: 0.8rem;
     color: var(--ra-grey-light);
   }
 
-  div > a:hover {
+  div.nav-1-wrapper > a:hover {
     color: var(--ra-blue-bright);
   }
 
-  div > a.active {
+  div.nav-1-wrapper > a.active {
     background-color: transparent;
   }
-  div > span {
+  div.nav-1-wrapper > span {
     font-size: 0.8rem;
     color: var(--ra-grey-light);
   }
