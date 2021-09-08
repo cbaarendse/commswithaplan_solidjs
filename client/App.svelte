@@ -42,23 +42,25 @@
       href={'javascript:void(0)'}
       class:active={language === 'english'}
       on:click={() => (language = 'english')}
-      tinro-ignore>Engels</a
+      tinro-ignore>EN</a
     >
     <span>|</span>
     <a
       href={'javascript:void(0)'}
       class:active={language === 'dutch'}
       on:click={() => (language = 'dutch')}
-      tinro-ignore>Nederlands</a
+      tinro-ignore>NL</a
     >
-    <Fa icon={faUser} size="0.6x" />
+    <Fa icon={faUser} size="0.7x" />
   </nav>
 
   <nav>
     <a href={'/'} on:mouseover={() => (hovered = true)} on:mouseleave={() => (hovered = false)} use:active>
-      <LogoCommsWithAPlan size={'3.5rem'} colored={$router.url === '/commswithaplan/' || hovered} />
+      <LogoCommsWithAPlan
+        size={'3.5rem'}
+        colored={$router.url === '/commswithaplan/' || $router.url === '/commswithaplan' || hovered}
+      />
     </a>
-
     <a href={'/commswithaplan'} use:active>
       <span class="brand blue">Comms</span>&nbsp;<span class="brand green">With&nbsp;A</span>&nbsp;<span
         class="brand red">Plan</span
@@ -119,8 +121,6 @@
     position: absolute;
     display: grid;
     grid-template-columns: auto 1fr;
-    gap: 1em;
-    padding: 1em;
     width: 100%;
     z-index: 999;
   }
@@ -131,7 +131,7 @@
   label {
     grid-column: 1/2;
     padding: 1em;
-    background-color: transparent;
+    background-color: var(--ra-grey-off-white);
     border: none;
     width: fit-content;
   }
@@ -150,36 +150,51 @@
   }
 
   nav {
-    width: 100%;
+    padding: 0.8em 1em;
     font-family: 'Trebuchet MS';
-    font-size: 1.4rem;
   }
 
   nav:nth-of-type(1) {
-    grid-column: 2/7;
+    grid-column: 2/3;
     display: grid;
+    grid-template-columns: 1fr auto auto auto;
+    grid-template-rows: auto;
+    column-gap: 1em;
+    justify-items: end;
+    align-items: center;
     background-color: var(--ra-grey-off-white);
-    transform: scale(1, 0);
+    /* transform: scale(1, 0); */
     transform-origin: top;
     transition: transform 150ms ease-in 300ms;
+    font-size: 0.8rem;
   }
 
   nav:nth-of-type(2) {
     grid-column: 1/3;
     display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: auto;
+    justify-items: start;
+    align-items: center;
     background-color: var(--ra-teal);
-    transform: scale(1, 0);
+    /* transform: scale(1, 0); */
     transform-origin: top;
     transition: transform 150ms linear 150ms;
+    font-size: 1.4rem;
   }
 
   nav:nth-of-type(3) {
     grid-column: 1/3;
     display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: auto;
+    justify-items: start;
+    align-items: center;
     background-color: var(--ra-teal-light);
-    transform: scale(1, 0);
+    /* transform: scale(1, 0); */
     transform-origin: top;
     transition: transform 150ms ease-out 0ms;
+    font-size: 1.4rem;
   }
 
   header nav a {
@@ -187,7 +202,6 @@
     justify-content: center;
     align-items: center;
     height: 100%;
-    padding: 0 1em;
     text-decoration: none;
   }
 
@@ -206,14 +220,14 @@
     color: var(--ra-grey-light);
   }
 
-  /* :active */
+  /* .active */
+  /* TODO: change order, so this also counts for nav:nth-type-of(1) */
   header nav a.active {
     color: var(--ra-blue);
   }
 
   header nav:nth-of-type(1) > a,
   header nav:nth-of-type(1) > a:visited {
-    font-size: 0.8rem;
     color: var(--ra-grey-light);
   }
 
@@ -221,16 +235,13 @@
     color: var(--ra-blue-bright);
   }
 
-  header nav:nth-of-type(1) > a:active {
-    background-color: transparent;
-  }
   header nav:nth-of-type(1) > span {
-    font-size: 0.8rem;
     color: var(--ra-grey-light);
   }
+
   header nav:nth-of-type(2) > a:hover span.blue,
   header nav:nth-of-type(2) > a:hover span.brand,
-  header nav:nth-of-type(2) > a:active span.blue,
+  header nav:nth-of-type(2) > a.active span.blue,
   header nav:nth-of-type(2) > a.active span.brand {
     color: var(--ra-blue);
   }
@@ -250,7 +261,6 @@
   }
 
   main {
-    all: unset;
     overflow: auto;
     padding: 1em;
   }
@@ -265,7 +275,7 @@
 
   @media screen and (min-width: 476px) {
     header {
-      position: relative;
+      position: static;
     }
     input {
       all: unset;
@@ -279,33 +289,29 @@
       display: grid;
     }
     nav:nth-of-type(1) {
-      display: grid;
-      grid-template-columns: 1fr auto auto auto;
-      grid-template-rows: auto;
-      justify-items: end;
-      align-items: center;
       transform: none;
     }
     nav:nth-of-type(2) {
-      display: grid;
-      grid-template-columns: auto auto auto;
-      grid-template-rows: auto;
-      justify-items: start;
-      align-items: center;
-      row-gap: 0.3em;
+      grid-template-columns: auto auto 1fr;
+      column-gap: 1em;
       transform: none;
     }
     nav:nth-of-type(3) {
       display: grid;
-      grid-template-columns: auto auto auto;
+      grid-template-columns: 1fr auto auto 1fr;
       grid-template-rows: auto;
-      justify-items: start;
       align-items: center;
-      row-gap: 0.3em;
+      column-gap: 1em;
       transform: none;
     }
-    nav:nth-of-type(2) a:nth-of-type(1) {
-      display: grid;
+    header nav:nth-of-type(2) a:nth-of-type(1) {
+      display: flex;
+    }
+    header nav:nth-of-type(3) > a:nth-of-type(1) {
+      grid-column: 2/3;
+    }
+    header nav:nth-of-type(3) > a:nth-of-type(2) {
+      grid-column: 3/4;
     }
   }
 
