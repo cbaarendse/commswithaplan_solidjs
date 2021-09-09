@@ -3,11 +3,12 @@
   import {Route, router, active} from 'tinro';
 
   // Variables
-  export let language;
 </script>
 
-<span>© 2013-2021 Comms With A Plan</span>
-<nav><a href="/contact">Contact</a></nav>
+<footer>
+  <span>© 2013-2021 Comms With A Plan</span>
+  <nav><a href="/contact">Contact</a></nav>
+</footer>
 
 <style>
   span {
@@ -18,5 +19,13 @@
   a {
     color: var(--ra-blue);
     text-decoration: none;
+  }
+
+  footer {
+    display: flex;
+    justify-content: center;
+    padding: 0.5em;
+    background-color: var(--ra-white);
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
   }
 </style>

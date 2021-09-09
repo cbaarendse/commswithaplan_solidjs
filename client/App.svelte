@@ -32,63 +32,70 @@
 
 <header>
   <input type="checkbox" id="nav-toggle" class="nav-toggle" />
-  <label for="nav-toggle">
-    <div class="expand"><Fa icon={faBars} size="1.6x" /></div>
-    <div class="collapse"><Fa icon={faPlus} size="1.6x" /></div>
+  <label for="nav-toggle"
+    ><div class="rotator">
+      <div class="expand"><Fa icon={faBars} size="1.6x" /></div>
+      <div class="collapse"><Fa icon={faPlus} size="1.6x" /></div>
+    </div>
   </label>
 
-  <nav>
-    <a
-      href={'javascript:void(0)'}
-      class:active={language === 'english'}
-      on:click={() => (language = 'english')}
-      tinro-ignore>EN</a
-    >
-    <span>|</span>
+  <nav class="nav-1">
     <a
       href={'javascript:void(0)'}
       class:active={language === 'dutch'}
       on:click={() => (language = 'dutch')}
-      tinro-ignore>NL</a
+      tinro-ignore><span>NL</span></a
     >
+    <span class="divider">|</span>
+    <a
+      href={'javascript:void(0)'}
+      class:active={language === 'english'}
+      on:click={() => (language = 'english')}
+      tinro-ignore><span>EN</span></a
+    >
+
     <Fa icon={faUser} size="0.7x" />
   </nav>
 
-  <nav>
-    <a href={'/'} on:mouseover={() => (hovered = true)} on:mouseleave={() => (hovered = false)} use:active>
+  <nav class="nav-2">
+    <a
+      href={'/'}
+      class="logo-link"
+      on:mouseover={() => (hovered = true)}
+      on:mouseleave={() => (hovered = false)}
+      use:active
+    >
       <LogoCommsWithAPlan
         size={'3.5rem'}
         colored={$router.url === '/commswithaplan/' || $router.url === '/commswithaplan' || hovered}
       />
     </a>
     <a href={'/commswithaplan'} use:active>
-      <span class="brand blue">Comms</span>&nbsp;<span class="brand green">With&nbsp;A</span>&nbsp;<span
-        class="brand red">Plan</span
-      >
+      <span class="blue">Comms</span>&nbsp;<span class="green">With&nbsp;A</span>&nbsp;<span class="red">Plan</span>
     </a>
     <a href={'/reachapp'} use:active>
-      <span class="brand">ReachApp</span>
+      <span>ReachApp</span>
     </a>
   </nav>
   {#if $router.path.startsWith('/reachapp')}
-    <nav>
+    <nav class="nav-3">
       <a href={'/reachapp'} use:active exact>
-        <span class="brand">App</span>
+        <span>App</span>
       </a>
       <a href={'/reachapp/download'} use:active>
-        <span class="brand">Download</span>
+        <span>Download</span>
       </a>
       <a href={'/reachapp/manual'} use:active>
-        <span class="brand">Manual</span>
+        <span>Manual</span>
       </a>
     </nav>
   {:else if $router.path.startsWith('/commswithaplan')}
-    <nav>
+    <nav class="nav-3">
       <a href={'/commswithaplan'} use:active exact>
-        <span class="brand">Comms With A Plan</span>
+        <span>Comms With A Plan</span>
       </a>
       <a href={'/commswithaplan/consultancy'} use:active exact>
-        <span class="brand">Consultancy</span>
+        <span>Consultancy</span>
       </a>
     </nav>
   {/if}
@@ -111,9 +118,7 @@
   <Route fallback><NotFound {language} /></Route>
 </main>
 
-<footer>
-  <Footer {language} />
-</footer>
+<Footer />
 
 <!-- TODO: reselect a-links -->
 <style>
@@ -131,21 +136,26 @@
   label {
     grid-column: 1/2;
     padding: 1em;
-    background-color: var(--ra-grey-off-white);
+    background-color: transparent;
     border: none;
     width: fit-content;
   }
 
   input ~ label {
+    background-color: transparent;
+    transition: background-color 150ms ease-in-out 300ms;
+  }
+
+  input ~ label div.rotator {
     transform: rotate(0deg);
     transition: transform 400ms ease-in-out 0ms;
   }
 
-  input ~ label > div.expand {
+  input ~ label div.expand {
     display: block;
   }
 
-  input ~ label > div.collapse {
+  input ~ label div.collapse {
     display: none;
   }
 
@@ -154,50 +164,52 @@
     font-family: 'Trebuchet MS';
   }
 
-  nav:nth-of-type(1) {
+  .nav-1 {
     grid-column: 2/3;
     display: grid;
-    grid-template-columns: 1fr auto auto auto;
+    grid-template-columns: 1fr auto auto 3ch;
     grid-template-rows: auto;
-    column-gap: 1em;
+    column-gap: 0.8em;
     justify-items: end;
     align-items: center;
     background-color: var(--ra-grey-off-white);
-    /* transform: scale(1, 0); */
+    transform: scale(1, 0);
     transform-origin: top;
     transition: transform 150ms ease-in 300ms;
     font-size: 0.8rem;
   }
 
-  nav:nth-of-type(2) {
+  .nav-2 {
     grid-column: 1/3;
     display: grid;
     grid-template-columns: auto;
     grid-template-rows: auto;
+    row-gap: 0.2em;
     justify-items: start;
     align-items: center;
     background-color: var(--ra-teal);
-    /* transform: scale(1, 0); */
+    transform: scale(1, 0);
     transform-origin: top;
     transition: transform 150ms linear 150ms;
     font-size: 1.4rem;
   }
 
-  nav:nth-of-type(3) {
+  .nav-3 {
     grid-column: 1/3;
     display: grid;
     grid-template-columns: auto;
     grid-template-rows: auto;
+    row-gap: 0.2em;
     justify-items: start;
     align-items: center;
     background-color: var(--ra-teal-light);
-    /* transform: scale(1, 0); */
+    transform: scale(1, 0);
     transform-origin: top;
     transition: transform 150ms ease-out 0ms;
     font-size: 1.4rem;
   }
 
-  header nav a {
+  nav a {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -205,73 +217,98 @@
     text-decoration: none;
   }
 
-  header nav:nth-of-type(2) > a:nth-of-type(1) {
+  .logo-link {
     display: none;
   }
 
   /* :link, :visited */
-  header nav > a:link,
-  header nav > a:visited {
+  .nav-1 a,
+  .nav-1 a:visited,
+  .nav-1 span.divider {
+    color: var(--ra-grey-light);
+  }
+
+  .nav-2 a,
+  .nav-3 a,
+  .nav-2 a:visited,
+  .nav-3 a:visited {
     color: var(--ra-white);
   }
 
   /* :hover */
-  header nav:nth-of-type(1) > a:hover {
-    color: var(--ra-grey-light);
-  }
-
-  /* .active */
-  /* TODO: change order, so this also counts for nav:nth-type-of(1) */
-  header nav a.active {
-    color: var(--ra-blue);
-  }
-
-  header nav:nth-of-type(1) > a,
-  header nav:nth-of-type(1) > a:visited {
-    color: var(--ra-grey-light);
-  }
-
-  header nav:nth-of-type(1) > a:hover {
+  .nav-1 a:hover {
     color: var(--ra-blue-bright);
   }
-
-  header nav:nth-of-type(1) > span {
-    color: var(--ra-grey-light);
+  .nav-2 a:hover,
+  .nav-3 a:hover {
+    color: var(--ra-blue);
   }
-
-  header nav:nth-of-type(2) > a:hover span.blue,
-  header nav:nth-of-type(2) > a:hover span.brand,
-  header nav:nth-of-type(2) > a.active span.blue,
-  header nav:nth-of-type(2) > a.active span.brand {
+  .nav-2 a:hover span.blue {
     color: var(--ra-blue);
   }
 
-  header nav:nth-of-type(2) > a:hover span.green,
-  header nav:nth-of-type(2) > a.active span.green {
+  .nav-2 a:hover span.green {
     color: var(--ra-green);
   }
 
-  header nav:nth-of-type(2) > a:hover span.red,
-  header nav:nth-of-type(2) > a.active span.red {
+  .nav-2 a:hover span.red {
     color: var(--ra-red);
   }
-
-  header nav:nth-of-type(3) > a:hover span.brand {
+  /* .active */
+  .nav-1 a.active span,
+  .nav-2 a.active span,
+  .nav-3 a.active span {
     color: var(--ra-blue);
   }
 
-  main {
-    overflow: auto;
-    padding: 1em;
+  .nav-2 a.active span.green {
+    color: var(--ra-green);
   }
 
-  footer {
-    display: flex;
-    justify-content: center;
-    padding: 0.5em;
-    background-color: var(--ra-white);
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
+  .nav-2 a.active span.red {
+    color: var(--ra-red);
   }
+
+  /* ===========================
+     only for mobile: 
+     when label is checked, 
+     menu will appear with 
+     transition 
+     =========================== */
+
+  input:checked ~ label {
+    background-color: var(--ra-grey-off-white);
+    transition: background-color 150ms ease-in-out 0ms;
+  }
+  input:checked ~ label div.rotator {
+    transform: rotate(-45deg);
+    transition: transform 400ms ease-in-out 0ms;
+  }
+  input:checked ~ label div.expand {
+    display: none;
+  }
+  input:checked ~ label div.collapse {
+    display: block;
+  }
+
+  input:checked ~ .nav-1 {
+    transform: scale(1, 1);
+    transform-origin: top;
+    transition: transform 150ms ease-out 0ms;
+  }
+  input:checked ~ .nav-2 {
+    transform: scale(1, 1);
+    transform-origin: top;
+    transition: transform 150ms linear 150ms;
+  }
+
+  input:checked ~ .nav-3 {
+    transform: scale(1, 1);
+    transform-origin: top;
+    transition: transform 150ms ease-in 300ms;
+  }
+
+  /* for tablet, laptop and desktop screens */
 
   @media screen and (min-width: 476px) {
     header {
@@ -288,61 +325,29 @@
     nav {
       display: grid;
     }
-    nav:nth-of-type(1) {
+    .nav-1 {
       transform: none;
     }
-    nav:nth-of-type(2) {
+    .nav-2 {
       grid-template-columns: auto auto 1fr;
       column-gap: 1em;
       transform: none;
     }
-    nav:nth-of-type(3) {
-      display: grid;
+    .nav-3 {
       grid-template-columns: 1fr auto auto 1fr;
       grid-template-rows: auto;
+      justify-items: end;
       align-items: center;
       column-gap: 1em;
       transform: none;
     }
-    header nav:nth-of-type(2) a:nth-of-type(1) {
+    .logo-link {
       display: flex;
     }
-    header nav:nth-of-type(3) > a:nth-of-type(1) {
-      grid-column: 2/3;
-    }
-    header nav:nth-of-type(3) > a:nth-of-type(2) {
-      grid-column: 3/4;
-    }
   }
 
-  /* 
-  input:checked ~ label {
-    transform: rotate(-45deg);
-    transition: transform 400ms ease-in-out 0ms;
+  main {
+    overflow: auto;
+    padding: 1em;
   }
-  input:checked ~ label > div.expand {
-    display: none;
-  }
-  input:checked ~ label > div.collapse {
-    display: block;
-  }
-  input:checked ~ nav:nth-of-type(1) {
-    display: grid;
-    transform: scale(1, 1);
-    transform-origin: top;
-    transition: transform 150ms ease-out 0ms;
-  }
-  input:checked ~ nav:nth-of-type(2) {
-    display: grid;
-    transform: scale(1, 1);
-    transform-origin: top;
-    transition: transform 150ms linear 150ms;
-  }
-
-  input:checked ~ nav:nth-of-type(3) {
-    display: grid;
-    transform: scale(1, 1);
-    transform-origin: top;
-    transition: transform 150ms ease-in 300ms;
-  } */
 </style>
