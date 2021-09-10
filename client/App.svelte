@@ -54,7 +54,7 @@
       tinro-ignore><span>EN</span></a
     >
 
-    <Fa icon={faUser} size="0.7x" />
+    <div class="user"><Fa icon={faUser} size="0.8x" /></div>
   </nav>
 
   <nav class="nav-2">
@@ -166,11 +166,9 @@
 
   .nav-1 {
     grid-column: 2/3;
-    display: grid;
-    grid-template-columns: 1fr auto auto 3ch;
-    grid-template-rows: auto;
-    column-gap: 0.8em;
-    justify-items: end;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
     align-items: center;
     background-color: var(--ra-grey-off-white);
     transform: scale(1, 0);
@@ -181,11 +179,9 @@
 
   .nav-2 {
     grid-column: 1/3;
-    display: grid;
-    grid-template-columns: auto;
-    grid-template-rows: auto;
-    row-gap: 0.2em;
-    justify-items: start;
+    flex-wrap: wrap;
+    display: flex;
+    justify-content: flex-start;
     align-items: center;
     background-color: var(--ra-teal);
     transform: scale(1, 0);
@@ -196,11 +192,9 @@
 
   .nav-3 {
     grid-column: 1/3;
-    display: grid;
-    grid-template-columns: auto;
-    grid-template-rows: auto;
-    row-gap: 0.2em;
-    justify-items: start;
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
     align-items: center;
     background-color: var(--ra-teal-light);
     transform: scale(1, 0);
@@ -213,12 +207,28 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100%;
     text-decoration: none;
   }
 
   .logo-link {
     display: none;
+  }
+
+  .nav-1 .divider {
+    margin: 0 0.6em;
+  }
+  .nav-1 .user {
+    margin-left: 1.2em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .nav-2 a {
+    margin: 0.1em 0.4em;
+  }
+  .nav-3 a {
+    margin: 0.1em 0.4em;
   }
 
   /* :link, :visited */
@@ -323,24 +333,20 @@
       display: none;
     }
     nav {
-      display: grid;
+      display: flex;
     }
     .nav-1 {
       transform: none;
     }
     .nav-2 {
-      grid-template-columns: auto auto 1fr;
-      column-gap: 1em;
       transform: none;
     }
     .nav-3 {
-      grid-template-columns: 1fr auto auto 1fr;
-      grid-template-rows: auto;
-      justify-items: end;
+      justify-content: center;
       align-items: center;
-      column-gap: 1em;
       transform: none;
     }
+
     .logo-link {
       display: flex;
     }

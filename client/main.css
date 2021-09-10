@@ -52,6 +52,7 @@
     --ra-nav-3-height-xl: 2em;
     --ra-nav-3-height-xs: 4em;
     --ra-notifications-height: 2em;
+    --ra-mobile: 476px;
 }
 
 html {
