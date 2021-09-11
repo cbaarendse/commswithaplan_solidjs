@@ -19,7 +19,7 @@
     cardTitle={'Comms With A Plan'}
     imgUrl={'/castle.jpg'}
     cardLink={'/commswithaplan'}
-    cardLinkText={'Read more...'}>Comms With A Plan provides Media Management consultancy.</Card
+    cardLinkText={'Read more'}>Comms With A Plan provides Media Management consultancy.</Card
   >
 
   <Card
@@ -28,7 +28,7 @@
     cardTitle={'Bereik'}
     imgUrl={'/organ.jpg'}
     cardLink={'/reachapp'}
-    cardLinkText={'Read more...'}>A handy tool to estimate your total reach.</Card
+    cardLinkText={'Read more'}>A handy tool to estimate your total reach.</Card
   >
 
   <Card
@@ -37,7 +37,7 @@
     cardTitle={'Schema'}
     imgUrl={'/gates.jpg'}
     cardLink={'/schedule'}
-    cardLinkText={'Read more...'}>All your campaigns in one place with Schedule.</Card
+    cardLinkText={'Read more'}>All your campaigns in one place with Schedule.</Card
   >
 </section>
 
@@ -73,14 +73,8 @@
     padding: 1em;
     margin-bottom: 0.5em;
     display: grid;
-    grid-auto-flow: row;
-    grid-template-rows: auto;
+    grid-template-columns: repeat(auto-fit, minmax(25em, 30em));
+    justify-content: center;
     gap: 2em;
-  }
-
-  @media (min-width: 119ch) {
-    section {
-      grid-auto-flow: column;
-    }
   }
 </style>

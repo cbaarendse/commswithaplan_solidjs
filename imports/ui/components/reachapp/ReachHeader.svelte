@@ -42,13 +42,13 @@
 
   <span class="reach-label">{totalReachDisplayName}:&nbsp;</span>
   <span class="reach">{thisUi.toNumberFormat(totalReach.toFixed(0))}&nbsp;%</span>
-  <div class="meter">
+  <div class="meter reach-meter">
     <span style="width:{totalReach}%;" />
   </div>
 
   <span class="locus-label">{locusDisplayName}:&nbsp;</span>
   <span class="locus">{thisUi.toNumberFormat(locus.toFixed(1))}&nbsp;%</span>
-  <div class="meter">
+  <div class="meter locus-meter">
     <span style="width:{locus}%;" />
   </div>
 
@@ -117,13 +117,18 @@
     padding: 0 0.4em;
   }
   .meter {
-    grid-column: 1 / 3;
     border: 1px solid #ccc;
     border-radius: 3px;
     background-color: whiteSmoke;
     box-shadow: 0 5px 5px -5px rgba(0, 0, 0, 0.4) inset;
     height: 25px;
     display: block;
+  }
+  .reach-meter {
+    grid-column: 1 / 3;
+  }
+  .locus-meter {
+    grid-column: 1 / 3;
   }
 
   .meter > span {
@@ -187,13 +192,16 @@
     .reach {
       grid-column: 2 / 3;
     }
+    .reach-meter {
+      grid-column: 3 / 4;
+    }
     .locus-label {
       grid-column: 1 / 2;
     }
     .locus {
       grid-column: 2 / 3;
     }
-    .meter {
+    .locus-meter {
       grid-column: 3 / 4;
     }
     .controls {
@@ -202,11 +210,11 @@
   }
   @media screen and (min-width: 768px) {
     header {
+      /* TODO: fix columns and items, aso with 476, eventual better responsiveness */
       display: grid;
-      grid-template-columns: auto minmax(5em, auto) minmax(3em, auto) minmax(5em, 2fr) minmax(5em, auto) minmax(
-          3em,
-          auto
-        ) minmax(5em, 2fr) auto;
+      grid-template-columns:
+        auto minmax(5em, auto) minmax(3em, auto) minmax(5em, 2fr) minmax(5em, auto) minmax(3em, auto)
+        minmax(5em, 2fr) auto;
       grid-template-rows: min-content;
       column-gap: 0.4em;
       align-items: center;
@@ -220,17 +228,20 @@
     .reach {
       grid-column: 3 / 4;
     }
-    .locus-label {
+    .reach-meter {
       grid-column: 4 / 5;
     }
-    .locus {
+    .locus-label {
       grid-column: 5 / 6;
     }
-    .meter {
+    .locus {
       grid-column: 6 / 7;
     }
-    .controls {
+    .locus-meter {
       grid-column: 7 / 8;
+    }
+    .controls {
+      grid-column: 8 / 9;
     }
   }
 </style>
