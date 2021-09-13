@@ -1,28 +1,33 @@
 <script>
-  let ColorScheme;
-  export let colorScheme = ColorScheme.blue;
-  export let backgroundColor = 'var(--ra-grey-off-white)';
-  export let color = 'var(--ra-grey)';
+  import colorScheme from '../../../../client/constants.js';
+  export let colors = 'grey';
+  export let height = '35em';
   export let cardTitle;
   export let imgUrl;
   export let cardFooterText;
   export let cardLink;
   export let cardLinkText;
+
+  // functions
+  const getBackgroundColor = () => colorScheme[colors].light;
+  const getColor = () => colorScheme['blue'].base;
 </script>
 
-<div class="card" style="background-color:{backgroundColor};color:{color};">
+<div class="card" style="background-color:{getBackgroundColor};color:{getColor};height:{height}">
+  <div class="img-container">
+    {#if imgUrl}
+      <img src={imgUrl} alt={cardTitle} />
+    {/if}
+  </div>
   {#if cardTitle}
-    <div class="card-title">
+    <div class="card-title" style="background-color:{getBackgroundColor};color:{getColor};">
       <h2>{cardTitle}</h2>
     </div>
   {/if}
   <p>
     <slot />
   </p>
-  {#if imgUrl}
-    <img src={imgUrl} alt={cardTitle} />
-  {/if}
-  <div class="card-footer">
+  <div class="card-footer" style="background-color:{getBackgroundColor};color:{getColor};">
     {#if cardFooterText}
       <p>
         {cardFooterText}
@@ -38,14 +43,14 @@
   div.card {
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 1fr auto auto 1fr;
-    border-radius: 0.2em;
+    grid-template-rows: 5fr 1fr 2fr 1.5fr;
+    /* border-radius: 0.2em; */
     box-shadow: 0.1em 0.1em 0.2em 0 rgba(0, 0, 0, 0.1);
   }
 
   div.card-title {
     padding: 0.8em;
-    color: var(--ra-blue);
+    /* color: var(--ra-blue); */
     text-align: left;
   }
   p {
@@ -56,12 +61,17 @@
     font-size: 1.2rem;
     line-height: 1.7rem;
   }
+
+  .img-container {
+    overflow: hidden;
+    border-radius: 0.2em 0.2em 0 0;
+  }
+
   img {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 80%;
-    margin: 0.4em auto;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
   }
 
   a {
