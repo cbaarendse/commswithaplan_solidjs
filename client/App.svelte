@@ -3,7 +3,7 @@
   import {Route, router, active} from 'tinro';
   //import Fa from 'svelte-fa';
   import Fa from 'svelte-fa/src/fa.svelte';
-  import {faUser, faBars, faMinus, faPlus, faTimes} from '@fortawesome/free-solid-svg-icons';
+  import {faUser} from '@fortawesome/free-solid-svg-icons';
 
   // components
   import Home from '../imports/ui/pages/home/Home.svelte';
@@ -32,11 +32,10 @@
 
 <header>
   <input type="checkbox" id="nav-toggle" class="nav-toggle" />
-  <label for="nav-toggle"
-    ><div class="rotator">
-      <div class="expand"><Fa icon={faBars} size="1.6x" /></div>
-      <div class="collapse"><Fa icon={faPlus} size="1.6x" /></div>
-    </div>
+  <label for="nav-toggle">
+    <span class="bar-1" />
+    <span class="bar-2" />
+    <span class="bar-3" />
   </label>
 
   <nav class="nav-1">
@@ -129,34 +128,55 @@
     width: 100%;
     z-index: 999;
   }
-  input {
+  .nav-toggle {
     display: none;
     grid-column: 1/2;
   }
-  label {
+  .nav-toggle ~ label {
     grid-column: 1/2;
-    padding: 1em;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.2em;
     background-color: transparent;
     border: none;
-    width: fit-content;
+    width: 3em;
+    transform: scale(1, 1);
+    transform-origin: bottom;
+    transition: transform 150ms ease-in 300ms;
   }
 
-  input ~ label {
-    background-color: transparent;
-    transition: background-color 150ms ease-in-out 300ms;
-  }
-
-  input ~ label div.rotator {
-    transform: rotate(0deg);
-    transition: transform 400ms ease-in-out 0ms;
-  }
-
-  input ~ label div.expand {
+  .nav-toggle ~ label .bar-1,
+  .nav-toggle ~ label .bar-2,
+  .nav-toggle ~ label .bar-3 {
     display: block;
+    position: absolute;
+    height: 10%;
+    width: 70%;
+    border-radius: 3px;
   }
 
-  input ~ label div.collapse {
-    display: none;
+  .nav-toggle ~ label .bar-1 {
+    background-color: var(--ra-blue);
+    top: 21%;
+    transform: rotate(0deg);
+    transition: all 450ms ease-in-out 0ms;
+  }
+
+  .nav-toggle ~ label .bar-2 {
+    background-color: var(--ra-green);
+    top: 45%;
+    transform: scale(1, 1);
+    transform-origin: right 15%;
+    transition: transform 350ms ease-in-out 0ms;
+  }
+
+  .nav-toggle ~ label .bar-3 {
+    background-color: var(--ra-red);
+    bottom: 21%;
+    transform: rotate(0deg);
+    transition: all 450ms ease-in-out 0ms;
   }
 
   nav {
@@ -286,19 +306,28 @@
      transition 
      =========================== */
 
-  input:checked ~ label {
+  .nav-toggle:checked ~ label {
     background-color: var(--ra-grey-off-white);
-    transition: background-color 150ms ease-in-out 0ms;
+    transform: scale(1, 0);
+    transition: all 150ms ease-in-out 0ms;
   }
-  input:checked ~ label div.rotator {
-    transform: rotate(-45deg);
-    transition: transform 400ms ease-in-out 0ms;
+
+  .nav-toggle:checked ~ label .bar-1 {
+    top: 45%;
+    transform: rotate(45deg);
+    transition: all 450ms ease-in-out 0ms;
   }
-  input:checked ~ label div.expand {
-    display: none;
+
+  .nav-toggle:checked ~ label .bar-2 {
+    transform: scale(0, 1);
+    transform-origin: right 15%;
+    transition: transform 350ms ease-in-out 0ms;
   }
-  input:checked ~ label div.collapse {
-    display: block;
+
+  .nav-toggle:checked ~ label .bar-3 {
+    bottom: 45%;
+    transform: rotate(135deg);
+    transition: all 450ms ease-in-out 0ms;
   }
 
   input:checked ~ .nav-1 {
@@ -324,14 +353,24 @@
     header {
       position: static;
     }
-    input {
+    .nav-toggle {
       all: unset;
       display: none;
       grid-column: 1/2;
     }
-    label {
+    .nav-toggle ~ label {
+      background-color: var(--ra-grey-off-white);
+      transform: scale(1, 0);
+      transform-origin: bottom;
+      transition: transform 150ms ease-in-out 300ms;
+    }
+
+    .nav-toggle ~ label .bar-1,
+    .nav-toggle ~ label .bar-2,
+    .nav-toggle ~ label .bar-3 {
       display: none;
     }
+
     nav {
       display: flex;
     }
@@ -354,6 +393,5 @@
 
   main {
     overflow: auto;
-    padding: 1em;
   }
 </style>

@@ -17,12 +17,6 @@
   let selectedIndex;
 </script>
 
-<header>
-  <div class="logo">
-    <LogoCommsWithAPlan />
-    <span class="brand">Comms With A Plan</span>
-  </div>
-</header>
 <section>
   <Card cardTitle="Comms With A Plan">
     {#if language == 'dutch'}
@@ -113,31 +107,6 @@
 </section>
 
 <style>
-  header {
-    max-height: 6em;
-    padding: 1em;
-    margin: 2em 0;
-    border: 1px dotted orange;
-    border-radius: 0.2em;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    align-items: center;
-    background-color: var(--ra-teal-off-white);
-  }
-  div {
-    margin: 0.4em;
-  }
-  div.logo {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-  }
-  span.brand {
-    font-size: 1.6rem;
-    font-family: 'Trebuchet MS';
-    padding: 0 1em;
-  }
   section:nth-of-type(1) {
     display: grid;
     grid-auto-flow: row;

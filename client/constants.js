@@ -48,37 +48,3 @@ export const translations = [
     { name: 'reach_error', english: { displayName: 'Reach can be maximum 100, minimum 0' }, dutch: { displayName: 'Bereik mag maximaal 100 zijn, minimaal 0' } },
     { name: 'advertisement', english: { displayName: 'Advertisement' }, dutch: { displayName: 'Advertentie' } },
 ];
-
-export const
-    colorScheme = {
-        blue: {
-            base: 'var(--ra-blue)',
-            light: 'var(--ra-blue-light)',
-            bright: 'var(--ra-blue-bright)',
-            offWhite: 'var(--ra-blue-off-white)',
-        },
-        green: {
-            base: 'var(--ra-green)',
-            light: 'var(--ra-green-light)',
-            bright: 'var(--ra-green-bright)',
-            offWhite: 'var(--ra-green-off-white)',
-        },
-        red: {
-            base: 'var(--ra-red)',
-            light: 'var(--ra-red-light)',
-            bright: 'var(--ra-red-bright)',
-            offWhite: 'var(--ra-red-off-white)',
-        },
-        teal: {
-            base: 'var(--ra-teal)',
-            light: 'var(--ra-teal-light)',
-            bright: 'var(--ra-teal-bright)',
-            offWhite: 'var(--ra-teal-off-white)',
-        },
-        grey: {
-            base: 'var(--ra-grey)',
-            light: 'var(--ra-grey-light)',
-            bright: 'var(--ra-grey-bright)',
-            offWhite: 'var(--ra-grey-off-white)',
-        },
-    };
