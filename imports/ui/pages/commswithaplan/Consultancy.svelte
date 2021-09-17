@@ -5,6 +5,7 @@
   // components
   import Accordion from '../../components/reusable/Accordion.svelte';
   import Card from '../../components/reusable/Card.svelte';
+  import CardSmall from '../../components/reusable/CardSmall.svelte';
   import LogoCommsWithAPlan from '../../components/reusable/LogoCommsWithAPlan.svelte';
 
   // content
@@ -52,6 +53,20 @@
     {:else}
       <p>Things I'll manage along the process (you can pick and mix):</p>
     {/if}
+    <ul>
+      {#each processItems as item, index}
+        <li>
+          <CardSmall
+            flipped={selectedIndex === index}
+            on:click={() => (selectedIndex === index ? (selectedIndex = '') : (selectedIndex = index))}
+            imgUrl={'/coins.jpg'}
+            cardTitle={item[language].name}
+          >
+            <div>{item[language].description}</div>
+          </CardSmall>
+        </li>
+      {/each}
+    </ul>
     <ul>
       {#each processItems as item, index}
         <li>

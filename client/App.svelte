@@ -33,6 +33,7 @@
 <header>
   <input type="checkbox" id="nav-toggle" class="nav-toggle" />
   <label for="nav-toggle">
+    <div class="bars-background" />
     <span class="bar-1" />
     <span class="bar-2" />
     <span class="bar-3" />
@@ -138,15 +139,17 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 0.2em;
-    background-color: transparent;
     border: none;
     width: 3em;
-    transform: scale(1, 1);
-    transform-origin: bottom;
+  }
+  .nav-toggle ~ label .bars-background {
+    width: 100%;
+    height: 100%;
+    background-color: var(--ra-grey-off-white);
+    transform: scale(1, 0);
+    transform-origin: top;
     transition: transform 150ms ease-in 300ms;
   }
-
   .nav-toggle ~ label .bar-1,
   .nav-toggle ~ label .bar-2,
   .nav-toggle ~ label .bar-3 {
@@ -169,7 +172,7 @@
     top: 45%;
     transform: scale(1, 1);
     transform-origin: right 15%;
-    transition: transform 350ms ease-in-out 0ms;
+    transition: transform 350ms ease-in-out 300ms;
   }
 
   .nav-toggle ~ label .bar-3 {
@@ -306,16 +309,17 @@
      transition 
      =========================== */
 
-  .nav-toggle:checked ~ label {
+  .nav-toggle:checked ~ label .bars-background {
     background-color: var(--ra-grey-off-white);
-    transform: scale(1, 0);
-    transition: all 150ms ease-in-out 0ms;
+    transform: scale(1, 1);
+    transform-origin: top;
+    transition: transform 150ms ease-out 0ms;
   }
 
   .nav-toggle:checked ~ label .bar-1 {
     top: 45%;
     transform: rotate(45deg);
-    transition: all 450ms ease-in-out 0ms;
+    transition: all 450ms ease-in-out 300ms;
   }
 
   .nav-toggle:checked ~ label .bar-2 {
@@ -327,7 +331,7 @@
   .nav-toggle:checked ~ label .bar-3 {
     bottom: 45%;
     transform: rotate(135deg);
-    transition: all 450ms ease-in-out 0ms;
+    transition: all 450ms ease-in-out 300ms;
   }
 
   input:checked ~ .nav-1 {
@@ -358,11 +362,8 @@
       display: none;
       grid-column: 1/2;
     }
-    .nav-toggle ~ label {
-      background-color: var(--ra-grey-off-white);
-      transform: scale(1, 0);
-      transform-origin: bottom;
-      transition: transform 150ms ease-in-out 300ms;
+    .nav-toggle ~ label .bars-background {
+      transform: none;
     }
 
     .nav-toggle ~ label .bar-1,

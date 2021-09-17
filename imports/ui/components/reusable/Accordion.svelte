@@ -1,7 +1,7 @@
 <script>
   // packages
   import {slide} from 'svelte/transition';
-  import {linear, quintInOut, expoInOut, backInOut} from 'svelte/easing';
+  import {backInOut} from 'svelte/easing';
   import Fa from 'svelte-fa/src/fa.svelte';
   import {faPlus, faMinus} from '@fortawesome/free-solid-svg-icons';
 
