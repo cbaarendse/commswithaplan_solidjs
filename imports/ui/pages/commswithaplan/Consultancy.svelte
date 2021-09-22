@@ -3,7 +3,6 @@
   import {useSession} from 'meteor/rdb:svelte-meteor-data';
 
   // components
-  import Accordion from '../../components/reusable/Accordion.svelte';
   import Card from '../../components/reusable/Card.svelte';
   import CardSmall from '../../components/reusable/CardSmall.svelte';
   import LogoCommsWithAPlan from '../../components/reusable/LogoCommsWithAPlan.svelte';
@@ -45,6 +44,7 @@
     {/if}
   </Card>
 </section>
+
 <section>
   <article id="work">
     <h2>Work</h2>
@@ -58,25 +58,13 @@
         <li>
           <CardSmall
             flipped={selectedIndex === index}
+            colors={item[language].colors}
             on:click={() => (selectedIndex === index ? (selectedIndex = '') : (selectedIndex = index))}
-            imgUrl={'/coins.jpg'}
+            icon={item[language].icon}
             cardTitle={item[language].name}
           >
-            <div>{item[language].description}</div>
+            <span>{item[language].description}</span>
           </CardSmall>
-        </li>
-      {/each}
-    </ul>
-    <ul>
-      {#each processItems as item, index}
-        <li>
-          <Accordion
-            visible={selectedIndex === index}
-            on:click={() => (selectedIndex === index ? (selectedIndex = '') : (selectedIndex = index))}
-          >
-            <h4 slot="title">{item[language].name}</h4>
-            {item[language].description}
-          </Accordion>
         </li>
       {/each}
     </ul>
@@ -124,8 +112,7 @@
 <style>
   section:nth-of-type(1) {
     display: grid;
-    grid-auto-flow: row;
-    grid-template-rows: auto;
+    grid-template-columns: repeat(auto-fit, minmax(25em, 1fr));
     gap: 2em;
   }
 

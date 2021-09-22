@@ -1,4 +1,9 @@
 <script>
+  // packages
+  import Fa from 'svelte-fa/src/fa.svelte';
+  import {faFirefoxBrowser} from '@fortawesome/free-brands-svg-icons';
+
+  // constants
   const colorScheme = {
     blue: {
       base: 'var(--ra-blue)',
@@ -34,35 +39,37 @@
   export let colors = 'grey';
   export let height = '25em';
   export let cardTitle;
-  export let imgUrl;
+  export let icon;
   export let flipped = false;
 
   // functions
   const getBackgroundColor = () => colorScheme[colors].offWhite;
+  const getFooterColor = () => colorScheme[colors].bright;
   const getFooterBackgroundColor = () => colorScheme[colors].light;
   const getColor = () => colorScheme[colors].base;
 </script>
 
 <div class="card" style="background-color:{getBackgroundColor()};color:{getColor()};height:{height}">
-  {#if cardTitle}
-    <div class="card-title" style="color:{getColor()};">
-      <h2>{cardTitle}</h2>
+  <div class="card-title" style="color:{getColor()};">
+    <h2>{cardTitle}</h2>
+  </div>
+  <div class="card-content" class:flipped>
+    <div class="card-front">
+      <Fa {icon} size="1.4em" color={getColor()} />
     </div>
-  {/if}
-  <div class="card-content">
-    <div class="card-content-inner">
-      <div class="img-container" class:flipped={!flipped}>
-        {#if imgUrl}
-          <img src={imgUrl} alt={cardTitle} />
-        {/if}
-      </div>
-      <p class:flipped>
+    <div class="card-back">
+      <p>
         <slot />
       </p>
     </div>
   </div>
+
   <div class="card-footer" style="background-color:{getFooterBackgroundColor()};color:{getBackgroundColor()};">
-    <button class="flip-content" on:click|preventDefault|stopPropagation>Read</button>
+    <button
+      class="flip-content"
+      style="border-color:{getFooterColor}; border-width:0.4px; border-style:solid; background-color:{getFooterBackgroundColor()}; color:{getFooterColor()};"
+      on:click|preventDefault|stopPropagation>Read</button
+    >
   </div>
 </div>
 
@@ -70,39 +77,42 @@
   div.card {
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 5fr 1fr 2fr 1.5fr;
+    grid-template-rows: 1fr 5fr 2fr 1.5fr;
     box-shadow: 0.1em 0.1em 0.2em 0 rgba(0, 0, 0, 0.1);
   }
 
   div.card-title {
     padding: 0.8em 0.8em 0 0.8em;
-    /* color: var(--ra-blue); */
+    color: var(--ra-blue);
     text-align: left;
   }
 
-  div.card-content {
-    /* width: 100%;
-    height: 100%; */
-    perspective: 300%;
-  }
-
-  div.card-content-inner {
+  .card-content {
     position: relative;
-    width: 100%;
-    height: 100%;
-    transition: transform 0.8s;
+    transition: transform 0.8s cubic-bezier(0.42, 0.8, 0.58, 1.4);
     transform-style: preserve-3d;
+    perspective: 200%;
   }
-
-  .img-container,
-  p {
+  .card-front,
+  .card-back {
     position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
     backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+  .card-back {
+    transform: rotateY(0.5turn);
   }
 
-  .img-container {
-    overflow: hidden;
-    transform: rotateY(180deg);
+  /* .card:hover .card-content, */
+  .card-content.flipped {
+    transform: rotateY(0.5turn);
   }
 
   img {
@@ -113,6 +123,7 @@
   }
 
   p {
+    position: absolute;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -125,8 +136,18 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 0.4em;
     text-align: left;
     width: 100%;
+  }
+
+  button {
+    height: 90%;
+    width: 85%;
+    font-size: 1.4rem;
+    border-radius: 7px;
+    cursor: pointer;
+  }
+  button:hover {
+    opacity: 0.6;
   }
 </style>
