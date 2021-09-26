@@ -8,6 +8,7 @@
 <footer>
   <span>© 2013-2021 Comms With A Plan</span>
   <nav><a href="/contact">Contact</a></nav>
+  <span>Icons: <a href="http://icons8.com">Icons8</a></span>
 </footer>
 
 <style>

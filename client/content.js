@@ -85,13 +85,13 @@ export const processItems = [{
     },
     {
         english: {
-            name: 'Evaluation & adjustment',
+            name: 'Evaluation and adjustment',
             description: 'Undertake action based on interim results.',
             icon: 'faFirefoxBrowser',
             colors: 'red'
         },
         dutch: {
-            name: 'Evaluatie & aanpassingen',
+            name: 'Evaluatie en aanpassingen',
             description: 'Actie ondernemen op basis van tussenresultaten.',
             icon: 'faFirefoxBrowser',
             colors: 'red'

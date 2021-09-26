@@ -1,7 +1,5 @@
 <script>
   // packages
-  import Fa from 'svelte-fa/src/fa.svelte';
-  import {faFirefoxBrowser} from '@fortawesome/free-brands-svg-icons';
 
   // constants
   const colorScheme = {
@@ -39,7 +37,6 @@
   export let colors = 'grey';
   export let height = '25em';
   export let cardTitle;
-  export let icon;
   export let flipped = false;
 
   // functions
@@ -55,11 +52,11 @@
   </div>
   <div class="card-content" class:flipped>
     <div class="card-front">
-      <Fa {icon} size="1.4em" color={getColor()} />
+      <slot name="image">Image</slot>
     </div>
     <div class="card-back">
       <p>
-        <slot />
+        <slot name="description">Description</slot>
       </p>
     </div>
   </div>

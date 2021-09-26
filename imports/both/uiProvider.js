@@ -1,3 +1,5 @@
+import deburr from 'lodash/deburr';
+
 export default function UiProvider(translations) {
     // functions should be in prototype, and reuseable for reachAppProvider
     this.translations = translations;
@@ -13,6 +15,14 @@ export default function UiProvider(translations) {
     this.capitalizeAndSplit = function(str) {
         str = str[0].toUpperCase() + str.slice(1);
         str = str.split(/(?=[A-Z])/).join(' ');
+        return str;
+    }
+
+    this.latinizeAndJoin = function(str) {
+        str = deburr(str);
+        str = str.split(' ').join('');
+        str = str.toLowerCase();
+        console.log("Latinized and Joined:", str)
         return str;
     }
 

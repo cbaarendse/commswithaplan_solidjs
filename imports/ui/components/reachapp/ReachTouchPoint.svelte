@@ -45,7 +45,7 @@
       on:click|preventDefault={showModal}
       on:mouseover={() => (hovered = true)}
       on:mouseleave={() => (hovered = false)}
-      style="background-image:url(/{name}.png);opacity:{hovered | (value > 0) ? 1 : 0.7};"
+      style="background-image:url(/reachapp/{name}.png);opacity:{hovered | (value > 0) ? 1 : 0.7};"
     />
   </div>
   <div class="center">

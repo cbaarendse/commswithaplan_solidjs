@@ -7,12 +7,16 @@
   import CardSmall from '../../components/reusable/CardSmall.svelte';
   import LogoCommsWithAPlan from '../../components/reusable/LogoCommsWithAPlan.svelte';
 
+  import {translations} from '../../../../client/constants';
+
+  // providers
+  import UiProvider from '../../../both/uiProvider';
+
   // content
   import {processItems} from '../../../../client/content';
 
-  // functions
-
   // variables
+  const thisUi = new UiProvider(translations);
   export let language;
   let selectedIndex;
 </script>
@@ -60,10 +64,14 @@
             flipped={selectedIndex === index}
             colors={item[language].colors}
             on:click={() => (selectedIndex === index ? (selectedIndex = '') : (selectedIndex = index))}
-            icon={item[language].icon}
             cardTitle={item[language].name}
           >
-            <span>{item[language].description}</span>
+            <img
+              src="/consultancy/{thisUi.latinizeAndJoin(item[language].name)}.png"
+              alt={item[language].name}
+              slot="image"
+            />
+            <span slot="description">{item[language].description}</span>
           </CardSmall>
         </li>
       {/each}
