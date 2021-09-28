@@ -69,6 +69,7 @@
             <img
               src="/consultancy/{thisUi.latinizeAndJoin(item[language].name)}.png"
               alt={item[language].name}
+              style=" filter: opacity(0.6) drop-shadow(0 0 0 {item[language].colors});"
               slot="image"
             />
             <span slot="description">{item[language].description}</span>
@@ -163,9 +164,9 @@
   }
 
   ul {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(380px, 450px));
+    gap: 2em;
     list-style-type: none;
-  }
-  li {
-    margin-bottom: 1em;
   }
 </style>
