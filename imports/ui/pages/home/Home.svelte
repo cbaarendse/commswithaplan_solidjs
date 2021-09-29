@@ -9,29 +9,38 @@
 <section>
   <Card
     cardTitle={'Comms With A Plan'}
-    imgUrl={'/consultant.jpeg'}
+    imgUrl={'/home/consultant.jpeg'}
     cardLink={'/commswithaplan'}
     cardLinkText={'Read more'}
-    colors={'blue'}>Comms With A Plan provides Media Management consultancy.</Card
+    colors={'blue'}
+  >
+    <span slot="description">Comms With A Plan provides Media Management consultancy.</span></Card
   >
 
   <Card
     cardTitle={'Bereik'}
-    imgUrl={'/night_crowd.jpg'}
+    imgUrl={'/home/night_crowd.jpg'}
     cardLink={'/reachapp'}
     cardLinkText={'Read more'}
-    colors={'green'}>A handy tool to estimate your total reach.</Card
+    colors={'green'}
+  >
+    <span slot="description">A handy tool to estimate your total reach.</span></Card
   >
 
-  <Card cardTitle={'Schema'} imgUrl={'/coins.jpg'} cardLink={'/schedule'} cardLinkText={'Read more'} colors={'grey'}
-    >All your campaigns in one place with Schedule.</Card
+  <Card
+    cardTitle={'Schema'}
+    imgUrl={'/home/coins.jpg'}
+    cardLink={'/schedule'}
+    cardLinkText={'Read more'}
+    colors={'grey'}
   >
+    <span slot="description">All your campaigns in one place with Schedule.</span>
+  </Card>
 </section>
 
 <style>
   section {
-    /* padding: 1em; */
-    margin-bottom: 0.5em;
+    margin: 1em 2em;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(25em, 30em));
     justify-content: center;

@@ -4,7 +4,7 @@
 
   // components
   import Card from '../../components/reusable/Card.svelte';
-  import CardSmall from '../../components/reusable/CardSmall.svelte';
+  import CardCondense from '../../components/reusable/CardCondense.svelte';
   import LogoCommsWithAPlan from '../../components/reusable/LogoCommsWithAPlan.svelte';
 
   import {translations} from '../../../../client/constants';
@@ -23,29 +23,27 @@
 
 <section>
   <Card cardTitle="Comms With A Plan">
-    {#if language == 'dutch'}
-      <p>Comms With A Plan is een Media Management consultancy voor adverteerders.</p>
-      <p>Ik initieer, onderhoud en evalueer je media strategie, ik manage je bureaus en budget.</p>
-    {:else}
-      <p>Comms With A Plan is a Media Management consultancy for advertisers.</p>
-      <p>
+    <span slot="description">
+      {#if language == 'dutch'}
+        Comms With A Plan is een Media Management consultancy voor adverteerders.<br />
+        Ik initieer, onderhoud en evalueer je media strategie, ik manage je bureaus en budget.
+      {:else}
+        Comms With A Plan is a Media Management consultancy for advertisers.<br />
         At your service I initiate, maintain and evaluate your media strategy, I manage your agencies and your budget.
-      </p>
-    {/if}
+      {/if}
+    </span>
   </Card>
 
   <Card cardTitle="Consultancy">
-    {#if language == 'dutch'}
-      <p>
+    <span slot="description">
+      {#if language == 'dutch'}
         Comms With A Plan is een flexibele partner in die zin dat het werk per project kan zijn, maar ook meer continu.
         Gebaseerd op vraag. (Bel me zodat ik het kan uitleggen.)
-      </p>
-    {:else}
-      <p>
+      {:else}
         Comms With A Plan is a flexible unit in the sense that work can be project based, or more continuous, based on
         demand. (Give me a call to explain.)
-      </p>
-    {/if}
+      {/if}
+    </span>
   </Card>
 </section>
 
@@ -60,7 +58,7 @@
     <ul>
       {#each processItems as item, index}
         <li>
-          <CardSmall
+          <CardCondense
             flipped={selectedIndex === index}
             colors={item[language].colors}
             on:click={() => (selectedIndex === index ? (selectedIndex = '') : (selectedIndex = index))}
@@ -73,7 +71,7 @@
               slot="image"
             />
             <span slot="description">{item[language].description}</span>
-          </CardSmall>
+          </CardCondense>
         </li>
       {/each}
     </ul>
@@ -147,6 +145,11 @@
         'about contact';
     }
   }
+
+  section {
+    margin: 1em 2em;
+  }
+
   article#work {
     grid-area: work;
   }

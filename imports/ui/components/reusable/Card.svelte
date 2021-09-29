@@ -1,42 +1,9 @@
 <script>
   import {colorScheme} from '../../../../client/constants';
-  // const colorScheme = {
-  //   blue: {
-  //     base: 'var(--ra-blue)',
-  //     light: 'var(--ra-blue-light)',
-  //     bright: 'var(--ra-blue-bright)',
-  //     offWhite: 'var(--ra-blue-off-white)',
-  //   },
-  //   green: {
-  //     base: 'var(--ra-green)',
-  //     light: 'var(--ra-green-light)',
-  //     bright: 'var(--ra-green-bright)',
-  //     offWhite: 'var(--ra-green-off-white)',
-  //   },
-  //   red: {
-  //     base: 'var(--ra-red)',
-  //     light: 'var(--ra-red-light)',
-  //     bright: 'var(--ra-red-bright)',
-  //     offWhite: 'var(--ra-red-off-white)',
-  //   },
-  //   teal: {
-  //     base: 'var(--ra-teal)',
-  //     light: 'var(--ra-teal-light)',
-  //     bright: 'var(--ra-teal-bright)',
-  //     offWhite: 'var(--ra-teal-off-white)',
-  //   },
-  //   grey: {
-  //     base: 'var(--ra-grey)',
-  //     light: 'var(--ra-grey-light)',
-  //     bright: 'var(--ra-grey-bright)',
-  //     offWhite: 'var(--ra-grey-off-white)',
-  //   },
-  // };
+
   export let colors = 'grey';
-  export let height = '35em';
   export let cardTitle;
   export let imgUrl;
-  export let cardFooterText;
   export let cardLink;
   export let cardLinkText;
 
@@ -46,26 +13,24 @@
   const getColor = () => colorScheme[colors].base;
 </script>
 
-<div class="card" style="background-color:{getBackgroundColor()};color:{getColor()};height:{height}">
-  <div class="img-container">
-    {#if imgUrl}
+<div class="card" style="background-color:{getBackgroundColor()};color:{getColor()};">
+  {#if imgUrl}
+    <div class="img-container">
       <img src={imgUrl} alt={cardTitle} />
-    {/if}
-  </div>
+    </div>
+  {/if}
   {#if cardTitle}
     <div class="card-title" style="color:{getColor()};">
       <h2>{cardTitle}</h2>
     </div>
   {/if}
   <p>
-    <slot />
+    <slot name="description" />
   </p>
   <div class="card-footer" style="background-color:{getFooterBackgroundColor()};color:{getBackgroundColor()};">
-    {#if cardFooterText}
-      <p>
-        {cardFooterText}
-      </p>
-    {/if}
+    <p>
+      <slot name="cardfootertext" />
+    </p>
     {#if cardLink}
       <a href={cardLink} style="color:{getBackgroundColor()};">{cardLinkText}</a>
     {/if}
@@ -74,9 +39,9 @@
 
 <style>
   div.card {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 5fr 1fr 2fr 1.5fr;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     box-shadow: 0.1em 0.1em 0.2em 0 rgba(0, 0, 0, 0.1);
   }
 

@@ -2,40 +2,8 @@
   // packages
 
   // constants
-
   import {colorScheme} from '../../../../client/constants';
-  // const colorScheme = {
-  //   blue: {
-  //     base: 'var(--ra-blue)',
-  //     light: 'var(--ra-blue-light)',
-  //     bright: 'var(--ra-blue-bright)',
-  //     offWhite: 'var(--ra-blue-off-white)',
-  //   },
-  //   green: {
-  //     base: 'var(--ra-green)',
-  //     light: 'var(--ra-green-light)',
-  //     bright: 'var(--ra-green-bright)',
-  //     offWhite: 'var(--ra-green-off-white)',
-  //   },
-  //   red: {
-  //     base: 'var(--ra-red)',
-  //     light: 'var(--ra-red-light)',
-  //     bright: 'var(--ra-red-bright)',
-  //     offWhite: 'var(--ra-red-off-white)',
-  //   },
-  //   teal: {
-  //     base: 'var(--ra-teal)',
-  //     light: 'var(--ra-teal-light)',
-  //     bright: 'var(--ra-teal-bright)',
-  //     offWhite: 'var(--ra-teal-off-white)',
-  //   },
-  //   grey: {
-  //     base: 'var(--ra-grey)',
-  //     light: 'var(--ra-grey-light)',
-  //     bright: 'var(--ra-grey-bright)',
-  //     offWhite: 'var(--ra-grey-off-white)',
-  //   },
-  // };
+
   export let colors = 'grey';
   export let cardTitle;
   export let flipped = false;

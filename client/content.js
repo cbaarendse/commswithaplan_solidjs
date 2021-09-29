@@ -27,12 +27,12 @@ export const processItems = [{
         english: {
             name: 'Briefing',
             description: 'Instruct the agencies to develop (media) campaigns. With the input of former results, all marketing functions, objectives etc. In principle I follow the steps (1) strategy (2) planning (3) execution (4) evaluation & adjustment.',
-            colors: 'green'
+            colors: 'blue'
         },
         dutch: {
             name: 'Briefing',
             description: 'Opdracht geven aan de bureaus om (media)campagnes te ontwikkelen. Met input van eerdere resultaten, alle marketing functies, doelstellingen etcetera. In principe volg ik de stappen (1) strategie (2) planning (3) uitvoering (4) evaluatie & bijstelling.',
-            colors: 'green'
+            colors: 'blue'
         },
     },
     {
@@ -56,6 +56,18 @@ export const processItems = [{
         dutch: {
             name: 'Planning',
             description: 'Precieze uitwerking van de strategie door de bureaus.',
+            colors: 'green'
+        },
+    },
+    {
+        english: {
+            name: 'Tools',
+            description: 'Tools that support your marketing-communications work.',
+            colors: 'green'
+        },
+        dutch: {
+            name: 'Tools',
+            description: 'Tools die je marketing-communicatie werkzaamheden ondersteunen.',
             colors: 'green'
         },
     },
