@@ -62,7 +62,9 @@
     thisReachApp.toggleShowAll();
     showAll = thisReachApp.showAll;
   };
-  const print = () => {};
+  const print = () => {
+    window.print();
+  };
   const pdf = () => {};
   const displayTouchPoint = () => {
     !thisReachApp.showAll && touchPoint.value === 0 ? 'none' : 'grid';
@@ -87,22 +89,22 @@
   };
 </script>
 
-<ReachHeader
-  {totalReach}
-  {locus}
-  totalReachDisplayName={thisUi.translate('totalReach', language)}
-  locusDisplayName={thisUi.translate('locus', language)}
-  {allTouchPointValuesAreZero}
-  {sortingByName}
-  {showAll}
-  on:reset={reset}
-  on:sort={sort}
-  on:hide={hide}
-  on:print={print}
-  on:pdf={pdf}
-/>
-
 <section>
+  <ReachHeader
+    {totalReach}
+    {locus}
+    totalReachDisplayName={thisUi.translate('totalReach', language)}
+    locusDisplayName={thisUi.translate('locus', language)}
+    {allTouchPointValuesAreZero}
+    {sortingByName}
+    {showAll}
+    on:reset={reset}
+    on:sort={sort}
+    on:hide={hide}
+    on:print={print}
+    on:pdf={pdf}
+  />
+
   <!-- TODO: dispatch on:change and on:input -->
   {#each touchPoints as touchPoint}
     <ReachTouchPoint
@@ -123,6 +125,8 @@
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: auto;
+    gap: 1em;
+    margin: 0.5em 0 0 0;
   }
 
   @media screen and (min-width: 1200px) {

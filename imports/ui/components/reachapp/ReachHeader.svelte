@@ -78,8 +78,6 @@
     row-gap: 0.5em;
     align-items: center;
     padding: 1em;
-    margin: 2em 0;
-    border: 1px dotted orange;
     border-radius: 0.2em;
     background-color: var(--ra-teal-off-white);
   }

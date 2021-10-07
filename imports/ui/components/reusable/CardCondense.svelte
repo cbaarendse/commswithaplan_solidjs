@@ -19,7 +19,7 @@
   <div class="card-title" style="color:{getColor()};">
     <h2>{cardTitle}</h2>
   </div>
-  <div class="card-content" class:flipped>
+  <div class="card-content" class:flipped on:mouseenter|preventDefault|stopPropagation>
     <div class="card-front">
       <slot name="image">Image</slot>
     </div>

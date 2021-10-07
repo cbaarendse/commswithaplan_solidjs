@@ -82,9 +82,8 @@
     grid-template-columns: 1fr 5fr 1fr;
     align-items: center;
     background-color: var(--ra-teal-off-white);
-    margin: 0.5em 0;
     padding: 0.4em 1em 0.4em 1em;
-    border-radius: 0.6em;
+    border-radius: 0.4em;
   }
   @media screen and (max-width: 500px) {
     div {

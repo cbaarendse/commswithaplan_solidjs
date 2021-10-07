@@ -62,6 +62,7 @@
             flipped={selectedIndex === index}
             colors={item[language].colors}
             on:click={() => (selectedIndex === index ? (selectedIndex = '') : (selectedIndex = index))}
+            on:mouseenter={() => (selectedIndex === index ? (selectedIndex = '') : (selectedIndex = index))}
             cardTitle={item[language].name}
           >
             <img
