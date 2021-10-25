@@ -61,7 +61,7 @@
     <a
       href={'/'}
       class="logo-link"
-      on:mouseover={() => (hovered = true)}
+      on:mouseenter={() => (hovered = true)}
       on:mouseleave={() => (hovered = false)}
       use:active
     >
@@ -238,7 +238,7 @@
   }
 
   .nav-1 .divider {
-    margin: 0 0.6em;
+    margin: 0 0.7em;
   }
   .nav-1 .user {
     margin-left: 1.2em;
@@ -248,10 +248,10 @@
   }
 
   .nav-2 a {
-    margin: 0.1em 0.4em;
+    margin: 0.1em 0.7em;
   }
   .nav-3 a {
-    margin: 0.1em 0.4em;
+    margin: 0.1em 0.7em;
   }
 
   /* :link, :visited */

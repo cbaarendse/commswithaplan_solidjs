@@ -43,7 +43,7 @@
     <button
       class="touchpoint"
       on:click|preventDefault={showModal}
-      on:mouseover={() => (hovered = true)}
+      on:mouseenter={() => (hovered = true)}
       on:mouseleave={() => (hovered = false)}
       style="background-image:url(/reachapp/{name}.png);opacity:{hovered | (value > 0) ? 1 : 0.7};"
     />
@@ -79,17 +79,21 @@
   div.container {
     display: grid;
     gap: 2em;
-    grid-template-columns: 1fr 5fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     align-items: center;
     background-color: var(--ra-teal-off-white);
     padding: 0.4em 1em 0.4em 1em;
-    border-radius: 0.4em;
+    margin: 0 2em;
+    border-radius: 0.2em;
   }
-  @media screen and (max-width: 500px) {
-    div {
-      grid-template-columns: 1fr 1fr 1fr;
+  @media screen and (min-width: 900px) {
+    div.container {
+      grid-column: 2/3;
+      grid-template-columns: 1fr 5fr 1fr;
+      margin: 0;
     }
   }
+
   button {
     height: 5em;
     width: 5em;
@@ -113,6 +117,7 @@
   span {
     font-size: 1.4rem;
   }
+
   div.left,
   div.right {
     display: flex;

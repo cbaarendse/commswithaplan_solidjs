@@ -73,21 +73,24 @@
 <style>
   header {
     display: grid;
-    grid-template-columns: minmax(5em, 1fr) auto;
-    grid-template-rows: auto;
-    row-gap: 0.5em;
+    grid-template-columns: minmax(5em, auto) minmax(3em, auto) minmax(5em, 2fr) 1fr;
+    grid-template-rows: min-content;
+    column-gap: 0.4em;
     align-items: center;
     padding: 1em;
+    margin: 0 2em;
     border-radius: 0.2em;
     background-color: var(--ra-teal-off-white);
   }
+
   .brand {
+    grid-column: 1 / 5;
     display: grid;
     grid-template-columns: auto auto;
     justify-content: start;
     column-gap: 0.4em;
     align-items: center;
-    grid-column: 1 / 3;
+
     font-size: 1.6rem;
     font-family: 'Trebuchet MS';
   }
@@ -97,20 +100,24 @@
   }
 
   .reach-label {
+    grid-column: 1 / 2;
     font-size: 1.2rem;
     padding: 0 0.4em;
   }
 
   .reach {
+    grid-column: 2 / 3;
     font-size: 1.2rem;
     padding: 0 0.4em;
   }
   .locus-label {
+    grid-column: 1 / 2;
     font-size: 1.2rem;
     padding: 0 0.4em;
   }
 
   .locus {
+    grid-column: 2 / 3;
     font-size: 1.2rem;
     padding: 0 0.4em;
   }
@@ -123,10 +130,10 @@
     display: block;
   }
   .reach-meter {
-    grid-column: 1 / 3;
+    grid-column: 3 / 4;
   }
   .locus-meter {
-    grid-column: 1 / 3;
+    grid-column: 3 / 4;
   }
 
   .meter > span {
@@ -140,6 +147,7 @@
   }
 
   .controls {
+    grid-column: 1 / 5;
     display: grid;
     grid-template-columns: repeat(5, auto) 1fr;
     column-gap: 0.7em;
@@ -172,17 +180,16 @@
   button:hover {
     opacity: 0.7;
   }
-
-  @media screen and (min-width: 476px) {
+  @media screen and (min-width: 900px) {
     header {
-      display: grid;
-      grid-template-columns: minmax(5em, auto) minmax(3em, auto) minmax(5em, 2fr) 1fr;
-      grid-template-rows: min-content;
-      column-gap: 0.4em;
-      align-items: center;
+      grid-column: 1/5;
+      grid-template-columns: minmax(5em, 1fr) auto;
+      grid-template-rows: auto;
+      row-gap: 0.5em;
+      margin: 0;
     }
     .brand {
-      grid-column: 1 / 5;
+      grid-column: 1 / 3;
     }
     .reach-label {
       grid-column: 1 / 2;
@@ -191,7 +198,7 @@
       grid-column: 2 / 3;
     }
     .reach-meter {
-      grid-column: 3 / 4;
+      grid-column: 1 / 3;
     }
     .locus-label {
       grid-column: 1 / 2;
@@ -200,46 +207,10 @@
       grid-column: 2 / 3;
     }
     .locus-meter {
-      grid-column: 3 / 4;
+      grid-column: 1 / 3;
     }
     .controls {
       grid-column: 1 / 5;
-    }
-  }
-  @media screen and (min-width: 768px) {
-    header {
-      /* TODO: fix columns and items, aso with 476, eventual better responsiveness */
-      display: grid;
-      grid-template-columns:
-        auto minmax(5em, auto) minmax(3em, auto) minmax(5em, 2fr) minmax(5em, auto) minmax(3em, auto)
-        minmax(5em, 2fr) auto;
-      grid-template-rows: min-content;
-      column-gap: 0.4em;
-      align-items: center;
-    }
-    .brand {
-      grid-column: 1 / 2;
-    }
-    .reach-label {
-      grid-column: 2 / 3;
-    }
-    .reach {
-      grid-column: 3 / 4;
-    }
-    .reach-meter {
-      grid-column: 4 / 5;
-    }
-    .locus-label {
-      grid-column: 5 / 6;
-    }
-    .locus {
-      grid-column: 6 / 7;
-    }
-    .locus-meter {
-      grid-column: 7 / 8;
-    }
-    .controls {
-      grid-column: 8 / 9;
     }
   }
 </style>

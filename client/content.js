@@ -99,12 +99,12 @@ export const processItems = [{
     {
         english: {
             name: 'Budget management',
-            description: 'Make sure that no one spends more than he/she turns out to have at the end of the year.',
+            description: 'Make sure that no one spends more than needed to reach the objectives. Or that he/she turns out to have at the end of the year.',
             colors: 'red'
         },
         dutch: {
             name: 'Budget management',
-            description: 'Ervoor zorgen dat niemand uitgeeft wat hij/zij op het einde van het jaar niet blijkt te hebben.',
+            description: 'Ervoor zorgen dat niemand meer uitgeeft dan nodig is voor de doelstellingen. Of wat hij/zij op het einde van het jaar blijkt te hebben.',
             colors: 'red'
         },
     },

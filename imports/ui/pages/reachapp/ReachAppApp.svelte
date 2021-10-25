@@ -129,9 +129,9 @@
     margin: 0.5em 0 0 0;
   }
 
-  @media screen and (min-width: 1200px) {
+  @media screen and (min-width: 900px) {
     section {
-      grid-template-columns: 1fr;
+      grid-template-columns: 1fr 5fr 1fr;
     }
   }
 </style>
