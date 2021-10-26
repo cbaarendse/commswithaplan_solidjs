@@ -122,16 +122,9 @@
 
 <style>
   section {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: auto;
+    display: flex;
+    flex-direction: column;
     gap: 1em;
     margin: 0.5em 0 0 0;
-  }
-
-  @media screen and (min-width: 900px) {
-    section {
-      grid-template-columns: 1fr 5fr 1fr;
-    }
   }
 </style>

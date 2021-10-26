@@ -73,9 +73,9 @@
 <style>
   header {
     display: grid;
-    grid-template-columns: minmax(5em, auto) minmax(3em, auto) minmax(5em, 2fr) 1fr;
+    grid-template-columns: repeat(min-content, 1fr);
     grid-template-rows: min-content;
-    column-gap: 0.4em;
+    gap: 0.4em;
     align-items: center;
     padding: 1em;
     margin: 0 2em;
@@ -84,13 +84,12 @@
   }
 
   .brand {
-    grid-column: 1 / 5;
-    display: grid;
-    grid-template-columns: auto auto;
-    justify-content: start;
-    column-gap: 0.4em;
+    grid-column: 1/6;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 0.7em;
     align-items: center;
-
     font-size: 1.6rem;
     font-family: 'Trebuchet MS';
   }
@@ -100,28 +99,29 @@
   }
 
   .reach-label {
-    grid-column: 1 / 2;
+    grid-column: 1/2;
     font-size: 1.2rem;
     padding: 0 0.4em;
   }
 
   .reach {
-    grid-column: 2 / 3;
+    grid-column: 2/3;
     font-size: 1.2rem;
     padding: 0 0.4em;
   }
   .locus-label {
-    grid-column: 1 / 2;
+    grid-column: 1/2;
     font-size: 1.2rem;
     padding: 0 0.4em;
   }
 
   .locus {
-    grid-column: 2 / 3;
+    grid-column: 2/3;
     font-size: 1.2rem;
     padding: 0 0.4em;
   }
   .meter {
+    grid-column: 1/3;
     border: 1px solid #ccc;
     border-radius: 3px;
     background-color: whiteSmoke;
@@ -130,10 +130,8 @@
     display: block;
   }
   .reach-meter {
-    grid-column: 3 / 4;
   }
   .locus-meter {
-    grid-column: 3 / 4;
   }
 
   .meter > span {
@@ -147,12 +145,12 @@
   }
 
   .controls {
-    grid-column: 1 / 5;
-    display: grid;
-    grid-template-columns: repeat(5, auto) 1fr;
+    grid-column: 1 / 6;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
     column-gap: 0.7em;
     align-items: center;
-    grid-column: 1 / 3;
   }
 
   button {
@@ -183,7 +181,7 @@
   @media screen and (min-width: 900px) {
     header {
       grid-column: 1/5;
-      grid-template-columns: minmax(5em, 1fr) auto;
+      grid-template-columns: minmax(5em, auto) minmax(3em, auto) minmax(5em, 2fr) 1fr;
       grid-template-rows: auto;
       row-gap: 0.5em;
       margin: 0;
