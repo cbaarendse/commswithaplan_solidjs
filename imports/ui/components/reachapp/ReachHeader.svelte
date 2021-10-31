@@ -39,15 +39,17 @@
     <LogoReachApp size="2.1em" />
     <span class="brand-label">ReachApp</span>
   </div>
-
-  <span class="reach-label">{totalReachDisplayName}:&nbsp;</span>
-  <span class="reach">{thisUi.toNumberFormat(totalReach.toFixed(0))}&nbsp;%</span>
+  <div class="reach">
+    <span class="reach-label">{totalReachDisplayName}:&nbsp;</span>
+    <span class="reach-outcome">{thisUi.toNumberFormat(totalReach.toFixed(0))}&nbsp;%</span>
+  </div>
   <div class="meter reach-meter">
     <span style="width:{totalReach}%;" />
   </div>
-
-  <span class="locus-label">{locusDisplayName}:&nbsp;</span>
-  <span class="locus">{thisUi.toNumberFormat(locus.toFixed(1))}&nbsp;%</span>
+  <div class="locus">
+    <span class="locus-label">{locusDisplayName}:&nbsp;</span>
+    <span class="locus-outcome">{thisUi.toNumberFormat(locus.toFixed(1))}&nbsp;%</span>
+  </div>
   <div class="meter locus-meter">
     <span style="width:{locus}%;" />
   </div>
@@ -74,8 +76,8 @@
   header {
     display: grid;
     grid-template-columns: repeat(min-content, 1fr);
-    grid-template-rows: min-content;
-    gap: 0.4em;
+    grid-auto-rows: minmax(3em, auto);
+    gap: 0.7em;
     align-items: center;
     padding: 1em;
     margin: 0 2em;
@@ -84,7 +86,6 @@
   }
 
   .brand {
-    grid-column: 1/6;
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
@@ -98,30 +99,21 @@
     font-size: 1.6rem;
   }
 
-  .reach-label {
-    grid-column: 1/2;
-    font-size: 1.2rem;
-    padding: 0 0.4em;
-  }
-
   .reach {
-    grid-column: 2/3;
-    font-size: 1.2rem;
-    padding: 0 0.4em;
-  }
-  .locus-label {
-    grid-column: 1/2;
+    display: grid;
+    grid-template-columns: max-content max-content;
     font-size: 1.2rem;
     padding: 0 0.4em;
   }
 
   .locus {
-    grid-column: 2/3;
+    display: grid;
+    grid-template-columns: max-content max-content;
     font-size: 1.2rem;
     padding: 0 0.4em;
   }
+
   .meter {
-    grid-column: 1/3;
     border: 1px solid #ccc;
     border-radius: 3px;
     background-color: whiteSmoke;
@@ -145,7 +137,6 @@
   }
 
   .controls {
-    grid-column: 1 / 6;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
@@ -178,37 +169,11 @@
   button:hover {
     opacity: 0.7;
   }
-  @media screen and (min-width: 900px) {
+  @media screen and (min-width: 760px) {
     header {
-      grid-column: 1/5;
-      grid-template-columns: minmax(5em, auto) minmax(3em, auto) minmax(5em, 2fr) 1fr;
-      grid-template-rows: auto;
+      grid-template-columns: minmax(5em, auto) max-content minmax(14em, 1fr) max-content minmax(14em, 1fr) max-content;
       row-gap: 0.5em;
-      margin: 0;
-    }
-    .brand {
-      grid-column: 1 / 3;
-    }
-    .reach-label {
-      grid-column: 1 / 2;
-    }
-    .reach {
-      grid-column: 2 / 3;
-    }
-    .reach-meter {
-      grid-column: 1 / 3;
-    }
-    .locus-label {
-      grid-column: 1 / 2;
-    }
-    .locus {
-      grid-column: 2 / 3;
-    }
-    .locus-meter {
-      grid-column: 1 / 3;
-    }
-    .controls {
-      grid-column: 1 / 5;
+      margin: 0 7%;
     }
   }
 </style>

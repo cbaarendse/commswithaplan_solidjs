@@ -86,11 +86,11 @@
     margin: 0 2em;
     border-radius: 0.2em;
   }
-  @media screen and (min-width: 900px) {
+  @media screen and (min-width: 760px) {
     div.container {
       grid-column: 2/3;
       grid-template-columns: 1fr 5fr 1fr;
-      margin: 0;
+      margin: 0 7%;
     }
   }
 
