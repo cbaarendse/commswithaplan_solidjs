@@ -83,7 +83,7 @@
     align-items: center;
     background-color: var(--ra-teal-off-white);
     padding: 0.4em 1em 0.4em 1em;
-    margin: 0 2em;
+    margin: 0 2%;
     border-radius: 0.2em;
   }
   @media screen and (min-width: 760px) {
