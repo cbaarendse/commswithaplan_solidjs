@@ -39,18 +39,20 @@
     <LogoReachApp size="2.1em" />
     <span class="brand-label">ReachApp</span>
   </div>
-  <div class="outcome">
-    <span class="outcome-label">{totalReachDisplayName}:&nbsp;</span>
-    <span class="outcome-outcome">{thisUi.toNumberFormat(totalReach.toFixed(0))}&nbsp;%</span>
-    <div class="outcome-meter">
-      <span style="width:{totalReach}%;" />
+  <div class="outcome-container">
+    <div class="outcome">
+      <span class="outcome-label">{totalReachDisplayName}:&nbsp;</span>
+      <span class="outcome-outcome">{thisUi.toNumberFormat(totalReach.toFixed(0))}&nbsp;%</span>
+      <div class="outcome-meter">
+        <span style="width:{totalReach}%;" />
+      </div>
     </div>
-  </div>
-  <div class="outcome">
-    <span class="outcome-label">{locusDisplayName}:&nbsp;</span>
-    <span class="outcome-result">{thisUi.toNumberFormat(locus.toFixed(1))}&nbsp;%</span>
-    <div class="outcome-meter">
-      <span style="width:{locus}%;" />
+    <div class="outcome">
+      <span class="outcome-label">{locusDisplayName}:&nbsp;</span>
+      <span class="outcome-result">{thisUi.toNumberFormat(locus.toFixed(1))}&nbsp;%</span>
+      <div class="outcome-meter">
+        <span style="width:{locus}%;" />
+      </div>
     </div>
   </div>
 
@@ -73,7 +75,7 @@
 </header>
 
 <style>
-  header {
+  /* header {
     display: grid;
     grid-template-columns: minmax(14em, 1fr);
     grid-auto-rows: minmax(3em, 1fr);
@@ -83,8 +85,18 @@
     margin: 0 2%;
     border-radius: 0.2em;
     background-color: var(--ra-teal-off-white);
+  } */
+  header {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 0.7em;
+    align-items: center;
+    padding: 1em;
+    margin: 0 2%;
+    border-radius: 0.2em;
+    background-color: var(--ra-teal-off-white);
   }
-
   .brand {
     display: flex;
     flex-direction: row;
@@ -98,7 +110,13 @@
   .brand-label {
     font-size: 1.6rem;
   }
-
+  .outcome-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7em;
+    font-size: 1.2rem;
+    padding: 0 0.4em;
+  }
   .outcome {
     display: grid;
     grid-template-columns: 6em 2em minmax(6em, 2fr) 1fr;
@@ -157,7 +175,7 @@
     opacity: 0.7;
   }
 
-  @media screen and (min-width: 900px) {
+  /* @media screen and (min-width: 900px) {
     .outcome {
       display: grid;
       grid-template-columns: 6em 2em minmax(6em, 1fr) 1fr;
@@ -179,9 +197,9 @@
     .controls {
       grid-column: span 2;
     }
-  }
+  } */
   /* TODO: correct */
-  @media screen and (min-width: 1400px) {
+  /* @media screen and (min-width: 1400px) {
     header {
       grid-template-columns: auto auto auto auto;
     }
@@ -193,5 +211,5 @@
     }
     .controls {
     }
-  }
+  } */
 </style>
