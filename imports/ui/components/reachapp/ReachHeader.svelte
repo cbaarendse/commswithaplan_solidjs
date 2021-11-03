@@ -39,20 +39,18 @@
     <LogoReachApp size="2.1em" />
     <span class="brand-label">ReachApp</span>
   </div>
-  <div class="outcome-container">
-    <div class="outcome">
-      <span class="outcome-label">{totalReachDisplayName}:&nbsp;</span>
-      <span class="outcome-outcome">{thisUi.toNumberFormat(totalReach.toFixed(0))}&nbsp;%</span>
-      <div class="outcome-meter">
-        <span style="width:{totalReach}%;" />
-      </div>
+  <div class="outcome outcome-reach">
+    <span class="outcome-label">{totalReachDisplayName}:&nbsp;</span>
+    <span class="outcome-result">{thisUi.toNumberFormat(totalReach.toFixed(0))}&nbsp;%</span>
+    <div class="outcome-meter">
+      <span style="width:{totalReach}%;" />
     </div>
-    <div class="outcome">
-      <span class="outcome-label">{locusDisplayName}:&nbsp;</span>
-      <span class="outcome-result">{thisUi.toNumberFormat(locus.toFixed(1))}&nbsp;%</span>
-      <div class="outcome-meter">
-        <span style="width:{locus}%;" />
-      </div>
+  </div>
+  <div class="outcome outcome-locus">
+    <span class="outcome-label">{locusDisplayName}:&nbsp;</span>
+    <span class="outcome-result">{thisUi.toNumberFormat(locus.toFixed(1))}&nbsp;%</span>
+    <div class="outcome-meter">
+      <span style="width:{locus}%;" />
     </div>
   </div>
 
@@ -75,21 +73,13 @@
 </header>
 
 <style>
-  /* header {
-    display: grid;
-    grid-template-columns: minmax(14em, 1fr);
-    grid-auto-rows: minmax(3em, 1fr);
-    gap: 0.7em;
-    align-items: center;
-    padding: 1em;
-    margin: 0 2%;
-    border-radius: 0.2em;
-    background-color: var(--ra-teal-off-white);
-  } */
   header {
-    display: flex;
-    justify-content: flex-start;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-areas:
+      'brand'
+      'controls'
+      'outcome_reach'
+      'outcome_locus';
     gap: 0.7em;
     align-items: center;
     padding: 1em;
@@ -97,7 +87,9 @@
     border-radius: 0.2em;
     background-color: var(--ra-teal-off-white);
   }
+
   .brand {
+    grid-area: brand;
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
@@ -110,19 +102,23 @@
   .brand-label {
     font-size: 1.6rem;
   }
-  .outcome-container {
-    display: flex;
-    flex-wrap: wrap;
+
+  .outcome {
+    display: grid;
+    flex-basis: auto;
+    align-items: center;
+    grid-template-columns: 6em 2em minmax(6em, auto);
     gap: 0.7em;
     font-size: 1.2rem;
     padding: 0 0.4em;
   }
-  .outcome {
-    display: grid;
-    grid-template-columns: 6em 2em minmax(6em, 2fr) 1fr;
-    gap: 0.7em;
-    font-size: 1.2rem;
-    padding: 0 0.4em;
+
+  .outcome-reach {
+    grid-area: outcome_reach;
+  }
+
+  outcome-locus {
+    grid-area: outcome_locus;
   }
 
   .outcome-meter {
@@ -145,6 +141,7 @@
   }
 
   .controls {
+    grid-area: controls;
     display: flex;
     justify-content: flex-start;
     gap: 2em;
@@ -175,41 +172,25 @@
     opacity: 0.7;
   }
 
-  /* @media screen and (min-width: 900px) {
-    .outcome {
-      display: grid;
-      grid-template-columns: 6em 2em minmax(6em, 1fr) 1fr;
+  @media screen and (min-width: 760px) {
+    .header {
+      grid-template-areas:
+        'brand controls'
+        'outcome_reach outcome_locus';
     }
   }
 
-  @media screen and (min-width: 1100px) {
+  @media screen and (min-width: 900px) {
     header {
-      grid-template-columns: 1fr 1fr;
+      grid-template-areas:
+        'brand controls'
+        'outcome_reach outcome_locus';
     }
-    .brand {
-      grid-column: span 2;
-    }
-    .outcome {
-      grid-column: span 1;
-      display: grid;
-      grid-template-columns: 6em 2em minmax(6em, 3fr) 1fr;
-    }
-    .controls {
-      grid-column: span 2;
-    }
-  } */
+  }
   /* TODO: correct */
-  /* @media screen and (min-width: 1400px) {
+  @media screen and (min-width: 1400px) {
     header {
-      grid-template-columns: auto auto auto auto;
+      grid-template-areas: 'brand outcome_reach outcome_locus controls';
     }
-    .brand {
-    }
-    .outcome {
-      display: grid;
-      grid-template-columns: 6em 2em minmax(6em, 1fr);
-    }
-    .controls {
-    }
-  } */
+  }
 </style>
