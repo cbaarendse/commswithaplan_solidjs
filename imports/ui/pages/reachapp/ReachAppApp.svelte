@@ -124,6 +124,7 @@
   section {
     display: flex;
     flex-direction: column;
+    font-size: clamp(1rem, 1vw + 1rem, 1.5rem);
     gap: 1em;
     margin: 0.5em 0 0 0;
     min-width: 480px;

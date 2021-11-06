@@ -80,7 +80,7 @@
       'controls'
       'outcome_reach'
       'outcome_locus';
-    gap: 0.7em;
+    gap: 1.2em;
     align-items: center;
     padding: 1em;
     margin: 0 2%;
@@ -173,21 +173,16 @@
   }
 
   @media screen and (min-width: 760px) {
-    .header {
-      grid-template-areas:
-        'brand controls'
-        'outcome_reach outcome_locus';
-    }
-  }
-
-  @media screen and (min-width: 900px) {
     header {
       grid-template-areas:
         'brand controls'
         'outcome_reach outcome_locus';
     }
+    .controls {
+      justify-self: end;
+    }
   }
-  /* TODO: correct */
+
   @media screen and (min-width: 1400px) {
     header {
       grid-template-areas: 'brand outcome_reach outcome_locus controls';
