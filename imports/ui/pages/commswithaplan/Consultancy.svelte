@@ -4,7 +4,7 @@
 
   // components
   import Card from '../../components/reusable/Card.svelte';
-  import CardCondense from '../../components/reusable/CardCondense.svelte';
+  import FlipCard from '../../components/reusable/FlipCard.svelte';
   import LogoCommsWithAPlan from '../../components/reusable/LogoCommsWithAPlan.svelte';
 
   import {translations} from '../../../../client/constants';
@@ -13,7 +13,7 @@
   import UiProvider from '../../../both/uiProvider';
 
   // content
-  import {processItems} from '../../../../client/content';
+  import {consultancyItems} from '../../../../client/content';
 
   // variables
   const thisUi = new UiProvider(translations);
@@ -21,7 +21,7 @@
   let selectedIndex;
 </script>
 
-<section>
+<header>
   <Card cardTitle="Comms With A Plan">
     <span slot="description">
       {#if language == 'dutch'}
@@ -45,10 +45,10 @@
       {/if}
     </span>
   </Card>
-</section>
+</header>
 
 <section>
-  <article id="work">
+  <article class="work">
     <h2>Work</h2>
     {#if language == 'dutch'}
       <p>Zaken die ik manage gedurende het proces (je kan kiezen en mixen):</p>
@@ -56,14 +56,15 @@
       <p>Things I'll manage along the process (you can pick and mix):</p>
     {/if}
     <ul>
-      {#each processItems as item, index}
+      {#each consultancyItems as item, index}
         <li>
-          <CardCondense
+          <FlipCard
             flipped={selectedIndex === index}
             colors={item[language].colors}
             on:click={() => (selectedIndex === index ? (selectedIndex = '') : (selectedIndex = index))}
             on:mouseenter={() => (selectedIndex === index ? (selectedIndex = '') : (selectedIndex = index))}
             cardTitle={item[language].name}
+            buttonText={thisUi.translate('read', language)}
           >
             <img
               src="/consultancy/{thisUi.latinizeAndJoin(item[language].name)}.png"
@@ -72,13 +73,13 @@
               slot="image"
             />
             <span slot="description">{item[language].description}</span>
-          </CardCondense>
+          </FlipCard>
         </li>
       {/each}
     </ul>
   </article>
 
-  <article id="about">
+  <article class="about">
     <h2>About</h2>
     {#if language == 'dutch'}
       <p>
@@ -101,7 +102,7 @@
     {/if}
   </article>
 
-  <article id="contact">
+  <article class="contact">
     <h2>Contact</h2>
     {#if language == 'dutch'}
       <address>
@@ -118,19 +119,20 @@
 </section>
 
 <style>
-  section:nth-of-type(1) {
+  header {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(25em, 1fr));
     gap: 2em;
   }
 
-  @media (min-width: 119ch) {
-    section:nth-of-type(1) {
+  @media (min-width: 760px) {
+    header {
       grid-auto-flow: column;
+      margin: 1em 2em;
     }
   }
 
-  section:nth-of-type(2) {
+  section {
     display: grid;
     grid-template-areas:
       'work'
@@ -139,27 +141,28 @@
     gap: 2em;
   }
 
-  @media (min-width: 119ch) {
+  @media (min-width: 760px) {
     section:nth-of-type(2) {
       grid-template-areas:
         'work work'
         'about contact';
+      margin: 1em 2em;
     }
   }
 
+  header,
   section {
-    margin: 1em 2em;
   }
 
-  article#work {
+  article.work {
     grid-area: work;
   }
 
-  article#about {
+  article.about {
     grid-area: about;
   }
 
-  article#contact {
+  article.contact {
     grid-area: contact;
   }
 
@@ -169,7 +172,7 @@
 
   ul {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(380px, 450px));
+    grid-template-columns: repeat(auto-fit, minmax(320px, 450px));
     gap: 2em;
     list-style-type: none;
   }

@@ -1,5 +1,5 @@
 // exports
-export const processItems = [{
+export const consultancyItems = [{
         english: {
             name: 'Reporting',
             description: 'Interpret, set up, manage dashboards or other kinds of reports.',

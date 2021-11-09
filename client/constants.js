@@ -47,6 +47,7 @@ export const translations = [
     { name: 'enter_reach', english: { displayName: 'Enter Reach for' }, dutch: { displayName: 'Vul Bereik in voor' } },
     { name: 'reach_error', english: { displayName: 'Reach can be maximum 100, minimum 0' }, dutch: { displayName: 'Bereik mag maximaal 100 zijn, minimaal 0' } },
     { name: 'advertisement', english: { displayName: 'Advertisement' }, dutch: { displayName: 'Advertentie' } },
+    { name: 'read', english: { displayName: 'Read' }, dutch: { displayName: 'Lees' } }
 ];
 
 export const colorScheme = {

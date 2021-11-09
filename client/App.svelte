@@ -353,7 +353,7 @@
 
   /* for tablet, laptop and desktop screens */
 
-  @media screen and (min-width: 476px) {
+  @media screen and (min-width: 760px) {
     header {
       position: static;
     }

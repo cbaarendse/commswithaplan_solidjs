@@ -47,7 +47,6 @@
 
   div.card-title {
     padding: 0.8em 0.8em 0 0.8em;
-    /* color: var(--ra-blue); */
     text-align: left;
   }
   p {

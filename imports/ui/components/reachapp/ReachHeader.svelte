@@ -109,7 +109,6 @@
     align-items: center;
     grid-template-columns: 6em 2em minmax(6em, auto);
     gap: 0.7em;
-    font-size: 1.2rem;
     padding: 0 0.4em;
   }
 
@@ -144,12 +143,12 @@
     grid-area: controls;
     display: flex;
     justify-content: flex-start;
-    gap: 2em;
+    gap: 1.2em;
     align-items: center;
   }
 
   button {
-    font-size: 1rem;
+    font-size: 1em;
     width: 3em;
     height: 3em;
     border-radius: 50%;

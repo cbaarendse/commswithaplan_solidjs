@@ -7,6 +7,7 @@
   export let colors = 'grey';
   export let cardTitle;
   export let flipped = false;
+  export let buttonText;
 
   // functions
   const getBackgroundColor = () => colorScheme[colors].offWhite;
@@ -35,7 +36,7 @@
       class="flip-content"
       style="border-color:{getFooterColor()}; border-width:0.4px; border-style:solid; 
       background-color:{getFooterBackgroundColor()}; color:{getFooterColor()};"
-      on:click|preventDefault|stopPropagation>Read</button
+      on:click|preventDefault|stopPropagation>{buttonText}</button
     >
   </div>
 </div>
