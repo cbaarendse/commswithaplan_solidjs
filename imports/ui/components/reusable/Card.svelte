@@ -43,6 +43,7 @@
     flex-direction: column;
     justify-content: space-between;
     box-shadow: 0.1em 0.1em 0.2em 0 rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
   }
 
   div.card-title {

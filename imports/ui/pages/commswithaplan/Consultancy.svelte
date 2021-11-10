@@ -119,17 +119,12 @@
 </section>
 
 <style>
+  /* phone screens */
   header {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(25em, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 2em;
-  }
-
-  @media (min-width: 760px) {
-    header {
-      grid-auto-flow: column;
-      margin: 1em 2em;
-    }
+    font-size: clamp(0.8rem, 4vw, 1.2rem);
   }
 
   section {
@@ -139,19 +134,6 @@
       'about'
       'contact';
     gap: 2em;
-  }
-
-  @media (min-width: 760px) {
-    section:nth-of-type(2) {
-      grid-template-areas:
-        'work work'
-        'about contact';
-      margin: 1em 2em;
-    }
-  }
-
-  header,
-  section {
   }
 
   article.work {
@@ -166,14 +148,25 @@
     grid-area: contact;
   }
 
-  article {
-    margin: 1em 2em;
-  }
-
   ul {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 450px));
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 2em;
     list-style-type: none;
+  }
+  /* ipad screens and larger */
+  @media (min-width: 760px) {
+    header {
+      margin: 1em 2em;
+    }
+    section {
+      grid-template-areas:
+        'work work'
+        'about contact';
+      margin: 1em 2em;
+    }
+    article {
+      margin: 1em 2em;
+    }
   }
 </style>
