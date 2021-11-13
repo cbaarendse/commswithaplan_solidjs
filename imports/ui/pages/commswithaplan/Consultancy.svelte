@@ -124,7 +124,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 2em;
-    font-size: clamp(0.8rem, 4vw, 1.2rem);
+    font-size: clamp(var(--font-size-min), var(--font-size-weight) * 100vw, var(--font-size-max));
   }
 
   section {

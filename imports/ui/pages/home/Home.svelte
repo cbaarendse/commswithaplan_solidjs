@@ -10,7 +10,7 @@
   <Card
     cardTitle={'Comms With A Plan'}
     imgUrl={'/home/consultant.jpeg'}
-    cardLink={'/commswithaplan'}
+    cardLink={'/commswithaplan/consultancy'}
     cardLinkText={'Read more'}
     colors={'blue'}
   >
@@ -42,8 +42,9 @@
   section {
     margin: 1em 2em;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(25em, 30em));
+    grid-template-columns: repeat(auto-fit, minmax(320px, 30em));
     justify-content: center;
     gap: 2em;
+    font-size: clamp(var(--font-size-min), var(--font-size-weight) * 100vw, var(--font-size-max));
   }
 </style>

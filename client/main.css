@@ -55,6 +55,10 @@
     --ra-nav-3-height-xs: 4em;
     --ra-notifications-height: 2em;
     --ra-mobile: 476px;
+    /* font-sizes in clamp() rem */
+    --font-size-min: 0.8rem;
+    --font-size-weight: calc(1/56);
+    --font-size-max: 1rem;
 }
 
 html {

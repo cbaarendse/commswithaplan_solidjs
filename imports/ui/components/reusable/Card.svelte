@@ -44,6 +44,7 @@
     justify-content: space-between;
     box-shadow: 0.1em 0.1em 0.2em 0 rgba(0, 0, 0, 0.1);
     box-sizing: border-box;
+    min-width: 320px;
   }
 
   div.card-title {
@@ -55,8 +56,7 @@
     justify-content: center;
     align-items: center;
     padding: 0 0.8em 0.8em 0.8em;
-    font-size: 1.2rem;
-    line-height: 1.7rem;
+    line-height: 1.7em;
   }
 
   .img-container {
@@ -70,7 +70,6 @@
     object-position: center;
   }
   a {
-    font-size: 1.6rem;
     text-decoration: none;
   }
   a:hover {
