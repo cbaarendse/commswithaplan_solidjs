@@ -124,7 +124,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 2em;
-    font-size: clamp(var(--font-size-min), var(--font-size-weight) * 100vw, var(--font-size-max));
+    font-size: clamp(var(--font-size-s), var(--font-size-weight) * 100vw, var(--font-size-xl));
   }
 
   section {
@@ -134,6 +134,11 @@
       'about'
       'contact';
     gap: 2em;
+    font-size: clamp(var(--font-size-s), var(--font-size-weight) * 100vw, var(--font-size-xl));
+  }
+
+  article {
+    font-size: clamp(var(--font-size-s), var(--font-size-weight) * 100vw, var(--font-size-xl));
   }
 
   article.work {
@@ -156,17 +161,15 @@
   }
   /* ipad screens and larger */
   @media (min-width: 760px) {
-    header {
+    header,
+    section,
+    article {
       margin: 1em 2em;
     }
     section {
       grid-template-areas:
         'work work'
         'about contact';
-      margin: 1em 2em;
-    }
-    article {
-      margin: 1em 2em;
     }
   }
 </style>

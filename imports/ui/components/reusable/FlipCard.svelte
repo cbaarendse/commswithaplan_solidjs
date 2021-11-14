@@ -89,7 +89,7 @@
     justify-content: center;
     align-items: center;
     padding: 0 0.8em 0.8em 0.8em;
-    font-size: 1.2rem;
+    font-size: clamp(var(--font-size-m), var(--font-size-weight) * 100vw, var(--font-size-l));
     line-height: 1.7rem;
   }
 
@@ -104,7 +104,7 @@
   button {
     height: 90%;
     width: 85%;
-    font-size: 1.4rem;
+    font-size: clamp(var(--font-size-l), var(--font-size-weight) * 100vw, var(--font-size-xl));
     border-radius: 7px;
     cursor: pointer;
   }
