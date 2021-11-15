@@ -69,7 +69,7 @@
         </div>
       </form>
     {:else}
-      <button class="button-input"><span> {thisUi.toStringFormat(value)}&nbsp;%</span></button>
+      <button class="input"><span> {thisUi.toStringFormat(value)}&nbsp;%</span></button>
     {/if}
   </div>
   <Modal title={touchPointDisplayName} {displayModal}>{touchPointDescription}</Modal>
@@ -94,7 +94,7 @@
     }
   }
 
-  button {
+  button.touchpoint {
     height: 5em;
     width: 5em;
     padding: 0.5em;
@@ -107,15 +107,22 @@
     cursor: pointer;
   }
 
-  button.button-input {
+  button.input {
+    height: 5em;
     min-width: 5em;
     width: fit-content;
+    padding: 0.5em;
     border-radius: 50%;
+    border: none;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 100%;
     background-color: var(--ra-white);
+    cursor: pointer;
   }
 
   span {
-    font-size: 1.2em;
+    font-size: 1em;
   }
 
   div.left,

@@ -160,7 +160,7 @@
     list-style-type: none;
   }
   /* ipad screens and larger */
-  @media (min-width: 760px) {
+  @media screen and (min-width: 760px) {
     header,
     section,
     article {

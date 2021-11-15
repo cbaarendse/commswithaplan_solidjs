@@ -143,6 +143,7 @@
     grid-area: controls;
     display: flex;
     justify-content: flex-start;
+    flex-wrap: wrap;
     gap: 1.2em;
     align-items: center;
   }
