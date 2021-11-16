@@ -351,6 +351,10 @@
     transition: transform 150ms ease-in 300ms;
   }
 
+  main {
+    margin: 35px, 0, 0, 0;
+  }
+
   /* for tablet, laptop and desktop screens */
 
   @media screen and (min-width: 760px) {
@@ -393,6 +397,7 @@
   }
 
   main {
+    margin: 0;
     overflow: auto;
   }
 </style>

@@ -60,16 +60,16 @@
         <li>
           <FlipCard
             flipped={selectedIndex === index}
-            colors={item[language].colors}
+            colors={item.colors}
             on:click={() => (selectedIndex === index ? (selectedIndex = '') : (selectedIndex = index))}
             on:mouseenter={() => (selectedIndex === index ? (selectedIndex = '') : (selectedIndex = index))}
-            cardTitle={item[language].name}
+            cardTitle={item[language].displayName}
             buttonText={thisUi.translate('read', language)}
           >
             <img
-              src="/consultancy/{thisUi.latinizeAndJoin(item[language].name)}.png"
-              alt={item[language].name}
-              style=" filter: opacity(0.6) drop-shadow(0 0 0 {item[language].colors});"
+              src="/consultancy/{item.name}.png"
+              alt={item[language].displayName}
+              style=" filter: opacity(0.6) drop-shadow(0 0 0 {item.colors});"
               slot="image"
             />
             <span slot="description">{item[language].description}</span>

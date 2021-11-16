@@ -2,40 +2,25 @@
   import Card from '../../components/reusable/Card.svelte';
   import LogoCommsWithAPlan from '../../components/reusable/LogoCommsWithAPlan.svelte';
 
+  // content
+  import {homePageItems} from '../../../../client/content';
+
   // variables
   export let language;
 </script>
 
 <section>
-  <Card
-    cardTitle={'Comms With A Plan'}
-    imgUrl={'/home/consultant.jpeg'}
-    cardLink={'/commswithaplan/consultancy'}
-    cardLinkText={'Read more'}
-    colors={'blue'}
-  >
-    <span slot="description">Comms With A Plan provides Media Management consultancy.</span></Card
-  >
-
-  <Card
-    cardTitle={'Bereik'}
-    imgUrl={'/home/night_crowd.jpg'}
-    cardLink={'/reachapp'}
-    cardLinkText={'Read more'}
-    colors={'green'}
-  >
-    <span slot="description">A handy tool to estimate your total reach.</span></Card
-  >
-
-  <Card
-    cardTitle={'Schema'}
-    imgUrl={'/home/coins.jpg'}
-    cardLink={'/schedule'}
-    cardLinkText={'Read more'}
-    colors={'grey'}
-  >
-    <span slot="description">All your campaigns in one place with Schedule.</span>
-  </Card>
+  {#each homePageItems as item, index}
+    <Card
+      cardTitle={item[language].displayName}
+      imgUrl={item.imgUrl}
+      cardLink={item.cardLink}
+      callToAction={item[language].callToAction}
+      colors={item.colors}
+    >
+      <span slot="description">{item[language].description}</span></Card
+    >
+  {/each}
 </section>
 
 <style>
@@ -45,6 +30,6 @@
     grid-template-columns: repeat(auto-fit, minmax(320px, 30em));
     justify-content: center;
     gap: 2em;
-    font-size: clamp(var(--font-size-min), var(--font-size-weight) * 100vw, var(--font-size-max));
+    font-size: clamp(var(--font-size-s), var(--font-size-weight) * 100vw, var(--font-size-l));
   }
 </style>

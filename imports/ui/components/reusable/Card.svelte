@@ -5,7 +5,7 @@
   export let cardTitle;
   export let imgUrl;
   export let cardLink;
-  export let cardLinkText;
+  export let callToAction;
 
   // functions
   const getBackgroundColor = () => colorScheme[colors].offWhite;
@@ -32,7 +32,7 @@
       <slot name="cardfootertext" />
     </p>
     {#if cardLink}
-      <a href={cardLink} style="color:{getBackgroundColor()};">{cardLinkText}</a>
+      <a href={cardLink} style="color:{getBackgroundColor()};">{callToAction}</a>
     {/if}
   </div>
 </div>
