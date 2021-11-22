@@ -36,7 +36,7 @@
 
 <header>
   <div class="brand">
-    <LogoReachApp size="2.1em" />
+    <LogoReachApp size="3rem" />
     <span class="brand-label">ReachApp</span>
   </div>
   <div class="outcome outcome-reach">

@@ -7,14 +7,13 @@
 
   // components
   import Home from '../imports/ui/pages/home/Home.svelte';
-  import Consultancy from '../imports/ui/pages/commswithaplan/Consultancy.svelte';
-  import ReachAppApp from '../imports/ui/pages/reachapp/ReachAppApp.svelte';
-  import Download from '../imports/ui/pages/reachapp/Download.svelte';
-  import Manual from '../imports/ui/pages/reachapp/Manual.svelte';
+  import Work from '../imports/ui/pages/consultancy/Work.svelte';
+  import About from '../imports/ui/pages/consultancy/About.svelte';
+  import Contact from '../imports/ui/pages/consultancy/Contact.svelte';
+  import Reach from '../imports/ui/pages/tools/Reach.svelte';
+  import Documentation from '../imports/ui/pages/tools/Documentation.svelte';
   import NotFound from '../imports/ui/pages/notfound/NotFound.svelte';
-  import Contact from '../imports/ui/pages/contact/Contact.svelte';
   import Footer from '../imports/ui/components/footer/Footer.svelte';
-  import LogoCommsWithAPlan from '../imports/ui/components/reusable/LogoCommsWithAPlan.svelte';
 
   // modules
   import UiProvider from '../imports/both/uiProvider';
@@ -25,7 +24,6 @@
   // variables
   $: language = 'english';
   let thisUi = new UiProvider(translations, language);
-  let hovered = false;
 
   // components
 </script>
@@ -53,49 +51,45 @@
       on:click={() => (language = 'english')}
       tinro-ignore><span>EN</span></a
     >
-
     <div class="user"><Fa icon={faUser} size="0.8x" /></div>
   </nav>
 
   <nav class="nav-2">
-    <a
-      href={'/'}
-      class="logo-link"
-      on:mouseenter={() => (hovered = true)}
-      on:mouseleave={() => (hovered = false)}
-      use:active
-    >
-      <LogoCommsWithAPlan
-        size={'3.5rem'}
-        colored={$router.url === '/commswithaplan/' || $router.url === '/commswithaplan' || hovered}
-      />
-    </a>
-    <a href={'/commswithaplan'} use:active>
+    <a href={'/home'} use:active>
       <span class="blue">Comms</span>&nbsp;<span class="green">With&nbsp;A</span>&nbsp;<span class="red">Plan</span>
     </a>
-    <a href={'/reachapp'} use:active>
-      <span>ReachApp</span>
+    <a href={'/consultancy/work'} use:active>
+      <span class="blue">Consultancy</span>
+    </a>
+    <a href={'/tools/reach'} use:active>
+      <span class="blue">Tools</span>
     </a>
   </nav>
-  {#if $router.path.startsWith('/reachapp')}
+  {#if $router.path.startsWith('/home')}
     <nav class="nav-3">
-      <a href={'/reachapp'} use:active exact>
-        <span>App</span>
-      </a>
-      <a href={'/reachapp/download'} use:active>
-        <span>Download</span>
-      </a>
-      <a href={'/reachapp/manual'} use:active>
-        <span>Manual</span>
+      <a href={'/home'} use:active exact>
+        <span>Home</span>
       </a>
     </nav>
-  {:else if $router.path.startsWith('/commswithaplan')}
+  {:else if $router.path.startsWith('/consultancy')}
     <nav class="nav-3">
-      <a href={'/commswithaplan'} use:active exact>
-        <span>Comms With A Plan</span>
+      <a href={'/consultancy/work'} use:active exact>
+        <span>Work</span>
       </a>
-      <a href={'/commswithaplan/consultancy'} use:active exact>
-        <span>Consultancy</span>
+      <a href={'/consultancy/about'} use:active exact>
+        <span>About</span>
+      </a>
+      <a href={'/consultancy/contact'} use:active exact>
+        <span>Contact</span>
+      </a>
+    </nav>
+  {:else if $router.path.startsWith('/tools')}
+    <nav class="nav-3">
+      <a href={'/tools/reach'} use:active exact>
+        <span>Reach</span>
+      </a>
+      <a href={'/tools/documentation'} use:active exact>
+        <span>Documentation</span>
       </a>
     </nav>
   {/if}
@@ -104,17 +98,19 @@
 </header>
 
 <main>
-  <Route path="/" redirect="/commswithaplan/" />
-  <Route path="/commswithaplan/*">
-    <Route path="/"><Home {language} /></Route>
-    <Route path="/consultancy"><Consultancy {language} /></Route>
+  <Route path="/*">
+    <Route path="/home"><Home {language} /></Route>
   </Route>
-  <Route path="/reachapp/*">
-    <Route path="/"><ReachAppApp {language} /></Route>
-    <Route path="/download"><Download {language} /></Route>
-    <Route path="/manual"><Manual {language} /></Route>
+  <Route path="/consultancy/*">
+    <Route path="/work"><Work {language} /></Route>
+    <Route path="/about"><About {language} /></Route>
+    <Route path="/contact"><Contact {language} /></Route>
   </Route>
-  <Route path="/contact"><Contact {language} /></Route>
+  <Route path="/tools/*">
+    <Route path="/reach"><Reach {language} /></Route>
+    <Route path="/documentation"><Documentation {language} /></Route>
+  </Route>
+  <Route path="/consultancy/contact"><Contact {language} /></Route>
   <Route fallback><NotFound {language} /></Route>
 </main>
 
@@ -233,10 +229,6 @@
     text-decoration: none;
   }
 
-  .logo-link {
-    display: none;
-  }
-
   .nav-1 .divider {
     margin: 0 0.7em;
   }
@@ -289,7 +281,7 @@
   }
   /* .active */
   .nav-1 a.active span,
-  .nav-2 a.active span,
+  .nav-2 a.active span.blue,
   .nav-3 a.active span {
     color: var(--ra-blue);
   }
@@ -389,10 +381,6 @@
       justify-content: center;
       align-items: center;
       transform: none;
-    }
-
-    .logo-link {
-      display: flex;
     }
   }
 
