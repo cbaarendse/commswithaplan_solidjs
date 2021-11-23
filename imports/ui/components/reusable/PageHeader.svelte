@@ -1,15 +1,22 @@
 <script>
-  import LogoCommsWithAPlan from '../../components/reusable/LogoCommsWithAPlan.svelte';
+  // variables
+  export let title;
 </script>
 
 <header>
   <div class="brand">
-    <LogoCommsWithAPlan size="3rem" />
-    <span class="brand-label">Comms With A Plan</span>
+    <slot />
+    <span class="brand-label">{title}</span>
   </div>
 </header>
 
 <style>
+  header {
+    padding: 2rem;
+    margin: 1rem;
+    background-color: honeydew;
+    border-radius: 5px;
+  }
   .brand {
     display: flex;
     flex-direction: row;

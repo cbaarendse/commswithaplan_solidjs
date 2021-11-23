@@ -3,7 +3,8 @@
   import {useSession} from 'meteor/rdb:svelte-meteor-data';
 
   // components
-  import ConsultancyHeader from './ConsultancyHeader.svelte';
+  import PageHeader from '../../components/reusable/PageHeader.svelte';
+  import LogoCommsWithAPlan from '../../components/reusable/LogoCommsWithAPlan.svelte';
 
   // constants
   import {translations} from '../../../../client/constants';
@@ -17,10 +18,9 @@
   // variables
   const thisUi = new UiProvider(translations);
   export let language;
-  let selectedIndex;
 </script>
 
-<ConsultancyHeader />
+<PageHeader><LogoCommsWithAPlan size="3rem" /></PageHeader>
 
 <section>
   <article>

@@ -1,13 +1,12 @@
 <script>
   // Packages
-  import {Route, router, active} from 'tinro';
 
   // Variables
 </script>
 
 <footer>
   <span>© 2013-2021 Comms With A Plan</span>
-  <nav><a href="/contact">Contact</a></nav>
+  <nav><a href="/consultancy/contact">Contact</a></nav>
   <span>Icons: <a href="http://icons8.com">Icons8</a></span>
 </footer>
 
@@ -27,6 +26,6 @@
     padding: 0.5em;
     background-color: var(--ra-white);
     border-top: 1px solid rgba(0, 0, 0, 0.1);
-    font-size: clamp(var(--font-size-xs), var(--font-size-weight) * 100vw, var(--font-size-l));
+    font-size: clamp(var(--font-size-xs), var(--font-size-weight) * 100vw, var(--font-size-m));
   }
 </style>

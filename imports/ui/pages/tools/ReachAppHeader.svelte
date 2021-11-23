@@ -13,7 +13,7 @@
   } from '@fortawesome/free-solid-svg-icons';
 
   // components
-  import LogoReachApp from '../reusable/LogoReachApp.svelte';
+  import LogoReachApp from '../../components/reusable/LogoReachApp.svelte';
 
   // providers
   import UiProvider from '../../../both/uiProvider';

@@ -3,7 +3,8 @@
   import {useSession} from 'meteor/rdb:svelte-meteor-data';
 
   // components
-  import ConsultancyHeader from './ConsultancyHeader.svelte';
+  import PageHeader from '../../components/reusable/PageHeader.svelte';
+  import LogoCommsWithAPlan from '../../components/reusable/LogoCommsWithAPlan.svelte';
   import Card from '../../components/reusable/Card.svelte';
   import FlipCard from '../../components/reusable/FlipCard.svelte';
 
@@ -21,33 +22,7 @@
   let selectedIndex;
 </script>
 
-<ConsultancyHeader />
-
-<section>
-  <Card cardTitle="Comms With A Plan">
-    <span slot="description">
-      {#if language == 'dutch'}
-        Comms With A Plan is een Media Management consultancy voor adverteerders.<br />
-        Ik initieer, onderhoud en evalueer je media strategie, ik manage je bureaus en budget.
-      {:else}
-        Comms With A Plan is a Media Management consultancy for advertisers.<br />
-        At your service I initiate, maintain and evaluate your media strategy, I manage your agencies and your budget.
-      {/if}
-    </span>
-  </Card>
-
-  <Card cardTitle="Consultancy">
-    <span slot="description">
-      {#if language == 'dutch'}
-        Comms With A Plan is een flexibele partner in die zin dat het werk per project kan zijn, maar ook meer continu.
-        Gebaseerd op vraag. (Bel me zodat ik het kan uitleggen.)
-      {:else}
-        Comms With A Plan is a flexible unit in the sense that work can be project based, or more continuous, based on
-        demand. (Give me a call to explain.)
-      {/if}
-    </span>
-  </Card>
-</section>
+<PageHeader title={'Comms With A Plan'}><LogoCommsWithAPlan size={'3rem'} /></PageHeader>
 
 <section>
   <article class="work">
@@ -83,24 +58,18 @@
 </section>
 
 <style>
-  header {
-    display: flex;
-    gap: 1.2em;
-    align-items: center;
-    padding: 1em;
-    margin: 0 2%;
-    border-radius: 0.2em;
-    background-color: var(--ra-teal-off-white);
+  section {
+    margin: 2rem;
     font-size: clamp(var(--font-size-s), var(--font-size-weight) * 100vw, var(--font-size-xl));
   }
-
-  section {
-    font-size: clamp(var(--font-size-s), var(--font-size-weight) * 100vw, var(--font-size-xl));
+  article {
+    padding: 1rem;
   }
 
   ul {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    grid-auto-rows: 1fr;
     gap: 2em;
     list-style-type: none;
   }

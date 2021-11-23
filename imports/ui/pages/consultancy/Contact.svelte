@@ -1,13 +1,14 @@
 <script>
   // components
-  import ConsultancyHeader from './ConsultancyHeader.svelte';
+  import PageHeader from '../../components/reusable/PageHeader.svelte';
+  import LogoCommsWithAPlan from '../../components/reusable/LogoCommsWithAPlan.svelte';
   import Card from '../../components/reusable/Card.svelte';
 
   // variables
   export let language;
 </script>
 
-<ConsultancyHeader />
+<PageHeader><LogoCommsWithAPlan size="3rem" /></PageHeader>
 
 <section>
   <article class="contact">

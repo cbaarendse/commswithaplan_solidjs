@@ -7,9 +7,11 @@
 
   // components
   import Home from '../imports/ui/pages/home/Home.svelte';
+  import ConsultancyIntroduction from '../imports/ui/pages/consultancy/ConsultancyIntroduction.svelte';
   import Work from '../imports/ui/pages/consultancy/Work.svelte';
   import About from '../imports/ui/pages/consultancy/About.svelte';
   import Contact from '../imports/ui/pages/consultancy/Contact.svelte';
+  import ToolsIntroduction from '../imports/ui/pages/tools/ToolsIntroduction.svelte';
   import Reach from '../imports/ui/pages/tools/Reach.svelte';
   import Documentation from '../imports/ui/pages/tools/Documentation.svelte';
   import NotFound from '../imports/ui/pages/notfound/NotFound.svelte';
@@ -55,40 +57,40 @@
   </nav>
 
   <nav class="nav-2">
-    <a href={'/home'} use:active>
+    <a href={'/'} use:active exact>
       <span class="blue">Comms</span>&nbsp;<span class="green">With&nbsp;A</span>&nbsp;<span class="red">Plan</span>
     </a>
-    <a href={'/consultancy/work'} use:active>
+    <a href={'/consultancy/'} use:active>
       <span class="blue">Consultancy</span>
     </a>
-    <a href={'/tools/reach'} use:active>
+    <a href={'/tools/'} use:active>
       <span class="blue">Tools</span>
     </a>
   </nav>
-  {#if $router.path.startsWith('/home')}
-    <nav class="nav-3">
-      <a href={'/home'} use:active exact>
+  {#if $router.path === '/'}
+    <!-- <nav class="nav-3">
+      <a href={'/'} use:active>
         <span>Home</span>
       </a>
-    </nav>
+    </nav> -->
   {:else if $router.path.startsWith('/consultancy')}
     <nav class="nav-3">
-      <a href={'/consultancy/work'} use:active exact>
+      <a href={'/consultancy/work'} use:active>
         <span>Work</span>
       </a>
-      <a href={'/consultancy/about'} use:active exact>
+      <a href={'/consultancy/about'} use:active>
         <span>About</span>
       </a>
-      <a href={'/consultancy/contact'} use:active exact>
+      <a href={'/consultancy/contact'} use:active>
         <span>Contact</span>
       </a>
     </nav>
   {:else if $router.path.startsWith('/tools')}
     <nav class="nav-3">
-      <a href={'/tools/reach'} use:active exact>
+      <a href={'/tools/reach'} use:active>
         <span>Reach</span>
       </a>
-      <a href={'/tools/documentation'} use:active exact>
+      <a href={'/tools/documentation'} use:active>
         <span>Documentation</span>
       </a>
     </nav>
@@ -99,19 +101,20 @@
 
 <main>
   <Route path="/*">
-    <Route path="/home"><Home {language} /></Route>
+    <Route path="/"><Home {language} /></Route>
+    <Route path="/consultancy/*">
+      <Route path="/"><ConsultancyIntroduction {language} /></Route>
+      <Route path="/work"><Work {language} /></Route>
+      <Route path="/about"><About {language} /></Route>
+      <Route path="/contact"><Contact {language} /></Route>
+    </Route>
+    <Route path="/tools/*">
+      <Route path="/"><ToolsIntroduction {language} /></Route>
+      <Route path="/reach"><Reach {language} /></Route>
+      <Route path="/documentation"><Documentation {language} /></Route>
+    </Route>
+    <Route fallback><NotFound {language} /></Route>
   </Route>
-  <Route path="/consultancy/*">
-    <Route path="/work"><Work {language} /></Route>
-    <Route path="/about"><About {language} /></Route>
-    <Route path="/contact"><Contact {language} /></Route>
-  </Route>
-  <Route path="/tools/*">
-    <Route path="/reach"><Reach {language} /></Route>
-    <Route path="/documentation"><Documentation {language} /></Route>
-  </Route>
-  <Route path="/consultancy/contact"><Contact {language} /></Route>
-  <Route fallback><NotFound {language} /></Route>
 </main>
 
 <Footer />
@@ -179,7 +182,6 @@
   }
 
   nav {
-    padding: 0.8em 1em;
     font-family: 'Trebuchet MS';
   }
 
@@ -189,6 +191,7 @@
     flex-wrap: nowrap;
     justify-content: flex-end;
     align-items: center;
+    padding: 0.6rem 0.8rem;
     background-color: var(--ra-grey-off-white);
     transform: scale(1, 0);
     transform-origin: top;
@@ -200,8 +203,9 @@
     grid-column: 1/3;
     flex-wrap: wrap;
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
+    padding: 3rem 1rem;
     background-color: var(--ra-teal);
     transform: scale(1, 0);
     transform-origin: top;
@@ -215,6 +219,7 @@
     justify-content: flex-start;
     flex-wrap: wrap;
     align-items: center;
+    padding: 0.8em 1em;
     background-color: var(--ra-teal-light);
     transform: scale(1, 0);
     transform-origin: top;

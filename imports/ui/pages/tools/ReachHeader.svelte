@@ -2,8 +2,8 @@
   // packages
 
   // components
-  import ReachAppHeader from './ReachAppHeader.svelte';
-  import ReachTouchPoint from './ReachTouchPoint.svelte';
+  import ReachHeader from '../../components/reach/ReachHeader.svelte';
+  import ReachTouchPoint from '../../components/reach/ReachTouchPoint.svelte';
 
   // constants
   import {touchPointsBasics, translations} from '../../../../client/constants';
@@ -90,7 +90,7 @@
 </script>
 
 <section>
-  <ReachAppHeader
+  <ReachHeader
     {totalReach}
     {locus}
     totalReachDisplayName={thisUi.translate('totalReach', language)}

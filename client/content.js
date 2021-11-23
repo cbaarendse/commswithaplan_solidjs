@@ -2,52 +2,62 @@
 export const homePageItems = [{
         name: 'consultancy',
         imgUrl: '/home/consultant.jpeg',
-        cardLink: '/commswithaplan/consultancy',
+        cardLink: '/consultancy/',
         colors: 'blue',
         english: {
-            displayName: 'Comms With A Plan',
+            displayName: 'Consultancy',
             description: 'Comms With A Plan provides Media Management consultancy.',
             callToAction: 'Read more'
         },
         dutch: {
-            displayName: 'Comms With A Plan',
+            displayName: 'Consultancy',
             description: 'Comms With A Plan levert Media Management consultancy.',
             callToAction: 'Lees meer'
         },
     },
     {
-        name: 'reach',
+        name: 'tools',
         imgUrl: '/home/night_crowd.jpg',
-        cardLink: '/reachapp',
+        cardLink: '/tools/',
         colors: 'green',
         english: {
-            displayName: 'Reach',
-            description: 'A handy tool to estimate your total reach.',
+            displayName: 'Tools',
+            description: 'Handy tools for your media efforts.',
             callToAction: 'Read more'
         },
         dutch: {
-            displayName: 'Bereik',
-            description: ' Een handige tool die je totaalbereik inschat.',
+            displayName: 'Tools',
+            description: 'Handige tools voor de media inzet.',
             callToAction: 'Lees meer'
         }
-    },
-    {
-        name: 'schedule',
-        imgUrl: '/home/coins.jpg',
-        cardLink: '/schedule',
-        colors: 'grey',
-        english: {
-            displayName: 'Schedule',
-            description: 'All your campaigns in one place with Schedule (in development).',
-            callToAction: 'Read more'
-        },
-        dutch: {
-            displayName: 'Schema',
-            description: 'Al je campagnes op één plaats met Schema (in ontwikkeling).',
-            callToAction: 'Lees meer'
-        },
     }
 ];
+
+export const toolsItems = [{
+        name: 'reporting',
+        colors: 'blue',
+        english: {
+            displayName: 'Reporting',
+            description: 'Interpret, set up, manage dashboards or other kinds of reports.',
+        },
+        dutch: {
+            displayName: 'Rapportage',
+            description: 'Inpreteren, opzetten, managen van dashboards of andersoortige rapporten.',
+        },
+    },
+    {
+        name: 'research_and_analysis',
+        colors: 'blue',
+        english: {
+            displayName: 'Research and analysis',
+            description: 'Interpretation of past campaigns / years etc.',
+        },
+        dutch: {
+            displayName: 'Onderzoek en analyse',
+            description: ' Interpretatie van afgelopen campagnes / jaren etc.',
+        }
+    }
+]
 
 export const consultancyItems = [{
         name: 'reporting',

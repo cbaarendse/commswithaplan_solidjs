@@ -2,8 +2,8 @@
   // packages
   import {createEventDispatcher} from 'svelte';
   // components
-  import Slider from '../reusable/Slider.svelte';
-  import Modal from '../reusable/Modal.svelte';
+  import Slider from '../../components/reusable/Slider.svelte';
+  import Modal from '../../components/reusable/Modal.svelte';
 
   // providers
   import UiProvider from '../../../both/uiProvider';
