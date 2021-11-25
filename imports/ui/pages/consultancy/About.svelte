@@ -20,7 +20,7 @@
   export let language;
 </script>
 
-<PageHeader><LogoCommsWithAPlan size="3rem" /></PageHeader>
+<PageHeader title={'Comms With A Plan'}><LogoCommsWithAPlan size={'3rem'} /></PageHeader>
 
 <section>
   <article>
@@ -31,7 +31,6 @@
         media- en reclamebureaus.
       </p>
       <p>
-        Maar dat kun je hier ook allemaal zien:
         <a href="https://www.linkedin.com/in/cbaarendse/"> https://www.linkedin.com/in/cbaarendse/ </a>
       </p>
     {:else}
@@ -40,7 +39,6 @@
         agencies.
       </p>
       <p>
-        But you'll see all that here as well:
         <a href="https://www.linkedin.com/in/cbaarendse/"> https://www.linkedin.com/in/cbaarendse/ </a>
       </p>
     {/if}

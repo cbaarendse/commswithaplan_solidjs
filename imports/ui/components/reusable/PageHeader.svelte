@@ -13,7 +13,8 @@
 <style>
   header {
     padding: 2rem;
-    margin: 1rem;
+    margin: 2em auto;
+    width: 60%;
     background-color: honeydew;
     border-radius: 5px;
   }

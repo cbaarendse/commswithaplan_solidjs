@@ -21,7 +21,7 @@
   export let language;
 </script>
 
-<PageHeader><LogoCommsWithAPlan size="3rem" /></PageHeader>
+<PageHeader title={'Comms With A Plan'}><LogoCommsWithAPlan size={'3rem'} /></PageHeader>
 
 <section>
   <article>

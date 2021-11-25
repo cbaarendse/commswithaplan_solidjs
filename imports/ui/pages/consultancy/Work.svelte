@@ -59,7 +59,8 @@
 
 <style>
   section {
-    margin: 2rem;
+    margin: 2em auto;
+    width: clamp(320px, 60%, 1400px);
     font-size: clamp(var(--font-size-s), var(--font-size-weight) * 100vw, var(--font-size-xl));
   }
   article {
@@ -68,7 +69,7 @@
 
   ul {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(320px, 480px));
     grid-auto-rows: 1fr;
     gap: 2em;
     list-style-type: none;
