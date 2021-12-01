@@ -3,25 +3,22 @@
   import {Route} from 'tinro';
 
   // components
-  import Home from '../imports/ui/page/pageContent/home/Home.svelte';
-  import ConsultancyIntroduction from '../imports/ui/page/pageContent/consultancy/ConsultancyIntroduction.svelte';
-  import Work from '../imports/ui/page/pageContent/consultancy/Work.svelte';
-  import About from '../imports/ui/page/pageContent/consultancy/About.svelte';
-  import Contact from '../imports/ui/page/pageContent/consultancy/Contact.svelte';
-  import ToolsIntroduction from '../imports/ui/page/pageContent/tools/ToolsIntroduction.svelte';
-  import Reach from '../imports/ui/page/pageContent/tools/Reach.svelte';
-  import Documentation from '../imports/ui/page/pageContent/tools/Documentation.svelte';
-  import NotFound from '../imports/ui/page/pageContent/notfound/NotFound.svelte';
+  import Home from '../main/home/Home.svelte';
+  import ConsultancyIntroduction from '../main/consultancy/ConsultancyIntroduction.svelte';
+  import Work from '../main/consultancy/Work.svelte';
+  import About from '../main/consultancy/About.svelte';
+  import Contact from '../main/consultancy/Contact.svelte';
+  import ToolsIntroduction from '../main/tools/ToolsIntroduction.svelte';
+  import Reach from '../main/tools/Reach.svelte';
+  import Documentation from '../main/tools/Documentation.svelte';
+  import NotFound from '../main/notfound/NotFound.svelte';
 
   // modules
-  import UiProvider from '../imports/both/uiProvider';
 
   // constants
-  import {translations} from '../client/constants';
 
   // variables
-  $: language = 'english';
-  let thisUi = new UiProvider(translations, language);
+  export let language = 'english';
 
   // components
 </script>

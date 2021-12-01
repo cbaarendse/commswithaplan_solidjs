@@ -1,6 +1,6 @@
 <script>
-  import Card from '../../components/reusable/Card.svelte';
-  import LogoCommsWithAPlan from '../../components/reusable/LogoCommsWithAPlan.svelte';
+  import Card from '../../reusable/Card.svelte';
+  import LogoCommsWithAPlan from '../../reusable/LogoCommsWithAPlan.svelte';
 
   // content
   import {homePageItems} from '../../../../client/content';

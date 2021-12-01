@@ -3,10 +3,9 @@
   import {useSession} from 'meteor/rdb:svelte-meteor-data';
 
   // components
-  import PageHeader from '../../components/reusable/PageHeader.svelte';
-  import LogoCommsWithAPlan from '../../components/reusable/LogoCommsWithAPlan.svelte';
-  import Card from '../../components/reusable/Card.svelte';
-  import FlipCard from '../../components/reusable/FlipCard.svelte';
+  import PageHeader from '../../reusable/PageHeader.svelte';
+  import LogoCommsWithAPlan from '../../reusable/LogoCommsWithAPlan.svelte';
+  import Card from '../../reusable/Card.svelte';
 
   import {translations} from '../../../../client/constants';
 

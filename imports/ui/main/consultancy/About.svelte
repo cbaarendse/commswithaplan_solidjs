@@ -3,8 +3,8 @@
   import {useSession} from 'meteor/rdb:svelte-meteor-data';
 
   // components
-  import PageHeader from '../../components/reusable/PageHeader.svelte';
-  import LogoCommsWithAPlan from '../../components/reusable/LogoCommsWithAPlan.svelte';
+  import PageHeader from '../../reusable/PageHeader.svelte';
+  import LogoCommsWithAPlan from '../../reusable/LogoCommsWithAPlan.svelte';
 
   // constants
   import {translations} from '../../../../client/constants';

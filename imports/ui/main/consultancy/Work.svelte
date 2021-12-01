@@ -1,12 +1,13 @@
 <script>
   // packages
   import {useSession} from 'meteor/rdb:svelte-meteor-data';
+  import {language} from '../../../../client/stores';
 
   // components
-  import PageHeader from '../../components/reusable/PageHeader.svelte';
-  import LogoCommsWithAPlan from '../../components/reusable/LogoCommsWithAPlan.svelte';
-  import Card from '../../components/reusable/Card.svelte';
-  import FlipCard from '../../components/reusable/FlipCard.svelte';
+  import PageHeader from '../../reusable/PageHeader.svelte';
+  import LogoCommsWithAPlan from '../../reusable/LogoCommsWithAPlan.svelte';
+  import Card from '../../reusable/Card.svelte';
+  import FlipCard from '../../reusable/FlipCard.svelte';
 
   import {translations} from '../../../../client/constants';
 
@@ -18,7 +19,6 @@
 
   // variables
   const thisUi = new UiProvider(translations);
-  export let language;
   let selectedIndex;
 </script>
 
@@ -27,7 +27,7 @@
 <section>
   <article class="work">
     <h2>Work</h2>
-    {#if language == 'dutch'}
+    {#if $language == 'dutch'}
       <p>Zaken die ik manage gedurende het proces (je kan kiezen en mixen):</p>
     {:else}
       <p>Things I'll manage along the process (you can pick and mix):</p>
@@ -40,16 +40,16 @@
             colors={item.colors}
             on:click={() => (selectedIndex === index ? (selectedIndex = '') : (selectedIndex = index))}
             on:mouseenter={() => (selectedIndex === index ? (selectedIndex = '') : (selectedIndex = index))}
-            cardTitle={item[language].displayName}
-            buttonText={thisUi.translate('read', language)}
+            cardTitle={item[$language].displayName}
+            buttonText={thisUi.translate('read', $language)}
           >
             <img
               src="/consultancy/{item.name}.png"
-              alt={item[language].displayName}
+              alt={item[$language].displayName}
               style=" filter: opacity(0.6) drop-shadow(0 0 0 {item.colors});"
               slot="image"
             />
-            <span slot="description">{item[language].description}</span>
+            <span slot="description">{item[$language].description}</span>
           </FlipCard>
         </li>
       {/each}

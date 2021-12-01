@@ -1,19 +1,18 @@
 <script>
   // packages
   import {router, active} from 'tinro';
+  import {language} from '../../../client/stores';
   //import Fa from 'svelte-fa';
   import Fa from 'svelte-fa/src/fa.svelte';
   import {faUser} from '@fortawesome/free-solid-svg-icons';
 
   // modules
-  import UiProvider from '../imports/both/uiProvider';
 
   // constants
-  import {translations} from '../client/constants';
+
+  //  functions
 
   // variables
-  $: language = 'english';
-  let thisUi = new UiProvider(translations, language);
 
   // components
 </script>
@@ -27,14 +26,17 @@
 </label>
 
 <nav class="nav-1">
-  <a href={'javascript:void(0)'} class:active={language === 'dutch'} on:click={() => (language = 'dutch')} tinro-ignore
-    ><span>NL</span></a
+  <a
+    href={'javascript:void(0)'}
+    class:active={$language === 'dutch'}
+    on:click={() => language.set('dutch')}
+    tinro-ignore><span>NL</span></a
   >
   <span class="divider">|</span>
   <a
     href={'javascript:void(0)'}
-    class:active={language === 'english'}
-    on:click={() => (language = 'english')}
+    class:active={$language === 'english'}
+    on:click={() => language.set('english')}
     tinro-ignore><span>EN</span></a
   >
   <div class="user"><Fa icon={faUser} size="0.8x" /></div>

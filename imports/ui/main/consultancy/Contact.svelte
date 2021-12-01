@@ -1,8 +1,8 @@
 <script>
   // components
-  import PageHeader from '../../components/reusable/PageHeader.svelte';
-  import LogoCommsWithAPlan from '../../components/reusable/LogoCommsWithAPlan.svelte';
-  import Card from '../../components/reusable/Card.svelte';
+  import PageHeader from '../../reusable/PageHeader.svelte';
+  import LogoCommsWithAPlan from '../../reusable/LogoCommsWithAPlan.svelte';
+  import Card from '../../reusable/Card.svelte';
 
   // variables
   export let language;

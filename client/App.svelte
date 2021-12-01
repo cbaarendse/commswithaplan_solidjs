@@ -6,7 +6,7 @@
   import Navigation from '../imports/ui/header/Navigation.svelte';
   import Main from '../imports/ui/main/Main.svelte';
   import Routing from '../imports/ui/routing/Routing.svelte';
-  import Footer from '../imports/ui/page/Footer.svelte';
+  import Footer from '../imports/ui/footer/Footer.svelte';
   import FooterContent from '../imports/ui/footer/FooterContent.svelte';
 
   // modules
@@ -16,7 +16,7 @@
   import {translations} from '../client/constants';
 
   // variables
-  $: language = 'english';
+  let language = 'english';
   let thisUi = new UiProvider(translations, language);
 
   // components
@@ -26,7 +26,7 @@
   <Navigation />
 </Header>
 <Main>
-  <Routing />
+  <Routing language />
 </Main>
 <Footer>
   <FooterContent />

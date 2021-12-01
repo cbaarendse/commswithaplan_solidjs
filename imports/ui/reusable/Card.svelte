@@ -1,5 +1,5 @@
 <script>
-  import {colorScheme} from '../../../../client/constants';
+  import {colorScheme} from '../../../client/constants';
 
   export let colors = 'grey';
   export let cardTitle;
