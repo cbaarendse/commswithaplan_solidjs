@@ -1,6 +1,5 @@
 <script>
   // packages
-  import {useSession} from 'meteor/rdb:svelte-meteor-data';
 
   // components
   import PageHeader from '../../reusable/PageHeader.svelte';
@@ -16,8 +15,8 @@
   import {consultancyItems} from '../../../../client/content';
 
   // variables
+  import {language} from '../../../../client/stores';
   const thisUi = new UiProvider(translations);
-  export let language;
 </script>
 
 <PageHeader title={'Comms With A Plan'}><LogoCommsWithAPlan size={'3rem'} /></PageHeader>
@@ -26,7 +25,7 @@
   <article>
     <Card cardTitle="Comms With A Plan">
       <span slot="description">
-        {#if language == 'dutch'}
+        {#if $language == 'dutch'}
           Comms With A Plan is een Media Management consultancy voor adverteerders.<br />
           Ik initieer, onderhoud en evalueer je media strategie, ik manage je bureaus en budget.
         {:else}
@@ -38,7 +37,7 @@
 
     <Card cardTitle="Consultancy">
       <span slot="description">
-        {#if language == 'dutch'}
+        {#if $language == 'dutch'}
           Comms With A Plan is een flexibele partner in die zin dat het werk per project kan zijn, maar ook meer
           continu. Gebaseerd op vraag. (Bel me zodat ik het kan uitleggen.)
         {:else}

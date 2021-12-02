@@ -1,4 +1,5 @@
 <script>
+  // variables
   export let size = '3em';
   export let colored = true;
   $: backgroundColor1 = colored ? 'var(--ra-blue)' : 'var(--ra-blue-grayscale)';

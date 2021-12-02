@@ -1,6 +1,8 @@
 <script>
+  // constants
   import {colorScheme} from '../../../client/constants';
 
+  // variables
   export let colors = 'grey';
   export let cardTitle;
   export let imgUrl;

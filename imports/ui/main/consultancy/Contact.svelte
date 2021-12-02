@@ -5,7 +5,7 @@
   import Card from '../../reusable/Card.svelte';
 
   // variables
-  export let language;
+  import {language} from '../../../../client/stores';
 </script>
 
 <PageHeader title={'Comms With A Plan'}><LogoCommsWithAPlan size={'3rem'} /></PageHeader>
@@ -13,7 +13,7 @@
 <section>
   <article class="contact">
     <h2>Contact</h2>
-    {#if language == 'dutch'}
+    {#if $language == 'dutch'}
       <address>
         <p>e-mail: cbaarendse[at]commswithaplan.com</p>
         <p>telefoon: nul zes een twee drie negen acht zeven drie vier</p>
@@ -39,7 +39,11 @@
 
     <Card>
       <span
-        >{#if language == 'english'}Give me a call or write.{:else if language == 'dutch'} Bel me of schrijf.{/if}
+        >{#if $language == 'dutch'}
+          Bel me of schrijf.
+        {:else}
+          Give me a call or write.
+        {/if}
       </span>
     </Card>
   </article>

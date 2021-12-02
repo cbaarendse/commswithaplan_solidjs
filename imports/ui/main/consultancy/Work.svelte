@@ -1,7 +1,5 @@
 <script>
   // packages
-  import {useSession} from 'meteor/rdb:svelte-meteor-data';
-  import {language} from '../../../../client/stores';
 
   // components
   import PageHeader from '../../reusable/PageHeader.svelte';
@@ -18,6 +16,7 @@
   import {consultancyItems} from '../../../../client/content';
 
   // variables
+  import {language} from '../../../../client/stores';
   const thisUi = new UiProvider(translations);
   let selectedIndex;
 </script>

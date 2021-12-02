@@ -1,20 +1,11 @@
 <script>
   // packages
   import {router, active} from 'tinro';
-  import {language} from '../../../client/stores';
-  //import Fa from 'svelte-fa';
   import Fa from 'svelte-fa/src/fa.svelte';
   import {faUser} from '@fortawesome/free-solid-svg-icons';
 
-  // modules
-
-  // constants
-
-  //  functions
-
   // variables
-
-  // components
+  import {language} from '../../../client/stores';
 </script>
 
 <input type="checkbox" id="nav-toggle" class="nav-toggle" />

@@ -13,12 +13,12 @@
   import UiProvider from '../../../both/uiProvider';
 
   // variables
-  export let language;
+  import {language} from '../../../../client/stores';
   const thisReachApp = new ReachAppProvider(touchPointsBasics);
   const thisUi = new UiProvider(translations);
   let touchPoints = thisReachApp.touchPoints;
 
-  let inputPlaceholder = thisUi.translate('input', language);
+  let inputPlaceholder = thisUi.translate('input', $language);
   let totalReach = thisReachApp.totalReach;
   let locus = thisReachApp.locus;
   let allTouchPointValuesAreZero = thisReachApp.areAllTouchPointsValuesZero();
@@ -41,7 +41,7 @@
   };
   const sort = () => {
     if (thisReachApp.sortingByName) {
-      thisReachApp.sortByName(language);
+      thisReachApp.sortByName($language);
     } else {
       thisReachApp.sortByReach();
     }
@@ -93,8 +93,8 @@
   <ReachAppHeader
     {totalReach}
     {locus}
-    totalReachDisplayName={thisUi.translate('totalReach', language)}
-    locusDisplayName={thisUi.translate('locus', language)}
+    totalReachDisplayName={thisUi.translate('totalReach', $language)}
+    locusDisplayName={thisUi.translate('locus', $language)}
     {allTouchPointValuesAreZero}
     {sortingByName}
     {showAll}
@@ -112,8 +112,8 @@
       {language}
       {inputPlaceholder}
       {...touchPoint}
-      touchPointDisplayName={thisReachApp.displayTouchPoint(touchPoint.name, language)}
-      touchPointDescription={thisReachApp.describeTouchPoint(touchPoint.name, language)}
+      touchPointDisplayName={thisReachApp.displayTouchPoint(touchPoint.name, $language)}
+      touchPointDescription={thisReachApp.describeTouchPoint(touchPoint.name, $language)}
       on:handleChange={changeReach}
       on:handleInput={inputReach}
     />

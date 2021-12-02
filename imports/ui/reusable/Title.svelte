@@ -1,4 +1,5 @@
 <script>
+  // variables
   export let title;
 </script>
 

@@ -1,4 +1,5 @@
 <script>
+  // variables
   export let size = 'normal'; // or small, large, xlarge
   export let type;
   export let value;

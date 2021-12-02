@@ -1,6 +1,5 @@
 <script>
   // packages
-  import {useSession} from 'meteor/rdb:svelte-meteor-data';
 
   // components
   import PageHeader from '../../reusable/PageHeader.svelte';
@@ -16,8 +15,8 @@
   import {consultancyItems} from '../../../../client/content';
 
   // variables
+  import {language} from '../../../../client/stores';
   const thisUi = new UiProvider(translations);
-  export let language;
 </script>
 
 <PageHeader title={'Comms With A Plan'}><LogoCommsWithAPlan size={'3rem'} /></PageHeader>
@@ -25,7 +24,7 @@
 <section>
   <article>
     <h2>About</h2>
-    {#if language == 'dutch'}
+    {#if $language == 'dutch'}
       <p>
         Ik ben Constantijn Baarendse. Ik heb gewerkt op verschillende continenten, voor 'blue chip' adverteerders,
         media- en reclamebureaus.

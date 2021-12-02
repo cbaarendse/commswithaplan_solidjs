@@ -6,19 +6,19 @@
   import {homePageItems} from '../../../../client/content';
 
   // variables
-  export let language;
+  import {language} from '../../../../client/stores';
 </script>
 
 <section>
   {#each homePageItems as item, index}
     <Card
-      cardTitle={item[language].displayName}
+      cardTitle={item[$language].displayName}
       imgUrl={item.imgUrl}
       cardLink={item.cardLink}
-      callToAction={item[language].callToAction}
+      callToAction={item[$language].callToAction}
       colors={item.colors}
     >
-      <span slot="description">{item[language].description}</span></Card
+      <span slot="description">{item[$language].description}</span></Card
     >
   {/each}
 </section>
