@@ -17,11 +17,9 @@
 
   // variables
   import {language} from '../../../../client/stores';
-  const thisUi = new UiProvider(translations);
-  let selectedIndex;
 </script>
 
-<PageHeader><LogoReachApp size="3rem" /></PageHeader>
+<PageHeader title={'Reach'}><LogoReachApp size="3rem" /></PageHeader>
 
 <section>
   <article>

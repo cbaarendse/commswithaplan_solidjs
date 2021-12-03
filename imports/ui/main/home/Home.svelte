@@ -18,8 +18,8 @@
       callToAction={item[$language].callToAction}
       colors={item.colors}
     >
-      <span slot="description">{item[$language].description}</span></Card
-    >
+      <span>{item[$language].description}</span>
+    </Card>
   {/each}
 </section>
 

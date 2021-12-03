@@ -25,7 +25,7 @@
   <article>
     {#each consultancyHomeItems as item, index}
       <Card cardTitle={item[$language].displayName}>
-        <span slot="description">
+        <span>
           {item[$language].description}
         </span>
       </Card>

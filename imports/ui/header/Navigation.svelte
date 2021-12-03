@@ -2,7 +2,7 @@
   // packages
   import {router, active} from 'tinro';
   import Fa from 'svelte-fa/src/fa.svelte';
-  import {faUser} from '@fortawesome/free-solid-svg-icons';
+  import {faUser, faHome} from '@fortawesome/free-solid-svg-icons';
 
   // variables
   import {language} from '../../../client/stores';
@@ -37,21 +37,24 @@
   <a href={'/'} use:active exact>
     <span class="blue">Comms</span>&nbsp;<span class="green">With&nbsp;A</span>&nbsp;<span class="red">Plan</span>
   </a>
-  <a href={'/consultancy/'} use:active>
+  <a href={'/consultancy/home'} use:active>
     <span class="blue">Consultancy</span>
   </a>
-  <a href={'/tools/'} use:active>
+  <a href={'/tools/home'} use:active>
     <span class="blue">Tools</span>
   </a>
 </nav>
 {#if $router.path === '/'}
-  <!-- <nav class="nav-3">
+  <nav class="nav-3">
     <a href={'/'} use:active>
-      <span>Home</span>
+      <span><Fa icon={faHome} size="0.8x" /></span>
     </a>
-  </nav> -->
+  </nav>
 {:else if $router.path.startsWith('/consultancy')}
   <nav class="nav-3">
+    <a href={'/consultancy/home'} use:active>
+      <span><Fa icon={faHome} size="0.8x" /></span>
+    </a>
     <a href={'/consultancy/work'} use:active>
       <span>Work</span>
     </a>
@@ -64,6 +67,9 @@
   </nav>
 {:else if $router.path.startsWith('/tools')}
   <nav class="nav-3">
+    <a href={'/tools/home'} use:active>
+      <span><Fa icon={faHome} size="0.8x" /></span>
+    </a>
     <a href={'/tools/reach'} use:active>
       <span>Reach</span>
     </a>

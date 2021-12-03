@@ -8,27 +8,24 @@
   import Work from '../main/consultancy/Work.svelte';
   import About from '../main/consultancy/About.svelte';
   import Contact from '../main/consultancy/Contact.svelte';
-  import ToolsIntroduction from '../main/tools/ToolsIntroduction.svelte';
+  import ToolsHome from '../main/tools/ToolsHome.svelte';
   import Reach from '../main/tools/Reach.svelte';
   import Documentation from '../main/tools/Documentation.svelte';
   import NotFound from '../main/notfound/NotFound.svelte';
-
-  // variables
-  import {language} from '../../../client/stores';
 </script>
 
 <Route path="/*">
-  <Route path="/"><Home {$language} /></Route>
+  <Route path="/"><Home /></Route>
   <Route path="/consultancy/*">
-    <Route path="/"><ConsultancyHome {$language} /></Route>
-    <Route path="/work"><Work {$language} /></Route>
-    <Route path="/about"><About {$language} /></Route>
-    <Route path="/contact"><Contact {$language} /></Route>
+    <Route path="/home"><ConsultancyHome /></Route>
+    <Route path="/work"><Work /></Route>
+    <Route path="/about"><About /></Route>
+    <Route path="/contact"><Contact /></Route>
   </Route>
   <Route path="/tools/*">
-    <Route path="/"><ToolsIntroduction {$language} /></Route>
-    <Route path="/reach"><Reach {$language} /></Route>
-    <Route path="/documentation"><Documentation {$language} /></Route>
+    <Route path="/home"><ToolsHome /></Route>
+    <Route path="/reach"><Reach /></Route>
+    <Route path="/documentation"><Documentation /></Route>
   </Route>
-  <Route fallback><NotFound {$language} /></Route>
+  <Route fallback><NotFound /></Route>
 </Route>

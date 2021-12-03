@@ -27,7 +27,7 @@
     </div>
   {/if}
   <p>
-    <slot name="description" />
+    <slot />
   </p>
   <div class="card-footer" style="background-color:{getFooterBackgroundColor()};color:{getBackgroundColor()};">
     <p>

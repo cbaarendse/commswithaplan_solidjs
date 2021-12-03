@@ -1,29 +1,18 @@
 <script>
-  // packages
-
   // components
   import PageHeader from '../../reusable/PageHeader.svelte';
   import LogoCommsWithAPlan from '../../reusable/LogoCommsWithAPlan.svelte';
 
-  // constants
-  import {translations} from '../../../../client/constants';
-
-  // providers
-  import UiProvider from '../../../both/uiProvider';
-
-  // content
-  import {about} from '../../../../client/content';
-
   // variables
-  import {language} from '../../../../client/stores';
+  import {language, about} from '../../../../client/stores';
 </script>
 
 <PageHeader title={'Comms With A Plan'}><LogoCommsWithAPlan size={'3rem'} /></PageHeader>
 
 <section>
   <article>
-    <h2>{about[$language].displayName}</h2>
-    <p>{about[$language].description}</p>
+    <h2>{$about[$language].displayName}</h2>
+    <p>{$about[$language].description}</p>
     <p>
       <a href="https://www.linkedin.com/in/cbaarendse/"> https://www.linkedin.com/in/cbaarendse/ </a>
     </p>

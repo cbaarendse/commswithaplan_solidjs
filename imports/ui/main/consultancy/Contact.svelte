@@ -4,8 +4,12 @@
   import LogoCommsWithAPlan from '../../reusable/LogoCommsWithAPlan.svelte';
   import Card from '../../reusable/Card.svelte';
 
+  // packages
+  import Fa from 'svelte-fa/src/fa.svelte';
+  import {faLinkedin} from '@fortawesome/free-solid-svg-icons';
+
   // variables
-  import {language} from '../../../../client/stores';
+  import {language, contactItems} from '../../../../client/stores';
 </script>
 
 <PageHeader title={'Comms With A Plan'}><LogoCommsWithAPlan size={'3rem'} /></PageHeader>
@@ -13,39 +17,28 @@
 <section>
   <article class="contact">
     <h2>Contact</h2>
-    {#if $language == 'dutch'}
+    {#each $contactItems as item, index}
+      <Card cardTitle={item[$language].displayName}>
+        <address>
+          {item[$language].description}
+        </address>
+      </Card>
+    {/each}
+    <Card cardTitle="LinkedIn">
       <address>
-        <p>e-mail: cbaarendse[at]commswithaplan.com</p>
-        <p>telefoon: nul zes een twee drie negen acht zeven drie vier</p>
+        <a href="https://www.linkedin.com/in/cbaarendse/"> <Fa icon={faLinkedin} size="1.4em" color="#003366" /></a>
       </address>
-    {:else}
-      <address>
-        <p>e-mail: cbaarendse[at]commswithaplan.com</p>
-        <p>telephone: plus three one six one two three nine eight seven three four</p>
-      </address>
-    {/if}
+    </Card>
   </article>
 
   <article>
-    <Card cardTitle={'Online'}
-      ><address>
-        cbaarendse[at]commswithaplan.com<br /> +31 6 123 987 34<br />
-        <a href="https://www.linkedin.com/in/cbaarendse/"> <Fa icon={faLinkedin} size="1.4em" color="#003366" /></a>
-      </address></Card
-    >
-    <Card cardTitle={'Offline'}
-      ><address>Erich Salomonstraat 507<br /> 1087 GT Amsterdam <br /> The Netherlands</address></Card
-    >
-
-    <Card>
-      <span
-        >{#if $language == 'dutch'}
-          Bel me of schrijf.
-        {:else}
-          Give me a call or write.
-        {/if}
-      </span>
-    </Card>
+    <span
+      >{#if $language == 'dutch'}
+        Bel me of schrijf.
+      {:else}
+        Give me a call or write.
+      {/if}
+    </span>
   </article>
 </section>
 
