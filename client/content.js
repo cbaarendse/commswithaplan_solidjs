@@ -58,8 +58,51 @@ export const toolsItems = [{
         }
     }
 ]
+export const about = {
+    name: 'about',
+    colors: 'blue',
+    english: {
+        displayName: 'About',
+        description: "I'm Constantijn Baarendse. I've worked on different continents, for blue chip advertisers, media and advertising agencies.",
+    },
+    dutch: {
+        displayName: 'Over',
+        description: "Ik ben Constantijn Baarendse. Ik heb gewerkt op verschillende continenten, voor 'blue chip' adverteerders, media - en reclamebureaus."
 
-export const consultancyItems = [{
+    },
+}
+
+export const consultancyHomeItems = [{
+        name: 'commswithaplan',
+        colors: 'blue',
+        english: {
+            displayName: 'Comms With A Plan',
+            description: 'Comms With A Plan is a Media Management consultancy for advertisers. At your service I initiate, maintain and evaluate your media strategy, I manage your agencies and your budget.',
+        },
+        dutch: {
+            displayName: 'Comms With A Plan',
+            description: 'Comms With A Plan is een Media Management consultancy voor adverteerders. Ik initieer, onderhoud en evalueer je media strategie, ik manage je bureaus en budget.'
+
+        },
+    },
+    {
+        name: 'consultancy',
+        colors: 'blue',
+        english: {
+            displayName: 'Consultancy',
+            description: 'Comms With A Plan is a flexible unit in the sense that work can be project based, or more continuous, based on demand. (Give me a call to explain.)',
+        },
+        dutch: {
+            displayName: 'Consultancy',
+            description: 'Comms With A Plan is een flexibele partner in die zin dat het werk per project kan zijn, maar ook meer continu. Gebaseerd op vraag. (Bel me zodat ik het kan uitleggen.)'
+
+        },
+    }
+]
+
+
+
+export const workItems = [{
         name: 'reporting',
         colors: 'blue',
         english: {

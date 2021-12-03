@@ -4,34 +4,40 @@
   // components
   import PageHeader from '../../reusable/PageHeader.svelte';
   import LogoCommsWithAPlan from '../../reusable/LogoCommsWithAPlan.svelte';
+  import Card from '../../reusable/Card.svelte';
 
-  // constants
   import {translations} from '../../../../client/constants';
 
   // providers
   import UiProvider from '../../../both/uiProvider';
 
   // content
-  import {about} from '../../../../client/content';
+  import {consultancyHomeItems} from '../../../../client/content';
 
   // variables
   import {language} from '../../../../client/stores';
+  const thisUi = new UiProvider(translations);
 </script>
 
 <PageHeader title={'Comms With A Plan'}><LogoCommsWithAPlan size={'3rem'} /></PageHeader>
 
 <section>
   <article>
-    <h2>{about[$language].displayName}</h2>
-    <p>{about[$language].description}</p>
-    <p>
-      <a href="https://www.linkedin.com/in/cbaarendse/"> https://www.linkedin.com/in/cbaarendse/ </a>
-    </p>
+    {#each consultancyHomeItems as item, index}
+      <Card cardTitle={item[$language].displayName}>
+        <span slot="description">
+          {item[$language].description}
+        </span>
+      </Card>
+    {/each}
   </article>
 </section>
 
 <style>
   section {
     font-size: clamp(var(--font-size-s), var(--font-size-weight) * 100vw, var(--font-size-xl));
+  }
+
+  article {
   }
 </style>

@@ -1,6 +1,7 @@
 <header><slot /></header>
 
 <style>
+  /* smaller screens: navigation toggled by input.nav-toggle (checkbox), this requires position: absolute */
   header {
     position: absolute;
     display: grid;

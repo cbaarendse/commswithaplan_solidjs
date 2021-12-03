@@ -8,7 +8,7 @@
   import UiProvider from '../../../both/uiProvider';
 
   // constants
-  import {touchPointsBasics, translations} from '../../../../client/constants';
+  import {touchPointsBasics, translations} from '../../../client/constants';
   const thisReachApp = new ReachAppProvider(touchPointsBasics);
   const thisUi = new UiProvider(translations);
 

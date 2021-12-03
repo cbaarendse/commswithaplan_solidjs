@@ -9,15 +9,8 @@
   import Footer from '../imports/ui/footer/Footer.svelte';
   import FooterContent from '../imports/ui/footer/FooterContent.svelte';
 
-  // modules
-  import UiProvider from '../imports/both/uiProvider';
-
-  // constants
-  import {translations} from '../client/constants';
-
   // variables
-  let language = 'english';
-  let thisUi = new UiProvider(translations, language);
+  import {language} from './stores';
 
   // components
 </script>
@@ -26,7 +19,7 @@
   <Navigation />
 </Header>
 <Main>
-  <Routing language />
+  <Routing />
 </Main>
 <Footer>
   <FooterContent />

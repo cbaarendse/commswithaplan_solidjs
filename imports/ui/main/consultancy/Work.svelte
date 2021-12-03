@@ -13,7 +13,7 @@
   import UiProvider from '../../../both/uiProvider';
 
   // content
-  import {consultancyItems} from '../../../../client/content';
+  import {workItems} from '../../../../client/content';
 
   // variables
   import {language} from '../../../../client/stores';
@@ -32,7 +32,7 @@
       <p>Things I'll manage along the process (you can pick and mix):</p>
     {/if}
     <ul>
-      {#each consultancyItems as item, index}
+      {#each workItems as item, index}
         <li>
           <FlipCard
             flipped={selectedIndex === index}
