@@ -1,7 +1,6 @@
 // ====== IMPORTS ===============================
 import { Meteor } from 'meteor/meteor';
 import App from './App.svelte';
-import './constants';
 
 Meteor.startup(() => {
     new App({

@@ -19,10 +19,10 @@
   import UiProvider from '../../../both/uiProvider';
 
   // constants
-  import {translations} from '../../../../client/constants';
   const dispatch = createEventDispatcher();
 
   // variables
+  import {translations} from '../../../../client/stores';
   export let totalReach;
   export let locus;
   export let totalReachDisplayName;
@@ -31,7 +31,7 @@
   export let sortingByName;
   export let showAll;
 
-  const thisUi = new UiProvider(translations);
+  const thisUi = new UiProvider($translations);
 </script>
 
 <header>

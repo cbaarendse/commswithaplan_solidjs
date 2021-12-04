@@ -6,24 +6,15 @@
   import LogoCommsWithAPlan from '../../reusable/LogoCommsWithAPlan.svelte';
   import Card from '../../reusable/Card.svelte';
 
-  import {translations} from '../../../../client/constants';
-
-  // providers
-  import UiProvider from '../../../both/uiProvider';
-
-  // content
-  import {consultancyHomeItems} from '../../../../client/content';
-
   // variables
-  import {language} from '../../../../client/stores';
-  const thisUi = new UiProvider(translations);
+  import {language, consultancyHomeItems} from '../../../../client/stores';
 </script>
 
 <PageHeader title={'Comms With A Plan'}><LogoCommsWithAPlan size={'3rem'} /></PageHeader>
 
 <section>
   <article>
-    {#each consultancyHomeItems as item, index}
+    {#each $consultancyHomeItems as item, index}
       <Card cardTitle={item[$language].displayName}>
         <span>
           {item[$language].description}

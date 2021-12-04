@@ -20,14 +20,14 @@
   <a
     href={'javascript:void(0)'}
     class:active={$language === 'dutch'}
-    on:click={() => language.set('dutch')}
+    on:click={() => ($language = 'dutch')}
     tinro-ignore><span>NL</span></a
   >
   <span class="divider">|</span>
   <a
     href={'javascript:void(0)'}
     class:active={$language === 'english'}
-    on:click={() => language.set('english')}
+    on:click={() => ($language = 'english')}
     tinro-ignore><span>EN</span></a
   >
   <div class="user"><Fa icon={faUser} size="0.8x" /></div>

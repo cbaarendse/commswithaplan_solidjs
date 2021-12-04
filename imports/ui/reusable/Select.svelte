@@ -7,18 +7,16 @@
   import ReachAppProvider from '../../../both/reachAppProvider';
   import UiProvider from '../../../both/uiProvider';
 
-  // constants
-  import {touchPointsBasics, translations} from '../../../client/constants';
-  const thisReachApp = new ReachAppProvider(touchPointsBasics);
-  const thisUi = new UiProvider(translations);
-
   // variables
-  import {language} from '../../../client/stores';
+  import {language, translations} from '../../../client/stores';
   export let size = 'normal'; // or small, large, xlarge
   export let list;
   export let selectedItem;
   export let id;
   export let name;
+
+  // constants
+  const thisUi = new UiProvider($translations);
 
   // functions
   const dispatch = createEventDispatcher();

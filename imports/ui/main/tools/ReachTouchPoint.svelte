@@ -8,11 +8,8 @@
   // providers
   import UiProvider from '../../../both/uiProvider';
 
-  // constants
-  import {translations} from '../../../../client/constants';
-  const dispatch = createEventDispatcher();
-
   // variables
+  import {translations} from '../../../../client/stores';
   export let displayTouchPoint;
   export let touchPointDisplayName;
   export let touchPointDescription;
@@ -28,11 +25,13 @@
   // this is the value of the slider
   $: sliderValue = value;
 
-  const thisUi = new UiProvider(translations);
+  const thisUi = new UiProvider($translations);
 
   //import {notify} from '../../notifications/NotificationsFunctions';
 
   // functions
+  // functions
+  const dispatch = createEventDispatcher();
   const showModal = () => {
     displayModal = 'flex';
   };

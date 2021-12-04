@@ -2,6 +2,253 @@ import { writable, readable } from 'svelte/store';
 
 export const language = writable('english');
 
+export const homePageItems = readable([{
+        name: 'consultancy',
+        imgUrl: '/home/consultant.jpeg',
+        cardLink: '/consultancy/',
+        colors: 'blue',
+        english: {
+            displayName: 'Consultancy',
+            description: 'Comms With A Plan provides Media Management consultancy.',
+            callToAction: 'Read more'
+        },
+        dutch: {
+            displayName: 'Consultancy',
+            description: 'Comms With A Plan levert Media Management consultancy.',
+            callToAction: 'Lees meer'
+        },
+    },
+    {
+        name: 'tools',
+        imgUrl: '/home/night_crowd.jpg',
+        cardLink: '/tools/',
+        colors: 'green',
+        english: {
+            displayName: 'Tools',
+            description: 'Handy tools for your media efforts.',
+            callToAction: 'Read more'
+        },
+        dutch: {
+            displayName: 'Tools',
+            description: 'Handige tools voor de media inzet.',
+            callToAction: 'Lees meer'
+        }
+    }
+]);
+
+export const toolsItems = readable([{
+        name: 'reporting',
+        colors: 'blue',
+        english: {
+            displayName: 'Reporting',
+            description: 'Interpret, set up, manage dashboards or other kinds of reports.',
+        },
+        dutch: {
+            displayName: 'Rapportage',
+            description: 'Inpreteren, opzetten, managen van dashboards of andersoortige rapporten.',
+        },
+    },
+    {
+        name: 'research_and_analysis',
+        colors: 'blue',
+        english: {
+            displayName: 'Research and analysis',
+            description: 'Interpretation of past campaigns / years etc.',
+        },
+        dutch: {
+            displayName: 'Onderzoek en analyse',
+            description: ' Interpretatie van afgelopen campagnes / jaren etc.',
+        }
+    }
+]);
+
+export const consultancyHomeItems = readable([{
+        name: 'commswithaplan',
+        colors: 'blue',
+        english: {
+            displayName: 'Comms With A Plan',
+            description: 'Comms With A Plan is a Media Management consultancy for advertisers. At your service I initiate, maintain and evaluate your media strategy, I manage your agencies and your budget.',
+        },
+        dutch: {
+            displayName: 'Comms With A Plan',
+            description: 'Comms With A Plan is een Media Management consultancy voor adverteerders. Ik initieer, onderhoud en evalueer je media strategie, ik manage je bureaus en budget.'
+
+        },
+    },
+    {
+        name: 'consultancy',
+        colors: 'blue',
+        english: {
+            displayName: 'Consultancy',
+            description: 'Comms With A Plan is a flexible unit in the sense that work can be project based, or more continuous, based on demand. (Give me a call to explain.)',
+        },
+        dutch: {
+            displayName: 'Consultancy',
+            description: 'Comms With A Plan is een flexibele partner in die zin dat het werk per project kan zijn, maar ook meer continu. Gebaseerd op vraag. (Bel me zodat ik het kan uitleggen.)'
+
+        },
+    }
+]);
+
+export const workItems = readable([{
+        name: 'reporting',
+        colors: 'blue',
+        english: {
+            displayName: 'Reporting',
+            description: 'Interpret, set up, manage dashboards or other kinds of reports.',
+        },
+        dutch: {
+            displayName: 'Rapportage',
+            description: 'Inpreteren, opzetten, managen van dashboards of andersoortige rapporten.',
+        },
+    },
+    {
+        name: 'research_and_analysis',
+        colors: 'blue',
+        english: {
+            displayName: 'Research and analysis',
+            description: 'Interpretation of past campaigns / years etc.',
+        },
+        dutch: {
+            displayName: 'Onderzoek en analyse',
+            description: ' Interpretatie van afgelopen campagnes / jaren etc.',
+        }
+    },
+    {
+        name: 'briefing',
+        colors: 'blue',
+        english: {
+            displayName: 'Briefing',
+            description: 'Instruct the agencies to develop (media) campaigns. With the input of former results, all marketing functions, objectives etc. In principle I follow the steps (1) strategy (2) planning (3) execution (4) evaluation & adjustment.',
+        },
+        dutch: {
+            displayName: 'Briefing',
+            description: 'Opdracht geven aan de bureaus om (media)campagnes te ontwikkelen. Met input van eerdere resultaten, alle marketing functies, doelstellingen etcetera. In principe volg ik de stappen (1) strategie (2) planning (3) uitvoering (4) evaluatie & bijstelling.',
+        },
+    },
+    {
+        name: 'coordination',
+        colors: 'green',
+        english: {
+            displayName: 'Coördination',
+            description: 'I make sure the strategies are integrated. Possibly in a joint development effort by the agencies.',
+        },
+        dutch: {
+            displayName: 'Coördinatie',
+            description: 'Ik zorg dat de strategieën geïntegreerd zijn. Eventueel door middel van gezamenlijke ontwikkeling door de bureaus.',
+        },
+    },
+    {
+        name: 'planning',
+        colors: 'green',
+        english: {
+            displayName: 'Planning',
+            description: 'Precise elaboration of the strategy by the agencies.',
+        },
+        dutch: {
+            displayName: 'Planning',
+            description: 'Precieze uitwerking van de strategie door de bureaus.',
+        },
+    },
+    {
+        name: 'tools',
+        colors: 'green',
+        english: {
+            displayName: 'Tools',
+            description: 'Tools that support your marketing-communications work.',
+        },
+        dutch: {
+            displayName: 'Tools',
+            description: 'Tools die je marketing-communicatie werkzaamheden ondersteunen.',
+        },
+    },
+    {
+        name: 'execution',
+        colors: 'red',
+        english: {
+            displayName: 'Execution',
+            description: 'Buying, negotiation, implementation, placement by the agencies.',
+        },
+        dutch: {
+            displayName: 'Executie',
+            description: 'Inkoop, onderhandeling, implementatie, plaatsing door de bureaus.',
+        },
+    },
+    {
+        name: 'evaluation_and_adjustment',
+        colors: 'red',
+        english: {
+            displayName: 'Evaluation and adjustment',
+            description: 'Undertake action based on interim results.',
+        },
+        dutch: {
+            displayName: 'Evaluatie en aanpassingen',
+            description: 'Actie ondernemen op basis van tussenresultaten.',
+        },
+    },
+
+    {
+        name: 'budget_management',
+        colors: 'red',
+        english: {
+            displayName: 'Budget management',
+            description: 'Make sure that no one spends more than needed to reach the objectives. Or that he/she turns out to have at the end of the year.',
+        },
+        dutch: {
+            displayName: 'Budget management',
+            description: 'Ervoor zorgen dat niemand meer uitgeeft dan nodig is voor de doelstellingen. Of wat hij/zij op het einde van het jaar blijkt te hebben.',
+        },
+    },
+    {
+        name: 'creation',
+        colors: 'red',
+        english: {
+            displayName: 'Creation',
+            description: 'Do I know the difference between indigo, azure, navy or cobalt? No. But I do know whether a proposal is on or off strategy.',
+        },
+        dutch: {
+            displayName: 'Creatie',
+            description: 'Weet ik het verschil tussen indigo, azuur, navy en kobalt? Nee. Maar ik weet wel of een voorstel op of naast strategie is.',
+        },
+    },
+    {
+        name: 'contracts',
+        colors: 'grey',
+        english: {
+            displayName: 'Contracts',
+            description: 'Arrange yearly agreements with important media parties.',
+        },
+        dutch: {
+            displayName: 'Contracten',
+            description: 'Regelen van jaarafspraken met belangrijke mediapartijen.',
+        },
+    },
+    {
+        name: 'agency_management',
+        colors: 'grey',
+        english: {
+            displayName: 'Agency management',
+            description: 'Team composition, cost, performance rewarding etc.',
+        },
+        dutch: {
+            displayName: 'Bureau management',
+            description: 'Team samenstelling, kosten, prestatiebeloning etcetera.',
+        },
+    },
+    {
+        name: 'auditing',
+        colors: 'grey',
+        english: {
+            displayName: 'Auditing',
+            description: 'As an independent party I check spending, prices, timings, results against previous agreed benchmarks, like pitch documents, contracts, plans, previous years etcetera. Only in case I haven\'t worked for you in the previous 2 fiscal years, in one of the capacities above.',
+        },
+        dutch: {
+            displayName: 'Audit',
+            description: 'Als een onafhankelijke partij vergelijk ik uitgaven, prijzen, timings, resultaten met vooraf overeengekomen ijkpunten, zoals pitch documenten, contracten, plannen, voorgaande jaren etcetera. \n Alleen als ik in de 2 voorafgaande fiscale jaren niet voor je bedrijf heb gewerkt, in een van de bovenstaande capaciteiten.',
+        },
+    },
+]);
+
 export const about = readable({
     name: 'about',
     colors: 'blue',
@@ -52,4 +299,88 @@ export const contactItems = readable([{
             description: 'Erich Salomonstraat 507, 1087 GT Amsterdam, The Netherlands'
         },
     }
-])
+]);
+
+export const touchPointsBasics = readable([{ name: "advocacy", english: { displayName: "Advocacy", description: "Consumers spread information about your brand." }, dutch: { displayName: "Advocacy", description: "Consumenten verspreiden informatie over je merk." } },
+    { name: "ambassador", english: { displayName: "Ambassador", description: "A (known) person acts as spokesperson for your brand." }, dutch: { displayName: "Ambassador", description: "Een (bekend) persoon treedt op als woordvoerder voor je merk." } },
+    { name: "app", english: { displayName: "App", description: "A branded software program that can be used on smartphones." }, dutch: { displayName: "App", description: "Een branded software programma dat werkt op smartphones." } },
+    { name: "asset", english: { displayName: "Asset", description: "A proprietary tool or platform that a brand owns and that can be used to further build it." }, dutch: { displayName: "Asset", description: "Een hulpmiddel of programma dat eigendom is van een merk en dat gebruikt kan worden om het verder te bouwen." } },
+    { name: "cinema", english: { displayName: "Cinema", description: "Screen advertising in cinemas." }, dutch: { displayName: "Cinema", description: "Adverteren op het doek in bioscopen." } },
+    { name: "console_game", english: { displayName: "Console / Game", description: "Advertising in a game (online, console, PC) or on a console." }, dutch: { displayName: "Console / Game", description: "Adverteren in een game (online, console, PC) of via een console." } },
+    { name: "direct_mail", english: { displayName: "Direct Mail", description: "Physical mail, delivered to mail boxes, targeted and untargeted." }, dutch: { displayName: "Direct Mail", description: "Fysieke post, geleverd in de brievenbus, gericht of ongericht." } },
+    { name: "display", english: { displayName: "Display", description: "Advertising on websites, through all possible formats." }, dutch: { displayName: "Display", description: "Adverteren op websites, in alle mogelijke vormen." } },
+    { name: "door_drop", english: { displayName: "Door Drop", description: "Unadressed mailings and leaflets" }, dutch: { displayName: "Folder", description: "Ongeadresseerde mailings en folders." } },
+    { name: "e-mail", english: { displayName: "E-Mail", description: "Electronic mail, delivered to the inbox, targeted and untargeted." }, dutch: { displayName: "E-Mail", description: "Electronische mail, geleverd in de inbox, gericht of ongericht." } },
+    { name: "event", english: { displayName: "Event", description: "A branded gathering of people at an arranged place and time." }, dutch: { displayName: "Event", description: "Een branded samenkomst van mensen op een afgesproken plaats en tijd." } },
+    { name: "experiential", english: { displayName: "Experiential", description: "Engaging consumers in an experience that involves the product and/or brand values." }, dutch: { displayName: "Experiential", description: "Betrekken van consumenten in een ervaring die het product en/of merkwaarden bevat." } },
+    { name: "internal_employee", english: { displayName: "Internal / Employee", description: "Personnel spreads information about your brand." }, dutch: { displayName: "Internal / Employee", description: "Het merk verspreidt informatie naar personeelsleden. Zij delen deze informatie eventueel verder." } },
+    { name: "loyalty_crm", english: { displayName: "Loyalty / CRM", description: "IT supported relationship with consumers." }, dutch: { displayName: "Loyalty / CRM", description: "IT ondersteunde relatie met consumenten." } },
+    { name: "magazines", english: { displayName: "Magazines", description: "Advertising in magazines." }, dutch: { displayName: "Magazines", description: "Adverteren in magazines." } },
+    { name: "mobile", english: { displayName: "Mobile", description: "Branded messaging on mobile phones." }, dutch: { displayName: "Mobiel", description: "Branded boodschappen verspreiden door middel van mobiele telefoons." } },
+    { name: "newspapers", english: { displayName: "Newspapers", description: "Advertising in newspapers." }, dutch: { displayName: "Dagbladen", description: "Adverteren in kranten." } },
+    { name: "outdoor", english: { displayName: "Outdoor", description: "Advertising at physical places that are outside the consumers’ home." }, dutch: { displayName: "Buitenreclame", description: "Adverteren op fysieke punten waarmee de consument alleen buitenshuis in aanraking kan komen." } },
+    { name: "packaging", english: { displayName: "Packaging", description: "Messaging on a product’s package." }, dutch: { displayName: "Verpakking", description: "Boodschappen op de verpakking van het product." } },
+    { name: "pr", english: { displayName: "PR", description: "Communication that focuses on a mutual benefit for brand and consumers." }, dutch: { displayName: "PR", description: "Communicatie die zich concentreert op het wederzijds belang voor merk en consumenten." } },
+    { name: "promotion", english: { displayName: "Promotion", description: "Communication that focuses on a temporary change in price / value ratio." }, dutch: { displayName: "Promotie", description: "Communicatie die zich concentreert op een tijdelijke verandering in de prijs / waarde verhouding." } },
+    { name: "radio", english: { displayName: "Radio", description: "Advertising on radio stations, in commercial airtime and in-program." }, dutch: { displayName: "Radio", description: "Adverteren in zendtijd van radiostations, reclamezendtijd en in-program." } },
+    { name: "sem", english: { displayName: "SEM", description: "Search engine marketing - Paid optimization and advertising on search engine results pages." }, dutch: { displayName: "SEM", description: "Search engine marketing - Betaalde optimalisatie en advertenties op resultaatpagina’s van zoekmachines." } },
+    { name: "seo", english: { displayName: "SEO", description: "Search engine optimization - Free optimization on search engine results pages." }, dutch: { displayName: "SEO", description: "Search engine optimization -  Gratis optimalisatie op resultaatpagina’s van zoekmachines." } },
+    { name: "shopper", english: { displayName: "Shopper", description: "Communication in retail channels." }, dutch: { displayName: "Shopper", description: "Communicatie in retail-kanalen." } },
+    { name: "social", english: { displayName: "Social", description: "Branded appearance on social networks, paid and unpaid." }, dutch: { displayName: "Social", description: "Branded vertoning op sociale netwerken, betaald en onbetaald." } },
+    { name: "sponsorship", english: { displayName: "Sponsorship", description: "A branding opportunity in exchange for financial support of a person, activity or organization." }, dutch: { displayName: "Sponsorship", description: "De mogelijkheid om je merk te tonen in ruil voor financiële steun van een persoon, activiteit of organisatie." } },
+    { name: "television", english: { displayName: "Television", description: "Advertising on television, in commercial airtime and in-program." }, dutch: { displayName: "Televisie", description: "Adverteren in zendtijd van een televisiestation, reclamezendtijd en in-program." } },
+    { name: "trade_fair", english: { displayName: "Trade Fair", description: "Appearing at an exhibition for a specific industry or purpose." }, dutch: { displayName: "Trade Fair", description: "Vertonen van een merk op een beurs voor een specifieke industrie of doel." } },
+    { name: "video_on_demand", english: { displayName: "Video On Demand", description: "Advertising in an environment that provides audio visual content to users at request." }, dutch: { displayName: "Video On Demand", description: "Adverteren in een omgeving die op verzoek audiovisuele content biedt aan gebruikers." } },
+    { name: "viral", english: { displayName: "Viral", description: "Communication in a way that optimizes the probability that people will forward your message." }, dutch: { displayName: "Viral", description: "Communicatie op een manier die de kans maximaliseert dat mensen je boodschap zullen doorsturen aan andere mensen. " } },
+    { name: "website", english: { displayName: "Website", description: "Electronic information, that is stored on a server and is accessible through a browser." }, dutch: { displayName: "Website", description: "Elektronische informatie, die opgeslagen is op een server en toegankelijk door middel van een browser." } },
+    { name: "word_of_mouth", english: { displayName: "Word Of Mouth", description: "People pass opinions on a brand to other people." }, dutch: { displayName: "Word Of Mouth", description: "Mensen geven meningen door over je merk aan andere mensen." } }
+]);
+
+export const translations = readable([
+    { name: 'english', english: { displayName: 'English' }, dutch: { displayName: 'Engels' } },
+    { name: 'dutch', english: { displayName: 'Dutch' }, dutch: { displayName: 'Nederlands' } },
+    { name: 'reset', english: { displayName: 'RESET' }, dutch: { displayName: 'RESET' } },
+    { name: 'hide', english: { displayName: 'HIDE' }, dutch: { displayName: 'VERBERG' } },
+    { name: 'show', english: { displayName: 'SHOW' }, dutch: { displayName: 'TOON' } },
+    { name: 'input', english: { displayName: 'Input' }, dutch: { displayName: 'Input' } },
+    { name: 'reach', english: { displayName: 'Reach' }, dutch: { displayName: 'Bereik' } },
+    { name: 'totalReach', english: { displayName: 'Total Reach' }, dutch: { displayName: 'Totaal Bereik' } },
+    { name: 'locus', english: { displayName: 'Locus' }, dutch: { displayName: 'Locus' } },
+    { name: 'enter_reach', english: { displayName: 'Enter Reach for' }, dutch: { displayName: 'Vul Bereik in voor' } },
+    { name: 'reach_error', english: { displayName: 'Reach can be maximum 100, minimum 0' }, dutch: { displayName: 'Bereik mag maximaal 100 zijn, minimaal 0' } },
+    { name: 'advertisement', english: { displayName: 'Advertisement' }, dutch: { displayName: 'Advertentie' } },
+    { name: 'read', english: { displayName: 'Read' }, dutch: { displayName: 'Lees' } }
+]);
+
+export const colorScheme = readable({
+    blue: {
+        base: 'var(--ra-blue)',
+        light: 'var(--ra-blue-light)',
+        bright: 'var(--ra-blue-bright)',
+        offWhite: 'var(--ra-blue-off-white)',
+    },
+    green: {
+        base: 'var(--ra-green)',
+        light: 'var(--ra-green-light)',
+        bright: 'var(--ra-green-bright)',
+        offWhite: 'var(--ra-green-off-white)',
+    },
+    red: {
+        base: 'var(--ra-red)',
+        light: 'var(--ra-red-light)',
+        bright: 'var(--ra-red-bright)',
+        offWhite: 'var(--ra-red-off-white)',
+    },
+    teal: {
+        base: 'var(--ra-teal)',
+        light: 'var(--ra-teal-light)',
+        bright: 'var(--ra-teal-bright)',
+        offWhite: 'var(--ra-teal-off-white)',
+    },
+    grey: {
+        base: 'var(--ra-grey)',
+        light: 'var(--ra-grey-light)',
+        bright: 'var(--ra-grey-bright)',
+        offWhite: 'var(--ra-grey-off-white)',
+    },
+});

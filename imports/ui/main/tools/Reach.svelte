@@ -5,17 +5,14 @@
   import ReachAppHeader from './ReachAppHeader.svelte';
   import ReachTouchPoint from './ReachTouchPoint.svelte';
 
-  // constants
-  import {touchPointsBasics, translations} from '../../../../client/constants';
-
   // providers
   import ReachAppProvider from '../../../both/reachAppProvider';
   import UiProvider from '../../../both/uiProvider';
 
   // variables
-  import {language} from '../../../../client/stores';
-  const thisReachApp = new ReachAppProvider(touchPointsBasics);
-  const thisUi = new UiProvider(translations);
+  import {language, touchPointsBasics, translations} from '../../../../client/stores';
+  const thisReachApp = new ReachAppProvider($touchPointsBasics);
+  const thisUi = new UiProvider($translations);
   let touchPoints = thisReachApp.touchPoints;
 
   let inputPlaceholder = thisUi.translate('input', $language);

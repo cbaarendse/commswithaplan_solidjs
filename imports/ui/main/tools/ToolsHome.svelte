@@ -7,16 +7,8 @@
   import LogoReachApp from '../../reusable/LogoReachApp.svelte';
   import Card from '../../reusable/Card.svelte';
 
-  import {translations} from '../../../../client/constants';
-
-  // providers
-  import UiProvider from '../../../both/uiProvider';
-
-  // content
-  import {consultancyItems} from '../../../../client/content';
-
   // variables
-  import {language} from '../../../../client/stores';
+  import {language, toolsHomeItems} from '../../../../client/stores';
 </script>
 
 <PageHeader title={'Reach'}><LogoReachApp size="3rem" /></PageHeader>

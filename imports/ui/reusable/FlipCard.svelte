@@ -1,18 +1,16 @@
 <script>
-  // constants
-  import {colorScheme} from '../../../client/constants';
-
   // variables
+  import {colorScheme} from '../../../client/stores';
   export let colors = 'grey';
   export let cardTitle;
   export let flipped = false;
   export let buttonText;
 
   // functions
-  const getBackgroundColor = () => colorScheme[colors].offWhite;
-  const getFooterColor = () => colorScheme[colors].offWhite;
-  const getFooterBackgroundColor = () => colorScheme[colors].light;
-  const getColor = () => colorScheme[colors].base;
+  const getBackgroundColor = () => $colorScheme[colors].offWhite;
+  const getFooterColor = () => $colorScheme[colors].offWhite;
+  const getFooterBackgroundColor = () => $colorScheme[colors].light;
+  const getColor = () => $colorScheme[colors].base;
 </script>
 
 <div class="card" style="background-color:{getBackgroundColor()};color:{getColor()};">

@@ -7,17 +7,12 @@
   import Card from '../../reusable/Card.svelte';
   import FlipCard from '../../reusable/FlipCard.svelte';
 
-  import {translations} from '../../../../client/constants';
-
   // providers
   import UiProvider from '../../../both/uiProvider';
 
-  // content
-  import {workItems} from '../../../../client/content';
-
   // variables
-  import {language} from '../../../../client/stores';
-  const thisUi = new UiProvider(translations);
+  import {language, workItems, translations} from '../../../../client/stores';
+  const thisUi = new UiProvider($translations);
   let selectedIndex;
 </script>
 
@@ -32,7 +27,7 @@
       <p>Things I'll manage along the process (you can pick and mix):</p>
     {/if}
     <ul>
-      {#each workItems as item, index}
+      {#each $workItems as item, index}
         <li>
           <FlipCard
             flipped={selectedIndex === index}

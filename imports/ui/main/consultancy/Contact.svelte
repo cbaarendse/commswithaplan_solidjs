@@ -15,17 +15,23 @@
 <PageHeader title={'Comms With A Plan'}><LogoCommsWithAPlan size={'3rem'} /></PageHeader>
 
 <section>
-  <article class="contact">
+  <article>
     <h2>Contact</h2>
     {#each $contactItems as item, index}
-      <Card cardTitle={item[$language].displayName}>
+      <Card cardTitle={item[$language].displayName} colors={'teal'}>
         <address>
           {item[$language].description}
         </address>
       </Card>
     {/each}
-    <Card cardTitle="LinkedIn">
+    <Card
+      cardTitle={'LinkedIn'}
+      colors={'blue'}
+      cardLink={'https://www.linkedin.com/in/cbaarendse/'}
+      callToAction={'LinkedIn'}
+    >
       <address>
+        <!-- TODO: link not in slot???? -->
         <a href="https://www.linkedin.com/in/cbaarendse/"> <Fa icon={faLinkedin} size="1.4em" color="#003366" /></a>
       </address>
     </Card>
@@ -45,8 +51,8 @@
 <style>
   section {
     display: grid;
+    grid-template-columns: (1, minmax(320px, 1fr));
     grid-auto-flow: row;
-    grid-template-rows: 28ch;
     gap: 2em;
   }
 

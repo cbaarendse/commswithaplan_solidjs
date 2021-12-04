@@ -1,16 +1,12 @@
 <script>
   import Card from '../../reusable/Card.svelte';
-  import LogoCommsWithAPlan from '../../reusable/LogoCommsWithAPlan.svelte';
-
-  // content
-  import {homePageItems} from '../../../../client/content';
 
   // variables
-  import {language} from '../../../../client/stores';
+  import {language, homePageItems} from '../../../../client/stores';
 </script>
 
 <section>
-  {#each homePageItems as item, index}
+  {#each $homePageItems as item, index}
     <Card
       cardTitle={item[$language].displayName}
       imgUrl={item.imgUrl}
