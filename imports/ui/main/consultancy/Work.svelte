@@ -2,7 +2,7 @@
   // packages
 
   // components
-  import PageHeader from '../../reusable/PageHeader.svelte';
+  import PageHeader from '../../reusable/Brand.svelte';
   import LogoCommsWithAPlan from '../../reusable/LogoCommsWithAPlan.svelte';
   import Card from '../../reusable/Card.svelte';
   import FlipCard from '../../reusable/FlipCard.svelte';

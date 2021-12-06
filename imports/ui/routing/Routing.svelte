@@ -4,11 +4,11 @@
 
   // components
   import Home from '../main/home/Home.svelte';
-  import ConsultancyHome from '../main/consultancy/ConsultancyHome.svelte';
+  import ConsultancyHome from '../main/consultancy/Home.svelte';
   import Work from '../main/consultancy/Work.svelte';
   import About from '../main/consultancy/About.svelte';
   import Contact from '../main/consultancy/Contact.svelte';
-  import ToolsHome from '../main/tools/ToolsHome.svelte';
+  import ToolsHome from '../main/tools/Home.svelte';
   import Reach from '../main/tools/Reach.svelte';
   import Documentation from '../main/tools/Documentation.svelte';
   import NotFound from '../main/notfound/NotFound.svelte';

@@ -1,20 +1,21 @@
 <script>
   // packages
+  import {useSession} from 'meteor/rdb:svelte-meteor-data';
 
   // components
-  import PageHeader from '../../reusable/PageHeader.svelte';
-  import LogoCommsWithAPlan from '../../reusable/LogoCommsWithAPlan.svelte';
+  import PageHeader from '../../reusable/Brand.svelte';
+  import LogoReachApp from '../../reusable/LogoReachApp.svelte';
   import Card from '../../reusable/Card.svelte';
 
   // variables
-  import {language, consultancyHomeItems} from '../../../../client/stores';
+  import {language, toolsHomeItems} from '../../../../client/stores';
 </script>
 
-<PageHeader title={'Comms With A Plan'}><LogoCommsWithAPlan size={'3rem'} /></PageHeader>
+<PageHeader title={'Reach'}><LogoReachApp size="3rem" /></PageHeader>
 
 <section>
   <article>
-    {#each $consultancyHomeItems as item, index}
+    {#each $toolsHomeItems as item, index}
       <Card cardTitle={item[$language].displayName}>
         <span>
           {item[$language].description}

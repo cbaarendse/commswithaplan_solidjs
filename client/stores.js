@@ -301,6 +301,34 @@ export const contactItems = readable([{
     }
 ]);
 
+export const toolsHomeItems = readable([{
+        name: 'tools',
+        colors: 'green',
+        english: {
+            displayName: 'Tools',
+            description: 'Comms With A Plan developes tools aimed to help advertisers who are not working with media agencies. For instance because they have inhouse capabilities, or because they currently do not have the proper size.',
+        },
+        dutch: {
+            displayName: 'Tools',
+            description: 'Comms With A Plan ontwikkelt tools voor adverteerders die niet met mediabureaus werken. Bijvoorbeeld omdat zij intern genoeg bekwaamheid bezitten, of omdat ze op het moment niet de juiste grootte hebben.'
+
+        },
+    },
+    {
+        name: 'reachapp',
+        colors: 'green',
+        english: {
+            displayName: 'Reach',
+            description: 'Comms With A Plan is a flexible unit in the sense that work can be project based, or more continuous, based on demand. (Give me a call to explain.)',
+        },
+        dutch: {
+            displayName: 'Reach',
+            description: 'Comms With A Plan is een flexibele partner in die zin dat het werk per project kan zijn, maar ook meer continu. Gebaseerd op vraag. (Bel me zodat ik het kan uitleggen.)'
+
+        },
+    }
+]);
+
 export const touchPointsBasics = readable([{ name: "advocacy", english: { displayName: "Advocacy", description: "Consumers spread information about your brand." }, dutch: { displayName: "Advocacy", description: "Consumenten verspreiden informatie over je merk." } },
     { name: "ambassador", english: { displayName: "Ambassador", description: "A (known) person acts as spokesperson for your brand." }, dutch: { displayName: "Ambassador", description: "Een (bekend) persoon treedt op als woordvoerder voor je merk." } },
     { name: "app", english: { displayName: "App", description: "A branded software program that can be used on smartphones." }, dutch: { displayName: "App", description: "Een branded software programma dat werkt op smartphones." } },
