@@ -1,11 +1,13 @@
 <script>
   // variables
+  import {colorScheme} from '../../../client/stores';
   export let title;
+  export let colors = 'blue';
 </script>
 
 <div class="brand">
   <slot />
-  <span class="brand-label">{title}</span>
+  <span style="color:{$colorScheme[colors].base}">{title}</span>
 </div>
 
 <style>

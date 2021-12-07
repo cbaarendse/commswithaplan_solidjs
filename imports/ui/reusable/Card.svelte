@@ -6,33 +6,28 @@
   export let imgUrl;
   export let cardLink;
   export let callToAction;
-
-  // functions
-  const getBackgroundColor = () => $colorScheme[colors].offWhite;
-  const getFooterBackgroundColor = () => $colorScheme[colors].light;
-  const getColor = () => $colorScheme[colors].base;
 </script>
 
-<div class="card" style="background-color:{getBackgroundColor()};color:{getColor()};">
+<div class="card" style="background-color:{$colorScheme[colors].offWhite};color:{$colorScheme[colors].base};">
   {#if imgUrl}
     <div class="img-container">
       <img src={imgUrl} alt={cardTitle} />
     </div>
   {/if}
   {#if cardTitle}
-    <div class="card-title" style="color:{getColor()};">
+    <div class="card-title" style="color:{$colorScheme[colors].base};">
       <h2>{cardTitle}</h2>
     </div>
   {/if}
   <p>
     <slot />
   </p>
-  <div class="card-footer" style="background-color:{getFooterBackgroundColor()};color:{getBackgroundColor()};">
+  <div class="card-footer" style="background-color:{$colorScheme[colors].light};color:{$colorScheme[colors].offWhite};">
     <p>
       <slot name="cardfootertext" />
     </p>
     {#if cardLink}
-      <a href={cardLink} style="color:{getBackgroundColor()};">{callToAction}</a>
+      <a href={cardLink} style="color:{$colorScheme[colors].offWhite};">{callToAction}</a>
     {/if}
   </div>
 </div>

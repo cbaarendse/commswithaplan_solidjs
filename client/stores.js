@@ -254,11 +254,11 @@ export const about = readable({
     colors: 'blue',
     english: {
         displayName: 'About',
-        description: "I'm Constantijn Baarendse. I've worked on different continents, for blue chip advertisers, media and advertising agencies.",
+        description: "I'm Constantijn Baarendse. I've worked on different continents, for blue chip advertisers, media- and advertising agencies.",
     },
     dutch: {
         displayName: 'Over',
-        description: "Ik ben Constantijn Baarendse. Ik heb gewerkt op verschillende continenten, voor 'blue chip' adverteerders, media - en reclamebureaus."
+        description: "Ik ben Constantijn Baarendse. Ik heb gewerkt op verschillende continenten, voor 'blue chip' adverteerders, media- en reclamebureaus."
 
     }
 })

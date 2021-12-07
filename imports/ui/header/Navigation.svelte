@@ -30,7 +30,7 @@
     on:click={() => ($language = 'english')}
     tinro-ignore><span>EN</span></a
   >
-  <div class="user"><Fa icon={faUser} size="0.8x" /></div>
+  <div class="user"><Fa icon={faUser} size={'0.8x'} /></div>
 </nav>
 
 <nav class="nav-2">
@@ -47,13 +47,13 @@
 {#if $router.path === '/'}
   <nav class="nav-3">
     <a href={'/'} use:active>
-      <span><Fa icon={faHome} size="0.8x" /></span>
+      <span><Fa icon={faHome} size={'0.8x'} /></span>
     </a>
   </nav>
 {:else if $router.path.startsWith('/consultancy')}
   <nav class="nav-3">
     <a href={'/consultancy/home'} use:active>
-      <span><Fa icon={faHome} size="0.8x" /></span>
+      <span><Fa icon={faHome} size={'0.8x'} /></span>
     </a>
     <a href={'/consultancy/work'} use:active>
       <span>Work</span>
@@ -68,7 +68,7 @@
 {:else if $router.path.startsWith('/tools')}
   <nav class="nav-3">
     <a href={'/tools/home'} use:active>
-      <span><Fa icon={faHome} size="0.8x" /></span>
+      <span><Fa icon={faHome} size={'0.8x'} /></span>
     </a>
     <a href={'/tools/reach'} use:active>
       <span>Reach</span>

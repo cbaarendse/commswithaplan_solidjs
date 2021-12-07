@@ -14,6 +14,7 @@
 
   // components
   import LogoReachApp from '../../reusable/LogoReachApp.svelte';
+  import Brand from '../../reusable/Brand.svelte';
 
   // providers
   import UiProvider from '../../../both/uiProvider';
@@ -35,10 +36,10 @@
 </script>
 
 <header>
-  <div class="brand">
+  <Brand title={'Reach'}>
     <LogoReachApp size="3rem" />
-    <span class="brand-label">ReachApp</span>
-  </div>
+  </Brand>
+
   <div class="outcome outcome-reach">
     <span class="outcome-label">{totalReachDisplayName}:&nbsp;</span>
     <span class="outcome-result">{thisUi.toNumberFormat(totalReach.toFixed(0))}&nbsp;%</span>
@@ -56,51 +57,32 @@
 
   <div class="controls">
     <button type="button" on:click={() => dispatch('reset')}
-      >{#if allTouchPointValuesAreZero}<Fa icon={faHistory} size="1.4x" /> {:else}<span>0</span>{/if}</button
+      >{#if allTouchPointValuesAreZero}<Fa icon={faHistory} size={'1.4x'} /> {:else}<span>0</span>{/if}</button
     >
     <button type="button" on:click={() => dispatch('sort')}
-      >{#if sortingByName}<Fa icon={faSortAlphaUp} size="1.4x" />{:else}<Fa
+      >{#if sortingByName}<Fa icon={faSortAlphaUp} size={'1.4x'} />{:else}<Fa
           icon={faSortNumericDownAlt}
-          size="1.4x"
+          size={'1.4x'}
         />{/if}</button
     >
     <button type="button" on:click={() => dispatch('hide')}
-      >{#if showAll}<Fa icon={faMinus} size="1.4x" />{:else}<Fa icon={faBars} size="1.4x" />{/if}</button
+      >{#if showAll}<Fa icon={faMinus} size={'1.4x'} />{:else}<Fa icon={faBars} size={'1.4x'} />{/if}</button
     >
-    <button type="button" on:click={() => dispatch('print')}><Fa icon={faPrint} size="1.4x" /></button>
-    <button type="button" on:click={() => dispatch('pdf')}><Fa icon={faFilePdf} size="1.4x" /></button>
+    <button type="button" on:click={() => dispatch('print')}><Fa icon={faPrint} size={'1.4x'} /></button>
+    <button type="button" on:click={() => dispatch('pdf')}><Fa icon={faFilePdf} size={'1.4x'} /></button>
   </div>
 </header>
 
 <style>
   header {
     display: grid;
-    grid-template-areas:
-      'brand'
-      'controls'
-      'outcome_reach'
-      'outcome_locus';
+    grid-template-columns: 1;
     gap: 1.2em;
     align-items: center;
     padding: 1em;
     margin: 0 2%;
     border-radius: 0.2em;
     background-color: var(--ra-teal-off-white);
-  }
-
-  .brand {
-    grid-area: brand;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    gap: 0.7em;
-    align-items: center;
-    font-size: 1.6rem;
-    font-family: 'Trebuchet MS';
-  }
-
-  .brand-label {
-    font-size: 1.6rem;
   }
 
   .outcome {
@@ -174,9 +156,7 @@
 
   @media screen and (min-width: 760px) {
     header {
-      grid-template-areas:
-        'brand controls'
-        'outcome_reach outcome_locus';
+      grid-template-columns: 1fr 1fr;
     }
     .controls {
       justify-self: end;
@@ -185,7 +165,7 @@
 
   @media screen and (min-width: 1400px) {
     header {
-      grid-template-areas: 'brand outcome_reach outcome_locus controls';
+      grid-template-areas: 1fr 1fr 1fr 1fr;
     }
   }
 </style>
