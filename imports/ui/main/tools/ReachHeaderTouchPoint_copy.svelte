@@ -2,16 +2,17 @@
   // packages
 
   // components
-  import ReachHeader from './ReachHeader.svelte';
+  import ReachAppHeader from './ReachHeader.svelte';
   import ReachTouchPoint from './ReachTouchPoint.svelte';
 
   // providers
-  import ReachProvider from '../../../both/reachProvider';
+  import ReachAppProvider from '../../../both/reachProvider';
   import UiProvider from '../../../both/uiProvider';
 
   // variables
   import {language, touchPointsBasics, translations} from '../../../../client/stores';
-  const thisReachApp = new ReachProvider($touchPointsBasics);
+
+  const thisReachApp = new ReachAppProvider($touchPointsBasics);
   const thisUi = new UiProvider($translations);
   let touchPoints = thisReachApp.touchPoints;
 
@@ -86,8 +87,8 @@
   };
 </script>
 
-<main>
-  <ReachHeader
+<section>
+  <ReachAppHeader
     {totalReach}
     {locus}
     totalReachDisplayName={thisUi.translate('totalReach', $language)}
@@ -101,43 +102,24 @@
     on:print={print}
     on:pdf={pdf}
   />
-  <section>
-    <!-- TODO: dispatch on:change and on:input -->
-    {#each touchPoints as touchPoint}
-      <ReachTouchPoint
-        {displayTouchPoint}
-        {language}
-        {inputPlaceholder}
-        {...touchPoint}
-        touchPointDisplayName={thisReachApp.displayTouchPoint(touchPoint.name, $language)}
-        touchPointDescription={thisReachApp.describeTouchPoint(touchPoint.name, $language)}
-        on:handleChange={changeReach}
-        on:handleInput={inputReach}
-      />
-    {/each}
-  </section>
-</main>
+
+  <!-- TODO: dispatch on:change and on:input -->
+  {#each touchPoints as touchPoint}
+    <ReachTouchPoint
+      {displayTouchPoint}
+      {$language}
+      {inputPlaceholder}
+      {...touchPoint}
+      touchPointDisplayName={thisReachApp.displayTouchPoint(touchPoint.name, $language)}
+      touchPointDescription={thisReachApp.describeTouchPoint(touchPoint.name, $language)}
+      on:handleChange={changeReach}
+      on:handleInput={inputReach}
+    />
+  {/each}
+</section>
 
 <style>
-  main {
-    display: grid;
-    grid-template-columns: 1rem 1fr 1rem;
-    grid-template-rows: auto, auto;
-    grid-auto-rows: auto;
-    gap: 2rem;
-    padding: 0.4rem 0 0 0;
-    margin: 0.4rem 0 0 0;
-    overflow: auto;
-  }
-  @media screen and (min-width: 760px) {
-    main {
-      grid-template-columns: 1fr 10fr 1fr;
-      padding: 2rem 0 0 0;
-      margin: 2rem 0 0 0;
-    }
-  }
   section {
-    grid-column: 2/3;
     display: flex;
     flex-direction: column;
     font-size: clamp(var(--font-size-s), var(--font-size-weight) * 100vw, var(--font-size-l));

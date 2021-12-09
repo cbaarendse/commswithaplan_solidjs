@@ -1,5 +1,5 @@
 // this function / object contains all the logic to make ReachApp work
-function ReachAppProvider(touchPointsBasics, language) {
+function ReachProvider(touchPointsBasics, language) {
     // public properties
     this.touchPointsBasics = touchPointsBasics;
     this.language = language;
@@ -113,4 +113,4 @@ function ReachAppProvider(touchPointsBasics, language) {
     });
 }
 
-export default ReachAppProvider;
+export default ReachProvider;
