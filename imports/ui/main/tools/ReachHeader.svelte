@@ -78,11 +78,12 @@
   </div>
 </header>
 
+<!-- TODO: all this in flexbox, make groups, meter is % of parent (if parent is header) or vw unit -->
 <style>
   header {
     grid-column: 2/3;
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(12, 1fr);
     gap: 1.2rem;
     padding: 2rem;
     margin: 0 2rem;
@@ -91,7 +92,7 @@
   }
 
   .controls {
-    grid-column: 1/7;
+    grid-column: 1/13;
     display: flex;
     justify-content: flex-start;
     flex-wrap: wrap;
@@ -128,15 +129,15 @@
   }
 
   .outcome-label {
-    grid-column: 1/2;
+    grid-column: 1/4;
     align-self: center;
   }
   .outcome-result {
-    grid-column: 2/3;
+    grid-column: 4/7;
     align-self: center;
   }
   .outcome-meter {
-    grid-column: 3/7;
+    grid-column: 7/13;
     border: 1px solid #ccc;
     border-radius: 3px;
     background-color: whiteSmoke;
@@ -153,24 +154,67 @@
     display: none;
     text-indent: -9999px;
   }
-  @media screen and (min-width: 480px) {
+
+  @media screen and (min-width: 414px) {
     .outcome-meter,
     .outcome-meter > span {
       display: block;
     }
-  }
-  @media screen and (min-width: 760px) {
-    header {
-      grid-template-columns: repeat(4, 1fr);
+    .outcome-label {
+      grid-column: 1/4;
     }
+    .outcome-result {
+      grid-column: 4/7;
+    }
+    .outcome-meter {
+      grid-column: 7/13;
+    }
+  }
+  @media screen and (min-width: 768px) {
     .controls {
-      grid-column: 2/5;
+      grid-column: 7/13;
       justify-self: end;
+    }
+    .outcome-label {
+      grid-column: 1/4;
+    }
+    .outcome-result {
+      grid-column: 4/7;
+    }
+    .outcome-meter {
+      grid-column: 7/13;
     }
   }
 
-  @media screen and (min-width: 1400px) {
-    header {
+  @media screen and (min-width: 850px) {
+    .controls {
+      grid-column: 7/13;
+      justify-self: end;
+    }
+    .outcome-label {
+      grid-column: 1/4;
+    }
+    .outcome-result {
+      grid-column: 4/7;
+    }
+    .outcome-meter {
+      grid-column: 7/13;
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    .controls {
+      grid-column: 10/13;
+      justify-self: end;
+    }
+    .outcome-label {
+      grid-column: 1/2;
+    }
+    .outcome-result {
+      grid-column: 2/3;
+    }
+    .outcome-meter {
+      grid-column: 3/7;
     }
   }
 </style>

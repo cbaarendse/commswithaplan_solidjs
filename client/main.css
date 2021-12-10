@@ -64,6 +64,12 @@
     --font-size-l: 1.1rem;
     --font-size-xl: 1.2rem;
     --font-size-xxl: 1.3rem;
+    /* screen sizes */
+    --iphone: 320px;
+    --ipad-mini: 768px;
+    --ipad-pro-10-5: 834px;
+    --ipad-pro-12-9: 1024px;
+    --desktop: 1366px;
 }
 
 html {
