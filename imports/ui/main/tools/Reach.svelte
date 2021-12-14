@@ -90,8 +90,6 @@
   <ReachHeader
     {totalReach}
     {locus}
-    totalReachDisplayName={thisUi.translate('totalReach', $language)}
-    locusDisplayName={thisUi.translate('locus', $language)}
     {allTouchPointValuesAreZero}
     {sortingByName}
     {showAll}

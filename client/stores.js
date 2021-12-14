@@ -372,7 +372,7 @@ export const translations = readable([
     { name: 'show', english: { displayName: 'SHOW' }, dutch: { displayName: 'TOON' } },
     { name: 'input', english: { displayName: 'Input' }, dutch: { displayName: 'Input' } },
     { name: 'reach', english: { displayName: 'Reach' }, dutch: { displayName: 'Bereik' } },
-    { name: 'totalReach', english: { displayName: 'Total Reach' }, dutch: { displayName: 'Totaal Bereik' } },
+    { name: 'total', english: { displayName: 'Total' }, dutch: { displayName: 'Totaal' } },
     { name: 'locus', english: { displayName: 'Locus' }, dutch: { displayName: 'Locus' } },
     { name: 'enter_reach', english: { displayName: 'Enter Reach for' }, dutch: { displayName: 'Vul Bereik in voor' } },
     { name: 'reach_error', english: { displayName: 'Reach can be maximum 100, minimum 0' }, dutch: { displayName: 'Bereik mag maximaal 100 zijn, minimaal 0' } },
