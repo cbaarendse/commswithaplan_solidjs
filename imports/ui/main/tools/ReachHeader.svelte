@@ -53,16 +53,16 @@
   <button type="button" on:click={() => dispatch('print')}><Fa icon={faPrint} size={'1.4x'} /></button>
   <button type="button" on:click={() => dispatch('pdf')}><Fa icon={faFilePdf} size={'1.4x'} /></button>
 
-  <span class="outcome-label"
+  <span class="reach-label"
     >{thisUi.translate('total', $language)}&nbsp;{thisUi.translate('reach', $language)}:&nbsp;</span
   >
-  <span class="outcome-result">{thisUi.toNumberFormat(totalReach.toFixed(0))}&nbsp;%</span>
+  <span class="reach-result">{thisUi.toNumberFormat(totalReach.toFixed(0))}&nbsp;%</span>
   <div class="meter">
     <span style="width:{totalReach}%;" />
   </div>
 
-  <span class="outcome-label">{thisUi.translate('locus', $language)}:&nbsp;</span>
-  <span class="outcome-result">{thisUi.toNumberFormat(locus.toFixed(1))}&nbsp;%</span>
+  <span class="locus-label">{thisUi.translate('locus', $language)}:&nbsp;</span>
+  <span class="locus-result">{thisUi.toNumberFormat(locus.toFixed(1))}&nbsp;%</span>
   <div class="meter">
     <span style="width:{locus}%;" />
   </div>
@@ -73,14 +73,18 @@
   header {
     grid-column: 2/3;
     display: grid;
+    grid-template-columns: repeat(6, 3rem) 1fr;
+    grid-template-rows: repeat(6, 3rem);
     grid-template-areas:
-      'brand brand brand brand brand'
-      'btn1 btn2 btn3 btn4 btn5'
-      'reach-label reach-outcome'
-      'locus-label locus-outcome';
+      'brand brand brand brand brand brand'
+      'btn1 . . . . .'
+      'btn2 btn3 . . . .'
+      'btn4 btn5 . . . .'
+      'rl rl rr rr . .'
+      'll ll lr lr . .';
     gap: 1.2rem;
-    padding: 2rem;
-    margin: 0 2rem;
+    padding: 2%;
+    margin: 0 2%;
     border-radius: 0.2rem;
     background-color: var(--ra-teal-off-white);
   }
@@ -120,33 +124,38 @@
   }
 
   .reach-label {
+    grid-area: rl;
     align-self: center;
   }
   .reach-result {
+    grid-area: rr;
     align-self: center;
   }
   .locus-label {
+    grid-area: ll;
     align-self: center;
   }
   .locus-result {
+    grid-area: lr;
     align-self: center;
   }
   .meter {
+    align-self: center;
     border: 1px solid #ccc;
     border-radius: 3px;
     background-color: whiteSmoke;
     box-shadow: 0 5px 5px -5px rgba(0, 0, 0, 0.4) inset;
-    width: 20vw;
-    height: 25px;
+    height: 1.5rem;
     display: none;
   }
   .reach-result + .meter {
-    grid-area: reachmeter;
+    grid-area: rm;
   }
   .locus-result + .meter {
+    grid-area: lm;
   }
-  .reach-meter > span,
-  .locus-meter > span {
+  .meter > span,
+  .meter > span {
     height: inherit;
     box-shadow: 0 5px 5px -5px #999 inset;
     background-color: blue;
@@ -155,10 +164,51 @@
     display: none;
     text-indent: -9999px;
   }
-  header > @media screen and (min-width: 768px) {
-    .outcome-meter,
-    .outcome-meter > span {
+  @media screen and (min-width: 375px) {
+    header {
+      grid-template-rows: repeat(4, 3rem);
+      grid-template-areas:
+        'brand brand brand brand brand . .'
+        'btn1 btn2 btn3 btn4 btn5 . .'
+        'rl rl rr . . . . '
+        'll ll lr . . . .';
+    }
+  }
+
+  @media screen and (min-width: 414px) {
+    header {
+      grid-template-rows: repeat(4, 3rem);
+      grid-template-areas:
+        'brand brand brand brand brand . .'
+        'btn1 btn2 btn3 btn4 btn5 . .'
+        'rl rl rr rm rm rm .'
+        'll ll lr lm lm lm .';
+    }
+    .meter,
+    .meter > span {
       display: block;
+    }
+  }
+
+  @media screen and (min-width: 768px) {
+    header {
+      grid-template-columns: repeat(7, 3rem) 1fr;
+      grid-template-rows: repeat(4, 3rem);
+      grid-template-areas:
+        'brand brand brand brand brand . . .'
+        'btn1 btn2 btn3 btn4 btn5 . . .'
+        'rl rl rr rm rm rm  rm .'
+        'll ll lr lm lm lm  lm .';
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    header {
+      grid-template-columns: repeat(6, 3rem) 1fr repeat(6, 3rem);
+      grid-template-rows: repeat(2, 3rem);
+      grid-template-areas:
+        'brand brand brand brand brand . . . btn1 btn2 btn3 btn4 btn5'
+        'rl rl rr rm rm rm . ll ll lr lm lm lm';
     }
   }
 </style>

@@ -119,10 +119,9 @@
 <style>
   main {
     display: grid;
-    grid-template-columns: 1rem 1fr 1rem;
+    grid-template-columns: 1fr 48fr 1fr;
     grid-template-rows: auto, auto;
     grid-auto-rows: auto;
-    gap: 2rem;
     padding: 0.4rem 0 0 0;
     margin: 0.4rem 0 0 0;
     overflow: auto;
@@ -131,7 +130,6 @@
     main {
       grid-template-columns: 1fr 10fr 1fr;
       padding: 2rem 0 0 0;
-      margin: 2rem 0 0 0;
     }
   }
   section {
@@ -140,7 +138,7 @@
     flex-direction: column;
     font-size: clamp(var(--font-size-s), var(--font-size-weight) * 100vw, var(--font-size-l));
     gap: 1em;
-    margin: 0.5em 0 0 0;
+    margin: 2rem 0 0 0;
     min-width: 320px;
   }
 </style>
