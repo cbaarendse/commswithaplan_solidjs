@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import Brand from '../../reusable/Brand.svelte';
   import LogoReachApp from '../../reusable/LogoReachApp.svelte';
 </script>
