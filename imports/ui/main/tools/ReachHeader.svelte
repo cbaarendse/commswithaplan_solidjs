@@ -73,17 +73,17 @@
   header {
     grid-column: 2/3;
     display: grid;
-    grid-template-columns: repeat(6, 3rem) 1fr;
-    grid-template-rows: repeat(6, 3rem);
+    grid-template-columns: repeat(auto-fit, minmax(3rem, 1fr));
+    grid-auto-rows: 3rem;
     grid-template-areas:
-      'brand brand brand brand brand brand'
-      'btn1 . . . . .'
-      'btn2 btn3 . . . .'
-      'btn4 btn5 . . . .'
-      'rl rl rr rr . .'
-      'll ll lr lr . .';
+      'brand brand brand brand'
+      'btn1 . . . '
+      'btn2 btn3 . . '
+      'btn4 btn5 . . '
+      'rl rl rr rr'
+      'll ll lr lr ';
     gap: 1.2rem;
-    padding: 2%;
+    padding: 4%;
     margin: 0 2%;
     border-radius: 0.2rem;
     background-color: var(--ra-teal-off-white);
@@ -166,7 +166,6 @@
   }
   @media screen and (min-width: 375px) {
     header {
-      grid-template-rows: repeat(4, 3rem);
       grid-template-areas:
         'brand brand brand brand brand . .'
         'btn1 btn2 btn3 btn4 btn5 . .'
@@ -177,7 +176,6 @@
 
   @media screen and (min-width: 414px) {
     header {
-      grid-template-rows: repeat(4, 3rem);
       grid-template-areas:
         'brand brand brand brand brand . .'
         'btn1 btn2 btn3 btn4 btn5 . .'
@@ -192,8 +190,6 @@
 
   @media screen and (min-width: 768px) {
     header {
-      grid-template-columns: repeat(7, 3rem) 1fr;
-      grid-template-rows: repeat(4, 3rem);
       grid-template-areas:
         'brand brand brand brand brand . . .'
         'btn1 btn2 btn3 btn4 btn5 . . .'
@@ -204,11 +200,9 @@
 
   @media screen and (min-width: 1024px) {
     header {
-      grid-template-columns: repeat(6, 3rem) 1fr repeat(6, 3rem);
-      grid-template-rows: repeat(2, 3rem);
       grid-template-areas:
-        'brand brand brand brand brand . . . btn1 btn2 btn3 btn4 btn5'
-        'rl rl rr rm rm rm . ll ll lr lm lm lm';
+        'brand brand brand brand brand . .  btn1 btn2 btn3 btn4 btn5'
+        'rl rl rr rm rm rm ll ll lr lm lm lm';
     }
   }
 </style>
