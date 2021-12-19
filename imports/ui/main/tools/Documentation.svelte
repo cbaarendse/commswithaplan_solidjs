@@ -5,7 +5,8 @@
 
 <main>
   <header>
-    <Brand title={'Reach'} colors={'green'}><LogoReachApp size="3rem" /></Brand>
+    <Brand colors={'green'} title={'Reach'}><LogoReachApp size="3rem" /></Brand>
+    <h1>Documentation</h1>
   </header>
   <aside>menu</aside>
   <section>
@@ -35,10 +36,21 @@
   }
 
   header {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    grid-template-areas: 'brand title';
     grid-column: 2/4;
     padding: 2rem;
     background-color: var(--ra-teal-off-white);
     border-radius: 5px;
+  }
+
+  h1 {
+    grid-area: title;
+    align-self: center;
+    justify-self: self-start;
+    font-size: var(--font-size-xl);
+    font-weight: normal;
   }
 
   aside {

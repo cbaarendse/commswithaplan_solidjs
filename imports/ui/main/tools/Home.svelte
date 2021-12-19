@@ -13,7 +13,10 @@
 
 <main>
   <header>
-    <Brand title={'Reach'}><LogoReachApp size="3rem" /></Brand>
+    <Brand>
+      <LogoReachApp size="3rem" />
+      <div slot="title">ReachApp</div>
+    </Brand>
   </header>
 
   <section>
@@ -53,6 +56,9 @@
     padding: 2rem;
     background-color: var(--ra-teal-off-white);
     border-radius: 5px;
+  }
+  h1 {
+    font-size: var(--font-size-xl);
   }
   section {
     grid-column: 2/3;

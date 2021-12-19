@@ -1,14 +1,15 @@
 <script>
   // variables
   import {colorScheme} from '../../../client/stores';
-  export let title;
   export let colors = 'blue';
   export let gridArea = 'brand';
+  export let fontSize = '1.6rem';
+  export let title = 'Comms With A Plan';
 </script>
 
 <div class="brand" style="grid-area: {gridArea}">
   <slot />
-  <span style="color:{$colorScheme[colors].base}">{title}</span>
+  <span style="color:{$colorScheme[colors].base};font-size: {fontSize};">{title}</span>
 </div>
 
 <style>
@@ -19,7 +20,6 @@
     justify-content: flex-start;
     gap: 0.7em;
     align-items: center;
-    font-size: 1.6rem;
     font-family: 'Trebuchet MS';
   }
 </style>
