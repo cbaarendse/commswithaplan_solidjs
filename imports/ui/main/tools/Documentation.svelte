@@ -37,7 +37,8 @@
 
   header {
     display: grid;
-    grid-template-columns: 1fr 3fr;
+    grid-template-columns: auto 1fr;
+    gap: 1.2rem;
     grid-template-areas: 'brand title';
     grid-column: 2/4;
     padding: 2rem;
@@ -49,7 +50,7 @@
     grid-area: title;
     align-self: center;
     justify-self: self-start;
-    font-size: var(--font-size-xl);
+    font-size: var(--font-size-m);
     font-weight: normal;
   }
 

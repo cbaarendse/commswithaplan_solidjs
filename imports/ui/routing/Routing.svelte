@@ -17,13 +17,13 @@
 <Route path="/*">
   <Route path="/"><Home /></Route>
   <Route path="/consultancy/*">
-    <Route path="/home"><ConsultancyHome /></Route>
+    <Route path="/"><ConsultancyHome /></Route>
     <Route path="/work"><Work /></Route>
     <Route path="/about"><About /></Route>
     <Route path="/contact"><Contact /></Route>
   </Route>
   <Route path="/tools/*">
-    <Route path="/home"><ToolsHome /></Route>
+    <Route path="/"><ToolsHome /></Route>
     <Route path="/reach"><Reach /></Route>
     <Route path="/documentation"><Documentation /></Route>
   </Route>

@@ -37,10 +37,10 @@
   <a href={'/'} use:active exact>
     <span class="blue">Comms</span>&nbsp;<span class="green">With&nbsp;A</span>&nbsp;<span class="red">Plan</span>
   </a>
-  <a href={'/consultancy/home'} use:active>
+  <a href={'/consultancy/'} use:active>
     <span class="blue">Consultancy</span>
   </a>
-  <a href={'/tools/home'} use:active>
+  <a href={'/tools/'} use:active>
     <span class="blue">Tools</span>
   </a>
 </nav>
@@ -52,7 +52,7 @@
   </nav>
 {:else if $router.path.startsWith('/consultancy')}
   <nav class="nav-3">
-    <a href={'/consultancy/home'} use:active>
+    <a href={'/consultancy/'} use:active exact>
       <span><Fa icon={faHome} size={'0.8x'} /></span>
     </a>
     <a href={'/consultancy/work'} use:active>
@@ -67,7 +67,7 @@
   </nav>
 {:else if $router.path.startsWith('/tools')}
   <nav class="nav-3">
-    <a href={'/tools/home'} use:active>
+    <a href={'/tools/'} use:active exact>
       <span><Fa icon={faHome} size={'0.8x'} /></span>
     </a>
     <a href={'/tools/reach'} use:active>
