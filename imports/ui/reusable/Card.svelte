@@ -71,6 +71,7 @@
     opacity: 0.7;
   }
   div.card-footer {
+    flex: 1 1 0;
     display: flex;
     justify-content: center;
     align-items: center;

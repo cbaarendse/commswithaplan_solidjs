@@ -3,7 +3,7 @@
   import {colorScheme} from '../../../client/stores';
   export let colors = 'blue';
   export let gridArea = 'brand';
-  export let fontSize = '1.6rem';
+  export let fontSize = 'var(--font-size-2xl)';
   export let title = 'Comms With A Plan';
 </script>
 

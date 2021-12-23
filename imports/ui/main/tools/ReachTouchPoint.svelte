@@ -121,7 +121,7 @@
   }
 
   span {
-    font-size: 1em;
+    font-size: clamp(var(--font-size-xs), var(--font-size-weight) * 100vw, var(--font-size-m));
   }
 
   div.left,

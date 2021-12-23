@@ -50,7 +50,7 @@
     grid-area: title;
     align-self: center;
     justify-self: self-start;
-    font-size: var(--font-size-m);
+    font-size: var(--font-size-2xl);
     font-weight: normal;
   }
 

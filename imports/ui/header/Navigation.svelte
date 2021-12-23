@@ -34,7 +34,7 @@
 </nav>
 
 <nav class="nav-2">
-  <a href={'/'} use:active exact>
+  <a href={'/'} use:active exact class="brand">
     <span class="blue">Comms</span>&nbsp;<span class="green">With&nbsp;A</span>&nbsp;<span class="red">Plan</span>
   </a>
   <a href={'/consultancy/'} use:active>
@@ -239,16 +239,17 @@
   }
   /* .active */
   .nav-1 a.active span,
+  .nav-2 a.brand span.blue,
   .nav-2 a.active span.blue,
   .nav-3 a.active span {
     color: var(--ra-blue);
   }
 
-  .nav-2 a.active span.green {
+  .nav-2 a span.green {
     color: var(--ra-green);
   }
 
-  .nav-2 a.active span.red {
+  .nav-2 a span.red {
     color: var(--ra-red);
   }
 
@@ -327,7 +328,14 @@
     }
     .nav-2 {
       transform: none;
+      justify-content: space-evenly;
+      gap: 2rem;
+      padding: 3rem;
     }
+    .nav-2 a:nth-of-type(2) {
+      margin-left: auto;
+    }
+
     .nav-3 {
       justify-content: center;
       align-items: center;
