@@ -3,6 +3,8 @@
 
   // components
   import Header from '../imports/ui/header/Header.svelte';
+  import NavigationToggle from '../imports/ui/header/ToggleButton.svelte';
+  import TopBar from '../imports/ui/header/TopBar.svelte';
   import Navigation from '../imports/ui/header/Navigation.svelte';
   import Routing from '../imports/ui/routing/Routing.svelte';
   import Footer from '../imports/ui/footer/Footer.svelte';
@@ -15,6 +17,7 @@
 </script>
 
 <Header>
+  <NavigationToggle /><TopBar />
   <Navigation />
 </Header>
 <Routing />

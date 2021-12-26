@@ -8,39 +8,6 @@
   import {language} from '../../../client/stores';
 </script>
 
-<input type="checkbox" id="bars-toggle" class="bars-toggle" />
-<label for="bars-toggle">
-  <div class="bars-background" />
-  <span class="bar-1" />
-  <span class="bar-2" />
-  <span class="bar-3" />
-</label>
-
-<div class="top-bar" role="menu">
-  <ul class="top-bar-list">
-    <li>
-      <a
-        href={'javascript:void(0)'}
-        class:active={$language === 'dutch'}
-        on:click={() => ($language = 'dutch')}
-        tinro-ignore><span>NL</span></a
-      >
-    </li>
-    <span class="divider">|</span>
-    <li>
-      <a
-        href={'javascript:void(0)'}
-        class:active={$language === 'english'}
-        on:click={() => ($language = 'english')}
-        tinro-ignore><span>EN</span></a
-      >
-    </li>
-    <li>
-      <div class="user"><Fa icon={faUser} size={'0.8x'} /></div>
-    </li>
-  </ul>
-</div>
-
 <nav class="nav-1" role="navigation">
   <ul class="nav-list">
     <li>
@@ -119,59 +86,6 @@
 
 <!-- <Notifications /> -->
 <style>
-  .bars-toggle {
-    display: none;
-    grid-column: 1/2;
-  }
-  .bars-toggle ~ label {
-    grid-column: 1/2;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: none;
-    width: 3em;
-  }
-  .bars-toggle ~ label .bars-background {
-    width: 100%;
-    height: 100%;
-    background-color: var(--ra-grey-off-white);
-    transform: scale(1, 0);
-    transform-origin: top;
-    transition: transform 150ms ease-in 300ms;
-  }
-  .bars-toggle ~ label .bar-1,
-  .bars-toggle ~ label .bar-2,
-  .bars-toggle ~ label .bar-3 {
-    display: block;
-    position: absolute;
-    height: 10%;
-    width: 70%;
-    border-radius: 3px;
-  }
-
-  .bars-toggle ~ label .bar-1 {
-    background-color: var(--ra-blue);
-    top: 21%;
-    transform: rotate(0deg);
-    transition: all 450ms ease-in-out 0ms;
-  }
-
-  .bars-toggle ~ label .bar-2 {
-    background-color: var(--ra-green);
-    top: 45%;
-    transform: scale(1, 1);
-    transform-origin: right 15%;
-    transition: transform 350ms ease-in-out 300ms;
-  }
-
-  .bars-toggle ~ label .bar-3 {
-    background-color: var(--ra-red);
-    bottom: 21%;
-    transform: rotate(0deg);
-    transition: all 450ms ease-in-out 0ms;
-  }
-
   nav {
     font-family: 'Trebuchet MS';
   }
@@ -180,39 +94,9 @@
     list-style-type: none;
     width: 100%;
   }
-  li {
-    background-color: gold;
-  }
 
-  .top-bar {
-    grid-column: 2/3;
-    transform: scale(1, 0);
-    transform-origin: top;
-    transition: transform 150ms ease-in 300ms;
-    font-size: 0.8rem;
-  }
-
-  .top-bar ul {
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: flex-end;
-    align-items: center;
-    gap: 0.2rem;
-    list-style-type: none;
-    padding: 0.6rem 0.8rem;
-    background-color: var(--ra-grey-off-white);
-  }
-
-  .top-bar ul li:after {
-    content: '/';
-    color: var(--ra-grey-light);
-    position: absolute;
-    right: 0;
-    top: 34%;
-  }
-
-  .top-bar ul li:last-of-type:after {
-    content: none;
+  a {
+    text-decoration: none;
   }
 
   nav {
@@ -230,36 +114,17 @@
     background-color: var(--ra-teal);
   }
   nav ul {
-    flex-wrap: wrap;
     display: flex;
+    gap: 1.4rem;
     justify-content: flex-start;
     align-items: center;
+    flex-wrap: wrap;
   }
 
   .nav-2 {
     transition: transform 150ms ease-out 0ms;
     padding: 0.8em 0;
     background-color: var(--ra-teal-light);
-  }
-
-  nav ul li a {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-decoration: none;
-  }
-
-  .top-bar .user {
-    margin-left: 1.2em;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  /* :link, :visited */
-  .top-bar a,
-  .top-bar a:visited {
-    color: var(--ra-grey-light);
   }
 
   .nav-1 a,
@@ -270,9 +135,7 @@
   }
 
   /* :hover */
-  .top-bar a:hover {
-    color: var(--ra-blue-bright);
-  }
+
   .nav-1 a:hover,
   .nav-2 a:hover {
     color: var(--ra-blue);
@@ -289,7 +152,6 @@
     color: var(--ra-red);
   }
   /* .active */
-  .top-bar a.active span,
   .nav-1 a.brand span.blue,
   .nav-1 a.active span.blue,
   .nav-2 a.active span {
@@ -304,74 +166,9 @@
     color: var(--ra-red);
   }
 
-  /* ===========================
-       only for mobile: 
-       when label is checked, 
-       menu will appear with 
-       transition 
-       =========================== */
-
-  .bars-toggle:checked ~ label .bars-background {
-    background-color: var(--ra-grey-off-white);
-    transform: scale(1, 1);
-    transform-origin: top;
-    transition: transform 150ms ease-out 0ms;
-  }
-
-  .bars-toggle:checked ~ label .bar-1 {
-    top: 45%;
-    transform: rotate(45deg);
-    transition: all 450ms ease-in-out 300ms;
-  }
-
-  .bars-toggle:checked ~ label .bar-2 {
-    transform: scale(0, 1);
-    transform-origin: right 15%;
-    transition: transform 350ms ease-in-out 0ms;
-  }
-
-  .bars-toggle:checked ~ label .bar-3 {
-    bottom: 45%;
-    transform: rotate(135deg);
-    transition: all 450ms ease-in-out 300ms;
-  }
-
-  input:checked ~ .top-bar {
-    transform: scale(1, 1);
-    transform-origin: top;
-    transition: transform 150ms ease-out 0ms;
-  }
-  input:checked ~ .nav-1 {
-    transform: scale(1, 1);
-    transform-origin: top;
-    transition: transform 150ms linear 150ms;
-  }
-
-  input:checked ~ .nav-2 {
-    transform: scale(1, 1);
-    transform-origin: top;
-    transition: transform 150ms ease-in 300ms;
-  }
-
   /* for tablet, laptop and desktop screens */
 
   @media screen and (min-width: 760px) {
-    .bars-toggle {
-      all: unset;
-      display: none;
-      grid-column: 1/2;
-    }
-    .bars-toggle ~ label .bars-background {
-      transform: none;
-    }
-
-    .bars-toggle ~ label .bar-1,
-    .bars-toggle ~ label .bar-2,
-    .bars-toggle ~ label .bar-3 {
-      display: none;
-    }
-
-    .top-bar,
     .nav-1,
     .nav-2 {
       transform: none;
