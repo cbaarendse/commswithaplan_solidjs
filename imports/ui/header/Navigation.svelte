@@ -6,9 +6,10 @@
 
   // variables
   import {language} from '../../../client/stores';
+  export let display = 'none';
 </script>
 
-<nav class="nav-1" role="navigation">
+<nav class="nav-1" role="navigation" style="display:{display};">
   <ul class="nav-list">
     <li>
       <a href={'/'} use:active exact class="brand">
@@ -28,7 +29,7 @@
   </ul>
 </nav>
 {#if $router.path === '/'}
-  <nav class="nav-2" role="navigation">
+  <nav class="nav-2" role="navigation" style="display:{display};">
     <ul class="nav-list">
       <li>
         <a href={'/'} use:active>
@@ -38,7 +39,7 @@
     </ul>
   </nav>
 {:else if $router.path.startsWith('/consultancy')}
-  <nav class="nav-2" role="navigation">
+  <nav class="nav-2" role="navigation" style="display:{display};">
     <ul class="nav-list">
       <li>
         <a href={'/consultancy/'} use:active exact>
@@ -63,7 +64,7 @@
     </ul>
   </nav>
 {:else if $router.path.startsWith('/tools')}
-  <nav class="nav-2" role="navigation">
+  <nav class="nav-2" role="navigation" style="display:{display};">
     <ul class="nav-list">
       <li>
         <a href={'/tools/'} use:active exact>
@@ -101,14 +102,13 @@
 
   nav {
     grid-column: 1/3;
-    transform: scale(1, 0);
-    transform-origin: top;
     font-size: 1.4rem;
     padding: 3rem 0;
-    background-color: var(--ra-teal);
   }
 
   .nav-1 {
+    transform: scale(1, 0);
+    transform-origin: top;
     transition: transform 150ms linear 150ms;
     padding: 3rem 0;
     background-color: var(--ra-teal);
@@ -122,11 +122,14 @@
   }
 
   .nav-2 {
+    transform: scale(1, 0);
+    transform-origin: top;
     transition: transform 150ms ease-out 0ms;
     padding: 0.8em 0;
     background-color: var(--ra-teal-light);
   }
 
+  /* links, :visited */
   .nav-1 a,
   .nav-2 a,
   .nav-1 a:visited,
@@ -135,7 +138,6 @@
   }
 
   /* :hover */
-
   .nav-1 a:hover,
   .nav-2 a:hover {
     color: var(--ra-blue);
@@ -165,9 +167,19 @@
   .nav-1 a span.red {
     color: var(--ra-red);
   }
+  .nav-1 {
+    transform: scale(1, 1);
+    transform-origin: top;
+    transition: transform 150ms linear 150ms;
+  }
+
+  .nav-2 {
+    transform: scale(1, 1);
+    transform-origin: top;
+    transition: transform 150ms ease-in 300ms;
+  }
 
   /* for tablet, laptop and desktop screens */
-
   @media screen and (min-width: 760px) {
     .nav-1,
     .nav-2 {

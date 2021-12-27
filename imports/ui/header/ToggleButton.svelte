@@ -7,10 +7,13 @@
 
   // variables
   import {language} from '../../../client/stores';
-  let display;
+  let displayButton = 'none';
+
+  // functions
+  toggleNavigation = () => {};
 </script>
 
-<Button>
+<Button display={displayButton} on:click={() => toggleNavigation}>
   <div class="bars">
     <span class="bar-1" />
     <span class="bar-2" />
@@ -26,11 +29,6 @@
   <span class="bar-3" />
 </label> -->
 <style>
-  .bars-toggle {
-    display: none;
-    grid-column: 1/2;
-  }
-
   .bars {
     width: 100%;
     height: 100%;
@@ -78,46 +76,29 @@
        transition 
        =========================== */
 
-  .bars-toggle:checked ~ label .bars-background {
+  .bars:checked ~ label .bars-background {
     background-color: var(--ra-grey-off-white);
     transform: scale(1, 1);
     transform-origin: top;
     transition: transform 150ms ease-out 0ms;
   }
 
-  .bars-toggle:checked ~ label .bar-1 {
+  .bars:checked ~ label .bar-1 {
     top: 45%;
     transform: rotate(45deg);
     transition: all 450ms ease-in-out 300ms;
   }
 
-  .bars-toggle:checked ~ label .bar-2 {
+  .bars:checked ~ label .bar-2 {
     transform: scale(0, 1);
     transform-origin: right 15%;
     transition: transform 350ms ease-in-out 0ms;
   }
 
-  .bars-toggle:checked ~ label .bar-3 {
+  .bars:checked ~ label .bar-3 {
     bottom: 45%;
     transform: rotate(135deg);
     transition: all 450ms ease-in-out 300ms;
-  }
-
-  input:checked ~ .top-bar {
-    transform: scale(1, 1);
-    transform-origin: top;
-    transition: transform 150ms ease-out 0ms;
-  }
-  input:checked ~ .nav-1 {
-    transform: scale(1, 1);
-    transform-origin: top;
-    transition: transform 150ms linear 150ms;
-  }
-
-  input:checked ~ .nav-2 {
-    transform: scale(1, 1);
-    transform-origin: top;
-    transition: transform 150ms ease-in 300ms;
   }
 
   @media screen and (min-width: 760px) {

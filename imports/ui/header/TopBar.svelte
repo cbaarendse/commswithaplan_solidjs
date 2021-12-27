@@ -35,7 +35,6 @@
 
 <style>
   .top-bar {
-    grid-column: 2/3;
     transform: scale(1, 0);
     transform-origin: top;
     transition: transform 150ms ease-in 300ms;

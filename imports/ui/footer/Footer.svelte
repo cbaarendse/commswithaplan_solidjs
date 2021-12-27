@@ -1,6 +1,8 @@
-<footer>
-  <slot />
-</footer>
+<script>
+  import FooterContent from './FooterContent.svelte';
+</script>
+
+<footer><FooterContent /></footer>
 
 <style>
   footer {
