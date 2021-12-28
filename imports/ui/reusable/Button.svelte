@@ -3,7 +3,6 @@
   export let backgroundColor = 'blue'; // or green, red, grey, transparant, transparantnoborder
   export let type = 'button'; // or reset, submit
   export let role = 'button';
-  export let display = 'inline-block';
   export let dataDismiss;
   export let ariaLabel;
   export let disabled = false;
@@ -12,7 +11,6 @@
 
 <button
   class="{size} {backgroundColor}"
-  style="display:{display};"
   {type}
   {role}
   on:click|preventDefault

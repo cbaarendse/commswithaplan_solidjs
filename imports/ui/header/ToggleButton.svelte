@@ -7,43 +7,32 @@
 
   // variables
   import {language} from '../../../client/stores';
-  let displayButton = 'none';
 
   // functions
-  toggleNavigation = () => {};
 </script>
 
-<Button display={displayButton} on:click={() => toggleNavigation}>
+<Button size={'small'} backgroundColor={'transparantnoborder'} on:click>
   <div class="bars">
-    <span class="bar-1" />
-    <span class="bar-2" />
-    <span class="bar-3" />
+    <div class="bar-1" />
+    <div class="bar-2" />
+    <div class="bar-3" />
   </div>
 </Button>
 
-<!-- <input type="checkbox" id="bars-toggle" class="bars-toggle" />
-<label for="bars-toggle">
-  <div class="bars-background" />
-  <span class="bar-1" />
-  <span class="bar-2" />
-  <span class="bar-3" />
-</label> -->
 <style>
   .bars {
-    width: 100%;
-    height: 100%;
-    background-color: var(--ra-grey-off-white);
-    transform: scale(1, 0);
-    transform-origin: top;
-    transition: transform 150ms ease-in 300ms;
+    position: relative;
+    width: 2rem;
+    height: 2rem;
+    /* background-color: var(--ra-grey-off-white); */
+    background-color: pink;
   }
   .bar-1,
   .bar-2,
   .bar-3 {
-    display: block;
-    position: absolute;
+    position: relative;
     height: 10%;
-    width: 70%;
+    width: 100%;
     border-radius: 3px;
   }
 
@@ -76,40 +65,33 @@
        transition 
        =========================== */
 
-  .bars:checked ~ label .bars-background {
+  /* .bars {
     background-color: var(--ra-grey-off-white);
     transform: scale(1, 1);
     transform-origin: top;
     transition: transform 150ms ease-out 0ms;
   }
 
-  .bars:checked ~ label .bar-1 {
+  .bar-1 {
     top: 45%;
     transform: rotate(45deg);
     transition: all 450ms ease-in-out 300ms;
   }
-
-  .bars:checked ~ label .bar-2 {
+  .bar-2 {
     transform: scale(0, 1);
     transform-origin: right 15%;
     transition: transform 350ms ease-in-out 0ms;
   }
 
-  .bars:checked ~ label .bar-3 {
+  .bar-3 {
     bottom: 45%;
     transform: rotate(135deg);
     transition: all 450ms ease-in-out 300ms;
-  }
+  } */
 
   @media screen and (min-width: 760px) {
     .bars {
       transform: none;
-    }
-
-    .bar-1,
-    .bar-2,
-    .bar-3 {
-      display: none;
     }
   }
 </style>
