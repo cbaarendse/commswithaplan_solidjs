@@ -2,6 +2,8 @@ import { writable, readable } from 'svelte/store';
 
 export const language = writable('english');
 
+export const displayNavigation = writable('none');
+
 export const homePageItems = readable([{
         name: 'consultancy',
         imgUrl: '/home/consultant.jpeg',

@@ -4,19 +4,19 @@
   // components
   import TopBar from './TopBar.svelte';
   import Navigation from './Navigation.svelte';
+  import {onMount} from 'svelte';
 
   // variables
-  let display = 'none';
+  let displayNavigation;
+  let display;
 
   // functions
-  const toggleNavigation = () => {
-    display ? 'none' : 'block', 'none';
-  };
+  onMount(() => console.log('visible?', $displayNavigation));
 </script>
 
 <header>
-  <TopBar on:click={toggleNavigation} />
-  <Navigation {display} />
+  <TopBar {displayNavigation} />
+  <Navigation display={displayNavigation} />
 </header>
 
 <style>

@@ -7,11 +7,16 @@
 
   // variables
   import {language} from '../../../client/stores';
-
+  export let displayNavigation = 'none';
   // functions
+  const toggleNavigation = () => {
+    console.log('displayNavigation before', displayNavigation);
+    displayNavigation = displayNavigation == 'none' ? 'block' : 'none';
+    console.log('displayNavigation after', displayNavigation);
+  };
 </script>
 
-<Button size={'small'} backgroundColor={'transparantnoborder'} on:click>
+<Button size={'small'} backgroundColor={'transparantnoborder'} on:click={toggleNavigation}>
   <div class="bars">
     <div class="bar-1" />
     <div class="bar-2" />

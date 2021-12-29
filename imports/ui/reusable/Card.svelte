@@ -47,6 +47,7 @@
     text-align: left;
   }
   p {
+    flex: 1 1 0;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -71,7 +72,7 @@
     opacity: 0.7;
   }
   div.card-footer {
-    flex: 1 1 0;
+    flex: 0 1 0;
     display: flex;
     justify-content: center;
     align-items: center;

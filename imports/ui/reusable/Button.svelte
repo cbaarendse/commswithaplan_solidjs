@@ -13,9 +13,9 @@
   class="{size} {backgroundColor}"
   {type}
   {role}
-  on:click|preventDefault
-  on:mouseenter|preventDefault
-  on:mouseleave|preventDefault
+  on:click|preventDefault|stopPropagation
+  on:mouseenter|preventDefault|stopPropagation
+  on:mouseleave|preventDefault|stopPropagation
   {disabled}
   data-dismiss={dataDismiss}
   aria-label={ariaLabel}

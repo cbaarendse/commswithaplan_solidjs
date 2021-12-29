@@ -7,12 +7,13 @@
 
   // variables
   import {language} from '../../../client/stores';
+  export let displayNavigation;
 </script>
 
 <div class="top-bar" role="menu">
   <ul class="top-bar-list">
     <li>
-      <ToggleButton />
+      <ToggleButton {displayNavigation} />
     </li>
     <li>
       <a

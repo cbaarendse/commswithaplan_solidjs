@@ -1,5 +1,6 @@
 <script>
   // packages
+  import {slide} from 'svelte/transition';
   import {router, active} from 'tinro';
   import Fa from 'svelte-fa/src/fa.svelte';
   import {faUser, faHome} from '@fortawesome/free-solid-svg-icons';
@@ -9,80 +10,82 @@
   export let display = 'none';
 </script>
 
-<nav class="nav-1" role="navigation" style="display:{display};">
-  <ul class="nav-list">
-    <li>
-      <a href={'/'} use:active exact class="brand">
-        <span class="blue">Comms</span>&nbsp;<span class="green">With&nbsp;A</span>&nbsp;<span class="red">Plan</span>
-      </a>
-    </li>
-    <li>
-      <a href={'/consultancy/'} use:active>
-        <span class="blue">Consultancy</span>
-      </a>
-    </li>
-    <li>
-      <a href={'/tools/'} use:active>
-        <span class="blue">Tools</span>
-      </a>
-    </li>
-  </ul>
-</nav>
-{#if $router.path === '/'}
-  <nav class="nav-2" role="navigation" style="display:{display};">
+{#if display == 'block'}
+  <nav class="nav-1" role="navigation" transition:slide>
     <ul class="nav-list">
       <li>
-        <a href={'/'} use:active>
-          <span><Fa icon={faHome} size={'0.8x'} /></span>
+        <a href={'/'} use:active exact class="brand">
+          <span class="blue">Comms</span>&nbsp;<span class="green">With&nbsp;A</span>&nbsp;<span class="red">Plan</span>
+        </a>
+      </li>
+      <li>
+        <a href={'/consultancy/'} use:active>
+          <span class="blue">Consultancy</span>
+        </a>
+      </li>
+      <li>
+        <a href={'/tools/'} use:active>
+          <span class="blue">Tools</span>
         </a>
       </li>
     </ul>
   </nav>
-{:else if $router.path.startsWith('/consultancy')}
-  <nav class="nav-2" role="navigation" style="display:{display};">
-    <ul class="nav-list">
-      <li>
-        <a href={'/consultancy/'} use:active exact>
-          <span><Fa icon={faHome} size={'0.8x'} /></span>
-        </a>
-      </li>
-      <li>
-        <a href={'/consultancy/work'} use:active>
-          <span>Work</span>
-        </a>
-      </li>
-      <li>
-        <a href={'/consultancy/about'} use:active>
-          <span>About</span>
-        </a>
-      </li>
-      <li>
-        <a href={'/consultancy/contact'} use:active>
-          <span>Contact</span>
-        </a>
-      </li>
-    </ul>
-  </nav>
-{:else if $router.path.startsWith('/tools')}
-  <nav class="nav-2" role="navigation" style="display:{display};">
-    <ul class="nav-list">
-      <li>
-        <a href={'/tools/'} use:active exact>
-          <span><Fa icon={faHome} size={'0.8x'} /></span>
-        </a>
-      </li>
-      <li>
-        <a href={'/tools/reach'} use:active>
-          <span>Reach</span>
-        </a>
-      </li>
-      <li>
-        <a href={'/tools/documentation'} use:active>
-          <span>Documentation</span>
-        </a>
-      </li>
-    </ul>
-  </nav>
+  {#if $router.path === '/'}
+    <nav class="nav-2" role="navigation" style="display:{display};" transition:slide>
+      <ul class="nav-list">
+        <li>
+          <a href={'/'} use:active>
+            <span><Fa icon={faHome} size={'0.8x'} /></span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  {:else if $router.path.startsWith('/consultancy')}
+    <nav class="nav-2" role="navigation" style="display:{display};" transition:slide>
+      <ul class="nav-list">
+        <li>
+          <a href={'/consultancy/'} use:active exact>
+            <span><Fa icon={faHome} size={'0.8x'} /></span>
+          </a>
+        </li>
+        <li>
+          <a href={'/consultancy/work'} use:active>
+            <span>Work</span>
+          </a>
+        </li>
+        <li>
+          <a href={'/consultancy/about'} use:active>
+            <span>About</span>
+          </a>
+        </li>
+        <li>
+          <a href={'/consultancy/contact'} use:active>
+            <span>Contact</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  {:else if $router.path.startsWith('/tools')}
+    <nav class="nav-2" role="navigation" style="display:{display};" transition:slide>
+      <ul class="nav-list">
+        <li>
+          <a href={'/tools/'} use:active exact>
+            <span><Fa icon={faHome} size={'0.8x'} /></span>
+          </a>
+        </li>
+        <li>
+          <a href={'/tools/reach'} use:active>
+            <span>Reach</span>
+          </a>
+        </li>
+        <li>
+          <a href={'/tools/documentation'} use:active>
+            <span>Documentation</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  {/if}
 {/if}
 
 <!-- <Notifications /> -->
