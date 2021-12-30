@@ -7,16 +7,13 @@
   import {onMount} from 'svelte';
 
   // variables
-  let displayNavigation;
-  let display;
 
   // functions
-  onMount(() => console.log('visible?', $displayNavigation));
 </script>
 
 <header>
-  <TopBar {displayNavigation} />
-  <Navigation display={displayNavigation} />
+  <TopBar />
+  <Navigation />
 </header>
 
 <style>

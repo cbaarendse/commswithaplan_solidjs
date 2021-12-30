@@ -4,19 +4,20 @@
   import Button from '../../ui/reusable/Button.svelte';
   import Fa from 'svelte-fa/src/fa.svelte';
   import {faUser, faHome} from '@fortawesome/free-solid-svg-icons';
+  import {displayNavigation} from '../../../client/stores';
 
   // variables
   import {language} from '../../../client/stores';
-  export let displayNavigation = 'none';
   // functions
   const toggleNavigation = () => {
-    console.log('displayNavigation before', displayNavigation);
-    displayNavigation = displayNavigation == 'none' ? 'block' : 'none';
-    console.log('displayNavigation after', displayNavigation);
+    $displayNavigation = $displayNavigation == 'none' ? 'block' : 'none';
+  };
+  const rotateBars = () => {
+    $displayNavigation = $displayNavigation == 'none' ? 'block' : 'none';
   };
 </script>
 
-<Button size={'small'} backgroundColor={'transparantnoborder'} on:click={toggleNavigation}>
+<Button size={'small'} backgroundColor={'transparantnoborder'} on:click={toggleNavigation} on:click={rotateBars}>
   <div class="bars">
     <div class="bar-1" />
     <div class="bar-2" />
@@ -29,8 +30,7 @@
     position: relative;
     width: 2rem;
     height: 2rem;
-    /* background-color: var(--ra-grey-off-white); */
-    background-color: pink;
+    background-color: var(--ra-grey-off-white);
   }
   .bar-1,
   .bar-2,

@@ -1,16 +1,20 @@
 <script>
   // packages
+  import {onMount} from 'svelte';
   import {slide} from 'svelte/transition';
   import {router, active} from 'tinro';
+  import {useMediaQuery} from '../utilities/MediaQueryStore';
   import Fa from 'svelte-fa/src/fa.svelte';
   import {faUser, faHome} from '@fortawesome/free-solid-svg-icons';
 
   // variables
   import {language} from '../../../client/stores';
-  export let display = 'none';
+  import {displayNavigation} from '../../../client/stores';
+  // useMediaQuery('(min-width: 760px') == true ? 'block' : 'none';
+  // functions
 </script>
 
-{#if display == 'block'}
+{#if $displayNavigation == 'block'}
   <nav class="nav-1" role="navigation" transition:slide>
     <ul class="nav-list">
       <li>
@@ -31,7 +35,7 @@
     </ul>
   </nav>
   {#if $router.path === '/'}
-    <nav class="nav-2" role="navigation" style="display:{display};" transition:slide>
+    <nav class="nav-2" role="navigation" transition:slide>
       <ul class="nav-list">
         <li>
           <a href={'/'} use:active>
@@ -41,7 +45,7 @@
       </ul>
     </nav>
   {:else if $router.path.startsWith('/consultancy')}
-    <nav class="nav-2" role="navigation" style="display:{display};" transition:slide>
+    <nav class="nav-2" role="navigation" transition:slide>
       <ul class="nav-list">
         <li>
           <a href={'/consultancy/'} use:active exact>
@@ -66,7 +70,7 @@
       </ul>
     </nav>
   {:else if $router.path.startsWith('/tools')}
-    <nav class="nav-2" role="navigation" style="display:{display};" transition:slide>
+    <nav class="nav-2" role="navigation" transition:slide>
       <ul class="nav-list">
         <li>
           <a href={'/tools/'} use:active exact>
@@ -94,42 +98,38 @@
     font-family: 'Trebuchet MS';
   }
 
+  nav {
+    grid-column: 1/3;
+    font-size: 1.4rem;
+  }
+
+  .nav-1 {
+    padding: 1rem 1.4rem 1rem 1.4rem;
+    background-color: var(--ra-teal);
+  }
+
+  .nav-2 {
+    padding: 1rem 1.4rem 1rem 1.4rem;
+    background-color: var(--ra-teal-light);
+  }
+
   ul {
     list-style-type: none;
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.4rem;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .nav-1 ul li:nth-of-type(1) {
+    flex: 1 1 3rem;
   }
 
   a {
     text-decoration: none;
-  }
-
-  nav {
-    grid-column: 1/3;
-    font-size: 1.4rem;
-    padding: 3rem 0;
-  }
-
-  .nav-1 {
-    transform: scale(1, 0);
-    transform-origin: top;
-    transition: transform 150ms linear 150ms;
-    padding: 3rem 0;
-    background-color: var(--ra-teal);
-  }
-  nav ul {
-    display: flex;
-    gap: 1.4rem;
-    justify-content: flex-start;
-    align-items: center;
-    flex-wrap: wrap;
-  }
-
-  .nav-2 {
-    transform: scale(1, 0);
-    transform-origin: top;
-    transition: transform 150ms ease-out 0ms;
-    padding: 0.8em 0;
-    background-color: var(--ra-teal-light);
   }
 
   /* links, :visited */
@@ -170,35 +170,29 @@
   .nav-1 a span.red {
     color: var(--ra-red);
   }
-  .nav-1 {
-    transform: scale(1, 1);
-    transform-origin: top;
-    transition: transform 150ms linear 150ms;
-  }
-
-  .nav-2 {
-    transform: scale(1, 1);
-    transform-origin: top;
-    transition: transform 150ms ease-in 300ms;
-  }
 
   /* for tablet, laptop and desktop screens */
   @media screen and (min-width: 760px) {
-    .nav-1,
-    .nav-2 {
-      transform: none;
-    }
     .nav-1 {
-      justify-content: space-evenly;
+      padding: 2rem 1rem 2rem 1rem;
+    }
+    .nav-2 {
+      padding: 1rem 1rem 1rem 1rem;
+    }
+    ul {
+      flex-direction: row;
+      align-items: flex-start;
       gap: 2rem;
-      padding: 3rem;
+    }
+    .nav-1 ul {
+      justify-content: space-evenly;
     }
 
     .nav-1 ul li:nth-of-type(1) {
       flex: 1 1 auto;
     }
 
-    .nav-2 {
+    .nav-2 ul {
       justify-content: center;
     }
   }
