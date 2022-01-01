@@ -1,27 +1,43 @@
 <script>
   // packages
   import {router, active} from 'tinro';
+  import {tweened} from 'svelte/motion';
+  import {cubicInOut} from 'svelte/easing';
   import Button from '../../ui/reusable/Button.svelte';
   import Fa from 'svelte-fa/src/fa.svelte';
   import {faUser, faHome} from '@fortawesome/free-solid-svg-icons';
-  import {displayNavigation} from '../../../client/stores';
+  import {navigationVisible} from '../../../client/stores';
 
   // variables
   import {language} from '../../../client/stores';
+
+  let top = tweened(10, {duration: 300, easing: cubicInOut});
+  let topRotation = tweened(0, {duration: 300, easing: cubicInOut});
+  let middle = tweened(45, {duration: 300, easing: cubicInOut});
+  let width = tweened(1, {duration: 300, easing: cubicInOut});
+  let height = tweened(1, {duration: 300, easing: cubicInOut});
+  let bottom = tweened(10, {duration: 300, easing: cubicInOut});
+  let bottomRotation = tweened(0);
+
   // functions
   const toggleNavigation = () => {
-    $displayNavigation = $displayNavigation == 'none' ? 'block' : 'none';
+    $navigationVisible = $navigationVisible == false ? true : false;
   };
-  const rotateBars = () => {
-    $displayNavigation = $displayNavigation == 'none' ? 'block' : 'none';
+
+  const animateBars = () => {
+    $top = $top === 10 ? 45 : 10;
+    $topRotation = $topRotation === 0 ? 45 : 0;
+    $width = $width === 1 ? 0 : 1;
+    $bottom = $bottom === 10 ? 45 : 10;
+    $bottomRotation = $bottomRotation === 0 ? 135 : 0;
   };
 </script>
 
-<Button size={'small'} backgroundColor={'transparantnoborder'} on:click={toggleNavigation} on:click={rotateBars}>
+<Button size={'fit'} backgroundColor={'grey'} on:click={toggleNavigation} on:click={animateBars}>
   <div class="bars">
-    <div class="bar-1" />
-    <div class="bar-2" />
-    <div class="bar-3" />
+    <div class="bar-1" style="top:{$top}%;transform:rotate({$topRotation}deg);" />
+    <div class="bar-2" style="top:{$middle}%; transform:scale({$width}, {$height}); transform-origin: right 15%;" />
+    <div class="bar-3" style="bottom:{$bottom}%;transform:rotate({$bottomRotation}deg);" />
   </div>
 </Button>
 
@@ -31,11 +47,12 @@
     width: 2rem;
     height: 2rem;
     background-color: var(--ra-grey-off-white);
+    border: 2px solid purple;
   }
   .bar-1,
   .bar-2,
   .bar-3 {
-    position: relative;
+    position: absolute;
     height: 10%;
     width: 100%;
     border-radius: 3px;
@@ -43,60 +60,19 @@
 
   .bar-1 {
     background-color: var(--ra-blue);
-    top: 21%;
-    transform: rotate(0deg);
-    transition: all 450ms ease-in-out 0ms;
   }
 
   .bar-2 {
     background-color: var(--ra-green);
-    top: 45%;
-    transform: scale(1, 1);
-    transform-origin: right 15%;
-    transition: transform 350ms ease-in-out 300ms;
   }
 
   .bar-3 {
     background-color: var(--ra-red);
-    bottom: 21%;
-    transform: rotate(0deg);
-    transition: all 450ms ease-in-out 0ms;
   }
-
-  /* ===========================
-       only for mobile: 
-       when label is checked, 
-       menu will appear with 
-       transition 
-       =========================== */
-
-  /* .bars {
-    background-color: var(--ra-grey-off-white);
-    transform: scale(1, 1);
-    transform-origin: top;
-    transition: transform 150ms ease-out 0ms;
-  }
-
-  .bar-1 {
-    top: 45%;
-    transform: rotate(45deg);
-    transition: all 450ms ease-in-out 300ms;
-  }
-  .bar-2 {
-    transform: scale(0, 1);
-    transform-origin: right 15%;
-    transition: transform 350ms ease-in-out 0ms;
-  }
-
-  .bar-3 {
-    bottom: 45%;
-    transform: rotate(135deg);
-    transition: all 450ms ease-in-out 300ms;
-  } */
 
   @media screen and (min-width: 760px) {
     .bars {
-      transform: none;
+      display: none;
     }
   }
 </style>

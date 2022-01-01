@@ -1,5 +1,5 @@
 <script>
-  export let size = 'normal'; // or small, large, xlarge
+  export let size = 'fit'; // or small, medium, large, xlarge
   export let backgroundColor = 'blue'; // or green, red, grey, transparant, transparantnoborder
   export let type = 'button'; // or reset, submit
   export let role = 'button';
@@ -26,28 +26,36 @@
 
 <style>
   button {
-    width: fit-content;
-    padding: 0.4em 0.6em;
     margin: 0 0.4em;
     cursor: pointer;
+  }
+
+  .fit {
+    width: fit-content;
+    height: fit-content;
+    padding: 0;
   }
 
   .small {
     min-width: 4rem;
     font-size: 0.7rem;
+    padding: 0.4em 0.6em;
   }
 
   .normal {
     min-width: 6rem;
     font-size: 1rem;
+    padding: 0.4em 0.6em;
   }
   .large {
     min-width: 8rem;
     font-size: 1.2rem;
+    padding: 0.4em 0.6em;
   }
   .xlarge {
     min-width: 10rem;
     font-size: 1.5rem;
+    padding: 0.4em 0.6em;
   }
 
   .blue,

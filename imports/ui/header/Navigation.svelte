@@ -3,18 +3,19 @@
   import {onMount} from 'svelte';
   import {slide} from 'svelte/transition';
   import {router, active} from 'tinro';
-  import {useMediaQuery} from '../utilities/MediaQueryStore';
   import Fa from 'svelte-fa/src/fa.svelte';
   import {faUser, faHome} from '@fortawesome/free-solid-svg-icons';
 
   // variables
   import {language} from '../../../client/stores';
-  import {displayNavigation} from '../../../client/stores';
-  // useMediaQuery('(min-width: 760px') == true ? 'block' : 'none';
+  import {navigationVisible} from '../../../client/stores';
   // functions
+  import {useMediaQuery} from '../../../client/stores';
+  useMediaQuery('(min-width: 760px)').subscribe((value) => ($navigationVisible = value));
+  $: console.log('navigationVisible', $navigationVisible);
 </script>
 
-{#if $displayNavigation == 'block'}
+{#if $navigationVisible == true}
   <nav class="nav-1" role="navigation" transition:slide>
     <ul class="nav-list">
       <li>
