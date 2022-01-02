@@ -9,10 +9,12 @@
   // variables
   import {language} from '../../../client/stores';
   import {navigationVisible} from '../../../client/stores';
+
+  $: console.log('navigationVisible', $navigationVisible);
+
   // functions
   import {useMediaQuery} from '../../../client/stores';
   useMediaQuery('(min-width: 760px)').subscribe((value) => ($navigationVisible = value));
-  $: console.log('navigationVisible', $navigationVisible);
 </script>
 
 {#if $navigationVisible == true}

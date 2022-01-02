@@ -52,7 +52,7 @@ export const homePageItems = readable([{
         },
         dutch: {
             displayName: 'Tools',
-            description: 'Handige tools voor de media inzet.',
+            description: 'Handige tools voor je media inzet.',
             callToAction: 'Lees meer'
         }
     }

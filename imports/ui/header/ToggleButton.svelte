@@ -13,30 +13,30 @@
 
   let top = tweened(10, {duration: 300, easing: cubicInOut});
   let topRotation = tweened(0, {duration: 300, easing: cubicInOut});
-  let middle = tweened(45, {duration: 300, easing: cubicInOut});
+  let center = tweened(42, {duration: 300, easing: cubicInOut});
   let width = tweened(1, {duration: 300, easing: cubicInOut});
   let height = tweened(1, {duration: 300, easing: cubicInOut});
   let bottom = tweened(10, {duration: 300, easing: cubicInOut});
-  let bottomRotation = tweened(0);
+  let bottomRotation = tweened(0, {duration: 300, easing: cubicInOut});
 
   // functions
   const toggleNavigation = () => {
-    $navigationVisible = $navigationVisible == false ? true : false;
+    $navigationVisible = $navigationVisible === false ? true : false;
   };
 
-  const animateBars = () => {
-    $top = $top === 10 ? 45 : 10;
-    $topRotation = $topRotation === 0 ? 45 : 0;
-    $width = $width === 1 ? 0 : 1;
-    $bottom = $bottom === 10 ? 45 : 10;
-    $bottomRotation = $bottomRotation === 0 ? 135 : 0;
-  };
+  navigationVisible.subscribe((visible) => {
+    $top = visible === true ? 42 : 10;
+    $topRotation = visible === true ? 45 : 0;
+    $width = visible === true ? 0 : 1;
+    $bottom = visible === true ? 42 : 10;
+    $bottomRotation = visible === true ? 135 : 0;
+  });
 </script>
 
-<Button size={'fit'} backgroundColor={'grey'} on:click={toggleNavigation} on:click={animateBars}>
+<Button size={'fit'} backgroundColor={'transparantnoborder'} on:click={toggleNavigation}>
   <div class="bars">
     <div class="bar-1" style="top:{$top}%;transform:rotate({$topRotation}deg);" />
-    <div class="bar-2" style="top:{$middle}%; transform:scale({$width}, {$height}); transform-origin: right 15%;" />
+    <div class="bar-2" style="top:{$center}%; transform:scale({$width}, {$height}); transform-origin: right 15%;" />
     <div class="bar-3" style="bottom:{$bottom}%;transform:rotate({$bottomRotation}deg);" />
   </div>
 </Button>
@@ -47,13 +47,12 @@
     width: 2rem;
     height: 2rem;
     background-color: var(--ra-grey-off-white);
-    border: 2px solid purple;
   }
   .bar-1,
   .bar-2,
   .bar-3 {
     position: absolute;
-    height: 10%;
+    height: 16%;
     width: 100%;
     border-radius: 3px;
   }
