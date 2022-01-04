@@ -8,10 +8,21 @@
     <Brand colors={'green'} title={'Reach'}><LogoReachApp size="3rem" /></Brand>
     <h1>Documentation</h1>
   </header>
-  <aside>menu</aside>
+  <!-- TODO: emulate svelte or meteor documentation -->
+
+  <aside><ul><li><a href="#" /></li></ul></aside>
   <section>
-    <article>
-      <span>See how it works</span>
+    <article id="stap_1">
+      <!-- TODO: content in store -->
+      <h2>Stap 1</h2>
+      <p>
+        <span />
+      </p>
+      <p>
+        <span>See how it works</span>
+      </p>
+      <code />
+      <picture />
     </article>
   </section>
 </main>
