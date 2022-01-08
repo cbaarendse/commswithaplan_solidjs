@@ -10,7 +10,7 @@
   import Contact from '../../ui/main/consultancy/Contact.svelte';
   import ToolsHome from '../../ui/main/tools/Home.svelte';
   import Reach from '../../ui/main/tools/Reach.svelte';
-  import Documentation from '../../ui/main/tools/Documentation.svelte';
+  import Docs from '../main/tools/Docs.svelte';
   import NotFound from '../../ui/main/notfound/NotFound.svelte';
 </script>
 
@@ -25,7 +25,7 @@
   <Route path="/tools/*">
     <Route path="/"><ToolsHome /></Route>
     <Route path="/reach"><Reach /></Route>
-    <Route path="/documentation"><Documentation /></Route>
+    <Route path="/documentation"><Docs /></Route>
   </Route>
   <Route fallback><NotFound /></Route>
 </Route>

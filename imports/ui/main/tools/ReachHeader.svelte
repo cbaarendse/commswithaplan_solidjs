@@ -39,7 +39,7 @@
   </Brand>
 
   <button type="button" on:click={() => dispatch('reset')}
-    >{#if allTouchPointValuesAreZero}<Fa icon={faHistory} size={'1.4x'} /> {:else}<span>0</span>{/if}</button
+    >{#if allTouchPointValuesAreZero}<Fa icon={faHistory} size={'1.4x'} /> {:else}0{/if}</button
   >
   <button type="button" on:click={() => dispatch('sort')}
     >{#if sortingByName}<Fa icon={faSortAlphaUp} size={'1.4x'} />{:else}<Fa

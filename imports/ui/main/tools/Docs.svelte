@@ -1,6 +1,7 @@
 <script>
   import Brand from '../../reusable/Brand.svelte';
   import LogoReachApp from '../../reusable/LogoReachApp.svelte';
+  import {language, toolsDocumentationItems} from '../../../../client/stores';
 </script>
 
 <main>
@@ -10,7 +11,14 @@
   </header>
   <!-- TODO: emulate svelte or meteor documentation -->
 
-  <aside><ul><li><a href="#" /></li></ul></aside>
+  <aside>
+    <ul>
+      {#each $toolsDocumentationItems as article}
+        <li>
+          {#each article[$language].paragraphs as paragraph}<a href="#" /></li>
+      {/each}
+    </ul>
+  </aside>
   <section>
     <article id="stap_1">
       <!-- TODO: content in store -->
