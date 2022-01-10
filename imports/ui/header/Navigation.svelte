@@ -18,7 +18,7 @@
 </script>
 
 {#if $navigationVisible == true}
-  <nav class="nav-1" role="navigation" transition:slide>
+  <nav class="main-nav" role="navigation" transition:slide>
     <ul class="nav-list">
       <li>
         <a href={'/'} use:active exact class="brand">
@@ -38,7 +38,7 @@
     </ul>
   </nav>
   {#if $router.path === '/'}
-    <nav class="nav-2" role="navigation" transition:slide>
+    <nav class="sub-nav" role="navigation" transition:slide>
       <ul class="nav-list">
         <li>
           <a href={'/'} use:active>
@@ -48,7 +48,7 @@
       </ul>
     </nav>
   {:else if $router.path.startsWith('/consultancy')}
-    <nav class="nav-2" role="navigation" transition:slide>
+    <nav class="sub-nav" role="navigation" transition:slide>
       <ul class="nav-list">
         <li>
           <a href={'/consultancy/'} use:active exact>
@@ -73,7 +73,7 @@
       </ul>
     </nav>
   {:else if $router.path.startsWith('/tools')}
-    <nav class="nav-2" role="navigation" transition:slide>
+    <nav class="sub-nav" role="navigation" transition:slide>
       <ul class="nav-list">
         <li>
           <a href={'/tools/'} use:active exact>
@@ -99,24 +99,24 @@
 <style>
   nav {
     font-family: 'Trebuchet MS';
-  }
-
-  nav {
+    display: grid;
+    grid-template-columns: 1fr 4fr 1fr;
     grid-column: 1/3;
     font-size: 1.4rem;
   }
 
-  .nav-1 {
+  .main-nav {
     padding: 1rem 1.4rem 1rem 1.4rem;
     background-color: var(--ra-teal);
   }
 
-  .nav-2 {
+  .sub-nav {
     padding: 1rem 1.4rem 1rem 1.4rem;
     background-color: var(--ra-teal-light);
   }
 
   ul {
+    grid-column: 2/3;
     list-style-type: none;
     width: 100%;
     display: flex;
@@ -127,7 +127,7 @@
     flex-wrap: wrap;
   }
 
-  .nav-1 ul li:nth-of-type(1) {
+  .main-nav ul li:nth-of-type(1) {
     flex: 1 1 3rem;
   }
 
@@ -136,50 +136,50 @@
   }
 
   /* links, :visited */
-  .nav-1 a,
-  .nav-2 a,
-  .nav-1 a:visited,
-  .nav-2 a:visited {
+  .main-nav a,
+  .sub-nav a,
+  .main-nav a:visited,
+  .sub-nav a:visited {
     color: var(--ra-white);
   }
 
   /* :hover */
-  .nav-1 a:hover,
-  .nav-2 a:hover {
+  .main-nav a:hover,
+  .sub-nav a:hover {
     color: var(--ra-blue);
   }
-  .nav-1 a:hover span.blue {
+  .main-nav a:hover span.blue {
     color: var(--ra-blue);
   }
 
-  .nav-1 a:hover span.green {
+  .main-nav a:hover span.green {
     color: var(--ra-green);
   }
 
-  .nav-1 a:hover span.red {
+  .main-nav a:hover span.red {
     color: var(--ra-red);
   }
   /* .active */
-  .nav-1 a.brand span.blue,
-  .nav-1 a.active span.blue,
-  .nav-2 a.active span {
+  .main-nav a.brand span.blue,
+  .main-nav a.active span.blue,
+  .sub-nav a.active span {
     color: var(--ra-blue);
   }
 
-  .nav-1 a span.green {
+  .main-nav a span.green {
     color: var(--ra-green);
   }
 
-  .nav-1 a span.red {
+  .main-nav a span.red {
     color: var(--ra-red);
   }
 
   /* for tablet, laptop and desktop screens */
   @media screen and (min-width: 760px) {
-    .nav-1 {
+    .main-nav {
       padding: 2rem 1rem 2rem 1rem;
     }
-    .nav-2 {
+    .sub-nav {
       padding: 1rem 1rem 1rem 1rem;
     }
     ul {
@@ -187,15 +187,15 @@
       align-items: flex-start;
       gap: 2rem;
     }
-    .nav-1 ul {
+    .main-nav ul {
       justify-content: space-evenly;
     }
 
-    .nav-1 ul li:nth-of-type(1) {
+    .main-nav ul li:nth-of-type(1) {
       flex: 1 1 auto;
     }
 
-    .nav-2 ul {
+    .sub-nav ul {
       justify-content: center;
     }
   }

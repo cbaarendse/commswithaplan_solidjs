@@ -15,7 +15,12 @@
     <ul>
       {#each $toolsDocumentationItems as article}
         <li>
-          {#each article[$language].paragraphs as paragraph}<a href="#" /></li>
+          <ul>
+            {#each article[$language].paragraphs as paragraph}
+              <li><a href="#{paragraph.name}">{paragraph[$language].title}</a></li>
+            {/each}
+          </ul>
+        </li>
       {/each}
     </ul>
   </aside>

@@ -18,13 +18,11 @@
 
 <style>
   /* smaller screens: navigation toggled by input.nav-toggle (checkbox), this requires position: absolute */
-  /* header {
-    display: grid;
-    grid-template-columns: auto 1fr;
+  header {
     width: 100%;
     z-index: 999;
   }
 
   @media screen and (min-width: 760px) {
-  } */
+  }
 </style>
