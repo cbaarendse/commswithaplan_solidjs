@@ -26,9 +26,9 @@
 <style>
   main {
     display: grid;
-    grid-template-columns: 1fr 4fr 1fr;
+    grid-template-columns: 0 4fr 0;
     grid-auto-rows: auto;
-    gap: 2rem;
+    /* gap: 2rem; */
   }
   section {
     grid-column: 2/3;
@@ -41,5 +41,11 @@
     grid-auto-rows: auto;
     justify-content: center;
     gap: 2rem;
+  }
+
+  @media screen and (min-width: 760px) {
+    main {
+      grid-template-columns: 1fr 4fr 1fr;
+    }
   }
 </style>

@@ -100,7 +100,7 @@
   nav {
     font-family: 'Trebuchet MS';
     display: grid;
-    grid-template-columns: 1fr 4fr 1fr;
+    grid-template-columns: 1fr;
     grid-column: 1/3;
     font-size: 1.4rem;
   }
@@ -116,7 +116,7 @@
   }
 
   ul {
-    grid-column: 2/3;
+    grid-column: 1/1;
     list-style-type: none;
     width: 100%;
     display: flex;
@@ -176,6 +176,9 @@
 
   /* for tablet, laptop and desktop screens */
   @media screen and (min-width: 760px) {
+    nav {
+      grid-template-columns: 1fr 4fr 1fr;
+    }
     .main-nav {
       padding: 2rem 1rem 2rem 1rem;
     }
@@ -183,6 +186,7 @@
       padding: 1rem 1rem 1rem 1rem;
     }
     ul {
+      grid-column: 2/3;
       flex-direction: row;
       align-items: flex-start;
       gap: 2rem;
