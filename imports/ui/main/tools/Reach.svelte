@@ -100,19 +100,21 @@
     on:pdf={pdf}
   />
   <section>
-    <!-- TODO: dispatch on:change and on:input -->
-    {#each touchPoints as touchPoint}
-      <ReachTouchPoint
-        {displayTouchPoint}
-        {language}
-        {inputPlaceholder}
-        {...touchPoint}
-        touchPointDisplayName={thisReach.displayTouchPoint(touchPoint.name, $language)}
-        touchPointDescription={thisReach.describeTouchPoint(touchPoint.name, $language)}
-        on:handleChange={changeReach}
-        on:handleInput={inputReach}
-      />
-    {/each}
+    <article>
+      <!-- TODO: dispatch on:change and on:input -->
+      {#each touchPoints as touchPoint}
+        <ReachTouchPoint
+          {displayTouchPoint}
+          {language}
+          {inputPlaceholder}
+          {...touchPoint}
+          touchPointDisplayName={thisReach.displayTouchPoint(touchPoint.name, $language)}
+          touchPointDescription={thisReach.describeTouchPoint(touchPoint.name, $language)}
+          on:handleChange={changeReach}
+          on:handleInput={inputReach}
+        />
+      {/each}
+    </article>
   </section>
 </main>
 

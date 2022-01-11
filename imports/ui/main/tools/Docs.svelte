@@ -10,32 +10,34 @@
     <h1>Documentation</h1>
   </header>
   <!-- TODO: emulate svelte or meteor documentation -->
-
-  <aside>
-    <ul>
-      {#each $toolsDocumentationItems as article}
-        <li>
-          <ul>
-            {#each article[$language].paragraphs as paragraph}
-              <li><a href="#{paragraph.name}">{paragraph[$language].title}</a></li>
-            {/each}
-          </ul>
-        </li>
-      {/each}
-    </ul>
-  </aside>
   <section>
-    <article id="stap_1">
+    <aside>
+      <ul>
+        {#each $toolsDocumentationItems as article}
+          <li>
+            <ul>
+              {#each article[$language].paragraphs as paragraph}
+                <li><a href="#{paragraph.name}">{paragraph[$language].title}</a></li>
+              {/each}
+            </ul>
+          </li>
+        {/each}
+      </ul>
+    </aside>
+
+    <article>
       <!-- TODO: content in store -->
-      <h2>Stap 1</h2>
-      <p>
-        <span />
-      </p>
-      <p>
-        <span>See how it works</span>
-      </p>
-      <code />
-      <picture />
+      <div id="stap_1">
+        <h2>Stap 1</h2>
+        <p>
+          <span />
+        </p>
+        <p>
+          <span>See how it works</span>
+        </p>
+        <code />
+        <picture />
+      </div>
     </article>
   </section>
 </main>
