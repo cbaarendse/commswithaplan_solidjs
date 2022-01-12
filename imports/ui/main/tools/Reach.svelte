@@ -2,7 +2,11 @@
   // packages
 
   // components
-  import ReachHeader from './ReachHeader.svelte';
+  import Main from './layout/Main.svelte';
+  import Header from './layout/Header.svelte';
+  import Section from './layout/Section.svelte';
+  import Article from './layout/Article.svelte';
+  import ReachHeaderContent from './ReachHeaderContent.svelte';
   import ReachTouchPoint from './ReachTouchPoint.svelte';
 
   // providers
@@ -86,21 +90,23 @@
   };
 </script>
 
-<main>
-  <ReachHeader
-    {totalReach}
-    {locus}
-    {allTouchPointValuesAreZero}
-    {sortingByName}
-    {showAll}
-    on:reset={reset}
-    on:sort={sort}
-    on:hide={hide}
-    on:print={print}
-    on:pdf={pdf}
-  />
-  <section>
-    <article>
+<Main>
+  <Header>
+    <ReachHeaderContent
+      {totalReach}
+      {locus}
+      {allTouchPointValuesAreZero}
+      {sortingByName}
+      {showAll}
+      on:reset={reset}
+      on:sort={sort}
+      on:hide={hide}
+      on:print={print}
+      on:pdf={pdf}
+    />
+  </Header>
+  <Section>
+    <Article>
       <!-- TODO: dispatch on:change and on:input -->
       {#each touchPoints as touchPoint}
         <ReachTouchPoint
@@ -114,33 +120,9 @@
           on:handleInput={inputReach}
         />
       {/each}
-    </article>
-  </section>
-</main>
+    </Article>
+  </Section>
+</Main>
 
 <style>
-  main {
-    display: grid;
-    grid-template-columns: 1fr 48fr 1fr;
-    grid-template-rows: auto, auto;
-    grid-auto-rows: auto;
-    padding: 0.4rem 0 0 0;
-    margin: 0.4rem 0 0 0;
-    overflow: auto;
-  }
-  @media screen and (min-width: 760px) {
-    main {
-      grid-template-columns: 1fr 10fr 1fr;
-      padding: 2rem 0 0 0;
-    }
-  }
-  section {
-    grid-column: 2/3;
-    display: flex;
-    flex-direction: column;
-    font-size: clamp(var(--font-size-s), var(--font-size-weight) * 100vw, var(--font-size-l));
-    gap: 1em;
-    margin: 2rem 0 0 0;
-    min-width: 320px;
-  }
 </style>

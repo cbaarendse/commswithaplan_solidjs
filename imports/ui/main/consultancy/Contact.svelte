@@ -1,9 +1,9 @@
 <script>
   // components
-  import Main from './reusable/Main.svelte';
-  import Header from './reusable/Header.svelte';
-  import Section from './reusable/Section.svelte';
-  import Article from './reusable/Article.svelte';
+  import Main from './layout/Main.svelte';
+  import Header from './layout/Header.svelte';
+  import Section from './layout/Section.svelte';
+  import Article from './layout/Article.svelte';
   import Brand from '../../reusable/Brand.svelte';
   import LogoCommsWithAPlan from '../../reusable/LogoCommsWithAPlan.svelte';
   import Card from '../../reusable/Card.svelte';
