@@ -6,6 +6,8 @@
   import Header from './layout/Header.svelte';
   import Section from './layout/Section.svelte';
   import Article from './layout/Article.svelte';
+  import LogoReachApp from '../../reusable/LogoReachApp.svelte';
+  import Brand from '../../reusable/Brand.svelte';
   import ReachHeaderContent from './ReachHeaderContent.svelte';
   import ReachTouchPoint from './ReachTouchPoint.svelte';
 
@@ -91,7 +93,10 @@
 </script>
 
 <Main>
-  <Header>
+  <Header
+    ><Brand title={'Reach'}>
+      <LogoReachApp size="3rem" />
+    </Brand>
     <ReachHeaderContent
       {totalReach}
       {locus}

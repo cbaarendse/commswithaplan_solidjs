@@ -13,9 +13,6 @@
   } from '@fortawesome/free-solid-svg-icons';
 
   // components
-  import Header from './layout/Header.svelte';
-  import LogoReachApp from '../../reusable/LogoReachApp.svelte';
-  import Brand from '../../reusable/Brand.svelte';
 
   // providers
   import UiProvider from '../../../both/uiProvider';
@@ -34,41 +31,36 @@
   const thisUi = new UiProvider($translations);
 </script>
 
-<Header>
-  <Brand title={'Reach'}>
-    <LogoReachApp size="3rem" />
-  </Brand>
-  <div class="header-content">
-    <button type="button" on:click={() => dispatch('reset')}
-      >{#if allTouchPointValuesAreZero}<Fa icon={faHistory} size={'1.4x'} /> {:else}0{/if}</button
-    >
-    <button type="button" on:click={() => dispatch('sort')}
-      >{#if sortingByName}<Fa icon={faSortAlphaUp} size={'1.4x'} />{:else}<Fa
-          icon={faSortNumericDownAlt}
-          size={'1.4x'}
-        />{/if}</button
-    >
-    <button type="button" on:click={() => dispatch('hide')}
-      >{#if showAll}<Fa icon={faMinus} size={'1.4x'} />{:else}<Fa icon={faBars} size={'1.4x'} />{/if}</button
-    >
-    <button type="button" on:click={() => dispatch('print')}><Fa icon={faPrint} size={'1.4x'} /></button>
-    <button type="button" on:click={() => dispatch('pdf')}><Fa icon={faFilePdf} size={'1.4x'} /></button>
+<div class="header-content">
+  <button type="button" on:click={() => dispatch('reset')}
+    >{#if allTouchPointValuesAreZero}<Fa icon={faHistory} size={'1.4x'} /> {:else}0{/if}</button
+  >
+  <button type="button" on:click={() => dispatch('sort')}
+    >{#if sortingByName}<Fa icon={faSortAlphaUp} size={'1.4x'} />{:else}<Fa
+        icon={faSortNumericDownAlt}
+        size={'1.4x'}
+      />{/if}</button
+  >
+  <button type="button" on:click={() => dispatch('hide')}
+    >{#if showAll}<Fa icon={faMinus} size={'1.4x'} />{:else}<Fa icon={faBars} size={'1.4x'} />{/if}</button
+  >
+  <button type="button" on:click={() => dispatch('print')}><Fa icon={faPrint} size={'1.4x'} /></button>
+  <button type="button" on:click={() => dispatch('pdf')}><Fa icon={faFilePdf} size={'1.4x'} /></button>
 
-    <span class="reach-label"
-      >{thisUi.translate('total', $language)}&nbsp;{thisUi.translate('reach', $language)}:&nbsp;</span
-    >
-    <span class="reach-result">{thisUi.toNumberFormat(totalReach.toFixed(0))}&nbsp;%</span>
-    <div class="meter">
-      <span style="width:{totalReach}%;" />
-    </div>
-
-    <span class="locus-label">{thisUi.translate('locus', $language)}:&nbsp;</span>
-    <span class="locus-result">{thisUi.toNumberFormat(locus.toFixed(1))}&nbsp;%</span>
-    <div class="meter">
-      <span style="width:{locus}%;" />
-    </div>
+  <span class="reach-label"
+    >{thisUi.translate('total', $language)}&nbsp;{thisUi.translate('reach', $language)}:&nbsp;</span
+  >
+  <span class="reach-result">{thisUi.toNumberFormat(totalReach.toFixed(0))}&nbsp;%</span>
+  <div class="meter">
+    <span style="width:{totalReach}%;" />
   </div>
-</Header>
+
+  <span class="locus-label">{thisUi.translate('locus', $language)}:&nbsp;</span>
+  <span class="locus-result">{thisUi.toNumberFormat(locus.toFixed(1))}&nbsp;%</span>
+  <div class="meter">
+    <span style="width:{locus}%;" />
+  </div>
+</div>
 
 <!-- TODO: all this in flexbox, make groups, meter is % of parent (if parent is header) or vw unit -->
 <style>

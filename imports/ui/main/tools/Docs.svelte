@@ -5,8 +5,11 @@
   import Article from './layout/Article.svelte';
   import Brand from '../../reusable/Brand.svelte';
   import LogoReachApp from '../../reusable/LogoReachApp.svelte';
-  import DocsItem from './DocsItem.svelte';
-  import {language, toolsDocumentationItems} from '../../../../client/stores';
+  import DocsLink from './DocsLink.svelte';
+  import DocsChapter from './DocsChapter.svelte';
+  import DocsParagraph from './DocsParagraph.svelte';
+  import {language, toolsDocumentationChapters} from '../../../../client/stores';
+  import {faParagraph} from '@fortawesome/free-solid-svg-icons';
 </script>
 
 <Main>
@@ -16,32 +19,21 @@
   </Header>
   <!-- TODO: emulate svelte or meteor documentation -->
   <Section>
-    <aside>
-      <ul>
-        {#each $toolsDocumentationItems as article}
-          <li>
-            <ul>
-              {#each article[$language].paragraphs as paragraph}
-                <li><a href="#{paragraph.name}">{paragraph[$language].title}</a></li>
-              {/each}
-            </ul>
-          </li>
-        {/each}
-      </ul>
-    </aside>
-
     <Article>
-      <!-- TODO: content in store -->
+      <aside>
+        <ul>
+          {#each $toolsDocumentationChapters as chapter}
+            <li>
+              <DocsLink name={chapter.name} title={chapter[$language].title} />
+            </li>
+          {/each}
+        </ul>
+      </aside>
+
       <ul>
-        {#each $toolsDocumentationItems as article}
+        {#each $toolsDocumentationChapters as chapter}
           <li>
-            <ul>
-              {#each article[$language].paragraphs as paragraph}
-                <li>
-                  <DocsItem />
-                </li>
-              {/each}
-            </ul>
+            <DocsChapter {chapter} name={chapter.name} img={chapter.img} />
           </li>
         {/each}
       </ul>
@@ -58,8 +50,11 @@
     font-weight: normal;
   }
 
+  ul {
+    list-style-type: none;
+  }
+
   aside {
-    grid-column: 2/3;
     padding: 1rem;
   }
 </style>

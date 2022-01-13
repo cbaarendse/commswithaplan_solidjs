@@ -351,17 +351,25 @@ export const toolsHomeItems = readable([{
     }
 ]);
 
-export const toolsDocumentationItems = readable([{
-    name: 'step_1',
-    img: '/step_1.png',
-    english: [{ subtitle: 'Operation', content: 'Use the sliders of the medium types you want to use in your plan. With the sliders you set the reach of that medium type.' }, { subtitle: 'Result', content: 'On top you then see an estimate of the Total Reach of your plan. And you see the overlap ("locus"), so the reach your plan obtains with áll medium types.' }],
-    dutch: [{ subtitle: 'Bediening', content: 'Gebruik de sliders van de medium types die je wilt gebruiken in je plan. Met de sliders stel je het bereik in van dat medium type.' }, { subtitle: 'Resultaat', content: 'Bovenin zie je dan een inschatting van het Totaal Bereik van je plan. En je zite de overlap ("locus"), dus het bereik dat je plan realiseert met álle medium types.' }]
-}, {
-    name: 'step_2',
-    img: '/step_2.png',
-    english: [{ subtitle: 'Reset 1', content: 'The 1st time you press reset, you keep your plan, in order, but the input for all medium types is set to "0".' }, { subtitle: 'Reset 2', content: 'The 2nd time you press reset, you get a new empty plan, with the full default list of medium types, in alphabetical order.' }],
-    dutch: [{ subtitle: 'Reset 1', content: 'De eerste keer dat je op reset drukt, behoud je je plan, in volgorde, maar de input voor alle medium typen wordt "0".' }, { subtitle: 'Reset 2', content: 'De 2e keer dat je op reset drukt, krijg je een nieuw leeg plan, met de volledige basis lijst van mediumtypen, in alfabetische volgorde.' }]
-}]);
+export const toolsDocumentationChapters = readable([{
+        name: 'step_1',
+        img: '/step_1.png',
+        english: { title: 'Operation', content: [{ subtitle: 'Sliders', text: 'Use the sliders of the medium types you want to use in your plan. With the sliders you set the reach of that medium type.' }, { subtitle: 'Result', text: 'On top you then see an estimate of the Total Reach of your plan. And you see the overlap ("locus"), so the reach your plan obtains with áll medium types.' }] },
+        dutch: {
+            title: 'Bediening',
+            content: [{ subtitle: 'Sliders', text: 'Gebruik de sliders van de medium types die je wilt gebruiken in je plan. Met de sliders stel je het bereik in van dat medium type.' }, { subtitle: 'Resultaat', text: 'Bovenin zie je dan een inschatting van het Totaal Bereik van je plan. En je zite de overlap ("locus"), dus het bereik dat je plan realiseert met álle medium types.' }]
+        }
+    },
+    {
+        name: 'step_2',
+        img: '/step_2.png',
+        english: {
+            title: 'Reset',
+            content: [{ subtitle: 'Reset 1', text: 'The 1st time you press reset, you keep your plan, in order, but the input for all medium types is set to "0".' }, { subtitle: 'Reset 2', text: 'The 2nd time you press reset, you get a new empty plan, with the full default list of medium types, in alphabetical order.' }]
+        },
+        dutch: { title: 'Reset', content: [{ subtitle: 'Reset 1', text: 'De eerste keer dat je op reset drukt, behoud je je plan, in volgorde, maar de input voor alle medium typen wordt "0".' }, { subtitle: 'Reset 2', text: 'De 2e keer dat je op reset drukt, krijg je een nieuw leeg plan, met de volledige basis lijst van mediumtypen, in alfabetische volgorde.' }] }
+    }
+]);
 
 export const touchPointsBasics = readable([{ name: "advocacy", english: { displayName: "Advocacy", description: "Consumers spread information about your brand." }, dutch: { displayName: "Advocacy", description: "Consumenten verspreiden informatie over je merk." } },
     { name: "ambassador", english: { displayName: "Ambassador", description: "A (known) person acts as spokesperson for your brand." }, dutch: { displayName: "Ambassador", description: "Een (bekend) persoon treedt op als woordvoerder voor je merk." } },
