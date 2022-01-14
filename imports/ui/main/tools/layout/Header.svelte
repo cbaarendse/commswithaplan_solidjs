@@ -7,7 +7,9 @@
 
 <style>
   header {
-    grid-column: 2/4;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column: 2/3;
     padding: 2rem;
     background-color: var(--ra-teal-off-white);
     border-radius: 5px;

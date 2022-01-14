@@ -9,7 +9,7 @@
   export let img;
 </script>
 
-<div id={name}>
+<div>
   <h3>{chapter[$language].title}</h3>
   <ul>
     {#each chapter[$language].content as paragraph}
@@ -24,7 +24,15 @@
 </div>
 
 <style>
+  div {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
   ul {
     list-style-type: none;
+  }
+  img {
+    max-width: 300px;
   }
 </style>

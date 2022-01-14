@@ -4,7 +4,7 @@
   export let title;
 </script>
 
-<a href="#{name}">{title}</a>
+<a href="#{name}" tinro-ignore>{title}</a>
 
 <style>
   a {

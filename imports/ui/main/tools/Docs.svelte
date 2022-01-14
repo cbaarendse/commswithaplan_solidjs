@@ -32,7 +32,7 @@
 
       <ul>
         {#each $toolsDocumentationChapters as chapter}
-          <li>
+          <li id={chapter.name}>
             <DocsChapter {chapter} name={chapter.name} img={chapter.img} />
           </li>
         {/each}
@@ -51,10 +51,24 @@
   }
 
   ul {
+    max-height: 800px;
+    overflow-y: scroll;
     list-style-type: none;
   }
 
   aside {
+    display: none;
+    font-size: var(--font-size-l);
     padding: 1rem;
+  }
+
+  aside ul li {
+    margin-bottom: 1rem;
+  }
+
+  @media screen and (min-width: 760px) {
+    aside {
+      display: block;
+    }
   }
 </style>
