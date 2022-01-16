@@ -23,5 +23,8 @@
   }
 
   @media screen and (min-width: 760px) {
+    article {
+      grid-template-columns: 1fr 4fr;
+    }
   }
 </style>

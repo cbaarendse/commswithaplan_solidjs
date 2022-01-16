@@ -2,7 +2,7 @@
   // variables
   export let subtitle;
   export let text;
-  export let example;
+  export let elaboration;
 </script>
 
 <h4>{subtitle}</h4>
@@ -10,7 +10,7 @@
   {text}
 </p>
 <p>
-  <code>{example}</code>
+  <i>{elaboration}</i>
 </p>
 
 <style>

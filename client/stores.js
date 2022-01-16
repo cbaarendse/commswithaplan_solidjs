@@ -1,6 +1,6 @@
 import { writable, readable } from 'svelte/store';
 
-export const language = writable('english');
+export const language = writable('dutch');
 
 export const navigationVisible = writable(false);
 
@@ -354,10 +354,10 @@ export const toolsHomeItems = readable([{
 export const toolsDocumentationChapters = readable([{
         name: 'step_1',
         img: '/step_1.png',
-        english: { title: 'Operation', content: [{ subtitle: 'Sliders', text: 'Use the sliders of the medium types you want to use in your plan. With the sliders you set the reach of that medium type.' }, { subtitle: 'Result', text: 'On top you then see an estimate of the Total Reach of your plan. And you see the overlap ("locus"), so the reach your plan obtains with áll medium types.' }] },
+        english: { title: 'Operation', content: [{ subtitle: 'Sliders', text: 'Use the sliders of the medium types you want to use in your plan. With the sliders you set the reach of that medium type.', elaboration: "Reach works with an algorithm, that is why it's so fast." }, { subtitle: 'Result', text: 'On top you then see an estimate of the Total Reach of your plan. And you see the overlap ("locus"), so the reach your plan obtains with áll medium types.', elaboration: '' }] },
         dutch: {
             title: 'Bediening',
-            content: [{ subtitle: 'Sliders', text: 'Gebruik de sliders van de medium types die je wilt gebruiken in je plan. Met de sliders stel je het bereik in van dat medium type.' }, { subtitle: 'Resultaat', text: 'Bovenin zie je dan een inschatting van het Totaal Bereik van je plan. En je zite de overlap ("locus"), dus het bereik dat je plan realiseert met álle medium types.' }]
+            content: [{ subtitle: 'Sliders', text: 'Gebruik de sliders van de medium types die je wilt gebruiken in je plan. Met de sliders stel je het bereik in van dat medium type.', elaboration: 'Reach werkt met een algoritme. Daarom is het zo snel.' }, { subtitle: 'Resultaat', text: 'Bovenin zie je dan een inschatting van het Totaal Bereik van je plan. En je zite de overlap ("locus"), dus het bereik dat je plan realiseert met álle medium types.', elaboration: '' }]
         }
     },
     {
@@ -365,9 +365,27 @@ export const toolsDocumentationChapters = readable([{
         img: '/step_2.png',
         english: {
             title: 'Reset',
-            content: [{ subtitle: 'Reset 1', text: 'The 1st time you press reset, you keep your plan, in order, but the input for all medium types is set to "0".' }, { subtitle: 'Reset 2', text: 'The 2nd time you press reset, you get a new empty plan, with the full default list of medium types, in alphabetical order.' }]
+            content: [{ subtitle: 'Reset 1', text: 'The 1st time you press reset, you keep your plan, in order, but the input for all medium types is set to "0".', elaboration: '' }, { subtitle: 'Reset 2', text: 'The 2nd time you press reset, you get a new empty plan, with the full default list of medium types, in alphabetical order.', elaboration: '' }]
         },
-        dutch: { title: 'Reset', content: [{ subtitle: 'Reset 1', text: 'De eerste keer dat je op reset drukt, behoud je je plan, in volgorde, maar de input voor alle medium typen wordt "0".' }, { subtitle: 'Reset 2', text: 'De 2e keer dat je op reset drukt, krijg je een nieuw leeg plan, met de volledige basis lijst van mediumtypen, in alfabetische volgorde.' }] }
+        dutch: { title: 'Reset', content: [{ subtitle: 'Reset 1', text: 'De eerste keer dat je op reset drukt, behoud je je plan, in volgorde, maar de input voor alle medium typen wordt "0".', elaboration: '' }, { subtitle: 'Reset 2', text: 'De 2e keer dat je op reset drukt, krijg je een nieuw leeg plan, met de volledige basis lijst van mediumtypen, in alfabetische volgorde.', elaboration: '' }] }
+    },
+    {
+        name: 'step_3',
+        img: '/step_3.png',
+        english: {
+            title: 'Sort',
+            content: [{ subtitle: 'Sort 1', text: 'The 1st time you press sort, the order of your plan changes. The highest input will be on top, lowest input underneath.', elaboration: '' }, { subtitle: 'Sort 2', text: 'The 2nd time you press sort, the order will become alphabetical, in the chosen language.', elaboration: '' }]
+        },
+        dutch: { title: 'Sorteer', content: [{ subtitle: 'Sorteer  1', text: 'De eerste keer dat je op sorteer drukt, verandert de volgorde. De hoogste input komt bovenaan en de laagste onderaan.', elaboration: '' }, { subtitle: 'Sorteer 2', text: 'De 2e keer dat je op sorteer drukt, wordt de volgorde alfabetisch, in de gekozen taal.', elaboration: '' }] }
+    },
+    {
+        name: 'step_4',
+        img: '/step_4.png',
+        english: {
+            title: 'Hide',
+            content: [{ subtitle: 'Hide', text: 'The 1st time you press this button, you hide all the medium types with input 0.', elaboration: 'So it shows only the medium types you engage in your plan.' }, { subtitle: 'Show', text: 'The 2nd time you press this button, you reveal the medium types with input 0 again', elaboration: '' }]
+        },
+        dutch: { title: 'Verberg', content: [{ subtitle: 'Verberg', text: 'De eerste keer dat je op deze knop drukt, verberg je de mediumtypes met input 0.', elaboration: 'Dus dit toont alleen de mediumtypes die je inzet in je plan.' }, { subtitle: 'Toon', text: 'De 2e keer dat je op deze knop drukt, laat je de mediumtypes met input 0 weer zien.', elaboration: '' }] }
     }
 ]);
 

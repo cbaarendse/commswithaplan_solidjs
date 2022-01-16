@@ -87,7 +87,9 @@
         </li>
         <li>
           <a href={'/tools/documentation'} use:active>
-            <span>Documentation</span>
+            <span
+              >{#if $language == 'dutch'}Documentatie{:else}Documentation{/if}</span
+            >
           </a>
         </li>
       </ul>

@@ -14,7 +14,7 @@
   <ul>
     {#each chapter[$language].content as paragraph}
       <li>
-        <DocsParagraph subtitle={paragraph.subtitle} text={paragraph.text} example={paragraph.example} />
+        <DocsParagraph subtitle={paragraph.subtitle} text={paragraph.text} elaboration={paragraph.elaboration} />
       </li>
     {/each}
   </ul>
