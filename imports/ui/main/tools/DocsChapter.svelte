@@ -1,6 +1,5 @@
 <script>
   // components
-  import {faParagraph} from '@fortawesome/free-solid-svg-icons';
   import DocsParagraph from './DocsParagraph.svelte';
   import {language} from '../../../../client/stores';
   // variables
@@ -10,7 +9,7 @@
 </script>
 
 <div>
-  <h3>{chapter[$language].title}</h3>
+  <h3>&sect;&nbsp;{chapter[$language].title}</h3>
   <ul>
     {#each chapter[$language].content as paragraph}
       <li>

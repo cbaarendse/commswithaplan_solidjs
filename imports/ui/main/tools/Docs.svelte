@@ -15,7 +15,7 @@
 <Main>
   <Header>
     <Brand colors={'green'} title={'Reach'}><LogoReachApp size="3rem" /></Brand>
-    <h1>Documentation</h1>
+    <h2>Documentation</h2>
   </Header>
   <!-- TODO: emulate svelte or meteor documentation -->
   <Section>
@@ -42,7 +42,7 @@
 </Main>
 
 <style>
-  h1 {
+  h2 {
     grid-area: title;
     align-self: center;
     justify-self: self-start;

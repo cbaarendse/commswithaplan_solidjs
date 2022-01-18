@@ -26,15 +26,20 @@
   <Section>
     <Article>
       {#each $toolsHomeItems as item, index}
-        <Card cardTitle={item[$language].displayName}>
-          <span>
-            {item[$language].description}
-          </span>
-        </Card>
+        <div>
+          <Card cardTitle={item[$language].displayName}>
+            <span>
+              {item[$language].description}
+            </span>
+          </Card>
+        </div>
       {/each}
     </Article>
   </Section>
 </Main>
 
 <style>
+  div {
+    grid-column: 1/3;
+  }
 </style>

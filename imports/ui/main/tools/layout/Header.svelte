@@ -7,10 +7,11 @@
 
 <style>
   header {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
     grid-column: 2/3;
-    padding: 2rem;
+    padding: 0rem 2rem;
     background-color: var(--ra-teal-off-white);
     border-radius: 5px;
   }

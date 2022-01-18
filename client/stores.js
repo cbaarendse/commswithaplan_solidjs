@@ -386,6 +386,33 @@ export const toolsDocumentationChapters = readable([{
             content: [{ subtitle: 'Hide', text: 'The 1st time you press this button, you hide all the medium types with input 0.', elaboration: 'So it shows only the medium types you engage in your plan.' }, { subtitle: 'Show', text: 'The 2nd time you press this button, you reveal the medium types with input 0 again', elaboration: '' }]
         },
         dutch: { title: 'Verberg', content: [{ subtitle: 'Verberg', text: 'De eerste keer dat je op deze knop drukt, verberg je de mediumtypes met input 0.', elaboration: 'Dus dit toont alleen de mediumtypes die je inzet in je plan.' }, { subtitle: 'Toon', text: 'De 2e keer dat je op deze knop drukt, laat je de mediumtypes met input 0 weer zien.', elaboration: '' }] }
+    },
+    {
+        name: 'step_5',
+        img: '/step_5.png',
+        english: {
+            title: 'Outcome',
+            content: [{ subtitle: 'Total Reach', text: 'The 1st time you press this button, you hide all the medium types with input 0.', elaboration: 'So it shows only the medium types you engage in your plan.' }, { subtitle: 'Show', text: 'The 2nd time you press this button, you reveal the medium types with input 0 again', elaboration: '' }]
+        },
+        dutch: { title: 'Verberg', content: [{ subtitle: 'Verberg', text: 'De eerste keer dat je op deze knop drukt, verberg je de mediumtypes met input 0.', elaboration: 'Dus dit toont alleen de mediumtypes die je inzet in je plan.' }, { subtitle: 'Toon', text: 'De 2e keer dat je op deze knop drukt, laat je de mediumtypes met input 0 weer zien.', elaboration: '' }] }
+    },
+    {
+        name: 'step_6',
+        img: '/step_6.png',
+        english: {
+            title: 'Hide',
+            content: [{ subtitle: 'Hide', text: 'The 1st time you press this button, you hide all the medium types with input 0.', elaboration: 'So it shows only the medium types you engage in your plan.' }, { subtitle: 'Show', text: 'The 2nd time you press this button, you reveal the medium types with input 0 again', elaboration: '' }]
+        },
+        dutch: { title: 'Verberg', content: [{ subtitle: 'Verberg', text: 'De eerste keer dat je op deze knop drukt, verberg je de mediumtypes met input 0.', elaboration: 'Dus dit toont alleen de mediumtypes die je inzet in je plan.' }, { subtitle: 'Toon', text: 'De 2e keer dat je op deze knop drukt, laat je de mediumtypes met input 0 weer zien.', elaboration: '' }] }
+    },
+    {
+        name: 'step_7',
+        img: '/step_7.png',
+        english: {
+            title: 'Hide',
+            content: [{ subtitle: 'Hide', text: 'The 1st time you press this button, you hide all the medium types with input 0.', elaboration: 'So it shows only the medium types you engage in your plan.' }, { subtitle: 'Show', text: 'The 2nd time you press this button, you reveal the medium types with input 0 again', elaboration: '' }]
+        },
+        dutch: { title: 'Verberg', content: [{ subtitle: 'Verberg', text: 'De eerste keer dat je op deze knop drukt, verberg je de mediumtypes met input 0.', elaboration: 'Dus dit toont alleen de mediumtypes die je inzet in je plan.' }, { subtitle: 'Toon', text: 'De 2e keer dat je op deze knop drukt, laat je de mediumtypes met input 0 weer zien.', elaboration: '' }] }
     }
 ]);
 
