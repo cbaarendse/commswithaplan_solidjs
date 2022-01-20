@@ -6,7 +6,7 @@
   export let elaboration;
 </script>
 
-<h4>&para;.&nbsp;{subtitle}</h4>
+<h4>&para;&nbsp;{subtitle}</h4>
 <p>
   {text}
 </p>

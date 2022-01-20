@@ -18,7 +18,7 @@
   main {
     display: grid;
     grid-template-columns: 1fr 48fr 1fr;
-    grid-template-rows: auto, auto;
+    grid-template-rows: auto, 1fr;
     grid-auto-rows: auto;
     padding: 0.4rem 0 0 0;
     margin: 0.4rem 0 0 0;

@@ -15,9 +15,9 @@
 <Main>
   <Header>
     <Brand colors={'green'} title={'Reach'}><LogoReachApp size="3rem" /></Brand>
+    <!-- TODO: engels en nederlands in contentstore -->
     <h2>Documentation</h2>
   </Header>
-  <!-- TODO: emulate svelte or meteor documentation -->
   <Section>
     <Article>
       <aside>
