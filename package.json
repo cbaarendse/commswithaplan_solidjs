@@ -25,7 +25,7 @@
         "stripe": "^8.137.0",
         "svelte": "^3.31.2",
         "svelte-fa": "^2.2.1",
-        "svelte-preprocess": "^4.8.0"
+        "svelte-preprocess": "^4.10.2"
     },
     "meteor": {
         "mainModule": {
@@ -41,7 +41,16 @@
             }
         }
     },
+    "svelte:compiler": {
+        "extensions": [
+            "svelte"
+        ],
+        "hydratable": false,
+        "css": true
+    },
     "devDependencies": {
-        "tinro": "^0.6.5"
+        "svelte-check": "^2.3.0",
+        "tinro": "^0.6.5",
+        "typescript": "^4.5.5"
     }
 }

@@ -2,7 +2,6 @@
   // packages
   import { Meteor } from 'meteor/meteor';
   import { Roles } from 'meteor/alanning:roles';
-  import { useSession, useTracker } from 'meteor/rdb:svelte-meteor-data';
   import dayjs from 'dayjs';
   import advancedFormat from 'dayjs/plugin/advancedFormat';
   dayjs.extend(advancedFormat);
@@ -12,7 +11,6 @@
   // import TouchPointsBasics from '../api/touchpointsbasics/touchpointsbasics';
 
   // variables
-  const language = useSession('language');
 
   // schedule functions
   export function assembleYears(start, end) {

@@ -1,15 +1,15 @@
-import { writable, readable } from 'svelte/store';
+import { writable, Writable, readable, Readable } from 'svelte/store';
 
-export const language = writable('dutch');
+export const language:Writable<string> = writable('dutch');
 
-export const navigationVisible = writable(false);
+export const navigationVisible:Writable<boolean> = writable(false);
 
 //export a function that return a readable given a string media query as input
-export const useMediaQuery = (mediaQueryString) => {
+export const useMediaQuery = (mediaQuery: string) => {
     //we inizialize the readable as null and get the callback with the set function
     const matches = readable(null, (set) => {
         //we match the media query
-        const m = window.matchMedia(mediaQueryString);
+        const m = window.matchMedia(mediaQuery);
         //we set the value of the reader to the matches property
         set(m.matches);
         //we create the event listener that will set the new value on change
@@ -20,11 +20,11 @@ export const useMediaQuery = (mediaQueryString) => {
         return () => { m.removeEventListener("change", el) };
     });
     //then we return the readable
-    console.log('matches inside useMediaQuery', mediaQueryString, matches);
+    console.log('matches inside useMediaQuery', mediaQuery, matches);
     return matches;
 }
 
-export const homePageItems = readable([{
+export const homePageItems:Readable<T> = readable([{
         name: 'consultancy',
         imgUrl: '/home/consultant.jpeg',
         cardLink: '/consultancy/',
@@ -392,9 +392,9 @@ export const toolsDocumentationChapters = readable([{
         img: '/chapter_5.png',
         english: {
             title: 'Outcome',
-            content: [{ subtitle: 'Total Reach', text: 'The 1st time you press this button, you hide all the medium types with input 0.', elaboration: 'So it shows only the medium types you engage in your plan.' }, { subtitle: 'Show', text: 'The 2nd time you press this button, you reveal the medium types with input 0 again', elaboration: '' }]
+            content: [{ subtitle: 'Result', text: 'This area in the header shows the estimated result of your campaign. In terms of Total Reach and Locus (overlap).', elaboration: 'Click on the labels to see the meaning of each.' }]
         },
-        dutch: { title: 'Resultaat', content: [{ subtitle: 'Verberg', text: 'De eerste keer dat je op deze knop drukt, verberg je de mediumtypes met input 0.', elaboration: 'Dus dit toont alleen de mediumtypes die je inzet in je plan.' }, { subtitle: 'Toon', text: 'De 2e keer dat je op deze knop drukt, laat je de mediumtypes met input 0 weer zien.', elaboration: '' }] }
+        dutch: { title: 'Uitkomst', content: [{ subtitle: 'Resultaat', text: 'Deze zone toont het ingeschatte resultaat van je campagne.', elaboration: 'Dus dit toont alleen de mediumtypes die je inzet in je plan.' }] }
     },
     {
         name: 'chapter_6',
@@ -475,8 +475,11 @@ export const translations = readable([
     { name: 'advertisement', english: { displayName: 'Advertisement' }, dutch: { displayName: 'Advertentie' } },
     { name: 'read', english: { displayName: 'Read' }, dutch: { displayName: 'Lees' } }
 ]);
-
-export const colorScheme = readable({
+interface ColorVarieties {
+    base:string,light:string, bright:string, offWhite:string
+};
+interface Scheme{blue:ColorVarieties, green:ColorVarieties, red: ColorVarieties, teal:ColorVarieties, grey:ColorVarieties};
+export const colorScheme:Readable<Scheme> = readable({
     blue: {
         base: 'var(--ra-blue)',
         light: 'var(--ra-blue-light)',

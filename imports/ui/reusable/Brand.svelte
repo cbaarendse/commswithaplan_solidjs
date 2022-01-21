@@ -1,9 +1,9 @@
-<script>
+<script lang="ts">
   // variables
   import {colorScheme} from '../../../client/stores';
-  export let colors = 'blue';
-  export let fontSize = 'var(--font-size-2xl)';
-  export let title = 'Comms With A Plan';
+  export let colors: string = 'blue';
+  export let fontSize: string = 'var(--font-size-2xl)';
+  export let title: string = 'Comms With A Plan';
 </script>
 
 <div class="brand">

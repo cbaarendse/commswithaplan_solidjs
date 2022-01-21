@@ -1,12 +1,12 @@
-<script>
-  export let size = 'fit'; // or small, medium, large, xlarge
-  export let backgroundColor = 'blue'; // or green, red, grey, transparant, transparantnoborder
-  export let type = 'button'; // or reset, submit
-  export let role = 'button';
-  export let dataDismiss;
-  export let ariaLabel;
-  export let disabled = false;
-  export let value;
+<script lang="ts">
+  export let size: string = 'fit'; // or small, medium, large, xlarge
+  export let backgroundColor: string = 'blue'; // or green, red, grey, transparant, transparantnoborder
+  export let type: string = 'button'; // or reset, submit
+  export let role: string = 'button';
+  export let dataDismiss: string;
+  export let ariaLabel: string;
+  export let disabled: boolean = false;
+  export let value: string;
 </script>
 
 <button

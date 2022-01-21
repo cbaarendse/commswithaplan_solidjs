@@ -1,11 +1,11 @@
-<script>
+<script lang="ts">
   // variables
   import {colorScheme} from '../../../client/stores';
-  export let colors = 'grey';
-  export let cardTitle;
-  export let imgUrl;
-  export let cardLink;
-  export let callToAction;
+  export let colors: string = 'grey';
+  export let cardTitle: string;
+  export let imgUrl: string;
+  export let cardLink: string;
+  export let callToAction: string;
 </script>
 
 <div class="card" style="background-color:{$colorScheme[colors].offWhite};color:{$colorScheme[colors].base};">

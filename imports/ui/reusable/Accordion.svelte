@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   // packages
   import {slide} from 'svelte/transition';
   import {backInOut} from 'svelte/easing';
@@ -9,7 +9,7 @@
   import Button from './Button.svelte';
 
   // variables
-  export let visible = false;
+  export let visible: boolean = false;
 </script>
 
 <div class="accordion">

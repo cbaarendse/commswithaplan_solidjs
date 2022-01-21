@@ -1,7 +1,7 @@
-<script>
+<script lang="ts">
   // variables
-  export let name;
-  export let title;
+  export let name: string;
+  export let title: string;
 </script>
 
 <a href="#{name}" tinro-ignore>{title}</a>

@@ -1,6 +1,5 @@
-<script>
+<script lang="ts">
   // packages
-  import {useSession} from 'meteor/rdb:svelte-meteor-data';
 
   // components
   import Main from './layout/Main.svelte';

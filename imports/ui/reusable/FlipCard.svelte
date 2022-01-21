@@ -1,10 +1,10 @@
-<script>
+<script lang="ts">
   // variables
   import {colorScheme} from '../../../client/stores';
-  export let colors = 'grey';
-  export let cardTitle;
-  export let flipped = false;
-  export let buttonText;
+  export let colors: string = 'grey';
+  export let cardTitle: string;
+  export let flipped: boolean = false;
+  export let buttonText: string;
 
   // functions
   const getBackgroundColor = () => $colorScheme[colors].offWhite;
