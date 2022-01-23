@@ -1,8 +1,16 @@
 import deburr from 'lodash/deburr';
 
-export default function UiProvider(translations) {
+
+interface DisplayName  {displayName: string};
+interface Translation { name: string, english: DisplayName, dutch: DisplayName }
+
+class UiProvider {
+
+    translations: Translation[];
     // functions should be in prototype, and reuseable for reachAppProvider
+    constructor() {
     this.translations = translations;
+    }
 
     this.translate = function(input, language) {
         return this.translations.find((element) => element.name === input)[language].displayName || input;

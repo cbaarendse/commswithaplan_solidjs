@@ -1,4 +1,7 @@
+// packages
 import { writable, Writable, readable, Readable } from 'svelte/store';
+
+// types
 
 export const language:Writable<string> = writable('dutch');
 
@@ -460,7 +463,10 @@ export const touchPointsBasics = readable([{ name: "advocacy", english: { displa
     { name: "word_of_mouth", english: { displayName: "Word Of Mouth", description: "People pass opinions on a brand to other people." }, dutch: { displayName: "Word Of Mouth", description: "Mensen geven meningen door over je merk aan andere mensen." } }
 ]);
 
-export const translations = readable([
+interface DisplayName {displayName: string};
+interface Translation {name: string, english: DisplayName};
+
+export const translations: Readable<Translation[]> = readable([
     { name: 'english', english: { displayName: 'English' }, dutch: { displayName: 'Engels' } },
     { name: 'dutch', english: { displayName: 'Dutch' }, dutch: { displayName: 'Nederlands' } },
     { name: 'reset', english: { displayName: 'RESET' }, dutch: { displayName: 'RESET' } },
@@ -475,11 +481,13 @@ export const translations = readable([
     { name: 'advertisement', english: { displayName: 'Advertisement' }, dutch: { displayName: 'Advertentie' } },
     { name: 'read', english: { displayName: 'Read' }, dutch: { displayName: 'Lees' } }
 ]);
+
 interface ColorVarieties {
     base:string,light:string, bright:string, offWhite:string
 };
-interface Scheme{blue:ColorVarieties, green:ColorVarieties, red: ColorVarieties, teal:ColorVarieties, grey:ColorVarieties};
-export const colorScheme:Readable<Scheme> = readable({
+interface ColorScheme  {blue:ColorVarieties, green:ColorVarieties, red: ColorVarieties, teal:ColorVarieties, grey:ColorVarieties};
+
+export const colorScheme:Readable<ColorScheme> = readable({
     blue: {
         base: 'var(--ra-blue)',
         light: 'var(--ra-blue-light)',
