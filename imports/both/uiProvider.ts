@@ -1,32 +1,34 @@
 import deburr from 'lodash/deburr';
+import dayjs from 'dayjs';
+import {Readable, readable} from 'svelte/store';
+import translations from '../../client/stores';
 
 
 interface DisplayName  {displayName: string};
 interface Translation { name: string, english: DisplayName, dutch: DisplayName }
 
-class UiProvider {
 
-    translations: Translation[];
-    // functions should be in prototype, and reuseable for reachAppProvider
-    constructor() {
-    this.translations = translations;
+export default class UiProvider {
+
+   public translations: Translation[];
+
+    constructor(){this.translations = translations;}
+
+    public translate (input:string, language:string):string {
+        return translations.find((element: Translation) => element.name === input)[language].displayName || input;
     }
 
-    this.translate = function(input, language) {
-        return this.translations.find((element) => element.name === input)[language].displayName || input;
+    public describe (input:string, language:string):string {
+        return translations.find((element:Translation) => element.name === input)[language].description || input;
     }
 
-    this.describe = function(input, language) {
-        return this.translations.find((element) => element.name === input)[language].description || input;
-    }
-
-    this.capitalizeAndSplit = function(str) {
+    static capitalizeAndSplit (str: string):string {
         str = str[0].toUpperCase() + str.slice(1);
         str = str.split(/(?=[A-Z])/).join(' ');
         return str;
     }
 
-    this.latinizeAndJoin = function(str) {
+    static latinizeAndJoin (str:string):string {
         str = deburr(str);
         str = str.split(' ').join('');
         str = str.toLowerCase();
@@ -34,18 +36,18 @@ class UiProvider {
         return str;
     }
 
-    this.toStringFormat = function(value) { return value.toLocaleString() };
-    this.percentFixed = function(input, digits) {
+    static toStringFormat (value: number):string { return value.toLocaleString() };
+    static percentFixed (input: number, digits: number):string {
         return (input / 100).toFixed(digits);
     }
-    this.toDateFormat = function(date) {
+    static toDateFormat (date:Date):string {
         return dayjs(date).format('DD-MMM-YYYY');
     }
-    this.toNumberFormat = function(value) {
+    static toNumberFormat (value:number):string {
         return `${value.toLocaleString(undefined, {maximumFractionDigits: 0})}`;
     }
 
-    this.toCurrencySymbol = function(currency) {
+    static toCurrencySymbol (currency:string):string {
         const symbol = currency === 'EUR' ? '€' : currency === 'GBP' ? '£' : currency === 'USD' ? '$' : '?';
         return `${symbol}`;
     }

@@ -1,12 +1,12 @@
-<script>
+<script lang="ts">
   // variables
-  export let size = 'normal'; // or small, large, xlarge
-  export let type;
-  export let value;
-  export let placeholder;
-  export let name;
-  export let id;
-  export let readonly = false;
+  export let size: string = 'normal'; // or small, large, xlarge
+  export let type: string;
+  export let value: string;
+  export let placeholder: string;
+  export let name: string;
+  export let id: string;
+  export let readonly: boolean = false;
 </script>
 
 <input class={size} {type} {value} {placeholder} {name} {id} {readonly} />

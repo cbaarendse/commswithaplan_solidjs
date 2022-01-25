@@ -12,11 +12,11 @@ export const useMediaQuery = (mediaQuery: string) => {
     //we inizialize the readable as null and get the callback with the set function
     const matches = readable(null, (set) => {
         //we match the media query
-        const m = window.matchMedia(mediaQuery);
+        const m:MediaQueryList = window.matchMedia(mediaQuery);
         //we set the value of the reader to the matches property
         set(m.matches);
         //we create the event listener that will set the new value on change
-        const el = e => set(e.matches);
+        const el:EventListener = e => set(e.matches);
         //we add the new event listener
         m.addEventListener("change", el);
         //we return the stop function that will clean the event listener

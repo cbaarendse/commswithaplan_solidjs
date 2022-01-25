@@ -1,7 +1,6 @@
   // ====== IMPORTS ===============================
   // packages
-  import { Meteor } from 'meteor/meteor';
- // import { Roles } from 'meteor/alanning:roles';
+ import { Roles } from 'meteor/alanning:roles';
   import dayjs from 'dayjs';
   var isoWeek = require('dayjs/plugin/isoWeek')
   import advancedFormat from 'dayjs/plugin/advancedFormat';
@@ -78,44 +77,44 @@ import { Mongo } from 'meteor/mongo';
       return preambleDays;
   };
 
-//   export function mayChange(touchPointName:string, userId:string, companyId:string):boolean {
-//       // This check happens just for the ui, real authorisation check happens in validated methods.
-//       if (
-//           Roles.userIsInRole(userId, ['owner', 'companyAdmin', touchPointName], companyId) ||
-//           Roles.userIsInRole(userId, 'admin', Roles.GLOBAL_GROUP)
-//       ) {
-//           return true;
-//       }
-//       return false;
-//   }
+  export function mayChange(touchPointName:string, userId:string, companyId:string):boolean {
+      // This check happens just for the ui, real authorisation check happens in validated methods.
+      if (
+          Roles.userIsInRole(userId, ['owner', 'companyAdmin', touchPointName], companyId) ||
+          Roles.userIsInRole(userId, 'admin', Roles.GLOBAL_GROUP)
+      ) {
+          return true;
+      }
+      return false;
+  }
 
-//   export function maySeeDatesForCompany(id:string):boolean {
-//       // Client based check for more relevant presentation
-//       return Roles.userIsInRole(Meteor.userId(), 'dates', id) ||
-//           Roles.userIsInRole(Meteor.userId(), ['owner', 'companyAdmin'], id) ||
-//           Roles.userIsInRole(Meteor.userId(), 'admin', Roles.GLOBAL_GROUP);
-//   };
+  export function maySeeDatesForCompany(userId: string, companyId?:string):boolean {
+      // Client based check for more relevant presentation
+      return Roles.userIsInRole(userId, 'dates', companyId) ||
+          Roles.userIsInRole(userId, ['owner', 'companyAdmin'], companyId) ||
+          Roles.userIsInRole(userId, 'admin', Roles.GLOBAL_GROUP);
+  };
 
-//   export function maySeeInputForCompany(id: string):boolean {
-//       // Client based check for more relevant presentation
-//       return Roles.userIsInRole(Meteor.userId(), 'input', id) ||
-//           Roles.userIsInRole(Meteor.userId(), ['owner', 'companyAdmin'], id) ||
-//           Roles.userIsInRole(Meteor.userId(), 'admin', Roles.GLOBAL_GROUP);
-//   };
+  export function maySeeInputForCompany(userId: string, companyId?:string):boolean {
+      // Client based check for more relevant presentation
+      return Roles.userIsInRole(userId, 'input', companyId) ||
+          Roles.userIsInRole(userId, ['owner', 'companyAdmin'], companyId) ||
+          Roles.userIsInRole(userId, 'admin', Roles.GLOBAL_GROUP);
+  };
 
-//   export function maySeeCostsForCompany(id:string):boolean {
-//       // Client based check for more relevant presentation
-//       return Roles.userIsInRole(Meteor.userId(), 'costs', id) ||
-//           Roles.userIsInRole(Meteor.userId(), ['owner', 'companyAdmin'], id) ||
-//           Roles.userIsInRole(Meteor.userId(), 'admin', Roles.GLOBAL_GROUP);
-//   };
+  export function maySeeCostsForCompany(userId: string, companyId?:string):boolean {
+      // Client based check for more relevant presentation
+      return Roles.userIsInRole(userId, 'costs', companyId) ||
+          Roles.userIsInRole(userId, ['owner', 'companyAdmin'], companyId) ||
+          Roles.userIsInRole(userId, 'admin', Roles.GLOBAL_GROUP);
+  };
 
-//   export function mayChangeTouchPointForCompany(tp:string, id:string):boolean {
-//       // Client based check for more relevant presentation
-//       return Roles.userIsInRole(Meteor.userId(), tp, id) ||
-//           Roles.userIsInRole(Meteor.userId(), ['owner', 'companyAdmin'], id) ||
-//           Roles.userIsInRole(Meteor.userId(), 'admin', Roles.GLOBAL_GROUP);
-//   };
+  export function mayChangeTouchPointForCompany( userId: string, touchPoint: string | string[], companyId?:string):boolean {
+      // Client based check for more relevant presentation
+      return Roles.userIsInRole(userId, touchPoint, companyId) ||
+          Roles.userIsInRole(userId, ['owner', 'companyAdmin'], companyId) ||
+          Roles.userIsInRole(userId, 'admin', Roles.GLOBAL_GROUP);
+  };
 
   // general functions
   export function defaultInputType(touchPointName:string):string {
@@ -165,10 +164,10 @@ import { Mongo } from 'meteor/mongo';
       return 'contacts';
   }
 
-//   export function findObjectAndProject(input:number|string, searchKey:any, collection:Mongo.Collection<any, any>, projectKey1:any, projectKey2:any):Mongo.Cursor<any> {
-//       if (typeof projectKey2 === 'undefined') {
-//           return collection.find((element) => element[searchKey] === input)[projectKey1];
-//       } else {
-//           return collection.find((element:any) => element[searchKey] === input)[projectKey1][projectKey2];
-//       }
-//   }
+  export function findObjectAndProject(input:number|string, searchKey:any, collection:Mongo.Collection<any, any>, projectKey1:any, projectKey2:any):Mongo.Cursor<any, any> {
+      if (typeof projectKey2 === 'undefined') {
+          return collection.find((element: any) => element[searchKey] === input)[projectKey1];
+      } else {
+          return collection.find((element:any) => element[searchKey] === input)[projectKey1][projectKey2];
+      }
+  }

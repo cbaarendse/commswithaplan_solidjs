@@ -1,20 +1,24 @@
-<script>
+<script lang="ts">
   // packages
   import {fade} from 'svelte/transition';
   import Button from './Button.svelte';
 
   // variables
-  export let title;
-  export let displayModal = 'none';
+  export let title: string;
+  export let displayModal: string = 'none';
 
   // functions
-  const closeModal = () => (displayModal = 'none');
 </script>
 
 <div class="modal-container" style="display:{displayModal}" transition:fade={{delay: 0, duration: 400}}>
   <div class="modal">
     <div class="modal-button">
-      <Button size={'xlarge'} backgroundColor={'transparantnoborder'} type={'button'} on:click={closeModal}>
+      <Button
+        size={'xlarge'}
+        backgroundColor={'transparantnoborder'}
+        type={'button'}
+        on:click={() => (displayModal = 'none')}
+      >
         <span aria-hidden="true">&times;</span>
       </Button>
     </div>

@@ -1,7 +1,10 @@
-<script>
+<script lang="ts">
   // variables
-  export let size = '3rem';
-  export let colored = true;
+  export let size: string = '3rem';
+  export let colored: boolean = true;
+  let backgroundColor1: string;
+  let backgroundColor2: string;
+  let backgroundColor3: string;
   $: backgroundColor1 = colored ? 'var(--ra-blue)' : 'var(--ra-blue-grayscale)';
   $: backgroundColor2 = colored ? 'var(--ra-green)' : 'var(--ra-green-grayscale)';
   $: backgroundColor3 = colored ? 'var(--ra-red)' : 'var(--ra-red-grayscale)';

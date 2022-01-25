@@ -1,10 +1,10 @@
-<script>
+<script lang="ts">
   // packages
-  import {onMount} from 'svelte';
   import {slide} from 'svelte/transition';
   import {router, active} from 'tinro';
   import Fa from 'svelte-fa/src/fa.svelte';
   import {faUser, faHome} from '@fortawesome/free-solid-svg-icons';
+  import {Writable} from 'svelte/store';
 
   // variables
   import {language} from '../../../client/stores';
@@ -14,7 +14,7 @@
 
   // functions
   import {useMediaQuery} from '../../../client/stores';
-  useMediaQuery('(min-width: 760px)').subscribe((value) => ($navigationVisible = value));
+  useMediaQuery('(min-width: 760px)').subscribe((value): void => ($navigationVisible = value));
 </script>
 
 {#if $navigationVisible == true}

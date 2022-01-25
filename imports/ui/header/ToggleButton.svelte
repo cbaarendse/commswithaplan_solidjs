@@ -1,23 +1,18 @@
-<script>
+<script lang="ts">
   // packages
-  import {router, active} from 'tinro';
-  import {tweened} from 'svelte/motion';
+  import {tweened, Tweened} from 'svelte/motion';
   import {cubicInOut} from 'svelte/easing';
   import Button from '../../ui/reusable/Button.svelte';
-  import Fa from 'svelte-fa/src/fa.svelte';
-  import {faUser, faHome} from '@fortawesome/free-solid-svg-icons';
   import {navigationVisible} from '../../../client/stores';
 
   // variables
-  import {language} from '../../../client/stores';
-
-  let top = tweened(10, {duration: 300, easing: cubicInOut});
-  let topRotation = tweened(0, {duration: 300, easing: cubicInOut});
-  let center = tweened(42, {duration: 300, easing: cubicInOut});
-  let width = tweened(1, {duration: 300, easing: cubicInOut});
-  let height = tweened(1, {duration: 300, easing: cubicInOut});
-  let bottom = tweened(10, {duration: 300, easing: cubicInOut});
-  let bottomRotation = tweened(0, {duration: 300, easing: cubicInOut});
+  let top: Tweened<number> = tweened(10, {duration: 300, easing: cubicInOut});
+  let topRotation: Tweened<number> = tweened(0, {duration: 300, easing: cubicInOut});
+  let center: Tweened<number> = tweened(42, {duration: 300, easing: cubicInOut});
+  let width: Tweened<number> = tweened(1, {duration: 300, easing: cubicInOut});
+  let height: Tweened<number> = tweened(1, {duration: 300, easing: cubicInOut});
+  let bottom: Tweened<number> = tweened(10, {duration: 300, easing: cubicInOut});
+  let bottomRotation: Tweened<number> = tweened(0, {duration: 300, easing: cubicInOut});
 
   // functions
   const toggleNavigation = () => {

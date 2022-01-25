@@ -1,15 +1,13 @@
-<script>
+<script lang="ts">
   // packages
   import {createEventDispatcher} from 'svelte';
-  import {translate} from '../../functions';
 
   // providers
-  import ReachAppProvider from '../../../both/reachAppProvider';
   import UiProvider from '../../../both/uiProvider';
 
   // variables
   import {language, translations} from '../../../client/stores';
-  export let size = 'normal'; // or small, large, xlarge
+  export let size: string = 'normal'; // or small, large, xlarge
   export let list;
   export let selectedItem;
   export let id;

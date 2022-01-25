@@ -1,6 +1,5 @@
-<script>
+<script lang="ts">
   // packages
-  import {router, active} from 'tinro';
   import ToggleButton from './ToggleButton.svelte';
   import Fa from 'svelte-fa/src/fa.svelte';
   import {faUser, faHome} from '@fortawesome/free-solid-svg-icons';

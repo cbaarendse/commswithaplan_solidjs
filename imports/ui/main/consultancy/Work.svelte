@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   // packages
 
   // components
@@ -15,9 +15,8 @@
   import UiProvider from '../../../both/uiProvider';
 
   // variables
-  import {language, workItems, translations} from '../../../../client/stores';
-  const thisUi = new UiProvider($translations);
-  let selectedIndex;
+  import {language, workItems} from '../../../../client/stores';
+  let selectedIndex: number;
 </script>
 
 <Main>
@@ -42,7 +41,7 @@
               on:click={() => (selectedIndex === index ? (selectedIndex = '') : (selectedIndex = index))}
               on:mouseenter={() => (selectedIndex === index ? (selectedIndex = '') : (selectedIndex = index))}
               cardTitle={item[$language].displayName}
-              buttonText={thisUi.translate('read', $language)}
+              buttonText={UiProvider.translate('read', $language)}
             >
               <img
                 src="/consultancy/{item.name}.png"
