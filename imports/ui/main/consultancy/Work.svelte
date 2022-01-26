@@ -8,15 +8,14 @@
   import Article from './layout/Article.svelte';
   import Brand from '../../reusable/Brand.svelte';
   import LogoCommsWithAPlan from '../../reusable/LogoCommsWithAPlan.svelte';
-  import Card from '../../reusable/Card.svelte';
   import FlipCard from '../../reusable/FlipCard.svelte';
 
   // providers
   import UiProvider from '../../../both/uiProvider';
 
   // variables
-  import {language, workItems} from '../../../../client/stores';
-  let selectedIndex: number;
+  import {language, workItems, Translation} from '../../../../client/stores';
+  let selectedIndex: number | null;
 </script>
 
 <Main>
@@ -38,8 +37,8 @@
             <FlipCard
               flipped={selectedIndex === index}
               colors={item.colors}
-              on:click={() => (selectedIndex === index ? (selectedIndex = '') : (selectedIndex = index))}
-              on:mouseenter={() => (selectedIndex === index ? (selectedIndex = '') : (selectedIndex = index))}
+              on:click={() => (selectedIndex === index ? (selectedIndex = null) : (selectedIndex = index))}
+              on:mouseenter={() => (selectedIndex === index ? (selectedIndex = null) : (selectedIndex = index))}
               cardTitle={item[$language].displayName}
               buttonText={UiProvider.translate('read', $language)}
             >

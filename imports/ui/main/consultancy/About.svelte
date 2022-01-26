@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   // components
   import Main from './layout/Main.svelte';
   import Header from './layout/Header.svelte';
@@ -7,61 +7,28 @@
   import Brand from '../../reusable/Brand.svelte';
   import LogoCommsWithAPlan from '../../reusable/LogoCommsWithAPlan.svelte';
 
+  // providers
+  import UiProvider from '../../../both/uiProvider';
+
   // variables
-  import {language, about} from '../../../../client/stores';
+  import {language, aboutItems} from '../../../../client/stores';
 </script>
 
-<main>
-  <header>
+<Main>
+  <Header>
     <Brand title={'Comms With A Plan'} colors={'blue'}><LogoCommsWithAPlan size={'3rem'} /></Brand>
-  </header>
+  </Header>
 
-  <section>
-    <article>
-      <h2>{$about[$language].displayName}</h2>
-      <p>{$about[$language].description}</p>
+  <Section>
+    <Article>
+      <h2>{UiProvider.displayContent('about', $aboutItems, $language)}</h2>
+      <p>{UiProvider.describeContent('about', $aboutItems, $language)}</p>
       <p>
         <a href="https://www.linkedin.com/in/cbaarendse/"> https://www.linkedin.com/in/cbaarendse/ </a>
       </p>
-    </article>
-  </section>
-</main>
+    </Article>
+  </Section>
+</Main>
 
 <style>
-  main {
-    display: grid;
-    grid-template-columns: 1rem 1fr 1rem;
-    grid-template-rows: 7rem;
-    grid-auto-rows: auto;
-    gap: 2rem;
-    padding: 0.4rem 0 0 0;
-    margin: 0.4rem 0 0 0;
-    overflow: auto;
-  }
-  @media screen and (min-width: 760px) {
-    main {
-      grid-template-columns: 1fr 3fr 1fr;
-      padding: 2rem 0 0 0;
-      margin: 2rem 0 0 0;
-    }
-  }
-
-  header {
-    grid-column: 2/3;
-    padding: 2rem;
-    background-color: var(--ra-teal-off-white);
-    border-radius: 5px;
-  }
-  section {
-    grid-column: 2/3;
-    font-size: clamp(var(--font-size-s), var(--font-size-weight) * 100vw, var(--font-size-xl));
-  }
-
-  article {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-auto-rows: auto;
-    gap: 2rem;
-    padding: 1rem;
-  }
 </style>

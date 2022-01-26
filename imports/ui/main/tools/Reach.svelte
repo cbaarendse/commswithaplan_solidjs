@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   // packages
 
   // components
@@ -18,10 +18,9 @@
   // variables
   import {language, touchPointsBasics, translations} from '../../../../client/stores';
   const thisReach = new ReachProvider($touchPointsBasics);
-  const thisUi = new UiProvider($translations);
   let touchPoints = thisReach.touchPoints;
 
-  let inputPlaceholder = thisUi.translate('input', $language);
+  let inputPlaceholder = UiProvider.translate('input', $translations, $language);
   let totalReach = thisReach.totalReach;
   let locus = thisReach.locus;
   let allTouchPointValuesAreZero = thisReach.areAllTouchPointsValuesZero();

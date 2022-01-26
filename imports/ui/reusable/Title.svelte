@@ -1,6 +1,6 @@
-<script>
+<script lang="ts">
   // variables
-  export let title;
+  export let title: string;
 </script>
 
 <div class="title">

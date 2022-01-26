@@ -1,13 +1,20 @@
 // this function / object contains all the logic to make ReachApp work
-function ReachProvider(touchPointsBasics, language) {
-    // public properties
-    this.touchPointsBasics = touchPointsBasics;
-    this.language = language;
 
-    // private properties
-    let _touchPoints = this.touchPointsBasics.map(touchPoint => { return { name: touchPoint.name, value: 0.0 } });
-    let _totalReach = 0.0;
-    let _locus = 0.0;
+interface TouchPoint {name: string, reach: number}
+
+class ReachProvider {
+
+    touchPointsBasics: TouchPoint[];
+        language: string;
+
+    constructor(touchPointsBasics: TouchPoint[], language: string) {
+            this.touchPointsBasics = touchPointsBasics;
+            this.language = language;
+        }
+        // private properties
+    private _touchPoints = this.touchPointsBasics.map(touchPoint => { return { name: touchPoint.name, value: 0.0 } });
+    private _totalReach = 0.0;
+    private _locus = 0.0;
 
     // ui
     this.displayTouchPoint = function(input, language) {
@@ -18,7 +25,7 @@ function ReachProvider(touchPointsBasics, language) {
     }
 
     // reset
-    this.areAllTouchPointsValuesZero = function() { return !_touchPoints.some((touchPoint) => touchPoint.value > 0.0) };
+    areAllTouchPointsValuesZero() { return !_touchPoints.some((touchPoint) => touchPoint.value > 0.0) };
     this.resetVisibleTouchPoints = function() {
         _touchPoints.forEach(touchPoint => touchPoint.value = 0.0)
     }

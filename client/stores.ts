@@ -274,19 +274,19 @@ export const workItems = readable([{
     },
 ]);
 
-export const about = readable({
-    name: 'about',
+interface AboutItem { page:string, chapter?: string, paragraph?: string, colors: string, language: string, displayName: string, description: string }
+
+export const aboutItems: Readable<AboutItem[]> = readable( [{
+    page: 'about',
     colors: 'blue',
-    english: {
-        displayName: 'About',
-        description: "I'm Constantijn Baarendse. I've worked on different continents, for blue chip advertisers, media- and advertising agencies.",
+    language: 'english', displayName: 'About',
+        description: "I'm Constantijn Baarendse. I've worked on different continents, for blue chip advertisers, media- and advertising agencies."
     },
-    dutch: {
+    {page: 'about',
+    colors: 'blue', language: 'dutch',
         displayName: 'Over',
         description: "Ik ben Constantijn Baarendse. Ik heb gewerkt op verschillende continenten, voor 'blue chip' adverteerders, media- en reclamebureaus."
-
-    }
-})
+}]);
 
 export const contactItems = readable([{
         name: 'email',
@@ -464,7 +464,7 @@ export const touchPointsBasics = readable([{ name: "advocacy", english: { displa
 ]);
 
 interface DisplayName {displayName: string};
-interface Translation {name: string, english: DisplayName};
+export interface Translation {name: string, english: DisplayName};
 
 export const translations: Readable<Translation[]> = readable([
     { name: 'english', english: { displayName: 'English' }, dutch: { displayName: 'Engels' } },
@@ -483,9 +483,9 @@ export const translations: Readable<Translation[]> = readable([
 ]);
 
 interface ColorVarieties {
-    base:string,light:string, bright:string, offWhite:string
+    [key:string]:string
 };
-interface ColorScheme  {blue:ColorVarieties, green:ColorVarieties, red: ColorVarieties, teal:ColorVarieties, grey:ColorVarieties};
+interface ColorScheme  {[key:string]:ColorVarieties};
 
 export const colorScheme:Readable<ColorScheme> = readable({
     blue: {

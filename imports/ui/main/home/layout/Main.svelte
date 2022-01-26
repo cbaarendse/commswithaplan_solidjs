@@ -4,21 +4,23 @@
   // components
 
   // variables
-  export let class:string;
 </script>
 
-<article>
+<main>
   <slot />
-</article>
+</main>
 
 <style>
-  article {
+  main {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: 0 4fr 0;
     grid-auto-rows: auto;
-    gap: 2rem;
+    /* gap: 2rem; */
   }
 
   @media screen and (min-width: 760px) {
+    main {
+      grid-template-columns: 1fr 4fr 1fr;
+    }
   }
 </style>

@@ -13,9 +13,7 @@
 <style>
   section {
     grid-column: 2/3;
-    font-size: clamp(var(--font-size-s), var(--font-size-weight) * 100vw, var(--font-size-xl));
-  }
-
-  @media screen and (min-width: 760px) {
+    margin: 2rem 0rem;
+    font-size: clamp(var(--font-size-s), var(--font-size-weight) * 100vw, var(--font-size-l));
   }
 </style>

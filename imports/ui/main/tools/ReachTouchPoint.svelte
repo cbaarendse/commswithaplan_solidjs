@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   // packages
   import {createEventDispatcher} from 'svelte';
   // components
@@ -9,23 +9,21 @@
   import UiProvider from '../../../both/uiProvider';
 
   // variables
-  import {translations} from '../../../../client/stores';
-  export let displayTouchPoint;
-  export let touchPointDisplayName;
-  export let touchPointDescription;
-  export let inputPlaceholder;
-  let manualInput = false;
-  let displayModal;
-  let hovered = false;
+  export let displayTouchPoint: string;
+  export let touchPointDisplayName: string;
+  export let touchPointDescription: string;
+  export let inputPlaceholder: string | null | undefined;
+  let manualInput: boolean = false;
+  let displayModal: string;
+  let hovered: boolean = false;
 
   // these two are extracted through {...touchPoint} in the parent component
-  export let name;
-  export let value;
+  export let name: string;
+  export let value: number;
 
   // this is the value of the slider
+  let sliderValue: number;
   $: sliderValue = value;
-
-  const thisUi = new UiProvider($translations);
 
   //import {notify} from '../../notifications/NotificationsFunctions';
 
@@ -44,7 +42,7 @@
       on:click|preventDefault={showModal}
       on:mouseenter={() => (hovered = true)}
       on:mouseleave={() => (hovered = false)}
-      style="background-image:url(/reach/{name}.png);opacity:{hovered | (value > 0) ? 1 : 0.7};"
+      style="background-image:url(/reach/{name}.png);opacity:{hovered || value > 0 ? 1 : 0.7};"
     />
   </div>
   <div class="center">
@@ -68,7 +66,7 @@
         </div>
       </form>
     {:else}
-      <button class="input"><span> {thisUi.toStringFormat(value)}&nbsp;%</span></button>
+      <button class="input"><span> {UiProvider.toStringFormat(value)}&nbsp;%</span></button>
     {/if}
   </div>
   <Modal title={touchPointDisplayName} {displayModal}>{touchPointDescription}</Modal>

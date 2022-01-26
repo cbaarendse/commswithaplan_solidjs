@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import Header from './layout/Header.svelte';
   import Main from './layout/Main.svelte';
   import Section from './layout/Section.svelte';
@@ -7,9 +7,7 @@
   import LogoReachApp from '../../reusable/LogoReachApp.svelte';
   import DocsLink from './DocsLink.svelte';
   import DocsChapter from './DocsChapter.svelte';
-  import DocsParagraph from './DocsParagraph.svelte';
   import {language, toolsDocumentationChapters} from '../../../../client/stores';
-  import {faParagraph} from '@fortawesome/free-solid-svg-icons';
 </script>
 
 <Main>

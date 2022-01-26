@@ -1,11 +1,10 @@
-<script>
+<script lang="ts">
   //variables
-  export let name;
-  export let displayName;
-  export let defaultValue;
-  export let sliderValue;
-  export let min = 0;
-  export let max = 100;
+  export let name: string;
+  export let displayName: string;
+  export let sliderValue: number;
+  export let min: number = 0;
+  export let max: number = 100;
 </script>
 
 <form>
@@ -17,7 +16,6 @@
     {name}
     {min}
     {max}
-    {defaultValue}
     bind:value={sliderValue}
     on:change|preventDefault
     on:input|preventDefault

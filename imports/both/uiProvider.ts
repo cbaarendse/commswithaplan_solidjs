@@ -6,7 +6,7 @@ import translations from '../../client/stores';
 
 interface DisplayName  {displayName: string};
 interface Translation { name: string, english: DisplayName, dutch: DisplayName }
-
+interface ContentItem { page:string, chapter?: string, paragraph?: string, colors: string, language: string, displayName: string, description: string }
 
 export default class UiProvider {
 
@@ -14,12 +14,20 @@ export default class UiProvider {
 
     constructor(){this.translations = translations;}
 
-    public translate (input:string, language:string):string {
-        return translations.find((element: Translation) => element.name === input)[language].displayName || input;
+    static translate (input:string, items: Translation[] | any, language:string):string {
+        return items.find((element: Translation) => element.name === input)[language].displayName;
     }
 
-    public describe (input:string, language:string):string {
-        return translations.find((element:Translation) => element.name === input)[language].description || input;
+    static describe (input:string, items: Translation[] | any, language:string):string {
+        return items.find((element:Translation) => element.name === input)[language].description;
+    }
+
+    static displayContent (page: string, items: ContentItem[] | any, language: string): string{
+        return items.find((element: ContentItem) => {element.page === page && element.language === language} ).displayName;
+    }
+
+    static describeContent (page: string, items: ContentItem[] | any, language: string): string{
+        return items.find((element: ContentItem) => {element.page === page && element.language === language} ).description;
     }
 
     static capitalizeAndSplit (str: string):string {
@@ -43,8 +51,8 @@ export default class UiProvider {
     static toDateFormat (date:Date):string {
         return dayjs(date).format('DD-MMM-YYYY');
     }
-    static toNumberFormat (value:number):string {
-        return `${value.toLocaleString(undefined, {maximumFractionDigits: 0})}`;
+    static toNumberFormat (value:number, digits:number):string {
+        return `${value.toLocaleString(undefined, {maximumFractionDigits: digits})}`;
     }
 
     static toCurrencySymbol (currency:string):string {

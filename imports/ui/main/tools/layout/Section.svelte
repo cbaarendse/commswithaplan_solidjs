@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   // packages
 
   // components
@@ -8,11 +8,11 @@
   // variables
 
   // functions
-  </script>
-  
-  <section>
-    <slot />
-  </section>
+</script>
+
+<section>
+  <slot />
+</section>
 
 <style>
   section {

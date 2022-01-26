@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   // packages
   import {createEventDispatcher} from 'svelte';
   import Fa from 'svelte-fa/src/fa.svelte';
@@ -22,13 +22,11 @@
 
   // variables
   import {language, translations} from '../../../../client/stores';
-  export let totalReach;
-  export let locus;
-  export let allTouchPointValuesAreZero;
-  export let sortingByName;
-  export let showAll;
-
-  const thisUi = new UiProvider($translations);
+  export let totalReach: number;
+  export let locus: number;
+  export let allTouchPointValuesAreZero: boolean;
+  export let sortingByName: boolean;
+  export let showAll: boolean;
 </script>
 
 <div class="header-content">
@@ -48,15 +46,19 @@
   <button type="button" on:click={() => dispatch('pdf')}><Fa icon={faFilePdf} size={'1.4x'} /></button>
 
   <span class="reach-label"
-    >{thisUi.translate('total', $language)}&nbsp;{thisUi.translate('reach', $language)}:&nbsp;</span
+    >{UiProvider.translate('total', $translations, $language)}&nbsp;{UiProvider.translate(
+      'reach',
+      $translations,
+      $language
+    )}:&nbsp;</span
   >
-  <span class="reach-result">{thisUi.toNumberFormat(totalReach.toFixed(0))}&nbsp;%</span>
+  <span class="reach-result">{UiProvider.toNumberFormat(totalReach, 0)}&nbsp;%</span>
   <div class="meter">
     <span style="width:{totalReach}%;" />
   </div>
 
-  <span class="locus-label">{thisUi.translate('locus', $language)}:&nbsp;</span>
-  <span class="locus-result">{thisUi.toNumberFormat(locus.toFixed(1))}&nbsp;%</span>
+  <span class="locus-label">{UiProvider.translate('locus', $translations, $language)}:&nbsp;</span>
+  <span class="locus-result">{UiProvider.toNumberFormat(locus, 1)}&nbsp;%</span>
   <div class="meter">
     <span style="width:{locus}%;" />
   </div>

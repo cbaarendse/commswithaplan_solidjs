@@ -1,11 +1,11 @@
-<script>
+<script lang="ts">
   // components
   import DocsParagraph from './DocsParagraph.svelte';
   import {language} from '../../../../client/stores';
   // variables
-  export let chapter;
-  export let name;
-  export let img;
+  export let chapter: any;
+  export let name: string;
+  export let img: string;
 </script>
 
 <div>
