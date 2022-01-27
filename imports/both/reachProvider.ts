@@ -1,95 +1,100 @@
 // this function / object contains all the logic to make ReachApp work
+import {TouchPointBasics} from '../../client/stores';
+interface TouchPoint {name: TouchPointBasics['name'], value: number}
 
-interface TouchPoint {name: string, reach: number}
 
 class ReachProvider {
 
-    touchPointsBasics: TouchPoint[];
+    touchPointsBasics: TouchPointBasics[] = [];
         language: string;
 
-    constructor(touchPointsBasics: TouchPoint[], language: string) {
-            this.touchPointsBasics = touchPointsBasics;
-            this.language = language;
+    constructor(tpb: TouchPointBasics[], lang: string) {
+            this.touchPointsBasics = tpb;
+            this.language = lang;
         }
         // private properties
-    private _touchPoints = this.touchPointsBasics.map(touchPoint => { return { name: touchPoint.name, value: 0.0 } });
+    private _touchPoints = this.touchPointsBasics.map((touchPointBasics:TouchPointBasics):TouchPoint => { return { name: touchPointBasics.name, value: 0.0 } });
     private _totalReach = 0.0;
     private _locus = 0.0;
 
     // ui
-    this.displayTouchPoint = function(input, language) {
-        return this.touchPointsBasics.find((touchPointBasics) => touchPointBasics.name === input)[language].displayName || undefined;
+   displayTouchPoint (input: string, language: string) {
+        return this.touchPointsBasics.find((touchPointBasics:TouchPointBasics) => touchPointBasics.name === input)[language].displayName;
     }
-    this.describeTouchPoint = function(input, language) {
-        return this.touchPointsBasics.find((touchPointBasics) => touchPointBasics.name === input)[language].description || undefined;
+  describeTouchPoint (input: string, language: string) {
+        return this.touchPointsBasics.find((touchPointBasics: TouchPointBasics) => {touchPointBasics.name === input && touchPointBasics.language == language}).description;
     }
 
     // reset
-    areAllTouchPointsValuesZero() { return !_touchPoints.some((touchPoint) => touchPoint.value > 0.0) };
-    this.resetVisibleTouchPoints = function() {
+    areAllTouchPointsValuesZero() { return !this._touchPoints.some((touchPoint) => touchPoint.value > 0.0) };
+    resetVisibleTouchPoints () {
         _touchPoints.forEach(touchPoint => touchPoint.value = 0.0)
     }
-    this.resetAllTouchPoints = function() {
+    resetAllTouchPoints () {
         _touchPoints = this.touchPointsBasics.map(touchPoint => { return { name: touchPoint.name, value: 0.0 } });
     }
 
     // sort
-    this.sortingByName = false; // false means the sorting is done by reach
-    this.toggleSortingByName = function() {
+    sortingByName: boolean = false; // false means the sorting is done by reach
+    toggleSortingByName (): void {
         this.sortingByName = !this.sortingByName;
     }
-    this.sortByName = function(language) {
-        let _sortedTouchPoints = [];
+   sortByName (language: string) {
+        let sortedTouchPoints:TouchPoint[] = [];
         const touchPointsBasicsSorted = this.touchPointsBasics;
-        touchPointsBasicsSorted.sort((a, b) => a[language].displayName - b[language].displayName);
+        // TODO: array structure changed
+        touchPointsBasicsSorted.sort((a: TouchPointBasics, b: TouchPointBasics) => a[language].displayName - b[language].displayName);
         touchPointsBasicsSorted.forEach((touchPointBasics) => {
-            let touchPointToBeSorted = _touchPoints.find((touchPoint) => touchPointBasics.name === touchPoint.name);
-            if (touchPointToBeSorted) { _sortedTouchPoints.push(touchPointToBeSorted) }
+            let touchPointToBeSorted = this._touchPoints.find((touchPoint: TouchPoint) => touchPointBasics.name === touchPoint.name);
+            if (touchPointToBeSorted) { sortedTouchPoints.push(touchPointToBeSorted) }
         });
-        _touchPoints = _sortedTouchPoints;
+        this._touchPoints = sortedTouchPoints;
     }
-    this.sortByReach = function() {
-        _touchPoints.sort((a, b) => b.value - a.value);
+    sortByReach () {
+        this._touchPoints.sort((a: TouchPoint, b: TouchPoint) => b.value - a.value);
     }
 
     // hide
-    this.showAll = true;
-    this.toggleShowAll = function() {
+    showAll = true;
+    toggleShowAll () {
         this.showAll = !this.showAll;
     }
-    this.removeZeros = function() {
-        _touchPoints = _touchPoints.filter((touchPoint) => touchPoint.value > 0);
+    removeZeros () {
+        this._touchPoints = this._touchPoints.filter((touchPoint: TouchPoint) => touchPoint.value > 0);
     }
-    this.replenishTouchPoints = function() {
-        for (const touchPointBasics of touchPointsBasics) {
-            if (!_touchPoints.some((touchPoint) => { touchPoint.name === touchPointBasics.name })) {
-                _touchPoints.push({ name: touchPointBasics.name, value: 0.0 });
+    replenishTouchPoints () {
+        for (const touchPointBasics of this.touchPointsBasics) {
+            if (!this._touchPoints.some((touchPoint) => { touchPoint.name === touchPointBasics.name })) {
+                this._touchPoints.push({ name: touchPointBasics.name, value: 0.0 });
             }
         }
     }
 
     // results
-    this.changeReachForTouchPoint = function(touchPointName, input) {
-        let touchPointToChange = _touchPoints.find(touchPoint => touchPoint.name === touchPointName);
+    changeReachForTouchPoint(touchPointName: string, input: number):void {
+        let index: number = this._touchPoints.findIndex((touchPoint: TouchPoint):boolean => {return touchPoint.name === touchPointName});
+        let touchPointToChange: TouchPoint = this._touchPoints[index];
         touchPointToChange.value = input;
+        this._touchPoints.splice(index, 1, touchPointToChange);
+        
     }
-    this.calculateResults = function() {
+    calculateResults() {
         console.log('results being calculated');
-        _calculateTotalNetReach();
-        _calculateLocus();
+        this._calculateTotalNetReach();
+        this._calculateLocus();
     }
-    const _calculateTotalNetReach = function() {
+    private _calculateTotalNetReach() {
         let totalReachPortion = 0.0;
-        for (const touchPoint of _touchPoints) {
+        for (const touchPoint of this._touchPoints) {
             let r = touchPoint.value / 100;
             totalReachPortion = totalReachPortion + ((1 - totalReachPortion) * r);
         }
         console.log('total reach in provider function', 100 * totalReachPortion);
-        _totalReach = 100 * totalReachPortion;
+        this._totalReach = 100 * totalReachPortion;
     }
-    const _calculateLocus = function() {
+  private _calculateLocus() {
         let duplicateReachPortion = 0.0;
-        for (const touchPoint of _touchPoints) {
+        for (const touchPoint of this._touchPoints) {
             if (touchPoint.value != 0.0 && duplicateReachPortion != 0.0) {
                 let r = touchPoint.value / 100;
                 duplicateReachPortion *= r;
@@ -99,25 +104,22 @@ class ReachProvider {
             }
         }
         console.log('locus in provider function', 100 * duplicateReachPortion);
-        _locus = 100 * duplicateReachPortion;
+        this._locus = 100 * duplicateReachPortion;
     }
 
     // getters
-    Object.defineProperty(this, 'touchPoints', {
-        get: function() {
-            return _touchPoints;
+  
+        get touchPoints() {
+            return this._touchPoints;
+        } 
+
+        get totalReach() {
+            return this._totalReach;
         }
-    });
-    Object.defineProperty(this, 'totalReach', {
-        get: function() {
-            return _totalReach;
+
+   get locus() {
+            return this._locus;
         }
-    });
-    Object.defineProperty(this, 'locus', {
-        get: function() {
-            return _locus;
-        }
-    });
 }
 
 export default ReachProvider;
