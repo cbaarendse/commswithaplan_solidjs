@@ -1,11 +1,8 @@
 // this function / object contains all the logic to make ReachApp work
-import {TouchPointBasics} from '../../client/stores';
-interface TouchPoint {name: TouchPointBasics['name'], value: number}
-
 
 class ReachProvider {
 
-    touchPointsBasics: TouchPointBasics[] = [];
+    touchPointsBasics: DisplayItem[] = [];
         language: string;
 
     constructor(tpb: TouchPointBasics[], lang: string) {
@@ -13,7 +10,7 @@ class ReachProvider {
             this.language = lang;
         }
         // private properties
-    private _touchPoints = this.touchPointsBasics.map((touchPointBasics:TouchPointBasics):TouchPoint => { return { name: touchPointBasics.name, value: 0.0 } });
+    private _touchPoints = this.touchPointsBasics.map((touchPointBasics:TouchPointBasics):TouchPointInPlan => { return { name: touchPointBasics.name, value: 0.0 } });
     private _totalReach = 0.0;
     private _locus = 0.0;
 
@@ -28,10 +25,10 @@ class ReachProvider {
     // reset
     areAllTouchPointsValuesZero() { return !this._touchPoints.some((touchPoint) => touchPoint.value > 0.0) };
     resetVisibleTouchPoints () {
-        _touchPoints.forEach(touchPoint => touchPoint.value = 0.0)
+        this._touchPoints.forEach(touchPoint => touchPoint.value = 0.0)
     }
     resetAllTouchPoints () {
-        _touchPoints = this.touchPointsBasics.map(touchPoint => { return { name: touchPoint.name, value: 0.0 } });
+        this._touchPoints = this.touchPointsBasics.map(touchPoint => { return { name: touchPoint.name, value: 0.0 } });
     }
 
     // sort
@@ -40,18 +37,18 @@ class ReachProvider {
         this.sortingByName = !this.sortingByName;
     }
    sortByName (language: string) {
-        let sortedTouchPoints:TouchPoint[] = [];
+        let sortedTouchPoints:TouchPointInPlan[] = [];
         const touchPointsBasicsSorted = this.touchPointsBasics;
         // TODO: array structure changed
         touchPointsBasicsSorted.sort((a: TouchPointBasics, b: TouchPointBasics) => a[language].displayName - b[language].displayName);
         touchPointsBasicsSorted.forEach((touchPointBasics) => {
-            let touchPointToBeSorted = this._touchPoints.find((touchPoint: TouchPoint) => touchPointBasics.name === touchPoint.name);
+            let touchPointToBeSorted = this._touchPoints.find((touchPoint: TouchPointInPlan) => touchPointBasics.name === touchPoint.name);
             if (touchPointToBeSorted) { sortedTouchPoints.push(touchPointToBeSorted) }
         });
         this._touchPoints = sortedTouchPoints;
     }
     sortByReach () {
-        this._touchPoints.sort((a: TouchPoint, b: TouchPoint) => b.value - a.value);
+        this._touchPoints.sort((a: TouchPointInPlan, b: TouchPointInPlan) => b.value - a.value);
     }
 
     // hide
@@ -60,7 +57,7 @@ class ReachProvider {
         this.showAll = !this.showAll;
     }
     removeZeros () {
-        this._touchPoints = this._touchPoints.filter((touchPoint: TouchPoint) => touchPoint.value > 0);
+        this._touchPoints = this._touchPoints.filter((touchPoint: TouchPointInPlan) => touchPoint.value > 0);
     }
     replenishTouchPoints () {
         for (const touchPointBasics of this.touchPointsBasics) {
@@ -72,8 +69,8 @@ class ReachProvider {
 
     // results
     changeReachForTouchPoint(touchPointName: string, input: number):void {
-        let index: number = this._touchPoints.findIndex((touchPoint: TouchPoint):boolean => {return touchPoint.name === touchPointName});
-        let touchPointToChange: TouchPoint = this._touchPoints[index];
+        let index: number = this._touchPoints.findIndex((touchPoint: TouchPointInPlan):boolean => {return touchPoint.name === touchPointName});
+        let touchPointToChange: TouchPointInPlan = this._touchPoints[index];
         touchPointToChange.value = input;
         this._touchPoints.splice(index, 1, touchPointToChange);
         

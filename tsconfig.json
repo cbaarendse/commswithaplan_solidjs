@@ -38,5 +38,6 @@
     "exclude": [
       "./.meteor/**",
       "./packages/**"
-    ]
+    ],
+    "typeRoots": ["./types"]
   }

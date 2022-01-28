@@ -1,8 +1,7 @@
 // packages
 import { writable, Writable, readable, Readable } from 'svelte/store';
-
-// types
-
+       
+// stores
 export const language:Writable<string> = writable('dutch');
 
 export const navigationVisible:Writable<boolean> = writable(false);
@@ -13,7 +12,7 @@ export const useMediaQuery = (mediaQuery: string) => {
     const matches = readable(null, (set) => {
         //we match the media query
         const m:MediaQueryList = window.matchMedia(mediaQuery);
-        //we set the value of the reader to the matches property
+        //we set the value of the readable to the matches property
         set(m.matches);
         //we create the event listener that will set the new value on change
         const el:EventListener = e => set(e.matches);
@@ -27,410 +26,459 @@ export const useMediaQuery = (mediaQuery: string) => {
     return matches;
 }
 
-export const homePageItems:Readable<T> = readable([{
+export const homeItems:Readable<ActionsItem[]> = readable([{
         name: 'consultancy',
-        imgUrl: '/home/consultant.jpeg',
+        imgFile: '/home/consultant.jpeg',
         cardLink: '/consultancy/',
         colors: 'blue',
-        english: {
+        language: "english",
             displayName: 'Consultancy',
             description: 'Comms With A Plan provides Media Management consultancy.',
             callToAction: 'Read more'
         },
-        dutch: {
+{        name: 'consultancy',
+        imgFile: '/home/consultant.jpeg',
+        cardLink: '/consultancy/',
+        colors: 'blue', language: "dutch",
             displayName: 'Consultancy',
             description: 'Comms With A Plan levert Media Management consultancy.',
             callToAction: 'Lees meer'
-        },
+        
     },
     {
         name: 'tools',
-        imgUrl: '/home/night_crowd.jpg',
+        imgFile: '/home/night_crowd.jpg',
         cardLink: '/tools/',
         colors: 'green',
-        english: {
+        language: "english",
             displayName: 'Tools',
             description: 'Handy tools for your media efforts.',
             callToAction: 'Read more'
-        },
-        dutch: {
+        }, {name: 'tools',
+        imgFile: '/home/night_crowd.jpg',
+        cardLink: '/tools/',
+        colors: 'green',language: "dutch",
             displayName: 'Tools',
             description: 'Handige tools voor je media inzet.',
             callToAction: 'Lees meer'
         }
-    }
+    
 ]);
-
-export const toolsItems = readable([{
+//TODO: doubles with toolsHomeItems
+export const toolsItems: Readable<DisplayItem[]> = readable([{
         name: 'reporting',
         colors: 'blue',
-        english: {
+        language: "english",
             displayName: 'Reporting',
             description: 'Interpret, set up, manage dashboards or other kinds of reports.',
         },
-        dutch: {
+        {
+        name: 'reporting',
+        colors: 'blue',language: "dutch",
             displayName: 'Rapportage',
             description: 'Inpreteren, opzetten, managen van dashboards of andersoortige rapporten.',
-        },
+    
     },
     {
         name: 'research_and_analysis',
         colors: 'blue',
-        english: {
+        language: "english",
             displayName: 'Research and analysis',
             description: 'Interpretation of past campaigns / years etc.',
-        },
-        dutch: {
+        },{
+        name: 'research_and_analysis',
+        colors: 'blue', language: "dutch",
             displayName: 'Onderzoek en analyse',
             description: ' Interpretatie van afgelopen campagnes / jaren etc.',
-        }
+        
     }
 ]);
 
-export const consultancyHomeItems = readable([{
+export const consultancyHomeItems: Readable<DisplayItem[]> = readable([{
         name: 'commswithaplan',
         colors: 'blue',
-        english: {
+        language: "english",
             displayName: 'Comms With A Plan',
             description: 'Comms With A Plan is a Media Management consultancy for advertisers. At your service I initiate, maintain and evaluate your media strategy, I manage your agencies and your budget.',
-        },
-        dutch: {
+        },{
+        name: 'commswithaplan',
+        colors: 'blue',language: "dutch",
             displayName: 'Comms With A Plan',
             description: 'Comms With A Plan is een Media Management consultancy voor adverteerders. Ik initieer, onderhoud en evalueer je media strategie, ik manage je bureaus en budget.'
 
-        },
+    
     },
     {
         name: 'consultancy',
         colors: 'blue',
-        english: {
+language: "        english",
             displayName: 'Consultancy',
             description: 'Comms With A Plan is a flexible unit in the sense that work can be project based, or more continuous, based on demand. (Give me a call to explain.)',
-        },
-        dutch: {
-            displayName: 'Consultancy',
+        },{name: 'consultancy',
+        colors: 'blue',
+language: "dutch",            displayName: 'Consultancy',
             description: 'Comms With A Plan is een flexibele partner in die zin dat het werk per project kan zijn, maar ook meer continu. Gebaseerd op vraag. (Bel me zodat ik het kan uitleggen.)'
 
-        },
-    }
+        }
+    
 ]);
 
-export const workItems = readable([{
+export const workItems: Readable<DisplayItem[]> = readable([{
         name: 'reporting',
         colors: 'blue',
-        english: {
+        language: "english",
             displayName: 'Reporting',
             description: 'Interpret, set up, manage dashboards or other kinds of reports.',
         },
-        dutch: {
+        { name:'reporting',
+        colors: 'blue', language: "dutch",
             displayName: 'Rapportage',
             description: 'Inpreteren, opzetten, managen van dashboards of andersoortige rapporten.',
-        },
+       
     },
     {
         name: 'research_and_analysis',
         colors: 'blue',
-        english: {
+        language: "english",
             displayName: 'Research and analysis',
             description: 'Interpretation of past campaigns / years etc.',
         },
-        dutch: {
+        { name:'research_and_analysis',
+        colors: 'blue', language: "dutch",
             displayName: 'Onderzoek en analyse',
             description: ' Interpretatie van afgelopen campagnes / jaren etc.',
-        }
+       
     },
     {
         name: 'briefing',
         colors: 'blue',
-        english: {
+        language: "english",
             displayName: 'Briefing',
             description: 'Instruct the agencies to develop (media) campaigns. With the input of former results, all marketing functions, objectives etc. In principle I follow the steps (1) strategy (2) planning (3) execution (4) evaluation & adjustment.',
         },
-        dutch: {
+        { name:'briefing',
+        colors: 'blue', language: "dutch",
             displayName: 'Briefing',
             description: 'Opdracht geven aan de bureaus om (media)campagnes te ontwikkelen. Met input van eerdere resultaten, alle marketing functies, doelstellingen etcetera. In principe volg ik de stappen (1) strategie (2) planning (3) uitvoering (4) evaluatie & bijstelling.',
-        },
+       
     },
     {
         name: 'coordination',
         colors: 'green',
-        english: {
+        language: "english",
             displayName: 'Coördination',
             description: 'I make sure the strategies are integrated. Possibly in a joint development effort by the agencies.',
         },
-        dutch: {
+        { name:'coordination',
+        colors: 'green',
+         language: "dutch",
             displayName: 'Coördinatie',
             description: 'Ik zorg dat de strategieën geïntegreerd zijn. Eventueel door middel van gezamenlijke ontwikkeling door de bureaus.',
-        },
+        
     },
     {
         name: 'planning',
         colors: 'green',
-        english: {
+        language: "english",
             displayName: 'Planning',
             description: 'Precise elaboration of the strategy by the agencies.',
         },
-        dutch: {
+        { name:'planning',
+        colors: 'green',
+        language: "dutch",
             displayName: 'Planning',
             description: 'Precieze uitwerking van de strategie door de bureaus.',
-        },
+      
     },
     {
         name: 'tools',
         colors: 'green',
-        english: {
+        language: "english",
             displayName: 'Tools',
             description: 'Tools that support your marketing-communications work.',
         },
-        dutch: {
+        { name:'tools',
+        colors: 'green',
+       language: "dutch",
             displayName: 'Tools',
             description: 'Tools die je marketing-communicatie werkzaamheden ondersteunen.',
-        },
+       
     },
     {
         name: 'execution',
         colors: 'red',
-        english: {
+        language: "english",
             displayName: 'Execution',
             description: 'Buying, negotiation, implementation, placement by the agencies.',
         },
-        dutch: {
+        { name:'execution',
+        colors: 'red',
+       language: "dutch",
             displayName: 'Executie',
             description: 'Inkoop, onderhandeling, implementatie, plaatsing door de bureaus.',
-        },
+       
     },
     {
         name: 'evaluation_and_adjustment',
         colors: 'red',
-        english: {
+        language: "english",
             displayName: 'Evaluation and adjustment',
             description: 'Undertake action based on interim results.',
         },
-        dutch: {
+        { name:'evaluation_and_adjustment',
+        colors: 'red',
+        language: "dutch",
             displayName: 'Evaluatie en aanpassingen',
             description: 'Actie ondernemen op basis van tussenresultaten.',
-        },
+       
     },
 
     {
         name: 'budget_management',
         colors: 'red',
-        english: {
+        language: "english",
             displayName: 'Budget management',
             description: 'Make sure that no one spends more than needed to reach the objectives. Or that he/she turns out to have at the end of the year.',
         },
-        dutch: {
+        { name:'budget_management',
+        colors: 'red',
+        language: "dutch",
             displayName: 'Budget management',
             description: 'Ervoor zorgen dat niemand meer uitgeeft dan nodig is voor de doelstellingen. Of wat hij/zij op het einde van het jaar blijkt te hebben.',
-        },
+       
     },
     {
         name: 'creation',
         colors: 'red',
-        english: {
+        language: "english",
             displayName: 'Creation',
             description: 'Do I know the difference between indigo, azure, navy or cobalt? No. But I do know whether a proposal is on or off strategy.',
         },
-        dutch: {
+        { name:'creation',
+        colors: 'red',
+        language: "dutch",
             displayName: 'Creatie',
             description: 'Weet ik het verschil tussen indigo, azuur, navy en kobalt? Nee. Maar ik weet wel of een voorstel op of naast strategie is.',
-        },
+      
     },
     {
         name: 'contracts',
         colors: 'grey',
-        english: {
+        language: "english",
             displayName: 'Contracts',
             description: 'Arrange yearly agreements with important media parties.',
         },
-        dutch: {
+        { name:'contracts',
+        colors: 'grey',
+        language: "dutch",
             displayName: 'Contracten',
             description: 'Regelen van jaarafspraken met belangrijke mediapartijen.',
-        },
+      
     },
     {
         name: 'agency_management',
         colors: 'grey',
-        english: {
+        language: "english",
             displayName: 'Agency management',
             description: 'Team composition, cost, performance rewarding etc.',
         },
-        dutch: {
+        { name:'agency_management',
+        colors: 'grey',
+        language: "dutch",
             displayName: 'Bureau management',
             description: 'Team samenstelling, kosten, prestatiebeloning etcetera.',
-        },
+       
     },
     {
         name: 'auditing',
         colors: 'grey',
-        english: {
+        language: "english",
             displayName: 'Auditing',
             description: 'As an independent party I check spending, prices, timings, results against previous agreed benchmarks, like pitch documents, contracts, plans, previous years etcetera. Only in case I haven\'t worked for you in the previous 2 fiscal years, in one of the capacities above.',
         },
-        dutch: {
+        { name:'auditing',
+        colors: 'grey',
+        language: "dutch",
             displayName: 'Audit',
             description: 'Als een onafhankelijke partij vergelijk ik uitgaven, prijzen, timings, resultaten met vooraf overeengekomen ijkpunten, zoals pitch documenten, contracten, plannen, voorgaande jaren etcetera. \n Alleen als ik in de 2 voorafgaande fiscale jaren niet voor je bedrijf heb gewerkt, in een van de bovenstaande capaciteiten.',
-        },
-    },
+       
+    }
 ]);
 
-interface AboutItem { page:string, chapter?: string, paragraph?: string, colors: string, language: string, displayName: string, description: string }
-
-export const aboutItems: Readable<AboutItem[]> = readable( [{
-    page: 'about',
+export const aboutItems: Readable<DisplayItem[]> = readable( [{
+    name: 'about',
     colors: 'blue',
     language: 'english', displayName: 'About',
         description: "I'm Constantijn Baarendse. I've worked on different continents, for blue chip advertisers, media- and advertising agencies."
     },
-    {page: 'about',
+    {name: 'about',
     colors: 'blue', language: 'dutch',
         displayName: 'Over',
         description: "Ik ben Constantijn Baarendse. Ik heb gewerkt op verschillende continenten, voor 'blue chip' adverteerders, media- en reclamebureaus."
 }]);
 
-export const contactItems = readable([{
+export const contactItems: Readable<DisplayItem[]> = readable([{
         name: 'email',
         colors: 'blue',
-        english: {
+       language: "english",
             displayName: 'E-Mail',
             description: 'cbaarendse[at]commswithaplan.com'
-        },
-        dutch: {
+        },{
+        name: 'email',
+        colors: 'blue', language: "dutch",
             displayName: 'E-Mail',
             description: 'cbaarendse[at]commswithaplan.com'
-        },
+        
     },
     {
         name: 'telephone',
         colors: 'blue',
-        english: {
+        language: "english",
             displayName: 'Telephone',
             description: 'Telephone: plus three one six one two three nine eight seven three four',
-        },
-        dutch: {
-            displayName: 'Telefoon',
+        },{
+        name: 'telephone',
+        colors: 'blue',  language: "dutch",            displayName: 'Telefoon',
             description: 'Telefoon: nul zes een twee drie negen acht zeven drie vier'
-        },
+        
     },
     {
         name: 'address',
         colors: 'blue',
-        english: {
+        language: "english",
             displayName: 'Address',
             description: 'Erich Salomonstraat 507, 1087 GT Amsterdam, The Netherlands',
-        },
-        dutch: {
+        },{
+        name: 'address',
+        colors: 'blue', language: "dutch",
             displayName: 'Adres',
             description: 'Erich Salomonstraat 507, 1087 GT Amsterdam, The Netherlands'
-        },
-    }
+        }
 ]);
 
-export const toolsHomeItems = readable([{
+export const toolsHomeItems: Readable<DisplayItem[]> = readable([{
         name: 'tools',
         colors: 'green',
-        english: {
+        language: "english",
             displayName: 'Tools',
             description: 'Comms With A Plan developes tools aimed to help advertisers who are not working with media agencies. For instance because they have inhouse capabilities, or because they currently do not have the proper size.',
-        },
-        dutch: {
+        },{
+        name: 'tools',
+        colors: 'green',
+        language: "dutch",
             displayName: 'Tools',
             description: 'Comms With A Plan ontwikkelt tools voor adverteerders die niet met mediabureaus werken. Bijvoorbeeld omdat zij intern genoeg bekwaamheid bezitten, of omdat ze op het moment niet de juiste grootte hebben.'
 
-        },
+        
     },
     {
         name: 'reachapp',
         colors: 'green',
-        english: {
+        language: "english",
             displayName: 'Reach',
             description: 'Comms With A Plan is a flexible unit in the sense that work can be project based, or more continuous, based on demand. (Give me a call to explain.)',
-        },
-        dutch: {
+        },{
+        name: 'reachapp',
+        colors: 'green',
+        language: "dutch",
             displayName: 'Reach',
             description: 'Comms With A Plan is een flexibele partner in die zin dat het werk per project kan zijn, maar ook meer continu. Gebaseerd op vraag. (Bel me zodat ik het kan uitleggen.)'
 
-        },
+        
     }
 ]);
 
-export const toolsDocumentationChapters = readable([{
+export const toolsDocumentationChapters:Readable<ChapterItem[]> = readable([{
         name: 'chapter_1',
-        img: '/chapter_1.png',
-        english: { title: 'Operation', content: [{ subtitle: 'Sliders', text: 'Use the sliders of the medium types you want to use in your plan. With the sliders you set the reach of that medium type.', elaboration: "Reach works with an algorithm, that is why it's so fast." }, { subtitle: 'Result', text: 'On top you then see an estimate of the Total Reach of your plan. And you see the overlap ("locus"), so the reach your plan obtains with áll medium types.', elaboration: '' }] },
-        dutch: {
-            title: 'Bediening',
-            content: [{ subtitle: 'Sliders', text: 'Gebruik de sliders van de medium types die je wilt gebruiken in je plan. Met de sliders stel je het bereik in van dat medium type.', elaboration: 'Reach werkt met een algoritme. Daarom is het zo snel.' }, { subtitle: 'Resultaat', text: 'Bovenin zie je dan een inschatting van het Totaal Bereik van je plan. En je ziet de overlap ("locus"), dus het bereik dat je plan realiseert met álle medium types.', elaboration: '' }]
-        }
+        imgFile: '/chapter_1.png',
+        language: "english", displayName: 'Operation', paragraphs: [{ displayName: 'Sliders', description: 'Use the sliders of the medium types you want to use in your plan. With the sliders you set the reach of that medium type.', elaboration: "Reach works with an algorithm, that is why it's so fast." }, { displayName: 'Result', description: 'On top you then see an estimate of the Total Reach of your plan. And you see the overlap ("locus"), so the reach your plan obtains with áll medium types.', elaboration: '' }] },
+        {name:'chapter_1',
+        imgFile: '/chapter_1.png',
+        language: "dutch",
+            displayName: 'Bediening',
+            paragraphs: [{ displayName: 'Sliders', description: 'Gebruik de sliders van de medium types die je wilt gebruiken in je plan. Met de sliders stel je het bereik in van dat medium type.', elaboration: 'Reach werkt met een algoritme. Daarom is het zo snel.' }, { displayName: 'Resultaat', description: 'Bovenin zie je dan een inschatting van het Totaal Bereik van je plan. En je ziet de overlap ("locus"), dus het bereik dat je plan realiseert met álle medium types.', elaboration: '' }]
+        
     },
     {
         name: 'chapter_2',
-        img: '/chapter_2.png',
-        english: {
-            title: 'Reset',
-            content: [{ subtitle: 'Reset 1', text: 'The 1st time you press reset, you keep your plan, in order, but the input for all medium types is set to "0".', elaboration: '' }, { subtitle: 'Reset 2', text: 'The 2nd time you press reset, you get a new empty plan, with the full default list of medium types, in alphabetical order.', elaboration: '' }]
+        imgFile: '/chapter_2.png',
+        language: "english",
+            displayName: 'Reset',
+            paragraphs: [{ displayName: 'Reset 1', description: 'The 1st time you press reset, you keep your plan, in order, but the input for all medium types is set to "0".', elaboration: '' }, { displayName: 'Reset 2', description: 'The 2nd time you press reset, you get a new empty plan, with the full default list of medium types, in alphabetical order.', elaboration: '' }]
         },
-        dutch: { title: 'Reset', content: [{ subtitle: 'Reset 1', text: 'De eerste keer dat je op reset drukt, behoud je je plan, in volgorde, maar de input voor alle medium typen wordt "0".', elaboration: '' }, { subtitle: 'Reset 2', text: 'De 2e keer dat je op reset drukt, krijg je een nieuw leeg plan, met de volledige basis lijst van mediumtypen, in alfabetische volgorde.', elaboration: '' }] }
+        {name:'chapter_2',
+        imgFile: '/chapter_2.png',
+                language: "dutch", displayName: 'Reset', paragraphs: [{ displayName: 'Reset 1', description: 'De eerste keer dat je op reset drukt, behoud je je plan, in volgorde, maar de input voor alle medium typen wordt "0".', elaboration: '' }, { displayName: 'Reset 2', description: 'De 2e keer dat je op reset drukt, krijg je een nieuw leeg plan, met de volledige basis lijst van mediumtypen, in alfabetische volgorde.', elaboration: '' }] 
     },
     {
         name: 'chapter_3',
-        img: '/chapter_3.png',
-        english: {
-            title: 'Sort',
-            content: [{ subtitle: 'Sort 1', text: 'The 1st time you press sort, the order of your plan changes. The highest input will be on top, lowest input underneath.', elaboration: '' }, { subtitle: 'Sort 2', text: 'The 2nd time you press sort, the order will become alphabetical, in the chosen language.', elaboration: '' }]
+        imgFile: '/chapter_3.png',
+        language: "english",
+            displayName: 'Sort',
+            paragraphs: [{ displayName: 'Sort 1', description: 'The 1st time you press sort, the order of your plan changes. The highest input will be on top, lowest input underneath.', elaboration: '' }, { displayName: 'Sort 2', description: 'The 2nd time you press sort, the order will become alphabetical, in the chosen language.', elaboration: '' }]
         },
-        dutch: { title: 'Sorteer', content: [{ subtitle: 'Sorteer  1', text: 'De eerste keer dat je op sorteer drukt, verandert de volgorde. De hoogste input komt bovenaan en de laagste onderaan.', elaboration: '' }, { subtitle: 'Sorteer 2', text: 'De 2e keer dat je op sorteer drukt, wordt de volgorde alfabetisch, in de gekozen taal.', elaboration: '' }] }
+        {name:'chapter_3',
+        imgFile: '/chapter_3.png',
+        language: "dutch", displayName: 'Sorteer', paragraphs: [{ displayName: 'Sorteer  1', description: 'De eerste keer dat je op sorteer drukt, verandert de volgorde. De hoogste input komt bovenaan en de laagste onderaan.', elaboration: '' }, { displayName: 'Sorteer 2', description: 'De 2e keer dat je op sorteer drukt, wordt de volgorde alfabetisch, in de gekozen taal.', elaboration: '' }] 
     },
     {
         name: 'chapter_4',
-        img: '/chapter_4.png',
-        english: {
-            title: 'Hide',
-            content: [{ subtitle: 'Hide', text: 'The 1st time you press this button, you hide all the medium types with input 0.', elaboration: 'So it shows only the medium types you engage in your plan.' }, { subtitle: 'Show', text: 'The 2nd time you press this button, you reveal the medium types with input 0 again', elaboration: '' }]
+        imgFile: '/chapter_4.png',
+        language: "english",
+            displayName: 'Hide',
+            paragraphs: [{ displayName: 'Hide', description: 'The 1st time you press this button, you hide all the medium types with input 0.', elaboration: 'So it shows only the medium types you engage in your plan.' }, { displayName: 'Show', description: 'The 2nd time you press this button, you reveal the medium types with input 0 again', elaboration: '' }]
         },
-        dutch: { title: 'Verberg', content: [{ subtitle: 'Verberg', text: 'De eerste keer dat je op deze knop drukt, verberg je de mediumtypes met input 0.', elaboration: 'Dus dit toont alleen de mediumtypes die je inzet in je plan.' }, { subtitle: 'Toon', text: 'De 2e keer dat je op deze knop drukt, laat je de mediumtypes met input 0 weer zien.', elaboration: '' }] }
+        {name:'chapter_4',
+        imgFile: '/chapter_4.png',
+        language: "dutch", displayName: 'Verberg', paragraphs: [{ displayName: 'Verberg', description: 'De eerste keer dat je op deze knop drukt, verberg je de mediumtypes met input 0.', elaboration: 'Dus dit toont alleen de mediumtypes die je inzet in je plan.' }, { displayName: 'Toon', description: 'De 2e keer dat je op deze knop drukt, laat je de mediumtypes met input 0 weer zien.', elaboration: '' }] 
     },
     {
         name: 'chapter_5',
-        img: '/chapter_5.png',
-        english: {
-            title: 'Outcome',
-            content: [{ subtitle: 'Result', text: 'This area in the header shows the estimated result of your campaign. In terms of Total Reach and Locus (overlap).', elaboration: 'Click on the labels to see the meaning of each.' }]
+        imgFile: '/chapter_5.png',
+        language: "english",
+            displayName: 'Outcome',
+            paragraphs: [{ displayName: 'Result', description: 'This area in the header shows the estimated result of your campaign. In terms of Total Reach and Locus (overlap).', elaboration: 'Click on the labels to see the meaning of each.' }]
         },
-        dutch: { title: 'Uitkomst', content: [{ subtitle: 'Resultaat', text: 'Deze zone toont het ingeschatte resultaat van je campagne.', elaboration: 'Dus dit toont alleen de mediumtypes die je inzet in je plan.' }] }
+        {name:'chapter_5',
+        imgFile: '/chapter_5.png',
+        language: "dutch", displayName: 'Uitkomst', paragraphs: [{ displayName: 'Resultaat', description: 'Deze zone toont het ingeschatte resultaat van je campagne.', elaboration: 'Dus dit toont alleen de mediumtypes die je inzet in je plan.' }] 
     },
     {
         name: 'chapter_6',
-        img: '/chapter_6.png',
-        english: {
-            title: 'Output',
-            content: [{ subtitle: 'Hide', text: 'The 1st time you press this button, you hide all the medium types with input 0.', elaboration: 'So it shows only the medium types you engage in your plan.' }, { subtitle: 'Show', text: 'The 2nd time you press this button, you reveal the medium types with input 0 again', elaboration: '' }]
+        imgFile: '/chapter_6.png',
+        language: "english",
+            displayName: 'Output',
+            paragraphs: [{ displayName: 'Hide', description: 'The 1st time you press this button, you hide all the medium types with input 0.', elaboration: 'So it shows only the medium types you engage in your plan.' }, { displayName: 'Show', description: 'The 2nd time you press this button, you reveal the medium types with input 0 again', elaboration: '' }]
         },
-        dutch: { title: 'Uitvoer', content: [{ subtitle: 'Verberg', text: 'De eerste keer dat je op deze knop drukt, verberg je de mediumtypes met input 0.', elaboration: 'Dus dit toont alleen de mediumtypes die je inzet in je plan.' }, { subtitle: 'Toon', text: 'De 2e keer dat je op deze knop drukt, laat je de mediumtypes met input 0 weer zien.', elaboration: '' }] }
+        {name:'chapter_6',
+        imgFile: '/chapter_6.png',
+        language: "dutch", displayName: 'Uitvoer', paragraphs: [{ displayName: 'Verberg', description: 'De eerste keer dat je op deze knop drukt, verberg je de mediumtypes met input 0.', elaboration: 'Dus dit toont alleen de mediumtypes die je inzet in je plan.' }, { displayName: 'Toon', description: 'De 2e keer dat je op deze knop drukt, laat je de mediumtypes met input 0 weer zien.', elaboration: '' }] 
     },
     {
         name: 'chapter_7',
-        img: '/chapter_7.png',
-        english: {
-            title: 'Medium type',
-            content: [{ subtitle: 'Hide', text: 'The 1st time you press this button, you hide all the medium types with input 0.', elaboration: 'So it shows only the medium types you engage in your plan.' }, { subtitle: 'Show', text: 'The 2nd time you press this button, you reveal the medium types with input 0 again', elaboration: '' }]
+        imgFile: '/chapter_7.png',
+        language: "english",
+            displayName: 'Medium type',
+            paragraphs: [{ displayName: 'Hide', description: 'The 1st time you press this button, you hide all the medium types with input 0.', elaboration: 'So it shows only the medium types you engage in your plan.' }, { displayName: 'Show', description: 'The 2nd time you press this button, you reveal the medium types with input 0 again', elaboration: '' }]
         },
-        dutch: { title: 'Mediumtype', content: [{ subtitle: 'Verberg', text: 'De eerste keer dat je op deze knop drukt, verberg je de mediumtypes met input 0.', elaboration: 'Dus dit toont alleen de mediumtypes die je inzet in je plan.' }, { subtitle: 'Toon', text: 'De 2e keer dat je op deze knop drukt, laat je de mediumtypes met input 0 weer zien.', elaboration: '' }] }
+        {name:'chapter_7',
+        imgFile: '/chapter_7.png',
+        language: "dutch", displayName: 'Mediumtype', paragraphs: [{ displayName: 'Verberg', description: 'De eerste keer dat je op deze knop drukt, verberg je de mediumtypes met input 0.', elaboration: 'Dus dit toont alleen de mediumtypes die je inzet in je plan.' }, { displayName: 'Toon', description: 'De 2e keer dat je op deze knop drukt, laat je de mediumtypes met input 0 weer zien.', elaboration: '' }] 
     },
     {
         name: 'chapter_8',
-        img: '/chapter_8.png',
-        english: {
-            title: 'Precision input',
-            content: [{ subtitle: 'Hide', text: 'The 1st time you press this button, you hide all the medium types with input 0.', elaboration: 'So it shows only the medium types you engage in your plan.' }, { subtitle: 'Show', text: 'The 2nd time you press this button, you reveal the medium types with input 0 again', elaboration: '' }]
+        imgFile: '/chapter_8.png',
+        language: "english",
+            displayName: 'Precision input',
+            paragraphs: [{ displayName: 'Hide', description: 'The 1st time you press this button, you hide all the medium types with input 0.', elaboration: 'So it shows only the medium types you engage in your plan.' }, { displayName: 'Show', description: 'The 2nd time you press this button, you reveal the medium types with input 0 again', elaboration: '' }]
         },
-        dutch: { title: 'Precieze invoer', content: [{ subtitle: 'Verberg', text: 'De eerste keer dat je op deze knop drukt, verberg je de mediumtypes met input 0.', elaboration: 'Dus dit toont alleen de mediumtypes die je inzet in je plan.' }, { subtitle: 'Toon', text: 'De 2e keer dat je op deze knop drukt, laat je de mediumtypes met input 0 weer zien.', elaboration: '' }] }
+        {name:'chapter_8',
+        imgFile: '/chapter_8.png',
+        language: "dutch", displayName: 'Precieze invoer', paragraphs: [{ displayName: 'Verberg', description: 'De eerste keer dat je op deze knop drukt, verberg je de mediumtypes met input 0.', elaboration: 'Dus dit toont alleen de mediumtypes die je inzet in je plan.' }, { displayName: 'Toon', description: 'De 2e keer dat je op deze knop drukt, laat je de mediumtypes met input 0 weer zien.', elaboration: '' }] 
     }
 ]);
 
-export interface TouchPointBasics { name: string, language: string, displayName: string, description: string};
-
-export const touchPointsBasics = readable<TouchPointBasics[]>([{ name: "advocacy", language: "english", displayName: "Advocacy", description: "Consumers spread information about your brand." }, {name: "advocacy",language: "dutch", displayName: "Advocacy", description: "Consumenten verspreiden informatie over je merk." } ,
+export const touchPointsBasics = readable<DisplayItem[]>([{ name: "advocacy", language: "english", displayName: "Advocacy", description: "Consumers spread information about your brand." }, {name: "advocacy",language: "dutch", displayName: "Advocacy", description: "Consumenten verspreiden informatie over je merk." } ,
     { name: "ambassador", language: "english", displayName: "Ambassador", description: "A (known) person acts as spokesperson for your brand." }, { name: "ambassador",language: "dutch", displayName: "Ambassador", description: "Een (bekend) persoon treedt op als woordvoerder voor je merk." } ,
     { name: "app", language: "english", displayName: "App", description: "A branded software program that can be used on smartphones." },{ name: "app",language: "dutch", displayName: "App", description: "Een branded software programma dat werkt op smartphones." } ,
     { name: "asset", language: "english",  displayName: "Asset", description: "A proprietary tool or platform that a brand owns and that can be used to further build it." },{ name: "asset",language: "dutch", displayName: "Asset", description: "Een hulpmiddel of programma dat eigendom is van een merk en dat gebruikt kan worden om het verder te bouwen." } ,
@@ -465,29 +513,21 @@ export const touchPointsBasics = readable<TouchPointBasics[]>([{ name: "advocacy
     { name: "word_of_mouth", language: "english", displayName: "Word Of Mouth", description: "People pass opinions on a brand to other people." },  {name: "word_of_mouth", language: "dutch", displayName: "Word Of Mouth", description: "Mensen geven meningen door over je merk aan andere mensen." } 
 ]);
 
-interface DisplayName {displayName: string};
-export interface Translation {name: string, english: DisplayName};
-
-export const translations: Readable<Translation[]> = readable([
-    { name: 'english', english: { displayName: 'English' }, dutch: { displayName: 'Engels' } },
-    { name: 'dutch', english: { displayName: 'Dutch' }, dutch: { displayName: 'Nederlands' } },
-    { name: 'reset', english: { displayName: 'RESET' }, dutch: { displayName: 'RESET' } },
-    { name: 'hide', english: { displayName: 'HIDE' }, dutch: { displayName: 'VERBERG' } },
-    { name: 'show', english: { displayName: 'SHOW' }, dutch: { displayName: 'TOON' } },
-    { name: 'input', english: { displayName: 'Input' }, dutch: { displayName: 'Input' } },
-    { name: 'reach', english: { displayName: 'Reach' }, dutch: { displayName: 'Bereik' } },
-    { name: 'total', english: { displayName: 'Total' }, dutch: { displayName: 'Totaal' } },
-    { name: 'locus', english: { displayName: 'Locus' }, dutch: { displayName: 'Locus' } },
-    { name: 'enter_reach', english: { displayName: 'Enter Reach for' }, dutch: { displayName: 'Vul Bereik in voor' } },
-    { name: 'reach_error', english: { displayName: 'Reach can be maximum 100, minimum 0' }, dutch: { displayName: 'Bereik mag maximaal 100 zijn, minimaal 0' } },
-    { name: 'advertisement', english: { displayName: 'Advertisement' }, dutch: { displayName: 'Advertentie' } },
-    { name: 'read', english: { displayName: 'Read' }, dutch: { displayName: 'Lees' } }
+export const translations: Readable<DisplayItem[]> = readable([
+    { name: 'english', language: "english",displayName: 'English' },  {name: 'english', language: "dutch", displayName: 'Engels'  },
+    { name: 'dutch', language: "english",displayName: 'Dutch' },{name: 'dutch', language: "dutch", displayName: 'Nederlands'  },
+    { name: 'reset', language: "english",displayName: 'RESET' },{name: 'reset', language: "dutch", displayName: 'RESET'  },
+    { name: 'hide', language: "english",displayName: 'HIDE' }, {name: 'hide',language: "dutch", displayName: 'VERBERG'  },
+    { name: 'show', language: "english",displayName: 'SHOW' }, {name: 'show',language: "dutch", displayName: 'TOON'  },
+    { name: 'input', language: "english",displayName: 'Input' },  {name: 'input',language: "dutch", displayName: 'Input'  },
+    { name: 'reach', language: "english",displayName: 'Reach' }, {name: 'reach',language: "dutch", displayName: 'Bereik'  },
+    { name: 'total', language: "english",displayName: 'Total' },  {name: 'total',language: "dutch", displayName: 'Totaal'  },
+    { name: 'locus', language: "english",displayName: 'Locus' }, {name: 'locus', language: "dutch", displayName: 'Locus'  },
+    { name: 'enter_reach', language: "english",displayName: 'Enter Reach for' },  {name: 'enter_reach',language: "dutch", displayName: 'Vul Bereik in voor'  },
+    { name: 'reach_error', language: "english",displayName: 'Reach can be maximum 100, minimum 0' }, {name: 'reach_error',language: "dutch", displayName: 'Bereik mag maximaal 100 zijn, minimaal 0'  },
+    { name: 'advertisement', language: "english",displayName: 'Advertisement' },{name: 'advertisement', language: "dutch", displayName: 'Advertentie'  },
+    { name: 'read', language: "english",displayName: 'Read' },  {name: 'read',language: "dutch", displayName: 'Lees'  }
 ]);
-
-interface ColorVarieties {
-    [key:string]:string
-};
-interface ColorScheme  {[key:string]:ColorVarieties};
 
 export const colorScheme:Readable<ColorScheme> = readable({
     blue: {
@@ -519,5 +559,5 @@ export const colorScheme:Readable<ColorScheme> = readable({
         light: 'var(--ra-grey-light)',
         bright: 'var(--ra-grey-bright)',
         offWhite: 'var(--ra-grey-off-white)',
-    },
+    }
 });
