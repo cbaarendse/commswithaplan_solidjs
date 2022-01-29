@@ -1,8 +1,14 @@
-// this function / object contains all the logic to make ReachApp work
+// packages
+import deburr from 'lodash/deburr';
+import dayjs from 'dayjs';
+import {Readable, readable} from 'svelte/store';
 
-class ReachProvider {
+// interfaces
+import { Content, TouchPointBasics, TouchPointInPlan, Translation} from './interfaces';
 
-    touchPointsBasics: DisplayItem[] = [];
+export class ReachProvider {
+
+    touchPointsBasics: TouchPointBasics[] = [];
         language: string;
 
     constructor(tpb: TouchPointBasics[], lang: string) {
@@ -16,10 +22,10 @@ class ReachProvider {
 
     // ui
    displayTouchPoint (input: string, language: string) {
-        return this.touchPointsBasics.find((touchPointBasics:TouchPointBasics) => touchPointBasics.name === input)[language].displayName;
+        return this.touchPointsBasics.find((touchPointBasics:TouchPointBasics) => touchPointBasics.name === input && touchPointBasics.language === language).displayName;
     }
   describeTouchPoint (input: string, language: string) {
-        return this.touchPointsBasics.find((touchPointBasics: TouchPointBasics) => {touchPointBasics.name === input && touchPointBasics.language == language}).description;
+        return this.touchPointsBasics.find((touchPointBasics: TouchPointBasics) => {touchPointBasics.name === input && touchPointBasics.language === language}).description;
     }
 
     // reset
@@ -119,4 +125,54 @@ class ReachProvider {
         }
 }
 
-export default ReachProvider;
+export class UiProvider {
+
+    static translate (input:string, items: Translation[] | any, language:string):string {
+        return items.find((element: Translation) => element.name === input && element.language === language).displayName;
+    }
+
+    static describe (input:string, items: Translation[] | any, language:string):string {
+        return items.find((element:Translation) => element.name === input && element.language === language).description;
+    }
+
+    static displayContent (page: string, items: Content[] | any, language: string): string{
+        return items.find((element: Content) => {element.name === page && element.language === language} ).displayName;
+    }
+
+    static describeContent (page: string, items: Content[] | any, language: string): string{
+        return items.find((element: Content) => {element.name === page && element.language === language} ).description;
+    }
+
+    static capitalizeAndSplit (str: string):string {
+        str = str[0].toUpperCase() + str.slice(1);
+        str = str.split(/(?=[A-Z])/).join(' ');
+        return str;
+    }
+
+    static latinizeAndJoin (str:string):string {
+        str = deburr(str);
+        str = str.split(' ').join('');
+        str = str.toLowerCase();
+        console.log("Latinized and Joined:", str)
+        return str;
+    }
+
+    static toStringFormat (value: number):string { return value.toLocaleString() };
+
+    static percentFixed (input: number, digits: number):string {
+        return (input / 100).toFixed(digits);
+    }
+    static toDateFormat (date:Date):string {
+        return dayjs(date).format('DD-MMM-YYYY');
+    }
+    static toNumberFormat (value:number, digits:number):string {
+        return `${value.toLocaleString(undefined, {maximumFractionDigits: digits})}`;
+    }
+
+    static toCurrencySymbol (currency:string):string {
+        const symbol = currency === 'EUR' ? '€' : currency === 'GBP' ? '£' : currency === 'USD' ? '$' : '?';
+        return `${symbol}`;
+    }
+
+
+}

@@ -12,7 +12,7 @@
   import ReachTouchPoint from './ReachTouchPoint.svelte';
 
   // providers
-  import ReachProvider from '../../../both/reachProvider';
+  import ReachProvider ../../../../types/reachProviderovider';
   import UiProvider from '../../../both/uiProvider';
 
   // variables

@@ -1,35 +1,38 @@
 // packages
 import { writable, Writable, readable, Readable } from 'svelte/store';
-       
+
+// interfaces
+import {HomeItem, ToolItem, ConsultancyItem, ToolsHomeItem, ToolsDocsChapter, TouchPointBasics, Translation, ColorScheme} from '../types/interfaces';
+
+
 // stores
 export const language:Writable<string> = writable('dutch');
 
 export const navigationVisible:Writable<boolean> = writable(false);
 
 //export a function that return a readable given a string media query as input
-export const useMediaQuery = (mediaQuery: string) => {
+export const useMediaQuery = (mediaQuery: string):Readable<any> => {
     //we inizialize the readable as null and get the callback with the set function
     const matches = readable(null, (set) => {
         //we match the media query
-        const m:MediaQueryList = window.matchMedia(mediaQuery);
+        const m:MediaQueryList | any = window.matchMedia(mediaQuery);
         //we set the value of the readable to the matches property
         set(m.matches);
         //we create the event listener that will set the new value on change
-        const el:EventListener = e => set(e.matches);
+        const el:EventListener = (e:any) => {set(e.matches)};
         //we add the new event listener
         m.addEventListener("change", el);
         //we return the stop function that will clean the event listener
         return () => { m.removeEventListener("change", el) };
     });
     //then we return the readable
-    console.log('matches inside useMediaQuery', mediaQuery, matches);
     return matches;
 }
 
-export const homeItems:Readable<ActionsItem[]> = readable([{
+export const homeItems:Readable<HomeItem[]> = readable([{
         name: 'consultancy',
         imgFile: '/home/consultant.jpeg',
-        cardLink: '/consultancy/',
+        link: '/consultancy/',
         colors: 'blue',
         language: "english",
             displayName: 'Consultancy',
@@ -38,7 +41,7 @@ export const homeItems:Readable<ActionsItem[]> = readable([{
         },
 {        name: 'consultancy',
         imgFile: '/home/consultant.jpeg',
-        cardLink: '/consultancy/',
+        link: '/consultancy/',
         colors: 'blue', language: "dutch",
             displayName: 'Consultancy',
             description: 'Comms With A Plan levert Media Management consultancy.',
@@ -48,7 +51,7 @@ export const homeItems:Readable<ActionsItem[]> = readable([{
     {
         name: 'tools',
         imgFile: '/home/night_crowd.jpg',
-        cardLink: '/tools/',
+        link: '/tools/',
         colors: 'green',
         language: "english",
             displayName: 'Tools',
@@ -56,7 +59,7 @@ export const homeItems:Readable<ActionsItem[]> = readable([{
             callToAction: 'Read more'
         }, {name: 'tools',
         imgFile: '/home/night_crowd.jpg',
-        cardLink: '/tools/',
+        link: '/tools/',
         colors: 'green',language: "dutch",
             displayName: 'Tools',
             description: 'Handige tools voor je media inzet.',
@@ -65,7 +68,7 @@ export const homeItems:Readable<ActionsItem[]> = readable([{
     
 ]);
 //TODO: doubles with toolsHomeItems
-export const toolsItems: Readable<DisplayItem[]> = readable([{
+export const toolsItems: Readable<ToolItem[]> = readable([{
         name: 'reporting',
         colors: 'blue',
         language: "english",
@@ -94,15 +97,17 @@ export const toolsItems: Readable<DisplayItem[]> = readable([{
     }
 ]);
 
-export const consultancyHomeItems: Readable<DisplayItem[]> = readable([{
+export const consultancyHomeItems: Readable<ConsultancyItem[]> = readable([{
         name: 'commswithaplan',
-        colors: 'blue',
         language: "english",
+        colors: 'blue',
+       
             displayName: 'Comms With A Plan',
             description: 'Comms With A Plan is a Media Management consultancy for advertisers. At your service I initiate, maintain and evaluate your media strategy, I manage your agencies and your budget.',
         },{
         name: 'commswithaplan',
-        colors: 'blue',language: "dutch",
+        language: "dutch",
+        colors: 'blue',
             displayName: 'Comms With A Plan',
             description: 'Comms With A Plan is een Media Management consultancy voor adverteerders. Ik initieer, onderhoud en evalueer je media strategie, ik manage je bureaus en budget.'
 
@@ -110,236 +115,238 @@ export const consultancyHomeItems: Readable<DisplayItem[]> = readable([{
     },
     {
         name: 'consultancy',
+        language: "        english",
         colors: 'blue',
-language: "        english",
+
             displayName: 'Consultancy',
             description: 'Comms With A Plan is a flexible unit in the sense that work can be project based, or more continuous, based on demand. (Give me a call to explain.)',
-        },{name: 'consultancy',
+        },{name: 'consultancy',language: "dutch",   
         colors: 'blue',
-language: "dutch",            displayName: 'Consultancy',
+         displayName: 'Consultancy',
             description: 'Comms With A Plan is een flexibele partner in die zin dat het werk per project kan zijn, maar ook meer continu. Gebaseerd op vraag. (Bel me zodat ik het kan uitleggen.)'
 
         }
     
 ]);
 
-export const workItems: Readable<DisplayItem[]> = readable([{
-        name: 'reporting',
-        colors: 'blue',
-        language: "english",
+export const workItems: Readable<ConsultancyItem[]> = readable([{
+        name: 'reporting',language: "english",
+      
+        
             displayName: 'Reporting',
-            description: 'Interpret, set up, manage dashboards or other kinds of reports.',
+            description: 'Interpret, set up, manage dashboards or other kinds of reports.',  colors: 'blue'
         },
-        { name:'reporting',
-        colors: 'blue', language: "dutch",
+        { name:'reporting',language: "dutch",
+      
             displayName: 'Rapportage',
             description: 'Inpreteren, opzetten, managen van dashboards of andersoortige rapporten.',
-       
+         colors: 'blue'
     },
     {
-        name: 'research_and_analysis',
-        colors: 'blue',
-        language: "english",
+        name: 'research_and_analysis',        language: "english",
+
+     
             displayName: 'Research and analysis',
-            description: 'Interpretation of past campaigns / years etc.',
+            description: 'Interpretation of past campaigns / years etc.',   colors: 'blue'
         },
         { name:'research_and_analysis',
-        colors: 'blue', language: "dutch",
+      language: "dutch",
             displayName: 'Onderzoek en analyse',
             description: ' Interpretatie van afgelopen campagnes / jaren etc.',
-       
+         colors: 'blue'
     },
     {
         name: 'briefing',
-        colors: 'blue',
+        
         language: "english",
             displayName: 'Briefing',
-            description: 'Instruct the agencies to develop (media) campaigns. With the input of former results, all marketing functions, objectives etc. In principle I follow the steps (1) strategy (2) planning (3) execution (4) evaluation & adjustment.',
+            description: 'Instruct the agencies to develop (media) campaigns. With the input of former results, all marketing functions, objectives etc. In principle I follow the steps (1) strategy (2) planning (3) execution (4) evaluation & adjustment.',colors: 'blue'
         },
         { name:'briefing',
-        colors: 'blue', language: "dutch",
+      language: "dutch",
             displayName: 'Briefing',
-            description: 'Opdracht geven aan de bureaus om (media)campagnes te ontwikkelen. Met input van eerdere resultaten, alle marketing functies, doelstellingen etcetera. In principe volg ik de stappen (1) strategie (2) planning (3) uitvoering (4) evaluatie & bijstelling.',
+            description: 'Opdracht geven aan de bureaus om (media)campagnes te ontwikkelen. Met input van eerdere resultaten, alle marketing functies, doelstellingen etcetera. In principe volg ik de stappen (1) strategie (2) planning (3) uitvoering (4) evaluatie & bijstelling.',  colors: 'blue'
        
     },
     {
-        name: 'coordination',
-        colors: 'green',
-        language: "english",
+        name: 'coordination',        language: "english",
+
+       
             displayName: 'Coördination',
-            description: 'I make sure the strategies are integrated. Possibly in a joint development effort by the agencies.',
+            description: 'I make sure the strategies are integrated. Possibly in a joint development effort by the agencies.', colors: 'green'
         },
-        { name:'coordination',
-        colors: 'green',
-         language: "dutch",
+        { name:'coordination',         language: "dutch",
+
+        
             displayName: 'Coördinatie',
-            description: 'Ik zorg dat de strategieën geïntegreerd zijn. Eventueel door middel van gezamenlijke ontwikkeling door de bureaus.',
+            description: 'Ik zorg dat de strategieën geïntegreerd zijn. Eventueel door middel van gezamenlijke ontwikkeling door de bureaus.',colors: 'green'
         
     },
     {
-        name: 'planning',
-        colors: 'green',
-        language: "english",
+        name: 'planning',        language: "english",
+
+       
             displayName: 'Planning',
-            description: 'Precise elaboration of the strategy by the agencies.',
+            description: 'Precise elaboration of the strategy by the agencies.', colors: 'green'
         },
-        { name:'planning',
-        colors: 'green',
-        language: "dutch",
+        { name:'planning',        language: "dutch",
+
+      
             displayName: 'Planning',
-            description: 'Precieze uitwerking van de strategie door de bureaus.',
+            description: 'Precieze uitwerking van de strategie door de bureaus.',  colors: 'green'
       
     },
     {
-        name: 'tools',
-        colors: 'green',
-        language: "english",
+        name: 'tools',language: "english",
             displayName: 'Tools',
             description: 'Tools that support your marketing-communications work.',
+        colors: 'green'
+        
         },
-        { name:'tools',
-        colors: 'green',
-       language: "dutch",
+        { name:'tools', language: "dutch",
             displayName: 'Tools',
             description: 'Tools die je marketing-communicatie werkzaamheden ondersteunen.',
+        colors: 'green'
+      
        
     },
     {
-        name: 'execution',
-        colors: 'red',
-        language: "english",
+        name: 'execution',  language: "english",
             displayName: 'Execution',
             description: 'Buying, negotiation, implementation, placement by the agencies.',
+        colors: 'red'
+      
         },
-        { name:'execution',
-        colors: 'red',
-       language: "dutch",
+        { name:'execution',   language: "dutch",
             displayName: 'Executie',
             description: 'Inkoop, onderhandeling, implementatie, plaatsing door de bureaus.',
+        colors: 'red'
+    
        
     },
     {
-        name: 'evaluation_and_adjustment',
-        colors: 'red',
-        language: "english",
+        name: 'evaluation_and_adjustment',language: "english",
             displayName: 'Evaluation and adjustment',
             description: 'Undertake action based on interim results.',
+        colors: 'red'
+        
         },
-        { name:'evaluation_and_adjustment',
-        colors: 'red',
-        language: "dutch",
+        { name:'evaluation_and_adjustment', language: "dutch",
             displayName: 'Evaluatie en aanpassingen',
             description: 'Actie ondernemen op basis van tussenresultaten.',
+        colors: 'red'
+       
        
     },
 
     {
-        name: 'budget_management',
-        colors: 'red',
-        language: "english",
+        name: 'budget_management', language: "english",
             displayName: 'Budget management',
             description: 'Make sure that no one spends more than needed to reach the objectives. Or that he/she turns out to have at the end of the year.',
+        colors: 'red'
+       
         },
-        { name:'budget_management',
-        colors: 'red',
-        language: "dutch",
+        { name:'budget_management',  language: "dutch",
             displayName: 'Budget management',
             description: 'Ervoor zorgen dat niemand meer uitgeeft dan nodig is voor de doelstellingen. Of wat hij/zij op het einde van het jaar blijkt te hebben.',
+        colors: 'red',
+      
        
     },
     {
-        name: 'creation',
-        colors: 'red',
-        language: "english",
+        name: 'creation',  language: "english",
             displayName: 'Creation',
             description: 'Do I know the difference between indigo, azure, navy or cobalt? No. But I do know whether a proposal is on or off strategy.',
+        colors: 'red'
+      
         },
-        { name:'creation',
-        colors: 'red',
-        language: "dutch",
+        { name:'creation',  language: "dutch",
             displayName: 'Creatie',
             description: 'Weet ik het verschil tussen indigo, azuur, navy en kobalt? Nee. Maar ik weet wel of een voorstel op of naast strategie is.',
+        colors: 'red'
+      
       
     },
     {
-        name: 'contracts',
-        colors: 'grey',
-        language: "english",
+        name: 'contracts', language: "english",
             displayName: 'Contracts',
             description: 'Arrange yearly agreements with important media parties.',
+        colors: 'grey'
+       
         },
-        { name:'contracts',
-        colors: 'grey',
-        language: "dutch",
+        { name:'contracts', language: "dutch",
             displayName: 'Contracten',
             description: 'Regelen van jaarafspraken met belangrijke mediapartijen.',
+        colors: 'grey'
+       
       
     },
     {
-        name: 'agency_management',
-        colors: 'grey',
-        language: "english",
+        name: 'agency_management', language: "english",
             displayName: 'Agency management',
             description: 'Team composition, cost, performance rewarding etc.',
+        colors: 'grey'
+       
         },
-        { name:'agency_management',
-        colors: 'grey',
-        language: "dutch",
+        { name:'agency_management', language: "dutch",
             displayName: 'Bureau management',
             description: 'Team samenstelling, kosten, prestatiebeloning etcetera.',
+        colors: 'grey'
+       
        
     },
     {
-        name: 'auditing',
-        colors: 'grey',
-        language: "english",
+        name: 'auditing', language: "english",
             displayName: 'Auditing',
             description: 'As an independent party I check spending, prices, timings, results against previous agreed benchmarks, like pitch documents, contracts, plans, previous years etcetera. Only in case I haven\'t worked for you in the previous 2 fiscal years, in one of the capacities above.',
+        colors: 'grey'
+       
         },
-        { name:'auditing',
-        colors: 'grey',
-        language: "dutch",
+        { name:'auditing',language: "dutch",
             displayName: 'Audit',
             description: 'Als een onafhankelijke partij vergelijk ik uitgaven, prijzen, timings, resultaten met vooraf overeengekomen ijkpunten, zoals pitch documenten, contracten, plannen, voorgaande jaren etcetera. \n Alleen als ik in de 2 voorafgaande fiscale jaren niet voor je bedrijf heb gewerkt, in een van de bovenstaande capaciteiten.',
+        colors: 'grey'
+        
        
     }
 ]);
 
-export const aboutItems: Readable<DisplayItem[]> = readable( [{
+export const aboutItems: Readable<ConsultancyItem[]> = readable( [{
     name: 'about',
-    colors: 'blue',
+   
     language: 'english', displayName: 'About',
-        description: "I'm Constantijn Baarendse. I've worked on different continents, for blue chip advertisers, media- and advertising agencies."
+        description: "I'm Constantijn Baarendse. I've worked on different continents, for blue chip advertisers, media- and advertising agencies.",
+         colors: 'blue',
     },
-    {name: 'about',
-    colors: 'blue', language: 'dutch',
+    {name: 'about', language: 'dutch',
         displayName: 'Over',
-        description: "Ik ben Constantijn Baarendse. Ik heb gewerkt op verschillende continenten, voor 'blue chip' adverteerders, media- en reclamebureaus."
+        description: "Ik ben Constantijn Baarendse. Ik heb gewerkt op verschillende continenten, voor 'blue chip' adverteerders, media- en reclamebureaus.",
+    colors: 'blue'
 }]);
 
-export const contactItems: Readable<DisplayItem[]> = readable([{
+export const contactItems: Readable<ConsultancyItem[]> = readable([{
         name: 'email',
-        colors: 'blue',
        language: "english",
             displayName: 'E-Mail',
-            description: 'cbaarendse[at]commswithaplan.com'
+            description: 'cbaarendse[at]commswithaplan.com',
+        colors: 'blue'
         },{
-        name: 'email',
-        colors: 'blue', language: "dutch",
+        name: 'email', language: "dutch",
             displayName: 'E-Mail',
-            description: 'cbaarendse[at]commswithaplan.com'
+            description: 'cbaarendse[at]commswithaplan.com',
+        colors: 'blue'
         
     },
     {
         name: 'telephone',
-        colors: 'blue',
         language: "english",
             displayName: 'Telephone',
             description: 'Telephone: plus three one six one two three nine eight seven three four',
+        colors: 'blue'
         },{
-        name: 'telephone',
-        colors: 'blue',  language: "dutch",            displayName: 'Telefoon',
-            description: 'Telefoon: nul zes een twee drie negen acht zeven drie vier'
+        name: 'telephone',  language: "dutch",            displayName: 'Telefoon',
+            description: 'Telefoon: nul zes een twee drie negen acht zeven drie vier',
+        colors: 'blue'
         
     },
     {
@@ -356,39 +363,39 @@ export const contactItems: Readable<DisplayItem[]> = readable([{
         }
 ]);
 
-export const toolsHomeItems: Readable<DisplayItem[]> = readable([{
+export const toolsHomeItems: Readable<ToolsHomeItem[]> = readable([{
         name: 'tools',
-        colors: 'green',
+        
         language: "english",
             displayName: 'Tools',
-            description: 'Comms With A Plan developes tools aimed to help advertisers who are not working with media agencies. For instance because they have inhouse capabilities, or because they currently do not have the proper size.',
+            description: 'Comms With A Plan developes tools aimed to help advertisers who are not working with media agencies. For instance because they have inhouse capabilities, or because they currently do not have the proper size.',colors: 'green'
         },{
         name: 'tools',
-        colors: 'green',
+        
         language: "dutch",
             displayName: 'Tools',
-            description: 'Comms With A Plan ontwikkelt tools voor adverteerders die niet met mediabureaus werken. Bijvoorbeeld omdat zij intern genoeg bekwaamheid bezitten, of omdat ze op het moment niet de juiste grootte hebben.'
+            description: 'Comms With A Plan ontwikkelt tools voor adverteerders die niet met mediabureaus werken. Bijvoorbeeld omdat zij intern genoeg bekwaamheid bezitten, of omdat ze op het moment niet de juiste grootte hebben.', colors: 'green'
 
         
     },
     {
         name: 'reachapp',
-        colors: 'green',
+       
         language: "english",
             displayName: 'Reach',
-            description: 'Comms With A Plan is a flexible unit in the sense that work can be project based, or more continuous, based on demand. (Give me a call to explain.)',
+            description: 'Comms With A Plan is a flexible unit in the sense that work can be project based, or more continuous, based on demand. (Give me a call to explain.)', colors: 'green'
         },{
         name: 'reachapp',
-        colors: 'green',
+      
         language: "dutch",
             displayName: 'Reach',
-            description: 'Comms With A Plan is een flexibele partner in die zin dat het werk per project kan zijn, maar ook meer continu. Gebaseerd op vraag. (Bel me zodat ik het kan uitleggen.)'
+            description: 'Comms With A Plan is een flexibele partner in die zin dat het werk per project kan zijn, maar ook meer continu. Gebaseerd op vraag. (Bel me zodat ik het kan uitleggen.)',  colors: 'green'
 
         
     }
 ]);
 
-export const toolsDocumentationChapters:Readable<ChapterItem[]> = readable([{
+export const toolsDocumentationChapters:Readable<ToolsDocsChapter[]> = readable([{
         name: 'chapter_1',
         imgFile: '/chapter_1.png',
         language: "english", displayName: 'Operation', paragraphs: [{ displayName: 'Sliders', description: 'Use the sliders of the medium types you want to use in your plan. With the sliders you set the reach of that medium type.', elaboration: "Reach works with an algorithm, that is why it's so fast." }, { displayName: 'Result', description: 'On top you then see an estimate of the Total Reach of your plan. And you see the overlap ("locus"), so the reach your plan obtains with áll medium types.', elaboration: '' }] },
@@ -478,7 +485,7 @@ export const toolsDocumentationChapters:Readable<ChapterItem[]> = readable([{
     }
 ]);
 
-export const touchPointsBasics = readable<DisplayItem[]>([{ name: "advocacy", language: "english", displayName: "Advocacy", description: "Consumers spread information about your brand." }, {name: "advocacy",language: "dutch", displayName: "Advocacy", description: "Consumenten verspreiden informatie over je merk." } ,
+export const touchPointsBasics = readable<TouchPointBasics[]>([{ name: "advocacy", language: "english", displayName: "Advocacy", description: "Consumers spread information about your brand." }, {name: "advocacy",language: "dutch", displayName: "Advocacy", description: "Consumenten verspreiden informatie over je merk." } ,
     { name: "ambassador", language: "english", displayName: "Ambassador", description: "A (known) person acts as spokesperson for your brand." }, { name: "ambassador",language: "dutch", displayName: "Ambassador", description: "Een (bekend) persoon treedt op als woordvoerder voor je merk." } ,
     { name: "app", language: "english", displayName: "App", description: "A branded software program that can be used on smartphones." },{ name: "app",language: "dutch", displayName: "App", description: "Een branded software programma dat werkt op smartphones." } ,
     { name: "asset", language: "english",  displayName: "Asset", description: "A proprietary tool or platform that a brand owns and that can be used to further build it." },{ name: "asset",language: "dutch", displayName: "Asset", description: "Een hulpmiddel of programma dat eigendom is van een merk en dat gebruikt kan worden om het verder te bouwen." } ,
@@ -513,7 +520,7 @@ export const touchPointsBasics = readable<DisplayItem[]>([{ name: "advocacy", la
     { name: "word_of_mouth", language: "english", displayName: "Word Of Mouth", description: "People pass opinions on a brand to other people." },  {name: "word_of_mouth", language: "dutch", displayName: "Word Of Mouth", description: "Mensen geven meningen door over je merk aan andere mensen." } 
 ]);
 
-export const translations: Readable<DisplayItem[]> = readable([
+export const translations: Readable<Translation[]> = readable([
     { name: 'english', language: "english",displayName: 'English' },  {name: 'english', language: "dutch", displayName: 'Engels'  },
     { name: 'dutch', language: "english",displayName: 'Dutch' },{name: 'dutch', language: "dutch", displayName: 'Nederlands'  },
     { name: 'reset', language: "english",displayName: 'RESET' },{name: 'reset', language: "dutch", displayName: 'RESET'  },
