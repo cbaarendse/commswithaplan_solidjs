@@ -14,6 +14,7 @@
 
   // variables
   import {language, contactItems} from '../../../../client/stores';
+  $: translatedContactItems = $contactItems.filter((item) => item.language === $language);
 </script>
 
 <Main>
@@ -24,19 +25,14 @@
   <Section>
     <Article>
       <h2>Contact</h2>
-      {#each $contactItems as item, index}
-        <Card cardTitle={item[$language].displayName} colors={'blue'}>
+      {#each translatedContactItems as item}
+        <Card title={item.displayName} colors={'blue'}>
           <address>
-            {item[$language].description}
+            {item.description}
           </address>
         </Card>
       {/each}
-      <Card
-        cardTitle={'LinkedIn'}
-        colors={'blue'}
-        cardLink={'https://www.linkedin.com/in/cbaarendse/'}
-        callToAction={'LinkedIn'}
-      >
+      <Card title={'LinkedIn'} colors={'blue'} link={'https://www.linkedin.com/in/cbaarendse/'} action={'LinkedIn'}>
         <address>
           <a href="https://www.linkedin.com/in/cbaarendse/">
             <Fa icon={faLinkedin} size={'1.4em'} color={'#003366'} /></a

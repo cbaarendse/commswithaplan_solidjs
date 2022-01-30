@@ -4,7 +4,6 @@
   // components
 
   // variables
-  export let class:string;
 </script>
 
 <article>

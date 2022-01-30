@@ -2,27 +2,27 @@
   // packages
   import {createEventDispatcher} from 'svelte';
 
-  // providers
-  import UiProvider from '../../../both/uiProvider';
+  // types
+  import {SelectItem} from '../../../types/interfaces';
+  import {UiProvider} from '../../../types/classes';
 
   // variables
   import {language, translations} from '../../../client/stores';
-  export let size: string = 'normal'; // or small, large, xlarge
-  export let list;
-  export let selectedItem;
-  export let id;
-  export let name;
+  export let size: string | null | undefined = 'normal'; // or small, large, xlarge
+  export let selectItem: SelectItem;
+  export let list: SelectItem[];
+  export let id: SelectItem['id'] | null | undefined;
+  export let name: SelectItem['name'];
 
   // constants
-  const thisUi = new UiProvider($translations);
 
   // functions
   const dispatch = createEventDispatcher();
 </script>
 
-<select class={size} {id} {name} bind:value={selectedItem} on:change={() => dispatch('selectItem', {selectedItem})}>
-  {#each list as item (item._id)}
-    <option value={item}>{thisUi.translate(item.name, $language) || item.name}</option>
+<select class={size} {id} {name} bind:value={selectItem} on:change={() => dispatch('selectItem', {selectItem})}>
+  {#each list as item (item.id)}
+    <option value={item}>{UiProvider.translate(item.name, $translations, $language) || item.name}</option>
   {/each}
 </select>
 

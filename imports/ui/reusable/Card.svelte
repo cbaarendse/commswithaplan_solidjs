@@ -1,22 +1,24 @@
 <script lang="ts">
+  // types
+  import {Card} from '../../../types/interfaces';
   // variables
   import {colorScheme} from '../../../client/stores';
-  export let colors: string = 'grey';
-  export let cardTitle: string;
-  export let imgUrl: string;
-  export let cardLink: string;
-  export let callToAction: string;
+  export let colors: Card['colors'] = 'grey';
+  export let title: Card['title'];
+  export let imgFile: Card['imgFile'];
+  export let link: Card['link'];
+  export let action: Card['action'];
 </script>
 
 <div class="card" style="background-color:{$colorScheme[colors].offWhite};color:{$colorScheme[colors].base};">
-  {#if imgUrl}
+  {#if imgFile}
     <div class="img-container">
-      <img src={imgUrl} alt={cardTitle} />
+      <img src={imgFile} alt={title} />
     </div>
   {/if}
-  {#if cardTitle}
+  {#if title}
     <div class="card-title" style="color:{$colorScheme[colors].base};">
-      <h2>{cardTitle}</h2>
+      <h2>{title}</h2>
     </div>
   {/if}
   <p>
@@ -26,8 +28,8 @@
     <p>
       <slot name="cardfootertext" />
     </p>
-    {#if cardLink}
-      <a href={cardLink} style="color:{$colorScheme[colors].offWhite};">{callToAction}</a>
+    {#if link}
+      <a href={link} style="color:{$colorScheme[colors].offWhite};">{action}</a>
     {/if}
   </div>
 </div>

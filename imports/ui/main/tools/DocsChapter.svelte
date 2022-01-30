@@ -1,24 +1,29 @@
 <script lang="ts">
   // components
   import DocsParagraph from './DocsParagraph.svelte';
-  import {language} from '../../../../client/stores';
+
+  // types
+  import {ToolsDocsChapter} from '../../../../types/interfaces';
+
   // variables
-  export let chapter: any;
-  export let name: string;
-  export let img: string;
+  export let chapter: ToolsDocsChapter;
 </script>
 
 <div>
-  <h3>&sect;&nbsp;{chapter[$language].title}</h3>
+  <h3>&sect;&nbsp;{chapter.displayName}</h3>
   <ul>
-    {#each chapter[$language].content as paragraph}
+    {#each chapter.paragraphs as paragraph}
       <li>
-        <DocsParagraph subtitle={paragraph.subtitle} text={paragraph.text} elaboration={paragraph.elaboration} />
+        <DocsParagraph
+          subtitle={paragraph.displayName}
+          text={paragraph.description}
+          elaboration={paragraph.elaboration}
+        />
       </li>
     {/each}
   </ul>
   <picture>
-    <img src="/documentation{img}" alt={name} />
+    <img src="/documentation{chapter.imgFile}" alt={chapter.displayName} />
   </picture>
 </div>
 

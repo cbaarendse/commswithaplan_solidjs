@@ -5,21 +5,16 @@
   import Card from '../../reusable/Card.svelte';
 
   // variables
-  import {language, homePageItems} from '../../../../client/stores';
+  import {language, homeItems} from '../../../../client/stores';
+  $: translatedHomeItems = $homeItems.filter((item) => item.language === $language);
 </script>
 
 <Main>
   <Section>
     <Article>
-      {#each $homePageItems as item}
-        <Card
-          cardTitle={item[$language].displayName}
-          imgUrl={item.imgUrl}
-          cardLink={item.cardLink}
-          callToAction={item[$language].callToAction}
-          colors={item.colors}
-        >
-          <span>{item[$language].description}</span>
+      {#each translatedHomeItems as item}
+        <Card title={item.displayName} imgFile={item.imgFile} link={item.link} action={item.action}>
+          <span>{item.description}</span>
         </Card>
       {/each}
     </Article>

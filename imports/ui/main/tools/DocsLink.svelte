@@ -1,10 +1,10 @@
 <script lang="ts">
   // variables
   export let name: string;
-  export let title: string;
+  export let displayName: string;
 </script>
 
-<a href="#{name}" tinro-ignore>{title}</a>
+<a href="#{name}" tinro-ignore>{displayName}</a>
 
 <style>
   a {

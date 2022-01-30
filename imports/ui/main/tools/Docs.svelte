@@ -7,7 +7,12 @@
   import LogoReachApp from '../../reusable/LogoReachApp.svelte';
   import DocsLink from './DocsLink.svelte';
   import DocsChapter from './DocsChapter.svelte';
+
+  // variables*
   import {language, toolsDocumentationChapters} from '../../../../client/stores';
+  $: translatedToolsDocumentationChapters = $toolsDocumentationChapters.filter(
+    (chapter) => chapter.language === $language
+  );
 </script>
 
 <Main>
@@ -20,9 +25,9 @@
     <Article>
       <aside>
         <ul>
-          {#each $toolsDocumentationChapters as chapter}
+          {#each translatedToolsDocumentationChapters as chapter}
             <li>
-              <DocsLink name={chapter.name} title={chapter[$language].title} />
+              <DocsLink name={chapter.name} displayName={chapter.displayName} />
             </li>
           {/each}
         </ul>
@@ -31,7 +36,7 @@
       <ul>
         {#each $toolsDocumentationChapters as chapter}
           <li id={chapter.name}>
-            <DocsChapter {chapter} name={chapter.name} img={chapter.img} />
+            <DocsChapter {chapter} />
           </li>
         {/each}
       </ul>

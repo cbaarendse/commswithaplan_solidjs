@@ -12,82 +12,81 @@
   import ReachTouchPoint from './ReachTouchPoint.svelte';
 
   // providers
-  import ReachProvider ../../../../types/reachProviderovider';
-  import UiProvider from '../../../both/uiProvider';
+  import {ReachProvider, UiProvider} from '../../../../types/classes';
 
   // variables
   import {language, touchPointsBasics, translations} from '../../../../client/stores';
-  const thisReach = new ReachProvider($touchPointsBasics);
-  let touchPoints = thisReach.touchPoints;
+  const reach = new ReachProvider($touchPointsBasics, $language);
+  let touchPoints = reach.touchPoints;
 
   let inputPlaceholder = UiProvider.translate('input', $translations, $language);
-  let totalReach = thisReach.totalReach;
-  let locus = thisReach.locus;
-  let allTouchPointValuesAreZero = thisReach.areAllTouchPointsValuesZero();
-  let sortingByName = thisReach.sortingByName;
-  let showAll = thisReach.showAll;
+  let totalReach = reach.totalReach;
+  let locus = reach.locus;
+  let allTouchPointValuesAreZero = reach.areAllTouchPointsValuesZero();
+  let sortingByName = reach.sortingByName;
+  let showAll = reach.showAll;
 
   // functions
   const reset = () => {
-    if (thisReach.areAllTouchPointsValuesZero()) {
+    if (reach.areAllTouchPointsValuesZero()) {
       console.log('all touchpoints values are zero in reset');
-      thisReach.resetAllTouchPoints();
+      reach.resetAllTouchPoints();
     } else {
-      thisReach.resetVisibleTouchPoints();
+      reach.resetVisibleTouchPoints();
     }
-    touchPoints = thisReach.touchPoints;
-    thisReach.calculateResults();
-    totalReach = thisReach.totalReach;
-    locus = thisReach.locus;
-    allTouchPointValuesAreZero = thisReach.areAllTouchPointsValuesZero();
+    touchPoints = reach.touchPoints;
+    reach.calculateResults();
+    totalReach = reach.totalReach;
+    locus = reach.locus;
+    allTouchPointValuesAreZero = reach.areAllTouchPointsValuesZero();
   };
   const sort = () => {
-    if (thisReach.sortingByName) {
-      thisReach.sortByName($language);
+    if (reach.sortingByName) {
+      reach.sortByName($language);
     } else {
-      thisReach.sortByReach();
+      reach.sortByReach();
     }
-    touchPoints = thisReach.touchPoints;
-    thisReach.toggleSortingByName();
-    sortingByName = thisReach.sortingByName;
+    touchPoints = reach.touchPoints;
+    reach.toggleSortingByName();
+    sortingByName = reach.sortingByName;
   };
   const hide = () => {
-    if (!thisReach.showAll) {
-      thisReach.replenishTouchPoints();
-      thisReach.sortByName();
+    if (!reach.showAll) {
+      reach.replenishTouchPoints();
+      reach.sortByName();
     } else {
-      if (!thisReach.areAllTouchPointsValuesZero()) {
-        thisReach.removeZeros();
+      if (!reach.areAllTouchPointsValuesZero()) {
+        reach.removeZeros();
       }
     }
-    touchPoints = thisReach.touchPoints;
-    thisReach.toggleShowAll();
-    showAll = thisReach.showAll;
+    touchPoints = reach.touchPoints;
+    reach.toggleShowAll();
+    showAll = reach.showAll;
   };
   const print = () => {
     window.print();
   };
   const pdf = () => {};
   const displayTouchPoint = () => {
-    !thisReach.showAll && touchPoint.value === 0 ? 'none' : 'grid';
+    !reach.showAll && touchPoint.value === 0 ? 'none' : 'grid';
   };
   const changeReach = (event) => {
     const touchPoint = event.detail;
     console.log('change for', touchPoint);
-    thisReach.changeReachForTouchPoint(touchPoint.name, touchPoint.value);
-    touchPoints = thisReach.touchPoints;
-    thisReach.calculateResults();
-    totalReach = thisReach.totalReach;
-    locus = thisReach.locus;
+    reach.changeReachForTouchPoint(touchPoint.name, touchPoint.value);
+    touchPoints = reach.touchPoints;
+    reach.calculateResults();
+    totalReach = reach.totalReach;
+    locus = reach.locus;
   };
   const inputReach = (event) => {
     const touchPoint = event.detail;
     console.log('input for', touchPoint);
-    thisReach.changeReachForTouchPoint(touchPoint.name, touchPoint.value);
-    touchPoints = thisReach.touchPoints;
-    thisReach.calculateResults();
-    totalReach = thisReach.totalReach;
-    locus = thisReach.locus;
+    reach.changeReachForTouchPoint(touchPoint.name, touchPoint.value);
+    touchPoints = reach.touchPoints;
+    reach.calculateResults();
+    totalReach = reach.totalReach;
+    locus = reach.locus;
   };
 </script>
 

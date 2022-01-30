@@ -10,12 +10,14 @@
   import LogoCommsWithAPlan from '../../reusable/LogoCommsWithAPlan.svelte';
   import FlipCard from '../../reusable/FlipCard.svelte';
 
-  // providers
-  import UiProvider from '../../../both/uiProvider';
+  // types
+  import {UiProvider} from '../../../../types/classes';
+  import {SelectItem} from '../../../../types/interfaces';
 
   // variables
-  import {language, workItems, Translation} from '../../../../client/stores';
-  let selectedIndex: number | null;
+  import {language, translations, workItems} from '../../../../client/stores';
+  $: translatedWorkItems = $workItems.filter((item) => item.language === $language);
+  let selectIndex: SelectItem['id'] | null;
 </script>
 
 <Main>
@@ -24,7 +26,7 @@
   </Header>
 
   <Section>
-    <Article class="work">
+    <Article>
       <h2>Work</h2>
       {#if $language == 'dutch'}
         <p>Zaken die ik manage gedurende het proces (je kan kiezen en mixen):</p>
@@ -32,23 +34,23 @@
         <p>Things I'll manage along the process (you can pick and mix):</p>
       {/if}
       <ul>
-        {#each $workItems as item, index}
+        {#each translatedWorkItems as item, index}
           <li>
             <FlipCard
-              flipped={selectedIndex === index}
+              flipped={selectIndex === index}
               colors={item.colors}
-              on:click={() => (selectedIndex === index ? (selectedIndex = null) : (selectedIndex = index))}
-              on:mouseenter={() => (selectedIndex === index ? (selectedIndex = null) : (selectedIndex = index))}
-              cardTitle={item[$language].displayName}
-              buttonText={UiProvider.translate('read', $language)}
+              on:click={() => (selectIndex === index ? (selectIndex = null) : (selectIndex = index))}
+              on:mouseenter={() => (selectIndex === index ? (selectIndex = null) : (selectIndex = index))}
+              cardTitle={item.displayName}
+              buttonText={UiProvider.translate('read', $translations, $language)}
             >
               <img
                 src="/consultancy/{item.name}.png"
-                alt={item[$language].displayName}
+                alt={item.displayName}
                 style=" filter: opacity(0.6) drop-shadow(0 0 0 {item.colors});"
                 slot="image"
               />
-              <span slot="description">{item[$language].description}</span>
+              <span slot="description">{item.description}</span>
             </FlipCard>
           </li>
         {/each}

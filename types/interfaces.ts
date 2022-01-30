@@ -1,29 +1,46 @@
-// basic interfaces
-interface Name {name: string}
-interface Language {language: string}
-interface DisplayName  {       displayName: string     }
-interface Description {description: string }
-interface Elaboration { elaboration: string }
-interface Colors {colors: string}
-interface Link  {         link: string                 }
-interface Media{imgFile: string  }
-interface Action { callToAction: string  }
-interface Value{value: number}
-interface ColorVarieties {[key:string]:string}
+// types
+type Name = {name: string};
+type Language = {language: string};
+type DisplayName = {displayName: string};
+type Description = {description: string};
+type Elaboration = {elaboration: string};
+type Colors = {colors: string};
+type Title = {title: string};
+type Link = {link: string};
+type Media = {imgFile: string};
+type Action = {action: string};
+type Value = {value: number};
+type Id = {id: number | string};
+type ColorVarieties = {[key: string]: string};
+type Days = {days: number};
+type Monday = {monday: string};
 
-// combined interfaces
-export interface Content extends  Name,  Language,DisplayName, Description, Colors{}
-interface Paragraph extends DisplayName, Description{} 
-interface ToolsDocsParagraph extends Paragraph, Elaboration{} 
-interface Chapter extends  Name, Language, DisplayName{}
+// exported types
 
-// final interfaces
-export interface HomeItem extends Name, Language, DisplayName, Description, Media, Link, Action{}
-export interface ConsultancyItem extends  Content{}
-export interface ToolItem extends Name, Language,DisplayName, Description,  Colors{}
-export interface ToolsHomeItem extends Content{}
-export interface ToolsDocsChapter extends Chapter{paragraphs: ToolsDocsParagraph[]}
-export interface Translation extends  Name, Language, DisplayName{}
-export interface TouchPointBasics extends Name,Language, DisplayName, Description{}
-export interface TouchPointInPlan extends TouchPointBasics, Value{}
-export interface ColorScheme  {[key:string]:ColorVarieties}
+// intersections
+interface Content extends Name, Language, DisplayName, Description, Colors {}
+interface Paragraph extends DisplayName, Description, Elaboration {}
+interface ToolsDocsParagraph extends Paragraph {}
+interface Chapter extends Name, Language, DisplayName, Partial<Media> {}
+
+// exported interfaces
+export interface ContentItem extends Content {}
+export interface HomeItem extends Name, Language, DisplayName, Description, Media, Link, Action {}
+export interface ConsultancyItem extends Content {}
+export interface ToolItem extends Name, Language, DisplayName, Description, Colors {}
+export interface ToolsHomeItem extends Content {}
+export interface ToolsDocsChapter extends Chapter {
+  paragraphs: ToolsDocsParagraph[];
+}
+export interface Translation extends Name, Language, DisplayName {}
+export interface TouchPointBasics extends Name, Language, DisplayName, Description {}
+export interface TouchPointInPlan extends TouchPointBasics, Value {}
+export interface ColorScheme {
+  [key: string]: ColorVarieties;
+}
+export interface Year extends Name, Days {}
+export interface Month extends Name, Days {}
+export interface Week extends Name, Days, Monday {}
+
+export interface Card extends Partial<Title>, Partial<Colors>, Partial<Media>, Partial<Link>, Partial<Action> {}
+export interface SelectItem extends Name, Id {}
