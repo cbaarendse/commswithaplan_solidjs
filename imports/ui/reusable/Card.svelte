@@ -1,6 +1,6 @@
 <script lang="ts">
   // types
-  import {Card} from '../../../types/interfaces';
+  import type {Card} from '../../../types/interfaces';
   // variables
   import {colorScheme} from '../../../client/stores';
   export let colors: Card['colors'] = 'grey';
@@ -8,28 +8,34 @@
   export let imgFile: Card['imgFile'];
   export let link: Card['link'];
   export let action: Card['action'];
+
+  // functions
+  const getBackgroundColor = () => $colorScheme[colors].offWhite;
+  const getFooterColor = () => $colorScheme[colors].offWhite;
+  const getFooterBackgroundColor = () => $colorScheme[colors].light;
+  const getColor = () => $colorScheme[colors].base;
 </script>
 
-<div class="card" style="background-color:{$colorScheme[colors].offWhite};color:{$colorScheme[colors].base};">
+<div class="card" style="background-color:{getBackgroundColor};color:{getColor};">
   {#if imgFile}
     <div class="img-container">
       <img src={imgFile} alt={title} />
     </div>
   {/if}
   {#if title}
-    <div class="card-title" style="color:{$colorScheme[colors].base};">
+    <div class="card-title" style="color:{getColor};">
       <h2>{title}</h2>
     </div>
   {/if}
   <p>
     <slot />
   </p>
-  <div class="card-footer" style="background-color:{$colorScheme[colors].light};color:{$colorScheme[colors].offWhite};">
+  <div class="card-footer" style="background-color:{getFooterBackgroundColor};color:{getFooterColor};">
     <p>
       <slot name="cardfootertext" />
     </p>
     {#if link}
-      <a href={link} style="color:{$colorScheme[colors].offWhite};">{action}</a>
+      <a href={link} style="color:{getFooterColor};">{action}</a>
     {/if}
   </div>
 </div>

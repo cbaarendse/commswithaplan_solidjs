@@ -12,6 +12,7 @@
 
   // variables
   import {language, toolsHomeItems} from '../../../../client/stores';
+  $: translatedToolsHomeItems = $toolsHomeItems.filter((item) => item.language === $language);
 </script>
 
 <Main>
@@ -24,11 +25,11 @@
 
   <Section>
     <Article>
-      {#each $toolsHomeItems as item, index}
+      {#each translatedToolsHomeItems as item}
         <div>
-          <Card cardTitle={item[$language].displayName}>
+          <Card title={item.displayName}>
             <span>
-              {item[$language].description}
+              {item.description}
             </span>
           </Card>
         </div>

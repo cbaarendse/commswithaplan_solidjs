@@ -3,15 +3,15 @@
   import {createEventDispatcher} from 'svelte';
 
   // types
-  import {SelectItem} from '../../../types/interfaces';
+  import type {SelectItem} from '../../../types/interfaces';
   import {UiProvider} from '../../../types/classes';
 
   // variables
   import {language, translations} from '../../../client/stores';
-  export let size: string | null | undefined = 'normal'; // or small, large, xlarge
+  export let size: string = 'normal'; // or small, large, xlarge
   export let selectItem: SelectItem;
   export let list: SelectItem[];
-  export let id: SelectItem['id'] | null | undefined;
+  export let id: string;
   export let name: SelectItem['name'];
 
   // constants
@@ -21,7 +21,7 @@
 </script>
 
 <select class={size} {id} {name} bind:value={selectItem} on:change={() => dispatch('selectItem', {selectItem})}>
-  {#each list as item (item.id)}
+  {#each list as item (item.index)}
     <option value={item}>{UiProvider.translate(item.name, $translations, $language) || item.name}</option>
   {/each}
 </select>

@@ -4,7 +4,6 @@
   import {router, active} from 'tinro';
   import Fa from 'svelte-fa/src/fa.svelte';
   import {faUser, faHome} from '@fortawesome/free-solid-svg-icons';
-  import {Writable} from 'svelte/store';
 
   // variables
   import {language} from '../../../client/stores';
@@ -18,7 +17,7 @@
 </script>
 
 {#if $navigationVisible == true}
-  <nav class="main-nav" role="navigation" transition:slide>
+  <nav class="main-nav" transition:slide>
     <ul class="nav-list">
       <li>
         <a href={'/'} use:active exact class="brand">
@@ -38,7 +37,7 @@
     </ul>
   </nav>
   {#if $router.path === '/'}
-    <nav class="sub-nav" role="navigation" transition:slide>
+    <nav class="sub-nav" transition:slide>
       <ul class="nav-list">
         <li>
           <a href={'/'} use:active>
@@ -48,7 +47,7 @@
       </ul>
     </nav>
   {:else if $router.path.startsWith('/consultancy')}
-    <nav class="sub-nav" role="navigation" transition:slide>
+    <nav class="sub-nav" transition:slide>
       <ul class="nav-list">
         <li>
           <a href={'/consultancy/'} use:active exact>
@@ -73,7 +72,7 @@
       </ul>
     </nav>
   {:else if $router.path.startsWith('/tools')}
-    <nav class="sub-nav" role="navigation" transition:slide>
+    <nav class="sub-nav" transition:slide>
       <ul class="nav-list">
         <li>
           <a href={'/tools/'} use:active exact>

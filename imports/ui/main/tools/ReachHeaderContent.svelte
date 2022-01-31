@@ -9,13 +9,13 @@
     faMinus,
     faBars,
     faPrint,
-    faFilePdf,
+    faFilePdf
   } from '@fortawesome/free-solid-svg-icons';
 
   // components
 
   // providers
-  import UiProvider from '../../../both/uiProvider';
+  import {UiProvider} from '../../../../types/classes';
 
   // constants
   const dispatch = createEventDispatcher();

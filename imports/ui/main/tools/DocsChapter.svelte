@@ -3,7 +3,7 @@
   import DocsParagraph from './DocsParagraph.svelte';
 
   // types
-  import {ToolsDocsChapter} from '../../../../types/interfaces';
+  import type {ToolsDocsChapter} from '../../../../types/interfaces';
 
   // variables
   export let chapter: ToolsDocsChapter;

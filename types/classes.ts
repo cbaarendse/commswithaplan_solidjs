@@ -5,12 +5,16 @@ import dayjs from 'dayjs';
 // interfaces
 import {ContentItem, TouchPointBasics, TouchPointInPlan, Translation} from './interfaces';
 
+// ReachProvider
 export class ReachProvider {
   public language: string;
   private _touchPointsBasics: TouchPointBasics[];
   private _touchPointsInPlan: TouchPointInPlan[];
   private _totalReach: number;
   private _locus: number;
+  public allTouchPointValuesAreZero: boolean = this.areAllTouchPointsValuesZero();
+  public sortingByName: boolean;
+  public showAll: boolean;
 
   constructor(t: TouchPointBasics[], l: string) {
     this._touchPointsBasics = t;
@@ -20,13 +24,14 @@ export class ReachProvider {
       .map((touchPointBasics): TouchPointInPlan => ({...touchPointBasics, value: 0.0}));
     this._totalReach = 0.0;
     this._locus = 0.0;
+    this.allTouchPointValuesAreZero = this.areAllTouchPointsValuesZero();
+    this.sortingByName = false; // false means the sorting is done by reach
+    this.showAll = true;
   }
 
   // ui
   findTouchPoint(input: string) {
-    return this._touchPointsBasics.find(
-      (touchPointBasics) => touchPointBasics.name === input && touchPointBasics.language === this.language
-    );
+    return this._touchPointsBasics.find((touchPointBasics: TouchPointBasics) => touchPointBasics.name === input);
   }
 
   displayTouchPoint(input: string) {
@@ -57,7 +62,7 @@ export class ReachProvider {
 
   // reset
   areAllTouchPointsValuesZero() {
-    return !this._touchPointsInPlan.some((touchPoint) => touchPoint.value > 0.0);
+    return this._touchPointsInPlan.every((touchPoint) => touchPoint.value === 0);
   }
   resetVisibleTouchPoints() {
     this._touchPointsInPlan.forEach((touchPoint) => (touchPoint.value = 0.0));
@@ -69,7 +74,6 @@ export class ReachProvider {
   }
 
   // sort
-  sortingByName: boolean = false; // false means the sorting is done by reach
   toggleSortingByName(): void {
     this.sortingByName = !this.sortingByName;
   }
@@ -93,7 +97,6 @@ export class ReachProvider {
   }
 
   // hide
-  showAll = true;
   toggleShowAll() {
     this.showAll = !this.showAll;
   }
@@ -151,7 +154,6 @@ export class ReachProvider {
   }
 
   // getters
-
   get touchPoints() {
     return this._touchPointsInPlan;
   }
@@ -165,6 +167,7 @@ export class ReachProvider {
   }
 }
 
+// UiProvider
 export class UiProvider {
   static translate(input: string, items: Translation[] | any, language: string): string {
     return items.find((element: Translation) => element.name === input && element.language === language).displayName;

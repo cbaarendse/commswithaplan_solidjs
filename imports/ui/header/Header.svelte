@@ -4,7 +4,6 @@
   // components
   import TopBar from './TopBar.svelte';
   import Navigation from './Navigation.svelte';
-  import {onMount} from 'svelte';
 
   // variables
 

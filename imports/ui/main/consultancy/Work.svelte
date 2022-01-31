@@ -12,7 +12,7 @@
 
   // types
   import {UiProvider} from '../../../../types/classes';
-  import {SelectItem} from '../../../../types/interfaces';
+  import type {SelectItem} from '../../../../types/interfaces';
 
   // variables
   import {language, translations, workItems} from '../../../../client/stores';

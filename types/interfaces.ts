@@ -7,10 +7,11 @@ type Elaboration = {elaboration: string};
 type Colors = {colors: string};
 type Title = {title: string};
 type Link = {link: string};
-type Media = {imgFile: string};
+type ImgFile = {imgFile: string};
 type Action = {action: string};
 type Value = {value: number};
-type Id = {id: number | string};
+type Index = {index: number};
+type Id = {id: string};
 type ColorVarieties = {[key: string]: string};
 type Days = {days: number};
 type Monday = {monday: string};
@@ -42,5 +43,5 @@ export interface Year extends Name, Days {}
 export interface Month extends Name, Days {}
 export interface Week extends Name, Days, Monday {}
 
-export interface Card extends Partial<Title>, Partial<Colors>, Partial<Media>, Partial<Link>, Partial<Action> {}
-export interface SelectItem extends Name, Id {}
+export interface Card extends Partial<Title>, Colors, Partial<ImgFile>, Partial<Link>, Partial<Action> {}
+export interface SelectItem extends Name, Index {}

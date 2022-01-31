@@ -6,10 +6,10 @@
   import Modal from '../../reusable/Modal.svelte';
 
   // providers
-  import UiProvider from '../../../both/uiProvider';
+  import {UiProvider} from '../../../../types/classes';
 
   // variables
-  export let displayTouchPoint: string;
+  export let display: string;
   export let touchPointDisplayName: string;
   export let touchPointDescription: string;
   export let inputPlaceholder: string | null | undefined;
@@ -35,7 +35,7 @@
   };
 </script>
 
-<div class="container" style="display:{displayTouchPoint};">
+<div class="container" style="{display};">
   <div class="left">
     <button
       class="touchpoint"

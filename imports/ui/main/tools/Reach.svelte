@@ -16,15 +16,9 @@
 
   // variables
   import {language, touchPointsBasics, translations} from '../../../../client/stores';
-  const reach = new ReachProvider($touchPointsBasics, $language);
-  let touchPoints = reach.touchPoints;
-
+  import {TouchPointInPlan} from '/types/interfaces';
+  let reach = new ReachProvider($touchPointsBasics, $language);
   let inputPlaceholder = UiProvider.translate('input', $translations, $language);
-  let totalReach = reach.totalReach;
-  let locus = reach.locus;
-  let allTouchPointValuesAreZero = reach.areAllTouchPointsValuesZero();
-  let sortingByName = reach.sortingByName;
-  let showAll = reach.showAll;
 
   // functions
   const reset = () => {
@@ -32,61 +26,46 @@
       console.log('all touchpoints values are zero in reset');
       reach.resetAllTouchPoints();
     } else {
-      reach.resetVisibleTouchPoints();
+      reach = new ReachProvider($touchPointsBasics, $language);
     }
-    touchPoints = reach.touchPoints;
     reach.calculateResults();
-    totalReach = reach.totalReach;
-    locus = reach.locus;
-    allTouchPointValuesAreZero = reach.areAllTouchPointsValuesZero();
+    reach.areAllTouchPointsValuesZero();
   };
   const sort = () => {
     if (reach.sortingByName) {
-      reach.sortByName($language);
+      reach.sortByName();
     } else {
       reach.sortByReach();
     }
-    touchPoints = reach.touchPoints;
     reach.toggleSortingByName();
-    sortingByName = reach.sortingByName;
   };
   const hide = () => {
     if (!reach.showAll) {
       reach.replenishTouchPoints();
       reach.sortByName();
     } else {
-      if (!reach.areAllTouchPointsValuesZero()) {
+      if (!reach.areAllTouchPointsValuesZero) {
         reach.removeZeros();
       }
     }
-    touchPoints = reach.touchPoints;
     reach.toggleShowAll();
-    showAll = reach.showAll;
   };
   const print = () => {
     window.print();
   };
   const pdf = () => {};
-  const displayTouchPoint = () => {
-    !reach.showAll && touchPoint.value === 0 ? 'none' : 'grid';
+  const displayThisTouchPoint = (touchPoint: TouchPointInPlan): string => {
+    return !reach.showAll && touchPoint.value === 0 ? 'none' : 'grid';
   };
-  const changeReach = (event) => {
+  const changeReach = (event: CustomEvent) => {
     const touchPoint = event.detail;
-    console.log('change for', touchPoint);
     reach.changeReachForTouchPoint(touchPoint.name, touchPoint.value);
-    touchPoints = reach.touchPoints;
     reach.calculateResults();
-    totalReach = reach.totalReach;
-    locus = reach.locus;
   };
-  const inputReach = (event) => {
+  const inputReach = (event: CustomEvent) => {
     const touchPoint = event.detail;
-    console.log('input for', touchPoint);
     reach.changeReachForTouchPoint(touchPoint.name, touchPoint.value);
-    touchPoints = reach.touchPoints;
     reach.calculateResults();
-    totalReach = reach.totalReach;
-    locus = reach.locus;
   };
 </script>
 
@@ -96,11 +75,11 @@
       <LogoReachApp size="3rem" />
     </Brand>
     <ReachHeaderContent
-      {totalReach}
-      {locus}
-      {allTouchPointValuesAreZero}
-      {sortingByName}
-      {showAll}
+      totalReach={reach.totalReach}
+      locus={reach.locus}
+      allTouchPointValuesAreZero={reach.allTouchPointValuesAreZero}
+      sortingByName={reach.sortingByName}
+      showAll={reach.showAll}
       on:reset={reset}
       on:sort={sort}
       on:hide={hide}
@@ -111,14 +90,13 @@
   <Section>
     <Article>
       <!-- TODO: dispatch on:change and on:input -->
-      {#each touchPoints as touchPoint}
+      {#each reach.touchPoints as touchPoint}
         <ReachTouchPoint
-          {displayTouchPoint}
-          {language}
+          display={displayThisTouchPoint(touchPoint)}
           {inputPlaceholder}
           {...touchPoint}
-          touchPointDisplayName={thisReach.displayTouchPoint(touchPoint.name, $language)}
-          touchPointDescription={thisReach.describeTouchPoint(touchPoint.name, $language)}
+          touchPointDisplayName={reach.displayTouchPoint(touchPoint.name)}
+          touchPointDescription={reach.describeTouchPoint(touchPoint.name)}
           on:handleChange={changeReach}
           on:handleInput={inputReach}
         />
