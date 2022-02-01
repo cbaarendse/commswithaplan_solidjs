@@ -14,7 +14,11 @@
 
 <div class="accordion">
   <header>
-    <Button backgroundColor={'transparantnoborder'} on:click
+    <Button
+      btn={{
+        className: 'transparantnoborder',
+        onClick: () => (visible = !visible)
+      }}
       >{#if visible}<Fa icon={faMinus} />{:else}<Fa icon={faPlus} />{/if}</Button
     >
     <slot name="title" />

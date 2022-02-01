@@ -14,10 +14,11 @@
   <div class="modal">
     <div class="modal-button">
       <Button
-        size={'xlarge'}
-        backgroundColor={'transparantnoborder'}
-        type={'button'}
-        on:click={() => (displayModal = 'none')}
+        btn={{
+          className: 'xlarge' + ' ' + 'transparantnoborder',
+          type: 'button',
+          onClick: () => (displayModal = 'none')
+        }}
       >
         <span aria-hidden="true">&times;</span>
       </Button>

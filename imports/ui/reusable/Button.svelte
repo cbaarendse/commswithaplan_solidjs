@@ -1,25 +1,25 @@
 <script lang="ts">
+  // interfaces
+  import type {Button} from '../../../types/interfaces';
+
+  // properties
+  export let btn: Button;
   export let size: string = 'fit'; // or small, medium, large, xlarge
   export let backgroundColor: string = 'blue'; // or green, red, grey, transparant, transparantnoborder
-  export let type: string = 'button'; // or reset, submit
-  export let role: string = 'button';
-  export let dataDismiss: string;
-  export let ariaLabel: string;
-  export let disabled: boolean = false;
-  export let value: string;
+  btn.className = `${size}+' '${backgroundColor}`;
 </script>
 
 <button
-  class="{size} {backgroundColor}"
-  {type}
-  {role}
-  on:click|preventDefault|stopPropagation
-  on:mouseenter|preventDefault|stopPropagation
-  on:mouseleave|preventDefault|stopPropagation
-  {disabled}
-  data-dismiss={dataDismiss}
-  aria-label={ariaLabel}
-  {value}
+  class={btn.className}
+  type={btn.type}
+  role={btn.role}
+  on:click|preventDefault|stopPropagation={btn.onClick}
+  on:mouseenter|preventDefault|stopPropagation={btn.onMouseenter}
+  on:mouseleave|preventDefault|stopPropagation={btn.onMouseleave}
+  disabled={btn.disabled}
+  data-dismiss={btn.dataDismiss}
+  aria-label={btn.ariaLabel}
+  value={btn.value}
 >
   <slot />
 </button>

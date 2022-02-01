@@ -10,6 +10,8 @@
   import Brand from '../../reusable/Brand.svelte';
   import ReachHeaderContent from './ReachHeaderContent.svelte';
   import ReachTouchPoint from './ReachTouchPoint.svelte';
+  import {onDestroy} from 'svelte';
+  import {Unsubscriber} from 'svelte/store';
 
   // providers
   import {ReachProvider, UiProvider} from '../../../../types/classes';
@@ -17,16 +19,15 @@
   // variables
   import {language, touchPointsBasics, translations} from '../../../../client/stores';
   import {TouchPointInPlan} from '/types/interfaces';
-  let reach = new ReachProvider($touchPointsBasics, $language);
+  let reach = new ReachProvider($language, $touchPointsBasics);
   let inputPlaceholder = UiProvider.translate('input', $translations, $language);
 
   // functions
   const reset = () => {
     if (reach.areAllTouchPointsValuesZero()) {
-      console.log('all touchpoints values are zero in reset');
       reach.resetAllTouchPoints();
     } else {
-      reach = new ReachProvider($touchPointsBasics, $language);
+      reach = new ReachProvider($language, $touchPointsBasics);
     }
     reach.calculateResults();
     reach.areAllTouchPointsValuesZero();
@@ -67,6 +68,9 @@
     reach.changeReachForTouchPoint(touchPoint.name, touchPoint.value);
     reach.calculateResults();
   };
+
+  let languageUnsubscribe: Unsubscriber = language.subscribe((newLanguage) => reach.changeLanguage(newLanguage));
+  onDestroy(languageUnsubscribe);
 </script>
 
 <Main>

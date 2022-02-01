@@ -28,7 +28,12 @@
   });
 </script>
 
-<Button size={'fit'} backgroundColor={'transparantnoborder'} on:click={toggleNavigation}>
+<Button
+  btn={{
+    className: 'fit' + ' ' + 'transparantnoborder',
+    onClick: toggleNavigation
+  }}
+>
   <div class="bars">
     <div class="bar-1" style="top:{$top}%;transform:rotate({$topRotation}deg);" />
     <div class="bar-2" style="top:{$center}%; transform:scale({$width}, {$height}); transform-origin: right 15%;" />
