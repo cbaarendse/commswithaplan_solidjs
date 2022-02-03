@@ -4,9 +4,9 @@
 
   // properties
   export let btn: Button;
-  export let size: string = 'fit'; // or small, medium, large, xlarge
-  export let backgroundColor: string = 'blue'; // or green, red, grey, transparant, transparantnoborder
-  btn.className = `${size}+' '${backgroundColor}`;
+  btn.size = 'fit';
+  btn.backgroundColor = 'blue';
+  btn.className = [btn.size, btn.backgroundColor].join(' ');
 </script>
 
 <button

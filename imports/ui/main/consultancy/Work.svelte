@@ -22,7 +22,7 @@
 
 <Main>
   <Header>
-    <Brand title={'Comms With A Plan'} colors={'green'}><LogoCommsWithAPlan size={'3rem'} /></Brand>
+    <Brand brand={{color: 'green'}}><LogoCommsWithAPlan size={'3rem'} /></Brand>
   </Header>
 
   <Section>

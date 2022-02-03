@@ -75,7 +75,7 @@
 
 <Main>
   <Header
-    ><Brand title={'Reach'}>
+    ><Brand brand={{title: 'Reach'}}>
       <LogoReachApp size="3rem" />
     </Brand>
     <ReachHeaderContent

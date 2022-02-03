@@ -16,8 +16,27 @@ type Index = {index: number};
 type ColorVarieties = {[key: string]: string};
 type Days = {days: number};
 type Monday = {monday: string};
-// element properties
-type ClassName = {className: string};
+// component type
+type ClassName = {className: string | undefined | null};
+type Size = {size: 'fit' | 'small' | 'medium' | 'large' | 'xlarge'};
+type Color = {color: 'blue' | 'green' | 'red' | 'teal' | 'grey'};
+type BackgroundColor = {backgroundColor: 'blue' | 'green' | 'red' | 'grey' | 'transparant' | 'transparantnoborder'};
+type FontSize = {
+  fontSize:
+    | 'fs_xxs'
+    | 'fs_xs'
+    | 'fs_s'
+    | 'fs_m'
+    | 'fs_l'
+    | 'fs_xl'
+    | 'fs_2xl'
+    | 'fs_3xl'
+    | 'fs_4xl'
+    | 'fs_5xl'
+    | 'fs_6xl'
+    | 'fs_7xl'
+    | 'fs_8xl';
+};
 type Id = {id: string};
 type Style = {style: string};
 type Type = {type: 'submit' | 'reset' | 'button'};
@@ -28,6 +47,7 @@ type OnMouseenter = {onMouseenter: () => void};
 type OnMousleave = {onMouseleave: () => void};
 type Disabled = {disabled: boolean | null | undefined};
 type DataDismiss = {dataDismiss: string};
+type Visible = {visible: boolean};
 
 // interfaces
 // intersections
@@ -56,11 +76,14 @@ export interface Year extends Name, Days {}
 export interface Month extends Name, Days {}
 export interface Week extends Name, Days, Monday {}
 
-// component properties
+// components
 export interface Card extends Partial<Title>, Colors, Partial<ImgFile>, Partial<Link>, Partial<Action> {}
 export interface SelectItem extends Name, Index {}
+export interface Accordion extends Visible {}
 export interface Button
-  extends Partial<ClassName>,
+  extends Partial<Size>,
+    Partial<BackgroundColor>,
+    Partial<ClassName>,
     Partial<Id>,
     Partial<Type>,
     Partial<Style>,
@@ -72,3 +95,4 @@ export interface Button
     Partial<Disabled>,
     Partial<DataDismiss>,
     Partial<AriaLabel> {}
+export interface Brand extends Partial<ClassName>, Partial<FontSize>, Partial<Color>, Partial<Title> {}

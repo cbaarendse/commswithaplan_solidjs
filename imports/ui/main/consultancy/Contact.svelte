@@ -19,7 +19,7 @@
 
 <Main>
   <Header>
-    <Brand title={'Comms With A Plan'} colors={'blue'}><LogoCommsWithAPlan size={'3rem'} /></Brand>
+    <Brand><LogoCommsWithAPlan size={'3rem'} /></Brand>
   </Header>
 
   <Section>

@@ -5,11 +5,15 @@
   import Fa from 'svelte-fa/src/fa.svelte';
   import {faPlus, faMinus} from '@fortawesome/free-solid-svg-icons';
 
+  // types
+  import type {Accordion} from '/types/interfaces';
+
   // components
   import Button from './Button.svelte';
 
   // variables
-  export let visible: boolean = false;
+  export let acc: Accordion;
+  acc.visible = false;
 </script>
 
 <div class="accordion">
@@ -17,13 +21,13 @@
     <Button
       btn={{
         className: 'transparantnoborder',
-        onClick: () => (visible = !visible)
+        onClick: () => (acc.visible = !acc.visible)
       }}
-      >{#if visible}<Fa icon={faMinus} />{:else}<Fa icon={faPlus} />{/if}</Button
+      >{#if acc.visible}<Fa icon={faMinus} />{:else}<Fa icon={faPlus} />{/if}</Button
     >
     <slot name="title" />
   </header>
-  {#if visible}
+  {#if acc.visible}
     <div class="accordion-main" transition:slide={{duration: 1000, easing: backInOut}}>
       <slot />
     </div>
