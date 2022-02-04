@@ -9,6 +9,9 @@
   export let link: Card['link'];
   export let action: Card['action'];
 
+  // styling
+  function cssStyling(node, styles) {}
+
   // functions
   const getBackgroundColor = () => $colorScheme[colors].offWhite;
   const getFooterColor = () => $colorScheme[colors].offWhite;

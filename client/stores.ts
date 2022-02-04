@@ -10,7 +10,8 @@ import {
   ToolsDocsChapter,
   TouchPointBasics,
   Translation,
-  ColorScheme
+  Scheme,
+  Property
 } from '../types/interfaces';
 
 // stores
@@ -1124,7 +1125,7 @@ export const translations: Readable<Translation[]> = readable([
   {name: 'read', language: 'dutch', displayName: 'Lees'}
 ]);
 
-export const colorScheme: Readable<ColorScheme> = readable({
+export const colorScheme: Readable<Scheme> = readable({
   blue: {
     base: 'var(--ra-blue)',
     light: 'var(--ra-blue-light)',
@@ -1155,4 +1156,20 @@ export const colorScheme: Readable<ColorScheme> = readable({
     bright: 'var(--ra-grey-bright)',
     offWhite: 'var(--ra-grey-off-white)'
   }
+});
+
+export const fontSizes: Readable<Property> = readable({
+  fs_xxs: 'var(--font-size-xxs)',
+  fs_xs: 'var(--font-size-xs)',
+  fs_s: 'var(--font-size-s)',
+  fs_m: 'var(--font-size-m)',
+  fs_l: 'var(--font-size-l)',
+  fs_xl: 'var(--font-size-xl)',
+  fs_2xl: 'var(--font-size-2xl)',
+  fs_3xl: 'var(--font-size-3xl)',
+  fs_4xl: 'var(--font-size-4xl)',
+  fs_5xl: 'var(--font-size-5xl)',
+  fs_6xl: 'var(--font-size-6xl)',
+  fs_7xl: 'var(--font-size-7xl)',
+  fs_8xl: 'var(--font-size-8xl)'
 });

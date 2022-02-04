@@ -13,7 +13,6 @@ type Action = {action: string};
 // planning
 type Value = {value: number};
 type Index = {index: number};
-type ColorVarieties = {[key: string]: string};
 type Days = {days: number};
 type Monday = {monday: string};
 // component type
@@ -69,8 +68,11 @@ export interface Translation extends Name, Language, DisplayName {}
 // planning
 export interface TouchPointBasics extends Name, Language, DisplayName, Description {}
 export interface TouchPointInPlan extends TouchPointBasics, Value {}
-export interface ColorScheme {
-  [key: string]: ColorVarieties;
+export interface Property {
+  [key: string]: string;
+}
+export interface Scheme {
+  [key: string]: Property;
 }
 export interface Year extends Name, Days {}
 export interface Month extends Name, Days {}
@@ -95,4 +97,4 @@ export interface Button
     Partial<Disabled>,
     Partial<DataDismiss>,
     Partial<AriaLabel> {}
-export interface Brand extends Partial<ClassName>, Partial<FontSize>, Partial<Color>, Partial<Title> {}
+export interface Brand extends Partial<ClassName>, FontSize, Color, Title {}
