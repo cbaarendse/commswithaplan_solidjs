@@ -5,7 +5,6 @@
   import Main from './layout/Main.svelte';
   import Header from './layout/Header.svelte';
   import Section from './layout/Section.svelte';
-  import Article from './layout/Article.svelte';
   import LogoReachApp from '../../reusable/LogoReachApp.svelte';
   import Brand from '../../reusable/Brand.svelte';
   import ReachHeaderContent from './ReachHeaderContent.svelte';
@@ -92,20 +91,18 @@
     />
   </Header>
   <Section>
-    <Article>
-      <!-- TODO: dispatch on:change and on:input -->
-      {#each reach.touchPoints as touchPoint}
-        <ReachTouchPoint
-          display={displayThisTouchPoint(touchPoint)}
-          {inputPlaceholder}
-          {...touchPoint}
-          touchPointDisplayName={reach.displayTouchPoint(touchPoint.name)}
-          touchPointDescription={reach.describeTouchPoint(touchPoint.name)}
-          on:handleChange={changeReach}
-          on:handleInput={inputReach}
-        />
-      {/each}
-    </Article>
+    <!-- TODO: dispatch on:change and on:input -->
+    {#each reach.touchPoints as touchPoint}
+      <ReachTouchPoint
+        display={displayThisTouchPoint(touchPoint)}
+        {inputPlaceholder}
+        {...touchPoint}
+        touchPointDisplayName={reach.displayTouchPoint(touchPoint.name)}
+        touchPointDescription={reach.describeTouchPoint(touchPoint.name)}
+        on:handleChange={changeReach}
+        on:handleInput={inputReach}
+      />
+    {/each}
   </Section>
 </Main>
 

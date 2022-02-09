@@ -79,7 +79,7 @@ export interface Month extends Name, Days {}
 export interface Week extends Name, Days, Monday {}
 
 // components
-export interface Card extends Partial<Title>, Colors, Partial<ImgFile>, Partial<Link>, Partial<Action> {}
+export interface Card extends Partial<Title>, Color, Partial<ImgFile>, Partial<Link>, Partial<Action> {}
 export interface SelectItem extends Name, Index {}
 export interface Accordion extends Visible {}
 export interface Button

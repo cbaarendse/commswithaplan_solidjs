@@ -3,7 +3,6 @@
   import Main from './layout/Main.svelte';
   import Header from './layout/Header.svelte';
   import Section from './layout/Section.svelte';
-  import Article from './layout/Article.svelte';
   import Brand from '../../reusable/Brand.svelte';
   import LogoCommsWithAPlan from '../../reusable/LogoCommsWithAPlan.svelte';
   import Card from '../../reusable/Card.svelte';
@@ -23,33 +22,26 @@
   </Header>
 
   <Section>
-    <Article>
-      <h2>Contact</h2>
-      {#each translatedContactItems as item}
-        <Card title={item.displayName} colors={'blue'}>
-          <address>
-            {item.description}
-          </address>
-        </Card>
-      {/each}
-      <Card title={'LinkedIn'} colors={'blue'} link={'https://www.linkedin.com/in/cbaarendse/'} action={'LinkedIn'}>
+    <h2>Contact</h2>
+    {#each translatedContactItems as item}
+      <Card title={item.displayName} colors={'blue'}>
         <address>
-          <a href="https://www.linkedin.com/in/cbaarendse/">
-            <Fa icon={faLinkedin} size={'1.4em'} color={'#003366'} /></a
-          >
+          {item.description}
         </address>
       </Card>
-    </Article>
-
-    <Article>
-      <span
-        >{#if $language == 'dutch'}
-          Bel me of schrijf.
-        {:else}
-          Give me a call or write.
-        {/if}
-      </span>
-    </Article>
+    {/each}
+    <Card title={'LinkedIn'} colors={'blue'} link={'https://www.linkedin.com/in/cbaarendse/'} action={'LinkedIn'}>
+      <address>
+        <a href="https://www.linkedin.com/in/cbaarendse/"> <Fa icon={faLinkedin} size={'1.4em'} color={'#003366'} /></a>
+      </address>
+    </Card>
+    <span
+      >{#if $language == 'dutch'}
+        Bel me of schrijf.
+      {:else}
+        Give me a call or write.
+      {/if}
+    </span>
   </Section>
 </Main>
 

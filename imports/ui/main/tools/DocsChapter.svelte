@@ -9,7 +9,7 @@
   export let chapter: ToolsDocsChapter;
 </script>
 
-<div>
+<article>
   <h3>&sect;&nbsp;{chapter.displayName}</h3>
   <ul>
     {#each chapter.paragraphs as paragraph}
@@ -25,10 +25,10 @@
   <picture>
     <img src="/documentation{chapter.imgFile}" alt={chapter.displayName} />
   </picture>
-</div>
+</article>
 
 <style>
-  div {
+  article {
     display: flex;
     flex-direction: column;
     gap: 1rem;

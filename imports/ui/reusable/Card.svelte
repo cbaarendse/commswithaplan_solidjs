@@ -3,48 +3,46 @@
   import type {Card} from '../../../types/interfaces';
   // variables
   import {colorScheme} from '../../../client/stores';
-  export let colors: Card['colors'] = 'grey';
-  export let title: Card['title'];
-  export let imgFile: Card['imgFile'];
-  export let link: Card['link'];
-  export let action: Card['action'];
-
-  // styling
-  function cssStyling(node, styles) {}
 
   // functions
-  const getBackgroundColor = () => $colorScheme[colors].offWhite;
-  const getFooterColor = () => $colorScheme[colors].offWhite;
-  const getFooterBackgroundColor = () => $colorScheme[colors].light;
-  const getColor = () => $colorScheme[colors].base;
+  export let card: Card;
+  card.color = 'blue';
 </script>
 
-<div class="card" style="background-color:{getBackgroundColor};color:{getColor};">
-  {#if imgFile}
+<article
+  class="card"
+  style:background-color={$colorScheme[card.color].offWhite}
+  style:color={$colorScheme[card.color].base}
+>
+  {#if card.imgFile}
     <div class="img-container">
-      <img src={imgFile} alt={title} />
+      <img src={card.imgFile} alt={card.title} />
     </div>
   {/if}
-  {#if title}
-    <div class="card-title" style="color:{getColor};">
-      <h2>{title}</h2>
+  {#if card.title}
+    <div class="card-title" style:color={$colorScheme[card.color].base}>
+      <h2>{card.title}</h2>
     </div>
   {/if}
   <p>
     <slot />
   </p>
-  <div class="card-footer" style="background-color:{getFooterBackgroundColor};color:{getFooterColor};">
+  <div
+    class="card-footer"
+    style:background-color={$colorScheme[card.color].offWhite}
+    style:color={$colorScheme[card.color].light}
+  >
     <p>
       <slot name="cardfootertext" />
     </p>
-    {#if link}
-      <a href={link} style="color:{getFooterColor};">{action}</a>
+    {#if card.action}
+      <a href={card.link} style:color={$colorScheme[card.color].light}>{card.action}</a>
     {/if}
   </div>
-</div>
+</article>
 
 <style>
-  div.card {
+  article.card {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -53,7 +51,7 @@
     min-width: 320px;
   }
 
-  div.card-title {
+  .card-title {
     padding: 0.8em 0.8em 0 0.8em;
     text-align: left;
   }
@@ -82,7 +80,7 @@
   a:hover {
     opacity: 0.7;
   }
-  div.card-footer {
+  .card-footer {
     flex: 0 1 0;
     display: flex;
     justify-content: center;

@@ -13,6 +13,10 @@
 <style>
   section {
     grid-column: 2/3;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-auto-rows: auto;
+    gap: 2rem;
     font-size: clamp(var(--font-size-s), var(--font-size-weight) * 100vw, var(--font-size-xl));
   }
 

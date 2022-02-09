@@ -2,7 +2,6 @@
   import Header from './layout/Header.svelte';
   import Main from './layout/Main.svelte';
   import Section from './layout/Section.svelte';
-  import Article from './layout/Article.svelte';
   import Brand from '../../reusable/Brand.svelte';
   import LogoReachApp from '../../reusable/LogoReachApp.svelte';
   import DocsLink from './DocsLink.svelte';
@@ -22,25 +21,23 @@
     <h2>{$language === 'dutch' ? 'Documentatie' : 'Documentation'}</h2>
   </Header>
   <Section>
-    <Article>
-      <aside>
-        <ul>
-          {#each translatedToolsDocumentationChapters as chapter}
-            <li>
-              <DocsLink name={chapter.name} displayName={chapter.displayName} />
-            </li>
-          {/each}
-        </ul>
-      </aside>
-
+    <aside>
       <ul>
-        {#each $toolsDocumentationChapters as chapter}
-          <li id={chapter.name}>
-            <DocsChapter {chapter} />
+        {#each translatedToolsDocumentationChapters as chapter}
+          <li>
+            <DocsLink name={chapter.name} displayName={chapter.displayName} />
           </li>
         {/each}
       </ul>
-    </Article>
+    </aside>
+
+    <ul>
+      {#each $toolsDocumentationChapters as chapter}
+        <li id={chapter.name}>
+          <DocsChapter {chapter} />
+        </li>
+      {/each}
+    </ul>
   </Section>
 </Main>
 

@@ -3,6 +3,7 @@
   import {createEventDispatcher} from 'svelte';
   // components
   import Slider from '../../reusable/Slider.svelte';
+  import RangeSlider from 'svelte-range-slider-pips';
   import Modal from '../../reusable/Modal.svelte';
 
   // providers
@@ -46,6 +47,7 @@
     />
   </div>
   <div class="center">
+    <RangeSlider />
     <Slider
       bind:sliderValue
       displayName={touchPointDisplayName}

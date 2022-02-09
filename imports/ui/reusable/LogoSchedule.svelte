@@ -11,8 +11,11 @@
 </script>
 
 <div
-  style="width:{size}; height:{size};font-size:{size}; background: linear-gradient(to bottom, {backgroundColor3} 33%,
-  {backgroundColor2} 33% 67%, {backgroundColor1} 67%);"
+  style:width={size}
+  style:height={size}
+  style:font-size={size}
+  style:background={`linear-gradient(to bottom, ${backgroundColor3} 33%,
+  ${backgroundColor2} 33% 67%, ${backgroundColor1} 67%)`}
 />
 
 <style>

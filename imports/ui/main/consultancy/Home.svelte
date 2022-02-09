@@ -21,15 +21,13 @@
   </Header>
 
   <Section>
-    <Article>
-      {#each $consultancyHomeItems as item, index}
-        <Card cardTitle={item[$language].displayName}>
-          <span>
-            {item[$language].description}
-          </span>
-        </Card>
-      {/each}
-    </Article>
+    {#each $consultancyHomeItems as item, index}
+      <Card cardTitle={item[$language].displayName}>
+        <span>
+          {item[$language].description}
+        </span>
+      </Card>
+    {/each}
   </Section>
 </Main>
 

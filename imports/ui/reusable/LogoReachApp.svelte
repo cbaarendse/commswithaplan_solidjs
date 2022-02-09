@@ -10,7 +10,7 @@
   $: backgroundColor3 = colored ? 'var(--ra-red)' : 'var(--ra-red-grayscale)';
 </script>
 
-<div class="logo" style="width:{size}; height:{size};">
+<div class="logo" style:width={size} style:height={size}>
   <div class="circle1" style="background-color:{backgroundColor1};" />
   <div class="circle2" style="background-color:{backgroundColor2};" />
   <div class="circle3" style="background-color:{backgroundColor3};" />

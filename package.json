@@ -26,7 +26,8 @@
         "stripe": "^8.137.0",
         "svelte": "^3.46.2",
         "svelte-fa": "^2.2.1",
-        "svelte-preprocess": "^4.10.2"
+        "svelte-preprocess": "^4.10.2",
+        "svelte-range-slider-pips": "^2.0.2"
     },
     "meteor": {
         "mainModule": {

@@ -13,7 +13,7 @@
   const getColor = () => $colorScheme[colors].base;
 </script>
 
-<div class="card" style="background-color:{getBackgroundColor()};color:{getColor()};">
+<article class="card" style="background-color:{getBackgroundColor()};color:{getColor()};">
   <div class="card-title" style="color:{getColor()};">
     <h2>{cardTitle}</h2>
   </div>
@@ -36,17 +36,17 @@
       on:click|preventDefault|stopPropagation>{buttonText}</button
     >
   </div>
-</div>
+</article>
 
 <style>
-  div.card {
+  article.card {
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: 1fr 5fr 2fr;
     box-shadow: 0.1em 0.1em 0.2em 0 rgba(0, 0, 0, 0.1);
   }
 
-  div.card-title {
+  .card-title {
     padding: 0.8em 0.8em 0 0.8em;
     color: var(--ra-blue);
     text-align: left;
