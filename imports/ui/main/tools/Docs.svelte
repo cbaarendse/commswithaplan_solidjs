@@ -21,23 +21,25 @@
     <h2>{$language === 'dutch' ? 'Documentatie' : 'Documentation'}</h2>
   </Header>
   <Section>
-    <aside>
+    <div>
+      <aside>
+        <ul>
+          {#each translatedToolsDocumentationChapters as chapter}
+            <li>
+              <DocsLink name={chapter.name} displayName={chapter.displayName} />
+            </li>
+          {/each}
+        </ul>
+      </aside>
+
       <ul>
-        {#each translatedToolsDocumentationChapters as chapter}
-          <li>
-            <DocsLink name={chapter.name} displayName={chapter.displayName} />
+        {#each $toolsDocumentationChapters as chapter}
+          <li id={chapter.name}>
+            <DocsChapter {chapter} />
           </li>
         {/each}
       </ul>
-    </aside>
-
-    <ul>
-      {#each $toolsDocumentationChapters as chapter}
-        <li id={chapter.name}>
-          <DocsChapter {chapter} />
-        </li>
-      {/each}
-    </ul>
+    </div>
   </Section>
 </Main>
 
@@ -50,6 +52,18 @@
     font-weight: normal;
   }
 
+  div {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-auto-rows: auto;
+    gap: 2rem;
+  }
+
+  @media screen and (min-width: 760px) {
+    div {
+      grid-template-columns: 1fr 4fr;
+    }
+  }
   ul {
     max-height: 800px;
     overflow-y: scroll;

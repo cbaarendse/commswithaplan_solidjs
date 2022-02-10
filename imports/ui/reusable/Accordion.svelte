@@ -16,7 +16,7 @@
   acc.visible = false;
 </script>
 
-<div class="accordion">
+<article class="accordion">
   <header>
     <Button
       btn={{
@@ -33,10 +33,10 @@
     </div>
   {/if}
   <footer><slot name="footer" /></footer>
-</div>
+</article>
 
 <style>
-  div.accordion {
+  article.accordion {
     width: 100%;
   }
   header {

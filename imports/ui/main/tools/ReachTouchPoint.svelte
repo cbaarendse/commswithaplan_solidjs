@@ -47,7 +47,10 @@
     />
   </div>
   <div class="center">
-    <RangeSlider />
+    <fieldset>
+      <legend>{touchPointDisplayName}</legend>
+      <RangeSlider values={[sliderValue]} />
+    </fieldset>
     <Slider
       bind:sliderValue
       displayName={touchPointDisplayName}
