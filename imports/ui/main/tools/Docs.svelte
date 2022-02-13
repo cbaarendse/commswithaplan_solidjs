@@ -20,27 +20,25 @@
     <!-- TODO: engels en nederlands in contentstore -->
     <h2>{$language === 'dutch' ? 'Documentatie' : 'Documentation'}</h2>
   </Header>
-  <Section>
-    <div>
-      <aside>
-        <ul>
-          {#each translatedToolsDocumentationChapters as chapter}
-            <li>
-              <DocsLink name={chapter.name} displayName={chapter.displayName} />
-            </li>
-          {/each}
-        </ul>
-      </aside>
-
+  <div>
+    <aside>
       <ul>
-        {#each $toolsDocumentationChapters as chapter}
-          <li id={chapter.name}>
-            <DocsChapter {chapter} />
+        {#each translatedToolsDocumentationChapters as chapter}
+          <li>
+            <DocsLink name={chapter.name} displayName={chapter.displayName} />
           </li>
         {/each}
       </ul>
-    </div>
-  </Section>
+    </aside>
+
+    <ul>
+      {#each $toolsDocumentationChapters as chapter}
+        <li id={chapter.name}>
+          <DocsChapter {chapter} />
+        </li>
+      {/each}
+    </ul>
+  </div>
 </Main>
 
 <style>
@@ -59,11 +57,6 @@
     gap: 2rem;
   }
 
-  @media screen and (min-width: 760px) {
-    div {
-      grid-template-columns: 1fr 4fr;
-    }
-  }
   ul {
     max-height: 800px;
     overflow-y: scroll;
@@ -81,6 +74,9 @@
   }
 
   @media screen and (min-width: 760px) {
+    div {
+      grid-template-columns: 1fr 4fr;
+    }
     aside {
       display: block;
     }
