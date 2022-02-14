@@ -2,7 +2,8 @@
   // packages
   import {slide} from 'svelte/transition';
   import {backInOut} from 'svelte/easing';
-  import Fa from 'svelte-fa/src/fa.svelte';
+  //import Fa from 'svelte-fa/src/fa.svelte';
+  import Fa from 'svelte-fa';
   import {faPlus, faMinus} from '@fortawesome/free-solid-svg-icons';
 
   // types

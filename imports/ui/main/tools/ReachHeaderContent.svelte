@@ -1,7 +1,8 @@
 <script lang="ts">
   // packages
   import {createEventDispatcher} from 'svelte';
-  import Fa from 'svelte-fa/src/fa.svelte';
+  //import Fa from 'svelte-fa/src/fa.svelte';
+  import Fa from 'svelte-fa';
   import {
     faHistory,
     faSortAlphaUp,
@@ -31,19 +32,19 @@
 
 <div class="header-content">
   <button type="button" on:click={() => dispatch('reset')}
-    >{#if allTouchPointValuesAreZero}<Fa icon={faHistory} size={'1.4x'} /> {:else}0{/if}</button
+    >{#if allTouchPointValuesAreZero}<Fa icon={faHistory} size={'1x'} /> {:else}0{/if}</button
   >
   <button type="button" on:click={() => dispatch('sort')}
-    >{#if sortingByName}<Fa icon={faSortAlphaUp} size={'1.4x'} />{:else}<Fa
+    >{#if sortingByName}<Fa icon={faSortAlphaUp} size={'1x'} />{:else}<Fa
         icon={faSortNumericDownAlt}
-        size={'1.4x'}
+        size={'1x'}
       />{/if}</button
   >
   <button type="button" on:click={() => dispatch('hide')}
-    >{#if showAll}<Fa icon={faMinus} size={'1.4x'} />{:else}<Fa icon={faBars} size={'1.4x'} />{/if}</button
+    >{#if showAll}<Fa icon={faMinus} size={'1x'} />{:else}<Fa icon={faBars} size={'1x'} />{/if}</button
   >
-  <button type="button" on:click={() => dispatch('print')}><Fa icon={faPrint} size={'1.4x'} /></button>
-  <button type="button" on:click={() => dispatch('pdf')}><Fa icon={faFilePdf} size={'1.4x'} /></button>
+  <button type="button" on:click={() => dispatch('print')}><Fa icon={faPrint} size={'1x'} /></button>
+  <button type="button" on:click={() => dispatch('pdf')}><Fa icon={faFilePdf} size={'1x'} /></button>
 
   <span class="reach-label"
     >{UiProvider.translate('total', $translations, $language)}&nbsp;{UiProvider.translate(

@@ -74,7 +74,7 @@
 
 <Main>
   <Header
-    ><Brand brand={{title: 'Reach'}}>
+    ><Brand brand={{color: 'blue', fontSize: 'fs_2xl', title: 'Reach'}}>
       <LogoReachApp size="3rem" />
     </Brand>
     <ReachHeaderContent

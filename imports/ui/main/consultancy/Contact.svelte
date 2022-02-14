@@ -8,7 +8,8 @@
   import Card from '../../reusable/Card.svelte';
 
   // packages
-  import Fa from 'svelte-fa/src/fa.svelte';
+  // import Fa from 'svelte-fa/src/fa.svelte';
+  import Fa from 'svelte-fa';
   import {faLinkedin} from '@fortawesome/free-brands-svg-icons';
 
   // variables
@@ -18,21 +19,25 @@
 
 <Main>
   <Header>
-    <Brand><LogoCommsWithAPlan size={'3rem'} /></Brand>
+    <Brand brand={{color: 'blue', fontSize: 'fs_xl', title: 'Comms With A Plan'}}
+      ><LogoCommsWithAPlan size={'3rem'} /></Brand
+    >
   </Header>
 
   <Section>
     <h2>Contact</h2>
     {#each translatedContactItems as item}
-      <Card title={item.displayName} colors={'blue'}>
+      <Card card={{color: 'blue', title: item.displayName}}>
         <address>
           {item.description}
         </address>
       </Card>
     {/each}
-    <Card title={'LinkedIn'} colors={'blue'} link={'https://www.linkedin.com/in/cbaarendse/'} action={'LinkedIn'}>
+    <Card
+      card={{title: 'LinkedIn', color: 'blue', link: 'https://www.linkedin.com/in/cbaarendse/', action: 'LinkedIn'}}
+    >
       <address>
-        <a href="https://www.linkedin.com/in/cbaarendse/"> <Fa icon={faLinkedin} size={'1.4em'} color={'#003366'} /></a>
+        <a href="https://www.linkedin.com/in/cbaarendse/"> <Fa icon={faLinkedin} size={'2x'} color={'#003366'} /></a>
       </address>
     </Card>
     <span

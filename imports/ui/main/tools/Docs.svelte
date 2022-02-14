@@ -1,7 +1,6 @@
 <script lang="ts">
   import Header from './layout/Header.svelte';
   import Main from './layout/Main.svelte';
-  import Section from './layout/Section.svelte';
   import Brand from '../../reusable/Brand.svelte';
   import LogoReachApp from '../../reusable/LogoReachApp.svelte';
   import DocsLink from './DocsLink.svelte';
@@ -16,7 +15,7 @@
 
 <Main>
   <Header>
-    <Brand brand={{color: 'green', title: 'Reach'}}><LogoReachApp size="3rem" /></Brand>
+    <Brand brand={{color: 'green', fontSize: 'fs_2xl', title: 'Reach'}}><LogoReachApp size="3rem" /></Brand>
     <!-- TODO: engels en nederlands in contentstore -->
     <h2>{$language === 'dutch' ? 'Documentatie' : 'Documentation'}</h2>
   </Header>

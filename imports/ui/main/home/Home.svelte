@@ -13,7 +13,9 @@
   <Section>
     <Article>
       {#each translatedHomeItems as item}
-        <Card title={item.displayName} imgFile={item.imgFile} link={item.link} action={item.action}>
+        <Card
+          card={{title: item.displayName, color: 'blue', imgFile: item.imgFile, link: item.link, action: item.action}}
+        >
           <span>{item.description}</span>
         </Card>
       {/each}

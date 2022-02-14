@@ -3,7 +3,7 @@
   import {colorScheme, fontSizes} from '../../../client/stores';
 
   // types
-  import {Brand, Property} from '/types/interfaces';
+  import {Brand} from '/types/interfaces';
 
   // variables
   export let brand: Brand;
