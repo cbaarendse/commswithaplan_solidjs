@@ -1,22 +1,19 @@
 <script lang="ts">
   //variables
-  export let name: string;
-  export let displayName: string;
-  export let sliderValue: number;
-  export let min: number = 0;
-  export let max: number = 100;
+  import {Slider} from '../../../types/interfaces';
+  export let slider: Slider;
 </script>
 
 <form>
-  <label for={name}>{displayName}</label>
+  <label for={slider.name}>{slider.displayName}</label>
   <input
     type="range"
     step="1"
-    id={name}
-    {name}
-    {min}
-    {max}
-    bind:value={sliderValue}
+    id={slider.name}
+    name={slider.name}
+    min={slider.min}
+    max={slider.max}
+    bind:value={slider.value}
     on:change|preventDefault
     on:input|preventDefault
   />

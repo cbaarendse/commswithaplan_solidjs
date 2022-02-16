@@ -161,7 +161,7 @@ export class ReachProvider {
   }
 
   // getters
-  get touchPoints() {
+  get touchPointsInPlan() {
     return this.#touchPointsInPlan;
   }
 

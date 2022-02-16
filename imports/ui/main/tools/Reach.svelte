@@ -13,13 +13,12 @@
   import {Unsubscriber} from 'svelte/store';
 
   // providers
-  import {ReachProvider, UiProvider} from '../../../../types/classes';
+  import {ReachProvider} from '../../../../types/classes';
 
   // variables
-  import {language, touchPointsBasics, translations} from '../../../../client/stores';
-  import {TouchPointInPlan} from '/types/interfaces';
+  import {language, touchPointsBasics} from '../../../../client/stores';
+  import {Display, TouchPointInPlan} from '../../../../types/interfaces';
   let reach = new ReachProvider($language, $touchPointsBasics);
-  let inputPlaceholder = UiProvider.translate('input', $translations, $language);
 
   // functions
   const reset = () => {
@@ -54,7 +53,7 @@
     window.print();
   };
   const pdf = () => {};
-  const displayThisTouchPoint = (touchPoint: TouchPointInPlan): string => {
+  const showThisTouchPoint = (touchPoint: TouchPointInPlan): Display => {
     return !reach.showAll && touchPoint.value === 0 ? 'none' : 'grid';
   };
   const changeReach = (event: CustomEvent) => {
@@ -92,13 +91,10 @@
   </Header>
   <Section>
     <!-- TODO: dispatch on:change and on:input -->
-    {#each reach.touchPoints as touchPoint}
+    {#each reach.touchPointsInPlan as touchPoint}
       <ReachTouchPoint
-        display={displayThisTouchPoint(touchPoint)}
-        {inputPlaceholder}
-        {...touchPoint}
-        touchPointDisplayName={reach.displayTouchPoint(touchPoint.name)}
-        touchPointDescription={reach.describeTouchPoint(touchPoint.name)}
+        display={showThisTouchPoint(touchPoint)}
+        {touchPoint}
         on:handleChange={changeReach}
         on:handleInput={inputReach}
       />

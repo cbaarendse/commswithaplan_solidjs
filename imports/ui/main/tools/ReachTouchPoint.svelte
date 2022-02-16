@@ -1,33 +1,33 @@
 <script lang="ts">
   // packages
   import {createEventDispatcher} from 'svelte';
+
   // components
-  import Slider from '@bulatdashiev/svelte-slider';
+  import Slider from '../../reusable/Slider.svelte';
   import Modal from '../../reusable/Modal.svelte';
 
   // providers
   import {UiProvider} from '../../../../types/classes';
 
   // variables
-  export let display: string;
-  export let touchPointDisplayName: string;
-  export let touchPointDescription: string;
-  export let inputPlaceholder: string | null | undefined;
+  import {Display} from '../../../../types/interfaces';
+  import {language, translations} from '../../../../client/stores';
+
+  export let display: Display;
+  let inputPlaceholder: string | null | undefined;
+  inputPlaceholder = UiProvider.translate('input', $translations, $language);
+
   let manualInput: boolean = false;
-  let displayModal: string;
+  let displayModal: Display;
   let hovered: boolean = false;
 
-  // these two are extracted through {...touchPoint} in the parent component
-  export let name: string;
-  export let value: number;
+  export let touchPoint;
 
   // this is the value of the slider
-  let sliderValue: number;
-  $: sliderValue = value;
+  $: sliderValue = touchPoint.value;
 
   //import {notify} from '../../notifications/NotificationsFunctions';
 
-  // functions
   // functions
   const dispatch = createEventDispatcher();
   const showModal = () => {
@@ -35,27 +35,25 @@
   };
 </script>
 
-<div class="container" style="{display};">
+<div class="grid_container" style:display>
   <div class="left">
     <button
       class="touchpoint"
       on:click|preventDefault={showModal}
       on:mouseenter={() => (hovered = true)}
       on:mouseleave={() => (hovered = false)}
-      style="background-image:url(/reach/{name}.png);opacity:{hovered || value > 0 ? 1 : 0.7};"
+      style="background-image:url(/reach/{touchPoint.name}.png);opacity:{hovered || touchPoint.value > 0 ? 1 : 0.7};"
     />
   </div>
   <div class="center">
     <fieldset>
-      <legend>{touchPointDisplayName}</legend>
-      <Slider values={[sliderValue]} />
+      <legend>{touchPoint.displayName}</legend>
+      <Slider
+        slider={{value: sliderValue, name: touchPoint.name, displayName: touchPoint.displayName, min: 1, max: 100}}
+        on:change={() => dispatch('handleChange', {name: touchPoint.name, value: sliderValue})}
+        on:input={() => dispatch('handleInput', {name: touchPoint.name, value: sliderValue})}
+      />
     </fieldset>
-    <Slider
-      bind:sliderValue
-      displayName={touchPointDisplayName}
-      on:change={() => dispatch('handleChange', {name: name, value: sliderValue})}
-      on:input={() => dispatch('handleInput', {name: name, value: sliderValue})}
-    />
   </div>
   <div class="right">
     {#if manualInput}
@@ -70,10 +68,10 @@
         </div>
       </form>
     {:else}
-      <button class="input"><span> {UiProvider.toStringFormat(value)}&nbsp;%</span></button>
+      <button class="input"><span> {UiProvider.toStringFormat(touchPoint.value)}&nbsp;%</span></button>
     {/if}
   </div>
-  <Modal title={touchPointDisplayName} {displayModal}>{touchPointDescription}</Modal>
+  <Modal title={touchPoint.displayName} {displayModal}>{touchPoint.description}</Modal>
 </div>
 
 <style>
@@ -83,7 +81,7 @@
     --thumb-bg: #5784fd;
   }
 
-  div.container {
+  div.grid_container {
     display: grid;
     gap: 2em;
     grid-template-columns: 1fr 1fr 1fr;
@@ -94,7 +92,7 @@
     border-radius: 0.2em;
   }
   @media screen and (min-width: 760px) {
-    div.container {
+    div.grid_container {
       grid-column: 2/3;
       grid-template-columns: 1fr 5fr 1fr;
       margin: 0 7%;

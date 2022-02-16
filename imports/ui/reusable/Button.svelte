@@ -1,16 +1,18 @@
 <script lang="ts">
+  // stores
+  import {fontSizes, colorScheme, buttonStyles} from '../../../client/stores';
   // interfaces
-  import type {Button} from '../../../types/interfaces';
+  import type {Button, ButtonStyle} from '../../../types/interfaces';
 
   // properties
   export let btn: Button;
+
   btn.size = 'fit';
   btn.backgroundColor = 'blue';
-  btn.className = [btn.size, btn.backgroundColor].join(' ');
+  btn.style = {};
 </script>
 
 <button
-  class={btn.className}
   type={btn.type}
   role={btn.role}
   on:click|preventDefault|stopPropagation={btn.onClick}
@@ -36,25 +38,25 @@
     padding: 0;
   }
 
-  .small {
+  .x_small {
     min-width: 4rem;
-    font-size: 0.7rem;
+    font-size: var(--font-size-xs);
     padding: 0.4em 0.6em;
   }
 
   .normal {
     min-width: 6rem;
-    font-size: 1rem;
+    font-size: var(--font-size-m);
     padding: 0.4em 0.6em;
   }
-  .large {
+  .x_large {
     min-width: 8rem;
-    font-size: 1.2rem;
+    font-size: var(--font-size-xl);
     padding: 0.4em 0.6em;
   }
-  .xlarge {
+  .xx_large {
     min-width: 10rem;
-    font-size: 1.5rem;
+    font-size: var(--font-size-2xl);
     padding: 0.4em 0.6em;
   }
 
