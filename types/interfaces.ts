@@ -5,7 +5,6 @@ type Language = {language: string};
 type DisplayName = {displayName: string};
 type Description = {description: string};
 type Elaboration = {elaboration: string};
-type Colors = {colors: string};
 type Title = {title: string};
 type Link = {link: string};
 type ImgFile = {imgFile: string};
@@ -24,7 +23,8 @@ type Padding = {padding: string};
 type Width = {width: string};
 type Height = {height: string};
 type MinWidth = {min_width: string};
-type Color = {color: 'blue' | 'green' | 'red' | 'teal' | 'grey'};
+type Color = {color: string};
+type Colors = {colors: 'blue' | 'green' | 'red' | 'teal' | 'grey'};
 type BackgroundColor = {backgroundColor: 'blue' | 'green' | 'red' | 'grey' | 'transparant' | 'transparantnoborder'};
 type FontSize = {
   fontSize:
@@ -43,7 +43,7 @@ type FontSize = {
     | 'fs_8xl';
 };
 type Id = {id: string};
-type Style = {style: string};
+type Border = {border: string};
 type Type = {type: 'submit' | 'reset' | 'button'};
 type Role = {role: 'button'};
 type OnClick = {onClick: () => void};
@@ -91,20 +91,34 @@ export interface Week extends Name, Days, Monday {}
 export interface Card extends Partial<Title>, Color, Partial<ImgFile>, Partial<Link>, Partial<Action> {}
 export interface SelectItem extends Name, Index {}
 export interface Accordion extends Visible {}
-interface ButtonStyle extends Size, Padding, FontSize, BackgroundColor, Width, Height, MinWidth {}
+export interface ButtonDimensions
+  extends Partial<FontSize>,
+    Padding,
+    Partial<Width>,
+    Partial<Height>,
+    Partial<MinWidth> {}
+interface ButtonSize {
+  [index: string]: ButtonDimensions;
+}
+export interface ButtonColors extends BackgroundColor, Color, Border {}
+interface ButtonColorScheme {
+  [index: string]: ButtonColors;
+}
 export interface Button
-  extends Partial<Size>,
-    Partial<ClassName>,
+  extends Partial<ClassName>,
     Partial<Id>,
     Partial<Type>,
-    Partial<ButtonStyle>,
     Partial<Role>,
     Partial<Value>,
+    Colors,
     OnClick,
     Partial<OnMouseenter>,
     Partial<OnMousleave>,
     Partial<Disabled>,
     Partial<DataDismiss>,
-    Partial<AriaLabel> {}
+    Partial<AriaLabel> {
+  buttonSize: ButtonSize;
+  buttonColorScheme: ButtonColorScheme;
+}
 export interface Brand extends Partial<ClassName>, FontSize, Color, Title {}
 export interface Slider extends Name, DisplayName, Value, Min, Max {}

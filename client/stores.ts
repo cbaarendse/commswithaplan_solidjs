@@ -11,7 +11,8 @@ import {
   TouchPointBasics,
   Translation,
   Scheme,
-  Property
+  Property,
+  ButtonDimensions
 } from '../types/interfaces';
 
 // stores
@@ -1130,31 +1131,36 @@ export const colorScheme: Readable<Scheme> = readable({
     base: 'var(--ra-blue)',
     light: 'var(--ra-blue-light)',
     bright: 'var(--ra-blue-bright)',
-    offWhite: 'var(--ra-blue-off-white)'
+    offWhite: 'var(--ra-blue-off-white)',
+    text: 'var(--ra-white)'
   },
   green: {
     base: 'var(--ra-green)',
     light: 'var(--ra-green-light)',
     bright: 'var(--ra-green-bright)',
-    offWhite: 'var(--ra-green-off-white)'
+    offWhite: 'var(--ra-green-off-white)',
+    text: 'var(--ra-white)'
   },
   red: {
     base: 'var(--ra-red)',
     light: 'var(--ra-red-light)',
     bright: 'var(--ra-red-bright)',
-    offWhite: 'var(--ra-red-off-white)'
+    offWhite: 'var(--ra-red-off-white)',
+    text: 'var(--ra-white)'
   },
   teal: {
     base: 'var(--ra-teal)',
     light: 'var(--ra-teal-light)',
     bright: 'var(--ra-teal-bright)',
-    offWhite: 'var(--ra-teal-off-white)'
+    offWhite: 'var(--ra-teal-off-white)',
+    text: 'var(--ra-white)'
   },
   grey: {
     base: 'var(--ra-grey)',
     light: 'var(--ra-grey-light)',
     bright: 'var(--ra-grey-bright)',
-    offWhite: 'var(--ra-grey-off-white)'
+    offWhite: 'var(--ra-grey-off-white)',
+    text: 'var(--ra-white)'
   }
 });
 

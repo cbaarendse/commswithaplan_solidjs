@@ -1,20 +1,51 @@
 <script lang="ts">
   // stores
-  import {fontSizes, colorScheme, buttonStyles} from '../../../client/stores';
+  import {text} from 'svelte/internal';
+  import {fontSizes, colorScheme} from '../../../client/stores';
   // interfaces
-  import type {Button, ButtonStyle} from '../../../types/interfaces';
+  import type {Button} from '../../../types/interfaces';
 
   // properties
   export let btn: Button;
 
-  btn.size = 'fit';
-  btn.backgroundColor = 'blue';
-  btn.style = {};
+  btn.colors = 'blue';
+  btn.buttonSize = {
+    fit: {
+      padding: '0.4rem 0.6rem',
+      width: 'fit-content',
+      height: 'fit-content'
+    },
+    x_small: {
+      fontSize: 'fs_xs',
+      padding: '0.4rem 0.6rem',
+      min_width: '4rem'
+    },
+    medium: {
+      fontSize: 'fs_m',
+      padding: '0.4rem 0.6rem',
+      min_width: '6rem'
+    },
+    x_large: {
+      fontSize: 'fs_l',
+      padding: '0.4rem 0.6rem',
+      min_width: '8rem'
+    },
+    xx_large: {
+      fontSize: 'fs_2xl',
+      padding: '0.4rem 0.6rem',
+      min_width: '10rem'
+    }
+  };
+
+  // size: 'fit' | 'x_small' | 'medium' | 'large' | 'x_large' | 'xx_large'};
 </script>
 
 <button
   type={btn.type}
   role={btn.role}
+  style:color={colorScheme[btn.colors].text}
+  style:background-color={colorScheme[btn.colors].base}
+  style:border={['1px', 'solid', `${colorScheme['blue'].base}`].join(' ')}
   on:click|preventDefault|stopPropagation={btn.onClick}
   on:mouseenter|preventDefault|stopPropagation={btn.onMouseenter}
   on:mouseleave|preventDefault|stopPropagation={btn.onMouseleave}
@@ -30,64 +61,11 @@
   button {
     margin: 0 0.4em;
     cursor: pointer;
-  }
-
-  .fit {
-    width: fit-content;
-    height: fit-content;
-    padding: 0;
-  }
-
-  .x_small {
-    min-width: 4rem;
-    font-size: var(--font-size-xs);
-    padding: 0.4em 0.6em;
-  }
-
-  .normal {
-    min-width: 6rem;
-    font-size: var(--font-size-m);
-    padding: 0.4em 0.6em;
-  }
-  .x_large {
-    min-width: 8rem;
-    font-size: var(--font-size-xl);
-    padding: 0.4em 0.6em;
-  }
-  .xx_large {
-    min-width: 10rem;
-    font-size: var(--font-size-2xl);
-    padding: 0.4em 0.6em;
-  }
-
-  .blue,
-  .green,
-  .red,
-  .grey,
-  .transparant {
     border-radius: 5%;
   }
-  .blue,
-  .green,
-  .red,
-  .grey {
-    color: var(--ra-white);
-  }
-  .blue {
-    background-color: var(--ra-blue);
-    border: 1px solid var(--ra-blue);
-  }
-  .green {
-    background-color: var(--ra-green);
-    border: 1px solid var(--ra-green);
-  }
-  .red {
-    background-color: var(--ra-red);
-    border: 1px solid var(--ra-red);
-  }
-  .grey {
-    background-color: var(--ra-grey);
-    border: 1px solid var(--ra-grey);
+
+  button:hover {
+    opacity: 0.7;
   }
 
   .transparant {
@@ -102,24 +80,6 @@
     background-color: transparent;
     color: var(--ra-grey-light);
     border: none;
-  }
-
-  button.blue:hover {
-    background-color: var(--ra-blue-light);
-  }
-
-  button.green:hover {
-    background-color: var(--ra-green-light);
-  }
-  button.red:hover {
-    background-color: var(--ra-red-light);
-  }
-  button.grey:hover {
-    background-color: var(--ra-grey-light);
-  }
-
-  button.transparant:hover {
-    color: var(--ra-grey);
   }
 
   button.transparantnoborder:hover {
