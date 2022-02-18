@@ -6,13 +6,13 @@
 
   // functions
   export let card: Card;
-  card.color = 'blue';
+  card.colors = 'blue';
 </script>
 
 <article
   class="card"
-  style:background-color={$colorScheme[card.color].offWhite}
-  style:color={$colorScheme[card.color].base}
+  style:background-color={$colorScheme[card.colors].offWhite}
+  style:color={$colorScheme[card.colors].base}
 >
   {#if card.imgFile}
     <div class="img-container">
@@ -20,7 +20,7 @@
     </div>
   {/if}
   {#if card.title}
-    <div class="card-title" style:color={$colorScheme[card.color].base}>
+    <div class="card-title" style:color={$colorScheme[card.colors].base}>
       <h2>{card.title}</h2>
     </div>
   {/if}
@@ -29,14 +29,14 @@
   </p>
   <div
     class="card-footer"
-    style:background-color={$colorScheme[card.color].offWhite}
-    style:color={$colorScheme[card.color].light}
+    style:background-color={$colorScheme[card.colors].offWhite}
+    style:color={$colorScheme[card.colors].light}
   >
     <p>
       <slot name="cardfootertext" />
     </p>
     {#if card.action}
-      <a href={card.link} style:color={$colorScheme[card.color].light}>{card.action}</a>
+      <a href={card.link} style:color={$colorScheme[card.colors].light}>{card.action}</a>
     {/if}
   </div>
 </article>

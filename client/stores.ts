@@ -10,9 +10,8 @@ import {
   ToolsDocsChapter,
   TouchPointBasics,
   Translation,
-  Scheme,
-  Property,
-  ButtonDimensions
+  ColorsScheme,
+  SizesScheme
 } from '../types/interfaces';
 
 // stores
@@ -48,7 +47,7 @@ export const homeItems: Readable<HomeItem[]> = readable([
     name: 'consultancy',
     imgFile: '/home/consultant.jpeg',
     link: '/consultancy/',
-    colors: 'blue',
+    color: 'blue',
     language: 'english',
     displayName: 'Consultancy',
     description: 'Comms With A Plan provides Media Management consultancy.',
@@ -58,7 +57,7 @@ export const homeItems: Readable<HomeItem[]> = readable([
     name: 'consultancy',
     imgFile: '/home/consultant.jpeg',
     link: '/consultancy/',
-    colors: 'blue',
+    color: 'blue',
     language: 'dutch',
     displayName: 'Consultancy',
     description: 'Comms With A Plan levert Media Management consultancy.',
@@ -68,7 +67,7 @@ export const homeItems: Readable<HomeItem[]> = readable([
     name: 'tools',
     imgFile: '/home/night_crowd.jpg',
     link: '/tools/',
-    colors: 'green',
+    color: 'green',
     language: 'english',
     displayName: 'Tools',
     description: 'Handy tools for your media efforts.',
@@ -78,7 +77,7 @@ export const homeItems: Readable<HomeItem[]> = readable([
     name: 'tools',
     imgFile: '/home/night_crowd.jpg',
     link: '/tools/',
-    colors: 'green',
+    color: 'green',
     language: 'dutch',
     displayName: 'Tools',
     description: 'Handige tools voor je media inzet.',
@@ -89,28 +88,28 @@ export const homeItems: Readable<HomeItem[]> = readable([
 export const toolsItems: Readable<ToolItem[]> = readable([
   {
     name: 'reporting',
-    colors: 'blue',
+    color: 'blue',
     language: 'english',
     displayName: 'Reporting',
     description: 'Interpret, set up, manage dashboards or other kinds of reports.'
   },
   {
     name: 'reporting',
-    colors: 'blue',
+    color: 'blue',
     language: 'dutch',
     displayName: 'Rapportage',
     description: 'Inpreteren, opzetten, managen van dashboards of andersoortige rapporten.'
   },
   {
     name: 'research_and_analysis',
-    colors: 'blue',
+    color: 'blue',
     language: 'english',
     displayName: 'Research and analysis',
     description: 'Interpretation of past campaigns / years etc.'
   },
   {
     name: 'research_and_analysis',
-    colors: 'blue',
+    color: 'blue',
     language: 'dutch',
     displayName: 'Onderzoek en analyse',
     description: ' Interpretatie van afgelopen campagnes / jaren etc.'
@@ -121,7 +120,7 @@ export const consultancyHomeItems: Readable<ConsultancyItem[]> = readable([
   {
     name: 'commswithaplan',
     language: 'english',
-    colors: 'blue',
+    color: 'blue',
 
     displayName: 'Comms With A Plan',
     description:
@@ -130,7 +129,7 @@ export const consultancyHomeItems: Readable<ConsultancyItem[]> = readable([
   {
     name: 'commswithaplan',
     language: 'dutch',
-    colors: 'blue',
+    color: 'blue',
     displayName: 'Comms With A Plan',
     description:
       'Comms With A Plan is een Media Management consultancy voor adverteerders. Ik initieer, onderhoud en evalueer je media strategie, ik manage je bureaus en budget.'
@@ -138,7 +137,7 @@ export const consultancyHomeItems: Readable<ConsultancyItem[]> = readable([
   {
     name: 'consultancy',
     language: '        english',
-    colors: 'blue',
+    color: 'blue',
 
     displayName: 'Consultancy',
     description:
@@ -147,7 +146,7 @@ export const consultancyHomeItems: Readable<ConsultancyItem[]> = readable([
   {
     name: 'consultancy',
     language: 'dutch',
-    colors: 'blue',
+    color: 'blue',
     displayName: 'Consultancy',
     description:
       'Comms With A Plan is een flexibele partner in die zin dat het werk per project kan zijn, maar ook meer continu. Gebaseerd op vraag. (Bel me zodat ik het kan uitleggen.)'
@@ -161,7 +160,7 @@ export const workItems: Readable<ConsultancyItem[]> = readable([
 
     displayName: 'Reporting',
     description: 'Interpret, set up, manage dashboards or other kinds of reports.',
-    colors: 'blue'
+    color: 'blue'
   },
   {
     name: 'reporting',
@@ -169,7 +168,7 @@ export const workItems: Readable<ConsultancyItem[]> = readable([
 
     displayName: 'Rapportage',
     description: 'Inpreteren, opzetten, managen van dashboards of andersoortige rapporten.',
-    colors: 'blue'
+    color: 'blue'
   },
   {
     name: 'research_and_analysis',
@@ -177,14 +176,14 @@ export const workItems: Readable<ConsultancyItem[]> = readable([
 
     displayName: 'Research and analysis',
     description: 'Interpretation of past campaigns / years etc.',
-    colors: 'blue'
+    color: 'blue'
   },
   {
     name: 'research_and_analysis',
     language: 'dutch',
     displayName: 'Onderzoek en analyse',
     description: ' Interpretatie van afgelopen campagnes / jaren etc.',
-    colors: 'blue'
+    color: 'blue'
   },
   {
     name: 'briefing',
@@ -193,7 +192,7 @@ export const workItems: Readable<ConsultancyItem[]> = readable([
     displayName: 'Briefing',
     description:
       'Instruct the agencies to develop (media) campaigns. With the input of former results, all marketing functions, objectives etc. In principle I follow the steps (1) strategy (2) planning (3) execution (4) evaluation & adjustment.',
-    colors: 'blue'
+    color: 'blue'
   },
   {
     name: 'briefing',
@@ -201,7 +200,7 @@ export const workItems: Readable<ConsultancyItem[]> = readable([
     displayName: 'Briefing',
     description:
       'Opdracht geven aan de bureaus om (media)campagnes te ontwikkelen. Met input van eerdere resultaten, alle marketing functies, doelstellingen etcetera. In principe volg ik de stappen (1) strategie (2) planning (3) uitvoering (4) evaluatie & bijstelling.',
-    colors: 'blue'
+    color: 'blue'
   },
   {
     name: 'coordination',
@@ -209,7 +208,7 @@ export const workItems: Readable<ConsultancyItem[]> = readable([
 
     displayName: 'Coördination',
     description: 'I make sure the strategies are integrated. Possibly in a joint development effort by the agencies.',
-    colors: 'green'
+    color: 'green'
   },
   {
     name: 'coordination',
@@ -218,7 +217,7 @@ export const workItems: Readable<ConsultancyItem[]> = readable([
     displayName: 'Coördinatie',
     description:
       'Ik zorg dat de strategieën geïntegreerd zijn. Eventueel door middel van gezamenlijke ontwikkeling door de bureaus.',
-    colors: 'green'
+    color: 'green'
   },
   {
     name: 'planning',
@@ -226,7 +225,7 @@ export const workItems: Readable<ConsultancyItem[]> = readable([
 
     displayName: 'Planning',
     description: 'Precise elaboration of the strategy by the agencies.',
-    colors: 'green'
+    color: 'green'
   },
   {
     name: 'planning',
@@ -234,49 +233,49 @@ export const workItems: Readable<ConsultancyItem[]> = readable([
 
     displayName: 'Planning',
     description: 'Precieze uitwerking van de strategie door de bureaus.',
-    colors: 'green'
+    color: 'green'
   },
   {
     name: 'tools',
     language: 'english',
     displayName: 'Tools',
     description: 'Tools that support your marketing-communications work.',
-    colors: 'green'
+    color: 'green'
   },
   {
     name: 'tools',
     language: 'dutch',
     displayName: 'Tools',
     description: 'Tools die je marketing-communicatie werkzaamheden ondersteunen.',
-    colors: 'green'
+    color: 'green'
   },
   {
     name: 'execution',
     language: 'english',
     displayName: 'Execution',
     description: 'Buying, negotiation, implementation, placement by the agencies.',
-    colors: 'red'
+    color: 'red'
   },
   {
     name: 'execution',
     language: 'dutch',
     displayName: 'Executie',
     description: 'Inkoop, onderhandeling, implementatie, plaatsing door de bureaus.',
-    colors: 'red'
+    color: 'red'
   },
   {
     name: 'evaluation_and_adjustment',
     language: 'english',
     displayName: 'Evaluation and adjustment',
     description: 'Undertake action based on interim results.',
-    colors: 'red'
+    color: 'red'
   },
   {
     name: 'evaluation_and_adjustment',
     language: 'dutch',
     displayName: 'Evaluatie en aanpassingen',
     description: 'Actie ondernemen op basis van tussenresultaten.',
-    colors: 'red'
+    color: 'red'
   },
 
   {
@@ -285,7 +284,7 @@ export const workItems: Readable<ConsultancyItem[]> = readable([
     displayName: 'Budget management',
     description:
       'Make sure that no one spends more than needed to reach the objectives. Or that he/she turns out to have at the end of the year.',
-    colors: 'red'
+    color: 'red'
   },
   {
     name: 'budget_management',
@@ -293,7 +292,7 @@ export const workItems: Readable<ConsultancyItem[]> = readable([
     displayName: 'Budget management',
     description:
       'Ervoor zorgen dat niemand meer uitgeeft dan nodig is voor de doelstellingen. Of wat hij/zij op het einde van het jaar blijkt te hebben.',
-    colors: 'red'
+    color: 'red'
   },
   {
     name: 'creation',
@@ -301,7 +300,7 @@ export const workItems: Readable<ConsultancyItem[]> = readable([
     displayName: 'Creation',
     description:
       'Do I know the difference between indigo, azure, navy or cobalt? No. But I do know whether a proposal is on or off strategy.',
-    colors: 'red'
+    color: 'red'
   },
   {
     name: 'creation',
@@ -309,35 +308,35 @@ export const workItems: Readable<ConsultancyItem[]> = readable([
     displayName: 'Creatie',
     description:
       'Weet ik het verschil tussen indigo, azuur, navy en kobalt? Nee. Maar ik weet wel of een voorstel op of naast strategie is.',
-    colors: 'red'
+    color: 'red'
   },
   {
     name: 'contracts',
     language: 'english',
     displayName: 'Contracts',
     description: 'Arrange yearly agreements with important media parties.',
-    colors: 'grey'
+    color: 'grey'
   },
   {
     name: 'contracts',
     language: 'dutch',
     displayName: 'Contracten',
     description: 'Regelen van jaarafspraken met belangrijke mediapartijen.',
-    colors: 'grey'
+    color: 'grey'
   },
   {
     name: 'agency_management',
     language: 'english',
     displayName: 'Agency management',
     description: 'Team composition, cost, performance rewarding etc.',
-    colors: 'grey'
+    color: 'grey'
   },
   {
     name: 'agency_management',
     language: 'dutch',
     displayName: 'Bureau management',
     description: 'Team samenstelling, kosten, prestatiebeloning etcetera.',
-    colors: 'grey'
+    color: 'grey'
   },
   {
     name: 'auditing',
@@ -345,7 +344,7 @@ export const workItems: Readable<ConsultancyItem[]> = readable([
     displayName: 'Auditing',
     description:
       "As an independent party I check spending, prices, timings, results against previous agreed benchmarks, like pitch documents, contracts, plans, previous years etcetera. Only in case I haven't worked for you in the previous 2 fiscal years, in one of the capacities above.",
-    colors: 'grey'
+    color: 'grey'
   },
   {
     name: 'auditing',
@@ -353,7 +352,7 @@ export const workItems: Readable<ConsultancyItem[]> = readable([
     displayName: 'Audit',
     description:
       'Als een onafhankelijke partij vergelijk ik uitgaven, prijzen, timings, resultaten met vooraf overeengekomen ijkpunten, zoals pitch documenten, contracten, plannen, voorgaande jaren etcetera. \n Alleen als ik in de 2 voorafgaande fiscale jaren niet voor je bedrijf heb gewerkt, in een van de bovenstaande capaciteiten.',
-    colors: 'grey'
+    color: 'grey'
   }
 ]);
 
@@ -365,7 +364,7 @@ export const aboutItems: Readable<ConsultancyItem[]> = readable([
     displayName: 'About',
     description:
       "I'm Constantijn Baarendse. I've worked on different continents, for blue chip advertisers, media- and advertising agencies.",
-    colors: 'blue'
+    color: 'blue'
   },
   {
     name: 'about',
@@ -373,7 +372,7 @@ export const aboutItems: Readable<ConsultancyItem[]> = readable([
     displayName: 'Over',
     description:
       "Ik ben Constantijn Baarendse. Ik heb gewerkt op verschillende continenten, voor 'blue chip' adverteerders, media- en reclamebureaus.",
-    colors: 'blue'
+    color: 'blue'
   }
 ]);
 
@@ -383,39 +382,39 @@ export const contactItems: Readable<ConsultancyItem[]> = readable([
     language: 'english',
     displayName: 'E-Mail',
     description: 'cbaarendse[at]commswithaplan.com',
-    colors: 'blue'
+    color: 'blue'
   },
   {
     name: 'email',
     language: 'dutch',
     displayName: 'E-Mail',
     description: 'cbaarendse[at]commswithaplan.com',
-    colors: 'blue'
+    color: 'blue'
   },
   {
     name: 'telephone',
     language: 'english',
     displayName: 'Telephone',
     description: 'Telephone: plus three one six one two three nine eight seven three four',
-    colors: 'blue'
+    color: 'blue'
   },
   {
     name: 'telephone',
     language: 'dutch',
     displayName: 'Telefoon',
     description: 'Telefoon: nul zes een twee drie negen acht zeven drie vier',
-    colors: 'blue'
+    color: 'blue'
   },
   {
     name: 'address',
-    colors: 'blue',
+    color: 'blue',
     language: 'english',
     displayName: 'Address',
     description: 'Erich Salomonstraat 507, 1087 GT Amsterdam, The Netherlands'
   },
   {
     name: 'address',
-    colors: 'blue',
+    color: 'blue',
     language: 'dutch',
     displayName: 'Adres',
     description: 'Erich Salomonstraat 507, 1087 GT Amsterdam, The Netherlands'
@@ -430,7 +429,7 @@ export const toolsHomeItems: Readable<ToolsHomeItem[]> = readable([
     displayName: 'Tools',
     description:
       'Comms With A Plan developes tools aimed to help advertisers who are not working with media agencies. For instance because they have inhouse capabilities, or because they currently do not have the proper size.',
-    colors: 'green'
+    color: 'green'
   },
   {
     name: 'tools',
@@ -439,7 +438,7 @@ export const toolsHomeItems: Readable<ToolsHomeItem[]> = readable([
     displayName: 'Tools',
     description:
       'Comms With A Plan ontwikkelt tools voor adverteerders die niet met mediabureaus werken. Bijvoorbeeld omdat zij intern genoeg bekwaamheid bezitten, of omdat ze op het moment niet de juiste grootte hebben.',
-    colors: 'green'
+    color: 'green'
   },
   {
     name: 'reachapp',
@@ -448,7 +447,7 @@ export const toolsHomeItems: Readable<ToolsHomeItem[]> = readable([
     displayName: 'Reach',
     description:
       'Comms With A Plan is a flexible unit in the sense that work can be project based, or more continuous, based on demand. (Give me a call to explain.)',
-    colors: 'green'
+    color: 'green'
   },
   {
     name: 'reachapp',
@@ -457,7 +456,7 @@ export const toolsHomeItems: Readable<ToolsHomeItem[]> = readable([
     displayName: 'Reach',
     description:
       'Comms With A Plan is een flexibele partner in die zin dat het werk per project kan zijn, maar ook meer continu. Gebaseerd op vraag. (Bel me zodat ik het kan uitleggen.)',
-    colors: 'green'
+    color: 'green'
   }
 ]);
 
@@ -1126,12 +1125,13 @@ export const translations: Readable<Translation[]> = readable([
   {name: 'read', language: 'dutch', displayName: 'Lees'}
 ]);
 
-export const colorScheme: Readable<Scheme> = readable({
+export const colorsScheme: Readable<ColorsScheme> = readable({
   blue: {
     base: 'var(--ra-blue)',
     light: 'var(--ra-blue-light)',
     bright: 'var(--ra-blue-bright)',
     offWhite: 'var(--ra-blue-off-white)',
+    border: 'var(--ra-blue)',
     text: 'var(--ra-white)'
   },
   green: {
@@ -1139,6 +1139,7 @@ export const colorScheme: Readable<Scheme> = readable({
     light: 'var(--ra-green-light)',
     bright: 'var(--ra-green-bright)',
     offWhite: 'var(--ra-green-off-white)',
+    border: 'var(--ra-green)',
     text: 'var(--ra-white)'
   },
   red: {
@@ -1146,6 +1147,7 @@ export const colorScheme: Readable<Scheme> = readable({
     light: 'var(--ra-red-light)',
     bright: 'var(--ra-red-bright)',
     offWhite: 'var(--ra-red-off-white)',
+    border: 'var(--ra-red)',
     text: 'var(--ra-white)'
   },
   teal: {
@@ -1153,6 +1155,7 @@ export const colorScheme: Readable<Scheme> = readable({
     light: 'var(--ra-teal-light)',
     bright: 'var(--ra-teal-bright)',
     offWhite: 'var(--ra-teal-off-white)',
+    border: 'var(--ra-teal)',
     text: 'var(--ra-white)'
   },
   grey: {
@@ -1160,22 +1163,40 @@ export const colorScheme: Readable<Scheme> = readable({
     light: 'var(--ra-grey-light)',
     bright: 'var(--ra-grey-bright)',
     offWhite: 'var(--ra-grey-off-white)',
+    border: 'var(--ra-grey)',
     text: 'var(--ra-white)'
+  },
+  transparent: {
+    base: 'transparent',
+    light: 'transparent',
+    bright: 'transparent',
+    offWhite: 'transparent',
+    border: 'var(--ra-grey)',
+    text: 'var(--ra-grey-light)'
+  },
+  transparentnoborder: {
+    base: 'transparent',
+    light: 'transparent',
+    bright: 'transparent',
+    offWhite: 'transparent',
+    border: 'transparent',
+    text: 'var(--ra-grey-light)'
   }
 });
 
-export const fontSizes: Readable<Property> = readable({
-  fs_xxs: 'var(--font-size-xxs)',
-  fs_xs: 'var(--font-size-xs)',
-  fs_s: 'var(--font-size-s)',
-  fs_m: 'var(--font-size-m)',
-  fs_l: 'var(--font-size-l)',
-  fs_xl: 'var(--font-size-xl)',
-  fs_2xl: 'var(--font-size-2xl)',
-  fs_3xl: 'var(--font-size-3xl)',
-  fs_4xl: 'var(--font-size-4xl)',
-  fs_5xl: 'var(--font-size-5xl)',
-  fs_6xl: 'var(--font-size-6xl)',
-  fs_7xl: 'var(--font-size-7xl)',
-  fs_8xl: 'var(--font-size-8xl)'
+export const sizesScheme: Readable<SizesScheme> = readable({
+  fit: {padding: '0.4rem 0.6rem', width: 'fit-content', height: 'fit-content', min_width: '0'},
+  xxs: {font_size: 'var(--font-size-xxs)', padding: '0.4rem 0.6rem', min_width: '4rem'},
+  xs: {font_size: 'var(--font-size-xs)', padding: '0.4rem 0.6rem', min_width: '4rem'},
+  s: {font_size: 'var(--font-size-s)', padding: '0.4rem 0.6rem', min_width: '6rem'},
+  m: {font_size: 'var(--font-size-m)', padding: '0.4rem 0.6rem', min_width: '6rem'},
+  l: {font_size: 'var(--font-size-l)', padding: '0.4rem 0.6rem', min_width: '8rem'},
+  xl: {font_size: 'var(--font-size-xl)', padding: '0.4rem 0.6rem', min_width: '8rem'},
+  xl_2: {font_size: 'var(--font-size-2xl)', padding: '0.4rem 0.6rem', min_width: '10rem'},
+  xl_3: {font_size: 'var(--font-size-3xl)', padding: '0.4rem 0.6rem', min_width: '10rem'},
+  xl_4: {font_size: 'var(--font-size-4xl)', padding: '0.4rem 0.6rem', min_width: '10rem'},
+  xl_5: {font_size: 'var(--font-size-5xl)', padding: '0.4rem 0.6rem', min_width: '10rem'},
+  xl_6: {font_size: 'var(--font-size-6xl)', padding: '0.4rem 0.6rem', min_width: '10rem'},
+  xl_7: {font_size: 'var(--font-size-7xl)', padding: '0.4rem 0.6rem', min_width: '10rem'},
+  xl_8: {font_size: 'var(--font-size-8xl)', padding: '0.4rem 0.6rem', min_width: '10rem'}
 });

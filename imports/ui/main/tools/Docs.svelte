@@ -15,7 +15,7 @@
 
 <Main>
   <Header>
-    <Brand brand={{color: 'green', fontSize: 'fs_2xl', title: 'Reach'}}><LogoReachApp size="3rem" /></Brand>
+    <Brand brand={{colors: 'green', sizes: 'xl_2', title: 'Reach'}}><LogoReachApp size="3rem" /></Brand>
     <!-- TODO: engels en nederlands in contentstore -->
     <h2>{$language === 'dutch' ? 'Documentatie' : 'Documentation'}</h2>
   </Header>

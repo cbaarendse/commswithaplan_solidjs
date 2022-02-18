@@ -16,34 +16,39 @@ type Days = {days: number};
 type Monday = {monday: string};
 type Min = {min: number};
 type Max = {max: number};
-// component type
+// component
 type ClassName = {className: string | undefined | null};
-type Size = {size: 'fit' | 'x_small' | 'small' | 'medium' | 'large' | 'x_large' | 'xx_large'};
-type Padding = {padding: string};
-type Width = {width: string};
-type Height = {height: string};
-type MinWidth = {min_width: string};
-type Color = {color: string};
-type Colors = {colors: 'blue' | 'green' | 'red' | 'teal' | 'grey'};
-type BackgroundColor = {backgroundColor: 'blue' | 'green' | 'red' | 'grey' | 'transparant' | 'transparantnoborder'};
-type FontSize = {
-  fontSize:
-    | 'fs_xxs'
-    | 'fs_xs'
-    | 'fs_s'
-    | 'fs_m'
-    | 'fs_l'
-    | 'fs_xl'
-    | 'fs_2xl'
-    | 'fs_3xl'
-    | 'fs_4xl'
-    | 'fs_5xl'
-    | 'fs_6xl'
-    | 'fs_7xl'
-    | 'fs_8xl';
+
+type Color = {color: 'blue' | 'green' | 'red' | 'teal' | 'grey' | 'transparent' | 'transparentnoborder'};
+type Size = {
+  sizes: 'fit' | 'xxs' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xl_2' | 'xl_3' | 'xl_4' | 'xl_5' | 'xl_6' | 'xl_7' | 'xl_8';
 };
+interface Property {
+  [key: string]: string;
+}
+interface Colors {
+  base: string;
+  light: string;
+  bright: string;
+  offWhite: string;
+  border: string;
+  text: string;
+}
+export interface ColorsScheme {
+  [key: string]: Colors;
+}
+interface Sizes {
+  font_size: string;
+  padding?: string;
+  width?: string;
+  height?: string;
+  min_width?: string;
+}
+
+export interface SizesScheme {
+  [key: string]: Sizes;
+}
 type Id = {id: string};
-type Border = {border: string};
 type Type = {type: 'submit' | 'reset' | 'button'};
 type Role = {role: 'button'};
 type OnClick = {onClick: () => void};
@@ -77,12 +82,7 @@ export interface Translation extends Name, Language, DisplayName {}
 // planning
 export interface TouchPointBasics extends Name, Language, DisplayName, Description {}
 export interface TouchPointInPlan extends TouchPointBasics, Value {}
-export interface Property {
-  [key: string]: string;
-}
-export interface Scheme {
-  [key: string]: Property;
-}
+
 export interface Year extends Name, Days {}
 export interface Month extends Name, Days {}
 export interface Week extends Name, Days, Monday {}
@@ -91,34 +91,19 @@ export interface Week extends Name, Days, Monday {}
 export interface Card extends Partial<Title>, Color, Partial<ImgFile>, Partial<Link>, Partial<Action> {}
 export interface SelectItem extends Name, Index {}
 export interface Accordion extends Visible {}
-export interface ButtonDimensions
-  extends Partial<FontSize>,
-    Padding,
-    Partial<Width>,
-    Partial<Height>,
-    Partial<MinWidth> {}
-interface ButtonSize {
-  [index: string]: ButtonDimensions;
-}
-export interface ButtonColors extends BackgroundColor, Color, Border {}
-interface ButtonColorScheme {
-  [index: string]: ButtonColors;
-}
 export interface Button
   extends Partial<ClassName>,
     Partial<Id>,
     Partial<Type>,
     Partial<Role>,
     Partial<Value>,
-    Colors,
+    Color,
+    Size,
     OnClick,
     Partial<OnMouseenter>,
     Partial<OnMousleave>,
     Partial<Disabled>,
     Partial<DataDismiss>,
-    Partial<AriaLabel> {
-  buttonSize: ButtonSize;
-  buttonColorScheme: ButtonColorScheme;
-}
-export interface Brand extends Partial<ClassName>, FontSize, Color, Title {}
+    Partial<AriaLabel> {}
+export interface Brand extends Partial<ClassName>, Sizes, Color, Title {}
 export interface Slider extends Name, DisplayName, Value, Min, Max {}

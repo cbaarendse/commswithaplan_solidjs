@@ -1,11 +1,10 @@
-<script>
+<script lang="ts">
   // packages
 
   // components
   import Main from './layout/Main.svelte';
   import Header from './layout/Header.svelte';
   import Section from './layout/Section.svelte';
-  import Article from './layout/Article.svelte';
   import Brand from '../../reusable/Brand.svelte';
 
   import LogoCommsWithAPlan from '../../reusable/LogoCommsWithAPlan.svelte';
@@ -17,12 +16,14 @@
 
 <Main>
   <Header>
-    <Brand title={'Comms With A Plan'} colors={'blue'}><LogoCommsWithAPlan size={'3rem'} /></Brand>
+    <Brand brand={{title: 'Comms With A Plan', color: 'blue', sizes: 'xl_2'}}
+      ><LogoCommsWithAPlan size={'3rem'} /></Brand
+    >
   </Header>
 
   <Section>
-    {#each $consultancyHomeItems as item, index}
-      <Card cardTitle={item[$language].displayName}>
+    {#each $consultancyHomeItems as item}
+      <Card card={{title: item[$language].displayName, color: 'blue'}}>
         <span>
           {item[$language].description}
         </span>

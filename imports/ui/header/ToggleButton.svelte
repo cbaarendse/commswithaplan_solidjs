@@ -30,8 +30,8 @@
 
 <Button
   btn={{
-    size: 'fit',
-    backgroundColor: 'transparantnoborder',
+    sizes: 'fit',
+    color: 'transparentnoborder',
     onClick: toggleNavigation
   }}
 >

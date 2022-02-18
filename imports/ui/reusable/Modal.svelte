@@ -15,7 +15,8 @@
     <div class="modal-button">
       <Button
         btn={{
-          className: 'xlarge' + ' ' + 'transparantnoborder',
+          colors: 'transparentnoborder',
+          sizes: 'xl',
           type: 'button',
           onClick: () => (displayModal = 'none')
         }}

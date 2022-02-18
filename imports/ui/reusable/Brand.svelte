@@ -1,6 +1,6 @@
 <script lang="ts">
   // stores
-  import {colorScheme, fontSizes} from '../../../client/stores';
+  import {colorsScheme, sizesScheme} from '../../../client/stores';
 
   // types
   import {Brand} from '/types/interfaces';
@@ -8,13 +8,15 @@
   // variables
   export let brand: Brand;
   brand.color = 'blue';
-  brand.fontSize = 'fs_2xl';
+  brand.sizes = 'xl_2';
   brand.title = 'Comms With A Plan';
 </script>
 
 <div class="brand">
   <slot />
-  <span style:color={$colorScheme[brand.color].base} style:font-size={$fontSizes[brand.fontSize]}>{brand.title}</span>
+  <span style:color={$colorsScheme[brand.color].base} style:font-size={$sizesScheme[brand.sizes].font_size}
+    >{brand.title}</span
+  >
 </div>
 
 <style>

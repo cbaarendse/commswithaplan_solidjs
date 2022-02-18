@@ -21,8 +21,7 @@
 
 <Main>
   <Header>
-    <Brand brand={{color: 'green', fontSize: 'fs_xl', title: 'Comms With A Plan'}}
-      ><LogoCommsWithAPlan size={'3rem'} /></Brand
+    <Brand brand={{color: 'green', sizes: 'xl', title: 'Comms With A Plan'}}><LogoCommsWithAPlan size={'3rem'} /></Brand
     >
   </Header>
 

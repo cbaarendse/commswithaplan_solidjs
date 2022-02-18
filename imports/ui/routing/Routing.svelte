@@ -1,6 +1,6 @@
-<script>
+<script lang="ts">
   // packages
-  import {Route, router} from 'tinro';
+  import {Route} from 'tinro';
 
   // components
   import Home from '../../ui/main/home/Home.svelte';

@@ -21,7 +21,8 @@
   <header>
     <Button
       btn={{
-        className: 'transparantnoborder',
+        colors: 'transparentnoborder',
+        sizes: 'fit',
         onClick: () => (acc.visible = !acc.visible)
       }}
       >{#if acc.visible}<Fa icon={faMinus} />{:else}<Fa icon={faPlus} />{/if}</Button

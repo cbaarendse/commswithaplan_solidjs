@@ -10,7 +10,7 @@
   import {UiProvider} from '../../../../types/classes';
 
   // variables
-  import {Display} from '../../../../types/interfaces';
+  import {Display, TouchPointInPlan} from '../../../../types/interfaces';
   import {language, translations} from '../../../../client/stores';
 
   export let display: Display;
@@ -21,7 +21,7 @@
   let displayModal: Display;
   let hovered: boolean = false;
 
-  export let touchPoint;
+  export let touchPoint: TouchPointInPlan;
 
   // this is the value of the slider
   $: sliderValue = touchPoint.value;
