@@ -1,16 +1,16 @@
 <script lang="ts">
   // variables
-  import {colorScheme} from '../../../client/stores';
+  import {colorsScheme} from '../../../client/stores';
   export let colors: string = 'grey';
   export let cardTitle: string;
   export let flipped: boolean = false;
   export let buttonText: string;
 
   // functions
-  const getBackgroundColor = () => $colorScheme[colors].offWhite;
-  const getFooterColor = () => $colorScheme[colors].offWhite;
-  const getFooterBackgroundColor = () => $colorScheme[colors].light;
-  const getColor = () => $colorScheme[colors].base;
+  const getBackgroundColor = () => $colorsScheme[colors].offWhite;
+  const getFooterColor = () => $colorsScheme[colors].offWhite;
+  const getFooterBackgroundColor = () => $colorsScheme[colors].light;
+  const getColor = () => $colorsScheme[colors].base;
 </script>
 
 <article class="card" style="background-color:{getBackgroundColor()};color:{getColor()};">

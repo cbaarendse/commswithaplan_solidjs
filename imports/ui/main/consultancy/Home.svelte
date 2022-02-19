@@ -12,20 +12,21 @@
 
   // variables
   import {language, consultancyHomeItems} from '../../../../client/stores';
+
+  $: translatedConsultancyHomeItems = $consultancyHomeItems.filter((item) => item.language === $language);
 </script>
 
 <Main>
   <Header>
-    <Brand brand={{title: 'Comms With A Plan', color: 'blue', sizes: 'xl_2'}}
-      ><LogoCommsWithAPlan size={'3rem'} /></Brand
+    <Brand brand={{title: 'Comms With A Plan', color: 'blue', size: 'xl_2'}}><LogoCommsWithAPlan size={'3rem'} /></Brand
     >
   </Header>
 
   <Section>
-    {#each $consultancyHomeItems as item}
-      <Card card={{title: item[$language].displayName, color: 'blue'}}>
+    {#each translatedConsultancyHomeItems as item}
+      <Card card={{title: item.displayName, color: 'blue'}}>
         <span>
-          {item[$language].description}
+          {item.description}
         </span>
       </Card>
     {/each}

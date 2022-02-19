@@ -2,17 +2,17 @@
   // types
   import type {Card} from '../../../types/interfaces';
   // variables
-  import {colorScheme} from '../../../client/stores';
+  import {colorsScheme} from '../../../client/stores';
 
   // functions
   export let card: Card;
-  card.colors = 'blue';
+  card.color = 'blue';
 </script>
 
 <article
   class="card"
-  style:background-color={$colorScheme[card.colors].offWhite}
-  style:color={$colorScheme[card.colors].base}
+  style:background-color={$colorsScheme[card.color].offWhite}
+  style:color={$colorsScheme[card.color].base}
 >
   {#if card.imgFile}
     <div class="img-container">
@@ -20,7 +20,7 @@
     </div>
   {/if}
   {#if card.title}
-    <div class="card-title" style:color={$colorScheme[card.colors].base}>
+    <div class="card-title" style:color={$colorsScheme[card.color].base}>
       <h2>{card.title}</h2>
     </div>
   {/if}
@@ -29,14 +29,14 @@
   </p>
   <div
     class="card-footer"
-    style:background-color={$colorScheme[card.colors].offWhite}
-    style:color={$colorScheme[card.colors].light}
+    style:background-color={$colorsScheme[card.color].offWhite}
+    style:color={$colorsScheme[card.color].light}
   >
     <p>
       <slot name="cardfootertext" />
     </p>
     {#if card.action}
-      <a href={card.link} style:color={$colorScheme[card.colors].light}>{card.action}</a>
+      <a href={card.link} style:color={$colorsScheme[card.color].light}>{card.action}</a>
     {/if}
   </div>
 </article>

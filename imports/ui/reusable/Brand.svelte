@@ -8,13 +8,13 @@
   // variables
   export let brand: Brand;
   brand.color = 'blue';
-  brand.sizes = 'xl_2';
+  brand.size = 'xl_2';
   brand.title = 'Comms With A Plan';
 </script>
 
 <div class="brand">
   <slot />
-  <span style:color={$colorsScheme[brand.color].base} style:font-size={$sizesScheme[brand.sizes].font_size}
+  <span style:color={$colorsScheme[brand.color].base} style:font-size={$sizesScheme[brand.size].font_size}
     >{brand.title}</span
   >
 </div>

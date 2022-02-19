@@ -21,8 +21,7 @@
 
 <Main>
   <Header>
-    <Brand brand={{color: 'green', sizes: 'xl', title: 'Comms With A Plan'}}><LogoCommsWithAPlan size={'3rem'} /></Brand
-    >
+    <Brand brand={{color: 'green', size: 'xl', title: 'Comms With A Plan'}}><LogoCommsWithAPlan size={'3rem'} /></Brand>
   </Header>
 
   <Section>
@@ -37,7 +36,7 @@
         <li>
           <FlipCard
             flipped={selectIndex === index}
-            colors={item.colors}
+            colors={item.color}
             on:click={() => (selectIndex === index ? (selectIndex = null) : (selectIndex = index))}
             on:mouseenter={() => (selectIndex === index ? (selectIndex = null) : (selectIndex = index))}
             cardTitle={item.displayName}
@@ -46,7 +45,7 @@
             <img
               src="/consultancy/{item.name}.png"
               alt={item.displayName}
-              style=" filter: opacity(0.6) drop-shadow(0 0 0 {item.colors});"
+              style=" filter: opacity(0.6) drop-shadow(0 0 0 {item.color});"
               slot="image"
             />
             <span slot="description">{item.description}</span>

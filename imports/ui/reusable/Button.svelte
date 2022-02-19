@@ -8,20 +8,20 @@
   export let btn: Button;
 
   btn.color = 'blue';
-  btn.sizes = 'fit';
+  btn.size = 'fit';
 </script>
 
 <button
   type={btn.type}
   role={btn.role}
-  style:color={colorsScheme[btn.colors].text}
-  style:background-color={colorsScheme[btn.colors].base}
-  style:border={['1px', 'solid', `${colorsScheme[btn.colors].border}`].join(' ')}
-  style:font-size={sizesScheme[btn.sizes].font_size}
-  style:padding={sizesScheme[btn.sizes].padding}
-  style:width={sizesScheme[btn.sizes].width}
-  style:height={sizesScheme[btn.sizes].height}
-  style:min-width={sizesScheme[btn.sizes].min_width}
+  style:color={colorsScheme[btn.color].text}
+  style:background-color={colorsScheme[btn.color].base}
+  style:border={['1px', 'solid', `${colorsScheme[btn.color].border}`].join(' ')}
+  style:font-size={sizesScheme[btn.size].font_size}
+  style:padding={sizesScheme[btn.size].padding}
+  style:width={sizesScheme[btn.size].width}
+  style:height={sizesScheme[btn.size].height}
+  style:min-width={sizesScheme[btn.size].min_width}
   on:click|preventDefault|stopPropagation={btn.onClick}
   on:mouseenter|preventDefault|stopPropagation={btn.onMouseenter}
   on:mouseleave|preventDefault|stopPropagation={btn.onMouseleave}

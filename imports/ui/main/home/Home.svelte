@@ -14,7 +14,7 @@
     <Article>
       {#each translatedHomeItems as item}
         <Card
-          card={{title: item.displayName, colors: 'blue', imgFile: item.imgFile, link: item.link, action: item.action}}
+          card={{title: item.displayName, color: 'blue', imgFile: item.imgFile, link: item.link, action: item.action}}
         >
           <span>{item.description}</span>
         </Card>

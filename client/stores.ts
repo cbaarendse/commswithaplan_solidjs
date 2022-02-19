@@ -4,7 +4,7 @@ import {writable, Writable, readable, Readable} from 'svelte/store';
 // interfaces
 import {
   HomeItem,
-  ToolItem,
+  ToolsItem,
   ConsultancyItem,
   ToolsHomeItem,
   ToolsDocsChapter,
@@ -85,7 +85,7 @@ export const homeItems: Readable<HomeItem[]> = readable([
   }
 ]);
 //TODO: doubles with toolsHomeItems
-export const toolsItems: Readable<ToolItem[]> = readable([
+export const toolsItems: Readable<ToolsItem[]> = readable([
   {
     name: 'reporting',
     color: 'blue',
@@ -121,7 +121,6 @@ export const consultancyHomeItems: Readable<ConsultancyItem[]> = readable([
     name: 'commswithaplan',
     language: 'english',
     color: 'blue',
-
     displayName: 'Comms With A Plan',
     description:
       'Comms With A Plan is a Media Management consultancy for advertisers. At your service I initiate, maintain and evaluate your media strategy, I manage your agencies and your budget.'
@@ -136,9 +135,8 @@ export const consultancyHomeItems: Readable<ConsultancyItem[]> = readable([
   },
   {
     name: 'consultancy',
-    language: '        english',
+    language: 'english',
     color: 'blue',
-
     displayName: 'Consultancy',
     description:
       'Comms With A Plan is a flexible unit in the sense that work can be project based, or more continuous, based on demand. (Give me a call to explain.)'

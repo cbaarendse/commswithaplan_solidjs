@@ -17,7 +17,7 @@
 
 <Main>
   <Header>
-    <Brand brand={{colors: 'blue', sizes: 'xl_2', title: 'Comms With A Plan'}}>
+    <Brand brand={{color: 'blue', size: 'xl_2', title: 'Comms With A Plan'}}>
       <LogoReachApp size="3rem" />
       <div slot="title">ReachApp</div>
     </Brand>
@@ -27,7 +27,7 @@
     <Article>
       {#each translatedToolsHomeItems as item}
         <div>
-          <Card card={{colors: 'blue', title: item.displayName}}>
+          <Card card={{color: 'blue', title: item.displayName}}>
             <span>
               {item.description}
             </span>
