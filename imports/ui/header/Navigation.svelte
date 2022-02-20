@@ -7,8 +7,7 @@
   import {faHome} from '@fortawesome/free-solid-svg-icons';
 
   // variables
-  import {language} from '../../../client/stores';
-  import {navigationVisible} from '../../../client/stores';
+  import {language, navigationVisible} from '../../../client/stores';
 
   $: console.log('navigationVisible', $navigationVisible);
 

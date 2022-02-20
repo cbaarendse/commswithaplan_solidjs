@@ -40,26 +40,14 @@ export interface ColorsScheme2 {
   transparent: Colors;
   transparentnoborder: Colors;
 }
-type Size =
-  | 'fit'
-  | 'xxs'
-  | 'xs'
-  | 's'
-  | 'm'
-  | 'l'
-  | 'xl'
-  | 'xl_2'
-  | 'xl_3'
-  | 'xl_4'
-  | 'xl_5'
-  | 'xl_6'
-  | 'xl_7'
-  | 'xl_8';
+type Size = {
+  size: 'fit' | 'xxs' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xl_2' | 'xl_3' | 'xl_4' | 'xl_5' | 'xl_6' | 'xl_7' | 'xl_8';
+};
 type Sizes = {
-  font_size?: string;
+  font_size: string;
   padding: string;
-  width?: string;
-  height?: string;
+  width: string;
+  height: string;
   min_width: string;
 };
 export interface SizesScheme {
@@ -124,22 +112,19 @@ export interface Week extends Name, Days, Monday {}
 export interface Card extends Partial<Title>, Color, Partial<ImgFile>, Partial<Link>, Partial<Action> {}
 export interface SelectItem extends Name, Index {}
 export interface Accordion extends Visible {}
-export interface Button {
-  className?: string;
-  id?: string;
-  type?: string;
-  role?: string;
-  size: string;
-  color: string;
-  value?: string;
-  onMouseenter?: () => void;
-  onMouseleave?: () => void;
-  disabled?: boolean | null | undefined;
-  dataDismiss?: string;
-  ariaLabel?: string;
-}
-
-export interface Brand extends Partial<ClassName>, Color, Title {
-  size: Size;
-}
+export interface Button
+  extends Partial<ClassName>,
+    Partial<Id>,
+    Partial<Type>,
+    Partial<Role>,
+    Size,
+    Color,
+    Partial<Value>,
+    Partial<OnMouseenter>,
+    Partial<OnMousleave>,
+    Partial<OnClick>,
+    Partial<Disabled>,
+    Partial<DataDismiss>,
+    Partial<AriaLabel> {}
+export interface Brand extends Partial<ClassName>, Color, Size, Title {}
 export interface Slider extends Name, DisplayName, Value, Min, Max {}

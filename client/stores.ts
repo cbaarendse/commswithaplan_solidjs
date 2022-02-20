@@ -1183,18 +1183,18 @@ export const colorsScheme: Readable<ColorsScheme> = readable({
 });
 
 export const sizesScheme: Readable<SizesScheme> = readable({
-  fit: {padding: '0.4rem 0.6rem', width: 'fit-content', height: 'fit-content', min_width: '0'},
-  xxs: {font_size: 'var(--font-size-xxs)', padding: '0.4rem 0.6rem', min_width: '4rem'},
-  xs: {font_size: 'var(--font-size-xs)', padding: '0.4rem 0.6rem', min_width: '4rem'},
-  s: {font_size: 'var(--font-size-s)', padding: '0.4rem 0.6rem', min_width: '6rem'},
-  m: {font_size: 'var(--font-size-m)', padding: '0.4rem 0.6rem', min_width: '6rem'},
-  l: {font_size: 'var(--font-size-l)', padding: '0.4rem 0.6rem', min_width: '8rem'},
-  xl: {font_size: 'var(--font-size-xl)', padding: '0.4rem 0.6rem', min_width: '8rem'},
-  xl_2: {font_size: 'var(--font-size-2xl)', padding: '0.4rem 0.6rem', min_width: '10rem'},
-  xl_3: {font_size: 'var(--font-size-3xl)', padding: '0.4rem 0.6rem', min_width: '10rem'},
-  xl_4: {font_size: 'var(--font-size-4xl)', padding: '0.4rem 0.6rem', min_width: '10rem'},
-  xl_5: {font_size: 'var(--font-size-5xl)', padding: '0.4rem 0.6rem', min_width: '10rem'},
-  xl_6: {font_size: 'var(--font-size-6xl)', padding: '0.4rem 0.6rem', min_width: '10rem'},
-  xl_7: {font_size: 'var(--font-size-7xl)', padding: '0.4rem 0.6rem', min_width: '10rem'},
-  xl_8: {font_size: 'var(--font-size-8xl)', padding: '0.4rem 0.6rem', min_width: '10rem'}
+  fit: {font_size: '', padding: '0.4rem 0.6rem', width: 'fit-content', height: 'fit-content', min_width: '0'},
+  xxs: {font_size: 'var(--font-size-xxs)', padding: '0.4rem 0.6rem', width: '', height: '', min_width: '4rem'},
+  xs: {font_size: 'var(--font-size-xs)', padding: '0.4rem 0.6rem', width: '', height: '', min_width: '4rem'},
+  s: {font_size: 'var(--font-size-s)', padding: '0.4rem 0.6rem', width: '', height: '', min_width: '6rem'},
+  m: {font_size: 'var(--font-size-m)', padding: '0.4rem 0.6rem', width: '', height: '', min_width: '6rem'},
+  l: {font_size: 'var(--font-size-l)', padding: '0.4rem 0.6rem', width: '', height: '', min_width: '8rem'},
+  xl: {font_size: 'var(--font-size-xl)', padding: '0.4rem 0.6rem', width: '', height: '', min_width: '8rem'},
+  xl_2: {font_size: 'var(--font-size-2xl)', padding: '0.4rem 0.6rem', width: '', height: '', min_width: '10rem'},
+  xl_3: {font_size: 'var(--font-size-3xl)', padding: '0.4rem 0.6rem', width: '', height: '', min_width: '10rem'},
+  xl_4: {font_size: 'var(--font-size-4xl)', padding: '0.4rem 0.6rem', width: '', height: '', min_width: '10rem'},
+  xl_5: {font_size: 'var(--font-size-5xl)', padding: '0.4rem 0.6rem', width: '', height: '', min_width: '10rem'},
+  xl_6: {font_size: 'var(--font-size-6xl)', padding: '0.4rem 0.6rem', width: '', height: '', min_width: '10rem'},
+  xl_7: {font_size: 'var(--font-size-7xl)', padding: '0.4rem 0.6rem', width: '', height: '', min_width: '10rem'},
+  xl_8: {font_size: 'var(--font-size-8xl)', padding: '0.4rem 0.6rem', width: '', height: '', min_width: '10rem'}
 });
