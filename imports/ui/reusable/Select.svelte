@@ -3,11 +3,11 @@
   import {createEventDispatcher} from 'svelte';
 
   // types
-  import type {SelectItem} from '../../../types/interfaces';
-  import {UiProvider} from '../../../types/classes';
+  import type {SelectItem} from '../../both/types/interfaces';
+  import {UiProvider} from '../../both/types/classes';
 
   // variables
-  import {language, translations} from '../../../client/stores';
+  import {language, translations} from '../stores/stores';
   export let size: string = 'normal'; // or small, large, xlarge
   export let selectItem: SelectItem;
   export let list: SelectItem[];

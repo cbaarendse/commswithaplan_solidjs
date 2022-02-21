@@ -13,7 +13,7 @@
   import {faLinkedin} from '@fortawesome/free-brands-svg-icons';
 
   // variables
-  import {language, contactItems} from '../../../../client/stores';
+  import {language, contactItems} from '../../stores/stores';
   $: translatedContactItems = $contactItems.filter((item) => item.language === $language);
 </script>
 

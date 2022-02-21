@@ -3,7 +3,7 @@
   import {tweened, Tweened} from 'svelte/motion';
   import {cubicInOut} from 'svelte/easing';
   import Button from '../../ui/reusable/Button.svelte';
-  import {navigationVisible} from '../../../client/stores';
+  import {navigationVisible} from '../stores/stores';
 
   // variables
   let top: Tweened<number> = tweened(10, {duration: 300, easing: cubicInOut});

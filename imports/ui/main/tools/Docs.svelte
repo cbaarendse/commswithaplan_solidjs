@@ -7,7 +7,7 @@
   import DocsChapter from './DocsChapter.svelte';
 
   // variables*
-  import {language, toolsDocumentationChapters} from '../../../../client/stores';
+  import {language, toolsDocumentationChapters} from '../../stores/stores';
   $: translatedToolsDocumentationChapters = $toolsDocumentationChapters.filter(
     (chapter) => chapter.language === $language
   );

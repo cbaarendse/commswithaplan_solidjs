@@ -10,11 +10,11 @@
   import FlipCard from '../../reusable/FlipCard.svelte';
 
   // types
-  import {UiProvider} from '../../../../types/classes';
-  import type {SelectItem} from '../../../../types/interfaces';
+  import {UiProvider} from '../../../both/types/classes';
+  import type {SelectItem} from '../../../both/types/interfaces';
 
   // variables
-  import {language, translations, workItems} from '../../../../client/stores';
+  import {language, translations, workItems} from '../../stores/stores';
   $: translatedWorkItems = $workItems.filter((item) => item.language === $language);
   let selectIndex: SelectItem['index'] | null;
 </script>

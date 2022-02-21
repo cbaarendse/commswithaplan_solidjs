@@ -7,13 +7,12 @@
   import {faHome} from '@fortawesome/free-solid-svg-icons';
 
   // variables
-  import {language, navigationVisible} from '../../../client/stores';
+  import {language, navigationVisible, useMediaQuery} from '../stores/stores';
 
   $: console.log('navigationVisible', $navigationVisible);
 
   // functions
-  import {useMediaQuery} from '../../../client/stores';
-  useMediaQuery('(min-width: 760px)').subscribe((value): void => ($navigationVisible = value));
+  useMediaQuery('(min-width: 760px)').subscribe((value: any): void => ($navigationVisible = value));
 </script>
 
 {#if $navigationVisible == true}

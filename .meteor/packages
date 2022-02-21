@@ -21,4 +21,5 @@ mdg:validated-method
 alanning:roles
 didericis:callpromise-mixin
 zodern:melte
-hot-module-replacement@0.5.0
+hot-module-replacement
+dev-error-overlay

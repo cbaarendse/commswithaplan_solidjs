@@ -4,7 +4,7 @@
     "description": "media management consultancy",
     "repository": {
         "type": "git",
-        "url": "https://github.com/cbaarendse/reachapp"
+        "url": "https://github.com/cbaarendse/commswithaplan"
     },
     "private": true,
     "scripts": {
@@ -51,6 +51,7 @@
     },
     "devDependencies": {
         "@types/lodash": "^4.14.178",
+        "eslint": "^8.9.0",
         "eslint-plugin-svelte3": "^3.4.0",
         "svelte-check": "^2.3.0",
         "tinro": "^0.6.5",

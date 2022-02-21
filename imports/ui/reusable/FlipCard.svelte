@@ -1,6 +1,6 @@
 <script lang="ts">
   // variables
-  import {colorsScheme} from '../../../client/stores';
+  import {colorsScheme} from '../stores/stores';
   export let colors: string = 'grey';
   export let cardTitle: string;
   export let flipped: boolean = false;

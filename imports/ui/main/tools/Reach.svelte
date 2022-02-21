@@ -13,11 +13,11 @@
   import {Unsubscriber} from 'svelte/store';
 
   // providers
-  import {ReachProvider} from '../../../../types/classes';
+  import {ReachProvider} from '../../../both/types/classes';
 
   // variables
-  import {language, touchPointsBasics} from '../../../../client/stores';
-  import {Display, TouchPointInPlan} from '../../../../types/interfaces';
+  import {language, touchPointsBasics} from '../../stores/stores';
+  import {Display, TouchPointInPlan} from '../../../both/types/interfaces';
   let reach = new ReachProvider($language, $touchPointsBasics);
 
   // functions

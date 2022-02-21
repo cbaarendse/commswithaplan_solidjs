@@ -12,12 +12,12 @@ import {
   Translation,
   ColorsScheme,
   SizesScheme
-} from '../types/interfaces';
+} from '../../both/types/interfaces';
 
 // stores
 export const language: Writable<string> = writable('dutch');
 
-export const navigationVisible: Writable<boolean> = writable(false);
+export const navigationVisible: Writable<boolean> = writable(true);
 
 //export a function that return a readable given a string media query as input
 export const useMediaQuery = (mediaQuery: string): Readable<any> => {
@@ -422,7 +422,6 @@ export const contactItems: Readable<ConsultancyItem[]> = readable([
 export const toolsHomeItems: Readable<ToolsHomeItem[]> = readable([
   {
     name: 'tools',
-
     language: 'english',
     displayName: 'Tools',
     description:
@@ -431,7 +430,6 @@ export const toolsHomeItems: Readable<ToolsHomeItem[]> = readable([
   },
   {
     name: 'tools',
-
     language: 'dutch',
     displayName: 'Tools',
     description:
@@ -449,7 +447,6 @@ export const toolsHomeItems: Readable<ToolsHomeItem[]> = readable([
   },
   {
     name: 'reachapp',
-
     language: 'dutch',
     displayName: 'Reach',
     description:

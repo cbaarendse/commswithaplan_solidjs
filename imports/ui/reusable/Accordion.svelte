@@ -7,7 +7,7 @@
   import {faPlus, faMinus} from '@fortawesome/free-solid-svg-icons';
 
   // types
-  import type {Accordion} from '/types/interfaces';
+  import type {Accordion} from '../../both/types/interfaces';
 
   // components
   import Button from './Button.svelte';

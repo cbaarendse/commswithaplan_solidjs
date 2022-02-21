@@ -1,6 +1,6 @@
 <script lang="ts">
   //variables
-  import {Slider} from '../../../types/interfaces';
+  import {Slider} from '../../both/types/interfaces';
   export let slider: Slider;
 </script>
 

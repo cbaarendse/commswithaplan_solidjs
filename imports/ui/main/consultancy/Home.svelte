@@ -11,7 +11,7 @@
   import Card from '../../reusable/Card.svelte';
 
   // variables
-  import {language, consultancyHomeItems} from '../../../../client/stores';
+  import {language, consultancyHomeItems} from '../../stores/stores';
 
   $: translatedConsultancyHomeItems = $consultancyHomeItems.filter((item) => item.language === $language);
 </script>

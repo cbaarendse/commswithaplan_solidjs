@@ -6,7 +6,7 @@
   import {faUser} from '@fortawesome/free-solid-svg-icons';
 
   // variables
-  import {language} from '../../../client/stores';
+  import {language} from '../stores/stores';
 </script>
 
 <div class="top-bar" role="menu">

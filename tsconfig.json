@@ -9,7 +9,7 @@
     "jsx": "preserve",
     "incremental": true,
     "noEmit": true,
-    //"typeRoots": [],
+    //"typeRoots": ["node_modules/@types"],
 
     /* Strict Type-Checking Options */
     "strict": true,
@@ -26,12 +26,23 @@
     "baseUrl": ".",
     "paths": {
       /* Support absolute /imports/* with a leading '/' */
-      "/*": ["*"]
+      "*": ["*"]
     },
     "moduleResolution": "node",
     "resolveJsonModule": true,
     // apparently even when left empty, this overrules "typeRoots"
-    "types": ["bson", "connect", "lodash", "meteor", "meteor-roles", "mongodb", "node", "underscore", "svelte-fa"],
+    "types": [
+      "bson",
+      "connect",
+      "lodash",
+      "meteor",
+      "meteor-roles",
+      "mongodb",
+      "node",
+      "underscore",
+      "svelte-fa",
+      "prop-types"
+    ],
     "esModuleInterop": true,
     "preserveSymlinks": true,
     // added for dayjs package:

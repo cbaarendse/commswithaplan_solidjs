@@ -5,7 +5,7 @@
   import Card from '../../reusable/Card.svelte';
 
   // variables
-  import {language, homeItems} from '../../../../client/stores';
+  import {language, homeItems} from '../../stores/stores';
   $: translatedHomeItems = $homeItems.filter((item) => item.language === $language);
 </script>
 

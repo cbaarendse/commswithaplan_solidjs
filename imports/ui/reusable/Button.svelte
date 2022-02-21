@@ -1,8 +1,8 @@
 <script lang="ts">
   // stores
-  import {sizesScheme, colorsScheme} from '../../../client/stores';
+  import {sizesScheme, colorsScheme} from '../stores/stores';
   // interfaces
-  import type {Button} from '../../../types/interfaces';
+  import type {Button} from '../../both/types/interfaces';
 
   // properties
   export let btn: Button;

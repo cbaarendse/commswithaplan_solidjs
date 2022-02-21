@@ -7,11 +7,11 @@
   import Modal from '../../reusable/Modal.svelte';
 
   // providers
-  import {UiProvider} from '../../../../types/classes';
+  import {UiProvider} from '../../../both/types/classes';
 
   // variables
-  import {Display, TouchPointInPlan} from '../../../../types/interfaces';
-  import {language, translations} from '../../../../client/stores';
+  import {Display, TouchPointInPlan} from '../../../both/types/interfaces';
+  import {language, translations} from '../../stores/stores';
 
   export let display: Display;
   let inputPlaceholder: string | null | undefined;

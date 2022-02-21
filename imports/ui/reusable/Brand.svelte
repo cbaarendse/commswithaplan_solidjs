@@ -1,9 +1,9 @@
 <script lang="ts">
   // stores
-  import {colorsScheme, sizesScheme} from '../../../client/stores';
+  import {colorsScheme, sizesScheme} from '../stores/stores';
 
   // types
-  import {Brand} from '/types/interfaces';
+  import {Brand} from '../../both/types/interfaces';
 
   // variables
   export let brand: Brand;

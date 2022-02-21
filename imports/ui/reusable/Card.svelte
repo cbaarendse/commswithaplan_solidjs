@@ -1,8 +1,8 @@
 <script lang="ts">
   // types
-  import type {Card} from '../../../types/interfaces';
+  import type {Card} from '../../both/types/interfaces';
   // variables
-  import {colorsScheme} from '../../../client/stores';
+  import {colorsScheme} from '../stores/stores';
 
   // functions
   export let card: Card;

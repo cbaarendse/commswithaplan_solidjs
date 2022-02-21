@@ -16,13 +16,13 @@
   // components
 
   // providers
-  import {UiProvider} from '../../../../types/classes';
+  import {UiProvider} from '../../../both/types/classes';
 
   // constants
   const dispatch = createEventDispatcher();
 
   // variables
-  import {language, translations} from '../../../../client/stores';
+  import {language, translations} from '../../stores/stores';
   export let totalReach: number;
   export let locus: number;
   export let allTouchPointValuesAreZero: boolean;
