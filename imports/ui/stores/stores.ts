@@ -2,7 +2,7 @@
 import {writable, Writable, readable, Readable} from 'svelte/store';
 
 // interfaces
-import {
+import type {
   HomeItem,
   ToolsItem,
   ConsultancyItem,

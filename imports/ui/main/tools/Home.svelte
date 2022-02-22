@@ -5,7 +5,6 @@
   import Main from './layout/Main.svelte';
   import Header from './layout/Header.svelte';
   import Section from './layout/Section.svelte';
-  import Article from './layout/Article.svelte';
   import Brand from '../../reusable/Brand.svelte';
   import LogoReachApp from '../../reusable/LogoReachApp.svelte';
   import Card from '../../reusable/Card.svelte';
@@ -24,17 +23,15 @@
   </Header>
 
   <Section>
-    <Article>
-      {#each translatedToolsHomeItems as item}
-        <div>
-          <Card card={{color: 'blue', title: item.displayName}}>
-            <span>
-              {item.description}
-            </span>
-          </Card>
-        </div>
-      {/each}
-    </Article>
+    {#each translatedToolsHomeItems as item}
+      <div>
+        <Card card={{color: 'blue', title: item.displayName}}>
+          <span>
+            {item.description}
+          </span>
+        </Card>
+      </div>
+    {/each}
   </Section>
 </Main>
 
