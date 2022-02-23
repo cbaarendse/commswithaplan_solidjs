@@ -2,13 +2,13 @@
 // packages
 import {Roles} from 'meteor/alanning:roles';
 import dayjs from 'dayjs';
-var isoWeek = require('dayjs/plugin/isoWeek');
+const isoWeek = require('dayjs/plugin/isoWeek');
 import advancedFormat from 'dayjs/plugin/advancedFormat';
 //import {Mongo} from 'meteor/mongo';
 dayjs.extend(advancedFormat);
 
 // interfaces
-import {Year, Month, Week} from './types/interfaces';
+import {Year, Month, Week} from '../ui/types/interfaces';
 
 //collections
 // import Translations from '../api/translations/translations';

@@ -3,15 +3,15 @@
   import {Route} from 'tinro';
 
   // components
-  import Home from '../../ui/main/home/Home.svelte';
-  import ConsultancyHome from '../../ui/main/consultancy/Home.svelte';
-  import Work from '../../ui/main/consultancy/Work.svelte';
-  import About from '../../ui/main/consultancy/About.svelte';
-  import Contact from '../../ui/main/consultancy/Contact.svelte';
-  import ToolsHome from '../../ui/main/tools/Home.svelte';
-  import Reach from '../../ui/main/tools/Reach.svelte';
-  import Docs from '../main/tools/Docs.svelte';
-  import NotFound from '../../ui/main/notfound/NotFound.svelte';
+  import Home from '../home/Home.svelte';
+  import ConsultancyHome from '../consultancy/Home.svelte';
+  import Work from '../consultancy/Work.svelte';
+  import About from '../consultancy/About.svelte';
+  import Contact from '../consultancy/Contact.svelte';
+  import ToolsHome from '../tools/Home.svelte';
+  import Reach from '../tools/Reach.svelte';
+  import Docs from '../tools/Docs.svelte';
+  import NotFound from '../notfound/NotFound.svelte';
 </script>
 
 <Route path="/*">

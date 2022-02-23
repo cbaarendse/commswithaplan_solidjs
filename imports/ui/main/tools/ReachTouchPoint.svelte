@@ -7,10 +7,10 @@
   import Modal from '../../reusable/Modal.svelte';
 
   // providers
-  import {UiProvider} from '../../../both/types/classes';
+  import {UiProvider} from ../../types/classes
 
   // variables
-  import {Display, TouchPointInPlan} from '../../../both/types/interfaces';
+  import {Display, TouchPointInPlan} ../../types/interfaces
   import {language, translations} from '../../stores/stores';
 
   export let display: Display;

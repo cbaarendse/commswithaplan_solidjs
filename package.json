@@ -45,7 +45,7 @@
     },
     "svelte:compiler": {
         "extensions": [
-            "svelte"
+            "svelte", "html"
         ],
         "hydratable": false,
         "css": true

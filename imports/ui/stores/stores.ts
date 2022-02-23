@@ -12,7 +12,7 @@ import type {
   Translation,
   ColorsScheme,
   SizesScheme
-} from '../../both/types/interfaces';
+} from '../types/interfaces';
 
 // stores
 export const language: Writable<string> = writable('dutch');

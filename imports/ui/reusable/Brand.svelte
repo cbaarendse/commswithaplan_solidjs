@@ -3,9 +3,7 @@
   import {colorsScheme, sizesScheme} from '../stores/stores';
 
   // types
-  import {Brand} from '../../both/types/interfaces';
-
-  // variables
+  import {Brand} from '../typ../types/interfaces// variables
   export let brand: Brand;
   brand.color = 'blue';
   brand.size = 'xl_2';
@@ -14,9 +12,9 @@
 
 <div class="brand">
   <slot />
-  <span style:color={$colorsScheme[brand.color].base} style:font-size={$sizesScheme[brand.size].font_size}
-    >{brand.title}</span
-  >
+  <h2 style:color={$colorsScheme[brand.color].base} style:font-size={$sizesScheme[brand.size].font_size}>
+    {brand.title}
+  </h2>
 </div>
 
 <style>

@@ -17,12 +17,12 @@
 </script>
 
 <Main>
-  <Header>
-    <Brand brand={{title: 'Comms With A Plan', color: 'blue', size: 'xl_2'}}><LogoCommsWithAPlan size={'3rem'} /></Brand
-    >
-  </Header>
-
   <Section>
+    <Header>
+      <Brand brand={{title: 'Comms With A Plan', color: 'blue', size: 'xl_2'}}
+        ><LogoCommsWithAPlan size={'3rem'} /></Brand
+      >
+    </Header>
     {#each translatedConsultancyHomeItems as item}
       <Card card={{title: item.displayName, color: 'blue'}}>
         <span>

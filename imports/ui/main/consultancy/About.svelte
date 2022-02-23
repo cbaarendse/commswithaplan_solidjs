@@ -7,7 +7,7 @@
   import LogoCommsWithAPlan from '../../reusable/LogoCommsWithAPlan.svelte';
 
   // providers
-  import {UiProvider} from '../../../both/types/classes';
+  import {UiProvider} from../../types/classes
 
   // variables
   import {language, aboutItems} from '../../stores/stores';

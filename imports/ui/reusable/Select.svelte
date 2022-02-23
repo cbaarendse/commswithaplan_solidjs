@@ -3,8 +3,8 @@
   import {createEventDispatcher} from 'svelte';
 
   // types
-  import type {SelectItem} from '../../both/types/interfaces';
-  import {UiProvider} from '../../both/types/classes';
+  import type {SelectItem} from '../types/interfaces';
+  import {UiProvider} from '../types/classes';
 
   // variables
   import {language, translations} from '../stores/stores';

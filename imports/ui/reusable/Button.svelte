@@ -2,9 +2,7 @@
   // stores
   import {sizesScheme, colorsScheme} from '../stores/stores';
   // interfaces
-  import type {Button} from '../../both/types/interfaces';
-
-  // properties
+  import type {Button} from '../types/interfaces';
   export let btn: Button;
 
   btn.color = 'blue';
