@@ -16,7 +16,7 @@
   // components
 
   // providers
-  import {UiProvider} fro../../types/classes
+  import {UiProvider} from '../../types/classes';
 
   // constants
   const dispatch = createEventDispatcher();

@@ -3,7 +3,9 @@
   import {colorsScheme, sizesScheme} from '../stores/stores';
 
   // types
-  import {Brand} from '../typ../types/interfaces// variables
+  import {Brand} from '../types/interfaces';
+
+  // variables
   export let brand: Brand;
   brand.color = 'blue';
   brand.size = 'xl_2';

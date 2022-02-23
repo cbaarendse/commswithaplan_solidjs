@@ -7,13 +7,13 @@
   import {faPlus, faMinus} from '@fortawesome/free-solid-svg-icons';
 
   // types
-  import type {Accordion} from '../types/interfaces';
+  import type {Visible} from '../types/interfaces';
 
   // components
   import Button from './Button.svelte';
 
   // variables
-  export let acc: Accordion;
+  export let acc: Visible;
   acc.visible = false;
 </script>
 

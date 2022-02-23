@@ -18,7 +18,6 @@ type Min = {min: number};
 type Max = {max: number};
 // component
 type ClassName = {className: string | undefined | null};
-type Property = {property: string};
 type Color = {color: 'blue' | 'green' | 'red' | 'teal' | 'grey' | 'transparent' | 'transparentnoborder'};
 interface Colors {
   base: string;
@@ -76,27 +75,24 @@ type OnClick = {onClick: () => void};
 type AriaLabel = {ariaLabel: string};
 type OnMouseenter = {onMouseenter: () => void};
 type OnMousleave = {onMouseleave: () => void};
+type OnChange = {onChange: () => void};
+type OnInput = {onInput: () => void};
 type Disabled = {disabled: boolean | null | undefined};
 type DataDismiss = {dataDismiss: string};
-type Visible = {visible: boolean};
+export type Visible = {visible: boolean};
 
 export type Display = 'none' | 'block' | 'grid' | 'flex';
 
 // interfaces
 // intersections
-interface Content extends Name, Language, DisplayName, Description, Color {}
+export interface Content extends Name, Language, DisplayName, Description, Color {}
 interface Paragraph extends DisplayName, Description, Elaboration {}
-interface ToolsDocsParagraph extends Paragraph {}
 interface Chapter extends Name, Language, DisplayName, Partial<ImgFile> {}
 
 // content
-export interface ContentItem extends Content {}
 export interface HomeItem extends Name, Language, DisplayName, Description, ImgFile, Link, Action {}
-export interface ConsultancyItem extends Content {}
-export interface ToolsItem extends Content {}
-export interface ToolsHomeItem extends Content {}
 export interface ToolsDocsChapter extends Chapter {
-  paragraphs: ToolsDocsParagraph[];
+  paragraphs: Paragraph[];
 }
 export interface Translation extends Name, Language, DisplayName {}
 
@@ -111,7 +107,7 @@ export interface Week extends Name, Days, Monday {}
 // components
 export interface Card extends Partial<Title>, Color, Partial<ImgFile>, Partial<Link>, Partial<Action> {}
 export interface SelectItem extends Name, Index {}
-export interface Accordion extends Visible {}
+export type Accordion = Visible
 export interface Button
   extends Partial<ClassName>,
     Partial<Id>,
@@ -127,4 +123,4 @@ export interface Button
     Partial<DataDismiss>,
     Partial<AriaLabel> {}
 export interface Brand extends Partial<ClassName>, Color, Size, Title {}
-export interface Slider extends Name, DisplayName, Value, Min, Max {}
+export interface Slider extends Name, DisplayName, Value, Min, Max, Partial<OnChange>, Partial<OnInput> {}

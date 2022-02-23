@@ -4,9 +4,7 @@ import {writable, Writable, readable, Readable} from 'svelte/store';
 // interfaces
 import type {
   HomeItem,
-  ToolsItem,
-  ConsultancyItem,
-  ToolsHomeItem,
+  Content,
   ToolsDocsChapter,
   TouchPointBasics,
   Translation,
@@ -85,7 +83,7 @@ export const homeItems: Readable<HomeItem[]> = readable([
   }
 ]);
 //TODO: doubles with toolsHomeItems
-export const toolsItems: Readable<ToolsItem[]> = readable([
+export const toolsItems: Readable<Content[]> = readable([
   {
     name: 'reporting',
     color: 'blue',
@@ -116,7 +114,7 @@ export const toolsItems: Readable<ToolsItem[]> = readable([
   }
 ]);
 
-export const consultancyHomeItems: Readable<ConsultancyItem[]> = readable([
+export const consultancyHomeItems: Readable<Content[]> = readable([
   {
     name: 'commswithaplan',
     language: 'english',
@@ -151,7 +149,7 @@ export const consultancyHomeItems: Readable<ConsultancyItem[]> = readable([
   }
 ]);
 
-export const workItems: Readable<ConsultancyItem[]> = readable([
+export const workItems: Readable<Content[]> = readable([
   {
     name: 'reporting',
     language: 'english',
@@ -354,7 +352,7 @@ export const workItems: Readable<ConsultancyItem[]> = readable([
   }
 ]);
 
-export const aboutItems: Readable<ConsultancyItem[]> = readable([
+export const aboutItems: Readable<Content[]> = readable([
   {
     name: 'about',
 
@@ -374,7 +372,7 @@ export const aboutItems: Readable<ConsultancyItem[]> = readable([
   }
 ]);
 
-export const contactItems: Readable<ConsultancyItem[]> = readable([
+export const contactItems: Readable<Content[]> = readable([
   {
     name: 'email',
     language: 'english',
@@ -419,7 +417,7 @@ export const contactItems: Readable<ConsultancyItem[]> = readable([
   }
 ]);
 
-export const toolsHomeItems: Readable<ToolsHomeItem[]> = readable([
+export const toolsHomeItems: Readable<Content[]> = readable([
   {
     name: 'tools',
     language: 'english',

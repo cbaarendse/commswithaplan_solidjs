@@ -7,10 +7,10 @@
   import Modal from '../../reusable/Modal.svelte';
 
   // providers
-  import {UiProvider} from ../../types/classes
+  import {UiProvider} from '../../types/classes';
 
   // variables
-  import {Display, TouchPointInPlan} ../../types/interfaces
+  import {Display, TouchPointInPlan} from '../../types/interfaces';
   import {language, translations} from '../../stores/stores';
 
   export let display: Display;
@@ -49,9 +49,15 @@
     <fieldset>
       <legend>{touchPoint.displayName}</legend>
       <Slider
-        slider={{value: sliderValue, name: touchPoint.name, displayName: touchPoint.displayName, min: 1, max: 100}}
-        on:change={() => dispatch('handleChange', {name: touchPoint.name, value: sliderValue})}
-        on:input={() => dispatch('handleInput', {name: touchPoint.name, value: sliderValue})}
+        slider={{
+          value: sliderValue,
+          name: touchPoint.name,
+          displayName: touchPoint.displayName,
+          min: 1,
+          max: 100,
+          onChange: () => dispatch('handleChange', {name: touchPoint.name, value: sliderValue}),
+          onInput: () => dispatch('handleInput', {name: touchPoint.name, value: sliderValue})
+        }}
       />
     </fieldset>
   </div>

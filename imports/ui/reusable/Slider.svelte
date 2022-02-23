@@ -1,6 +1,7 @@
 <script lang="ts">
   //variables
-  import {Slider} from '../types/in../types/interfaces let slider: Slider;
+  import type {Slider} from '../types/interfaces';
+  export let slider: Slider;
 </script>
 
 <form>
@@ -13,8 +14,8 @@
     min={slider.min}
     max={slider.max}
     bind:value={slider.value}
-    on:change|preventDefault
-    on:input|preventDefault
+    on:change|preventDefault|stopPropagation={slider.onChange}
+    on:input|preventDefault|stopPropagation={slider.onInput}
   />
 </form>
 

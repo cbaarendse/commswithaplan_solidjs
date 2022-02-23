@@ -10,8 +10,8 @@
   import FlipCard from '../../reusable/FlipCard.svelte';
 
   // types
-  import {UiProvider}../../types/classes;
-  import type {SelectIte../../types/interfacess';
+  import {UiProvider} from '../../types/classes';
+  import type {SelectItem} from '../../types/interfaces';
 
   // variables
   import {language, translations, workItems} from '../../stores/stores';
