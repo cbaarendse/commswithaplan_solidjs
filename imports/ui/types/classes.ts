@@ -3,7 +3,7 @@ import deburr from 'lodash/deburr';
 import dayjs from 'dayjs';
 
 // interfaces
-import {ContentItem, TouchPointBasics, TouchPointInPlan, Translation} from './interfaces';
+import type {Content, TouchPointBasics, TouchPointInPlan, Translation} from './interfaces';
 
 
 // ReachProvider
@@ -185,14 +185,14 @@ export class UiProvider {
     return items.find((element: Translation) => element.name === input && element.language === language).description;
   }
 
-  static displayContent(page: string, items: ContentItem[] | any, language: string): string {
-    return items.find((element: ContentItem) => {
+  static displayContent(page: string, items: Content[] | any, language: string): string {
+    return items.find((element: Content) => {
       element.name === page && element.language === language;
     }).displayName;
   }
 
-  static describeContent(page: string, items: ContentItem[] | any, language: string): string {
-    return items.find((element: ContentItem) => {
+  static describeContent(page: string, items: Content[] | any, language: string): string {
+    return items.find((element: Content) => {
       element.name === page && element.language === language;
     }).description;
   }

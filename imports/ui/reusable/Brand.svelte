@@ -3,7 +3,7 @@
   import {colorsScheme, sizesScheme} from '../stores/stores';
 
   // types
-  import {Brand} from '../types/interfaces';
+  import type {Brand} from '../types/interfaces';
 
   // variables
   export let brand: Brand;

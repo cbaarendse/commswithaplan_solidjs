@@ -26,8 +26,7 @@
         "meteor-node-stubs": "^1.0.0",
         "stripe": "^8.137.0",
         "svelte": "^3.46.4",
-        "svelte-fa": "^2.2.1",
-        "svelte-preprocess": "^4.10.2"
+        "svelte-fa": "^2.2.1"
     },
     "meteor": {
         "mainModule": {
@@ -45,12 +44,14 @@
     },
     "svelte:compiler": {
         "extensions": [
-            "svelte", "html"
+            "svelte",
+            "html"
         ],
         "hydratable": false,
         "css": true
     },
     "devDependencies": {
+        "@babel/core": "^7.17.5",
         "@babel/preset-env": "^7.16.11",
         "@types/lodash": "^4.14.178",
         "@types/mocha": "^9.1.0",
@@ -59,6 +60,8 @@
         "eslint": "^8.9.0",
         "eslint-plugin-svelte3": "^3.4.0",
         "svelte-check": "^2.3.0",
-        "tinro": "^0.6.5"
+        "svelte-preprocess": "^4.10.4",
+        "tinro": "^0.6.5",
+        "typescript": "^4.4.1-rc"
     }
 }

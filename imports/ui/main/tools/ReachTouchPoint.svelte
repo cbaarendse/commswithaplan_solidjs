@@ -10,7 +10,7 @@
   import {UiProvider} from '../../types/classes';
 
   // variables
-  import {Display, TouchPointInPlan} from '../../types/interfaces';
+  import type {Display, TouchPointInPlan} from '../../types/interfaces';
   import {language, translations} from '../../stores/stores';
 
   export let display: Display;

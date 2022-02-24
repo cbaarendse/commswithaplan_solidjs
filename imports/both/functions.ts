@@ -8,7 +8,7 @@ import advancedFormat from 'dayjs/plugin/advancedFormat';
 dayjs.extend(advancedFormat);
 
 // interfaces
-import {Year, Month, Week} from '../ui/types/interfaces';
+import type {Year, Month, Week} from '../ui/types/interfaces';
 
 //collections
 // import Translations from '../api/translations/translations';

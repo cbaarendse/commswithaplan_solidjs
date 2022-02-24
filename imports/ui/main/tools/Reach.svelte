@@ -17,7 +17,7 @@
 
   // variables
   import {language, touchPointsBasics} from '../../stores/stores';
-  import {Display, TouchPointInPlan} from '../../types/interfaces';
+  import type {Display, TouchPointInPlan} from '../../types/interfaces';
   let reach = new ReachProvider($language, $touchPointsBasics);
 
   // functions
