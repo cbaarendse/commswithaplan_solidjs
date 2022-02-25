@@ -1,5 +1,4 @@
 // packages
-import deburr from 'lodash/deburr';
 import dayjs from 'dayjs';
 
 // interfaces
@@ -204,7 +203,7 @@ export class UiProvider {
   }
 
   static latinizeAndJoin(str: string): string {
-    str = deburr(str);
+    str = str.normalize('NFD').replace(/[\u0300-\u036f]/g, "");
     str = str.split(' ').join('');
     str = str.toLowerCase();
     console.log('Latinized and Joined:', str);

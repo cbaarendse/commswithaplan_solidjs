@@ -9,7 +9,6 @@
     "jsx": "preserve",
     "incremental": true,
     "noEmit": true,
-    //"typeRoots": ["node_modules/@types"],
 
     /* Strict Type-Checking Options */
     "strict": true,
@@ -30,30 +29,11 @@
     },
     "moduleResolution": "node",
     "resolveJsonModule": true,
-    // apparently even when left empty, this overrules "typeRoots"
-    "types": [
-      "bson",
-      "connect",
-      "lodash",
-      "meteor",
-      "meteor-roles",
-      "mocha",
-      "mongodb",
-      "node",
-      "underscore",
-      "svelte-fa",
-      "prop-types"
-    ],
+    "types": ["node", "tinro", "svelte-fa"],
     "esModuleInterop": true,
     "preserveSymlinks": true,
     // added for dayjs package:
     "allowSyntheticDefaultImports": true
   },
   "exclude": ["./.meteor/**", "./packages/**"],
-  /**
-      Svelte Preprocess cannot figure out whether you have a value or a type, so tell TypeScript
-      to enforce using `import type` instead of `import` for Types.
-     */
-  "importsNotUsedAsValues": "error"
- 
 }

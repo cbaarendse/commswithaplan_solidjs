@@ -16,17 +16,15 @@
         "lint": "eslint"
     },
     "dependencies": {
-        "@babel/runtime": "^7.8.3",
+        "@babel/runtime": "^7.15.4",
         "@fortawesome/free-brands-svg-icons": "^5.15.4",
         "@fortawesome/free-solid-svg-icons": "^5.15.4",
         "@types/meteor": "^1.4.67",
         "@types/meteor-roles": "^1.2.32",
         "dayjs": "^1.10.4",
-        "lodash": "^4.17.21",
-        "meteor-node-stubs": "^1.0.0",
+        "meteor-node-stubs": "^1.1.0",
         "stripe": "^8.137.0",
-        "svelte": "^3.46.4",
-        "svelte-fa": "^2.2.1"
+        "svelte": "^3.46.4"
     },
     "meteor": {
         "mainModule": {
@@ -36,32 +34,18 @@
         "testModule": "tests/main.js",
         "nodeModules": {
             "recompile": {
-                "svelte": [
-                    "legacy"
-                ]
+              "svelte": ["legacy"]
             }
-        }
-    },
-    "svelte:compiler": {
-        "extensions": [
-            "svelte",
-            "html"
-        ],
-        "hydratable": false,
-        "css": true
     },
     "devDependencies": {
-        "@babel/core": "^7.17.5",
-        "@babel/preset-env": "^7.16.11",
-        "@types/lodash": "^4.14.178",
-        "@types/mocha": "^9.1.0",
         "@typescript-eslint/eslint-plugin": "^5.12.1",
         "@typescript-eslint/parser": "^5.12.1",
         "eslint": "^8.9.0",
         "eslint-plugin-svelte3": "^3.4.0",
         "svelte-check": "^2.3.0",
+        "svelte-fa": "^2.4.0",
         "svelte-preprocess": "^4.10.4",
         "tinro": "^0.6.5",
-        "typescript": "^4.4.1-rc"
+        "typescript": "^4.4.2"
     }
 }

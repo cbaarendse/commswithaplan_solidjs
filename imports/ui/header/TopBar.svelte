@@ -19,7 +19,7 @@
         href={'javascript:void(0)'}
         class:active={$language === 'dutch'}
         on:click={() => ($language = 'dutch')}
-        tinro-ignore><span>NL</span></a
+        data-tinro-ignore><span>NL</span></a
       >
     </li>
     <span class="divider">|</span>
@@ -28,7 +28,7 @@
         href={'javascript:void(0)'}
         class:active={$language === 'english'}
         on:click={() => ($language = 'english')}
-        tinro-ignore><span>EN</span></a
+        data-tinro-ignore><span>EN</span></a
       >
     </li>
     <li>
