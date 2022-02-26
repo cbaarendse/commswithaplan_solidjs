@@ -7,7 +7,6 @@
   import Footer from '../footer/Footer.svelte';
 
   // variables
-
   // components
 </script>
 

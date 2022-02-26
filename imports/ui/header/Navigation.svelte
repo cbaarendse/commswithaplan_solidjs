@@ -2,9 +2,6 @@
   // packages
   import {slide} from 'svelte/transition';
   import {router, active} from 'tinro';
-  // import Fa from 'svelte-fa/src/fa.svelte';
-  import Fa from 'svelte-fa';
-  import {faHome} from '@fortawesome/free-solid-svg-icons';
 
   // variables
   import {language, navigationVisible, useMediaQuery} from '../stores/stores';
@@ -40,7 +37,7 @@
       <ul class="nav-list">
         <li>
           <a href={'/'} use:active>
-            <span><Fa icon={faHome} size={'sm'} /></span>
+            <span><b>home</b></span>
           </a>
         </li>
       </ul>
@@ -50,7 +47,7 @@
       <ul class="nav-list">
         <li>
           <a href={'/consultancy/'} use:active data-exact>
-            <span><Fa icon={faHome} size={'sm'} /></span>
+            <span><b>Home</b></span>
           </a>
         </li>
         <li>
@@ -75,7 +72,7 @@
       <ul class="nav-list">
         <li>
           <a href={'/tools/'} use:active data-exact>
-            <span><Fa icon={faHome} size={'sm'} /></span>
+            <span><b>Home</b></span>
           </a>
         </li>
         <li>

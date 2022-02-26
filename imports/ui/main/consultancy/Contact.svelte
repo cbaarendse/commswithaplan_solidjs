@@ -8,9 +8,6 @@
   import Card from '../../reusable/Card.svelte';
 
   // packages
-  // import Fa from 'svelte-fa/src/fa.svelte';
-  import Fa from 'svelte-fa';
-  import {faLinkedin} from '@fortawesome/free-brands-svg-icons';
 
   // variables
   import {language, contactItems} from '../../stores/stores';
@@ -35,7 +32,7 @@
       card={{title: 'LinkedIn', color: 'blue', link: 'https://www.linkedin.com/in/cbaarendse/', action: 'LinkedIn'}}
     >
       <address>
-        <a href="https://www.linkedin.com/in/cbaarendse/"> <Fa icon={faLinkedin} size={'2x'} color={'#003366'} /></a>
+        <a href="https://www.linkedin.com/in/cbaarendse/"><b>In</b></a>
       </address>
     </Card>
     <span

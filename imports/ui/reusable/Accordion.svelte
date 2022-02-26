@@ -2,9 +2,6 @@
   // packages
   import {slide} from 'svelte/transition';
   import {backInOut} from 'svelte/easing';
-  //import Fa from 'svelte-fa/src/fa.svelte';
-  import Fa from 'svelte-fa';
-  import {faPlus, faMinus} from '@fortawesome/free-solid-svg-icons';
 
   // types
   import type {Visible} from '../types/interfaces';
@@ -25,7 +22,7 @@
         size: 'fit',
         onClick: () => (acc.visible = !acc.visible)
       }}
-      >{#if acc.visible}<Fa icon={faMinus} />{:else}<Fa icon={faPlus} />{/if}</Button
+      >{#if acc.visible}<b>-</b>{:else}<b>+</b>{/if}</Button
     >
     <slot name="title" />
   </header>

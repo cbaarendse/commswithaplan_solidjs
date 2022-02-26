@@ -1,9 +1,6 @@
 <script lang="ts">
   // packages
   import ToggleButton from './ToggleButton.svelte';
-  //import Fa from 'svelte-fa/src/fa.svelte';
-  import Fa from 'svelte-fa';
-  import {faUser} from '@fortawesome/free-solid-svg-icons';
 
   // variables
   import {language} from '../stores/stores';
@@ -32,7 +29,7 @@
       >
     </li>
     <li>
-      <div class="user"><Fa icon={faUser} size={'sm'} /></div>
+      <div class="user"><b>U</b></div>
     </li>
   </ul>
 </div>
