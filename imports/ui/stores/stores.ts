@@ -81,7 +81,9 @@ export const homeItems: Readable<HomeItem[]> = readable([
     description: 'Handige tools voor je media inzet.',
     action: 'Lees meer'
   }
-]);
+], ()=>
+  {()=>{console.log('Home Items closed')};
+});
 //TODO: doubles with toolsHomeItems
 export const toolsItems: Readable<Content[]> = readable([
   {
@@ -112,7 +114,9 @@ export const toolsItems: Readable<Content[]> = readable([
     displayName: 'Onderzoek en analyse',
     description: ' Interpretatie van afgelopen campagnes / jaren etc.'
   }
-]);
+], ()=>
+{()=>{console.log('Tools Items closed')};
+});
 
 export const consultancyHomeItems: Readable<Content[]> = readable([
   {
@@ -147,7 +151,9 @@ export const consultancyHomeItems: Readable<Content[]> = readable([
     description:
       'Comms With A Plan is een flexibele partner in die zin dat het werk per project kan zijn, maar ook meer continu. Gebaseerd op vraag. (Bel me zodat ik het kan uitleggen.)'
   }
-]);
+], ()=>
+{()=>{console.log('Consultancy Home Items closed')};
+});
 
 export const workItems: Readable<Content[]> = readable([
   {
@@ -350,7 +356,9 @@ export const workItems: Readable<Content[]> = readable([
       'Als een onafhankelijke partij vergelijk ik uitgaven, prijzen, timings, resultaten met vooraf overeengekomen ijkpunten, zoals pitch documenten, contracten, plannen, voorgaande jaren etcetera. \n Alleen als ik in de 2 voorafgaande fiscale jaren niet voor je bedrijf heb gewerkt, in een van de bovenstaande capaciteiten.',
     color: 'grey'
   }
-]);
+], ()=>
+{()=>{console.log('Work Items closed')};
+});
 
 export const aboutItems: Readable<Content[]> = readable([
   {
@@ -370,7 +378,9 @@ export const aboutItems: Readable<Content[]> = readable([
       "Ik ben Constantijn Baarendse. Ik heb gewerkt op verschillende continenten, voor 'blue chip' adverteerders, media- en reclamebureaus.",
     color: 'blue'
   }
-]);
+], ()=>
+{()=>{console.log('About Items closed')};
+});
 
 export const contactItems: Readable<Content[]> = readable([
   {
@@ -415,7 +425,9 @@ export const contactItems: Readable<Content[]> = readable([
     displayName: 'Adres',
     description: 'Erich Salomonstraat 507, 1087 GT Amsterdam, The Netherlands'
   }
-]);
+], ()=>
+{()=>{console.log('Contact Items closed')};
+});
 
 export const toolsHomeItems: Readable<Content[]> = readable([
   {
@@ -451,7 +463,9 @@ export const toolsHomeItems: Readable<Content[]> = readable([
       'Comms With A Plan is een flexibele partner in die zin dat het werk per project kan zijn, maar ook meer continu. Gebaseerd op vraag. (Bel me zodat ik het kan uitleggen.)',
     color: 'green'
   }
-]);
+], ()=>
+{()=>{console.log('Tools Home Items closed')};
+});
 
 export const toolsDocumentationChapters: Readable<ToolsDocsChapter[]> = readable([
   {
@@ -743,7 +757,9 @@ export const toolsDocumentationChapters: Readable<ToolsDocsChapter[]> = readable
       }
     ]
   }
-]);
+], ()=>
+{()=>{console.log('Tools Documentation Chapters closed')};
+});
 
 export const touchPointsBasics = readable<TouchPointBasics[]>([
   {
@@ -1087,7 +1103,9 @@ export const touchPointsBasics = readable<TouchPointBasics[]>([
     displayName: 'Word Of Mouth',
     description: 'Mensen geven meningen door over je merk aan andere mensen.'
   }
-]);
+], ()=>
+{()=>{console.log('TouchPoints Basics closed')};
+});
 
 export const translations: Readable<Translation[]> = readable([
   {name: 'english', language: 'english', displayName: 'English'},
@@ -1116,7 +1134,9 @@ export const translations: Readable<Translation[]> = readable([
   {name: 'advertisement', language: 'dutch', displayName: 'Advertentie'},
   {name: 'read', language: 'english', displayName: 'Read'},
   {name: 'read', language: 'dutch', displayName: 'Lees'}
-]);
+],  ()=>
+{()=>{console.log('Translations closed')};
+});
 
 export const colorsScheme: Readable<ColorsScheme> = readable({
   blue: {
@@ -1175,6 +1195,8 @@ export const colorsScheme: Readable<ColorsScheme> = readable({
     border: 'transparent',
     text: 'var(--ra-grey-light)'
   }
+},  ()=>
+{()=>{console.log('Colors Scheme closed')};
 });
 
 export const sizesScheme: Readable<SizesScheme> = readable({
@@ -1192,4 +1214,6 @@ export const sizesScheme: Readable<SizesScheme> = readable({
   xl_6: {font_size: 'var(--font-size-6xl)', padding: '0.4rem 0.6rem', width: '', height: '', min_width: '10rem'},
   xl_7: {font_size: 'var(--font-size-7xl)', padding: '0.4rem 0.6rem', width: '', height: '', min_width: '10rem'},
   xl_8: {font_size: 'var(--font-size-8xl)', padding: '0.4rem 0.6rem', width: '', height: '', min_width: '10rem'}
+}, ()=>
+{()=>{console.log('Sizes Scheme closed')};
 });

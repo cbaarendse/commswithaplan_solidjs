@@ -12,15 +12,12 @@
 
 <style>
   main {
-    display: grid;
-    grid-template-columns: 0 4fr 0;
-    grid-auto-rows: auto;
-    /* gap: 2rem; */
+    width: min(100% - 2rem, 50rem);
+    margin-inline: auto;
   }
 
   @media screen and (min-width: 760px) {
     main {
-      grid-template-columns: 1fr 4fr 1fr;
     }
   }
 </style>

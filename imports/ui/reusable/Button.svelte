@@ -36,6 +36,7 @@
     margin: 0 0.4em;
     cursor: pointer;
     border-radius: 5%;
+    border: none;
   }
 
   button:hover {

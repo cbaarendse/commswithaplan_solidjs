@@ -1,6 +1,7 @@
 <script lang="ts">
   // packages
-  import {tweened, Tweened} from 'svelte/motion';
+  import {tweened} from 'svelte/motion';
+  import type {Tweened} from 'svelte/motion';
   import {cubicInOut} from 'svelte/easing';
   import Button from '../../ui/reusable/Button.svelte';
   import {navigationVisible} from '../stores/stores';

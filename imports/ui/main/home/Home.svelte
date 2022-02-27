@@ -1,7 +1,6 @@
 <script lang="ts">
   import Main from './layout/Main.svelte';
   import Section from './layout/Section.svelte';
-  import Article from './layout/Article.svelte';
   import Card from '../../reusable/Card.svelte';
 
   // variables
@@ -11,15 +10,13 @@
 
 <Main>
   <Section>
-    <Article>
-      {#each translatedHomeItems as item}
-        <Card
-          card={{title: item.displayName, color: 'blue', imgFile: item.imgFile, link: item.link, action: item.action}}
-        >
-          <span>{item.description}</span>
-        </Card>
-      {/each}
-    </Article>
+    {#each translatedHomeItems as item}
+      <Card
+        card={{title: item.displayName, color: 'blue', imgFile: item.imgFile, link: item.link, action: item.action}}
+      >
+        <span>{item.description}</span>
+      </Card>
+    {/each}
   </Section>
 </Main>
 
