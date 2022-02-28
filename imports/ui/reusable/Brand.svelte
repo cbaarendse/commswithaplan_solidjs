@@ -5,16 +5,24 @@
   // types
   import type {Brand} from '../types/interfaces';
 
+  // functions
+  import {cssVariables} from '/imports/both/functions';
+
   // variables
   export let brand: Brand;
-  brand.color = 'blue';
-  brand.size = 'xl_2';
-  brand.title = 'Comms With A Plan';
+  // brand.color = 'blue';
+  // brand.size = 'xl_2';
+  // brand.title = 'Comms With A Plan';
+
+  const setCssVariables = function (element: HTMLElement) {
+    element.style.setProperty('font-size', `${$sizesScheme[brand.size].font_size}`);
+    element.style.setProperty('color', `${$colorsScheme[brand.color].base}`);
+  };
 </script>
 
 <div class="brand">
   <slot />
-  <h2 style:color={$colorsScheme[brand.color].base} style:font-size={$sizesScheme[brand.size].font_size}>
+  <h2 use:cssVariables={setCssVariables}>
     {brand.title}
   </h2>
 </div>

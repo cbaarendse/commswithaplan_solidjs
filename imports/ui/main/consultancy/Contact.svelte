@@ -1,7 +1,7 @@
 <script lang="ts">
   // components
   import Main from './layout/Main.svelte';
-  import Header from './layout/Header.svelte';
+  import SectionHeader from './layout/SectionHeader.svelte';
   import Section from './layout/Section.svelte';
   import Brand from '../../reusable/Brand.svelte';
   import LogoCommsWithAPlan from '../../reusable/LogoCommsWithAPlan.svelte';
@@ -15,11 +15,11 @@
 </script>
 
 <Main>
-  <Header>
-    <Brand brand={{color: 'blue', size: 'xl', title: 'Comms With A Plan'}}><LogoCommsWithAPlan size={'3rem'} /></Brand>
-  </Header>
-
   <Section>
+    <SectionHeader>
+      <Brand brand={{color: 'blue', size: 'xl', title: 'Comms With A Plan'}}><LogoCommsWithAPlan size={'3rem'} /></Brand
+      >
+    </SectionHeader>
     <h2>Contact</h2>
     {#each translatedContactItems as item}
       <Card card={{color: 'blue', title: item.displayName}}>

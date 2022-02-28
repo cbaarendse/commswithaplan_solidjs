@@ -30,6 +30,11 @@ interface Colors {
 export interface ColorsScheme {
   [index: string]: Colors;
 }
+type CssColors= {
+  "background-color"?: string;
+  "color"?: string;
+}
+
 export interface ColorsScheme2 {
   blue: Colors;
   green: Colors;
@@ -48,6 +53,14 @@ type Sizes = {
   width: string;
   height: string;
   min_width: string;
+};
+
+type CssSizes  ={
+  "font-size"?: string;
+  "padding"?: string;
+  "width"?: string;
+  "height"?: string;
+  "min-width"?: string;
 };
 export interface SizesScheme {
   [index: string]: Sizes;
@@ -122,5 +135,7 @@ export interface Button
     Partial<Disabled>,
     Partial<DataDismiss>,
     Partial<AriaLabel> {}
-export interface Brand extends Partial<ClassName>, Color, Size, Title {}
+export interface Css extends CssColors,  CssSizes {}
+export interface CssIndex {[key:string]:string}
+export interface Brand extends Partial<ClassName>, Color,  Size, Title {}
 export interface Slider extends Name, DisplayName, Value, Min, Max, Partial<OnChange>, Partial<OnInput> {}

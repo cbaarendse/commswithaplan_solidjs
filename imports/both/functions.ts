@@ -16,6 +16,16 @@ import type {Year, Month, Week} from '../ui/types/interfaces';
 
 // variables
 
+// CSS
+export function cssVariables(element: HTMLElement, setCss: (e: HTMLElement) => void) {
+  setCss(element);
+  return {
+    update() {
+      setCss(element);
+    }
+  };
+}
+
 // schedule functions
 export function assembleYears(start: Date, end: Date): Year[] {
   const years = [];

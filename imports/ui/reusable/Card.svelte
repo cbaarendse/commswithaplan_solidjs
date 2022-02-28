@@ -3,17 +3,20 @@
   import type {Card} from '../types/interfaces';
   //variables
   import {colorsScheme} from '../stores/stores';
-
   // functions
+  import {cssVariables} from '/imports/both/functions';
+
   export let card: Card;
   card.color = 'blue';
+
+  const setCssVariables = function (element: HTMLElement) {
+    element.style.setProperty('background-color', `${$colorsScheme[card.color].offWhite}`);
+    element.style.setProperty('color', `${$colorsScheme[card.color].base}`);
+  };
 </script>
 
-<article
-  class="card"
-  style:background-color={$colorsScheme[card.color].offWhite}
-  style:color={$colorsScheme[card.color].base}
->
+<!-- TODO: change style directive in use:cssVariables, eventually setting different function per element -->
+<article class="card" use:cssVariables={setCssVariables}>
   {#if card.imgFile}
     <div class="img-container">
       <img src={card.imgFile} alt={card.title} />
