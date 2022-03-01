@@ -1,19 +1,34 @@
 <script lang="ts">
+  // stores
+
+  // functions
+  import {cssVariables} from '/imports/both/functions';
   // variables
-  export let size: string = '3em';
-  export let colored: boolean = true;
-  let backgroundColor1: string;
-  let backgroundColor2: string;
-  let backgroundColor3: string;
-  $: backgroundColor1 = colored ? 'var(--ra-blue)' : 'var(--ra-blue-grayscale)';
-  $: backgroundColor2 = colored ? 'var(--ra-green)' : 'var(--ra-green-grayscale)';
-  $: backgroundColor3 = colored ? 'var(--ra-red)' : 'var(--ra-red-grayscale)';
+  import type {Logo} from '/imports/ui/types/interfaces';
+  export let logo: Logo;
+
+  const setCssDivLogo = function (element: HTMLElement) {
+    element.style.setProperty('font-size', `${logo.fontSize}`);
+    element.style.setProperty('width', `${logo.width}`);
+    element.style.setProperty('height', `${logo.height}`);
+  };
+  const setCssDivCircle_1 = function (element: HTMLElement) {
+    element.style.setProperty('background-color', `${logo.colored ? 'var(--ra-blue)' : 'var(--ra-blue-grayscale)'}`);
+  };
+
+  const setCssDivCircle_2 = function (element: HTMLElement) {
+    element.style.setProperty('background-color', `${logo.colored ? 'var(--ra-green)' : 'var(--ra-green-grayscale)'}`);
+  };
+
+  const setCssDivCircle_3 = function (element: HTMLElement) {
+    element.style.setProperty('background-color', `${logo.colored ? 'var(--ra-red)' : 'var(--ra-red-grayscale)'}`);
+  };
 </script>
 
-<div class="logo" style:width={size} style:height={size}>
-  <div class="circle1" style="background-color:{backgroundColor1};" />
-  <div class="circle2" style="background-color:{backgroundColor2};" />
-  <div class="circle3" style="background-color:{backgroundColor3};" />
+<div class="logo" use:cssVariables={setCssDivLogo}>
+  <div class="circle1" use:cssVariables={setCssDivCircle_1} />
+  <div class="circle2" use:cssVariables={setCssDivCircle_2} />
+  <div class="circle3" use:cssVariables={setCssDivCircle_3} />
 </div>
 
 <style>

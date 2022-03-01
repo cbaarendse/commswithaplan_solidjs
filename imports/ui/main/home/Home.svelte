@@ -10,15 +10,23 @@
 
 <Main>
   <Section>
-    {#each translatedHomeItems as item}
-      <Card
-        card={{title: item.displayName, color: 'blue', imgFile: item.imgFile, link: item.link, action: item.action}}
-      >
-        <span>{item.description}</span>
-      </Card>
-    {/each}
+    <div class="home_grid">
+      {#each translatedHomeItems as item}
+        <Card
+          card={{title: item.displayName, color: 'blue', imgFile: item.imgFile, link: item.link, action: item.action}}
+        >
+          <span>{item.description}</span>
+        </Card>
+      {/each}
+    </div>
   </Section>
 </Main>
 
 <style>
+  .home_grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+    margin-block: 2rem;
+  }
 </style>

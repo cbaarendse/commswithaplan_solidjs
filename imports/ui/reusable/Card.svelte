@@ -7,39 +7,44 @@
   import {cssVariables} from '/imports/both/functions';
 
   export let card: Card;
-  card.color = 'blue';
 
-  const setCssVariables = function (element: HTMLElement) {
+  const setCssArticle_Card = function (element: HTMLElement) {
     element.style.setProperty('background-color', `${$colorsScheme[card.color].offWhite}`);
     element.style.setProperty('color', `${$colorsScheme[card.color].base}`);
+  };
+  const setCssDiv_Card_Title = function (element: HTMLElement) {
+    element.style.setProperty('color', `${$colorsScheme[card.color].base}`);
+  };
+  const setCssDiv_Card_Footer = function (element: HTMLElement) {
+    element.style.setProperty('background-color', `${$colorsScheme[card.color].offWhite}`);
+    element.style.setProperty('color', `${$colorsScheme[card.color].light}`);
+  };
+  const setCssCard_Link = function (element: HTMLElement) {
+    element.style.setProperty('color', `${$colorsScheme[card.color].light}`);
   };
 </script>
 
 <!-- TODO: change style directive in use:cssVariables, eventually setting different function per element -->
-<article class="card" use:cssVariables={setCssVariables}>
+<article class="card" use:cssVariables={setCssArticle_Card}>
   {#if card.imgFile}
-    <div class="img-container">
+    <div class="img_container">
       <img src={card.imgFile} alt={card.title} />
     </div>
   {/if}
   {#if card.title}
-    <div class="card-title" style:color={$colorsScheme[card.color].base}>
+    <div class="card_title" use:cssVariables={setCssDiv_Card_Title}>
       <h2>{card.title}</h2>
     </div>
   {/if}
   <p>
     <slot />
   </p>
-  <div
-    class="card-footer"
-    style:background-color={$colorsScheme[card.color].offWhite}
-    style:color={$colorsScheme[card.color].light}
-  >
+  <div class="card_footer" use:cssVariables={setCssDiv_Card_Footer}>
     <p>
       <slot name="cardfootertext" />
     </p>
     {#if card.action}
-      <a href={card.link} style:color={$colorsScheme[card.color].light}>{card.action}</a>
+      <a href={card.link} use:cssVariables={setCssCard_Link}>{card.action}</a>
     {/if}
   </div>
 </article>
@@ -54,12 +59,11 @@
     min-width: 320px;
   }
 
-  .card-title {
+  .card_title {
     padding: 0.8em 0.8em 0 0.8em;
     text-align: left;
   }
   p {
-    flex: 1 1 0;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -67,13 +71,15 @@
     line-height: 1.7em;
   }
 
-  .img-container {
+  .img_container {
+    height: 60%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
     overflow: hidden;
   }
 
   img {
-    height: 100%;
-    width: 100%;
     object-fit: cover;
     object-position: center;
   }
@@ -83,7 +89,7 @@
   a:hover {
     opacity: 0.7;
   }
-  .card-footer {
+  .card_footer {
     flex: 0 1 0;
     display: flex;
     justify-content: center;

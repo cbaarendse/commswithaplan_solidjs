@@ -1,22 +1,25 @@
 <script lang="ts">
+  // functions
+  import {cssVariables} from '/imports/both/functions';
   // variables
-  export let size: string = '3rem';
-  export let colored: boolean = true;
-  let backgroundColor1: string;
-  let backgroundColor2: string;
-  let backgroundColor3: string;
-  $: backgroundColor1 = colored ? 'var(--ra-blue)' : 'var(--ra-blue-grayscale)';
-  $: backgroundColor2 = colored ? 'var(--ra-green)' : 'var(--ra-green-grayscale)';
-  $: backgroundColor3 = colored ? 'var(--ra-red)' : 'var(--ra-red-grayscale)';
+  import type {Logo} from '/imports/ui/types/interfaces';
+  export let logo: Logo;
+
+  const setCssDiv = function (element: HTMLElement) {
+    element.style.setProperty(
+      'background',
+      `linear-gradient(to bottom, ${logo.colored ? 'var(--ra-red)' : 'var(--ra-red-grayscale)'} 33%,
+${logo.colored ? 'var(--ra-green)' : 'var(--ra-green-grayscale)'} 33% 67%, ${
+        logo.colored ? 'var(--ra-blue)' : 'var(--ra-blue-grayscale)'
+      } 67%)`
+    );
+    element.style.setProperty('font-size', `${logo.fontSize}`);
+    element.style.setProperty('width', `${logo.width}`);
+    element.style.setProperty('height', `${logo.height}`);
+  };
 </script>
 
-<div
-  style:width={size}
-  style:height={size}
-  style:font-size={size}
-  style:background={`linear-gradient(to bottom, ${backgroundColor3} 33%,
-  ${backgroundColor2} 33% 67%, ${backgroundColor1} 67%)`}
->
+<div use:cssVariables={setCssDiv}>
   <span>P</span>
 </div>
 

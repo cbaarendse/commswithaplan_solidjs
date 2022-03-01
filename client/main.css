@@ -44,11 +44,19 @@
     --ra-grey-off-white: #fcfcfc;
     --ra-teal-off-white: #ddebe8;
     /* sizes in em */
-    --ra-s: 0.5em;
+    --ra-xxs: 0.5rem;
+    --ra-xs: 0.75rem;
+    --ra-s: 0.875rem;
     --ra-m: 1em;
-    --ra-l: 1.5em;
-    --ra-xl: 2em;
-    --ra-xxl: 2.5em;
+    --ra-l: 1.125em;
+    --ra-xl: 1.25em;
+    --ra-2xl: 1.5em;
+    --ra-3xl: 1.875rem;
+    --ra-4xl: 2.25rem;
+    --ra-5xl: 3rem;
+    --ra-6xl: 3.75rem;
+    --ra-7xl: 4.5rem;
+    --ra-8xl: 6rem;
     --ra-nav-1-height-xl: 1.4em;
     --ra-nav-1-height-xs: 1.4em;
     --ra-nav-2-height-xl: 4em;
@@ -58,20 +66,20 @@
     --ra-notifications-height: 2em;
     --ra-mobile: 476px;
     /* font-sizes in clamp() rem */
-    --font-size-weight: calc(1/56);
-    --font-size-xxs: 0.5rem;
-    --font-size-xs: 0.75rem;
-    --font-size-s: 0.875rem;
-    --font-size-m: 1rem;
-    --font-size-l: 1.125rem;
-    --font-size-xl: 1.25rem;
-    --font-size-2xl: 1.5rem;
-    --font-size-3xl: 1.875rem;
-    --font-size-4xl: 2.25rem;
-    --font-size-5xl: 3rem;
-    --font-size-6xl: 3.75rem;
-    --font-size-7xl: 4.5rem;
-    --font-size-8xl: 6rem;
+    --ra-fs-weight: calc(1/56);
+    --ra-fs-xxs: 0.5rem;
+    --ra-fs-xs: 0.75rem;
+    --ra-fs-s: 0.875rem;
+    --ra-fs-m: 1rem;
+    --ra-fs-l: 1.125rem;
+    --ra-fs-xl: 1.25rem;
+    --ra-fs-2xl: 1.5rem;
+    --ra-fs-3xl: 1.875rem;
+    --ra-fs-4xl: 2.25rem;
+    --ra-fs-5xl: 3rem;
+    --ra-fs-6xl: 3.75rem;
+    --ra-fs-7xl: 4.5rem;
+    --ra-fs-8xl: 6rem;
     /* screen sizes */
     --iphone: 320px;
     --ipad-mini: 768px;

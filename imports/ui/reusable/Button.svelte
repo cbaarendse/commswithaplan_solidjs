@@ -3,30 +3,37 @@
   import {sizesScheme, colorsScheme} from '../stores/stores';
   // interfaces
   import type {Button} from '../types/interfaces';
+
+  // functions
+  import {cssVariables} from '/imports/both/functions';
+
+  // variables
   export let btn: Button;
 
-  btn.color = 'blue';
-  btn.size = 'fit';
+  // css
+  const setCssButton = function (element: HTMLElement) {
+    element.style.setProperty('background-color', `${$colorsScheme[btn.color].base}`);
+    element.style.setProperty('color', `${$colorsScheme[btn.color].text}`);
+    element.style.setProperty('border', `${['1px', 'solid', `${$colorsScheme[btn.color].border}`].join(' ')}`);
+    element.style.setProperty('font-size', `${$sizesScheme[btn.size].font_size}`);
+    element.style.setProperty('padding', `${$sizesScheme[btn.size].padding}`);
+    element.style.setProperty('width', `${$sizesScheme[btn.size].width}`);
+    element.style.setProperty('height', `${$sizesScheme[btn.size].height}`);
+    element.style.setProperty('min-width', `${$sizesScheme[btn.size].min_width}`);
+  };
 </script>
 
 <button
   type={btn.type}
   role={btn.role}
-  style:color={$colorsScheme[btn.color].text}
-  style:background-color={$colorsScheme[btn.color].base}
-  style:border={['1px', 'solid', `${$colorsScheme[btn.color].border}`].join(' ')}
-  style:font-size={$sizesScheme[btn.size].font_size}
-  style:padding={$sizesScheme[btn.size].padding}
-  style:width={$sizesScheme[btn.size].width}
-  style:height={$sizesScheme[btn.size].height}
-  style:min-width={$sizesScheme[btn.size].min_width}
-  on:click|preventDefault|stopPropagation={btn.onClick}
-  on:mouseenter|preventDefault|stopPropagation={btn.onMouseenter}
-  on:mouseleave|preventDefault|stopPropagation={btn.onMouseleave}
   disabled={btn.disabled}
   data-dismiss={btn.dataDismiss}
   aria-label={btn.ariaLabel}
   value={btn.value}
+  on:click|preventDefault|stopPropagation={btn.onClick}
+  on:mouseenter|preventDefault|stopPropagation={btn.onMouseenter}
+  on:mouseleave|preventDefault|stopPropagation={btn.onMouseleave}
+  use:cssVariables={setCssButton}
 >
   <slot />
 </button>

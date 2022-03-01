@@ -31,24 +31,18 @@ export interface ColorsScheme {
   [index: string]: Colors;
 }
 type CssColors= {
-  "background-color"?: string;
-  "color"?: string;
+  backgroundColor?: string;
+  color?: string;
+  background?: string;
 }
+type Colored ={colored: boolean;}
 
-export interface ColorsScheme2 {
-  blue: Colors;
-  green: Colors;
-  red: Colors;
-  teal: Colors;
-  grey: Colors;
-  transparent: Colors;
-  transparentnoborder: Colors;
-}
 type Size = {
   size: 'fit' | 'xxs' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xl_2' | 'xl_3' | 'xl_4' | 'xl_5' | 'xl_6' | 'xl_7' | 'xl_8';
 };
 type Sizes = {
   font_size: string;
+  size?: string;
   padding: string;
   width: string;
   height: string;
@@ -56,30 +50,17 @@ type Sizes = {
 };
 
 type CssSizes  ={
-  "font-size"?: string;
-  "padding"?: string;
-  "width"?: string;
-  "height"?: string;
-  "min-width"?: string;
+  fontSize?: string;
+  padding?: string;
+  width?: string;
+  height?: string;
+  minWidth?: string;
 };
 export interface SizesScheme {
   [index: string]: Sizes;
 }
-export interface SizesScheme2 {
-  fit: Sizes;
-  xxs: Sizes;
-  xs: Sizes;
-  s: Sizes;
-  m: Sizes;
-  l: Sizes;
-  xl: Sizes;
-  xl_2: Sizes;
-  xl_3: Sizes;
-  xl_4: Sizes;
-  xl_5: Sizes;
-  xl_6: Sizes;
-  xl_7: Sizes;
-  xl_8: Sizes;
+export interface CssSizesScheme {
+  [index: string]: CssSizes;
 }
 type Id = {id: string};
 type Type = {type: 'submit' | 'reset' | 'button'};
@@ -138,4 +119,5 @@ export interface Button
 export interface Css extends CssColors,  CssSizes {}
 export interface CssIndex {[key:string]:string}
 export interface Brand extends Partial<ClassName>, Color,  Size, Title {}
+export interface Logo extends Css, Colored{}
 export interface Slider extends Name, DisplayName, Value, Min, Max, Partial<OnChange>, Partial<OnInput> {}

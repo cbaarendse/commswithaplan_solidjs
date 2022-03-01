@@ -19,17 +19,29 @@
 <Main>
   <Section>
     <SectionHeader>
-      <Brand brand={{title: 'Comms With A Plan', color: 'blue', size: 'm'}}><LogoCommsWithAPlan size={'3rem'} /></Brand>
+      <Brand brand={{title: `Comms With A Plan - ${$language === 'dutch' ? 'Home' : 'Home'}`, color: 'blue', size: 'l'}}
+        ><LogoCommsWithAPlan
+          logo={{fontSize: 'var(--ra-fs-5xl)', width: 'var(--ra-5xl)', height: 'var(--ra-5xl)', colored: true}}
+        /></Brand
+      >
     </SectionHeader>
-    {#each translatedConsultancyHomeItems as item}
-      <Card card={{title: item.displayName, color: 'blue'}}>
-        <span>
-          {item.description}
-        </span>
-      </Card>
-    {/each}
+    <div class="home_grid">
+      {#each translatedConsultancyHomeItems as item}
+        <Card card={{title: item.displayName, color: 'blue'}}>
+          <span>
+            {item.description}
+          </span>
+        </Card>
+      {/each}
+    </div>
   </Section>
 </Main>
 
 <style>
+  .home_grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+    margin-block: 2rem;
+  }
 </style>
