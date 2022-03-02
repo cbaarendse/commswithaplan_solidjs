@@ -15,8 +15,8 @@
   // brand.title = 'Comms With A Plan';
 
   const setCssVariables = function (element: HTMLElement) {
-    element.style.setProperty('font-size', `${$sizesScheme[brand.size].font_size}`);
-    element.style.setProperty('color', `${$colorsScheme[brand.color].base}`);
+    element.style.setProperty('font-size', `${brand.fontSize}`);
+    element.style.setProperty('color', `${brand.color}`);
   };
 </script>
 

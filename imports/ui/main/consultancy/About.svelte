@@ -10,7 +10,7 @@
   import {UiProvider} from '../../types/classes';
 
   // variables
-  import {language, aboutItems, homeItems} from '../../stores/stores';
+  import {language, aboutItems} from '../../stores/stores';
   $: translatedAboutItems = $aboutItems.filter((item) => item.language === $language);
 </script>
 

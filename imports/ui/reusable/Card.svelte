@@ -27,18 +27,18 @@
 <!-- TODO: change style directive in use:cssVariables, eventually setting different function per element -->
 <article class="card" use:cssVariables={setCssArticle_Card}>
   {#if card.imgFile}
-    <div class="img_container">
-      <img src={card.imgFile} alt={card.title} />
-    </div>
+    <img src={card.imgFile} alt={card.title} />
   {/if}
-  {#if card.title}
-    <div class="card_title" use:cssVariables={setCssDiv_Card_Title}>
-      <h2>{card.title}</h2>
-    </div>
-  {/if}
-  <p>
-    <slot />
-  </p>
+  <div class="card_main">
+    {#if card.title}
+      <div class="card_title" use:cssVariables={setCssDiv_Card_Title}>
+        <h2>{card.title}</h2>
+      </div>
+    {/if}
+    <p>
+      <slot />
+    </p>
+  </div>
   <div class="card_footer" use:cssVariables={setCssDiv_Card_Footer}>
     <p>
       <slot name="cardfootertext" />
@@ -50,17 +50,25 @@
 </article>
 
 <style>
-  article.card {
+  .card {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    align-items: center;
     box-shadow: 0.1em 0.1em 0.2em 0 rgba(0, 0, 0, 0.1);
     box-sizing: border-box;
-    min-width: 320px;
   }
 
+  img {
+    height: 22rem;
+    width: 100%;
+    object-fit: cover;
+  }
+
+  .card_main {
+    flex: 1 0 0;
+  }
   .card_title {
-    padding: 0.8em 0.8em 0 0.8em;
+    padding: 0.8em;
     text-align: left;
   }
   p {
@@ -71,31 +79,17 @@
     line-height: 1.7em;
   }
 
-  .img_container {
-    height: 60%;
+  .card_footer {
     display: flex;
     justify-content: center;
-    align-items: flex-start;
-    overflow: hidden;
-  }
-
-  img {
-    object-fit: cover;
-    object-position: center;
+    align-items: center;
+    padding: 0.4em;
+    text-align: left;
   }
   a {
     text-decoration: none;
   }
   a:hover {
     opacity: 0.7;
-  }
-  .card_footer {
-    flex: 0 1 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0.4em;
-    text-align: left;
-    width: 100%;
   }
 </style>

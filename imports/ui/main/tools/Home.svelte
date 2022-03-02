@@ -3,8 +3,8 @@
 
   // components
   import Main from './layout/Main.svelte';
-  import Header from './layout/Header.svelte';
   import Section from './layout/Section.svelte';
+  import Header from './layout/Header.svelte';
   import Brand from '../../reusable/Brand.svelte';
   import LogoReachApp from '../../reusable/LogoReachApp.svelte';
   import Card from '../../reusable/Card.svelte';
@@ -15,28 +15,36 @@
 </script>
 
 <Main>
-  <Header>
-    <Brand brand={{color: 'blue', size: 'xl_2', title: 'Comms With A Plan'}}>
-      <LogoReachApp size="3rem" />
-      <div slot="title">ReachApp</div>
-    </Brand>
-  </Header>
-
   <Section>
-    {#each translatedToolsHomeItems as item}
-      <div>
+    <div class="home__grid">
+      <Header>
+        <Brand
+          brand={{
+            color: 'var(--ra-blue)',
+            fontSize: 'var(--ra-fs-3xl)',
+            title: `Reach - ${$language === 'dutch' ? 'Home' : 'Home'}`
+          }}
+          ><LogoReachApp
+            logo={{fontSize: 'var(--ra-fs-5xl)', width: 'var(--ra-5xl)', height: 'var(--ra-5xl)', colored: true}}
+          /></Brand
+        >
+      </Header>
+      {#each translatedToolsHomeItems as item}
         <Card card={{color: 'blue', title: item.displayName}}>
           <span>
             {item.description}
           </span>
         </Card>
-      </div>
-    {/each}
+      {/each}
+    </div>
   </Section>
 </Main>
 
 <style>
-  div {
-    grid-column: 1/3;
+  .home__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+    margin-block: 2rem;
   }
 </style>

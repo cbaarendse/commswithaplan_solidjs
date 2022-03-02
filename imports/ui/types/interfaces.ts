@@ -118,6 +118,6 @@ export interface Button
     Partial<AriaLabel> {}
 export interface Css extends CssColors,  CssSizes {}
 export interface CssIndex {[key:string]:string}
-export interface Brand extends Partial<ClassName>, Color,  Size, Title {}
+export interface Brand extends Partial<ClassName>, Css, Title {}
 export interface Logo extends Css, Colored{}
 export interface Slider extends Name, DisplayName, Value, Min, Max, Partial<OnChange>, Partial<OnInput> {}

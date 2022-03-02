@@ -38,7 +38,7 @@
     </p>
     <div class="work_grid">
       {#each translatedWorkItems as item}
-        <Card card={{color: item.color, title: item.displayName, imgFile: `/consultancy/${item.name}.png`}}>
+        <Card card={{color: item.color, title: item.displayName, imgFile: `/consultancy/${item.name}.jpg`}}>
           {item.description}
         </Card>
       {/each}
@@ -51,6 +51,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 2rem;
+    margin-block: 2rem;
   }
 
   @media screen and (min-width: 760px) {

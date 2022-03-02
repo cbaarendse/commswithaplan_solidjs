@@ -16,18 +16,15 @@
 
 <style>
   main {
-    display: grid;
-    grid-template-columns: 1fr 48fr 1fr;
-    grid-template-rows: auto, 1fr;
-    grid-auto-rows: auto;
-    padding: 0.4rem 0 0 0;
-    margin: 0.4rem 0 0 0;
+    width: min(100% - 0.2rem, 70rem);
+    margin-inline: auto;
+    padding: 2rem 0 0 0;
     overflow: auto;
   }
-  @media screen and (min-width: 760px) {
+
+  @media screen and (min-width: 320px) {
     main {
-      grid-template-columns: 1fr 10fr 1fr;
-      padding: 2rem 0 0 0;
+      width: min(100% - 2rem, 70rem);
     }
   }
 </style>

@@ -3,7 +3,6 @@
 
   // components
   import Main from './layout/Main.svelte';
-  import Header from './layout/Header.svelte';
   import Section from './layout/Section.svelte';
   import LogoReachApp from '../../reusable/LogoReachApp.svelte';
   import Brand from '../../reusable/Brand.svelte';
@@ -72,8 +71,8 @@
 </script>
 
 <Main>
-  <Header
-    ><Brand brand={{color: 'blue', size: 'xl_2', title: 'Reach'}}>
+  <header>
+    <Brand brand={{color: 'blue', size: 'xl_2', title: 'Reach'}}>
       <LogoReachApp size="3rem" />
     </Brand>
     <ReachHeaderContent
@@ -88,7 +87,7 @@
       on:print={print}
       on:pdf={pdf}
     />
-  </Header>
+  </header>
   <Section>
     <!-- TODO: dispatch on:change and on:input -->
     {#each reach.touchPointsInPlan as touchPoint}
