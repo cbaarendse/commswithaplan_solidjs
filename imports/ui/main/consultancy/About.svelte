@@ -1,13 +1,12 @@
 <script lang="ts">
   // components
   import Main from './layout/Main.svelte';
-  import SectionHeader from './layout/SectionHeader.svelte';
+  import Header from './layout/Header.svelte';
   import Section from './layout/Section.svelte';
   import Brand from '../../reusable/Brand.svelte';
   import LogoCommsWithAPlan from '../../reusable/LogoCommsWithAPlan.svelte';
 
   // providers
-  import {UiProvider} from '../../types/classes';
 
   // variables
   import {language, aboutItems} from '../../stores/stores';
@@ -16,15 +15,20 @@
 
 <Main>
   <Section>
-    <SectionHeader>
-      <Brand
-        brand={{color: 'blue', size: 'xl', title: `Comms With A Plan - ${$language === 'dutch' ? 'Over' : 'About'}`}}
-        ><LogoCommsWithAPlan
-          logo={{fontSize: 'var(--ra-fs-5xl)', width: 'var(--ra-5xl)', height: 'var(--ra-5xl)', colored: true}}
-        /></Brand
-      >
-    </SectionHeader>
-    <div class="about_grid">
+    <div class="about__grid">
+      <Header>
+        <Brand
+          brand={{
+            color: 'blue',
+            fontSize: 'var(--ra-fs-xl',
+            title: `Comms With A Plan - ${$language === 'dutch' ? 'Over' : 'About'}`
+          }}
+          ><LogoCommsWithAPlan
+            logo={{fontSize: 'var(--ra-fs-5xl)', width: 'var(--ra-5xl)', height: 'var(--ra-5xl)', colored: true}}
+          /></Brand
+        >
+      </Header>
+
       {#each translatedAboutItems as item}
         <p>{item.description}</p>
       {/each}
@@ -36,9 +40,9 @@
 </Main>
 
 <style>
-  .about_grid {
+  .about__grid {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 2rem;
     margin-block: 2rem;
   }

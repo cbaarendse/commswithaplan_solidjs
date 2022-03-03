@@ -12,6 +12,7 @@
 
 <style>
   header {
+    grid-column: 1 / -1;
     padding: 2rem;
     background-color: var(--ra-teal-off-white);
     border-radius: 5px;

@@ -13,7 +13,7 @@
   import type {Display, TouchPointInPlan} from '../../types/interfaces';
   import {language, translations} from '../../stores/stores';
 
-  export let display: Display;
+  export let display: Display = 'grid';
   let inputPlaceholder: string | null | undefined;
   inputPlaceholder = UiProvider.translate('input', $translations, $language);
 
@@ -35,7 +35,7 @@
   };
 </script>
 
-<div class="grid_container" style:display>
+<div class="grid_container" style="display:{display};">
   <div class="left">
     <button
       class="touchpoint"

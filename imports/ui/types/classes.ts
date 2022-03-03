@@ -69,6 +69,7 @@ export class ReachProvider {
 
   // reset
   areAllTouchPointsValuesZero(): boolean {
+    // TODO: fix this???
     return this.touchPointsInPlan.every((touchPoint) => touchPoint.value === 0);
   }
   resetVisibleTouchPoints() {

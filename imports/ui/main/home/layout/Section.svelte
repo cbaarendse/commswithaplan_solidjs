@@ -12,9 +12,6 @@
 
 <style>
   section {
-    display: flex;
-    flex-wrap: wrap;
-    margin: 2rem 0rem;
     font-size: clamp(var(--font-size-s), var(--font-size-weight) * 100vw, var(--font-size-l));
   }
 </style>

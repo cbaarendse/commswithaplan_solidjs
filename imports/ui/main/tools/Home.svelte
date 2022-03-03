@@ -31,9 +31,7 @@
       </Header>
       {#each translatedToolsHomeItems as item}
         <Card card={{color: 'blue', title: item.displayName}}>
-          <span>
-            {item.description}
-          </span>
+          {item.description}
         </Card>
       {/each}
     </div>
@@ -45,6 +43,5 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 2rem;
-    margin-block: 2rem;
   }
 </style>

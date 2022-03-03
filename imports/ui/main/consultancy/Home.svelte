@@ -3,7 +3,7 @@
 
   // components
   import Main from './layout/Main.svelte';
-  import SectionHeader from './layout/SectionHeader.svelte';
+  import Header from './layout/Header.svelte';
   import Section from './layout/Section.svelte';
   import Brand from '../../reusable/Brand.svelte';
 
@@ -18,14 +18,20 @@
 
 <Main>
   <Section>
-    <SectionHeader>
-      <Brand brand={{title: `Comms With A Plan - ${$language === 'dutch' ? 'Home' : 'Home'}`, color: 'blue', size: 'l'}}
-        ><LogoCommsWithAPlan
-          logo={{fontSize: 'var(--ra-fs-5xl)', width: 'var(--ra-5xl)', height: 'var(--ra-5xl)', colored: true}}
-        /></Brand
-      >
-    </SectionHeader>
-    <div class="home_grid">
+    <div class="home__grid">
+      <Header>
+        <Brand
+          brand={{
+            title: `Comms With A Plan - ${$language === 'dutch' ? 'Home' : 'Home'}`,
+            color: 'blue',
+            fontSize: 'var(--ra-fs-l)'
+          }}
+          ><LogoCommsWithAPlan
+            logo={{fontSize: 'var(--ra-fs-5xl)', width: 'var(--ra-5xl)', height: 'var(--ra-5xl)', colored: true}}
+          /></Brand
+        >
+      </Header>
+
       {#each translatedConsultancyHomeItems as item}
         <Card card={{title: item.displayName, color: 'blue'}}>
           <span>
@@ -38,7 +44,7 @@
 </Main>
 
 <style>
-  .home_grid {
+  .home__grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 2rem;

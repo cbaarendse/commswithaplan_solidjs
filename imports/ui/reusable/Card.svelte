@@ -29,9 +29,9 @@
   {#if card.imgFile}
     <img src={card.imgFile} alt={card.title} />
   {/if}
-  <div class="card_main">
+  <div class="card__main">
     {#if card.title}
-      <div class="card_title" use:cssVariables={setCssDiv_Card_Title}>
+      <div class="card__title" use:cssVariables={setCssDiv_Card_Title}>
         <h2>{card.title}</h2>
       </div>
     {/if}
@@ -39,9 +39,9 @@
       <slot />
     </p>
   </div>
-  <div class="card_footer" use:cssVariables={setCssDiv_Card_Footer}>
+  <div class="card__footer" use:cssVariables={setCssDiv_Card_Footer}>
     <p>
-      <slot name="cardfootertext" />
+      <slot name="cardFooterText" />
     </p>
     {#if card.action}
       <a href={card.link} use:cssVariables={setCssCard_Link}>{card.action}</a>
@@ -53,7 +53,7 @@
   .card {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     box-shadow: 0.1em 0.1em 0.2em 0 rgba(0, 0, 0, 0.1);
     box-sizing: border-box;
   }
@@ -64,27 +64,32 @@
     object-fit: cover;
   }
 
-  .card_main {
+  .card__main {
     flex: 1 0 0;
   }
-  .card_title {
-    padding: 0.8em;
-    text-align: left;
+  .card__title {
+    padding: 0.5rem 0;
   }
-  p {
+  .card__main p {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 0 0.8em 0.8em 0.8em;
     line-height: 1.7em;
+    padding: 0.5rem 0;
   }
 
-  .card_footer {
+  .card__footer {
+    display: flex;
+    justify-content: stretch;
+    align-items: center;
+    padding: 0.5em 0;
+  }
+  .card__footer p {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 0.4em;
-    text-align: left;
+    line-height: 1.7em;
+    padding: 0.5rem 0;
   }
   a {
     text-decoration: none;

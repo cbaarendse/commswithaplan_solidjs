@@ -1,6 +1,5 @@
 <script lang="ts">
   // stores
-  import {colorsScheme, sizesScheme} from '../stores/stores';
 
   // types
   import type {Brand} from '../types/interfaces';
@@ -10,9 +9,6 @@
 
   // variables
   export let brand: Brand;
-  // brand.color = 'blue';
-  // brand.size = 'xl_2';
-  // brand.title = 'Comms With A Plan';
 
   const setCssVariables = function (element: HTMLElement) {
     element.style.setProperty('font-size', `${brand.fontSize}`);

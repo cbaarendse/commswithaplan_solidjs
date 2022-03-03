@@ -14,7 +14,7 @@
   main {
     width: min(100% - 0.2rem, 70rem);
     margin-inline: auto;
-    padding: 2rem 0 0 0;
+    padding-block: 2rem;
     overflow: auto;
   }
 

@@ -10,12 +10,11 @@
 
 <Main>
   <Section>
-    <div class="home_grid">
+    <div class="home__grid">
       {#each translatedHomeItems as item}
         <Card
           card={{title: item.displayName, color: 'blue', imgFile: item.imgFile, link: item.link, action: item.action}}
-        >
-          <span>{item.description}</span>
+          >{item.description}
         </Card>
       {/each}
     </div>
@@ -23,10 +22,9 @@
 </Main>
 
 <style>
-  .home_grid {
+  .home__grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 2rem;
-    margin-block: 2rem;
   }
 </style>

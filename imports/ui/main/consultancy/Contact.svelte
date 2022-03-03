@@ -1,7 +1,7 @@
 <script lang="ts">
   // components
   import Main from './layout/Main.svelte';
-  import SectionHeader from './layout/SectionHeader.svelte';
+  import Header from './layout/Header.svelte';
   import Section from './layout/Section.svelte';
   import Brand from '../../reusable/Brand.svelte';
   import LogoCommsWithAPlan from '../../reusable/LogoCommsWithAPlan.svelte';
@@ -16,20 +16,20 @@
 
 <Main>
   <Section>
-    <SectionHeader>
-      <Brand
-        brand={{
-          color: 'blue',
-          size: 'xl',
-          title: `Comms With A Plan - ${$language === 'dutch' ? 'Contact' : 'Contact'}`
-        }}
-        ><LogoCommsWithAPlan
-          logo={{fontSize: 'var(--ra-fs-5xl)', width: 'var(--ra-5xl)', height: 'var(--ra-5xl)', colored: true}}
-        />
-      </Brand>
-    </SectionHeader>
+    <div class="contact__grid">
+      <Header>
+        <Brand
+          brand={{
+            color: 'blue',
+            fontSize: 'var(--ra-fs-xl)',
+            title: `Comms With A Plan - ${$language === 'dutch' ? 'Contact' : 'Contact'}`
+          }}
+          ><LogoCommsWithAPlan
+            logo={{fontSize: 'var(--ra-fs-5xl)', width: 'var(--ra-5xl)', height: 'var(--ra-5xl)', colored: true}}
+          />
+        </Brand>
+      </Header>
 
-    <div class="contact_grid">
       {#each translatedContactItems as item}
         <Card card={{color: 'blue', title: item.displayName}}>
           <address>
@@ -59,9 +59,9 @@
   span {
     color: var(--ra-red);
   }
-  .contact_grid {
+  .contact__grid {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 2rem;
     margin-block: 2rem;
   }

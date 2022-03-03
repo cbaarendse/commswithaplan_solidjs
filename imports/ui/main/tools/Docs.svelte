@@ -18,15 +18,18 @@
   <Section>
     <div class="docs__grid">
       <Header>
-        <Brand brand={{color: 'var(--ra-blue)', fontSize: 'var(--ra-fs-5xl)', title: 'Reach'}}
+        <Brand
+          brand={{
+            color: 'var(--ra-blue)',
+            fontSize: 'var(--ra-fs-5xl)',
+            title: `Reach - ${$language === 'dutch' ? 'Documentatie' : 'Documentation'}`
+          }}
           ><LogoReachApp
             logo={{fontSize: 'var(--ra-fs-5xl)', width: 'var(--ra-5xl)', height: 'var(--ra-5xl)', colored: true}}
           /></Brand
         >
-        <!-- TODO: engels en nederlands in contentstore -->
-        <h2>{$language === 'dutch' ? 'Documentatie' : 'Documentation'}</h2>
       </Header>
-      <div class="chapters__grid">
+      <div class="chapters__flex">
         <aside>
           <ul>
             {#each translatedToolsDocumentationChapters as chapter}
@@ -50,26 +53,17 @@
 </Main>
 
 <style>
-  h2 {
-    grid-area: title;
-    align-self: center;
-    justify-self: self-start;
-    font-size: var(--font-size-2xl);
-    font-weight: normal;
-  }
-
   .docs__grid {
     display: grid;
     grid-template-columns: 1fr;
     grid-auto-rows: auto;
     gap: 2rem;
   }
-  .chapters__grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-auto-rows: auto;
-    gap: 2rem;
+
+  .chapters__flex {
+    display: flex;
   }
+
   ul {
     max-height: 800px;
     overflow-y: scroll;
@@ -87,11 +81,9 @@
   }
 
   @media screen and (min-width: 760px) {
-    .chapters__grid {
-      grid-template-columns: 1fr 4fr;
-    }
     aside {
       display: block;
+      flex: 1 0 25%;
     }
   }
 </style>

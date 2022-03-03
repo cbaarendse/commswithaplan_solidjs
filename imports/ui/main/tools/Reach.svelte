@@ -4,6 +4,7 @@
   // components
   import Main from './layout/Main.svelte';
   import Section from './layout/Section.svelte';
+  import Header from './layout/Header.svelte';
   import LogoReachApp from '../../reusable/LogoReachApp.svelte';
   import Brand from '../../reusable/Brand.svelte';
   import ReachHeaderContent from './ReachHeaderContent.svelte';
@@ -71,35 +72,48 @@
 </script>
 
 <Main>
-  <header>
-    <Brand brand={{color: 'blue', size: 'xl_2', title: 'Reach'}}>
-      <LogoReachApp size="3rem" />
-    </Brand>
-    <ReachHeaderContent
-      totalReach={reach.totalReach}
-      locus={reach.locus}
-      allTouchPointValuesAreZero={reach.allTouchPointValuesAreZero}
-      sortingByName={reach.sortingByName}
-      showAll={reach.showAll}
-      on:reset={reset}
-      on:sort={sort}
-      on:hide={hide}
-      on:print={print}
-      on:pdf={pdf}
-    />
-  </header>
   <Section>
-    <!-- TODO: dispatch on:change and on:input -->
-    {#each reach.touchPointsInPlan as touchPoint}
-      <ReachTouchPoint
-        display={showThisTouchPoint(touchPoint)}
-        {touchPoint}
-        on:handleChange={changeReach}
-        on:handleInput={inputReach}
+    <Header>
+      <Brand
+        brand={{
+          color: 'var(--ra-blue)',
+          fontSize: 'var(--ra-fs-5xl)',
+          title: `Reach - ${$language === 'dutch' ? 'Tool' : 'Tool'}`
+        }}
+        ><LogoReachApp
+          logo={{fontSize: 'var(--ra-fs-5xl)', width: 'var(--ra-5xl)', height: 'var(--ra-5xl)', colored: true}}
+        /></Brand
+      >
+      <ReachHeaderContent
+        totalReach={reach.totalReach}
+        locus={reach.locus}
+        allTouchPointValuesAreZero={reach.allTouchPointValuesAreZero}
+        sortingByName={reach.sortingByName}
+        showAll={reach.showAll}
+        on:reset={reset}
+        on:sort={sort}
+        on:hide={hide}
+        on:print={print}
+        on:pdf={pdf}
       />
-    {/each}
+    </Header>
+    <!-- TODO: dispatch on:change and on:input -->
+    <div class="reach__grid">
+      {#each reach.touchPointsInPlanForClient as touchPoint}
+        <ReachTouchPoint
+          display={showThisTouchPoint(touchPoint)}
+          {touchPoint}
+          on:handleChange={changeReach}
+          on:handleInput={inputReach}
+        />
+      {/each}
+    </div>
   </Section>
 </Main>
 
 <style>
+  .reach__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
 </style>
