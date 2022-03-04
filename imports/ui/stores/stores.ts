@@ -125,7 +125,7 @@ export const consultancyHomeItems: Readable<Content[]> = readable([
     color: 'blue',
     displayName: 'Comms With A Plan',
     description:
-      'Comms With A Plan is a Media Management consultancy for advertisers. At your service I initiate, maintain and evaluate your media strategy, I manage your agencies and your budget.'
+      'Comms With A Plan is a <mark>Media Management consultancy</mark> for advertisers. At your service I initiate, maintain and evaluate your media strategy, I manage your agencies and your budget.'
   },
   {
     name: 'commswithaplan',
@@ -133,7 +133,7 @@ export const consultancyHomeItems: Readable<Content[]> = readable([
     color: 'blue',
     displayName: 'Comms With A Plan',
     description:
-      'Comms With A Plan is een Media Management consultancy voor adverteerders. Ik initieer, onderhoud en evalueer je media strategie, ik manage je bureaus en budget.'
+      'Comms With A Plan is een <mark>Media Management consultancy</mark> voor adverteerders. Ik initieer, onderhoud en evalueer je media strategie, ik manage je bureaus en budget.'
   },
   {
     name: 'consultancy',
@@ -159,7 +159,6 @@ export const workItems: Readable<Content[]> = readable([
   {
     name: 'reporting',
     language: 'english',
-
     displayName: 'Reporting',
     description: 'Interpret, set up, manage dashboards or other kinds of reports.',
     color: 'blue'
@@ -167,7 +166,6 @@ export const workItems: Readable<Content[]> = readable([
   {
     name: 'reporting',
     language: 'dutch',
-
     displayName: 'Rapportage',
     description: 'Inpreteren, opzetten, managen van dashboards of andersoortige rapporten.',
     color: 'blue'
@@ -175,7 +173,6 @@ export const workItems: Readable<Content[]> = readable([
   {
     name: 'research_and_analysis',
     language: 'english',
-
     displayName: 'Research and analysis',
     description: 'Interpretation of past campaigns / years etc.',
     color: 'blue'
@@ -207,7 +204,6 @@ export const workItems: Readable<Content[]> = readable([
   {
     name: 'coordination',
     language: 'english',
-
     displayName: 'Coördination',
     description: 'I make sure the strategies are integrated. Possibly in a joint development effort by the agencies.',
     color: 'green'
@@ -224,7 +220,6 @@ export const workItems: Readable<Content[]> = readable([
   {
     name: 'planning',
     language: 'english',
-
     displayName: 'Planning',
     description: 'Precise elaboration of the strategy by the agencies.',
     color: 'green'

@@ -4,14 +4,13 @@ import dayjs from 'dayjs';
 // interfaces
 import type {Content, TouchPointBasics, TouchPointInPlan, Translation} from './interfaces';
 
-
 // ReachProvider
 export class ReachProvider {
-  touchPointsBasics: TouchPointBasics[];
- touchPointsInPlan: TouchPointInPlan[];
- totalReach: number;
+touchPointsBasics: TouchPointBasics[];
+touchPointsInPlan: TouchPointInPlan[];
+totalReach: number;
  locus: number;
-  allTouchPointValuesAreZero: boolean = this.areAllTouchPointsValuesZero();
+  allTouchPointsValueIsZero = true;
   sortingByName: boolean;
   showAll: boolean;
 
@@ -22,60 +21,55 @@ export class ReachProvider {
       .map((touchPointBasics): TouchPointInPlan => ({...touchPointBasics, value: 0.0}));
     this.totalReach = 0.0;
     this.locus = 0.0;
-    this.allTouchPointValuesAreZero = this.areAllTouchPointsValuesZero();
+    this.allTouchPointsValueIsZero = this.touchPointsInPlan.every((touchPoint) => touchPoint.value === 0);
     this.sortingByName = false; // false means the sorting is done by reach
     this.showAll = true;
   }
 
   // ui
-  findTouchPoint(input: string) {
-    return this.touchPointsBasics.find((touchPointBasics: TouchPointBasics) => touchPointBasics.name === input);
-  }
-
   displayTouchPoint(input: string) {
-    const thisTouchPoint = this.findTouchPoint(input);
-    if (thisTouchPoint === undefined) {
-      throw new TypeError(
-        'Het plan is onvolledig. Refresh deze pagina om het te herstellen. The plan is insufficient. Refresh the page to repair it.'
-      );
-    }
-    return thisTouchPoint.displayName;
+    return this.touchPointsBasics.filter((touchPointBasics: TouchPointBasics) => touchPointBasics.name === input)[0].displayName;
   }
 
   describeTouchPoint(input: string) {
-    const thisTouchPoint = this.findTouchPoint(input);
-    if (thisTouchPoint === undefined) {
-      throw new TypeError(
-        'Het plan is onvolledig. Refresh deze pagina om het te herstellen. The plan is insufficient. Refresh the page to repair it.'
-      );
-    }
-    return thisTouchPoint.description;
+    return this.touchPointsBasics.filter((touchPointBasics: TouchPointBasics) => touchPointBasics.name === input)[0].description;
   }
+
+  // displayTouchPoint(input: string) {
+  //   const thisTouchPoint = this.findTouchPoint(input);
+  //   if (thisTouchPoint === undefined) {
+  //     throw new TypeError(
+  //       'Het plan is onvolledig. Refresh deze pagina om het te herstellen. The plan is insufficient. Refresh the page to repair it.'
+  //     );
+  //   }
+  //   return thisTouchPoint.displayName;
+  // }
+
+  // describeTouchPoint(input: string) {
+  //   const thisTouchPoint = this.findTouchPoint(input);
+  //   if (thisTouchPoint === undefined) {
+  //     throw new TypeError(
+  //       'Het plan is onvolledig. Refresh deze pagina om het te herstellen. The plan is insufficient. Refresh the page to repair it.'
+  //     );
+  //   }
+  //   return thisTouchPoint.description;
+  // }
 
   changeLanguage(language: string): void {
     this.touchPointsInPlan.forEach((touchPointInPlan) => {
-      const thisTouchPointBasics: TouchPointBasics | undefined = this.touchPointsBasics.find(
+      const thisTouchPointBasics: TouchPointBasics = this.touchPointsBasics.filter(
         (touchPointBasics) => touchPointBasics.name === touchPointInPlan.name && touchPointBasics.language === language
-      );
-      if (thisTouchPointBasics === undefined) {
-        throw TypeError(
-          'Het plan is onvolledig. Refresh deze pagina om het te herstellen. The plan is insufficient. Refresh the page to repair it.'
-        );
-      }
-      touchPointInPlan.displayName = thisTouchPointBasics.displayName;
+      )[0];
+          touchPointInPlan.displayName = thisTouchPointBasics.displayName;
       touchPointInPlan.description = thisTouchPointBasics.description;
     });
   }
 
   // reset
-  areAllTouchPointsValuesZero(): boolean {
-    // TODO: fix this???
-    return this.touchPointsInPlan.every((touchPoint) => touchPoint.value === 0);
-  }
-  resetVisibleTouchPoints() {
+  resetVisibleTouchPoints():void {
     this.touchPointsInPlan.forEach((touchPoint) => (touchPoint.value = 0.0));
   }
-  resetAllTouchPoints() {
+  resetAllTouchPoints(): void {
     this.touchPointsInPlan = this.touchPointsBasics.map(
       (touchPointBasics): TouchPointInPlan => ({...touchPointBasics, value: 0.0})
     );
@@ -177,24 +171,20 @@ export class ReachProvider {
 
 // UiProvider
 export class UiProvider {
-  static translate(input: string, items: Translation[] | any, language: string): string {
-    return items.find((element: Translation) => element.name === input && element.language === language).displayName;
+  static translate(input: string, items: Translation[], language: string): string {
+    return items.filter((element: Translation) => element.name === input && element.language === language)[0].displayName;
   }
 
-  static describe(input: string, items: Translation[] | any, language: string): string {
-    return items.find((element: Translation) => element.name === input && element.language === language).description;
-  }
-
-  static displayContent(page: string, items: Content[] | any, language: string): string {
-    return items.find((element: Content) => {
+  static displayContent(page: string, items: Content[], language: string): string {
+    return items.filter((element: Content) => {
       element.name === page && element.language === language;
-    }).displayName;
+    })[0].displayName;
   }
 
-  static describeContent(page: string, items: Content[] | any, language: string): string {
-    return items.find((element: Content) => {
+  static describeContent(page: string, items: Content[], language: string): string {
+    return items.filter((element: Content) => {
       element.name === page && element.language === language;
-    }).description;
+    })[0].description;
   }
 
   static capitalizeAndSplit(str: string): string {

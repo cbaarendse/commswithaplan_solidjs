@@ -21,7 +21,7 @@
         <Brand
           brand={{
             color: 'var(--ra-blue)',
-            fontSize: 'var(--ra-fs-3xl)',
+            fontSize: 'var(--ra-fs-2xl)',
             title: `Reach - ${$language === 'dutch' ? 'Home' : 'Home'}`
           }}
           ><LogoReachApp

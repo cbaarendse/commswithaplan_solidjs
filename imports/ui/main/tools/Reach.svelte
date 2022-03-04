@@ -22,13 +22,12 @@
 
   // functions
   const reset = () => {
-    if (reach.areAllTouchPointsValuesZero()) {
+    if (reach.allTouchPointsValueIsZero) {
       reach.resetAllTouchPoints();
     } else {
       reach = new ReachProvider($language, $touchPointsBasics);
     }
     reach.calculateResults();
-    reach.areAllTouchPointsValuesZero();
   };
   const sort = () => {
     if (reach.sortingByName) {
@@ -43,7 +42,7 @@
       reach.replenishTouchPoints();
       reach.sortByName();
     } else {
-      if (!reach.areAllTouchPointsValuesZero) {
+      if (!reach.allTouchPointsValueIsZero) {
         reach.removeZeros();
       }
     }
@@ -73,21 +72,24 @@
 
 <Main>
   <Section>
-    <Header>
-      <Brand
-        brand={{
-          color: 'var(--ra-blue)',
-          fontSize: 'var(--ra-fs-5xl)',
-          title: `Reach - ${$language === 'dutch' ? 'Tool' : 'Tool'}`
-        }}
-        ><LogoReachApp
-          logo={{fontSize: 'var(--ra-fs-5xl)', width: 'var(--ra-5xl)', height: 'var(--ra-5xl)', colored: true}}
-        /></Brand
-      >
+    <div class="reach__grid">
+      <Header>
+        <Brand
+          brand={{
+            color: 'var(--ra-blue)',
+            fontSize: 'var(--ra-fs-2xl)',
+            title: `Reach - ${$language === 'dutch' ? 'Bereik' : 'Reach'}`
+          }}
+          ><LogoReachApp
+            logo={{fontSize: 'var(--ra-fs-5xl)', width: 'var(--ra-5xl)', height: 'var(--ra-5xl)', colored: true}}
+          /></Brand
+        >
+      </Header>
+
       <ReachHeaderContent
         totalReach={reach.totalReach}
         locus={reach.locus}
-        allTouchPointValuesAreZero={reach.allTouchPointValuesAreZero}
+        allTouchPointsValueIsZero={reach.allTouchPointsValueIsZero}
         sortingByName={reach.sortingByName}
         showAll={reach.showAll}
         on:reset={reset}
@@ -96,17 +98,17 @@
         on:print={print}
         on:pdf={pdf}
       />
-    </Header>
-    <!-- TODO: dispatch on:change and on:input -->
-    <div class="reach__grid">
-      {#each reach.touchPointsInPlanForClient as touchPoint}
-        <ReachTouchPoint
-          display={showThisTouchPoint(touchPoint)}
-          {touchPoint}
-          on:handleChange={changeReach}
-          on:handleInput={inputReach}
-        />
-      {/each}
+      <!-- TODO: dispatch on:change and on:input -->
+      <div class="touchpoints__flex">
+        {#each reach.touchPointsInPlanForClient as touchPoint}
+          <ReachTouchPoint
+            display={showThisTouchPoint(touchPoint)}
+            {touchPoint}
+            on:handleChange={changeReach}
+            on:handleInput={inputReach}
+          />
+        {/each}
+      </div>
     </div>
   </Section>
 </Main>
@@ -115,5 +117,11 @@
   .reach__grid {
     display: grid;
     grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .touchpoints__flex {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
   }
 </style>

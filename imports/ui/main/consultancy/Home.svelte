@@ -23,8 +23,8 @@
         <Brand
           brand={{
             title: `Comms With A Plan - ${$language === 'dutch' ? 'Home' : 'Home'}`,
-            color: 'blue',
-            fontSize: 'var(--ra-fs-l)'
+            color: 'var(--ra-blue)',
+            fontSize: 'var(--ra-fs-2xl)'
           }}
           ><LogoCommsWithAPlan
             logo={{fontSize: 'var(--ra-fs-5xl)', width: 'var(--ra-5xl)', height: 'var(--ra-5xl)', colored: true}}
@@ -35,7 +35,7 @@
       {#each translatedConsultancyHomeItems as item}
         <Card card={{title: item.displayName, color: 'blue'}}>
           <span>
-            {item.description}
+            {@html item.description}
           </span>
         </Card>
       {/each}

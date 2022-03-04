@@ -35,7 +35,7 @@
   };
 </script>
 
-<div class="grid_container" style="display:{display};">
+<div class="touchpoint__grid" style="display:{display};">
   <div class="left">
     <button
       class="touchpoint"
@@ -47,7 +47,6 @@
   </div>
   <div class="center">
     <fieldset>
-      <legend>{touchPoint.displayName}</legend>
       <Slider
         slider={{
           value: sliderValue,
@@ -63,14 +62,9 @@
   </div>
   <div class="right">
     {#if manualInput}
-      <form class="touchpoint-input-form float-right">
+      <form class="touchpoint-input-form">
         <div class="form-group">
-          <input
-            type="text"
-            class="form-control text-right touchpoint-input"
-            placeholder={inputPlaceholder}
-            aria-describedby="sizing-addon2"
-          />
+          <input type="text" class="touchpoint-input" placeholder={inputPlaceholder} aria-describedby="sizing-addon2" />
         </div>
       </form>
     {:else}
@@ -81,27 +75,18 @@
 </div>
 
 <style>
-  div {
-    --track-bg: #ebebeb;
-    --progress-bg: #8abdff;
-    --thumb-bg: #5784fd;
-  }
-
-  div.grid_container {
+  .touchpoint__grid {
     display: grid;
     gap: 2em;
     grid-template-columns: 1fr 1fr 1fr;
     align-items: center;
     background-color: var(--ra-teal-off-white);
     padding: 0.4em 1em 0.4em 1em;
-    margin: 0 2%;
     border-radius: 0.2em;
   }
   @media screen and (min-width: 760px) {
-    div.grid_container {
-      grid-column: 2/3;
+    .touchpoint__grid {
       grid-template-columns: 1fr 5fr 1fr;
-      margin: 0 7%;
     }
   }
 
@@ -117,7 +102,9 @@
     background-color: var(--ra-teal-off-white);
     cursor: pointer;
   }
-
+  fieldset {
+    border: 1px solid lightgray;
+  }
   button.input {
     height: 5em;
     min-width: 5em;
@@ -136,8 +123,8 @@
     font-size: clamp(var(--font-size-xs), var(--font-size-weight) * 100vw, var(--font-size-m));
   }
 
-  div.left,
-  div.right {
+  .left,
+  .right {
     display: flex;
     justify-content: center;
   }

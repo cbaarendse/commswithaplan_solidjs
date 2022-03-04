@@ -14,14 +14,14 @@
   import {language, translations} from '../../stores/stores';
   export let totalReach: number;
   export let locus: number;
-  export let allTouchPointValuesAreZero: boolean;
+  export let allTouchPointsValueIsZero: boolean;
   export let sortingByName: boolean;
   export let showAll: boolean;
 </script>
 
 <div class="header-content">
   <button type="button" on:click={() => dispatch('reset')}
-    >{#if allTouchPointValuesAreZero}<b>v</b> {:else}0{/if}</button
+    >{#if allTouchPointsValueIsZero}<b>v</b> {:else}0{/if}</button
   >
   <button type="button" on:click={() => dispatch('sort')}
     >{#if sortingByName}<b>1-9</b>{:else}<b>9-1</b>{/if}</button
@@ -54,12 +54,10 @@
 <!-- TODO: all this in flexbox, make groups, meter is % of parent (if parent is header) or vw unit -->
 <style>
   .header-content {
-    grid-column: 2/3;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(3rem, 1fr));
     grid-auto-rows: 3rem;
     grid-template-areas:
-      'brand brand brand brand'
       'btn1 . . . '
       'btn2 btn3 . . '
       'btn4 btn5 . . '
@@ -67,7 +65,6 @@
       'll ll lr lr ';
     gap: 1.2rem;
     padding: 4%;
-    margin: 0 2%;
     border-radius: 0.2rem;
     background-color: var(--ra-teal-off-white);
   }
@@ -160,7 +157,6 @@
   @media screen and (min-width: 414px) {
     .header-content {
       grid-template-areas:
-        'brand brand brand brand brand . .'
         'btn1 btn2 btn3 btn4 btn5 . .'
         'rl rl rr rm rm rm .'
         'll ll lr lm lm lm .';
@@ -174,7 +170,6 @@
   @media screen and (min-width: 768px) {
     .header-content {
       grid-template-areas:
-        'brand brand brand brand brand . . .'
         'btn1 btn2 btn3 btn4 btn5 . . .'
         'rl rl rr rm rm rm  rm .'
         'll ll lr lm lm lm  lm .';
@@ -184,7 +179,7 @@
   @media screen and (min-width: 1024px) {
     .header-content {
       grid-template-areas:
-        'brand brand brand brand brand . .  btn1 btn2 btn3 btn4 btn5'
+        ' . .  btn1 btn2 btn3 btn4 btn5'
         'rl rl rr rm rm rm ll ll lr lm lm lm';
     }
   }

@@ -20,11 +20,15 @@
 </form>
 
 <style>
-  form {
-    font-size: 1em;
+  div {
+    --track-bg: #ebebeb;
+    --progress-bg: #8abdff;
+    --thumb-bg: #5784fd;
   }
+
   /* General */
   form {
+    font-size: 1em;
     width: 100%;
     --thumb-size-phone: 1.25rem;
     --thumb-size-tablet-desktop: 2.5rem;

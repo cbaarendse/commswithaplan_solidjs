@@ -1,25 +1,5 @@
 // types
-// content
-type Name = {name: string};
-type Language = {language: string};
-type DisplayName = {displayName: string};
-type Description = {description: string};
-type Elaboration = {elaboration: string};
-type Title = {title: string};
-type Link = {link: string};
-type ImgFile = {imgFile: string};
-type Action = {action: string};
-// planning
-type Value = {value: number};
-type Index = {index: number};
-type Days = {days: number};
-type Monday = {monday: string};
-type Min = {min: number};
-type Max = {max: number};
-// component
-type ClassName = {className: string | undefined | null};
-type Color = {color: 'blue' | 'green' | 'red' | 'teal' | 'grey' | 'transparent' | 'transparentnoborder'};
-interface Colors {
+type Colors = {
   base: string;
   light: string;
   bright: string;
@@ -27,7 +7,7 @@ interface Colors {
   border: string;
   text: string;
 }
-export interface ColorsScheme {
+export type ColorsScheme = {
   [index: string]: Colors;
 }
 type CssColors= {
@@ -36,7 +16,6 @@ type CssColors= {
   background?: string;
 }
 type Colored ={colored: boolean;}
-
 type Size = {
   size: 'fit' | 'xxs' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xl_2' | 'xl_3' | 'xl_4' | 'xl_5' | 'xl_6' | 'xl_7' | 'xl_8';
 };
@@ -49,7 +28,7 @@ type Sizes = {
   min_width: string;
 };
 
-type CssSizes  ={
+export type CssSizes  ={
   fontSize?: string;
   padding?: string;
   width?: string;
@@ -62,37 +41,23 @@ export interface SizesScheme {
 export interface CssSizesScheme {
   [index: string]: CssSizes;
 }
-type Id = {id: string};
-type Type = {type: 'submit' | 'reset' | 'button'};
-type Role = {role: 'button'};
-type OnClick = {onClick: () => void};
-type AriaLabel = {ariaLabel: string};
-type OnMouseenter = {onMouseenter: () => void};
-type OnMousleave = {onMouseleave: () => void};
-type OnChange = {onChange: () => void};
-type OnInput = {onInput: () => void};
-type Disabled = {disabled: boolean | null | undefined};
-type DataDismiss = {dataDismiss: string};
-export type Visible = {visible: boolean};
 
+export type Visible = {visible: boolean};
 export type Display = 'none' | 'block' | 'grid' | 'flex';
 
-// interfaces
-// intersections
-export interface Content extends Name, Language, DisplayName, Description, Color {}
-interface Paragraph extends DisplayName, Description, Elaboration {}
-interface Chapter extends Name, Language, DisplayName, Partial<ImgFile> {}
+export type Content = {name: string, language: string, displayName: string, description: string} & Color;
 
-// content
-export interface HomeItem extends Name, Language, DisplayName, Description, ImgFile, Link, Action {}
-export interface ToolsDocsChapter extends Chapter {
+type Paragraph = {displayName: string, description: string, elaboration: string};
+type Chapter = {name: string, language: string, displayName: string, imgFile?: string};
+export type ToolsDocsChapter = Chapter & {
   paragraphs: Paragraph[];
 }
-export interface Translation extends Name, Language, DisplayName {}
+export type HomeItem =   {name: string, language: string, displayName: string, description: string, imgFile: string, link: string, action: string};
+export type Translation = {name: string, language: string, displayName: string};
 
 // planning
-export interface TouchPointBasics extends Name, Language, DisplayName, Description {}
-export interface TouchPointInPlan extends TouchPointBasics, Value {}
+export type TouchPointBasics = {name: string, language: string, displayName: string, description: string};
+export type TouchPointInPlan = TouchPointBasics & {value: number}
 
 export interface Year extends Name, Days {}
 export interface Month extends Name, Days {}
@@ -121,3 +86,36 @@ export interface CssIndex {[key:string]:string}
 export interface Brand extends Partial<ClassName>, Css, Title {}
 export interface Logo extends Css, Colored{}
 export interface Slider extends Name, DisplayName, Value, Min, Max, Partial<OnChange>, Partial<OnInput> {}
+
+// building types
+type Color = {color: 'blue' | 'green' | 'red' | 'teal' | 'grey' | 'transparent' | 'transparentnoborder'};
+
+
+// types
+type Id = {id: string};
+type Type = {type: 'submit' | 'reset' | 'button'};
+type Role = {role: 'button'};
+type OnClick = {onClick: () => void};
+type AriaLabel = {ariaLabel: string};
+type OnMouseenter = {onMouseenter: () => void};
+type OnMousleave = {onMouseleave: () => void};
+type OnChange = {onChange: () => void};
+type OnInput = {onInput: () => void};
+type Disabled = {disabled: boolean | null | undefined};
+type DataDismiss = {dataDismiss: string};
+type Name = {name: string};
+type Language = {language: string};
+type DisplayName = {displayName: string};
+type Description = {description: string};
+type Elaboration = {elaboration: string};
+type Title = {title: string};
+type Link = {link: string};
+type ImgFile = {imgFile: string};
+type Action = {action: string};
+type Value = {value: number};
+type Index = {index: number};
+type Days = {days: number};
+type Monday = {monday: string};
+type Min = {min: number};
+type Max = {max: number};
+type ClassName = {className: string | undefined | null};

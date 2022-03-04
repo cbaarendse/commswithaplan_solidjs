@@ -21,7 +21,7 @@
         <Brand
           brand={{
             color: 'blue',
-            fontSize: 'var(--ra-fs-xl)',
+            fontSize: 'var(--ra-fs-2xl)',
             title: `Comms With A Plan - ${$language === 'dutch' ? 'Contact' : 'Contact'}`
           }}
           ><LogoCommsWithAPlan
