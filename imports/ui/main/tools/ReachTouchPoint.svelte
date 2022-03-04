@@ -20,12 +20,8 @@
   let manualInput: boolean = false;
   let displayModal: Display;
   let hovered: boolean = false;
-
   export let touchPoint: TouchPointInPlan;
-
-  // this is the value of the slider
-  $: sliderValue = touchPoint.value;
-
+  let value: number = touchPoint.value;
   //import {notify} from '../../notifications/NotificationsFunctions';
 
   // functions
@@ -48,14 +44,15 @@
   <div class="center">
     <fieldset>
       <Slider
+        bind:value
+        on:change={() => dispatch('handleChange', {name: touchPoint.name, value: touchPoint.value})}
+        on:input={() => dispatch('handleInput', {name: touchPoint.name, value: touchPoint.value})}
         slider={{
-          value: sliderValue,
+          value: touchPoint.value,
           name: touchPoint.name,
           displayName: touchPoint.displayName,
           min: 1,
-          max: 100,
-          onChange: () => dispatch('handleChange', {name: touchPoint.name, value: sliderValue}),
-          onInput: () => dispatch('handleInput', {name: touchPoint.name, value: sliderValue})
+          max: 100
         }}
       />
     </fieldset>

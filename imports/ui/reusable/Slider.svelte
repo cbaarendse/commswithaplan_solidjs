@@ -6,26 +6,10 @@
 
 <form>
   <label for={slider.name}>{slider.displayName}</label>
-  <input
-    type="range"
-    step="1"
-    id={slider.name}
-    name={slider.name}
-    min={slider.min}
-    max={slider.max}
-    bind:value={slider.value}
-    on:change|preventDefault|stopPropagation={slider.onChange}
-    on:input|preventDefault|stopPropagation={slider.onInput}
-  />
+  <input type="range" step="1" id={slider.name} name={slider.name} min={slider.min} max={slider.max} />
 </form>
 
 <style>
-  div {
-    --track-bg: #ebebeb;
-    --progress-bg: #8abdff;
-    --thumb-bg: #5784fd;
-  }
-
   /* General */
   form {
     font-size: 1em;

@@ -16,18 +16,6 @@ type CssColors= {
   background?: string;
 }
 type Colored ={colored: boolean;}
-type Size = {
-  size: 'fit' | 'xxs' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xl_2' | 'xl_3' | 'xl_4' | 'xl_5' | 'xl_6' | 'xl_7' | 'xl_8';
-};
-type Sizes = {
-  font_size: string;
-  size?: string;
-  padding: string;
-  width: string;
-  height: string;
-  min_width: string;
-};
-
 export type CssSizes  ={
   fontSize?: string;
   padding?: string;
@@ -35,12 +23,19 @@ export type CssSizes  ={
   height?: string;
   minWidth?: string;
 };
-export interface SizesScheme {
-  [index: string]: Sizes;
-}
-export interface CssSizesScheme {
+
+type Size = {
+  size: 'fit' | 'xxs' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xl_2' | 'xl_3' | 'xl_4' | 'xl_5' | 'xl_6' | 'xl_7' | 'xl_8';
+};
+
+export type Sizes = CssSizes & Size;
+
+export type SizesScheme = {
+  [index: string]: Size;
+};
+export type CssSizesScheme = {
   [index: string]: CssSizes;
-}
+};
 
 export type Visible = {visible: boolean};
 export type Display = 'none' | 'block' | 'grid' | 'flex';
@@ -48,10 +43,9 @@ export type Display = 'none' | 'block' | 'grid' | 'flex';
 export type Content = {name: string, language: string, displayName: string, description: string} & Color;
 
 type Paragraph = {displayName: string, description: string, elaboration: string};
-type Chapter = {name: string, language: string, displayName: string, imgFile?: string};
-export type ToolsDocsChapter = Chapter & {
-  paragraphs: Paragraph[];
-}
+type Chapter = {name: string, language: string, displayName: string, imgFile?: string, paragraphs?: Paragraph[]};
+export type ToolsDocsChapter = Chapter;
+
 export type HomeItem =   {name: string, language: string, displayName: string, description: string, imgFile: string, link: string, action: string};
 export type Translation = {name: string, language: string, displayName: string};
 
@@ -82,10 +76,10 @@ export interface Button
     Partial<DataDismiss>,
     Partial<AriaLabel> {}
 export interface Css extends CssColors,  CssSizes {}
-export interface CssIndex {[key:string]:string}
+export type CssIndex = {[key:string]:string};
 export interface Brand extends Partial<ClassName>, Css, Title {}
 export interface Logo extends Css, Colored{}
-export interface Slider extends Name, DisplayName, Value, Min, Max, Partial<OnChange>, Partial<OnInput> {}
+export type Slider = {name: string, displayName: string, value: number, min: number, max: number};
 
 // building types
 type Color = {color: 'blue' | 'green' | 'red' | 'teal' | 'grey' | 'transparent' | 'transparentnoborder'};
@@ -104,10 +98,7 @@ type OnInput = {onInput: () => void};
 type Disabled = {disabled: boolean | null | undefined};
 type DataDismiss = {dataDismiss: string};
 type Name = {name: string};
-type Language = {language: string};
 type DisplayName = {displayName: string};
-type Description = {description: string};
-type Elaboration = {elaboration: string};
 type Title = {title: string};
 type Link = {link: string};
 type ImgFile = {imgFile: string};

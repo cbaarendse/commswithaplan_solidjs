@@ -57,6 +57,7 @@
   };
   const changeReach = (event: CustomEvent) => {
     const touchPoint = event.detail;
+    console.log('touchPoint in changeReach', touchPoint);
     reach.changeReachForTouchPoint(touchPoint.name, touchPoint.value);
     reach.calculateResults();
   };
