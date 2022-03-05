@@ -1,12 +1,25 @@
 <script lang="ts">
+  import {createEventDispatcher} from 'svelte';
+
   //variables
-  import type {Slider} from '../types/interfaces';
-  export let slider: Slider;
+  let dispatch = createEventDispatcher();
+  let displayName: string;
+  let name: string;
+  let id: string;
+  let value: number;
+  let step: number;
+  let min: number;
+  let max: number;
+  export {displayName, name, id, min, max, step, value};
+  console.log('name, value in input type range:', name, value);
+  function changeValue() {
+    dispatch('value', {touchPointName: name, sliderValue: value});
+  }
 </script>
 
 <form>
-  <label for={slider.name}>{slider.displayName}</label>
-  <input type="range" step="1" id={slider.name} name={slider.name} min={slider.min} max={slider.max} />
+  <label for={name}>{displayName}</label>
+  <input type="range" {id} {name} {min} {max} {step} bind:value on:change={changeValue} />
 </form>
 
 <style>

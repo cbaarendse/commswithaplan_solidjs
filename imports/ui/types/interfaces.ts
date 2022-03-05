@@ -79,7 +79,7 @@ export interface Css extends CssColors,  CssSizes {}
 export type CssIndex = {[key:string]:string};
 export interface Brand extends Partial<ClassName>, Css, Title {}
 export interface Logo extends Css, Colored{}
-export type Slider = {name: string, displayName: string, value: number, min: number, max: number};
+export type Slider = {name: string, displayName: string};
 
 // building types
 type Color = {color: 'blue' | 'green' | 'red' | 'teal' | 'grey' | 'transparent' | 'transparentnoborder'};
@@ -98,7 +98,6 @@ type OnInput = {onInput: () => void};
 type Disabled = {disabled: boolean | null | undefined};
 type DataDismiss = {dataDismiss: string};
 type Name = {name: string};
-type DisplayName = {displayName: string};
 type Title = {title: string};
 type Link = {link: string};
 type ImgFile = {imgFile: string};
@@ -107,6 +106,4 @@ type Value = {value: number};
 type Index = {index: number};
 type Days = {days: number};
 type Monday = {monday: string};
-type Min = {min: number};
-type Max = {max: number};
 type ClassName = {className: string | undefined | null};

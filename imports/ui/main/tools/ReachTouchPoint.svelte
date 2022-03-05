@@ -1,41 +1,34 @@
 <script lang="ts">
-  // packages
-  import {createEventDispatcher} from 'svelte';
-
-  // components
+  // imports
   import Slider from '../../reusable/Slider.svelte';
   import Modal from '../../reusable/Modal.svelte';
-
-  // providers
   import {UiProvider} from '../../types/classes';
-
-  // variables
   import type {Display, TouchPointInPlan} from '../../types/interfaces';
   import {language, translations} from '../../stores/stores';
+  //import {notify} from '../../notifications/NotificationsFunctions';
 
+  // variables
   export let display: Display = 'grid';
-  let inputPlaceholder: string | null | undefined;
-  inputPlaceholder = UiProvider.translate('input', $translations, $language);
+  export let touchPoint: TouchPointInPlan;
 
+  let inputPlaceholder: string | null | undefined = UiProvider.translate('input', $translations, $language);
   let manualInput: boolean = false;
   let displayModal: Display;
   let hovered: boolean = false;
-  export let touchPoint: TouchPointInPlan;
-  let value: number = touchPoint.value;
-  //import {notify} from '../../notifications/NotificationsFunctions';
+
+  let value: number = 0;
+  touchPoint.value = value;
 
   // functions
-  const dispatch = createEventDispatcher();
-  const showModal = () => {
-    displayModal = 'flex';
-  };
 </script>
 
 <div class="touchpoint__grid" style="display:{display};">
   <div class="left">
     <button
       class="touchpoint"
-      on:click|preventDefault={showModal}
+      on:click|preventDefault={() => {
+        displayModal = 'flex';
+      }}
       on:mouseenter={() => (hovered = true)}
       on:mouseleave={() => (hovered = false)}
       style="background-image:url(/reach/{touchPoint.name}.png);opacity:{hovered || touchPoint.value > 0 ? 1 : 0.7};"
@@ -44,16 +37,14 @@
   <div class="center">
     <fieldset>
       <Slider
-        bind:value
-        on:change={() => dispatch('handleChange', {name: touchPoint.name, value: touchPoint.value})}
-        on:input={() => dispatch('handleInput', {name: touchPoint.name, value: touchPoint.value})}
-        slider={{
-          value: touchPoint.value,
-          name: touchPoint.name,
-          displayName: touchPoint.displayName,
-          min: 1,
-          max: 100
-        }}
+        displayName={touchPoint.displayName}
+        name={touchPoint.name}
+        id={touchPoint.name}
+        value={touchPoint.value}
+        min={0}
+        max={100}
+        step={1}
+        on:value
       />
     </fieldset>
   </div>

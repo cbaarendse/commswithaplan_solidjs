@@ -19,6 +19,7 @@
   import {language, touchPointsBasics} from '../../stores/stores';
   import type {Display, TouchPointInPlan} from '../../types/interfaces';
   let reach = new ReachProvider($language, $touchPointsBasics);
+  $: touchPointsInPlanForClient = reach.touchPointsInPlanForClient;
 
   // functions
   const reset = () => {
@@ -55,17 +56,13 @@
   const showThisTouchPoint = (touchPoint: TouchPointInPlan): Display => {
     return !reach.showAll && touchPoint.value === 0 ? 'none' : 'grid';
   };
-  const changeReach = (event: CustomEvent) => {
-    const touchPoint = event.detail;
-    console.log('touchPoint in changeReach', touchPoint);
-    reach.changeReachForTouchPoint(touchPoint.name, touchPoint.value);
+  function changeReach(event: CustomEvent) {
+    const touchPointName = event.detail.touchPointName;
+    const sliderValue = event.detail.sliderValue;
+    console.log('touchPointName, value in changeReach:', touchPointName, sliderValue);
+    reach.changeReachForTouchPoint(touchPointName, sliderValue);
     reach.calculateResults();
-  };
-  const inputReach = (event: CustomEvent) => {
-    const touchPoint = event.detail;
-    reach.changeReachForTouchPoint(touchPoint.name, touchPoint.value);
-    reach.calculateResults();
-  };
+  }
 
   let languageUnsubscribe: Unsubscriber = language.subscribe((newLanguage) => reach.changeLanguage(newLanguage));
   onDestroy(languageUnsubscribe);
@@ -101,13 +98,8 @@
       />
       <!-- TODO: dispatch on:change and on:input -->
       <div class="touchpoints__flex">
-        {#each reach.touchPointsInPlanForClient as touchPoint}
-          <ReachTouchPoint
-            display={showThisTouchPoint(touchPoint)}
-            {touchPoint}
-            on:handleChange={changeReach}
-            on:handleInput={inputReach}
-          />
+        {#each touchPointsInPlanForClient as touchPoint}
+          <ReachTouchPoint display={showThisTouchPoint(touchPoint)} {touchPoint} on:value={changeReach} />
         {/each}
       </div>
     </div>
