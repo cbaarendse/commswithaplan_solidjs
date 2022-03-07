@@ -7,7 +7,7 @@
   import Header from './layout/Header.svelte';
   import LogoReachApp from '../../reusable/LogoReachApp.svelte';
   import Brand from '../../reusable/Brand.svelte';
-  import ReachHeaderContent from './ReachHeaderContent.svelte';
+  import ReachControlsOutput from './ReachControlsOutput.svelte';
   import ReachTouchPoint from './ReachTouchPoint.svelte';
   import {onDestroy} from 'svelte';
   import {Unsubscriber} from 'svelte/store';
@@ -18,8 +18,9 @@
   // variables
   import {language, touchPointsBasics} from '../../stores/stores';
   import type {Display, TouchPointInPlan} from '../../types/interfaces';
+
   let reach = new ReachProvider($language, $touchPointsBasics);
-  $: touchPointsInPlanForClient = reach.touchPointsInPlanForClient;
+  let touchPointsInPlan: TouchPointInPlan[];
 
   // functions
   const reset = () => {
@@ -28,7 +29,7 @@
     } else {
       reach = new ReachProvider($language, $touchPointsBasics);
     }
-    reach.calculateResults();
+    reach.totalReach;
   };
   const sort = () => {
     if (reach.sortingByName) {
@@ -56,14 +57,13 @@
   const showThisTouchPoint = (touchPoint: TouchPointInPlan): Display => {
     return !reach.showAll && touchPoint.value === 0 ? 'none' : 'grid';
   };
-  function changeReach(event: CustomEvent) {
-    const touchPointName = event.detail.touchPointName;
-    const sliderValue = event.detail.sliderValue;
-    console.log('touchPointName, value in changeReach:', touchPointName, sliderValue);
-    reach.changeReachForTouchPoint(touchPointName, sliderValue);
-    reach.calculateResults();
-  }
 
+  function changeReachForTouchPoint(event: CustomEvent) {
+    const touchPointName: string = event.detail.name;
+    const sliderValue: number = event.detail.value;
+    reach.updateTouchPointsInPlan(touchPointName, sliderValue);
+    console.log('reach.totalReach', reach.totalReach, 'reach.locus', reach.locus);
+  }
   let languageUnsubscribe: Unsubscriber = language.subscribe((newLanguage) => reach.changeLanguage(newLanguage));
   onDestroy(languageUnsubscribe);
 </script>
@@ -83,8 +83,10 @@
           /></Brand
         >
       </Header>
-
-      <ReachHeaderContent
+      <!-- TODO: move all reach methods and properties to this component -->
+      <ReachControlsOutput
+        bind:touchPointsInPlan
+        {reach}
         totalReach={reach.totalReach}
         locus={reach.locus}
         allTouchPointsValueIsZero={reach.allTouchPointsValueIsZero}
@@ -98,8 +100,12 @@
       />
       <!-- TODO: dispatch on:change and on:input -->
       <div class="touchpoints__flex">
-        {#each touchPointsInPlanForClient as touchPoint}
-          <ReachTouchPoint display={showThisTouchPoint(touchPoint)} {touchPoint} on:value={changeReach} />
+        {#each reach.touchPointsInPlan as touchPoint}
+          <ReachTouchPoint
+            display={showThisTouchPoint(touchPoint)}
+            {touchPoint}
+            on:valueForName={changeReachForTouchPoint}
+          />
         {/each}
       </div>
     </div>

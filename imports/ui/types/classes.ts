@@ -7,21 +7,21 @@ import type {Content, TouchPointBasics, TouchPointInPlan, Translation} from './i
 // ReachProvider
 export class ReachProvider {
 touchPointsBasics: TouchPointBasics[];
-touchPointsInPlan: TouchPointInPlan[];
-totalReach: number;
- locus: number;
+private _touchPointsInPlan: TouchPointInPlan[];
+private _totalReach: number;
+private _locus: number;
   allTouchPointsValueIsZero = true;
   sortingByName: boolean;
   showAll: boolean;
 
   constructor(public language: string, t: TouchPointBasics[]) {
     this.touchPointsBasics = t;
-    this.touchPointsInPlan = this.touchPointsBasics
+    this._touchPointsInPlan = this.touchPointsBasics
       .filter((touchPointBasics: TouchPointBasics) => touchPointBasics.language === this.language)
       .map((touchPointBasics): TouchPointInPlan => ({...touchPointBasics, value: 0.0}));
-    this.totalReach = 0.0;
-    this.locus = 0.0;
-    this.allTouchPointsValueIsZero = this.touchPointsInPlan.every((touchPoint) => touchPoint.value === 0);
+    this._totalReach = 0.0;
+    this._locus = 0.0;
+    this.allTouchPointsValueIsZero = this._touchPointsInPlan.every((touchPoint) => touchPoint.value === 0);
     this.sortingByName = false; // false means the sorting is done by reach
     this.showAll = true;
   }
@@ -56,7 +56,7 @@ totalReach: number;
   // }
 
   changeLanguage(language: string): void {
-    this.touchPointsInPlan.forEach((touchPointInPlan) => {
+    this._touchPointsInPlan.forEach((touchPointInPlan) => {
       const thisTouchPointBasics: TouchPointBasics = this.touchPointsBasics.filter(
         (touchPointBasics) => touchPointBasics.name === touchPointInPlan.name && touchPointBasics.language === language
       )[0];
@@ -67,10 +67,10 @@ totalReach: number;
 
   // reset
   resetVisibleTouchPoints():void {
-    this.touchPointsInPlan.forEach((touchPoint) => (touchPoint.value = 0.0));
+    this._touchPointsInPlan.forEach((touchPoint) => (touchPoint.value = 0.0));
   }
   resetAllTouchPoints(): void {
-    this.touchPointsInPlan = this.touchPointsBasics.map(
+    this._touchPointsInPlan = this.touchPointsBasics.map(
       (touchPointBasics): TouchPointInPlan => ({...touchPointBasics, value: 0.0})
     );
   }
@@ -81,7 +81,7 @@ totalReach: number;
   }
   sortByName() {
     const sortedTouchPoints: TouchPointInPlan[] = [];
-    const touchPointsBasicsSorted = this.touchPointsInPlan;
+    const touchPointsBasicsSorted = this._touchPointsInPlan;
     // TODO: array structure changed
     touchPointsBasicsSorted.sort((a: TouchPointBasics, b: TouchPointBasics) => {
       if (a.displayName > b.displayName) {
@@ -92,10 +92,10 @@ totalReach: number;
       }
       return 0;
     });
-    this.touchPointsInPlan = sortedTouchPoints;
+    this._touchPointsInPlan = sortedTouchPoints;
   }
   sortByReach() {
-    this.touchPointsInPlan.sort((a: TouchPointInPlan, b: TouchPointInPlan) => b.value - a.value);
+    this._touchPointsInPlan.sort((a: TouchPointInPlan, b: TouchPointInPlan) => b.value - a.value);
   }
 
   // hide
@@ -103,46 +103,42 @@ totalReach: number;
     this.showAll = !this.showAll;
   }
   removeZeros() {
-    this.touchPointsInPlan = this.touchPointsInPlan.filter((touchPoint: TouchPointInPlan) => touchPoint.value > 0);
+    this._touchPointsInPlan = this._touchPointsInPlan.filter((touchPoint: TouchPointInPlan) => touchPoint.value > 0);
   }
   replenishTouchPoints() {
     for (const touchPointBasics of this.touchPointsBasics) {
       if (
-        !this.touchPointsInPlan.some((touchPoint) => {
+        !this._touchPointsInPlan.some((touchPoint) => {
           touchPoint.name === touchPointBasics.name;
         })
       ) {
-        this.touchPointsInPlan.push({...touchPointBasics, value: 0.0});
+        this._touchPointsInPlan.push({...touchPointBasics, value: 0.0});
       }
     }
   }
 
   // results
-  changeReachForTouchPoint(touchPointName: string, input: number): void {
-    const index: number = this.touchPointsInPlan.findIndex((touchPoint: TouchPointInPlan): boolean => {
+  updateTouchPointsInPlan(touchPointName: string, value: number): void {
+    const index: number = this._touchPointsInPlan.findIndex((touchPoint: TouchPointInPlan): boolean => {
       return touchPoint.name === touchPointName;
     });
-    const touchPointToChange: TouchPointInPlan = this.touchPointsInPlan[index];
-    touchPointToChange.value = input;
-    this.touchPointsInPlan.splice(index, 1, touchPointToChange);
+    const touchPointToUpdate: TouchPointInPlan = this._touchPointsInPlan[index];
+    touchPointToUpdate.value = value;
+    this._touchPointsInPlan.splice(index, 1, touchPointToUpdate);
   }
-  calculateResults() {
-    console.log('results being calculated');
-    this.calculateTotalNetReach();
-    this.calculateLocus();
-  }
-  calculateTotalNetReach() {
+ 
+  calculateTotalReach() {
     let totalReachPortion = 0.0;
-    for (const touchPoint of this.touchPointsInPlan) {
+    for (const touchPoint of this._touchPointsInPlan) {
       const r = touchPoint.value / 100;
       totalReachPortion = totalReachPortion + (1 - totalReachPortion) * r;
     }
-    console.log('total reach in provider function', 100 * totalReachPortion);
-    this.totalReach = 100 * totalReachPortion;
+    return 100 * totalReachPortion;
   }
+
   calculateLocus() {
     let duplicateReachPortion = 0.0;
-    for (const touchPoint of this.touchPointsInPlan) {
+    for (const touchPoint of this._touchPointsInPlan) {
       if (touchPoint.value != 0.0 && duplicateReachPortion != 0.0) {
         const r = touchPoint.value / 100;
         duplicateReachPortion *= r;
@@ -151,22 +147,24 @@ totalReach: number;
         duplicateReachPortion = touchPoint.value / 100;
       }
     }
-    console.log('locus in provider function', 100 * duplicateReachPortion);
-    this.locus = 100 * duplicateReachPortion;
+    return 100 * duplicateReachPortion;
   }
 
-  // getters
-  get touchPointsInPlanForClient() {
-    return this.touchPointsInPlan;
-  }
+// getters
+get touchPointsInPlan() {
+  return this._touchPointsInPlan;
+}
 
-  get totalReachForClient() {
-    return this.totalReach;
-  }
+get totalReach() {
+  this._totalReach = this.calculateTotalReach();
+  return this._totalReach;
+}
 
-  get locusForClient() {
-    return this.locus;
-  }
+get locus() {
+  this._locus = this.calculateLocus();
+  return this._locus;
+}
+
 }
 
 // UiProvider

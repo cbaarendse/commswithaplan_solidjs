@@ -13,7 +13,7 @@
   export {displayName, name, id, min, max, step, value};
   console.log('name, value in input type range:', name, value);
   function changeValue() {
-    dispatch('value', {touchPointName: name, sliderValue: value});
+    dispatch('valueForName', {name: name, value: value});
   }
 </script>
 

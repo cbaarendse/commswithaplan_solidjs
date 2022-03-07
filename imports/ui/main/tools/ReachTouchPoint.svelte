@@ -44,7 +44,7 @@
         min={0}
         max={100}
         step={1}
-        on:value
+        on:valueForName
       />
     </fieldset>
   </div>
