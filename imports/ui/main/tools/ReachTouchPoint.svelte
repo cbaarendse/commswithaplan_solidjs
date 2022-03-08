@@ -49,6 +49,7 @@
     </fieldset>
   </div>
   <div class="right">
+    <!-- TODO: finalize manual input -->
     {#if manualInput}
       <form class="touchpoint-input-form">
         <div class="form-group">
@@ -56,6 +57,7 @@
         </div>
       </form>
     {:else}
+      <!-- //TODO: update touchPoint.value -->
       <button class="input"><span> {UiProvider.toStringFormat(touchPoint.value)}&nbsp;%</span></button>
     {/if}
   </div>

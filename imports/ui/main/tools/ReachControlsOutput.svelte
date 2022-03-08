@@ -5,18 +5,15 @@
   // components
 
   // providers
-  import {UiProvider, ReachProvider} from '../../types/classes';
+  import {UiProvider} from '../../types/classes';
 
   // types
-  import type {TouchPointInPlan} from '/imports/ui/types/interfaces';
 
   // constants
   const dispatch = createEventDispatcher();
 
   // variables
   import {language, translations} from '../../stores/stores';
-  export let touchPointsInPlan: TouchPointInPlan[];
-  export let reach: ReachProvider;
   export let totalReach: number;
   export let locus: number;
   export let allTouchPointsValueIsZero: boolean;
@@ -46,7 +43,7 @@
   >
   <span class="reach-result">{UiProvider.toNumberFormat(totalReach, 0)}&nbsp;%</span>
   <div class="meter">
-    <span style="width:{reach.totalReach}%;" />
+    <span style="width:{totalReach}%;" />
   </div>
 
   <span class="locus-label">{UiProvider.translate('locus', $translations, $language)}:&nbsp;</span>

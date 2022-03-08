@@ -19,7 +19,7 @@
 
 <form>
   <label for={name}>{displayName}</label>
-  <input type="range" {id} {name} {min} {max} {step} bind:value on:change={changeValue} />
+  <input type="range" {id} {name} {min} {max} {step} bind:value on:change={changeValue} on:input={changeValue} />
 </form>
 
 <style>
