@@ -2,7 +2,7 @@
   // imports
   import Slider from '../../reusable/Slider.svelte';
   import Modal from '../../reusable/Modal.svelte';
-  import {UiProvider} from '../../types/classes';
+  import {Ui} from '../../types/classes';
   import type {Display, TouchPointInPlan} from '../../types/interfaces';
   import {language, translations} from '../../stores/stores';
   //import {notify} from '../../notifications/NotificationsFunctions';
@@ -11,7 +11,7 @@
   export let display: Display = 'grid';
   export let touchPoint: TouchPointInPlan;
 
-  let inputPlaceholder: string | null | undefined = UiProvider.translate('input', $translations, $language);
+  let inputPlaceholder: string | null | undefined = Ui.translate('input', $translations, $language);
   let manualInput: boolean = false;
   let displayModal: Display;
   let hovered: boolean = false;
@@ -58,7 +58,7 @@
       </form>
     {:else}
       <!-- //TODO: update touchPoint.value -->
-      <button class="input"><span> {UiProvider.toStringFormat(touchPoint.value)}&nbsp;%</span></button>
+      <button class="input"><span> {Ui.toStringFormat(touchPoint.value)}&nbsp;%</span></button>
     {/if}
   </div>
   <Modal title={touchPoint.displayName} {displayModal}>{touchPoint.description}</Modal>

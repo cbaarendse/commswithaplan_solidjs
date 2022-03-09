@@ -1,5 +1,6 @@
 <script lang="ts">
   // packages
+  import type {SvelteComponentTyped} from 'svelte';
   import {Route} from 'tinro';
 
   // components
@@ -9,7 +10,7 @@
   import About from '../consultancy/About.svelte';
   import Contact from '../consultancy/Contact.svelte';
   import ToolsHome from '../tools/Home.svelte';
-  import Reach from '../tools/Reach.svelte';
+  import ReachTool from '../tools/ReachTool.svelte';
   import Docs from '../tools/Docs.svelte';
   import NotFound from '../notfound/NotFound.svelte';
 </script>
@@ -24,7 +25,7 @@
   </Route>
   <Route path="/tools/*">
     <Route path="/"><ToolsHome /></Route>
-    <Route path="/reach"><Reach /></Route>
+    <Route path="/reach"><ReachTool /></Route>
     <Route path="/documentation"><Docs /></Route>
   </Route>
   <Route fallback><NotFound /></Route>

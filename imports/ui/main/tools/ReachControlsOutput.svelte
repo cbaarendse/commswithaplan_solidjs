@@ -5,7 +5,7 @@
   // components
 
   // providers
-  import {UiProvider} from '../../types/classes';
+  import {Ui} from '../../types/classes';
 
   // types
 
@@ -35,19 +35,19 @@
   <button type="button" on:click={() => dispatch('pdf')}><b>pdf</b></button>
 
   <span class="reach-label"
-    >{UiProvider.translate('total', $translations, $language)}&nbsp;{UiProvider.translate(
+    >{Ui.translate('total', $translations, $language)}&nbsp;{Ui.translate(
       'reach',
       $translations,
       $language
     )}:&nbsp;</span
   >
-  <span class="reach-result">{UiProvider.toNumberFormat(totalReach, 0)}&nbsp;%</span>
+  <span class="reach-result">{Ui.toNumberFormat(totalReach, 0)}&nbsp;%</span>
   <div class="meter">
     <span style="width:{totalReach}%;" />
   </div>
 
-  <span class="locus-label">{UiProvider.translate('locus', $translations, $language)}:&nbsp;</span>
-  <span class="locus-result">{UiProvider.toNumberFormat(locus, 1)}&nbsp;%</span>
+  <span class="locus-label">{Ui.translate('locus', $translations, $language)}:&nbsp;</span>
+  <span class="locus-result">{Ui.toNumberFormat(locus, 1)}&nbsp;%</span>
   <div class="meter">
     <span style="width:{locus}%;" />
   </div>

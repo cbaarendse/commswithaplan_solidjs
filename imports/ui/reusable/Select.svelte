@@ -4,7 +4,7 @@
 
   // types
   import type {SelectItem} from '../types/interfaces';
-  import {UiProvider} from '../types/classes';
+  import {Ui} from '../types/classes';
 
   // variables
   import {language, translations} from '../stores/stores';
@@ -22,7 +22,7 @@
 
 <select class={size} {id} {name} bind:value={selectItem} on:change={() => dispatch('selectItem', {selectItem})}>
   {#each list as item (item.index)}
-    <option value={item}>{UiProvider.translate(item.name, $translations, $language) || item.name}</option>
+    <option value={item}>{Ui.translate(item.name, $translations, $language) || item.name}</option>
   {/each}
 </select>
 
