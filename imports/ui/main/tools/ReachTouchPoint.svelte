@@ -16,9 +16,6 @@
   let displayModal: Display;
   let hovered: boolean = false;
 
-  let value: number = 0;
-  touchPoint.value = value;
-
   // functions
 </script>
 
@@ -37,10 +34,10 @@
   <div class="center">
     <fieldset>
       <Slider
+        bind:value={touchPoint.value}
         displayName={touchPoint.displayName}
         name={touchPoint.name}
         id={touchPoint.name}
-        value={touchPoint.value}
         min={0}
         max={100}
         step={1}

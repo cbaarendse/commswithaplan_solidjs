@@ -1,6 +1,5 @@
 <script lang="ts">
   // packages
-  import {jsPDF} from 'jspdf';
 
   // components
   import Main from './layout/Main.svelte';
@@ -25,7 +24,7 @@
   let locus: number = 0;
   let allTouchPointsValueIsZero: boolean = true;
   let sortingByName = true;
-  let showAll: boolean = true;
+  $: showAll = true;
 
   function changeReachForTouchPoint(event: CustomEvent) {
     const touchPointName: string = event.detail.name;
@@ -35,63 +34,52 @@
     totalReach = results[0];
     locus = results[1];
     allTouchPointsValueIsZero = Reach.areAllTouchPointsValueZero(touchPointsInPlan);
-    console.log('totalReach', totalReach, 'locus', locus, 'allTouchPointsValueIsZero', allTouchPointsValueIsZero);
   }
 
   // functions
   const reset = () => {
     if (allTouchPointsValueIsZero) {
-      Reach.resetAllTouchPoints(touchPointsInPlan, $touchPointsBasics);
+      touchPointsInPlan = Reach.resetVisibleTouchPoints(touchPointsInPlan);
+      showAll = showAll;
     } else {
       touchPointsInPlan = Reach.makePlan($touchPointsBasics, $language);
+      allTouchPointsValueIsZero = Reach.areAllTouchPointsValueZero(touchPointsInPlan);
     }
-    const results = Reach.calculateResults(touchPointsInPlan);
+    const results = [0, 0];
     totalReach = results[0];
     locus = results[1];
-    allTouchPointsValueIsZero = Reach.areAllTouchPointsValueZero(touchPointsInPlan);
   };
-  const sort = () => {
-    if (sortingByName) {
-      touchPointsInPlan = Reach.sortByName(touchPointsInPlan);
-    } else {
-      touchPointsInPlan = Reach.sortByReach(touchPointsInPlan);
-    }
+
+  const sortBy = (): void => {
+    touchPointsInPlan = sortingByName ? Reach.sortByName(touchPointsInPlan) : Reach.sortByReach(touchPointsInPlan);
+  };
+
+  const toggleSorting = (): void => {
     sortingByName = Reach.toggleSortingByName(sortingByName);
-    console.log('sorting by name after sort', sortingByName);
+  };
+  const sort = (): void => {
+    sortBy();
+    toggleSorting();
   };
   const hide = () => {
-    if (!showAll) {
-      touchPointsInPlan = Reach.replenishTouchPoints(touchPointsInPlan, $touchPointsBasics);
-      touchPointsInPlan = Reach.sortByName(touchPointsInPlan);
-    } else {
-      if (!allTouchPointsValueIsZero) {
-        touchPointsInPlan = Reach.removeZeros(touchPointsInPlan);
-      }
-    }
     showAll = Reach.toggleShowAll(showAll);
-    console.log('showAll after hide', showAll);
+    touchPointsInPlan = touchPointsInPlan;
   };
+
   const print = () => {
     window.print();
   };
+
   const pdf = () => {
-    const doc = new jsPDF();
-    console.log('jsPDF doc', doc);
-    doc.html(document.body, {
-      callback: function (doc) {
-        doc.save('reach_01.pdf');
-      },
-      width: 200
-    });
-    doc.output('dataurlnewwindow');
+    window.print();
   };
 
   const showThisTouchPoint = (touchPoint: TouchPointInPlan): Display => {
     return !showAll && touchPoint.value === 0 ? 'none' : 'grid';
   };
 
-  let languageUnsubscribe: Unsubscriber = language.subscribe((newLanguage) =>
-    Reach.changeLanguage(newLanguage, touchPointsInPlan, $touchPointsBasics)
+  let languageUnsubscribe: Unsubscriber = language.subscribe(
+    (newLanguage) => (touchPointsInPlan = Reach.changeLanguage(newLanguage, touchPointsInPlan, $touchPointsBasics))
   );
   onDestroy(languageUnsubscribe);
 </script>
@@ -123,7 +111,6 @@
         on:print={print}
         on:pdf={pdf}
       />
-      <!-- TODO: dispatch on:change and on:input -->
       <div class="touchpoints__flex">
         {#each touchPointsInPlan as touchPoint}
           <ReachTouchPoint

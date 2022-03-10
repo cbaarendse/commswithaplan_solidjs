@@ -29,7 +29,7 @@
     },
     "moduleResolution": "node",
     "resolveJsonModule": true,
-    "types": ["node", "tinro", "jspdf"],
+    "types": ["node", "tinro"],
     "esModuleInterop": true,
     "preserveSymlinks": true,
     // added for dayjs package:

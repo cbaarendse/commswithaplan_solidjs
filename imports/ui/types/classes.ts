@@ -40,12 +40,6 @@ export class Reach {
     touchPointsInPlan.forEach((touchPoint) => (touchPoint.value = 0.0));
     return touchPointsInPlan;
   }
-  static resetAllTouchPoints(touchPointsInPlan:TouchPointInPlan[], touchPointsBasics: TouchPointBasics[]): TouchPointInPlan[] {
-    touchPointsInPlan = touchPointsBasics.map(
-      (touchPointBasics): TouchPointInPlan => ({...touchPointBasics, value: 0.0})
-    );
-    return touchPointsInPlan;
-  }
 
   // sort
   static toggleSortingByName(sortingByName: boolean): boolean {
@@ -70,21 +64,6 @@ export class Reach {
   static toggleShowAll(showAll:boolean):boolean {
     return !showAll;
   }
-  static removeZeros(touchPointsInPlan:TouchPointInPlan[]):TouchPointInPlan[] {
-    return touchPointsInPlan.filter((touchPoint: TouchPointInPlan) => touchPoint.value > 0);
-  }
-  static replenishTouchPoints(touchPointsInPlan:TouchPointInPlan[], touchPointsBasics:TouchPointBasics[]):TouchPointInPlan[] {
-    for (const touchPointBasics of touchPointsBasics) {
-      if (
-        !touchPointsInPlan.some((touchPointInPlan) => {
-          touchPointInPlan.name === touchPointBasics.name;
-        })
-      ) {
-        touchPointsInPlan =  [...touchPointsInPlan, {...touchPointBasics, value: 0.0}];
-      }
-    }
-    return touchPointsInPlan;
-  }
 
   // results
   static updateTouchPointsInPlan(touchPointName: string, value: number, touchPointsInPlan:TouchPointInPlan[]): TouchPointInPlan[] {
@@ -93,9 +72,9 @@ export class Reach {
     });
     const touchPointToUpdate: TouchPointInPlan = touchPointsInPlan[index];
     touchPointToUpdate.value = value;
-    return touchPointsInPlan.splice(index, 1, touchPointToUpdate);
-  }
- 
+    touchPointsInPlan.splice(index, 1, touchPointToUpdate);
+    return touchPointsInPlan;
+  } 
   private static calculateTotalReach(touchPointsInPlan: TouchPointInPlan[]):number {
     let totalReachPortion = 0.0;
     for (const touchPoint of touchPointsInPlan) {
@@ -104,7 +83,6 @@ export class Reach {
     }
     return  100 * totalReachPortion;
   }
-
   private static calculateLocus(touchPointsInPlan: TouchPointInPlan[]): number {
     let duplicateReachPortion = 0.0;
     for (const touchPoint of touchPointsInPlan) {
@@ -118,7 +96,6 @@ export class Reach {
     }
    return 100 * duplicateReachPortion;
   }
-
   static calculateResults(touchPointsInPlan:TouchPointInPlan[]):[number, number] {
     const totalReach = Reach.calculateTotalReach(touchPointsInPlan);
     const locus = Reach.calculateLocus(touchPointsInPlan);
@@ -177,3 +154,19 @@ export class Ui {
     return `${symbol}`;
   }
 }
+
+// Reach leftovers
+// static removeZeroValueTouchPoints(touchPointsInPlan:TouchPointInPlan[]):TouchPointInPlan[] {
+  //   return touchPointsInPlan.filter((touchPoint: TouchPointInPlan) => touchPoint.value > 0);
+  // }
+  // static replenishTouchPoints(language:string, touchPointsInPlan:TouchPointInPlan[], touchPointsBasics:TouchPointBasics[]):TouchPointInPlan[] {
+  //   const translatedTouchPointsBasics: TouchPointBasics[] = touchPointsBasics.filter((touchPointBasics)=>touchPointBasics.language === language);
+  //   console.log(`language ${typeof language} ${language}, #touchPointsInPlan ${touchPointsInPlan.length}, #touchPointsBasics ${touchPointsBasics.length}, #translatedTouchPointsBasics ${translatedTouchPointsBasics.length} before loop within replenish function`);     
+  //   for (const touchPointBasics of translatedTouchPointsBasics) {            
+  //     if (!touchPointsInPlan.some((touchPointInPlan): boolean =>   touchPointInPlan.name === touchPointBasics.name)) {
+  //       touchPointsInPlan =  [...touchPointsInPlan, {...touchPointBasics, value: 0.0}];
+  //     }
+  //   }
+  //   console.log('#touchPointsInPlan after loop within replenish function', touchPointsInPlan.length);    
+  //   return touchPointsInPlan;
+  // }

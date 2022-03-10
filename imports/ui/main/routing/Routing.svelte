@@ -1,6 +1,5 @@
 <script lang="ts">
   // packages
-  import type {SvelteComponentTyped} from 'svelte';
   import {Route} from 'tinro';
 
   // components
