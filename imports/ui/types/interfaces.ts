@@ -51,7 +51,7 @@ export type Translation = {name: string, language: string, displayName: string};
 
 // planning
 export type TouchPointBasics = {name: string, language: string, displayName: string, description: string};
-export type TouchPointInPlan = TouchPointBasics & {value: number}
+export type TouchPointInPlan = TouchPointBasics & {value: number, display: 'none' | 'grid'}
 
 export interface Year extends Name, Days {}
 export interface Month extends Name, Days {}

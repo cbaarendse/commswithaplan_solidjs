@@ -7,10 +7,10 @@ import type {Content, TouchPointBasics, TouchPointInPlan, Translation} from './i
 // Reach
 export class Reach {
 
-  static makePlan(touchPointsBasics: TouchPointBasics[], language: string):TouchPointInPlan[]{
+  static selectTouchPointsForPlan(touchPointsBasics: TouchPointBasics[], language: string):TouchPointInPlan[]{
      return touchPointsBasics
       .filter((touchPointBasics: TouchPointBasics) => touchPointBasics.language === language)
-      .map((touchPointBasics): TouchPointInPlan => ({...touchPointBasics, value: 0.0}));
+      .map((touchPointBasics): TouchPointInPlan => ({...touchPointBasics, value: 0.0, display: 'grid'}));
   }
 
  static areAllTouchPointsValueZero(touchPointsInPlan: TouchPointInPlan[]):boolean{ return touchPointsInPlan.every((touchPoint) => touchPoint.value === 0);}

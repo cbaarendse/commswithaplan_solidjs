@@ -13,13 +13,16 @@
   export {displayName, name, id, min, max, step, value};
   console.log('name, value in input type range:', name, value);
   function changeValue() {
-    dispatch('valueForName', {name: name, value: value});
+    dispatch('changeValueForName', {name: name, value: value});
+  }
+  function inputValue() {
+    dispatch('inputValueForName', {name: name, value: value});
   }
 </script>
 
 <form>
   <label for={name}>{displayName}</label>
-  <input type="range" {id} {name} {min} {max} {step} bind:value on:change={changeValue} on:input={changeValue} />
+  <input type="range" {id} {name} {min} {max} {step} bind:value on:change={changeValue} on:input={inputValue} />
 </form>
 
 <style>

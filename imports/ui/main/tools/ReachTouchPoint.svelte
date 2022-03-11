@@ -8,9 +8,7 @@
   //import {notify} from '../../notifications/NotificationsFunctions';
 
   // variables
-  export let display: Display = 'grid';
   export let touchPoint: TouchPointInPlan;
-
   let inputPlaceholder: string | null | undefined = Ui.translate('input', $translations, $language);
   let manualInput: boolean = false;
   let displayModal: Display;
@@ -19,7 +17,7 @@
   // functions
 </script>
 
-<div class="touchpoint__grid" style="display:{display};">
+<div class="touchpoint__grid" style="display:{touchPoint.display};">
   <div class="left">
     <button
       class="touchpoint"
@@ -41,7 +39,8 @@
         min={0}
         max={100}
         step={1}
-        on:valueForName
+        on:changeValueForName
+        on:inputValueForName
       />
     </fieldset>
   </div>

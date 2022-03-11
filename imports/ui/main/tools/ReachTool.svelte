@@ -1,7 +1,5 @@
 <script lang="ts">
-  // packages
-
-  // components
+  // imports
   import Main from './layout/Main.svelte';
   import Section from './layout/Section.svelte';
   import Header from './layout/Header.svelte';
@@ -9,40 +7,70 @@
   import Brand from '../../reusable/Brand.svelte';
   import ReachControlsOutput from './ReachControlsOutput.svelte';
   import ReachTouchPoint from './ReachTouchPoint.svelte';
-  import {onDestroy} from 'svelte';
+  import {onDestroy, onMount} from 'svelte';
   import {Unsubscriber} from 'svelte/store';
-
-  // providers
   import {Reach} from '../../types/classes';
+  import {touchPointsBasics, language} from '../../stores/stores';
+  import type {TouchPointInPlan} from '../../types/interfaces';
 
   // variables
-  import {touchPointsBasics, language} from '../../stores/stores';
-  import type {Display, TouchPointInPlan} from '../../types/interfaces';
-
-  let touchPointsInPlan = Reach.makePlan($touchPointsBasics, $language);
+  let touchPointsInPlan = Reach.selectTouchPointsForPlan($touchPointsBasics, $language);
+  let changedTouchPointsInPlan: TouchPointInPlan[] = [];
   let totalReach: number = 0;
   let locus: number = 0;
   let allTouchPointsValueIsZero: boolean = true;
   let sortingByName = true;
   $: showAll = true;
+  //TODO: incorporate display value in TouchPointInPlan
+  // init
+  onMount(() => (touchPointsInPlan = Reach.sortByName(touchPointsInPlan)));
+
+  // functions
+  function handleChange(event: CustomEvent) {
+    changeReachForTouchPoint(event);
+    getResults();
+  }
+
+  function handleInput(event: CustomEvent) {
+    changeReachForTouchPoint(event);
+    getResults();
+    allTouchPointsValueIsZero = Reach.areAllTouchPointsValueZero(touchPointsInPlan);
+    if (allTouchPointsValueIsZero) {
+      showAll = true;
+    }
+    if (showAll === false) {
+      const touchPointName: string = event.detail.name;
+      const changedTouchPointInPlan: TouchPointInPlan = findChangedTouchPoint(touchPointName);
+      addToChangedTouchPoints(changedTouchPointInPlan);
+    }
+  }
+
+  function getResults(): void {
+    const results = Reach.calculateResults(touchPointsInPlan);
+    [totalReach, locus] = results;
+  }
 
   function changeReachForTouchPoint(event: CustomEvent) {
     const touchPointName: string = event.detail.name;
     const sliderValue: number = event.detail.value;
     touchPointsInPlan = Reach.updateTouchPointsInPlan(touchPointName, sliderValue, touchPointsInPlan);
-    const results = Reach.calculateResults(touchPointsInPlan);
-    totalReach = results[0];
-    locus = results[1];
-    allTouchPointsValueIsZero = Reach.areAllTouchPointsValueZero(touchPointsInPlan);
   }
 
-  // functions
+  function findChangedTouchPoint(touchPointName: string): TouchPointInPlan {
+    return touchPointsInPlan.filter((touchPoint) => touchPointName === touchPoint.name)[0];
+  }
+
+  function addToChangedTouchPoints(touchPoint: TouchPointInPlan) {
+    changedTouchPointsInPlan = [...changedTouchPointsInPlan, touchPoint];
+  }
+
   const reset = () => {
     if (allTouchPointsValueIsZero) {
       touchPointsInPlan = Reach.resetVisibleTouchPoints(touchPointsInPlan);
-      showAll = showAll;
+      showAll = true;
     } else {
-      touchPointsInPlan = Reach.makePlan($touchPointsBasics, $language);
+      touchPointsInPlan = Reach.selectTouchPointsForPlan($touchPointsBasics, $language);
+      touchPointsInPlan = Reach.sortByName(touchPointsInPlan);
       allTouchPointsValueIsZero = Reach.areAllTouchPointsValueZero(touchPointsInPlan);
     }
     const results = [0, 0];
@@ -62,7 +90,9 @@
     toggleSorting();
   };
   const hide = () => {
-    showAll = Reach.toggleShowAll(showAll);
+    if (!allTouchPointsValueIsZero) {
+      showAll = Reach.toggleShowAll(showAll);
+    }
     touchPointsInPlan = touchPointsInPlan;
   };
 
@@ -74,13 +104,10 @@
     window.print();
   };
 
-  const showThisTouchPoint = (touchPoint: TouchPointInPlan): Display => {
-    return !showAll && touchPoint.value === 0 ? 'none' : 'grid';
-  };
-
-  let languageUnsubscribe: Unsubscriber = language.subscribe(
-    (newLanguage) => (touchPointsInPlan = Reach.changeLanguage(newLanguage, touchPointsInPlan, $touchPointsBasics))
-  );
+  let languageUnsubscribe: Unsubscriber = language.subscribe((newLanguage) => {
+    touchPointsInPlan = Reach.changeLanguage(newLanguage, touchPointsInPlan, $touchPointsBasics);
+    touchPointsInPlan = Reach.sortByName(touchPointsInPlan);
+  });
   onDestroy(languageUnsubscribe);
 </script>
 
@@ -113,11 +140,7 @@
       />
       <div class="touchpoints__flex">
         {#each touchPointsInPlan as touchPoint}
-          <ReachTouchPoint
-            display={showThisTouchPoint(touchPoint)}
-            {touchPoint}
-            on:valueForName={changeReachForTouchPoint}
-          />
+          <ReachTouchPoint {touchPoint} on:changeValueForName={handleChange} on:inputValueForName={handleInput} />
         {/each}
       </div>
     </div>
