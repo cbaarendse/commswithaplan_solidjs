@@ -14,35 +14,21 @@
   import type {TouchPointInPlan} from '../../types/interfaces';
 
   // variables
-  let touchPointsInPlan = Reach.selectTouchPointsForPlan($touchPointsBasics, $language);
-  let changedTouchPointsInPlan: TouchPointInPlan[] = [];
+  let touchPointsInPlan: TouchPointInPlan[] = Reach.setTouchPointsForPlan($touchPointsBasics, $language);
   let totalReach: number = 0;
   let locus: number = 0;
-  let allTouchPointsValueIsZero: boolean = true;
-  let sortingByName = true;
-  $: showAll = true;
-  //TODO: incorporate display value in TouchPointInPlan
+  $: allTouchPointsValueIsZero = Reach.areAllTouchPointsValueZero(touchPointsInPlan);
+  let sortedByName: boolean = true;
+  $: showAll = Reach.isShowAll(touchPointsInPlan);
+
   // init
   onMount(() => (touchPointsInPlan = Reach.sortByName(touchPointsInPlan)));
 
   // functions
-  function handleChange(event: CustomEvent) {
-    changeReachForTouchPoint(event);
-    getResults();
-  }
-
-  function handleInput(event: CustomEvent) {
-    changeReachForTouchPoint(event);
-    getResults();
-    allTouchPointsValueIsZero = Reach.areAllTouchPointsValueZero(touchPointsInPlan);
-    if (allTouchPointsValueIsZero) {
-      showAll = true;
-    }
-    if (showAll === false) {
-      const touchPointName: string = event.detail.name;
-      const changedTouchPointInPlan: TouchPointInPlan = findChangedTouchPoint(touchPointName);
-      addToChangedTouchPoints(changedTouchPointInPlan);
-    }
+  function changeReachForTouchPoint(event: CustomEvent) {
+    const touchPointName: string = event.detail.name;
+    const sliderValue: number = event.detail.value;
+    touchPointsInPlan = Reach.updateTouchPointInPlan(touchPointName, sliderValue, touchPointsInPlan);
   }
 
   function getResults(): void {
@@ -50,59 +36,55 @@
     [totalReach, locus] = results;
   }
 
-  function changeReachForTouchPoint(event: CustomEvent) {
-    const touchPointName: string = event.detail.name;
-    const sliderValue: number = event.detail.value;
-    touchPointsInPlan = Reach.updateTouchPointsInPlan(touchPointName, sliderValue, touchPointsInPlan);
+  function handleChange(event: CustomEvent) {
+    changeReachForTouchPoint(event);
+    getResults();
   }
 
-  function findChangedTouchPoint(touchPointName: string): TouchPointInPlan {
-    return touchPointsInPlan.filter((touchPoint) => touchPointName === touchPoint.name)[0];
+  function handleInput(event: CustomEvent): void {
+    changeReachForTouchPoint(event);
+    getResults();
   }
 
-  function addToChangedTouchPoints(touchPoint: TouchPointInPlan) {
-    changedTouchPointsInPlan = [...changedTouchPointsInPlan, touchPoint];
-  }
-
-  const reset = () => {
-    if (allTouchPointsValueIsZero) {
-      touchPointsInPlan = Reach.resetVisibleTouchPoints(touchPointsInPlan);
-      showAll = true;
+  function reset(): void {
+    if (!allTouchPointsValueIsZero) {
+      touchPointsInPlan = Reach.resetTouchPoints(touchPointsInPlan);
     } else {
-      touchPointsInPlan = Reach.selectTouchPointsForPlan($touchPointsBasics, $language);
+      touchPointsInPlan = Reach.setTouchPointsForPlan($touchPointsBasics, $language);
       touchPointsInPlan = Reach.sortByName(touchPointsInPlan);
-      allTouchPointsValueIsZero = Reach.areAllTouchPointsValueZero(touchPointsInPlan);
     }
     const results = [0, 0];
-    totalReach = results[0];
-    locus = results[1];
-  };
+    [totalReach, locus] = results;
+  }
 
-  const sortBy = (): void => {
-    touchPointsInPlan = sortingByName ? Reach.sortByName(touchPointsInPlan) : Reach.sortByReach(touchPointsInPlan);
-  };
+  function sortBy(): void {
+    touchPointsInPlan = sortedByName ? Reach.sortByReach(touchPointsInPlan) : Reach.sortByName(touchPointsInPlan);
+  }
 
-  const toggleSorting = (): void => {
-    sortingByName = Reach.toggleSortingByName(sortingByName);
-  };
-  const sort = (): void => {
+  function sort(): void {
     sortBy();
-    toggleSorting();
-  };
-  const hide = () => {
-    if (!allTouchPointsValueIsZero) {
-      showAll = Reach.toggleShowAll(showAll);
+    sortedByName = !sortedByName;
+  }
+
+  function hideIf() {
+    if (showAll && !allTouchPointsValueIsZero) {
+      touchPointsInPlan = Reach.hide(touchPointsInPlan);
+    } else if (!showAll || allTouchPointsValueIsZero) {
+      touchPointsInPlan = Reach.show(touchPointsInPlan);
     }
-    touchPointsInPlan = touchPointsInPlan;
-  };
+  }
 
-  const print = () => {
-    window.print();
-  };
+  function hide() {
+    hideIf();
+  }
 
-  const pdf = () => {
+  function print() {
     window.print();
-  };
+  }
+
+  function pdf() {
+    window.print();
+  }
 
   let languageUnsubscribe: Unsubscriber = language.subscribe((newLanguage) => {
     touchPointsInPlan = Reach.changeLanguage(newLanguage, touchPointsInPlan, $touchPointsBasics);
@@ -130,7 +112,7 @@
         {totalReach}
         {locus}
         {allTouchPointsValueIsZero}
-        {sortingByName}
+        {sortedByName}
         {showAll}
         on:reset={reset}
         on:sort={sort}

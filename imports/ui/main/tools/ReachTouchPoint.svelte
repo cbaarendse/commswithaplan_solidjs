@@ -1,5 +1,6 @@
 <script lang="ts">
   // imports
+  import {createEventDispatcher} from 'svelte';
   import Slider from '../../reusable/Slider.svelte';
   import Modal from '../../reusable/Modal.svelte';
   import {Ui} from '../../types/classes';
@@ -13,6 +14,12 @@
   let manualInput: boolean = false;
   let displayModal: Display;
   let hovered: boolean = false;
+  let dispatch = createEventDispatcher();
+  let inputValue: number;
+
+  function submitValue() {
+    dispatch('inputValueForName', {value: inputValue, name: touchPoint.name});
+  }
 
   // functions
 </script>
@@ -45,16 +52,28 @@
     </fieldset>
   </div>
   <div class="right">
-    <!-- TODO: finalize manual input -->
+    <!-- TODO: finalize manual input: change back to button when clicking outside -->
+    <!-- TODO: Input in modal? (Better for mobile) -->
+    <!-- TODO: three buttons under input submit, reset and cancel -->
     {#if manualInput}
-      <form class="touchpoint-input-form">
+      <form class="touchpoint-input-form" on:submit={submitValue}>
         <div class="form-group">
-          <input type="text" class="touchpoint-input" placeholder={inputPlaceholder} aria-describedby="sizing-addon2" />
+          <input
+            type="text"
+            class="touchpoint-input"
+            placeholder={inputPlaceholder}
+            bind:value={inputValue}
+            aria-describedby="sizing-addon2"
+          />
         </div>
       </form>
     {:else}
-      <!-- //TODO: update touchPoint.value -->
-      <button class="input"><span> {Ui.toStringFormat(touchPoint.value)}&nbsp;%</span></button>
+      <button
+        class="input"
+        on:click={() => {
+          manualInput = true;
+        }}><span> {Ui.toStringFormat(touchPoint.value)}&nbsp;%</span></button
+      >
     {/if}
   </div>
   <Modal title={touchPoint.displayName} {displayModal}>{touchPoint.description}</Modal>
@@ -106,7 +125,7 @@
   }
 
   span {
-    font-size: clamp(var(--font-size-xs), var(--font-size-weight) * 100vw, var(--font-size-m));
+    font-size: clamp(var(--ra-fs-xs), var(--ra-fs-weight) * 100vw, var(--ra-fs-m));
   }
 
   .left,

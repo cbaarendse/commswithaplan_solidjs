@@ -17,7 +17,7 @@
   export let totalReach: number;
   export let locus: number;
   export let allTouchPointsValueIsZero: boolean;
-  export let sortingByName: boolean;
+  export let sortedByName: boolean;
   export let showAll: boolean;
 </script>
 
@@ -26,7 +26,7 @@
     >{#if allTouchPointsValueIsZero}<b>v</b> {:else}0{/if}</button
   >
   <button type="button" on:click={() => dispatch('sort')}
-    >{#if sortingByName}<b>1-9</b>{:else}<b>9-1</b>{/if}</button
+    >{#if sortedByName}<b>9-1</b>{:else}<b>A-Z</b>{/if}</button
   >
   <button type="button" on:click={() => dispatch('hide')}
     >{#if showAll}<b>-</b>{:else}<b>=</b>{/if}</button
