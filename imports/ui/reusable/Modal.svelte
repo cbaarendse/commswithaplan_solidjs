@@ -5,12 +5,12 @@
 
   // variables
   export let title: string;
-  export let displayModal: string = 'none';
+  export let display: string = 'none';
 
   // functions
 </script>
 
-<div class="modal-container" style="display:{displayModal}" transition:fade={{delay: 0, duration: 400}}>
+<div class="modal-container" style="display:{display}" transition:fade={{delay: 0, duration: 400}}>
   <div class="modal">
     <div class="modal-button">
       <Button
@@ -18,7 +18,7 @@
           color: 'transparentnoborder',
           size: 'xl',
           type: 'button',
-          onClick: () => (displayModal = 'none')
+          onClick: () => (display = 'none')
         }}
       >
         <span aria-hidden="true">&times;</span>

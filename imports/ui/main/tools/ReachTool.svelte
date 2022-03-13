@@ -11,7 +11,7 @@
   import {Unsubscriber} from 'svelte/store';
   import {Reach} from '../../types/classes';
   import {touchPointsBasics, language} from '../../stores/stores';
-  import type {TouchPointInPlan} from '../../types/interfaces';
+  import type {TouchPointInP../../types/types/interfaces';
 
   // variables
   let touchPointsInPlan: TouchPointInPlan[] = Reach.setTouchPointsForPlan($touchPointsBasics, $language);

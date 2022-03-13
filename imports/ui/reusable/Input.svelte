@@ -1,6 +1,8 @@
 <script lang="ts">
+  // imports
+  // types
+  import 
   // variables
-  export let size: string = 'normal'; // or small, large, xlarge
   export let type: string;
   export let value: string;
   export let placeholder: string;
@@ -9,7 +11,7 @@
   export let readonly: boolean = false;
 </script>
 
-<input class={size} {type} {value} {placeholder} {name} {id} {readonly} />
+<input class={type} {value} {placeholder} {name} {id} {readonly} />
 
 <style>
   input {

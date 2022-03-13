@@ -1,7 +1,6 @@
 <script lang="ts">
   // types
-  import type {Card} from '../types/interfaces';
-  //variables
+  import type {Card} from '../types/in../types/typesables
   import {colorsScheme} from '../stores/stores';
   // functions
   import {cssVariables} from '/imports/both/functions';

@@ -1,25 +1,23 @@
 <script lang="ts">
-  // stores
-  import {sizesScheme, colorsScheme} from '../stores/stores';
-  // interfaces
-  import type {Button} from '../types/interfaces';
-
-  // functions
-  import {cssVariables} from '/imports/both/functions';
+  // types
+  import type {Button} from '../types/types';
 
   // variables
+  import {cssVariables} from '/imports/both/functions';
   export let btn: Button;
 
   // css
   const setCssButton = function (element: HTMLElement) {
-    element.style.setProperty('background-color', `${$colorsScheme[btn.color].base}`);
-    element.style.setProperty('color', `${$colorsScheme[btn.color].text}`);
-    element.style.setProperty('border', `${['1px', 'solid', `${$colorsScheme[btn.color].border}`].join(' ')}`);
-    element.style.setProperty('font-size', `${$sizesScheme[btn.size].font_size}`);
-    element.style.setProperty('padding', `${$sizesScheme[btn.size].padding}`);
-    element.style.setProperty('width', `${$sizesScheme[btn.size].width}`);
-    element.style.setProperty('height', `${$sizesScheme[btn.size].height}`);
-    element.style.setProperty('min-width', `${$sizesScheme[btn.size].min_width}`);
+    element.style.setProperty('background-color', `${btn.backgroundColor}`);
+    element.style.setProperty('color', `${btn.textColor}`);
+    element.style.setProperty('border-width', `${btn.borderWidth}`);
+    element.style.setProperty('border-style', `${btn.borderStyle}`);
+    element.style.setProperty('border-color', `${btn.borderColor}`);
+    element.style.setProperty('font-size', `${btn.fontSize}`);
+    element.style.setProperty('padding', `${btn.padding}`);
+    element.style.setProperty('width', `${btn.width}`);
+    element.style.setProperty('height', `${btn.height}`);
+    element.style.setProperty('min-width', `${btn.minWidth}`);
   };
 </script>
 

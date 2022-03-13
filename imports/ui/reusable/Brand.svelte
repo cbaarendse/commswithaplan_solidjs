@@ -2,9 +2,7 @@
   // stores
 
   // types
-  import type {Brand} from '../types/interfaces';
-
-  // functions
+  import type {Brand} from '../types../types/types functions
   import {cssVariables} from '/imports/both/functions';
 
   // variables

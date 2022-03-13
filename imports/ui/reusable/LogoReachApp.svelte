@@ -4,8 +4,7 @@
   // functions
   import {cssVariables} from '/imports/both/functions';
   // variables
-  import type {Logo} from '/imports/ui/types/interfaces';
-  export let logo: Logo;
+  import type {Logo} from '/imp../types/types export let logo: Logo;
 
   const setCssDivLogo = function (element: HTMLElement) {
     element.style.setProperty('font-size', `${logo.fontSize}`);

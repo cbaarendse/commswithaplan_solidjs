@@ -2,7 +2,7 @@
 import dayjs from 'dayjs';
 
 // interfaces
-import type {Content, TouchPointBasics, TouchPointInPlan, Translation} from './interfaces';
+import type {Content, TouchPointBasics, TouchPointInPlan, Translation} from './types';
 
 // Reach
 export class Reach {

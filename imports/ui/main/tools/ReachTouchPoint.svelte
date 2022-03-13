@@ -3,16 +3,17 @@
   import {createEventDispatcher} from 'svelte';
   import Slider from '../../reusable/Slider.svelte';
   import Modal from '../../reusable/Modal.svelte';
+  import Input from '../../reusable/Input.svelte';
   import {Ui} from '../../types/classes';
-  import type {Display, TouchPointInPlan} from '../../types/interfaces';
+  import type {TouchPointInPlan} from '.../../types/types;
   import {language, translations} from '../../stores/stores';
   //import {notify} from '../../notifications/NotificationsFunctions';
 
   // variables
   export let touchPoint: TouchPointInPlan;
   let inputPlaceholder: string | null | undefined = Ui.translate('input', $translations, $language);
-  let manualInput: boolean = false;
-  let displayModal: Display;
+  let displayManualInput: string = 'none';
+  let displayDescription: string = 'none';
   let hovered: boolean = false;
   let dispatch = createEventDispatcher();
   let inputValue: number;
@@ -28,8 +29,9 @@
   <div class="left">
     <button
       class="touchpoint"
-      on:click|preventDefault={() => {
-        displayModal = 'flex';
+      on:click|preventDefault|stopPropagation={() => {
+        displayDescription = 'flex';
+        displayManualInput = 'none';
       }}
       on:mouseenter={() => (hovered = true)}
       on:mouseleave={() => (hovered = false)}
@@ -55,28 +57,28 @@
     <!-- TODO: finalize manual input: change back to button when clicking outside -->
     <!-- TODO: Input in modal? (Better for mobile) -->
     <!-- TODO: three buttons under input submit, reset and cancel -->
-    {#if manualInput}
-      <form class="touchpoint-input-form" on:submit={submitValue}>
-        <div class="form-group">
-          <input
-            type="text"
-            class="touchpoint-input"
-            placeholder={inputPlaceholder}
-            bind:value={inputValue}
-            aria-describedby="sizing-addon2"
-          />
-        </div>
-      </form>
-    {:else}
-      <button
-        class="input"
-        on:click={() => {
-          manualInput = true;
-        }}><span> {Ui.toStringFormat(touchPoint.value)}&nbsp;%</span></button
-      >
-    {/if}
+    <button
+      class="input"
+      on:click={() => {
+        displayManualInput = 'flex';
+        displayDescription = 'none';
+      }}><span> {Ui.toStringFormat(touchPoint.value)}&nbsp;%</span></button
+    >
   </div>
-  <Modal title={touchPoint.displayName} {displayModal}>{touchPoint.description}</Modal>
+  <Modal title={touchPoint.displayName} display={displayDescription}>{touchPoint.description}</Modal>
+  <Modal title={touchPoint.displayName} display={displayManualInput}>
+    <form class="touchpoint-input-form" on:submit={submitValue}>
+      <div class="form-group">
+        <input
+          type="text"
+          class="touchpoint-input"
+          placeholder={inputPlaceholder}
+          bind:value={inputValue}
+          aria-describedby="sizing-addon2"
+        />
+      </div>
+    </form></Modal
+  >
 </div>
 
 <style>
