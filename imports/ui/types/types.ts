@@ -1,11 +1,35 @@
 // types
-type Name = {name: string};
-type Days = {days: number};
-type Monday = {monday: string};
 type ClassName = {className: string | undefined | null};
-type Type = 'submit' | 'reset' | 'button';
-type Role = 'button';
-type Disabled = boolean | null | undefined;
+type ButtonType = {type: 'submit' | 'reset' | 'button'};
+type InputType = {
+  type:
+    | 'button'
+    | 'checkbox'
+    | 'color'
+    | 'date'
+    | 'datetime-local'
+    | 'email'
+    | 'file'
+    | 'hidden'
+    | 'image'
+    | 'month'
+    | 'number'
+    | 'password'
+    | 'radio'
+    | 'range'
+    | 'reset'
+    | 'search'
+    | 'submit'
+    | 'tel'
+    | 'text'
+    | 'time'
+    | 'url'
+    | 'week';
+};
+type Placeholder = {placeholder: string | null | undefined};
+type InputValue = {value: number};
+type Role = {role: 'button'};
+type Disabled = {disabled: boolean | null | undefined};
 type Color = {
   [index: string]: string;
 };
@@ -26,8 +50,8 @@ export type CssSizes = {
   padding?: string;
   paddingInline?: string;
   paddingBlock?: string;
-  marginInline: string;
-  marginBlock: string;
+  marginInline?: string;
+  marginBlock?: string;
   width?: string;
   height?: string;
   minWidth?: string;
@@ -63,33 +87,49 @@ export type Translation = {name: string; language: string; displayName: string};
 export type TouchPointBasics = {name: string; language: string; displayName: string; description: string};
 export type TouchPointInPlan = TouchPointBasics & {value: number; display: 'none' | 'grid'};
 
-export interface Year extends Name, Days {}
-export interface Month extends Name, Days {}
-export interface Week extends Name, Days, Monday {}
+export type Year = {name: string; days: number};
+export type Month = {name: string; days: number};
+export type Week = {name: string; days: number; monday: string};
 
 // components
-export type Card = {title?: string; color: Color; imgFile?: string; link?: string; action?: string};
+export type Card = {title?: string; imgFile?: string; link?: string; action?: string} & CssColors;
 export type SelectItem = {name: string; index: string};
 export type Accordion = Visible;
-export type Button =
-  | {
-      id?: string;
-      value?: string;
-      onMouseenter?: () => void;
-      onMousleave?: () => void;
-      onClick?: () => void;
-      dataDismiss?: string;
-      ariaLabel?: string;
-    }
-  | ClassName
-  | Type
-  | Role
-  | Disabled
-  | Css;
+export type Button = ClassName &
+  ButtonType &
+  Role &
+  Disabled &
+  Css & {
+    id?: string;
+    value?: string;
+    onMouseenter?: () => void;
+    onMousleave?: () => void;
+    onClick?: () => void;
+    dataDismiss?: string;
+    ariaLabel?: string;
+  };
 
-export type Brand = {title: string} & ClassName & Css;
+export type Input = ClassName &
+  Partial<InputType> &
+  InputValue &
+  Placeholder & {
+    id: string;
+    name: string;
+    value: number | string;
+    readonly: boolean;
+  };
+
+export type Brand = {title: string} & Partial<ClassName> & Css;
 export interface Logo extends Css, Colored {}
-export type Slider = {name: string; displayName: string};
+export type Slider = Partial<InputType> &
+  InputValue & {
+    id: string;
+    name: string;
+    displayName: string;
+    step: number;
+    min: number;
+    max: number;
+  };
 
 // building types
 type CWAPColor = {color: 'blue' | 'green' | 'red' | 'teal' | 'grey' | 'transparent' | 'transparentnoborder'};

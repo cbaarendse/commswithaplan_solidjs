@@ -3,7 +3,7 @@
   import Main from './layout/Main.svelte';
   import Section from './layout/Section.svelte';
   import Header from './layout/Header.svelte';
-  import LogoReachApp from '../../reusable/LogoReachApp.svelte';
+  import LogoReach from '../../reusable/LogoReach.svelte';
   import Brand from '../../reusable/Brand.svelte';
   import ReachControlsOutput from './ReachControlsOutput.svelte';
   import ReachTouchPoint from './ReachTouchPoint.svelte';
@@ -11,7 +11,7 @@
   import {Unsubscriber} from 'svelte/store';
   import {Reach} from '../../types/classes';
   import {touchPointsBasics, language} from '../../stores/stores';
-  import type {TouchPointInP../../types/types/interfaces';
+  import type {TouchPointInPlan} from '../../types/types';
 
   // variables
   let touchPointsInPlan: TouchPointInPlan[] = Reach.setTouchPointsForPlan($touchPointsBasics, $language);
@@ -42,6 +42,11 @@
   }
 
   function handleInput(event: CustomEvent): void {
+    changeReachForTouchPoint(event);
+    getResults();
+  }
+
+  function handleSubmit(event: CustomEvent): void {
     changeReachForTouchPoint(event);
     getResults();
   }
@@ -103,7 +108,7 @@
             fontSize: 'var(--ra-fs-2xl)',
             title: `Reach - ${$language === 'dutch' ? 'Bereik' : 'Reach'}`
           }}
-          ><LogoReachApp
+          ><LogoReach
             logo={{fontSize: 'var(--ra-fs-5xl)', width: 'var(--ra-5xl)', height: 'var(--ra-5xl)', colored: true}}
           /></Brand
         >
@@ -122,7 +127,12 @@
       />
       <div class="touchpoints__flex">
         {#each touchPointsInPlan as touchPoint}
-          <ReachTouchPoint {touchPoint} on:changeValueForName={handleChange} on:inputValueForName={handleInput} />
+          <ReachTouchPoint
+            {touchPoint}
+            on:changeValueForName={handleChange}
+            on:inputValueForName={handleInput}
+            on:submitValueForName={handleSubmit}
+          />
         {/each}
       </div>
     </div>

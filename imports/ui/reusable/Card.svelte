@@ -1,25 +1,25 @@
 <script lang="ts">
   // types
-  import type {Card} from '../types/in../types/typesables
-  import {colorsScheme} from '../stores/stores';
+  import type {Card} from '../types/types';
+
   // functions
   import {cssVariables} from '/imports/both/functions';
 
   export let card: Card;
 
   const setCssArticle_Card = function (element: HTMLElement) {
-    element.style.setProperty('background-color', `${$colorsScheme[card.color].offWhite}`);
-    element.style.setProperty('color', `${$colorsScheme[card.color].base}`);
+    element.style.setProperty('background-color', `${card.backgroundColor}`);
+    element.style.setProperty('color', `${card.textColor}`);
   };
   const setCssDiv_Card_Title = function (element: HTMLElement) {
-    element.style.setProperty('color', `${$colorsScheme[card.color].base}`);
+    element.style.setProperty('color', `${card.textColor}`);
   };
   const setCssDiv_Card_Footer = function (element: HTMLElement) {
-    element.style.setProperty('background-color', `${$colorsScheme[card.color].offWhite}`);
-    element.style.setProperty('color', `${$colorsScheme[card.color].light}`);
+    element.style.setProperty('background-color', `${card.backgroundColor}`);
+    element.style.setProperty('color', `${card.textColor}`);
   };
   const setCssCard_Link = function (element: HTMLElement) {
-    element.style.setProperty('color', `${$colorsScheme[card.color].light}`);
+    element.style.setProperty('color', `${card.textColor}`);
   };
 </script>
 

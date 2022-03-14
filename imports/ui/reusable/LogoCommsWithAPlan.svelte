@@ -2,7 +2,8 @@
   // functions
   import {cssVariables} from '/imports/both/functions';
   // variables
-  import type {Logo} from '/import../types/typesport let logo: Logo;
+  import type {Logo} from '../types/types';
+  export let logo: Logo;
 
   const setCssDiv = function (element: HTMLElement) {
     element.style.setProperty(

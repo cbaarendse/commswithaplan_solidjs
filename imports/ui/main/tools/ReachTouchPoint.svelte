@@ -1,26 +1,19 @@
 <script lang="ts">
   // imports
-  import {createEventDispatcher} from 'svelte';
   import Slider from '../../reusable/Slider.svelte';
   import Modal from '../../reusable/Modal.svelte';
   import Input from '../../reusable/Input.svelte';
   import {Ui} from '../../types/classes';
-  import type {TouchPointInPlan} from '.../../types/types;
+  import type {TouchPointInPlan} from '../../types/types';
   import {language, translations} from '../../stores/stores';
   //import {notify} from '../../notifications/NotificationsFunctions';
 
   // variables
   export let touchPoint: TouchPointInPlan;
-  let inputPlaceholder: string | null | undefined = Ui.translate('input', $translations, $language);
-  let displayManualInput: string = 'none';
-  let displayDescription: string = 'none';
-  let hovered: boolean = false;
-  let dispatch = createEventDispatcher();
-  let inputValue: number;
 
-  function submitValue() {
-    dispatch('inputValueForName', {value: inputValue, name: touchPoint.name});
-  }
+  let displayManualInput: 'none' | 'flex' = 'none';
+  let displayDescription: 'none' | 'flex' = 'none';
+  let hovered: boolean = false;
 
   // functions
 </script>
@@ -41,13 +34,15 @@
   <div class="center">
     <fieldset>
       <Slider
-        bind:value={touchPoint.value}
-        displayName={touchPoint.displayName}
-        name={touchPoint.name}
-        id={touchPoint.name}
-        min={0}
-        max={100}
-        step={1}
+        slider={{
+          displayName: touchPoint.displayName,
+          name: touchPoint.name,
+          id: touchPoint.name,
+          value: touchPoint.value,
+          min: 0,
+          max: 100,
+          step: 1
+        }}
         on:changeValueForName
         on:inputValueForName
       />
@@ -55,7 +50,6 @@
   </div>
   <div class="right">
     <!-- TODO: finalize manual input: change back to button when clicking outside -->
-    <!-- TODO: Input in modal? (Better for mobile) -->
     <!-- TODO: three buttons under input submit, reset and cancel -->
     <button
       class="input"
@@ -67,18 +61,17 @@
   </div>
   <Modal title={touchPoint.displayName} display={displayDescription}>{touchPoint.description}</Modal>
   <Modal title={touchPoint.displayName} display={displayManualInput}>
-    <form class="touchpoint-input-form" on:submit={submitValue}>
-      <div class="form-group">
-        <input
-          type="text"
-          class="touchpoint-input"
-          placeholder={inputPlaceholder}
-          bind:value={inputValue}
-          aria-describedby="sizing-addon2"
-        />
-      </div>
-    </form></Modal
-  >
+    <Input
+      input={{
+        id: touchPoint.name,
+        name: touchPoint.name,
+        value: touchPoint.value,
+        className: 'touchpoint__input',
+        placeholder: Ui.translate('input', $translations, $language),
+        readonly: false
+      }}
+    />
+  </Modal>
 </div>
 
 <style>

@@ -22,6 +22,7 @@
 </script>
 
 <button
+  class={btn.className}
   type={btn.type}
   role={btn.role}
   disabled={btn.disabled}

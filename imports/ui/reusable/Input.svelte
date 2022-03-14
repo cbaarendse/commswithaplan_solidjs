@@ -1,37 +1,39 @@
 <script lang="ts">
   // imports
-  // types
-  import 
+  import {createEventDispatcher} from 'svelte';
+  import type {Input} from '../types/types';
+
   // variables
-  export let type: string;
-  export let value: string;
-  export let placeholder: string;
-  export let name: string;
-  export let id: string;
-  export let readonly: boolean = false;
+  export let input: Input;
+  let dispatch = createEventDispatcher();
+
+  // functions
+  function submitValue() {
+    dispatch('submitValueForName', {name: input.name, value: input.value});
+  }
 </script>
 
-<input class={type} {value} {placeholder} {name} {id} {readonly} />
+<form on:submit={submitValue}>
+  <div>
+    <input
+      class={input.className}
+      name={input.name}
+      id={input.id}
+      type="text"
+      placeholder={input.placeholder}
+      readonly={input.readonly}
+      bind:value={input.value}
+    />
+  </div>
+</form>
 
 <style>
   input {
     width: 100%;
+    height: var(--ra-m);
     margin: 7px;
     border: 1px solid var(--ra-grey);
     border-radius: 4px;
     background-color: --ra-grey-bright;
-  }
-
-  .small {
-    height: 0.5rem;
-  }
-  .normal {
-    height: 1rem;
-  }
-  .large {
-    height: 1.5rem;
-  }
-  .xlarge {
-    height: 2rem;
   }
 </style>

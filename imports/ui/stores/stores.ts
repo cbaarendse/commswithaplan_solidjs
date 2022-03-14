@@ -1157,6 +1157,8 @@ export const translations: Readable<Translation[]> = readable(
     {name: 'show', language: 'dutch', displayName: 'TOON'},
     {name: 'input', language: 'english', displayName: 'Input'},
     {name: 'input', language: 'dutch', displayName: 'Input'},
+    {name: 'precisionInputFor', language: 'dutch', displayName: 'Precisie invoer voor '},
+    {name: 'precisionInputFor', language: 'english', displayName: 'Precision input for '},
     {name: 'reach', language: 'english', displayName: 'Reach'},
     {name: 'reach', language: 'dutch', displayName: 'Bereik'},
     {name: 'total', language: 'english', displayName: 'Total'},
