@@ -102,9 +102,6 @@ export type Button = ClassName &
   Css & {
     id?: string;
     value?: string;
-    onMouseenter?: () => void;
-    onMousleave?: () => void;
-    onClick?: () => void;
     dataDismiss?: string;
     ariaLabel?: string;
   };
@@ -113,8 +110,9 @@ export type Input = ClassName &
   Partial<InputType> &
   InputValue &
   Placeholder & {
-    id: string;
+    displayName?: string;
     name: string;
+    id: string;
     value: number | string;
     readonly: boolean;
   };
@@ -123,9 +121,9 @@ export type Brand = {title: string} & Partial<ClassName> & Css;
 export interface Logo extends Css, Colored {}
 export type Slider = Partial<InputType> &
   InputValue & {
-    id: string;
+    displayName?: string;
     name: string;
-    displayName: string;
+    id: string;
     step: number;
     min: number;
     max: number;

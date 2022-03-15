@@ -20,6 +20,8 @@
   $: allTouchPointsValueIsZero = Reach.areAllTouchPointsValueZero(touchPointsInPlan);
   let sortedByName: boolean = true;
   $: showAll = Reach.isShowAll(touchPointsInPlan);
+  let displayManualInput: 'none' | 'flex';
+  let displayDescription: 'none' | 'flex';
 
   // init
   onMount(() => (touchPointsInPlan = Reach.sortByName(touchPointsInPlan)));
@@ -47,8 +49,10 @@
   }
 
   function handleSubmit(event: CustomEvent): void {
+    console.log('*********** event in handleSubmit:', event);
     changeReachForTouchPoint(event);
     getResults();
+    displayManualInput = 'none';
   }
 
   function reset(): void {
@@ -129,6 +133,8 @@
         {#each touchPointsInPlan as touchPoint}
           <ReachTouchPoint
             {touchPoint}
+            {displayDescription}
+            {displayManualInput}
             on:changeValueForName={handleChange}
             on:inputValueForName={handleInput}
             on:submitValueForName={handleSubmit}

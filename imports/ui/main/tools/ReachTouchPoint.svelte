@@ -11,8 +11,8 @@
   // variables
   export let touchPoint: TouchPointInPlan;
 
-  let displayManualInput: 'none' | 'flex' = 'none';
-  let displayDescription: 'none' | 'flex' = 'none';
+  export let displayManualInput: 'none' | 'flex' = 'none';
+  export let displayDescription: 'none' | 'flex' = 'none';
   let hovered: boolean = false;
 
   // functions
@@ -63,13 +63,17 @@
   <Modal title={touchPoint.displayName} display={displayManualInput}>
     <Input
       input={{
-        id: touchPoint.name,
+        displayName: touchPoint.displayName,
         name: touchPoint.name,
+        id: touchPoint.name,
+
         value: touchPoint.value,
-        className: 'touchpoint__input',
+        className: 'manual__input',
         placeholder: Ui.translate('input', $translations, $language),
         readonly: false
       }}
+      on:submitValueForName
+      on:submitCancel={() => (displayManualInput = 'none')}
     />
   </Modal>
 </div>
@@ -91,9 +95,9 @@
   }
 
   button.touchpoint {
-    height: 5em;
-    width: 5em;
-    padding: 0.5em;
+    height: var(--ra-7xl);
+    width: var(--ra-7xl);
+    padding: var(--ra-xxs);
     border-radius: 7%;
     border: none;
     background-repeat: no-repeat;
@@ -106,10 +110,10 @@
     border: 1px solid lightgray;
   }
   button.input {
-    height: 5em;
-    min-width: 5em;
+    height: var(--ra-7xl);
+    min-width: var(--ra-7xl);
     width: fit-content;
-    padding: 0.5em;
+    padding: var(--ra-xxs);
     border-radius: 50%;
     border: none;
     background-repeat: no-repeat;
@@ -127,5 +131,6 @@
   .right {
     display: flex;
     justify-content: center;
+    align-items: center;
   }
 </style>

@@ -1,10 +1,12 @@
 <script lang="ts">
   // types
   import type {Button} from '../types/types';
+  import {createEventDispatcher} from 'svelte';
 
   // variables
   import {cssVariables} from '/imports/both/functions';
   export let btn: Button;
+  let dispatch = createEventDispatcher();
 
   // css
   const setCssButton = function (element: HTMLElement) {
@@ -19,6 +21,17 @@
     element.style.setProperty('height', `${btn.height}`);
     element.style.setProperty('min-width', `${btn.minWidth}`);
   };
+
+  // functions
+  function clickedButton() {
+    dispatch('clickedButton');
+  }
+  function mouseEntered() {
+    dispatch('mouseEntered');
+  }
+  function mouseLeft() {
+    dispatch('mouseLeft');
+  }
 </script>
 
 <button
@@ -29,9 +42,9 @@
   data-dismiss={btn.dataDismiss}
   aria-label={btn.ariaLabel}
   value={btn.value}
-  on:click|preventDefault|stopPropagation={btn.onClick}
-  on:mouseenter|preventDefault|stopPropagation={btn.onMouseenter}
-  on:mouseleave|preventDefault|stopPropagation={btn.onMouseleave}
+  on:click|preventDefault|stopPropagation={clickedButton}
+  on:mouseenter|preventDefault|stopPropagation={mouseEntered}
+  on:mouseleave|preventDefault|stopPropagation={mouseLeft}
   use:cssVariables={setCssButton}
 >
   <slot />

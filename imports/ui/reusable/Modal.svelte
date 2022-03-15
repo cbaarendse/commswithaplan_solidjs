@@ -10,33 +10,39 @@
   // functions
 </script>
 
-<div class="modal-container" style="display:{display}" transition:fade={{delay: 0, duration: 400}}>
+<div class="modal__container" style="display:{display}" transition:fade={{delay: 0, duration: 400}}>
   <div class="modal">
-    <div class="modal-button">
+    <div class="modal__button__container">
       <Button
         btn={{
-          color: 'transparentnoborder',
-          size: 'xl',
+          className: '',
+          role: 'button',
+          backgroundColor: 'transparent',
+          borderWidth: '',
+          borderStyle: '',
+          borderColor: 'transparent',
+          fontSize: 'var(--ra-xl)',
           type: 'button',
-          onClick: () => (display = 'none')
+          disabled: false
         }}
+        on:clickedButton={() => (display = 'none')}
       >
         <span aria-hidden="true">&times;</span>
       </Button>
     </div>
-    <div class="modal-header">
-      <h4 class="modal-title">{title}</h4>
+    <div class="modal__header">
+      <h4 class="modal__title">{title}</h4>
     </div>
-    <div class="modal-body"><slot /></div>
+    <div class="modal__body"><slot /></div>
 
-    <div class="modal-footer">
+    <div class="modal__footer">
       <slot name="footer" />
     </div>
   </div>
 </div>
 
 <style>
-  div.modal-container {
+  .modal__container {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -48,31 +54,31 @@
     left: 0px;
     background-color: rgba(0, 0, 0, 0.6);
   }
-  div.modal {
+  .modal {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
+    align-items: center;
     width: 40%;
+    min-height: fit-content;
     margin: auto;
-    padding: 0 2em;
+    padding-inline: var(--ra-3xl);
     background-color: var(--ra-white);
     border-radius: 0.6em;
   }
-  div.modal-button {
+  .modal__button__container {
     display: flex;
     justify-content: flex-end;
     width: 100%;
   }
-  div.modal-header {
+  .modal__header {
     display: flex;
-    padding: 1em 2em;
+    justify-content: flex-start;
   }
-  div.modal-body {
+  div.modal__body {
     display: flex;
-    padding: 1em 2em;
   }
-  div.modal-footer {
+  div.modal__footer {
     display: flex;
-    padding: 1em 2em;
   }
 </style>
