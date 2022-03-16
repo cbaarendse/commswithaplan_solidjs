@@ -23,16 +23,15 @@
 
 <div class="header-content">
   <button type="button" on:click={() => dispatch('reset')}
-    >{#if allTouchPointsValueIsZero}<b>v</b> {:else}0{/if}</button
+    >{#if allTouchPointsValueIsZero}&#8676{:else}&#8617{/if}</button
   >
   <button type="button" on:click={() => dispatch('sort')}
-    >{#if sortedByName}<b>9-1</b>{:else}<b>A-Z</b>{/if}</button
+    >{#if sortedByName}&#8744{:else}&#8743{/if}</button
   >
   <button type="button" on:click={() => dispatch('hide')}
-    >{#if showAll}<b>-</b>{:else}<b>=</b>{/if}</button
+    >{#if showAll}&#8722{:else}&#8801{/if}</button
   >
-  <button type="button" on:click={() => dispatch('print')}><b>P</b></button>
-  <button type="button" on:click={() => dispatch('pdf')}><b>pdf</b></button>
+  <button type="button" on:click={() => dispatch('print')}>&#9636</button>
 
   <span class="reach-label"
     >{Ui.translate('total', $translations, $language)}&nbsp;{Ui.translate(
@@ -60,9 +59,8 @@
     grid-template-columns: repeat(auto-fit, minmax(3rem, 1fr));
     grid-auto-rows: 3rem;
     grid-template-areas:
-      'btn1 . . . '
-      'btn2 btn3 . . '
-      'btn4 btn5 . . '
+      'btn1 btn2 . . '
+      'btn3 btn4 . . '
       'rl rl rr rr'
       'll ll lr lr ';
     gap: 1.2rem;
@@ -72,12 +70,15 @@
   }
 
   button {
-    font-size: var(--font-size-m);
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 3rem;
     height: 3rem;
     border-radius: 50%;
     border: none;
     color: var(--ra-white);
+    font-size: var(--ra-fs-2xl);
     cursor: pointer;
   }
 
@@ -97,10 +98,7 @@
     grid-area: btn4;
     background-color: var(--ra-blue);
   }
-  .header-content > button:nth-of-type(5) {
-    grid-area: btn5;
-    background-color: var(--ra-blue);
-  }
+
   button:hover {
     opacity: 0.7;
   }
@@ -159,9 +157,9 @@
   @media screen and (min-width: 414px) {
     .header-content {
       grid-template-areas:
-        'btn1 btn2 btn3 btn4 btn5 . .'
-        'rl rl rr rm rm rm .'
-        'll ll lr lm lm lm .';
+        'btn1 btn2 btn3 btn4 . .'
+        'rl rl rr rm rm rm'
+        'll ll lr lm lm lm';
     }
     .meter,
     .meter > span {
@@ -172,16 +170,16 @@
   @media screen and (min-width: 768px) {
     .header-content {
       grid-template-areas:
-        'btn1 btn2 btn3 btn4 btn5 . . .'
-        'rl rl rr rm rm rm  rm .'
-        'll ll lr lm lm lm  lm .';
+        'btn1 btn2 btn3 btn4 . . .'
+        'rl rl rr rm rm rm  rm'
+        'll ll lr lm lm lm  lm';
     }
   }
 
   @media screen and (min-width: 1024px) {
     .header-content {
       grid-template-areas:
-        ' . .  btn1 btn2 btn3 btn4 btn5'
+        ' . . . btn1 btn2 btn3 btn4'
         'rl rl rr rm rm rm ll ll lr lm lm lm';
     }
   }

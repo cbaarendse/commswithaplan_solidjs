@@ -3,7 +3,6 @@
   import {createEventDispatcher} from 'svelte';
   import type {Input} from '../types/types';
   import {language} from '../stores/stores';
-  import {CssVariables} from '../../both/functions';
 
   // variables
   export let input: Input;
@@ -24,8 +23,10 @@
     class="{`input__field ${input.className}`};"
     name={input.name}
     id={input.id}
-    type="text"
+    type="number"
     placeholder={input.placeholder}
+    min={input.min}
+    max={input.max}
     readonly={input.readonly}
     bind:value={input.value}
   />
@@ -33,6 +34,7 @@
     class="submit__button"
     type="submit"
     value={$language === 'dutch' ? 'Verstuur' : 'Submit'}
+    disabled={input.value < input.min || input.value > input.max}
     on:click|preventDefault|stopPropagation={submitValue}
   />
   <input
@@ -63,20 +65,29 @@
     border: 1px solid var(--ra-grey);
     border-radius: 0.2em;
     background-color: var(--ra-blue-off-white);
+    padding: var(--ra-xs);
     min-height: var(--ra-3xl);
+    font-size: var(--ra-fs-l);
   }
   .submit__button {
     grid-area: submit;
     background-color: var(--ra-blue);
     color: var(--ra-white);
     border: none;
+    padding: var(--ra-xs);
     min-height: var(--ra-3xl);
+    font-size: var(--ra-fs-m);
+  }
+  .submit__button:disabled {
+    background-color: var(--ra-grey-light);
   }
   .cancel__button {
     grid-area: cancel;
     background-color: var(--ra-red);
     color: var(--ra-white);
     border: none;
+    padding: var(--ra-xs);
     min-height: var(--ra-3xl);
+    font-size: var(--ra-fs-m);
   }
 </style>

@@ -66,13 +66,15 @@
         displayName: touchPoint.displayName,
         name: touchPoint.name,
         id: touchPoint.name,
-
         value: touchPoint.value,
+        min: 0,
+        max: 100,
         className: 'manual__input',
         placeholder: Ui.translate('input', $translations, $language),
         readonly: false
       }}
       on:submitValueForName
+      on:submitValueForName={() => (displayManualInput = 'none')}
       on:submitCancel={() => (displayManualInput = 'none')}
     />
   </Modal>

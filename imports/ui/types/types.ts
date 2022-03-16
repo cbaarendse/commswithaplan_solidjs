@@ -114,6 +114,8 @@ export type Input = ClassName &
     name: string;
     id: string;
     value: number | string;
+    min: number;
+    max: number;
     readonly: boolean;
   };
 

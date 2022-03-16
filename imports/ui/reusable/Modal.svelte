@@ -50,6 +50,7 @@
     width: 100%;
     height: 100%;
     position: absolute;
+    z-index: 100;
     top: 0px;
     left: 0px;
     background-color: rgba(0, 0, 0, 0.6);
@@ -62,7 +63,7 @@
     width: 40%;
     min-height: fit-content;
     margin: auto;
-    padding-inline: var(--ra-3xl);
+    padding: 0 0 var(--ra-3xl) 0;
     background-color: var(--ra-white);
     border-radius: 0.6em;
   }
@@ -70,10 +71,12 @@
     display: flex;
     justify-content: flex-end;
     width: 100%;
+    padding: 0 var(--ra-xl);
   }
   .modal__header {
     display: flex;
     justify-content: flex-start;
+    padding: var(--ra-m) 0;
   }
   div.modal__body {
     display: flex;

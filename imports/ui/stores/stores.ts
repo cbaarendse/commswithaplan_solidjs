@@ -666,8 +666,9 @@ export const toolsDocumentationChapters: Readable<ToolsDocsChapter[]> = readable
       paragraphs: [
         {
           displayName: 'Resultaat',
-          description: 'Deze zone toont het ingeschatte resultaat van je campagne.',
-          elaboration: 'Dus dit toont alleen de mediumtypes die je inzet in je plan.'
+          description:
+            'Deze zone toont het ingeschatte resultaat van je campagne. Als Totaal Bereik en Locus (overlap).',
+          elaboration: 'Klik op de labels voor de betekenis van beiden.'
         }
       ]
     },
@@ -678,14 +679,10 @@ export const toolsDocumentationChapters: Readable<ToolsDocsChapter[]> = readable
       displayName: 'Output',
       paragraphs: [
         {
-          displayName: 'Hide',
-          description: 'The 1st time you press this button, you hide all the medium types with input 0.',
-          elaboration: 'So it shows only the medium types you engage in your plan.'
-        },
-        {
-          displayName: 'Show',
-          description: 'The 2nd time you press this button, you reveal the medium types with input 0 again',
-          elaboration: ''
+          displayName: 'Print',
+          description: 'This button brings up the print dialog of your browser. Most browsers and versions have this.',
+          elaboration:
+            'If you want to save your plan as a document, for instance PDF, usually you can use the same dialog.'
         }
       ]
     },
@@ -696,14 +693,10 @@ export const toolsDocumentationChapters: Readable<ToolsDocsChapter[]> = readable
       displayName: 'Uitvoer',
       paragraphs: [
         {
-          displayName: 'Verberg',
-          description: 'De eerste keer dat je op deze knop drukt, verberg je de mediumtypes met input 0.',
-          elaboration: 'Dus dit toont alleen de mediumtypes die je inzet in je plan.'
-        },
-        {
-          displayName: 'Toon',
-          description: 'De 2e keer dat je op deze knop drukt, laat je de mediumtypes met input 0 weer zien.',
-          elaboration: ''
+          displayName: 'Print',
+          description: 'Deze knop roept de print dialoog van je browser op. De meeste browsers en versies hebben dit.',
+          elaboration:
+            'Als je je plan als document, bijvoorbeeld PDF, wil bewaren, dan kan dat normaliter door middel van dezelfde dialoog.'
         }
       ]
     },
@@ -714,13 +707,8 @@ export const toolsDocumentationChapters: Readable<ToolsDocsChapter[]> = readable
       displayName: 'Medium type',
       paragraphs: [
         {
-          displayName: 'Hide',
-          description: 'The 1st time you press this button, you hide all the medium types with input 0.',
-          elaboration: 'So it shows only the medium types you engage in your plan.'
-        },
-        {
-          displayName: 'Show',
-          description: 'The 2nd time you press this button, you reveal the medium types with input 0 again',
+          displayName: 'Definition',
+          description: "If you click the icon of a medium type, you'll get the relevant definition.",
           elaboration: ''
         }
       ]
@@ -733,12 +721,7 @@ export const toolsDocumentationChapters: Readable<ToolsDocsChapter[]> = readable
       paragraphs: [
         {
           displayName: 'Verberg',
-          description: 'De eerste keer dat je op deze knop drukt, verberg je de mediumtypes met input 0.',
-          elaboration: 'Dus dit toont alleen de mediumtypes die je inzet in je plan.'
-        },
-        {
-          displayName: 'Toon',
-          description: 'De 2e keer dat je op deze knop drukt, laat je de mediumtypes met input 0 weer zien.',
+          description: 'Klik op het icoon van een mediumtype, dan krijg je de relevante definitie.',
           elaboration: ''
         }
       ]
@@ -750,14 +733,15 @@ export const toolsDocumentationChapters: Readable<ToolsDocsChapter[]> = readable
       displayName: 'Precision input',
       paragraphs: [
         {
-          displayName: 'Hide',
-          description: 'The 1st time you press this button, you hide all the medium types with input 0.',
-          elaboration: 'So it shows only the medium types you engage in your plan.'
+          displayName: 'Call',
+          description:
+            'You can bring up a precision input field. Just click on the reach for a certain medium type, just right of the slider.',
+          elaboration: ''
         },
         {
-          displayName: 'Show',
-          description: 'The 2nd time you press this button, you reveal the medium types with input 0 again',
-          elaboration: ''
+          displayName: 'Use',
+          description: 'Fill in the reach for this medium type. And press submit (or cancel).',
+          elaboration: 'Keep it less than or equal to 100.'
         }
       ]
     },
@@ -768,14 +752,15 @@ export const toolsDocumentationChapters: Readable<ToolsDocsChapter[]> = readable
       displayName: 'Precieze invoer',
       paragraphs: [
         {
-          displayName: 'Verberg',
-          description: 'De eerste keer dat je op deze knop drukt, verberg je de mediumtypes met input 0.',
-          elaboration: 'Dus dit toont alleen de mediumtypes die je inzet in je plan.'
+          displayName: 'Oproepen',
+          description:
+            'Je kan een invoerveld oproepen. Klik op het bereik van een bepaald mediumtype, net rechts van de slider.',
+          elaboration: ''
         },
         {
-          displayName: 'Toon',
-          description: 'De 2e keer dat je op deze knop drukt, laat je de mediumtypes met input 0 weer zien.',
-          elaboration: ''
+          displayName: 'Gebruiken',
+          description: 'Vul het bereik in voor dit mediumtype. En klik op verstuur (of annuleer).',
+          elaboration: 'Houd het lager dan of gelijk aan 100.'
         }
       ]
     }
