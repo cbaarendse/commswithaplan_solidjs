@@ -60,10 +60,10 @@
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
-    width: 40%;
+    width: min(40%, fit-content);
     min-height: fit-content;
     margin: auto;
-    padding: 0 0 var(--ra-3xl) 0;
+    padding: var(--ra-3xl) var(--ra-m);
     background-color: var(--ra-white);
     border-radius: 0.6em;
   }
@@ -71,7 +71,6 @@
     display: flex;
     justify-content: flex-end;
     width: 100%;
-    padding: 0 var(--ra-xl);
   }
   .modal__header {
     display: flex;

@@ -7,13 +7,17 @@
   import {language, navigationVisible, useMediaQuery} from '../stores/stores';
 
   $: console.log('navigationVisible', $navigationVisible);
+  $: duration = 1000;
 
   // functions
-  useMediaQuery('(min-width: 760px)').subscribe((value: any): void => ($navigationVisible = value));
+  useMediaQuery('(min-width: 760px)').subscribe((value: any): void => {
+    $navigationVisible = value;
+    duration = 0;
+  });
 </script>
 
 {#if $navigationVisible == true}
-  <nav class="main-nav" transition:slide>
+  <nav class="main-nav" transition:slide={{duration}}>
     <ul class="nav-list">
       <li>
         <a href={'/'} use:active data-exact class="brand">
@@ -22,69 +26,67 @@
       </li>
       <li>
         <a href={'/consultancy/'} use:active>
-          <span class="blue">Consultancy</span>
+          <span class="blue">{$language === 'dutch' ? 'Consultancy' : 'Consultancy'}</span>
         </a>
       </li>
       <li>
         <a href={'/tools/'} use:active>
-          <span class="blue">Tools</span>
+          <span class="blue">{$language === 'dutch' ? 'Tools' : 'Tools'}</span>
         </a>
       </li>
     </ul>
   </nav>
   {#if $router.path === '/'}
-    <nav class="sub-nav" transition:slide>
+    <nav class="sub-nav" transition:slide={{duration}}>
       <ul class="nav-list">
         <li>
           <a href={'/'} use:active>
-            <span><b>home</b></span>
+            <span>Home</span>
           </a>
         </li>
       </ul>
     </nav>
   {:else if $router.path.startsWith('/consultancy')}
-    <nav class="sub-nav" transition:slide>
+    <nav class="sub-nav" transition:slide={{duration}}>
       <ul class="nav-list">
         <li>
           <a href={'/consultancy/'} use:active data-exact>
-            <span><b>Home</b></span>
+            <span>{$language === 'dutch' ? 'Home' : 'Home'}</span>
           </a>
         </li>
         <li>
           <a href={'/consultancy/work'} use:active>
-            <span>Work</span>
+            <span>{$language === 'dutch' ? 'Werk' : 'Work'}</span>
           </a>
         </li>
         <li>
           <a href={'/consultancy/about'} use:active>
-            <span>About</span>
+            <span>{$language === 'dutch' ? 'Over' : 'About'}</span>
           </a>
         </li>
         <li>
           <a href={'/consultancy/contact'} use:active>
-            <span>Contact</span>
+            <span>{$language === 'dutch' ? 'Contact' : 'Contact'}</span>
           </a>
         </li>
       </ul>
     </nav>
   {:else if $router.path.startsWith('/tools')}
-    <nav class="sub-nav" transition:slide>
+    <nav class="sub-nav" transition:slide={{duration}}>
       <ul class="nav-list">
         <li>
           <a href={'/tools/'} use:active data-exact>
-            <span><b>Home</b></span>
+            <span>{$language === 'dutch' ? 'Home' : 'Home'}</span>
           </a>
         </li>
         <li>
           <a href={'/tools/reach'} use:active>
-            <span>Reach</span>
+            <span>{$language === 'dutch' ? 'Bereik' : 'Reach'}</span>
           </a>
         </li>
         <li>
           <a href={'/tools/documentation'} use:active>
-            <span
-              >{#if $language == 'dutch'}Documentatie{:else}Documentation{/if}</span
-            >
+            <span>{$language === 'dutch' ? 'Documentatie' : 'Docs'}</span>
           </a>
         </li>
       </ul>

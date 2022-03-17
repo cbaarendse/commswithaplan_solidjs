@@ -29,7 +29,7 @@
       >
     </li>
     <li>
-      <div class="user"><b>U</b></div>
+      <div class="user">&#128100</div>
     </li>
   </ul>
 </div>

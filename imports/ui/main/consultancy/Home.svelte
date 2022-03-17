@@ -18,7 +18,7 @@
 
 <Main>
   <Section>
-    <div class="home__grid">
+    <div class="home__grid home__flex">
       <Header>
         <Brand
           brand={{
@@ -49,5 +49,8 @@
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 2rem;
     margin-block: 2rem;
+  }
+  :global(header) {
+    grid-column: 1 / -1;
   }
 </style>

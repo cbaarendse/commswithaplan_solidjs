@@ -31,10 +31,15 @@
 
 <Button
   btn={{
-    size: 'fit',
-    color: 'transparentnoborder',
-    onClick: toggleNavigation
+    className: 'navigation__toggle',
+    type: 'button',
+    role: 'button',
+    backgroundColor: 'transparent',
+    width: 'var(--ra-xl)',
+    height: 'var(--ra-xl)',
+    disabled: false
   }}
+  on:clickedButton={toggleNavigation}
 >
   <div class="bars">
     <div class="bar-1" style="top:{$top}%;transform:rotate({$topRotation}deg);" />
