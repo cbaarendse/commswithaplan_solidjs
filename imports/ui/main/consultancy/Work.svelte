@@ -20,16 +20,23 @@
 
 <Main>
   <Section>
-    <div class="work__grid">
+    <div class="work__flex">
       <Header>
         <Brand
           brand={{
-            color: 'green',
+            color: 'var(--ra-green)',
             fontSize: 'var(--ra-fs-2xl)',
             title: `Comms With A Plan - ${$language === 'dutch' ? 'Werk' : 'Work'}`
           }}
           ><LogoCommsWithAPlan
-            logo={{fontSize: 'var(--ra-fs-5xl)', width: 'var(--ra-5xl)', height: 'var(--ra-fxl)', colored: true}}
+            logo={{
+              fontSize: 'var(--ra-fs-5xl)',
+              width: 'var(--ra-5xl)',
+              height: 'var(--ra-fxl)',
+              minWidth: 'var(--ra-5xl)',
+              minHeight: 'var(--ra-fxl)',
+              colored: true
+            }}
           /></Brand
         >
       </Header>
@@ -52,16 +59,21 @@
 </Main>
 
 <style>
-  div.work__grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 2rem;
-    margin-block: 2rem;
-  }
-  p {
-    grid-column: 1 / -1;
+  .work__flex {
+    display: flex;
+    flex-wrap: wrap;
   }
 
-  @media screen and (min-width: 760px) {
+  :global(header) {
+    margin: 1rem;
+    flex: 0 1 100%;
+  }
+  p {
+    margin: 1rem;
+    flex: 0 1 100%;
+  }
+  :global(.card) {
+    margin: 1rem;
+    flex: 1 1 320px;
   }
 </style>

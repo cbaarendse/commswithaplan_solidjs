@@ -16,7 +16,7 @@
 
 <Main>
   <Section>
-    <div class="home__grid">
+    <div class="home__flex">
       <Header>
         <Brand
           brand={{
@@ -39,9 +39,18 @@
 </Main>
 
 <style>
-  .home__grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 2rem;
+  .home__flex {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  :global(header) {
+    margin: 1rem;
+    flex: 0 1 100%;
+  }
+
+  :global(.card) {
+    margin: 1rem;
+    flex: 1 1 320px;
   }
 </style>

@@ -140,6 +140,12 @@
     grid-template-columns: 1fr;
     gap: 2rem;
   }
+
+  :global(header) {
+    grid-column: 1 / -1;
+    margin: 0;
+  }
+
   .touchpoints__flex {
     display: flex;
     flex-direction: column;

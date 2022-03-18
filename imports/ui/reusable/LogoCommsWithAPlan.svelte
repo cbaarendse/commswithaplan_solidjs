@@ -16,6 +16,8 @@ ${logo.colored ? 'var(--ra-green)' : 'var(--ra-green-grayscale)'} 33% 67%, ${
     element.style.setProperty('font-size', `${logo.fontSize}`);
     element.style.setProperty('width', `${logo.width}`);
     element.style.setProperty('height', `${logo.height}`);
+    element.style.setProperty('min-width', `${logo.minWidth}`);
+    element.style.setProperty('min-height', `${logo.minHeight}`);
   };
 </script>
 

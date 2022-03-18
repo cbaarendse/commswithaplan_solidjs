@@ -59,7 +59,10 @@
     grid-auto-rows: auto;
     gap: 2rem;
   }
-
+  :global(header) {
+    grid-column: 1 / -1;
+    margin: 0;
+  }
   .chapters__flex {
     display: flex;
   }

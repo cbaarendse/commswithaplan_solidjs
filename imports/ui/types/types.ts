@@ -55,6 +55,7 @@ export type CssSizes = {
   width?: string;
   height?: string;
   minWidth?: string;
+  minHeight?: string;
   borderWidth?: string;
   borderStyle?: string;
   borderColor?: string;

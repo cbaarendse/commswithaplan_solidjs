@@ -16,16 +16,23 @@
 
 <Main>
   <Section>
-    <div class="contact__grid">
+    <div class="contact__flex">
       <Header>
         <Brand
           brand={{
-            color: 'blue',
+            color: 'var(--ra-blue)',
             fontSize: 'var(--ra-fs-2xl)',
             title: `Comms With A Plan - ${$language === 'dutch' ? 'Contact' : 'Contact'}`
           }}
           ><LogoCommsWithAPlan
-            logo={{fontSize: 'var(--ra-fs-5xl)', width: 'var(--ra-5xl)', height: 'var(--ra-5xl)', colored: true}}
+            logo={{
+              fontSize: 'var(--ra-fs-5xl)',
+              width: 'var(--ra-5xl)',
+              height: 'var(--ra-5xl)',
+              minWidth: 'var(--ra-5xl)',
+              minHeight: 'var(--ra-fxl)',
+              colored: true
+            }}
           />
         </Brand>
       </Header>
@@ -59,10 +66,17 @@
   span {
     color: var(--ra-red);
   }
-  .contact__grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 2rem;
-    margin-block: 2rem;
+  .contact__flex {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  :global(header) {
+    margin: 1rem;
+    flex: 0 1 100%;
+  }
+  :global(.card) {
+    margin: 1rem;
+    flex: 1 1 320px;
   }
 </style>

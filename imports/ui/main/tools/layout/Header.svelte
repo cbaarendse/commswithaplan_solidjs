@@ -7,7 +7,6 @@
 
 <style>
   header {
-    grid-column: 1 / -1;
     display: flex;
     flex-wrap: wrap;
     gap: 2rem;
