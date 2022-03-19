@@ -4,20 +4,22 @@
   import {router, active} from 'tinro';
 
   // variables
-  import {language, navigationVisible, useMediaQuery} from '../stores/stores';
+  import {language, isLargeScreen, navigationVisible, useMediaQuery} from '../stores/stores';
 
-  $: console.log('navigationVisible', $navigationVisible);
-  $: duration = 1000;
+  $: console.log('isLargeScreen', $isLargeScreen, 'navigationVisible', $navigationVisible);
 
   // functions
   useMediaQuery('(min-width: 760px)').subscribe((value: any): void => {
-    $navigationVisible = value;
-    duration = 0;
+    $isLargeScreen = value;
+  });
+
+  isLargeScreen.subscribe((large) => {
+    $navigationVisible = large === true ? true : false;
   });
 </script>
 
 {#if $navigationVisible == true}
-  <nav class="main-nav" transition:slide={{duration}}>
+  <nav class="main-nav" transition:slide={{duration: $isLargeScreen ? 0 : 300}}>
     <ul class="nav-list">
       <li>
         <a href={'/'} use:active data-exact class="brand">
@@ -37,7 +39,13 @@
     </ul>
   </nav>
   {#if $router.path === '/'}
-    <nav class="sub-nav" transition:slide={{duration}}>
+    <!-- TODO: of  in:slide={{duration: $navigationVisible ? 0 : 300}}
+  out:slide={{duration: !$isLargeScreen ? 300 : 0}} -->
+    <nav
+      class="sub-nav"
+      in:slide={{duration: $isLargeScreen ? 0 : 300}}
+      out:slide={{duration: !$isLargeScreen ? 300 : 0}}
+    >
       <ul class="nav-list">
         <li>
           <a href={'/'} use:active>
@@ -47,7 +55,11 @@
       </ul>
     </nav>
   {:else if $router.path.startsWith('/consultancy')}
-    <nav class="sub-nav" transition:slide={{duration}}>
+    <nav
+      class="sub-nav"
+      in:slide={{duration: $isLargeScreen ? 0 : 300}}
+      out:slide={{duration: !$isLargeScreen ? 300 : 0}}
+    >
       <ul class="nav-list">
         <li>
           <a href={'/consultancy/'} use:active data-exact>
@@ -72,7 +84,11 @@
       </ul>
     </nav>
   {:else if $router.path.startsWith('/tools')}
-    <nav class="sub-nav" transition:slide={{duration}}>
+    <nav
+      class="sub-nav"
+      in:slide={{duration: $isLargeScreen ? 0 : 300}}
+      out:slide={{duration: !$isLargeScreen ? 300 : 0}}
+    >
       <ul class="nav-list">
         <li>
           <a href={'/tools/'} use:active data-exact>

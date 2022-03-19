@@ -16,10 +16,6 @@
   let bottomRotation: Tweened<number> = tweened(0, {duration: 300, easing: cubicInOut});
 
   // functions
-  const toggleNavigation = () => {
-    $navigationVisible = $navigationVisible === false ? true : false;
-  };
-
   navigationVisible.subscribe((visible) => {
     $top = visible === true ? 42 : 10;
     $topRotation = visible === true ? 45 : 0;
@@ -39,7 +35,7 @@
     height: 'var(--ra-xl)',
     disabled: false
   }}
-  on:clickedButton={toggleNavigation}
+  on:clickedButton={() => ($navigationVisible = !$navigationVisible)}
 >
   <div class="bars">
     <div class="bar-1" style="top:{$top}%;transform:rotate({$topRotation}deg);" />

@@ -7,6 +7,8 @@ import type {HomeItem, Content, ToolsDocsChapter, TouchPointBasics, Translation}
 // stores
 export const language: Writable<string> = writable('dutch');
 
+export const isLargeScreen: Writable<boolean> = writable(true);
+
 export const navigationVisible: Writable<boolean> = writable(true);
 
 //export a function that return a readable given a string media query as input
