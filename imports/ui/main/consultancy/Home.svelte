@@ -56,11 +56,11 @@
     flex-wrap: wrap;
   }
 
-  :global(header) {
+  .home__flex :global(header) {
     margin: 1rem;
     flex: 0 1 100%;
   }
-  :global(.card) {
+  .home__flex :global(.card) {
     margin: 1rem;
     flex: 1 1 320px;
   }

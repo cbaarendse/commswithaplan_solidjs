@@ -19,7 +19,7 @@
         <Brand
           brand={{
             color: 'var(--ra-green)',
-            fontSize: 'var(--ra-fs-xl',
+            fontSize: 'var(--ra-fs-2xl)',
             title: `Comms With A Plan - ${$language === 'dutch' ? 'Over' : 'About'}`
           }}
           ><LogoCommsWithAPlan
@@ -58,11 +58,11 @@
     flex-wrap: wrap;
   }
 
-  :global(header) {
+  .about__flex :global(header) {
     margin: 1rem;
     flex: 0 1 100%;
   }
-  :global(.card) {
+  .about__flex :global(.card) {
     margin: 1rem;
     flex: 1 1 320px;
   }

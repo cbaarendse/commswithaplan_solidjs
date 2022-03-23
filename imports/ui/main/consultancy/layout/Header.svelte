@@ -6,7 +6,7 @@
   // variables
 </script>
 
-<header>
+<header class="consultancy__header">
   <slot />
 </header>
 

@@ -64,7 +64,8 @@
     flex-wrap: wrap;
   }
 
-  :global(header) {
+  /* TODO: margin necessary? */
+  .work__flex :global(header) {
     margin: 1rem;
     flex: 0 1 100%;
   }
@@ -72,7 +73,7 @@
     margin: 1rem;
     flex: 0 1 100%;
   }
-  :global(.card) {
+  .work__flex :global(.card) {
     margin: 1rem;
     flex: 1 1 320px;
   }

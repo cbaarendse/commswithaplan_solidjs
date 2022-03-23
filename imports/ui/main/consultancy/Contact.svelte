@@ -71,11 +71,11 @@
     flex-wrap: wrap;
   }
 
-  :global(header) {
+  .contact__flex :global(header) {
     margin: 1rem;
     flex: 0 1 100%;
   }
-  :global(.card) {
+  .contact__flex :global(.card) {
     margin: 1rem;
     flex: 1 1 320px;
   }

@@ -63,7 +63,7 @@
     width: min(40%, fit-content);
     min-height: fit-content;
     margin: auto;
-    padding: var(--ra-3xl) var(--ra-m);
+    padding: var(--ra-xl) var(--ra-m) var(--ra-3xl);
     background-color: var(--ra-white);
     border-radius: 0.6em;
   }
