@@ -20,6 +20,7 @@
   header {
     width: 100%;
     z-index: 999;
+    margin-bottom: 4rem;
   }
 
   @media screen and (min-width: 760px) {

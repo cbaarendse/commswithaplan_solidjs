@@ -24,9 +24,9 @@
       <Header>
         <Brand
           brand={{
-            color: 'var(--ra-green)',
+            color: 'var(--ra-red)',
             fontSize: 'var(--ra-fs-2xl)',
-            title: `Comms With A Plan - ${$language === 'dutch' ? 'Werk' : 'Work'}`
+            title: `Consultancy - ${$language === 'dutch' ? 'Werk' : 'Work'}`
           }}
           ><LogoCommsWithAPlan
             logo={{
@@ -62,19 +62,16 @@
   .work__flex {
     display: flex;
     flex-wrap: wrap;
+    gap: 2rem;
   }
 
-  /* TODO: margin necessary? */
   .work__flex :global(header) {
-    margin: 1rem;
     flex: 0 1 100%;
   }
-  p {
-    margin: 1rem;
+  .work__flex :global(p) {
     flex: 0 1 100%;
   }
   .work__flex :global(.card) {
-    margin: 1rem;
     flex: 1 1 320px;
   }
 </style>

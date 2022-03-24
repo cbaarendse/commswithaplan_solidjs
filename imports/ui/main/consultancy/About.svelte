@@ -20,7 +20,7 @@
           brand={{
             color: 'var(--ra-green)',
             fontSize: 'var(--ra-fs-2xl)',
-            title: `Comms With A Plan - ${$language === 'dutch' ? 'Over' : 'About'}`
+            title: `Consultancy - ${$language === 'dutch' ? 'Over' : 'About'}`
           }}
           ><LogoCommsWithAPlan
             logo={{
@@ -47,23 +47,17 @@
 </Main>
 
 <style>
-  /* .about__grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 2rem;
-  } */
-
   .about__flex {
     display: flex;
     flex-wrap: wrap;
+    gap: 2rem;
   }
 
   .about__flex :global(header) {
-    margin: 1rem;
+    margin: 1rem 0;
     flex: 0 1 100%;
   }
   .about__flex :global(.card) {
-    margin: 1rem;
     flex: 1 1 320px;
   }
 </style>

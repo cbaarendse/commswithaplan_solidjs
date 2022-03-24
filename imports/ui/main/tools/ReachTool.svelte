@@ -102,7 +102,7 @@
           brand={{
             color: 'var(--ra-blue)',
             fontSize: 'var(--ra-fs-2xl)',
-            title: `Reach - ${$language === 'dutch' ? 'Bereik' : 'Reach'}`
+            title: `Tools - ${$language === 'dutch' ? 'Bereik' : 'Reach'}`
           }}
           ><LogoReach
             logo={{fontSize: 'var(--ra-fs-5xl)', width: 'var(--ra-5xl)', height: 'var(--ra-5xl)', colored: true}}
@@ -141,9 +141,8 @@
     gap: 2rem;
   }
 
-  :global(header) {
+  .reach__grid :global(header) {
     grid-column: 1 / -1;
-    margin: 0;
   }
 
   .touchpoints__flex {

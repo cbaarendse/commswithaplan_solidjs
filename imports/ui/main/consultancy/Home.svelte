@@ -22,7 +22,7 @@
       <Header>
         <Brand
           brand={{
-            title: `Comms With A Plan - ${$language === 'dutch' ? 'Home' : 'Home'}`,
+            title: `Consultancy - ${$language === 'dutch' ? 'Home' : 'Home'}`,
             color: 'var(--ra-blue)',
             fontSize: 'var(--ra-fs-2xl)'
           }}
@@ -54,14 +54,13 @@
   .home__flex {
     display: flex;
     flex-wrap: wrap;
+    gap: 2rem;
   }
 
   .home__flex :global(header) {
-    margin: 1rem;
     flex: 0 1 100%;
   }
   .home__flex :global(.card) {
-    margin: 1rem;
     flex: 1 1 320px;
   }
 </style>

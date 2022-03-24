@@ -22,7 +22,7 @@
           brand={{
             color: 'var(--ra-blue)',
             fontSize: 'var(--ra-fs-2xl)',
-            title: `Comms With A Plan - ${$language === 'dutch' ? 'Contact' : 'Contact'}`
+            title: `Consultancy - ${$language === 'dutch' ? 'Contact' : 'Contact'}`
           }}
           ><LogoCommsWithAPlan
             logo={{
@@ -69,14 +69,13 @@
   .contact__flex {
     display: flex;
     flex-wrap: wrap;
+    gap: 2rem;
   }
 
   .contact__flex :global(header) {
-    margin: 1rem;
     flex: 0 1 100%;
   }
   .contact__flex :global(.card) {
-    margin: 1rem;
     flex: 1 1 320px;
   }
 </style>

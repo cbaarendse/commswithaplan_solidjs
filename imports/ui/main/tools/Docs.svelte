@@ -22,7 +22,7 @@
           brand={{
             color: 'var(--ra-blue)',
             fontSize: 'var(--ra-fs-2xl)',
-            title: `Reach - ${$language === 'dutch' ? 'Documentatie' : 'Documentation'}`
+            title: `Tools - ${$language === 'dutch' ? 'Documentatie' : 'Documentation'}`
           }}
           ><LogoReach
             logo={{fontSize: 'var(--ra-fs-5xl)', width: 'var(--ra-5xl)', height: 'var(--ra-5xl)', colored: true}}
@@ -59,9 +59,8 @@
     grid-auto-rows: auto;
     gap: 2rem;
   }
-  :global(header) {
+  .docs__grid :global(header) {
     grid-column: 1 / -1;
-    margin: 0;
   }
   .chapters__flex {
     display: flex;

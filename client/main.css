@@ -22,7 +22,6 @@
     --ra-green-light: #aacc66;
     --ra-red-light: #ff6666;
     --ra-grey-light: #999999;
-    --ra-teal-light: #accdc6;
     /* on dark */
     --ra-blue-bright: #3399ff;
     --ra-green-bright: #00ff33;
@@ -30,19 +29,21 @@
     --ra-grey-bright: #cccccc;
     --ra-white: white;
     /* surfaces */
-    --ra-white-transparant: rgba(255, 255, 255, 0.9);
-    --ra-teal: #75aea2;
-    --ra-teal-light: rgba(172, 205, 198, 1);
-    --ra-teal-bright: rgb(143, 233, 214, 1);
-    --ra-teal-off-white: rgb(224, 233, 231, 1);
-    /* f2 transparancy */
-    --ra-teal-transparant: rgba(117, 174, 162, 0.9);
-    --ra-teal-light-transparant: rgba(172, 205, 198, 0.95);
     --ra-blue-off-white: #f0ffff;
     --ra-green-off-white: #f0fff0;
     --ra-red-off-white: #faf0e6;
     --ra-grey-off-white: #fcfcfc;
+    --ra-black-off-white: whitesmoke;
     --ra-teal-off-white: #ddebe8;
+    --ra-teal: #75aea2;
+    --ra-teal-light: #accdc6;
+    --ra-teal-bright: rgb(143, 233, 214, 1);
+    --ra-teal-off-white: rgb(224, 233, 231, 1);
+    /* f2 transparancy */
+    --ra-white-transparant: rgba(255, 255, 255, 0.9);
+    --ra-teal-transparant: rgba(117, 174, 162, 0.9);
+    --ra-teal-light-transparant: rgba(172, 205, 198, 0.95);
+    
     /* sizes in em */
     --ra-xxs: 0.5rem;
     --ra-xs: 0.75rem;
@@ -103,22 +104,12 @@ body {
     /* vh because it takes up 100 points of the viewport, the html element follows this as well */
 }
 
-
-/* Svelte defaults */
-
 div.app {
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: auto 1fr auto;
     height: 100vh;
 }
-
-
-/* p */
-/* p {
-    padding: 1em 0;
-} */
-
 
 /* schedule */
 

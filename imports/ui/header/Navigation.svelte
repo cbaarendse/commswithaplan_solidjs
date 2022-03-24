@@ -113,7 +113,6 @@
 <!-- <Notifications /> -->
 <style>
   nav {
-    font-family: 'Trebuchet MS';
     display: grid;
     grid-template-columns: 1fr;
     grid-column: 1/3;
@@ -122,12 +121,12 @@
 
   .main-nav {
     padding: 1rem 1.4rem 1rem 1.4rem;
-    background-color: var(--ra-teal);
+    background-color: var(--ra-teal-light);
   }
 
   .sub-nav {
     padding: 1rem 1.4rem 1rem 1.4rem;
-    background-color: var(--ra-teal-light);
+    background-color: var(--ra-black-off-white);
   }
 
   ul {
@@ -142,8 +141,9 @@
     flex-wrap: wrap;
   }
 
-  .main-nav ul li:nth-of-type(1) {
+  .main-nav ul li:first-of-type {
     flex: 1 1 3rem;
+    font-family: 'Trebuchet MS';
   }
 
   a {
@@ -152,12 +152,14 @@
 
   /* links, :visited */
   .main-nav a,
-  .sub-nav a,
-  .main-nav a:visited,
-  .sub-nav a:visited {
-    color: var(--ra-white);
+  .main-nav a:visited {
+    color: var(--ra-grey-off-white);
   }
 
+  .sub-nav a,
+  .sub-nav a:visited {
+    color: var(--ra-grey-light);
+  }
   /* :hover */
   .main-nav a:hover,
   .sub-nav a:hover {

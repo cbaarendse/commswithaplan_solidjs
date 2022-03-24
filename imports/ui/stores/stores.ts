@@ -466,20 +466,19 @@ export const toolsHomeItems: Readable<Content[]> = readable(
       color: 'green'
     },
     {
-      name: 'reachapp',
-
+      name: 'reach',
       language: 'english',
       displayName: 'Reach',
       description:
-        'Comms With A Plan is a flexible unit in the sense that work can be project based, or more continuous, based on demand. (Give me a call to explain.)',
+        'Right now Reach uses an algoritm to estimate the total reach of your campaign; If you input the reach of the individual medium types. Read the Docs for more information.',
       color: 'green'
     },
     {
-      name: 'reachapp',
+      name: 'reach',
       language: 'dutch',
-      displayName: 'Reach',
+      displayName: 'Bereik',
       description:
-        'Comms With A Plan is een flexibele partner in die zin dat het werk per project kan zijn, maar ook meer continu. Gebaseerd op vraag. (Bel me zodat ik het kan uitleggen.)',
+        'Op dit moment gebruikt Bereik een algoritme om het totaalbereik van je campagne in te schatten; Als je het bereik van elk individueel mediumtype invoert. Lees de Documentatie voor meer informatie.',
       color: 'green'
     }
   ],

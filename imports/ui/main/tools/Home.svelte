@@ -22,7 +22,7 @@
           brand={{
             color: 'var(--ra-blue)',
             fontSize: 'var(--ra-fs-2xl)',
-            title: `Reach - ${$language === 'dutch' ? 'Home' : 'Home'}`
+            title: `Tools - ${$language === 'dutch' ? 'Home' : 'Home'}`
           }}
           ><LogoReach
             logo={{fontSize: 'var(--ra-fs-5xl)', width: 'var(--ra-5xl)', height: 'var(--ra-5xl)', colored: true}}
@@ -42,15 +42,14 @@
   .home__flex {
     display: flex;
     flex-wrap: wrap;
+    gap: 2rem;
   }
 
-  :global(header) {
-    margin: 1rem;
+  .home__flex :global(header) {
     flex: 0 1 100%;
   }
 
   :global(.card) {
-    margin: 1rem;
     flex: 1 1 320px;
   }
 </style>
