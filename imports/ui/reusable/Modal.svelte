@@ -62,7 +62,7 @@
     align-items: center;
     width: min(40%, fit-content);
     min-height: fit-content;
-    margin: auto;
+    margin: 0 1rem;
     padding: var(--ra-xl) var(--ra-m) var(--ra-3xl);
     background-color: var(--ra-white);
     border-radius: 0.6em;

@@ -1,6 +1,8 @@
 <script lang="ts">
   // packages
   import {createEventDispatcher} from 'svelte';
+  import {language, translations} from '../../stores/stores';
+  import Modal from '../../reusable/Modal.svelte';
 
   // components
 
@@ -13,7 +15,9 @@
   const dispatch = createEventDispatcher();
 
   // variables
-  import {language, translations} from '../../stores/stores';
+  let output: [string, string] = ['total_reach', 'locus'];
+  let displayOutputDescription: 'none' | 'flex' = 'none';
+
   export let totalReach: number;
   export let locus: number;
   export let allTouchPointsValueIsZero: boolean;
@@ -33,7 +37,7 @@
   >
   <button type="button" on:click={() => dispatch('print')}>&#9636</button>
 
-  <span class="reach-label"
+  <span class="reach-label" on:click={showOutputDescription}
     >{Ui.translate('total', $translations, $language)}&nbsp;{Ui.translate(
       'reach',
       $translations,
@@ -45,12 +49,18 @@
     <span style="width:{totalReach}%;" />
   </div>
 
-  <span class="locus-label">{Ui.translate('locus', $translations, $language)}:&nbsp;</span>
+  <span class="locus-label" on:click={() => showOutputDescription(1)}
+    >{Ui.translate('locus', $translations, $language)}:&nbsp;</span
+  >
   <span class="locus-result">{Ui.toNumberFormat(locus, 1)}&nbsp;%</span>
   <div class="meter">
     <span style="width:{locus}%;" />
   </div>
 </div>
+<!-- TODO: locus description and total reach in seperate store, look up and put in modal. after trigger by click on label, using Reach provider description, but not touchpoints store -->
+<Modal title={output.displayName} display={displayOutputDescription}
+  >{Ui.translate([output[outputNumber]]).description}</Modal
+>
 
 <!-- TODO: all this in flexbox, make groups, meter is % of parent (if parent is header) or vw unit -->
 <style>

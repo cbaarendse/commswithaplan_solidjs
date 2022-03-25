@@ -493,7 +493,7 @@ export const toolsDocumentationChapters: Readable<ToolsDocsChapter[]> = readable
   [
     {
       name: 'chapter_1',
-      imgFile: '/chapter_1.png',
+      imgFiles: ['/chapter_1_1.png'],
       language: 'english',
       displayName: 'Operation',
       paragraphs: [
@@ -513,7 +513,7 @@ export const toolsDocumentationChapters: Readable<ToolsDocsChapter[]> = readable
     },
     {
       name: 'chapter_1',
-      imgFile: '/chapter_1.png',
+      imgFiles: ['/chapter_1_1.png'],
       language: 'dutch',
       displayName: 'Bediening',
       paragraphs: [
@@ -533,7 +533,7 @@ export const toolsDocumentationChapters: Readable<ToolsDocsChapter[]> = readable
     },
     {
       name: 'chapter_2',
-      imgFile: '/chapter_2.png',
+      imgFiles: ['/chapter_2_1.png'],
       language: 'english',
       displayName: 'Reset',
       paragraphs: [
@@ -553,7 +553,7 @@ export const toolsDocumentationChapters: Readable<ToolsDocsChapter[]> = readable
     },
     {
       name: 'chapter_2',
-      imgFile: '/chapter_2.png',
+      imgFiles: ['/chapter_2_1.png'],
       language: 'dutch',
       displayName: 'Reset',
       paragraphs: [
@@ -573,7 +573,7 @@ export const toolsDocumentationChapters: Readable<ToolsDocsChapter[]> = readable
     },
     {
       name: 'chapter_3',
-      imgFile: '/chapter_3.png',
+      imgFiles: ['/chapter_3_1.png'],
       language: 'english',
       displayName: 'Sort',
       paragraphs: [
@@ -592,7 +592,7 @@ export const toolsDocumentationChapters: Readable<ToolsDocsChapter[]> = readable
     },
     {
       name: 'chapter_3',
-      imgFile: '/chapter_3.png',
+      imgFiles: ['/chapter_3_1.png'],
       language: 'dutch',
       displayName: 'Sorteer',
       paragraphs: [
@@ -611,7 +611,7 @@ export const toolsDocumentationChapters: Readable<ToolsDocsChapter[]> = readable
     },
     {
       name: 'chapter_4',
-      imgFile: '/chapter_4.png',
+      imgFiles: ['/chapter_4_1.png'],
       language: 'english',
       displayName: 'Hide',
       paragraphs: [
@@ -629,7 +629,7 @@ export const toolsDocumentationChapters: Readable<ToolsDocsChapter[]> = readable
     },
     {
       name: 'chapter_4',
-      imgFile: '/chapter_4.png',
+      imgFiles: ['/chapter_4_1.png'],
       language: 'dutch',
       displayName: 'Verberg',
       paragraphs: [
@@ -647,7 +647,7 @@ export const toolsDocumentationChapters: Readable<ToolsDocsChapter[]> = readable
     },
     {
       name: 'chapter_5',
-      imgFile: '/chapter_5.png',
+      imgFiles: ['/chapter_5_1.png'],
       language: 'english',
       displayName: 'Outcome',
       paragraphs: [
@@ -661,7 +661,7 @@ export const toolsDocumentationChapters: Readable<ToolsDocsChapter[]> = readable
     },
     {
       name: 'chapter_5',
-      imgFile: '/chapter_5.png',
+      imgFiles: ['/chapter_5_1.png'],
       language: 'dutch',
       displayName: 'Uitkomst',
       paragraphs: [
@@ -675,7 +675,7 @@ export const toolsDocumentationChapters: Readable<ToolsDocsChapter[]> = readable
     },
     {
       name: 'chapter_6',
-      imgFile: '/chapter_6.png',
+      imgFiles: ['/chapter_6_1.png'],
       language: 'english',
       displayName: 'Output',
       paragraphs: [
@@ -689,7 +689,7 @@ export const toolsDocumentationChapters: Readable<ToolsDocsChapter[]> = readable
     },
     {
       name: 'chapter_6',
-      imgFile: '/chapter_6.png',
+      imgFiles: ['/chapter_6_1.png'],
       language: 'dutch',
       displayName: 'Uitvoer',
       paragraphs: [
@@ -703,7 +703,7 @@ export const toolsDocumentationChapters: Readable<ToolsDocsChapter[]> = readable
     },
     {
       name: 'chapter_7',
-      imgFile: '/chapter_7.png',
+      imgFiles: ['/chapter_7_1.png', '/chapter_7_2.png'],
       language: 'english',
       displayName: 'Medium type',
       paragraphs: [
@@ -716,7 +716,7 @@ export const toolsDocumentationChapters: Readable<ToolsDocsChapter[]> = readable
     },
     {
       name: 'chapter_7',
-      imgFile: '/chapter_7.png',
+      imgFiles: ['/chapter_7_1.png', '/chapter_7_2.png'],
       language: 'dutch',
       displayName: 'Mediumtype',
       paragraphs: [
@@ -729,7 +729,7 @@ export const toolsDocumentationChapters: Readable<ToolsDocsChapter[]> = readable
     },
     {
       name: 'chapter_8',
-      imgFile: '/chapter_8.png',
+      imgFiles: ['/chapter_8_1.png', '/chapter_8_2.png'],
       language: 'english',
       displayName: 'Precision input',
       paragraphs: [
@@ -748,7 +748,7 @@ export const toolsDocumentationChapters: Readable<ToolsDocsChapter[]> = readable
     },
     {
       name: 'chapter_8',
-      imgFile: '/chapter_8.png',
+      imgFiles: ['/chapter_8_1.png', '/chapter_8_2.png'],
       language: 'dutch',
       displayName: 'Precieze invoer',
       paragraphs: [
@@ -1158,7 +1158,35 @@ export const translations: Readable<Translation[]> = readable(
     {name: 'advertisement', language: 'english', displayName: 'Advertisement'},
     {name: 'advertisement', language: 'dutch', displayName: 'Advertentie'},
     {name: 'read', language: 'english', displayName: 'Read'},
-    {name: 'read', language: 'dutch', displayName: 'Lees'}
+    {name: 'read', language: 'dutch', displayName: 'Lees'},
+    {
+      name: 'total_reach',
+      language: 'english',
+      displayName: 'Total Reach',
+      description:
+        'The % of people that perceive your message(s), through one or more of the selected Medium Types/ Touch Points'
+    },
+    {
+      name: 'total_reach',
+      language: 'dutch',
+      displayName: 'Total Bereik',
+      description:
+        'Het % mensen dat je boodschap waarneemt, door middel van één of meer van de geselecteerde Mediumtypen/ Touch Points'
+    },
+    {
+      name: 'locus',
+      language: 'english',
+      displayName: 'Locus',
+      description:
+        'Only the % of people that perceive your message(s), through áll of the selected Medium Types/ Touch Points'
+    },
+    {
+      name: 'locus',
+      language: 'dutch',
+      displayName: 'Locus',
+      description:
+        'Alleen het % mensen dat je boodschap waarneemt door middel van álle geselecteerde Mediumtypen/ Touch Points'
+    }
   ],
   () => {
     () => {

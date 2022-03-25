@@ -70,7 +70,7 @@ export type Display = 'none' | 'block' | 'grid' | 'flex';
 export type Content = {name: string; language: string; displayName: string; description: string} & Color;
 
 type Paragraph = {displayName: string; description: string; elaboration: string};
-type Chapter = {name: string; language: string; displayName: string; imgFile?: string; paragraphs?: Paragraph[]};
+type Chapter = {name: string; language: string; displayName: string; imgFiles?: string[]; paragraphs?: Paragraph[]};
 export type ToolsDocsChapter = Chapter;
 
 export type HomeItem = {
@@ -82,7 +82,7 @@ export type HomeItem = {
   link: string;
   action: string;
 };
-export type Translation = {name: string; language: string; displayName: string};
+export type Translation = {name: string; language: string; displayName: string; description?: string};
 
 // planning
 export type TouchPointBasics = {name: string; language: string; displayName: string; description: string};
@@ -121,7 +121,7 @@ export type Input = ClassName &
   };
 
 export type Brand = {title: string} & Partial<ClassName> & Css;
-export interface Logo extends Css, Colored {}
+export type Logo = Css & Colored;
 export type Slider = Partial<InputType> &
   InputValue & {
     displayName?: string;
@@ -130,6 +130,23 @@ export type Slider = Partial<InputType> &
     step: number;
     min: number;
     max: number;
+  };
+export type Select = ClassName &
+  InputValue &
+  Placeholder & {
+    displayName?: string;
+    name: string;
+    id: string;
+    value: number | string;
+  };
+
+export type Option = ClassName &
+  InputValue &
+  Placeholder & {
+    displayName?: string;
+    name: string;
+    id: string;
+    value: number | string;
   };
 
 // building types

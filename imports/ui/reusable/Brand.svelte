@@ -16,9 +16,9 @@
 
 <div class="brand">
   <slot />
-  <h2 use:cssVariables={setCssVariables}>
+  <span use:cssVariables={setCssVariables}>
     {brand.title}
-  </h2>
+  </span>
 </div>
 
 <style>

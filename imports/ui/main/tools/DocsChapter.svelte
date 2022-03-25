@@ -10,19 +10,25 @@
 <article>
   <h3>&sect;&nbsp;{chapter.displayName}</h3>
   <ul>
-    {#each chapter.paragraphs as paragraph}
-      <li>
-        <DocsParagraph
-          subtitle={paragraph.displayName}
-          text={paragraph.description}
-          elaboration={paragraph.elaboration}
-        />
-      </li>
-    {/each}
+    {#if chapter.paragraphs}
+      {#each chapter.paragraphs as paragraph}
+        <li>
+          <DocsParagraph
+            subtitle={paragraph.displayName}
+            text={paragraph.description}
+            elaboration={paragraph.elaboration}
+          />
+        </li>
+      {/each}
+    {/if}
   </ul>
-  <picture>
-    <img src="/documentation{chapter.imgFile}" alt={chapter.displayName} />
-  </picture>
+  {#if chapter.imgFiles}
+    {#each chapter.imgFiles as imgFile}
+      <picture>
+        <img src="/documentation{imgFile}" alt={chapter.displayName} />
+      </picture>
+    {/each}
+  {/if}
 </article>
 
 <style>
