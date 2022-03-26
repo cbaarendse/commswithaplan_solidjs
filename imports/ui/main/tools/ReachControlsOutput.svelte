@@ -1,7 +1,8 @@
 <script lang="ts">
   // packages
   import {createEventDispatcher} from 'svelte';
-  import {language, translations} from '../../stores/stores';
+  import {language, translations, definitions} from '../../stores/stores';
+  import type {Definition} from '../../types/types';
   import Modal from '../../reusable/Modal.svelte';
 
   // components
@@ -15,14 +16,19 @@
   const dispatch = createEventDispatcher();
 
   // variables
-  let output: [string, string] = ['total_reach', 'locus'];
   let displayOutputDescription: 'none' | 'flex' = 'none';
-
+  let output: Definition = $definitions[0];
   export let totalReach: number;
   export let locus: number;
   export let allTouchPointsValueIsZero: boolean;
   export let sortedByName: boolean;
   export let showAll: boolean;
+
+  // functions
+  function showOutputDescription(outputName: string) {
+    displayOutputDescription = 'flex';
+    output = $definitions.filter((definition) => definition.name === outputName)[0];
+  }
 </script>
 
 <div class="header-content">
@@ -37,7 +43,7 @@
   >
   <button type="button" on:click={() => dispatch('print')}>&#9636</button>
 
-  <span class="reach-label" on:click={showOutputDescription}
+  <span class="reach-label" on:click|preventDefault|stopPropagation={() => showOutputDescription('total_reach')}
     >{Ui.translate('total', $translations, $language)}&nbsp;{Ui.translate(
       'reach',
       $translations,
@@ -49,7 +55,7 @@
     <span style="width:{totalReach}%;" />
   </div>
 
-  <span class="locus-label" on:click={() => showOutputDescription(1)}
+  <span class="locus-label" on:click|preventDefault|stopPropagation={() => showOutputDescription('locus')}
     >{Ui.translate('locus', $translations, $language)}:&nbsp;</span
   >
   <span class="locus-result">{Ui.toNumberFormat(locus, 1)}&nbsp;%</span>
@@ -57,9 +63,13 @@
     <span style="width:{locus}%;" />
   </div>
 </div>
-<!-- TODO: locus description and total reach in seperate store, look up and put in modal. after trigger by click on label, using Reach provider description, but not touchpoints store -->
-<Modal title={output.displayName} display={displayOutputDescription}
-  >{Ui.translate([output[outputNumber]]).description}</Modal
+
+<Modal
+  title={output.displayName}
+  display={displayOutputDescription}
+  on:destroyModal={() => {
+    displayOutputDescription = 'none';
+  }}>{output.description}</Modal
 >
 
 <!-- TODO: all this in flexbox, make groups, meter is % of parent (if parent is header) or vw unit -->
@@ -116,18 +126,30 @@
   .reach-label {
     grid-area: rl;
     align-self: center;
+    font-size: var(--ra-fs-xl);
+    cursor: pointer;
+  }
+  .reach-label:hover {
+    opacity: 0.7;
   }
   .reach-result {
     grid-area: rr;
     align-self: center;
+    font-size: var(--ra-fs-xl);
   }
   .locus-label {
     grid-area: ll;
     align-self: center;
+    font-size: var(--ra-fs-xl);
+    cursor: pointer;
+  }
+  .locus-label:hover {
+    opacity: 0.7;
   }
   .locus-result {
     grid-area: lr;
     align-self: center;
+    font-size: var(--ra-fs-xl);
   }
   .meter {
     align-self: center;

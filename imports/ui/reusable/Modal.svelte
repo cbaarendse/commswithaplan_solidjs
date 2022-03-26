@@ -2,12 +2,17 @@
   // packages
   import {fade} from 'svelte/transition';
   import Button from './Button.svelte';
+  import {createEventDispatcher} from 'svelte';
 
   // variables
   export let title: string;
   export let display: string = 'none';
 
   // functions
+  let dispatch = createEventDispatcher();
+  function destroyModal() {
+    dispatch('destroyModal');
+  }
 </script>
 
 <div class="modal__container" style="display:{display}" transition:fade={{delay: 0, duration: 400}}>
@@ -26,6 +31,7 @@
           disabled: false
         }}
         on:clickedButton={() => (display = 'none')}
+        on:clickedButton={destroyModal}
       >
         <span aria-hidden="true">&times;</span>
       </Button>

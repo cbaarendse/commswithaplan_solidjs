@@ -82,10 +82,11 @@ export type HomeItem = {
   link: string;
   action: string;
 };
-export type Translation = {name: string; language: string; displayName: string; description?: string};
+export type Translation = {name: string; language: string; displayName: string};
 
 // planning
-export type TouchPointBasics = {name: string; language: string; displayName: string; description: string};
+export type Definition = {name: string; language: string; displayName: string; description: string};
+export type TouchPointBasics = Definition;
 export type TouchPointInPlan = TouchPointBasics & {value: number; display: 'none' | 'grid'};
 
 export type Year = {name: string; days: number};

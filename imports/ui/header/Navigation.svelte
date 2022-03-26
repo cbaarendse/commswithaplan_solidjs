@@ -6,10 +6,9 @@
   // variables
   import {language, isLargeScreen, navigationVisible, useMediaQuery} from '../stores/stores';
 
-  $: console.log('isLargeScreen', $isLargeScreen, 'navigationVisible', $navigationVisible);
-
   // functions
-  useMediaQuery('(min-width: 760px)').subscribe((value: any): void => {
+  // Outcome of
+  useMediaQuery('(min-width: 760px)').subscribe((value: boolean | null): void => {
     $isLargeScreen = value;
   });
 
@@ -39,8 +38,6 @@
     </ul>
   </nav>
   {#if $router.path === '/'}
-    <!-- TODO: of  in:slide={{duration: $navigationVisible ? 0 : 300}}
-  out:slide={{duration: !$isLargeScreen ? 300 : 0}} -->
     <nav
       class="sub-nav"
       in:slide={{duration: $isLargeScreen ? 0 : 300}}
@@ -110,7 +107,6 @@
   {/if}
 {/if}
 
-<!-- <Notifications /> -->
 <style>
   nav {
     display: grid;

@@ -6,6 +6,7 @@
   import {language} from '../stores/stores';
 </script>
 
+<!-- TopBar has room for functionality used from all over the site. Eventual cookies and/or marketing messages. -->
 <div class="top-bar" role="menu">
   <ul class="top-bar-list">
     <li>

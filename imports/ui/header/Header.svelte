@@ -11,18 +11,17 @@
 </script>
 
 <header>
+  <!-- TopBar contains general functionality, like language, user login -->
+  <!-- Navigation -->
+  <!-- There is an option to insert a Notifications area in the header -->
   <TopBar />
   <Navigation />
 </header>
 
 <style>
-  /* smaller screens: navigation toggled by input.nav-toggle (checkbox), this requires position: absolute */
   header {
     width: 100%;
     z-index: 999;
     margin-bottom: 4rem;
-  }
-
-  @media screen and (min-width: 760px) {
   }
 </style>

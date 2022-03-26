@@ -2,17 +2,17 @@
 import {writable, Writable, readable, Readable} from 'svelte/store';
 
 // interfaces
-import type {HomeItem, Content, ToolsDocsChapter, TouchPointBasics, Translation} from '../types/types';
+import type {HomeItem, Content, ToolsDocsChapter, Definition, TouchPointBasics, Translation} from '../types/types';
 
 // stores
 export const language: Writable<string> = writable('dutch');
 
-export const isLargeScreen: Writable<boolean> = writable(true);
+export const isLargeScreen: Writable<boolean | null> = writable(true);
 
-export const navigationVisible: Writable<boolean> = writable(true);
+export const navigationVisible: Writable<boolean | null> = writable(true);
 
 //export a function that return a readable given a string media query as input
-export const useMediaQuery = (mediaQuery: string): Readable<any> => {
+export const useMediaQuery = (mediaQuery: string): Readable<boolean | null> => {
   //we inizialize the readable as null and get the callback with the set function
   const matches = readable(null, (set) => {
     //we match the media query
@@ -1158,7 +1158,17 @@ export const translations: Readable<Translation[]> = readable(
     {name: 'advertisement', language: 'english', displayName: 'Advertisement'},
     {name: 'advertisement', language: 'dutch', displayName: 'Advertentie'},
     {name: 'read', language: 'english', displayName: 'Read'},
-    {name: 'read', language: 'dutch', displayName: 'Lees'},
+    {name: 'read', language: 'dutch', displayName: 'Lees'}
+  ],
+  () => {
+    () => {
+      console.log('Translations closed');
+    };
+  }
+);
+
+export const definitions: Readable<Definition[]> = readable(
+  [
     {
       name: 'total_reach',
       language: 'english',
@@ -1190,7 +1200,7 @@ export const translations: Readable<Translation[]> = readable(
   ],
   () => {
     () => {
-      console.log('Translations closed');
+      console.log('Definitions closed');
     };
   }
 );
