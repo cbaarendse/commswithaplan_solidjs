@@ -470,7 +470,7 @@ export const toolsHomeItems: Readable<Content[]> = readable(
       language: 'english',
       displayName: 'Reach',
       description:
-        'Right now Reach uses an algoritm to estimate the total reach of your campaign; If you input the reach of the individual medium types. Read the Docs for more information.',
+        'Right now the Reach tool uses an algoritm to estimate the total reach of your campaign; If you input the reach of the individual medium types. Read the Docs for more information.',
       color: 'green'
     },
     {
@@ -478,7 +478,7 @@ export const toolsHomeItems: Readable<Content[]> = readable(
       language: 'dutch',
       displayName: 'Bereik',
       description:
-        'Op dit moment gebruikt Bereik een algoritme om het totaalbereik van je campagne in te schatten; Als je het bereik van elk individueel mediumtype invoert. Lees de Documentatie voor meer informatie.',
+        'Op dit moment gebruikt de Bereik-tool een algoritme om het totaalbereik van je campagne in te schatten; Als je het bereik van elk individueel mediumtype invoert. Lees de Documentatie voor meer informatie.',
       color: 'green'
     }
   ],

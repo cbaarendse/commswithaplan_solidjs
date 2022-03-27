@@ -26,16 +26,15 @@ type InputType = {
     | 'url'
     | 'week';
 };
+type CWAPColor = {color: 'blue' | 'green' | 'red' | 'teal' | 'grey' | 'transparent' | 'transparentnoborder'};
 type Placeholder = {placeholder: string | null | undefined};
-type InputValue = {value: number};
+type InputValue = {value: number | string};
 type Role = {role: 'button'};
 type Disabled = {disabled: boolean | null | undefined};
 type Color = {
   [index: string]: string;
 };
-type Size = {
-  [index: string]: string;
-};
+type Size = Color;
 export type CssIndex = {[key: string]: string};
 
 type CssColors = {
@@ -67,25 +66,21 @@ type Colored = {colored: boolean};
 export type Visible = {visible: boolean};
 export type Display = 'none' | 'block' | 'grid' | 'flex';
 
-export type Content = {name: string; language: string; displayName: string; description: string} & Color;
-
+export type Definition = {name: string; language: string; displayName: string; description: string};
+export type Content = Definition & Color;
 type Paragraph = {displayName: string; description: string; elaboration: string};
-type Chapter = {name: string; language: string; displayName: string; imgFiles?: string[]; paragraphs?: Paragraph[]};
+type Chapter = Definition & {imgFiles?: string[]; paragraphs?: Paragraph[]};
 export type ToolsDocsChapter = Chapter;
 
-export type HomeItem = {
-  name: string;
-  language: string;
-  displayName: string;
-  description: string;
+export type HomeItem = Definition & {
   imgFile: string;
   link: string;
   action: string;
 };
-export type Translation = {name: string; language: string; displayName: string};
+export type Translation = Omit<Definition, 'description'>;
 
 // planning
-export type Definition = {name: string; language: string; displayName: string; description: string};
+
 export type TouchPointBasics = Definition;
 export type TouchPointInPlan = TouchPointBasics & {value: number; display: 'none' | 'grid'};
 
@@ -95,7 +90,7 @@ export type Week = {name: string; days: number; monday: string};
 
 // components
 export type Card = {title?: string; imgFile?: string; link?: string; action?: string} & CssColors;
-export type SelectItem = {name: string; index: string};
+
 export type Accordion = Visible;
 export type Button = ClassName &
   ButtonType &
@@ -132,6 +127,8 @@ export type Slider = Partial<InputType> &
     min: number;
     max: number;
   };
+
+export type SelectItem = {name: string; index: string};
 export type Select = ClassName &
   InputValue &
   Placeholder & {
@@ -139,16 +136,15 @@ export type Select = ClassName &
     name: string;
     id: string;
     value: number | string;
+    size?: string;
+    disabled?: 'disabled';
+    multiple?: 'multiple';
   };
 
 export type Option = ClassName &
   InputValue &
-  Placeholder & {
+  Placeholder &
+  SelectItem & {
     displayName?: string;
-    name: string;
-    id: string;
-    value: number | string;
+    selected?: 'selected';
   };
-
-// building types
-type CWAPColor = {color: 'blue' | 'green' | 'red' | 'teal' | 'grey' | 'transparent' | 'transparentnoborder'};

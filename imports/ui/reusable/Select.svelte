@@ -1,30 +1,38 @@
 <script lang="ts">
-  // packages
+  // imports
   import {createEventDispatcher} from 'svelte';
-
-  // types
-  import type {SelectItem} from '../types/types';
+  import type {Select, Option} from '../types/types';
   import {Ui} from '../types/classes';
+  import {language, translations} from '../stores/stores';
 
   // variables
-  import {language, translations} from '../stores/stores';
-  export let size: string = 'normal'; // or small, large, xlarge
-  export let selectItem: SelectItem;
-  export let list: SelectItem[];
-  export let id: string;
-  export let name: SelectItem['name'];
+  export let select: Select;
+  export let list: Option[];
 
   // constants
 
   // functions
   const dispatch = createEventDispatcher();
+  //TODO: find a way to send event.target.value along
+  function selectOption() {
+    dispatch('selectOptionValueForName', {value: 'value'});
+  }
 </script>
 
-<select class={size} {id} {name} bind:value={selectItem} on:change={() => dispatch('selectItem', {selectItem})}>
-  {#each list as item (item.index)}
-    <option value={item}>{Ui.translate(item.name, $translations, $language) || item.name}</option>
-  {/each}
-</select>
+<form>
+  <label for={select.name}>{$language === 'dutch' ? 'Kies ' : 'Choose '}{select.displayName}</label>
+  <select
+    class={select.className}
+    id={select.id}
+    name={select.name}
+    bind:value={select.value}
+    on:blur|preventDefault|stopPropagation={selectOption}
+  >
+    {#each list as option (option.index)}
+      <option value={option.name}>{Ui.translate(option.name, $translations, $language) || option.value}</option>
+    {/each}
+  </select>
+</form>
 
 <style>
   select {
@@ -32,18 +40,5 @@
     margin: 7px;
     border: none;
     background-color: --ra-grey-bright;
-  }
-
-  .small {
-    height: 0.5rem;
-  }
-  .normal {
-    height: 1rem;
-  }
-  .large {
-    height: 1.5rem;
-  }
-  .xlarge {
-    height: 2rem;
   }
 </style>

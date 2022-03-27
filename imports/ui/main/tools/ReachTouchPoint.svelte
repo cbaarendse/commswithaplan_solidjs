@@ -109,7 +109,7 @@
     cursor: pointer;
   }
   fieldset {
-    border: 1px solid lightgray;
+    border: none;
   }
   button.input {
     height: var(--ra-7xl);
