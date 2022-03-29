@@ -8,7 +8,7 @@
 </script>
 
 <article>
-  <h3>&sect;&nbsp;{chapter.displayName}</h3>
+  <h2>&sect;&nbsp;{chapter.displayName}</h2>
   <ul>
     {#if chapter.paragraphs}
       {#each chapter.paragraphs as paragraph}
@@ -36,6 +36,9 @@
     display: flex;
     flex-direction: column;
     gap: 1rem;
+  }
+  h2 {
+    font-size: var(--ra-fs-2xl);
   }
   ul {
     list-style-type: none;

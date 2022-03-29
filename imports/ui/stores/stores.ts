@@ -501,7 +501,7 @@ export const toolsDocumentationChapters: Readable<ToolsDocsChapter[]> = readable
           displayName: 'Sliders',
           description:
             'Use the sliders of the medium types you want to use in your plan. With the sliders you set the reach of that medium type.',
-          elaboration: "Reach works with an algorithm, that is why it's so fast."
+          elaboration: "The Reach tool works with an algorithm, that is why it's so fast."
         },
         {
           displayName: 'Result',

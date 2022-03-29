@@ -64,6 +64,7 @@
   }
   .chapters__flex {
     display: flex;
+    font-size: var(--font-size-l);
   }
 
   ul {
@@ -78,8 +79,8 @@
     padding: 1rem;
   }
 
-  aside ul li {
-    margin-bottom: 1rem;
+  ul li {
+    margin-bottom: 2rem;
   }
 
   @media screen and (min-width: 760px) {

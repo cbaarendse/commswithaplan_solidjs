@@ -4,7 +4,7 @@
   export let displayName: string;
 </script>
 
-<a href="#{name}" tinro-ignore>{displayName}</a>
+<a href="#{name}" data-tinro-ignore>{displayName}</a>
 
 <style>
   a {

@@ -6,7 +6,7 @@
   export let elaboration: string;
 </script>
 
-<h4>&para;&nbsp;{subtitle}</h4>
+<h3>&para;&nbsp;{subtitle}</h3>
 <p>
   {text}
 </p>
@@ -15,4 +15,10 @@
 </p>
 
 <style>
+  h3 {
+    font-size: var(--ra-fs-l);
+  }
+  p {
+    margin: 1rem 0;
+  }
 </style>
