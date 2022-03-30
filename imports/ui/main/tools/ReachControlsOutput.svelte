@@ -33,13 +33,13 @@
 
 <div class="header-content">
   <button type="button" on:click={() => dispatch('reset')}
-    >{#if allTouchPointsValueIsZero}&#8676{:else}&#8617{/if}</button
+    >{#if allTouchPointsValueIsZero}&#8676;{:else}&#8617;{/if}</button
   >
   <button type="button" on:click={() => dispatch('sort')}
-    >{#if sortedByName}&#8744{:else}&#8743{/if}</button
+    >{#if sortedByName}&#8744;{:else}&#8743;{/if}</button
   >
   <button type="button" on:click={() => dispatch('hide')}
-    >{#if showAll}&#8722{:else}&#8801{/if}</button
+    >{#if showAll}&#8722;{:else}&#8801;{/if}</button
   >
   <button type="button" on:click={() => dispatch('print')}>&#9636</button>
 

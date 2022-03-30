@@ -3,10 +3,12 @@
 
 <style>
   span {
+    flex: 1 0 fit-content;
     margin: 0 1em;
   }
 
   a {
+    flex: 1 0 fit-content;
     color: var(--ra-blue);
     text-decoration: none;
   }
