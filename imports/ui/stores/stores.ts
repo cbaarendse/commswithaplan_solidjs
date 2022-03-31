@@ -7,6 +7,8 @@ import type {HomeItem, Content, ToolsDocsChapter, Definition, TouchPointBasics, 
 // stores
 export const language: Writable<string> = writable('dutch');
 
+export const cookieConsent: Writable<boolean> = writable(localStorage.cookieConsent === 'true');
+
 export const isLargeScreen: Writable<boolean | null> = writable(true);
 
 export const navigationVisible: Writable<boolean | null> = writable(true);

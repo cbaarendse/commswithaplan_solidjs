@@ -1,12 +1,15 @@
 <script lang="ts">
-  export let display: 'none' | 'block' = 'block';
+  import {slide} from 'svelte/transition';
 </script>
 
-<div style={display}><slot /></div>
+<div transition:slide={{delay: 200, duration: 1000}}><slot /></div>
 
 <style>
   div {
-    background: magenta;
     flex: 1 1 100%;
+    display: flex;
+    justify-content: end;
+    gap: 1rem 2rem;
+    background: magenta;
   }
 </style>
