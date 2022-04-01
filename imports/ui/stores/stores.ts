@@ -2,12 +2,20 @@
 import {writable, Writable, readable, Readable} from 'svelte/store';
 
 // interfaces
-import type {HomeItem, Content, ToolsDocsChapter, Definition, TouchPointBasics, Translation} from '../types/types';
+import type {
+  Consent,
+  HomeItem,
+  Content,
+  ToolsDocsChapter,
+  Definition,
+  TouchPointBasics,
+  Translation
+} from '../types/types';
 
 // stores
 export const language: Writable<string> = writable('dutch');
 
-export const cookieConsent: Writable<boolean> = writable(localStorage.cookieConsent === 'true');
+export const consent: Writable<Consent> = writable({ad_storage: 'denied', analytics_storage: 'denied'});
 
 export const isLargeScreen: Writable<boolean | null> = writable(true);
 

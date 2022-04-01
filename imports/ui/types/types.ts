@@ -1,4 +1,5 @@
 // types
+export type Consent = {ad_storage: 'granted' | 'denied'; analytics_storage: 'granted' | 'denied'};
 type ClassName = {className: string | undefined | null};
 type ButtonType = {type: 'submit' | 'reset' | 'button'};
 type InputType = {

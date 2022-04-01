@@ -2,23 +2,30 @@
   import FooterContent from './FooterContent.svelte';
   import CookieConsentBanner from './CookieConsentBanner.svelte';
   import Button from './../reusable/Button.svelte';
-  import {cookieConsent} from '../stores/stores';
+  import {consent} from '../stores/stores';
   import {onMount} from 'svelte';
 
   let bannerVisible: boolean = true;
 
   onMount(() => {});
-  function initConsent() {
-    localStorage.setItem('cookieConsent', 'true');
+  function grantConsent() {
+    // TODO: fix all this: consent.update;
     bannerVisible = false;
   }
   function denyConsent() {
-    localStorage.setItem('cookieConsent', 'false');
+    localStorage.setItem('consent', 'false');
     bannerVisible = true;
   }
   function toggleDisplayConsentBanner() {
     bannerVisible = !bannerVisible;
   }
+
+  consent.subscribe((value) => {
+    gtag('consent', 'update', {
+      ad_storage: 'denied',
+      analytics_storage: 'granted'
+    });
+  });
 </script>
 
 <footer>
@@ -34,7 +41,7 @@
           backgroundColor: 'var(--ra-red)',
           padding: 'var(--ra-xs)',
           height: 'var(--ra-3xl)',
-          disabled: $cookieConsent === true
+          disabled: $consent === true
         }}
         on:clickedButton={() => denyConsent()}>Necessary</Button
       ><Button
@@ -44,9 +51,19 @@
           className: 'cookieConsentButton',
           backgroundColor: 'var(--ra-green)',
           height: 'var(--ra-3xl)',
-          disabled: $cookieConsent === false
+          disabled: $consent === false
         }}
-        on:clickedButton={() => initConsent()}>Necessary + Analytics</Button
+        on:clickedButton={() => grantConsent()}>Necessary + Analytics</Button
+      ><Button
+        btn={{
+          type: 'button',
+          role: 'button',
+          className: 'cookieConsentButton',
+          backgroundColor: 'var(--ra-green)',
+          height: 'var(--ra-3xl)',
+          disabled: $consent === false
+        }}
+        on:clickedButton={() => grantConsent()}>Necessary + Analytics</Button
       ></CookieConsentBanner
     >{/if}
 </footer>
