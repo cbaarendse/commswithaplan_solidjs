@@ -3,5 +3,11 @@
     "env": {
       "ROOT_URL": "https://www.commswithaplan.com"
     }
+  },
+  "public":{
+    "gtag":{
+      "gtmID": "GTM-PPXQ52X"
+    }
+
   }
 }

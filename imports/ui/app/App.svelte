@@ -5,6 +5,11 @@
   import Header from '../header/Header.svelte';
   import Routing from '../main/routing/Routing.svelte';
   import Footer from '../footer/Footer.svelte';
+  import {googleAnalytics} from '../../both/consent';
+  import {Meteor} from 'meteor/meteor';
+
+  const gtmID: string = Meteor.settings.public.gtag.gtmID;
+  googleAnalytics(gtmID);
 </script>
 
 <!-- Everything happens in these 3 components. -->

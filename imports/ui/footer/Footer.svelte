@@ -19,12 +19,18 @@
   function toggleDisplayConsentBanner() {
     bannerVisible = !bannerVisible;
   }
-
+//TODO: figure out
   consent.subscribe((value) => {
-    gtag('consent', 'update', {
-      ad_storage: 'denied',
-      analytics_storage: 'granted'
-    });
+    const consentUpdate = value == denyConsent {
+      consent: {
+        update: {
+          ad_storage: 'denied',
+          analytics_storage: 'granted'
+        }
+      }
+    };
+    const dataLayer = window.dataLayer;
+    dataLayer.push(consentUpdate);
   });
 </script>
 
