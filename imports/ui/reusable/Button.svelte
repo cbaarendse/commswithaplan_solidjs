@@ -24,7 +24,7 @@
 
   // functions
   function clickedButton() {
-    dispatch('clickedButton');
+    dispatch('clickedButton', {id: btn.id});
   }
   function mouseEntered() {
     dispatch('mouseEntered');
@@ -36,6 +36,7 @@
 
 <button
   class={btn.className}
+  id={btn.id}
   type={btn.type}
   role={btn.role}
   disabled={btn.disabled}

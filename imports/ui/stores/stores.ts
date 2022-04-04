@@ -15,7 +15,11 @@ import type {
 // stores
 export const language: Writable<string> = writable('dutch');
 
-export const consent: Writable<Consent> = writable({ad_storage: 'denied', analytics_storage: 'denied'});
+export const consent: Writable<Consent> = writable('necessary', () => {
+  () => {
+    console.log('Consent closed');
+  };
+});
 
 export const isLargeScreen: Writable<boolean | null> = writable(true);
 

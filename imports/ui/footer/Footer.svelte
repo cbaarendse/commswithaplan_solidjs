@@ -3,35 +3,27 @@
   import CookieConsentBanner from './CookieConsentBanner.svelte';
   import Button from './../reusable/Button.svelte';
   import {consent} from '../stores/stores';
-  import {onMount} from 'svelte';
+  import {onDestroy, onMount} from 'svelte';
+  import {Unsubscriber} from 'svelte/store';
 
   let bannerVisible: boolean = true;
-
+  // TODO: translate button text; implement consent in GTM
   onMount(() => {});
-  function grantConsent() {
-    // TODO: fix all this: consent.update;
+  // consent is a writable store, it holds the level of consent that the user gives to tracking services
+  // it can be accessed all over the application
+  // the event that sets the consent, through one of the buttons, triggers triggers the appropriate event in Google Tag Manager
+  function setConsent(event: CustomEvent) {
+    $consent = event.detail.id;
     bannerVisible = false;
-  }
-  function denyConsent() {
-    localStorage.setItem('consent', 'false');
-    bannerVisible = true;
   }
   function toggleDisplayConsentBanner() {
     bannerVisible = !bannerVisible;
   }
-//TODO: figure out
-  consent.subscribe((value) => {
-    const consentUpdate = value == denyConsent {
-      consent: {
-        update: {
-          ad_storage: 'denied',
-          analytics_storage: 'granted'
-        }
-      }
-    };
-    const dataLayer = window.dataLayer;
-    dataLayer.push(consentUpdate);
+  // consent level is also in localStorage so the user can view it
+  let consentUnsubscribe: Unsubscriber = consent.subscribe((value) => {
+    localStorage.setItem('consent', value);
   });
+  onDestroy(consentUnsubscribe);
 </script>
 
 <footer>
@@ -42,34 +34,37 @@
         btn={{
           type: 'button',
           role: 'button',
+          id: 'necessary',
           className: 'cookieConsentButton',
           color: 'var(--ra-white)',
           backgroundColor: 'var(--ra-red)',
           padding: 'var(--ra-xs)',
           height: 'var(--ra-3xl)',
-          disabled: $consent === true
+          disabled: $consent === 'necessary'
         }}
-        on:clickedButton={() => denyConsent()}>Necessary</Button
+        on:clickedButton={setConsent}>Necessary</Button
       ><Button
         btn={{
           type: 'button',
           role: 'button',
+          id: 'necessaryAnalytics',
           className: 'cookieConsentButton',
           backgroundColor: 'var(--ra-green)',
           height: 'var(--ra-3xl)',
-          disabled: $consent === false
+          disabled: $consent === 'necessaryAnalytics'
         }}
-        on:clickedButton={() => grantConsent()}>Necessary + Analytics</Button
+        on:clickedButton={setConsent}>Necessary + Analytics</Button
       ><Button
         btn={{
           type: 'button',
           role: 'button',
+          id: 'necessaryAnalyticsAds',
           className: 'cookieConsentButton',
           backgroundColor: 'var(--ra-green)',
           height: 'var(--ra-3xl)',
-          disabled: $consent === false
+          disabled: $consent === 'necessaryAnalyticsAds'
         }}
-        on:clickedButton={() => grantConsent()}>Necessary + Analytics</Button
+        on:clickedButton={setConsent}>Necessary + Analytics + Ads</Button
       ></CookieConsentBanner
     >{/if}
 </footer>
