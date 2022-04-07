@@ -15,7 +15,7 @@ import type {
 // stores
 export const language: Writable<string> = writable('dutch');
 
-export const consent: Writable<Consent> = writable('necessary', () => {
+export const consent: Writable<Consent> = writable('00111', () => {
   () => {
     console.log('Consent closed');
   };

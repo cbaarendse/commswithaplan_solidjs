@@ -1,5 +1,10 @@
 // types
-export type Consent = 'necessary' | 'necessaryAnalytics' | 'necessaryAnalyticsAds';
+declare global {
+  interface Window {
+    dataLayer: Array<{[key: string]: string | number | Date}>;
+  }
+}
+export type Consent = '00111' | '11111';
 type ClassName = {className: string | undefined | null};
 type ButtonType = {type: 'submit' | 'reset' | 'button'};
 type InputType = {

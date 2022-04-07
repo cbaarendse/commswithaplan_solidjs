@@ -9,7 +9,7 @@
     btn={{
       type: 'button',
       role: 'button',
-      className: 'cookieConsentButton',
+      className: 'consent__visibility',
       backgroundColor: 'transparent',
       height: 'var(--ra-xl)',
       disabled: false
