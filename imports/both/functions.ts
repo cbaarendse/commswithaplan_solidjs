@@ -26,6 +26,47 @@ export function cssVariables(element: HTMLElement, setCss: (e: HTMLElement) => v
   };
 }
 
+// cookies
+export function setCookie(name: string, value: string, exdays: number, doc: Document): void {
+  const d = new Date();
+  d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
+  const expires: string = 'expires=' + d.toUTCString();
+  doc.cookie = name + '=' + value + ';' + expires + ';path=/';
+}
+
+export function getCookie(name: string, doc: Document): string {
+  const cname = name + '=';
+  const decodedCookie = decodeURIComponent(doc.cookie);
+  const ca = decodedCookie.split(';');
+  for (let i = 0; i < ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(cname) == 0) {
+      return c.substring(cname.length, c.length);
+    }
+  }
+  return '';
+}
+export function checkCookie(doc: Document) {
+  let username = getCookie('username', doc);
+  if (username != '') {
+    alert('Welcome again ' + username);
+  } else {
+    username = prompt('Please enter your name:', '');
+    if (username != '' && username != null) {
+      setCookie('username', username, 365, doc);
+    }
+  }
+}
+
+export function deleteCookie(name: string, value: string, doc: Document): void {
+  const d = new Date(0);
+  const expires: string = 'expires=' + d.toUTCString();
+  doc.cookie = name + '=' + value + ';' + expires + ';path=/';
+}
+
 // schedule functions
 export function assembleYears(start: Date, end: Date): Year[] {
   const years = [];

@@ -103,14 +103,12 @@ body {
     /* min-height: 100vh; */
     /* vh because it takes up 100 points of the viewport, the html element follows this as well */
 }
-
 div.app {
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: auto 1fr auto;
+    grid-template-rows: auto 1fr minmax(2rem, auto) minmax(0, auto);
     height: 100vh;
-}
-
+  }
 /* schedule */
 
 

@@ -112,14 +112,15 @@ export type Button = ClassName &
 export type Input = ClassName &
   Partial<InputType> &
   InputValue &
-  Placeholder & {
+  Partial<Placeholder> & {
     displayName?: string;
     name: string;
     id: string;
-    value: number | string;
-    min: number;
-    max: number;
-    readonly: boolean;
+    min?: number;
+    max?: number;
+    readonly?: boolean;
+    checked?: boolean;
+    disabled?: boolean;
   };
 
 export type Brand = {title: string} & Partial<ClassName> & Css;
