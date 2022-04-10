@@ -1,21 +1,4 @@
 <head>
-  <script>
-    // Define dataLayer and the gtag function.
-    // TODO: fix
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
- 
-    // Default ad_storage to 'denied'.
-    gtag('consent', 'default', {
-      'ad_storage': localStorage.consent === '11111'? 'granted' : 'denied',
-      'analytics_storage': localStorage.consent === '11111'? 'granted' : 'denied',
-      'functionality_storage': 'granted',
-  'personalization_storage': 'granted',
-  'security_storage': 'granted',
-  'wait_for_update': 500
-    });
-
-  </script>
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
   new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],

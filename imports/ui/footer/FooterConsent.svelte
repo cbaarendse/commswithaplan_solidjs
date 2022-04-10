@@ -2,64 +2,60 @@
   import {slide} from 'svelte/transition';
   import Button from './../reusable/Button.svelte';
   import Checkbox from './../reusable/Checkbox.svelte';
-  import {language, consent} from '../stores/stores';
-  import {onDestroy, onMount} from 'svelte';
-  import {Unsubscriber} from 'svelte/store';
+  import {language} from '../stores/stores';
+  import {onMount} from 'svelte';
   import {setCookie, getCookie, checkCookie, deleteCookie} from '../../both/functions';
 
   export let footerConsentVisible: boolean;
 
-  let ad_storage_consent: boolean;
-  let analytics_storage_consent: boolean;
-  let functional_storage_consent: boolean;
-  let personal_storage_consent: boolean;
-  let security_storage_consent: boolean;
+  let ad_storage_choice: boolean = false;
+  let analytics_storage_choice: boolean = false;
+  let functional_storage_choice: boolean = true;
+  let personalization_storage_choice: boolean = true;
+  let security_storage_choice: boolean = true;
+
+  console.log('ad_storage_choice log', ad_storage_choice);
 
   onMount(() => {
     console.log('datalayer', window.dataLayer);
   });
-  // consent is a writable store, it holds the level of consent that the user gives to tracking services
-  // it can be accessed all over the application
-  // the event that sets the consent, through one of the buttons, triggers the appropriate event in Google Tag Manager
+  // setConsent sets or changes consent information stored in cookies
   function setConsent(event: CustomEvent) {
-    setCookie('_commswithaplan_ad_storage', ad_storage_consent === true ? 'granted' : 'denied', 30, window.document);
+    setCookie('_commswithaplan_ad_storage', 'granted', 7, window.document);
     setCookie(
       '_commswithaplan_analytics_storage',
-      analytics_storage_consent === true ? 'granted' : 'denied',
-      30,
+      analytics_storage_choice === true ? 'granted' : 'denied',
+      7,
       window.document
     );
     setCookie(
       '_commswithaplan_functional_storage',
-      functional_storage_consent === true ? 'granted' : 'denied',
-      30,
+      functional_storage_choice === true ? 'granted' : 'denied',
+      7,
       window.document
     );
     setCookie(
-      '_commswithaplan_personal_storage',
-      personal_storage_consent === true ? 'granted' : 'denied',
-      30,
+      '_commswithaplan_personalization_storage',
+      personalization_storage_choice === true ? 'granted' : 'denied',
+      7,
       window.document
     );
     setCookie(
       '_commswithaplan_security_storage',
-      security_storage_consent === true ? 'granted' : 'denied',
-      30,
+      security_storage_choice === true ? 'granted' : 'denied',
+      7,
       window.document
     );
-    $consent = event.detail.id;
+    console.log(
+      ad_storage_choice,
+      analytics_storage_choice,
+      functional_storage_choice,
+      personalization_storage_choice,
+      security_storage_choice
+    );
+
     footerConsentVisible = false;
   }
-
-  // consent level is also in localStorage so the user can view it
-  let consentUnsubscribe: Unsubscriber = consent.subscribe((value) => {
-    // string in localstorage.consent is built in this order:
-    // ad_storage, analytics_storage, functional_storage, personalization_storage, security_storage
-    // necessary & functional === '00111'
-    // necessary & functional & analytics & ads === '11111'
-    localStorage.setItem('consent', value);
-  });
-  onDestroy(consentUnsubscribe);
 </script>
 
 {#if footerConsentVisible}
@@ -71,11 +67,10 @@
         name: 'ad_storage',
         id: 'ad_storage__checkbox',
         className: 'consent__checkbox',
-        value: '0',
         readonly: false,
         disabled: false
       }}
-      bind:checked={ad_storage_consent}
+      bind:checked={ad_storage_choice}
     />
     <Checkbox
       cbx={{
@@ -83,11 +78,10 @@
         name: 'analytics_storage',
         id: 'analytics_storage__checkbox',
         className: 'consent__checkbox',
-        value: '0',
         readonly: false,
         disabled: false
       }}
-      bind:checked={analytics_storage_consent}
+      bind:checked={analytics_storage_choice}
     />
     <Checkbox
       cbx={{
@@ -95,20 +89,20 @@
         name: 'functional_storage',
         id: 'functional_storage__checkbox',
         className: 'consent__checkbox',
-        value: '1',
         readonly: false,
-        disabled: true
+        disabled: functional_storage_choice
       }}
+      bind:checked={functional_storage_choice}
     /><Checkbox
       cbx={{
         displayName: $language == 'dutch' ? 'Persoonlijk' : 'Personal',
-        name: 'personal_storage',
-        id: 'personal_storage__checkbox',
+        name: 'personalization_storage',
+        id: 'personalization_storage__checkbox',
         className: 'consent__checkbox',
-        value: '1',
         readonly: false,
-        disabled: true
+        disabled: personalization_storage_choice
       }}
+      bind:checked={personalization_storage_choice}
     />
     <Checkbox
       cbx={{
@@ -116,23 +110,23 @@
         name: 'security_storage',
         id: 'security_storage__checkbox',
         className: 'consent__checkbox',
-        value: '1',
         readonly: false,
-        disabled: true
+        disabled: security_storage_choice
       }}
+      bind:checked={security_storage_choice}
     />
 
     <Button
       btn={{
         type: 'submit',
         role: 'button',
-        id: '11111',
-        className: 'set__consent',
+        id: 'set__consent',
+        className: 'consent__button',
         textColor: 'var(--ra-white)',
         backgroundColor: 'var(--ra-green)',
         padding: '0 1rem',
         height: 'var(--ra-3xl)',
-        disabled: $consent === '11111'
+        disabled: false
       }}
       on:clickedButton={setConsent}>OK</Button
     >

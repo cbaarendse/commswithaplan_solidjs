@@ -32,6 +32,7 @@ export function setCookie(name: string, value: string, exdays: number, doc: Docu
   d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
   const expires: string = 'expires=' + d.toUTCString();
   doc.cookie = name + '=' + value + ';' + expires + ';path=/';
+  console.log('setCookie: ', name + '=' + value + ';' + expires + ';path=/');
 }
 
 export function getCookie(name: string, doc: Document): string {

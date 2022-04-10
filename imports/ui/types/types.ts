@@ -111,7 +111,7 @@ export type Button = ClassName &
 
 export type Input = ClassName &
   Partial<InputType> &
-  InputValue &
+  Partial<InputValue> &
   Partial<Placeholder> & {
     displayName?: string;
     name: string;

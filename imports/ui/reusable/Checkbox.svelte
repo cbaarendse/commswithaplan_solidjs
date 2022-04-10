@@ -4,6 +4,7 @@
 
   // variables
   export let cbx: Input;
+  export let checked: boolean;
 </script>
 
 <form>
@@ -18,13 +19,14 @@
     max={cbx.max}
     readonly={cbx.readonly}
     disabled={cbx.disabled}
+    {checked}
   />
 </form>
 
 <style>
   form {
     display: grid;
-    grid-template-areas: 'label input';
+    grid-template-areas: 'input label';
     gap: var(--ra-s);
     grid-template-rows: auto;
     justify-content: end;
