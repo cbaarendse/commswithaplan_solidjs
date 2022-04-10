@@ -49,14 +49,14 @@ export function getCookie(name: string, doc: Document): string {
   }
   return '';
 }
-export function checkCookie(doc: Document) {
-  let username = getCookie('username', doc);
-  if (username != '') {
-    alert('Welcome again ' + username);
+export function checkCookie(name: string, doc: Document) {
+  let value: string | null = getCookie(name, doc);
+  if (value != '') {
+    alert('Welcome again ' + value);
   } else {
-    username = prompt('Please enter your name:', '');
-    if (username != '' && username != null) {
-      setCookie('username', username, 365, doc);
+    value = prompt('Please enter your name:', '');
+    if (value != '' && value != null) {
+      setCookie(name, value, 365, doc);
     }
   }
 }

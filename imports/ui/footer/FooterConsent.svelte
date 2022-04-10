@@ -5,20 +5,48 @@
   import {language, consent} from '../stores/stores';
   import {onDestroy, onMount} from 'svelte';
   import {Unsubscriber} from 'svelte/store';
+  import {setCookie, getCookie, checkCookie, deleteCookie} from '../../both/functions';
 
   export let footerConsentVisible: boolean;
 
+  let ad_storage_consent: boolean;
+  let analytics_storage_consent: boolean;
+  let functional_storage_consent: boolean;
+  let personal_storage_consent: boolean;
+  let security_storage_consent: boolean;
+
   onMount(() => {
     console.log('datalayer', window.dataLayer);
-
-    if (localStorage.consent) {
-      $consent = localStorage.consent;
-    }
   });
   // consent is a writable store, it holds the level of consent that the user gives to tracking services
   // it can be accessed all over the application
   // the event that sets the consent, through one of the buttons, triggers the appropriate event in Google Tag Manager
   function setConsent(event: CustomEvent) {
+    setCookie('_commswithaplan_ad_storage', ad_storage_consent === true ? 'granted' : 'denied', 30, window.document);
+    setCookie(
+      '_commswithaplan_analytics_storage',
+      analytics_storage_consent === true ? 'granted' : 'denied',
+      30,
+      window.document
+    );
+    setCookie(
+      '_commswithaplan_functional_storage',
+      functional_storage_consent === true ? 'granted' : 'denied',
+      30,
+      window.document
+    );
+    setCookie(
+      '_commswithaplan_personal_storage',
+      personal_storage_consent === true ? 'granted' : 'denied',
+      30,
+      window.document
+    );
+    setCookie(
+      '_commswithaplan_security_storage',
+      security_storage_consent === true ? 'granted' : 'denied',
+      30,
+      window.document
+    );
     $consent = event.detail.id;
     footerConsentVisible = false;
   }
@@ -36,33 +64,64 @@
 
 {#if footerConsentVisible}
   <footer transition:slide={{delay: 200, duration: 1000}}>
-    <span>Cookies:</span>
+    <span>{$language == 'dutch' ? 'Akkoord opslag cookies:' : 'Agree storage of cookies:'}</span>
     <Checkbox
       cbx={{
-        displayName: $language == 'dutch' ? 'Akkoord Functioneel & Noodzakelijk' : 'Agree Functional & Necessary',
-        name: 'consentFunctionalNecessary',
-        id: 'functionalNecessary',
+        displayName: $language == 'dutch' ? 'Advertenties' : 'Ads',
+        name: 'ad_storage',
+        id: 'ad_storage__checkbox',
         className: 'consent__checkbox',
-        value: '00111',
-        checked: true,
-        readonly: false,
-        disabled: true
-      }}
-      on:updateCheckBox
-    />
-    <Checkbox
-      cbx={{
-        displayName: $language == 'dutch' ? 'Akkoord Analyse & Ads' : 'Agree Analysis & Ads',
-        name: 'consentFunctionalNecessaryAdsAnalytics',
-        id: 'functionalNecessaryAdsAnalytics',
-        className: 'consent__checkbox',
-        value: '11111',
-        checked: true,
+        value: '0',
         readonly: false,
         disabled: false
       }}
-      on:updateCheckBox
+      bind:checked={ad_storage_consent}
     />
+    <Checkbox
+      cbx={{
+        displayName: $language == 'dutch' ? 'Analyse' : 'Analysis',
+        name: 'analytics_storage',
+        id: 'analytics_storage__checkbox',
+        className: 'consent__checkbox',
+        value: '0',
+        readonly: false,
+        disabled: false
+      }}
+      bind:checked={analytics_storage_consent}
+    />
+    <Checkbox
+      cbx={{
+        displayName: $language == 'dutch' ? 'Functioneel' : 'Functional',
+        name: 'functional_storage',
+        id: 'functional_storage__checkbox',
+        className: 'consent__checkbox',
+        value: '1',
+        readonly: false,
+        disabled: true
+      }}
+    /><Checkbox
+      cbx={{
+        displayName: $language == 'dutch' ? 'Persoonlijk' : 'Personal',
+        name: 'personal_storage',
+        id: 'personal_storage__checkbox',
+        className: 'consent__checkbox',
+        value: '1',
+        readonly: false,
+        disabled: true
+      }}
+    />
+    <Checkbox
+      cbx={{
+        displayName: $language == 'dutch' ? 'Veiligheid' : 'Security',
+        name: 'security_storage',
+        id: 'security_storage__checkbox',
+        className: 'consent__checkbox',
+        value: '1',
+        readonly: false,
+        disabled: true
+      }}
+    />
+
     <Button
       btn={{
         type: 'submit',
@@ -75,7 +134,7 @@
         height: 'var(--ra-3xl)',
         disabled: $consent === '11111'
       }}
-      on:clickedButton={setConsent}>{$language === 'dutch' ? 'Verstuur' : 'Submit'}</Button
+      on:clickedButton={setConsent}>OK</Button
     >
   </footer>
 {/if}

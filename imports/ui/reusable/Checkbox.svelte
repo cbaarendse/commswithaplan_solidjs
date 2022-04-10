@@ -1,17 +1,9 @@
 <script lang="ts">
   // imports
-  import {createEventDispatcher} from 'svelte';
   import type {Input} from '../types/types';
-  import {language} from '../stores/stores';
 
   // variables
   export let cbx: Input;
-  let dispatch = createEventDispatcher();
-
-  // functions
-  function update() {
-    dispatch('updateCheckBox', {name: cbx.name, value: cbx.value});
-  }
 </script>
 
 <form>
@@ -25,10 +17,7 @@
     min={cbx.min}
     max={cbx.max}
     readonly={cbx.readonly}
-    checked={cbx.checked}
     disabled={cbx.disabled}
-    bind:value={cbx.value}
-    on:change={update}
   />
 </form>
 

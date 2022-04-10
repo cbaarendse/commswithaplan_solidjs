@@ -119,7 +119,6 @@ export type Input = ClassName &
     min?: number;
     max?: number;
     readonly?: boolean;
-    checked?: boolean;
     disabled?: boolean;
   };
 
