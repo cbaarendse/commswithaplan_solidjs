@@ -8,52 +8,49 @@
 
   export let footerConsentVisible: boolean;
 
-  let ad_storage_choice: boolean = false;
-  let analytics_storage_choice: boolean = false;
-  let functional_storage_choice: boolean = true;
-  let personalization_storage_choice: boolean = true;
-  let security_storage_choice: boolean = true;
+  let ad_storage_checked: boolean = getCookie('_commswithaplan_ad_storage', document)
+    ? getCookie('_commswithaplan_ad_storage', document) === 'granted'
+      ? true
+      : false
+    : true;
+  let analytics_storage_checked: boolean = getCookie('_commswithaplan_ad_storage', document)
+    ? getCookie('_commswithaplan_ad_storage', document) === 'granted'
+      ? true
+      : false
+    : true;
+  let functional_storage_checked: boolean = getCookie('_commswithaplan_ad_storage', document)
+    ? getCookie('_commswithaplan_ad_storage', document) === 'granted'
+      ? true
+      : false
+    : true;
+  let personalization_storage_checked: boolean = getCookie('_commswithaplan_ad_storage', document)
+    ? getCookie('_commswithaplan_ad_storage', document) === 'granted'
+      ? true
+      : false
+    : true;
+  let security_storage_checked: boolean = getCookie('_commswithaplan_ad_storage', document)
+    ? getCookie('_commswithaplan_ad_storage', document) === 'granted'
+      ? true
+      : false
+    : true;
 
-  console.log('ad_storage_choice log', ad_storage_choice);
+  $: ad_storage_consent = ad_storage_checked === true ? 'granted' : 'denied';
+  $: analytics_storage_consent = analytics_storage_checked === true ? 'granted' : 'denied';
+  $: functional_storage_consent = functional_storage_checked === true ? 'granted' : 'denied';
+  $: personalization_storage_consent = personalization_storage_checked === true ? 'granted' : 'denied';
+  $: security_storage_consent = security_storage_checked === true ? 'granted' : 'denied';
+
+  $: setCookie('_commswithaplan_ad_storage', ad_storage_consent, 7, document);
+  $: setCookie('_commswithaplan_analytics_storage', analytics_storage_consent, 7, document);
+  $: setCookie('_commswithaplan_functional_storage', functional_storage_consent, 7, document);
+  $: setCookie('_commswithaplan_personalization_storage', personalization_storage_consent, 7, document);
+  $: setCookie('_commswithaplan_security_storage', security_storage_consent, 7, document);
 
   onMount(() => {
     console.log('datalayer', window.dataLayer);
   });
   // setConsent sets or changes consent information stored in cookies
   function setConsent(event: CustomEvent) {
-    setCookie('_commswithaplan_ad_storage', 'granted', 7, window.document);
-    setCookie(
-      '_commswithaplan_analytics_storage',
-      analytics_storage_choice === true ? 'granted' : 'denied',
-      7,
-      window.document
-    );
-    setCookie(
-      '_commswithaplan_functional_storage',
-      functional_storage_choice === true ? 'granted' : 'denied',
-      7,
-      window.document
-    );
-    setCookie(
-      '_commswithaplan_personalization_storage',
-      personalization_storage_choice === true ? 'granted' : 'denied',
-      7,
-      window.document
-    );
-    setCookie(
-      '_commswithaplan_security_storage',
-      security_storage_choice === true ? 'granted' : 'denied',
-      7,
-      window.document
-    );
-    console.log(
-      ad_storage_choice,
-      analytics_storage_choice,
-      functional_storage_choice,
-      personalization_storage_choice,
-      security_storage_choice
-    );
-
     footerConsentVisible = false;
   }
 </script>
@@ -70,7 +67,7 @@
         readonly: false,
         disabled: false
       }}
-      bind:checked={ad_storage_choice}
+      bind:checked={ad_storage_checked}
     />
     <Checkbox
       cbx={{
@@ -81,7 +78,7 @@
         readonly: false,
         disabled: false
       }}
-      bind:checked={analytics_storage_choice}
+      bind:checked={analytics_storage_checked}
     />
     <Checkbox
       cbx={{
@@ -90,9 +87,9 @@
         id: 'functional_storage__checkbox',
         className: 'consent__checkbox',
         readonly: false,
-        disabled: functional_storage_choice
+        disabled: functional_storage_checked
       }}
-      bind:checked={functional_storage_choice}
+      bind:checked={functional_storage_checked}
     /><Checkbox
       cbx={{
         displayName: $language == 'dutch' ? 'Persoonlijk' : 'Personal',
@@ -100,9 +97,9 @@
         id: 'personalization_storage__checkbox',
         className: 'consent__checkbox',
         readonly: false,
-        disabled: personalization_storage_choice
+        disabled: personalization_storage_checked
       }}
-      bind:checked={personalization_storage_choice}
+      bind:checked={personalization_storage_checked}
     />
     <Checkbox
       cbx={{
@@ -111,9 +108,9 @@
         id: 'security_storage__checkbox',
         className: 'consent__checkbox',
         readonly: false,
-        disabled: security_storage_choice
+        disabled: security_storage_checked
       }}
-      bind:checked={security_storage_choice}
+      bind:checked={security_storage_checked}
     />
 
     <Button
