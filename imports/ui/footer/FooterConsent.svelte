@@ -8,46 +8,46 @@
 
   export let footerConsentVisible: boolean;
 
-  let ad_storage_checked: boolean = getCookie('_commswithaplan_ad_storage', document)
-    ? getCookie('_commswithaplan_ad_storage', document) === 'granted'
-      ? true
-      : false
-    : true;
-  let analytics_storage_checked: boolean = getCookie('_commswithaplan_ad_storage', document)
-    ? getCookie('_commswithaplan_ad_storage', document) === 'granted'
-      ? true
-      : false
-    : true;
-  let functional_storage_checked: boolean = getCookie('_commswithaplan_ad_storage', document)
-    ? getCookie('_commswithaplan_ad_storage', document) === 'granted'
-      ? true
-      : false
-    : true;
-  let personalization_storage_checked: boolean = getCookie('_commswithaplan_ad_storage', document)
-    ? getCookie('_commswithaplan_ad_storage', document) === 'granted'
-      ? true
-      : false
-    : true;
-  let security_storage_checked: boolean = getCookie('_commswithaplan_ad_storage', document)
-    ? getCookie('_commswithaplan_ad_storage', document) === 'granted'
-      ? true
-      : false
-    : true;
+  function checkedToConsent(arg: boolean): 'granted' | 'denied' {
+    return arg === false ? 'denied' : 'granted';
+  }
+  function consentToChecked(arg: string): boolean {
+    return arg === 'denied' ? false : arg === 'granted' ? true : true;
+  }
+  let ad_storage_checked: boolean = consentToChecked(getCookie('_commswithaplan_ad_storage', document));
+  let analytics_storage_checked: boolean = consentToChecked(getCookie('_commswithaplan_analytics_storage', document));
+  let functional_storage_checked: boolean = consentToChecked(getCookie('_commswithaplan_functional_storage', document));
+  let personalization_storage_checked: boolean = consentToChecked(
+    getCookie('_commswithaplan_personalization_storage', document)
+  );
+  let security_storage_checked: boolean = consentToChecked(getCookie('_commswithaplan_security_storage', document));
 
-  $: ad_storage_consent = ad_storage_checked === true ? 'granted' : 'denied';
-  $: analytics_storage_consent = analytics_storage_checked === true ? 'granted' : 'denied';
-  $: functional_storage_consent = functional_storage_checked === true ? 'granted' : 'denied';
-  $: personalization_storage_consent = personalization_storage_checked === true ? 'granted' : 'denied';
-  $: security_storage_consent = security_storage_checked === true ? 'granted' : 'denied';
-
-  $: setCookie('_commswithaplan_ad_storage', ad_storage_consent, 7, document);
-  $: setCookie('_commswithaplan_analytics_storage', analytics_storage_consent, 7, document);
-  $: setCookie('_commswithaplan_functional_storage', functional_storage_consent, 7, document);
-  $: setCookie('_commswithaplan_personalization_storage', personalization_storage_consent, 7, document);
-  $: setCookie('_commswithaplan_security_storage', security_storage_consent, 7, document);
+  $: setCookie('_commswithaplan_ad_storage', checkedToConsent(ad_storage_checked), 7, document);
+  $: setCookie('_commswithaplan_analytics_storage', checkedToConsent(analytics_storage_checked), 7, document);
+  $: setCookie('_commswithaplan_functional_storage', checkedToConsent(functional_storage_checked), 7, document);
+  $: setCookie(
+    '_commswithaplan_personalization_storage',
+    checkedToConsent(personalization_storage_checked),
+    7,
+    document
+  );
+  $: setCookie('_commswithaplan_security_storage', checkedToConsent(security_storage_checked), 7, document);
 
   onMount(() => {
-    console.log('datalayer', window.dataLayer);
+    console.log('datalayer, onMount', window.dataLayer);
+    console.log(
+      'consents, onMount',
+      'ad',
+      ad_storage_checked,
+      'analytics',
+      analytics_storage_checked,
+      'functional',
+      functional_storage_checked,
+      'personalization',
+      personalization_storage_checked,
+      'security',
+      security_storage_checked
+    );
   });
   // setConsent sets or changes consent information stored in cookies
   function setConsent(event: CustomEvent) {
