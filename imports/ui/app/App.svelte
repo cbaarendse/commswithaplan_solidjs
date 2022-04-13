@@ -3,10 +3,10 @@
   import Routing from '../main/routing/Routing.svelte';
   import Footer from '../footer/Footer.svelte';
   import FooterConsent from '../footer/FooterConsent.svelte';
+  import {consentFooterVisible} from '../stores/stores';
 
-  let footerConsentVisible: boolean = true;
   function toggleFooterConsentVisibility() {
-    footerConsentVisible = !footerConsentVisible;
+    $consentFooterVisible = $consentFooterVisible === false ? true : false;
   }
 </script>
 
@@ -17,4 +17,4 @@
 <Header />
 <Routing />
 <Footer on:clickedButton={toggleFooterConsentVisibility} />
-<FooterConsent {footerConsentVisible} />
+<FooterConsent />

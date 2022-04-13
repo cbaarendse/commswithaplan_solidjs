@@ -15,6 +15,8 @@ import type {
 // stores
 export const language: Writable<string> = writable('dutch');
 
+export const consentFooterVisible: Writable<boolean | null> = writable(true);
+
 export const isLargeScreen: Writable<boolean | null> = writable(true);
 
 export const navigationVisible: Writable<boolean | null> = writable(true);

@@ -51,14 +51,11 @@ export function getCookie(name: string, doc: Document): string {
   return '';
 }
 export function checkCookie(name: string, doc: Document) {
-  let value: string | null = getCookie(name, doc);
-  if (value != '') {
-    alert('Welcome again ' + value);
+  const value: string | null = getCookie(name, doc);
+  if (value && value != '') {
+    return true;
   } else {
-    value = prompt('Please enter your name:', '');
-    if (value != '' && value != null) {
-      setCookie(name, value, 365, doc);
-    }
+    return false;
   }
 }
 
@@ -66,6 +63,13 @@ export function deleteCookie(name: string, value: string, doc: Document): void {
   const d = new Date(0);
   const expires: string = 'expires=' + d.toUTCString();
   doc.cookie = name + '=' + value + ';' + expires + ';path=/';
+}
+
+export function checkedToConsent(arg: boolean): 'granted' | 'denied' {
+  return arg === false ? 'denied' : 'granted';
+}
+export function consentToChecked(arg: string): boolean {
+  return arg === 'denied' ? false : arg === 'granted' ? true : true;
 }
 
 // schedule functions

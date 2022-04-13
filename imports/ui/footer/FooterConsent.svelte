@@ -2,60 +2,56 @@
   import {slide} from 'svelte/transition';
   import Button from './../reusable/Button.svelte';
   import Checkbox from './../reusable/Checkbox.svelte';
-  import {language} from '../stores/stores';
+  import {language, consentFooterVisible} from '../stores/stores';
   import {onMount} from 'svelte';
-  import {setCookie, getCookie, checkCookie, deleteCookie} from '../../both/functions';
+  import {
+    setCookie,
+    getCookie,
+    checkCookie,
+    deleteCookie,
+    checkedToConsent,
+    consentToChecked
+  } from '../../both/functions';
 
-  export let footerConsentVisible: boolean;
-
-  function checkedToConsent(arg: boolean): 'granted' | 'denied' {
-    return arg === false ? 'denied' : 'granted';
-  }
-  function consentToChecked(arg: string): boolean {
-    return arg === 'denied' ? false : arg === 'granted' ? true : true;
-  }
   let ad_storage_checked: boolean = consentToChecked(getCookie('_commswithaplan_ad_storage', document));
   let analytics_storage_checked: boolean = consentToChecked(getCookie('_commswithaplan_analytics_storage', document));
-  let functional_storage_checked: boolean = consentToChecked(getCookie('_commswithaplan_functional_storage', document));
+  const functional_storage_checked: boolean = consentToChecked('granted');
   let personalization_storage_checked: boolean = consentToChecked(
     getCookie('_commswithaplan_personalization_storage', document)
   );
-  let security_storage_checked: boolean = consentToChecked(getCookie('_commswithaplan_security_storage', document));
+  const security_storage_checked: boolean = consentToChecked('granted');
 
   $: setCookie('_commswithaplan_ad_storage', checkedToConsent(ad_storage_checked), 7, document);
   $: setCookie('_commswithaplan_analytics_storage', checkedToConsent(analytics_storage_checked), 7, document);
-  $: setCookie('_commswithaplan_functional_storage', checkedToConsent(functional_storage_checked), 7, document);
   $: setCookie(
     '_commswithaplan_personalization_storage',
     checkedToConsent(personalization_storage_checked),
     7,
     document
   );
-  $: setCookie('_commswithaplan_security_storage', checkedToConsent(security_storage_checked), 7, document);
 
   onMount(() => {
-    console.log('datalayer, onMount', window.dataLayer);
-    console.log(
-      'consents, onMount',
-      'ad',
-      ad_storage_checked,
-      'analytics',
-      analytics_storage_checked,
-      'functional',
-      functional_storage_checked,
-      'personalization',
-      personalization_storage_checked,
-      'security',
-      security_storage_checked
-    );
+    setCookie('_commswithaplan_functional_storage', checkedToConsent(functional_storage_checked), 7, document);
+    setCookie('_commswithaplan_security_storage', checkedToConsent(security_storage_checked), 7, document);
+    if (
+      checkCookie('_commswithaplan_ad_storage', document) &&
+      checkCookie('_commswithaplan_analytics_storage', document) &&
+      checkCookie('_commswithaplan_functional_storage', document) &&
+      checkCookie('_commswithaplan_personalization_storage', document) &&
+      checkCookie('_commswithaplan_security_storage', document)
+    ) {
+      $consentFooterVisible = false;
+    }
   });
+
   // setConsent sets or changes consent information stored in cookies
+  // Google Tag Manager reacts to this event, so it needs to stay.
   function setConsent(event: CustomEvent) {
-    footerConsentVisible = false;
+    $consentFooterVisible = false;
   }
 </script>
 
-{#if footerConsentVisible}
+{#if $consentFooterVisible}
   <footer transition:slide={{delay: 200, duration: 1000}}>
     <span>{$language == 'dutch' ? 'Akkoord opslag cookies:' : 'Agree storage of cookies:'}</span>
     <Checkbox
@@ -89,7 +85,7 @@
         readonly: false,
         disabled: functional_storage_checked
       }}
-      bind:checked={functional_storage_checked}
+      checked={functional_storage_checked}
     /><Checkbox
       cbx={{
         displayName: $language == 'dutch' ? 'Persoonlijk' : 'Personal',
@@ -110,7 +106,7 @@
         readonly: false,
         disabled: security_storage_checked
       }}
-      bind:checked={security_storage_checked}
+      checked={security_storage_checked}
     />
 
     <Button
