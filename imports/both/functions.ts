@@ -52,7 +52,7 @@ export function getCookie(name: string, doc: Document): string {
 }
 export function checkCookie(name: string, doc: Document) {
   const value: string | null = getCookie(name, doc);
-  if (value && value != '') {
+  if (name.startsWith('_commswithaplan') && (value === 'granted' || 'denied')) {
     return true;
   } else {
     return false;
