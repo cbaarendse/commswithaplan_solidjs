@@ -4,7 +4,7 @@
   import type {Tweened} from 'svelte/motion';
   import {cubicInOut} from 'svelte/easing';
   import Button from '../../ui/reusable/Button.svelte';
-  import {navigationVisible} from '../stores/stores';
+  import {navigationVisible, isLargeScreen} from '../stores/stores';
 
   // variables
   let top: Tweened<number> = tweened(10, {duration: 300, easing: cubicInOut});
@@ -15,6 +15,8 @@
   let bottom: Tweened<number> = tweened(10, {duration: 300, easing: cubicInOut});
   let bottomRotation: Tweened<number> = tweened(0, {duration: 300, easing: cubicInOut});
 
+  $: options = {duration: 500, cubicInOut, times: 2};
+
   // functions
   navigationVisible.subscribe((visible) => {
     $top = visible === true ? 42 : 10;
@@ -23,6 +25,21 @@
     $bottom = visible === true ? 42 : 10;
     $bottomRotation = visible === true ? 135 : 0;
   });
+
+  function spin(node: HTMLElement, options: {duration: number; cubicInOut: Function; times: number}) {
+    return {
+      ...options,
+      // The value of t passed to the css method
+      // varies between zero and one during an "in" transition
+      // and between one and zero during an "out" transition.
+      css() {
+        // Svelte takes care of applying the easing function.
+        const degrees: number = 45; // through which to spin
+        const center: number = 42;
+        return `transform: slide(${center}%) rotate(${degrees}deg);`;
+      }
+    };
+  }
 </script>
 
 <!-- This button animates when used for toggling navigation, but also if screen size is changed beyond threshold. -->

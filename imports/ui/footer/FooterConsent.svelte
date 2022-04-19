@@ -66,7 +66,15 @@
 
 {#if $consentFooterVisible}
   <footer transition:slide={{delay: 200, duration: 1000}}>
-    <span>{$language == 'dutch' ? 'Akkoord opslag cookies:' : 'Agree storage of cookies:'}</span>
+    <span
+      >{$language == 'dutch' ? 'Akkoord opslag cookies' : 'Agree storage of cookies'}&nbsp;(
+      <nav>
+        <a href="/legal/cookiepolicy"
+          >{#if $language == 'dutch'}cookiebeleid{:else}cookie policy{/if}</a
+        >
+      </nav>
+      )</span
+    >
     <Checkbox
       cbx={{
         displayName: $language == 'dutch' ? 'Advertenties' : 'Ads',
@@ -149,5 +157,8 @@
     padding: 0.2rem 0;
     font-size: clamp(var(--font-size-xxs), var(--font-size-weight) * 100vw, var(--font-size-s));
     background: var(--ra-red-off-white);
+  }
+  nav {
+    display: inline-block;
   }
 </style>
