@@ -2,6 +2,7 @@
   // packages
   import {tweened} from 'svelte/motion';
   import type {Tweened} from 'svelte/motion';
+  import {scale, fly} from 'svelte/transition';
   import {cubicInOut} from 'svelte/easing';
   import Button from '../../ui/reusable/Button.svelte';
   import {navigationVisible, isLargeScreen} from '../stores/stores';
@@ -26,19 +27,29 @@
     $bottomRotation = visible === true ? 135 : 0;
   });
 
-  function spin(node: HTMLElement, options: {duration: number; cubicInOut: Function; times: number}) {
+  function spinTop(node: HTMLElement) {
     return {
-      ...options,
-      // The value of t passed to the css method
-      // varies between zero and one during an "in" transition
-      // and between one and zero during an "out" transition.
-      css() {
-        // Svelte takes care of applying the easing function.
-        const degrees: number = 45; // through which to spin
-        const center: number = 42;
-        return `transform: slide(${center}%) rotate(${degrees}deg);`;
-      }
+      duration: 1000,
+      easing: cubicInOut,
+      css: (t: number) => `transform:rotate(${t * 45}deg)`
     };
+    //style="top:{$top}%;transform:rotate({$topRotation}deg);"
+  }
+  function leaveCenter(node: HTMLElement) {
+    return {
+      duration: 1000,
+      easing: cubicInOut,
+      css: (t: number, u: number) => `transform:scale(${t * 100}%)`
+    };
+    // style="top:{$center}%; transform:scale({$width}, {$height}); transform-origin: right 15%;"
+  }
+  function spinBottom(node: HTMLElement) {
+    return {
+      duration: 1000,
+      easing: cubicInOut,
+      css: (t: number) => `transform:rotate(${-t * 45}deg)`
+    };
+    // style="bottom:{$bottom}%;transform:rotate({$bottomRotation}deg);"
   }
 </script>
 
@@ -56,9 +67,13 @@
   on:clickedButton={() => ($navigationVisible = !$navigationVisible)}
 >
   <div class="bars">
-    <div class="bar-1" style="top:{$top}%;transform:rotate({$topRotation}deg);" />
-    <div class="bar-2" style="top:{$center}%; transform:scale({$width}, {$height}); transform-origin: right 15%;" />
-    <div class="bar-3" style="bottom:{$bottom}%;transform:rotate({$bottomRotation}deg);" />
+    {#if !$isLargeScreen}
+      <div class="bar-1" transition:spinTop />
+    {/if}
+    {#if !$isLargeScreen}
+      <div class="bar-2" transition:leaveCenter />{/if}
+    {#if !$isLargeScreen}
+      <div class="bar-3" transition:spinBottom />{/if}
   </div>
 </Button>
 
