@@ -26,12 +26,12 @@
     $bottom = visible === true ? 42 : 10;
     $bottomRotation = visible === true ? 135 : 0;
   });
-
+  //TODO: finetune
   function spinTop(node: HTMLElement) {
     return {
       duration: 1000,
       easing: cubicInOut,
-      css: (t: number) => `transform:rotate(${t * 45}deg)`
+      css: (t: number, u: number) => `transform: rotate(${u * 45}deg translateY(${t * 42}%)`
     };
     //style="top:{$top}%;transform:rotate({$topRotation}deg);"
   }
@@ -39,7 +39,7 @@
     return {
       duration: 1000,
       easing: cubicInOut,
-      css: (t: number, u: number) => `transform:scale(${t * 100}%)`
+      css: (t: number, u: number) => `transform: scale(${t}) translateX(${u * 100}%)`
     };
     // style="top:{$center}%; transform:scale({$width}, {$height}); transform-origin: right 15%;"
   }
@@ -47,7 +47,7 @@
     return {
       duration: 1000,
       easing: cubicInOut,
-      css: (t: number) => `transform:rotate(${-t * 45}deg)`
+      css: (t: number, u: number) => `transform: rotate(${t * 45}deg translateY(${u * 42}%)`
     };
     // style="bottom:{$bottom}%;transform:rotate({$bottomRotation}deg);"
   }
