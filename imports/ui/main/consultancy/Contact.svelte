@@ -6,8 +6,10 @@
   import Brand from '../../reusable/Brand.svelte';
   import LogoCommsWithAPlan from '../../reusable/LogoCommsWithAPlan.svelte';
   import Card from '../../reusable/Card.svelte';
-  import {language} from .../../stores/ui
+  import {language} from '../../stores/utils';
   import {contactItems} from '../../stores/consultancy';
+
+  // variables
   $: translatedContactItems = $contactItems.filter((item) => item.language === $language);
 </script>
 

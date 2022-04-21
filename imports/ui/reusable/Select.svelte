@@ -3,11 +3,13 @@
   import {createEventDispatcher} from 'svelte';
   import type {Select, Option} from '../types/types';
   import {Ui} from '../types/classes';
-  import {language, translations} from '../stores/uii // variables
+  import {language, translations} from '../stores/utils';
+
+  // exports
   export let select: Select;
   export let list: Option[];
 
-  // constants
+  //variables
 
   // functions
   const dispatch = createEventDispatcher();

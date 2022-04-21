@@ -6,7 +6,7 @@
   import Brand from '../../reusable/Brand.svelte';
   import LogoReach from '../../reusable/LogoReach.svelte';
   import Card from '../../reusable/Card.svelte';
-  import {language} from .../../stores/ui
+  import {language} from '../../stores/utils';
   import {toolsHomeItems} from '../../stores/tools';
 
   // variables

@@ -10,7 +10,7 @@
   import {onDestroy, onMount} from 'svelte';
   import {Unsubscriber} from 'svelte/store';
   import {Reach} from '../../types/classes';
-  import {languag../../sto../../stores/ui
+  import {language} from '../../stores/utils';
   import {touchPointsBasics} from '../../stores/tools';
   import type {TouchPointInPlan} from '../../types/types';
 

@@ -4,7 +4,7 @@
   import {router, active} from 'tinro';
 
   // variables
-  import {language, isLargeScreen, navigationVisible, useMediaQuery} from '../stores/ui';
+  import {language, isLargeScreen, navigationVisible, useMediaQuery} from '../stores/utils';
 
   // functions
   // Outcome of

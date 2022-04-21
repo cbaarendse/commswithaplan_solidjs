@@ -1,8 +1,10 @@
 <script lang="ts">
+  // imports
   import {slide} from 'svelte/transition';
   import Button from './../reusable/Button.svelte';
   import Checkbox from './../reusable/Checkbox.svelte';
-  import {language, consentFooterVisible} from '../stores/ui/uiport {onMount} from 'svelte';
+  import {language, consentFooterVisible} from './../stores/utils';
+  import {onMount} from 'svelte';
   import {
     setCookie,
     getCookie,
@@ -14,6 +16,8 @@
   //TODO: consent footer should be visible if cookies not complete. Cookies should not be set automatically at start
   // initiate variables
   // always granted in GDPR
+
+  // variables
   const functional_storage_checked: boolean = consentToChecked('granted');
   const security_storage_checked: boolean = consentToChecked('granted');
   // up to user preference
@@ -58,7 +62,7 @@
 
   // setConsent sets or changes consent information stored in cookies
   // Google Tag Manager reacts to this event, so it needs to stay.
-  function setConsent(event: CustomEvent) {
+  function setConsent() {
     $consentFooterVisible = false;
   }
 </script>

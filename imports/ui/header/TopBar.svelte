@@ -1,9 +1,8 @@
 <script lang="ts">
-  // packages
+  // imports
   import ToggleButton from './ToggleButton.svelte';
-
-  // variables
-  import {language} from '../stores/uiuicript>
+  import {language} from '../stores/utils';
+</script>
 
 <!-- TopBar has room for functionality used from all over the site. Eventual cookies and/or marketing messages. -->
 <div class="top-bar" role="menu">

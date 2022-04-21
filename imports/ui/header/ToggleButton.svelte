@@ -1,6 +1,7 @@
 <script lang="ts">
   // imports
   import {cubicInOut, easeInOut} from 'svelte/easing';
+  import {fly} from 'svelte/transition';
   import Button from '../../ui/reusable/Button.svelte';
   import {navigationVisible, isLargeScreen, toggleButtonVisible} from '../stores/utils';
 
@@ -47,15 +48,20 @@
   }}
   on:clickedButton={() => ($navigationVisible = !$navigationVisible)}
 >
-  <div class="bars">
-    {#if $toggleButtonVisible}
-      <div class="bar-1" transition:spinTop />
-    {/if}
-    {#if $toggleButtonVisible}
-      <div class="bar-2" transition:leaveCenter />{/if}
-    {#if $toggleButtonVisible}
-      <div class="bar-3" transition:spinBottom />{/if}
-  </div>
+  {#if $navigationVisible}
+    <div class="bars">
+      {#if $toggleButtonVisible}
+        <div class="bar-1" transition:spinTop />
+      {/if}
+      {#if $navigationVisible}
+        <div
+          class="bar-2"
+          transition:fly={{delay: 0, duration: 300, x: 100, y: 0, opacity: 1, easing: cubicInOut}}
+        />{/if}
+      {#if $toggleButtonVisible}
+        <div class="bar-3" transition:spinBottom />{/if}
+    </div>
+  {/if}
 </Button>
 
 <style>

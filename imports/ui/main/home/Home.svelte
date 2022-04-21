@@ -3,7 +3,10 @@
   import Main from './layout/Main.svelte';
   import Section from './layout/Section.svelte';
   import Card from '../../reusable/Card.svelte';
-  import {language} from '../../stores/uiiimport {homeItems} from '../../stores/home';
+  import {language} from '../../stores/utils';
+  import {homeItems} from '../../stores/home';
+
+  // variables
   $: translatedHomeItems = $homeItems.filter((item) => item.language === $language);
 </script>
 

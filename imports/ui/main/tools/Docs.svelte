@@ -7,7 +7,7 @@
   import LogoReach from '../../reusable/LogoReach.svelte';
   import DocsLink from './DocsLink.svelte';
   import DocsChapter from './DocsChapter.svelte';
-  import {language} fro../../../stores/ui
+  import {language} from '../../stores/utils';
   import {toolsDocumentationChapters} from '../../stores/tools';
 
   // variables

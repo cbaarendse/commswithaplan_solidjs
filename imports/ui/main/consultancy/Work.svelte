@@ -6,7 +6,7 @@
   import Brand from '../../reusable/Brand.svelte';
   import LogoCommsWithAPlan from '../../reusable/LogoCommsWithAPlan.svelte';
   import Card from '../../reusable/Card.svelte';
-  import {language} from .../../stores/ui
+  import {language} from '../../stores/utils';
   import {workItems} from '../../stores/consultancy';
 
   // variables

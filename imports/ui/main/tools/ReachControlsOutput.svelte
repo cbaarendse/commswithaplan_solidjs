@@ -1,7 +1,7 @@
 <script lang="ts">
   // packages
   import {createEventDispatcher} from 'svelte';
-  import {language, translations} from '../../sto../../stores/utils';
+  import {language, translations} from '../../stores/utils';
   import {definitions} from '../../stores/tools';
   import type {Definition} from '../../types/types';
   import Modal from '../../reusable/Modal.svelte';
