@@ -2,9 +2,7 @@
   // imports
   import {createEventDispatcher} from 'svelte';
   import type {Input} from '../types/types';
-  import {language} from '../stores/stores';
-
-  // variables
+  import {language} from '../stores/ui/ui/ variables
   export let input: Input;
   let dispatch = createEventDispatcher();
 

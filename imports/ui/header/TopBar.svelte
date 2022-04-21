@@ -3,8 +3,7 @@
   import ToggleButton from './ToggleButton.svelte';
 
   // variables
-  import {language} from '../stores/stores';
-</script>
+  import {language} from '../stores/uiuicript>
 
 <!-- TopBar has room for functionality used from all over the site. Eventual cookies and/or marketing messages. -->
 <div class="top-bar" role="menu">

@@ -5,7 +5,8 @@
   import Section from './layout/Section.svelte';
   import Brand from '../../reusable/Brand.svelte';
   import LogoCommsWithAPlan from '../../reusable/LogoCommsWithAPlan.svelte';
-  import {language, aboutItems} from '../../stores/stores';
+  import {language} from '../../stores/utils';
+  import {aboutItems} from '../../stores/consultancy';
   import Card from '../../reusable/Card.svelte';
 
   // variables;

@@ -1,20 +1,15 @@
 <script lang="ts">
-  // packages
-
-  // components
+  // imports
   import Main from './layout/Main.svelte';
   import Header from './layout/Header.svelte';
   import Section from './layout/Section.svelte';
   import Brand from '../../reusable/Brand.svelte';
   import LogoCommsWithAPlan from '../../reusable/LogoCommsWithAPlan.svelte';
   import Card from '../../reusable/Card.svelte';
-
-  // types
-
-  // functions
+  import {language} from .../../stores/ui
+  import {workItems} from '../../stores/consultancy';
 
   // variables
-  import {language, workItems} from '../../stores/stores';
   $: translatedWorkItems = $workItems.filter((item) => item.language === $language);
 </script>
 

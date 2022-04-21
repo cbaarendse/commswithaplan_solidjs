@@ -1,4 +1,5 @@
 <script lang="ts">
+  // imports
   import Main from './layout/Main.svelte';
   import Section from './layout/Section.svelte';
   import Header from './layout/Header.svelte';
@@ -6,9 +7,10 @@
   import LogoReach from '../../reusable/LogoReach.svelte';
   import DocsLink from './DocsLink.svelte';
   import DocsChapter from './DocsChapter.svelte';
+  import {language} fro../../../stores/ui
+  import {toolsDocumentationChapters} from '../../stores/tools';
 
-  // variables*
-  import {language, toolsDocumentationChapters} from '../../stores/stores';
+  // variables
   $: translatedToolsDocumentationChapters = $toolsDocumentationChapters.filter(
     (chapter) => chapter.language === $language
   );

@@ -1,0 +1,77 @@
+// packages
+import {writable, Writable, readable, Readable} from 'svelte/store';
+
+// interfaces
+import type {Translation} from '../types/types';
+
+// stores
+export const language: Writable<string> = writable('dutch');
+
+export const consentFooterVisible: Writable<boolean | null> = writable(true);
+
+export const toggleButtonVisible: Writable<boolean | null> = writable(true);
+
+export const isLargeScreen: Writable<boolean | null> = writable(true);
+
+export const navigationVisible: Writable<boolean | null> = writable(true);
+
+//export a function that return a readable given a string media query as input
+export const useMediaQuery = (mediaQuery: string): Readable<boolean | null> => {
+  //we inizialize the readable as null and get the callback with the set function
+  const matches = readable(null, (set) => {
+    //we match the media query
+    const m: MediaQueryList | any = window.matchMedia(mediaQuery);
+    //we set the value of the readable to the matches property
+    set(m.matches);
+    //we create the event listener that will set the new value on change
+    const el: EventListener = (e: any) => {
+      set(e.matches);
+    };
+    //we add the new event listener
+    m.addEventListener('change', el);
+    //we return the stop function that will clean the event listener
+    return () => {
+      m.removeEventListener('change', el);
+    };
+  });
+  //then we return the readable
+  return matches;
+};
+
+export const translations: Readable<Translation[]> = readable(
+  [
+    {name: 'english', language: 'english', displayName: 'English'},
+    {name: 'english', language: 'dutch', displayName: 'Engels'},
+    {name: 'dutch', language: 'english', displayName: 'Dutch'},
+    {name: 'dutch', language: 'dutch', displayName: 'Nederlands'},
+    {name: 'reset', language: 'english', displayName: 'RESET'},
+    {name: 'reset', language: 'dutch', displayName: 'RESET'},
+    {name: 'hide', language: 'english', displayName: 'HIDE'},
+    {name: 'hide', language: 'dutch', displayName: 'VERBERG'},
+    {name: 'show', language: 'english', displayName: 'SHOW'},
+    {name: 'show', language: 'dutch', displayName: 'TOON'},
+    {name: 'input', language: 'english', displayName: 'Input'},
+    {name: 'input', language: 'dutch', displayName: 'Input'},
+    {name: 'precisionInputFor', language: 'dutch', displayName: 'Precisie invoer voor '},
+    {name: 'precisionInputFor', language: 'english', displayName: 'Precision input for '},
+    {name: 'reach', language: 'english', displayName: 'Reach'},
+    {name: 'reach', language: 'dutch', displayName: 'Bereik'},
+    {name: 'total', language: 'english', displayName: 'Total'},
+    {name: 'total', language: 'dutch', displayName: 'Totaal'},
+    {name: 'locus', language: 'english', displayName: 'Locus'},
+    {name: 'locus', language: 'dutch', displayName: 'Locus'},
+    {name: 'enter_reach', language: 'english', displayName: 'Enter Reach for'},
+    {name: 'enter_reach', language: 'dutch', displayName: 'Vul Bereik in voor'},
+    {name: 'reach_error', language: 'english', displayName: 'Reach can be maximum 100, minimum 0'},
+    {name: 'reach_error', language: 'dutch', displayName: 'Bereik mag maximaal 100 zijn, minimaal 0'},
+    {name: 'advertisement', language: 'english', displayName: 'Advertisement'},
+    {name: 'advertisement', language: 'dutch', displayName: 'Advertentie'},
+    {name: 'read', language: 'english', displayName: 'Read'},
+    {name: 'read', language: 'dutch', displayName: 'Lees'}
+  ],
+  () => {
+    () => {
+      console.log('Translations closed');
+    };
+  }
+);

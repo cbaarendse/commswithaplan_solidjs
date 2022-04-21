@@ -2,8 +2,7 @@
   import {slide} from 'svelte/transition';
   import Button from './../reusable/Button.svelte';
   import Checkbox from './../reusable/Checkbox.svelte';
-  import {language, consentFooterVisible} from '../stores/stores';
-  import {onMount} from 'svelte';
+  import {language, consentFooterVisible} from '../stores/ui/uiport {onMount} from 'svelte';
   import {
     setCookie,
     getCookie,

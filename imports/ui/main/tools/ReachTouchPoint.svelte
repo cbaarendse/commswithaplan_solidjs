@@ -5,14 +5,15 @@
   import Input from '../../reusable/Input.svelte';
   import {Ui} from '../../types/classes';
   import type {TouchPointInPlan} from '../../types/types';
-  import {language, translations} from '../../stores/stores';
+  import {language, translations} from '../../stores/utils';
   //import {notify} from '../../notifications/NotificationsFunctions';
 
-  // variables
+  // exports
   export let touchPoint: TouchPointInPlan;
-
   export let displayManualInput: 'none' | 'flex' = 'none';
   export let displayDescription: 'none' | 'flex' = 'none';
+
+  // variables
   let hovered: boolean = false;
 
   // functions

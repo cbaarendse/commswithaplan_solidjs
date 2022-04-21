@@ -1,10 +1,10 @@
 <script lang="ts">
-  // components
+  // imports
   import DocsParagraph from './DocsParagraph.svelte';
+  import type {Chapter} from '../../types/types';
 
-  // types
-  import type {ToolsDocsChapter} from '../../types/types';
-  export let chapter: ToolsDocsChapter;
+  // exports
+  export let chapter: Chapter;
 </script>
 
 <article>

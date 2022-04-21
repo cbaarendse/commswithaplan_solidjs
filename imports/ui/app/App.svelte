@@ -3,7 +3,7 @@
   import Routing from '../main/routing/Routing.svelte';
   import Footer from '../footer/Footer.svelte';
   import FooterConsent from '../footer/FooterConsent.svelte';
-  import {consentFooterVisible} from '../stores/stores';
+  import {consentFooterVisible} from '../stores/utils';
 
   function toggleFooterConsentVisibility() {
     $consentFooterVisible = $consentFooterVisible === false ? true : false;

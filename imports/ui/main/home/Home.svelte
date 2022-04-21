@@ -1,10 +1,9 @@
 <script lang="ts">
+  // imports
   import Main from './layout/Main.svelte';
   import Section from './layout/Section.svelte';
   import Card from '../../reusable/Card.svelte';
-
-  // variables
-  import {language, homeItems} from '../../stores/stores';
+  import {language} from '../../stores/uiiimport {homeItems} from '../../stores/home';
   $: translatedHomeItems = $homeItems.filter((item) => item.language === $language);
 </script>
 

@@ -72,11 +72,10 @@ type Colored = {colored: boolean};
 export type Visible = {visible: boolean};
 export type Display = 'none' | 'block' | 'grid' | 'flex';
 
-export type Definition = {name: string; language: string; displayName: string; description: string};
+export type Definition = {name: string; language: string; displayName: string; description?: string};
 export type Content = Definition & Color;
-type Paragraph = {displayName: string; description: string; elaboration: string};
-type Chapter = Definition & {imgFiles?: string[]; paragraphs?: Paragraph[]};
-export type ToolsDocsChapter = Chapter;
+type Paragraph = {displayName?: string; description: string; elaboration?: string};
+export type Chapter = Definition & {imgFiles?: string[]; paragraphs: Paragraph[]};
 
 export type HomeItem = Definition & {
   imgFile: string;

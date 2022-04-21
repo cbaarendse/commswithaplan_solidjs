@@ -3,9 +3,7 @@
   import {createEventDispatcher} from 'svelte';
   import type {Select, Option} from '../types/types';
   import {Ui} from '../types/classes';
-  import {language, translations} from '../stores/stores';
-
-  // variables
+  import {language, translations} from '../stores/uii // variables
   export let select: Select;
   export let list: Option[];
 

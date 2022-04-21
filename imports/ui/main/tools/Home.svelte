@@ -1,16 +1,15 @@
 <script lang="ts">
-  // packages
-
-  // components
+  // imports
   import Main from './layout/Main.svelte';
   import Section from './layout/Section.svelte';
   import Header from './layout/Header.svelte';
   import Brand from '../../reusable/Brand.svelte';
   import LogoReach from '../../reusable/LogoReach.svelte';
   import Card from '../../reusable/Card.svelte';
+  import {language} from .../../stores/ui
+  import {toolsHomeItems} from '../../stores/tools';
 
   // variables
-  import {language, toolsHomeItems} from '../../stores/stores';
   $: translatedToolsHomeItems = $toolsHomeItems.filter((item) => item.language === $language);
 </script>
 
