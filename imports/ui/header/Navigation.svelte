@@ -1,24 +1,17 @@
 <script lang="ts">
-  // packages
+  // imports
   import {slide} from 'svelte/transition';
   import {router, active} from 'tinro';
+  import {language, isSmallScreen, navigationInVisible} from '../stores/utils';
 
   // variables
-  import {language, isLargeScreen, navigationVisible, useMediaQuery} from '../stores/utils';
-
-  // functions
-  // Outcome of
-  useMediaQuery('(min-width: 760px)').subscribe((value: boolean | null): void => {
-    $isLargeScreen = value;
-  });
-
-  isLargeScreen.subscribe((large) => {
-    $navigationVisible = large === true ? true : false;
+  isSmallScreen.subscribe((small) => {
+    $navigationInVisible = small === false ? true : false;
   });
 </script>
 
-{#if $navigationVisible == true}
-  <nav class="main-nav" transition:slide={{duration: $isLargeScreen ? 0 : 300}}>
+{#if $navigationInVisible === true}
+  <nav class="main-nav" transition:slide={{duration: 300}}>
     <ul class="nav-list">
       <li>
         <a href={'/'} use:active data-exact class="brand">
@@ -38,11 +31,7 @@
     </ul>
   </nav>
   {#if $router.path === '/'}
-    <nav
-      class="sub-nav"
-      in:slide={{duration: $isLargeScreen ? 0 : 300}}
-      out:slide={{duration: !$isLargeScreen ? 300 : 0}}
-    >
+    <nav class="sub-nav" in:slide={{duration: 300}} out:slide={{duration: 300}}>
       <ul class="nav-list">
         <li>
           <a href={'/'} use:active>
@@ -52,11 +41,7 @@
       </ul>
     </nav>
   {:else if $router.path.startsWith('/consultancy')}
-    <nav
-      class="sub-nav"
-      in:slide={{duration: $isLargeScreen ? 0 : 300}}
-      out:slide={{duration: !$isLargeScreen ? 300 : 0}}
-    >
+    <nav class="sub-nav" in:slide={{duration: 300}} out:slide={{duration: 300}}>
       <ul class="nav-list">
         <li>
           <a href={'/consultancy/'} use:active data-exact>
@@ -81,11 +66,7 @@
       </ul>
     </nav>
   {:else if $router.path.startsWith('/tools')}
-    <nav
-      class="sub-nav"
-      in:slide={{duration: $isLargeScreen ? 0 : 300}}
-      out:slide={{duration: !$isLargeScreen ? 300 : 0}}
-    >
+    <nav class="sub-nav" in:slide={{duration: 300}} out:slide={{duration: 300}}>
       <ul class="nav-list">
         <li>
           <a href={'/tools/'} use:active data-exact>

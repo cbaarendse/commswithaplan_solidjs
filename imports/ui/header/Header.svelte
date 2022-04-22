@@ -1,13 +1,15 @@
 <script lang="ts">
-  // packages
-
-  // components
+  // imports
   import TopBar from './TopBar.svelte';
   import Navigation from './Navigation.svelte';
+  import {isSmallScreen, useMediaQuery} from '../stores/utils';
 
   // variables
 
   // functions
+  useMediaQuery('(max-width: 759px)').subscribe((value: boolean | null): void => {
+    $isSmallScreen = value;
+  });
 </script>
 
 <header>

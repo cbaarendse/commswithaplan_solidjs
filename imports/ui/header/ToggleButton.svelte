@@ -1,38 +1,16 @@
 <script lang="ts">
   // imports
-  import {cubicInOut, easeInOut} from 'svelte/easing';
-  import {fly} from 'svelte/transition';
+  import {cubicInOut} from 'svelte/easing';
+  import {fade} from 'svelte/transition';
+  import {Tweened, tweened} from 'svelte/motion';
   import Button from '../../ui/reusable/Button.svelte';
-  import {navigationVisible, isLargeScreen, toggleButtonVisible} from '../stores/utils';
+  import {navigationInVisible, isSmallScreen} from '../stores/utils';
 
   // variables
-  //TODO: finetune
-  toggleButtonVisible.subscribe((visible) => {
-    return $navigationVisible === true ? $isLargeScreen === false : true;
-  });
+  const coefficient: Tweened<number> = tweened(1, {easing: cubicInOut});
 
-  //TODO: finetune
-  function spinTop(node: HTMLElement) {
-    return {
-      duration: 1000,
-      easing: cubicInOut,
-      css: (t: number, u: number) => `transform: rotate(${t * 45}deg translateY(${t * 42}%)`
-    };
-  }
-  function leaveCenter(node: HTMLElement) {
-    return {
-      duration: 1000,
-      easing: cubicInOut,
-      css: (t: number, u: number) => `transform: scale(${t}) translateX(${t * 100}%)`
-    };
-  }
-  function spinBottom(node: HTMLElement) {
-    return {
-      duration: 1000,
-      easing: cubicInOut,
-      css: (t: number, u: number) => `transform: rotate(${t * 135}deg translateY(${u * 42}%)`
-    };
-  }
+  // functions
+  navigationInVisible.subscribe((inVisible) => (inVisible === false ? coefficient.set(0) : coefficient.set(1)));
 </script>
 
 <!-- This button animates when used for toggling navigation, but also if screen size is changed beyond threshold. -->
@@ -46,20 +24,13 @@
     height: 'var(--ra-xl)',
     disabled: false
   }}
-  on:clickedButton={() => ($navigationVisible = !$navigationVisible)}
+  on:clickedButton={() => ($navigationInVisible = !$navigationInVisible)}
 >
-  {#if $navigationVisible}
-    <div class="bars">
-      {#if $toggleButtonVisible}
-        <div class="bar-1" transition:spinTop />
-      {/if}
-      {#if $navigationVisible}
-        <div
-          class="bar-2"
-          transition:fly={{delay: 0, duration: 300, x: 100, y: 0, opacity: 1, easing: cubicInOut}}
-        />{/if}
-      {#if $toggleButtonVisible}
-        <div class="bar-3" transition:spinBottom />{/if}
+  {#if $isSmallScreen}
+    <div class="bars" transition:fade={{duration: 900}}>
+      <div class="bar-1" style="transform: translateY({$coefficient * 200}%) rotate({$coefficient * 45}deg)" />
+      <div class="bar-2" style="transform: translateX({$coefficient * 50}%) scale({1 - $coefficient})" />
+      <div class="bar-3" style="transform: translateY({$coefficient * -200}%) rotate({$coefficient * -45}deg)" />
     </div>
   {/if}
 </Button>

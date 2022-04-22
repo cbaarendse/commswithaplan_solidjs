@@ -13,7 +13,8 @@
 <!-- Everything happens in these 3 components. -->
 <!-- Header: TopBar, Navigation -->
 <!-- Routing: Main content, based on chosen routes, always wrapped in a <main>-tag   -->
-<!-- FooterNav: contact, copyright and consent -->
+<!-- Footer: contact, copyright and consent -->
+<!-- FooterConsent: options for cookie consent to choose from for user -->
 <Header />
 <Routing />
 <Footer on:clickedButton={toggleFooterConsentVisibility} />
