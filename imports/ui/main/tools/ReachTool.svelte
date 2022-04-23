@@ -18,11 +18,9 @@
   let touchPointsInPlan: TouchPointInPlan[] = Reach.setTouchPointsForPlan($touchPointsBasics, $language);
   let totalReach: number = 0;
   let locus: number = 0;
-  $: allTouchPointsValueIsZero = Reach.areAllTouchPointsValueZero(touchPointsInPlan);
   let sortedByName: boolean = true;
+  $: allTouchPointsValueIsZero = Reach.areAllTouchPointsValueZero(touchPointsInPlan);
   $: showAll = Reach.isShowAll(touchPointsInPlan);
-
-  // init
   onMount(() => (touchPointsInPlan = Reach.sortByName(touchPointsInPlan)));
 
   // functions

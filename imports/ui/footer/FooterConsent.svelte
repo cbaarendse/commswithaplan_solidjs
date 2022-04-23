@@ -60,6 +60,7 @@
     setCookie('_commswithaplan_security_storage', checkedToConsent(security_storage_checked), 7, document);
   });
 
+  // functions
   // setConsent sets or changes consent information stored in cookies
   // Google Tag Manager reacts to this event, so it needs to stay.
   function setConsent() {

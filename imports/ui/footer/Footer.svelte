@@ -1,5 +1,10 @@
 <script>
+  // imports
   import Button from '../reusable/Button.svelte';
+
+  // variables
+
+  //functions
 </script>
 
 <footer on:clickedButton>

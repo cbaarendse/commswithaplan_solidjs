@@ -1,9 +1,9 @@
 <script lang="ts">
-  // packages
-
-  // components
+  // imports
 
   // variables
+
+  // functions
 </script>
 
 <main>

@@ -1,22 +1,14 @@
 <script lang="ts">
-  // packages
+  // imports
   import {createEventDispatcher} from 'svelte';
   import {language, translations} from '../../stores/utils';
   import {definitions} from '../../stores/tools';
   import type {Definition} from '../../types/types';
   import Modal from '../../reusable/Modal.svelte';
-
-  // components
-
-  // providers
   import {Ui} from '../../types/classes';
 
-  // types
-
-  // constants
-  const dispatch = createEventDispatcher();
-
   // variables
+  const dispatch = createEventDispatcher();
   let displayOutputDescription: 'none' | 'flex' = 'none';
   let output: Definition = $definitions[0];
   export let totalReach: number;

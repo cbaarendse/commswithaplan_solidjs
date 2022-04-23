@@ -11,6 +11,8 @@
 
   // variables
   $: translatedToolsHomeItems = $toolsHomeItems.filter((item) => item.language === $language);
+
+  // functions
 </script>
 
 <Main>

@@ -1,9 +1,12 @@
 <script lang="ts">
-  // packages
+  // imports
+
   // variables
   export let subtitle: string;
   export let text: string;
   export let elaboration: string;
+
+  // functions
 </script>
 
 <h3>&para;&nbsp;{subtitle}</h3>

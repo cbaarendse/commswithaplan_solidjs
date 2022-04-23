@@ -1,9 +1,6 @@
 <script lang="ts">
-  // packages
+  // imports
   import {Route} from 'tinro';
-  import {SvelteComponentTyped} from 'svelte';
-
-  // components
   import Home from '../home/Home.svelte';
   import ConsultancyHome from '../consultancy/Home.svelte';
   import Work from '../consultancy/Work.svelte';
@@ -14,6 +11,10 @@
   import Docs from '../tools/Docs.svelte';
   import CookiePolicy from '../legal/CookiePolicy.svelte';
   import NotFound from '../notfound/NotFound.svelte';
+
+  // variables
+
+  // functions
 </script>
 
 <Route path="/*">

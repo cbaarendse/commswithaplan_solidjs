@@ -1,10 +1,14 @@
 <script lang="ts">
+  // imports
   import Header from '../header/Header.svelte';
   import Routing from '../main/routing/Routing.svelte';
   import Footer from '../footer/Footer.svelte';
   import FooterConsent from '../footer/FooterConsent.svelte';
   import {consentFooterVisible} from '../stores/utils';
 
+  // variables
+
+  // functions
   function toggleFooterConsentVisibility() {
     $consentFooterVisible = $consentFooterVisible === false ? true : false;
   }

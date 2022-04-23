@@ -1,5 +1,5 @@
 <script lang="ts">
-  // variables
+  // exports
   export let name: string;
   export let displayName: string;
 </script>

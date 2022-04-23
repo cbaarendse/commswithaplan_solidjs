@@ -1,4 +1,9 @@
 <script lang="ts">
+  // imports
+
+  // variables
+
+  // functions
 </script>
 
 <header>
