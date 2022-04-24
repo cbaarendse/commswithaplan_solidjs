@@ -63,16 +63,16 @@
   <Modal title={touchPoint.displayName} display={displayDescription}>{touchPoint.description}</Modal>
   <Modal title={touchPoint.displayName} display={displayManualInput}>
     <Input
+      displayName="touchPoint.displayName,"
       input={{
-        displayName: touchPoint.displayName,
         name: touchPoint.name,
         id: touchPoint.name,
-        value: touchPoint.value,
-        min: 0,
-        max: 100,
+        value: touchPoint.value.toString(),
+        min: '0',
+        max: '100',
         className: 'manual__input',
         placeholder: Ui.translate('input', $translations, $language),
-        readonly: false
+        readOnly: false
       }}
       on:submitValueForName
       on:submitValueForName={() => (displayManualInput = 'none')}

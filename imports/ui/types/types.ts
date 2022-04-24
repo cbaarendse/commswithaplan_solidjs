@@ -102,18 +102,18 @@ export type Button = ClassName &
     ariaLabel?: string;
   };
 export type Card = {title?: string; imgFile?: string; link?: string; action?: string} & CssColors;
-export type Input = ClassName &
-  Partial<InputType> &
-  Partial<InputValue> &
-  Partial<Placeholder> & {
-    displayName?: string;
-    name: string;
-    id: string;
-    min?: number;
-    max?: number;
-    readonly?: boolean;
-    disabled?: boolean;
-  };
+// export type Input = ClassName &
+//   Partial<InputType> &
+//   Partial<InputValue> &
+//   Partial<Placeholder> & {
+//     displayName?: string;
+//     name: string;
+//     id: string;
+//     min?: number;
+//     max?: number;
+//     readonly?: boolean;
+//     disabled?: boolean;
+//   };
 export type Logo = Css & Colored;
 export type Option = ClassName &
   InputValue &

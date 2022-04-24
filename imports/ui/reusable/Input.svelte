@@ -1,11 +1,11 @@
 <script lang="ts">
   // imports
   import {createEventDispatcher} from 'svelte';
-  import type {Input} from '../types/types';
   import {language} from '../stores/utils';
 
   // exports
-  export let input: Input;
+  export let input: HTMLInputElement;
+  export let displayName: string;
 
   // variables
   let dispatch = createEventDispatcher();
@@ -20,7 +20,7 @@
 </script>
 
 <form>
-  <label for={input.name}>{$language === 'dutch' ? 'Invoer voor ' : 'Input for '}{input.displayName}</label>
+  <label for={input.name}>{$language === 'dutch' ? 'Invoer voor ' : 'Input for '}{displayName}</label>
   <input
     class="{`input__field ${input.className}`};"
     name={input.name}
@@ -29,14 +29,14 @@
     placeholder={input.placeholder}
     min={input.min}
     max={input.max}
-    readonly={input.readonly}
+    readOnly={input.readOnly}
     bind:value={input.value}
   />
   <input
     class="submit__button"
     type="submit"
     value={$language === 'dutch' ? 'Verstuur' : 'Submit'}
-    disabled={input.value < input.min || input.value > input.max}
+    disabled={parseFloat(input.value) < parseInt(input.min) || parseFloat(input.value) > parseInt(input.max)}
     on:click|preventDefault|stopPropagation={submitValue}
   />
   <input

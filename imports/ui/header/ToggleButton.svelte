@@ -4,13 +4,17 @@
   import {fade} from 'svelte/transition';
   import {Tweened, tweened} from 'svelte/motion';
   import Button from '../../ui/reusable/Button.svelte';
-  import {navigationInVisible, isSmallScreen} from '../stores/utils';
+  import {navigationVisible, isSmallScreen} from '../stores/utils';
 
   // variables
-  const coefficient: Tweened<number> = tweened(1, {easing: cubicInOut});
+  const coefficient: Tweened<number> = tweened(0, {easing: cubicInOut});
 
   // functions
-  navigationInVisible.subscribe((inVisible) => (inVisible === false ? coefficient.set(0) : coefficient.set(1)));
+  // TODO: is first function right? Want to avoid animation by showing toggle button after change in screen size
+  isSmallScreen.subscribe((small) => (small === false ? coefficient.set(1) : coefficient.set(0)));
+  $: console.log(`small screen: ${$isSmallScreen}`);
+
+  navigationVisible.subscribe((visible) => (visible === true ? coefficient.set(1) : coefficient.set(0)));
 </script>
 
 <!-- This button animates when used for toggling navigation, but also if screen size is changed beyond threshold. -->
@@ -24,7 +28,7 @@
     height: 'var(--ra-xl)',
     disabled: false
   }}
-  on:clickedButton={() => ($navigationInVisible = !$navigationInVisible)}
+  on:clickedButton={() => ($navigationVisible = !$navigationVisible)}
 >
   {#if $isSmallScreen}
     <div class="bars" transition:fade={{duration: 900}}>

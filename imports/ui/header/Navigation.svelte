@@ -2,15 +2,15 @@
   // imports
   import {slide} from 'svelte/transition';
   import {router, active} from 'tinro';
-  import {language, isSmallScreen, navigationInVisible} from '../stores/utils';
+  import {language, isSmallScreen, navigationVisible} from '../stores/utils';
 
   // variables
   isSmallScreen.subscribe((small) => {
-    $navigationInVisible = small === false ? true : false;
+    $navigationVisible = small === true ? false : true;
   });
 </script>
 
-{#if $navigationInVisible === true}
+{#if $navigationVisible === true}
   <nav class="main-nav" transition:slide={{duration: 300}}>
     <ul class="nav-list">
       <li>

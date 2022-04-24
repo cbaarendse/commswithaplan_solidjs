@@ -11,7 +11,7 @@ export const consentFooterVisible: Writable<boolean | null> = writable(true);
 
 export const isSmallScreen: Writable<boolean | null> = writable(true);
 
-export const navigationInVisible: Writable<boolean | null> = writable(true);
+export const navigationVisible: Writable<boolean | null> = writable(false);
 
 //export a function that return a readable given a string media query as input
 export const useMediaQuery = (mediaQuery: string): Readable<boolean | null> => {
