@@ -1,28 +1,34 @@
 <script lang="ts">
-  // packages
+  // imports
   import {slide} from 'svelte/transition';
   import {backInOut} from 'svelte/easing';
-
-  // types
-  import type {Visible} from '../types/interfaces';
-
-  // components
   import Button from './Button.svelte';
+  import type {Visible} from '../types/types';
 
   // variables
   export let acc: Visible;
   acc.visible = false;
+
+  // functions
 </script>
 
 <article class="accordion">
   <header>
     <Button
       btn={{
-        color: 'transparentnoborder',
-        size: 'fit',
-        onClick: () => (acc.visible = !acc.visible)
+        type: 'button',
+        role: 'button',
+        id: 'toggle__accordion',
+        className: 'accordion__button',
+        textColor: 'var(--ra-white)',
+        backgroundColor: 'var(--ra-green)',
+        padding: '0 1rem',
+        height: 'var(--ra-3xl)',
+        disabled: false
       }}
-      >{#if acc.visible}<b>-</b>{:else}<b>+</b>{/if}</Button
+      on:clickedButton={() => (acc.visible = !acc.visible)}
+    >
+      {#if acc.visible}<b>-</b>{:else}<b>+</b>{/if}</Button
     >
     <slot name="title" />
   </header>

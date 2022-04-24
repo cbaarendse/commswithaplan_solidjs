@@ -1,12 +1,60 @@
-// types
+// global
 declare global {
   interface Window {
     dataLayer: Array<{[key: string]: string | number | Date}>;
   }
 }
-export type Consent = '00111' | '11111';
-type ClassName = {className: string | undefined | null};
+
+// content
+export type Chapter = Definition & {imgFiles?: string[]; paragraphs: Paragraph[]};
+export type Content = Definition & ObjectDefault;
+export type Definition = {name: string; language: string; displayName: string; description?: string};
+export type HomeItem = Definition & {
+  imgFile: string;
+  link: string;
+  action: string;
+};
+export type Month = {name: string; days: number};
+type Paragraph = {displayName?: string; description: string; elaboration?: string};
+export type Translation = Omit<Definition, 'description'>;
+export type TouchPointBasics = Definition;
+export type TouchPointInPlan = TouchPointBasics & {value: number; display: 'none' | 'grid'};
+export type Week = {name: string; days: number; monday: string};
+export type Year = {name: string; days: number};
+
+// building blocks
+type AlphaNumeric = string | number;
+type AlphaUncertain = string | undefined | null;
+type BooleanUncertain = boolean | undefined | null;
 type ButtonType = {type: 'submit' | 'reset' | 'button'};
+type ClassName = {className: AlphaUncertain};
+type Colored = {colored: boolean};
+export type Css = CssColors & CssSizes;
+type CssColors = {
+  backgroundColor?: string;
+  color?: string;
+  textColor?: string;
+  background?: string;
+};
+export type CssIndex = ObjectDefault;
+export type CssSizes = {
+  fontSize?: string;
+  padding?: string;
+  paddingInline?: string;
+  paddingBlock?: string;
+  marginInline?: string;
+  marginBlock?: string;
+  width?: string;
+  height?: string;
+  minWidth?: string;
+  minHeight?: string;
+  borderWidth?: string;
+  borderStyle?: string;
+  borderColor?: string;
+};
+type CWAPColor = {color: 'blue' | 'green' | 'red' | 'teal' | 'grey' | 'transparent' | 'transparentnoborder'};
+type Disabled = {disabled: BooleanUncertain};
+export type Display = 'none' | 'block' | 'grid' | 'flex';
 type InputType = {
   type:
     | 'button'
@@ -32,71 +80,17 @@ type InputType = {
     | 'url'
     | 'week';
 };
-type CWAPColor = {color: 'blue' | 'green' | 'red' | 'teal' | 'grey' | 'transparent' | 'transparentnoborder'};
-type Placeholder = {placeholder: string | null | undefined};
-type InputValue = {value: number | string};
-type Role = {role: 'button'};
-type Disabled = {disabled: boolean | null | undefined};
-type Color = {
+type InputValue = {value: AlphaNumeric};
+type ObjectDefault = {
   [index: string]: string;
 };
-type Size = Color;
-export type CssIndex = {[key: string]: string};
-
-type CssColors = {
-  backgroundColor?: string;
-  color?: string;
-  textColor?: string;
-  background?: string;
-};
-
-export type CssSizes = {
-  fontSize?: string;
-  padding?: string;
-  paddingInline?: string;
-  paddingBlock?: string;
-  marginInline?: string;
-  marginBlock?: string;
-  width?: string;
-  height?: string;
-  minWidth?: string;
-  minHeight?: string;
-  borderWidth?: string;
-  borderStyle?: string;
-  borderColor?: string;
-};
-
-export type Css = CssColors & CssSizes;
-
-type Colored = {colored: boolean};
+type Placeholder = {placeholder: AlphaUncertain};
+type Role = {role: 'button'};
 export type Visible = {visible: boolean};
-export type Display = 'none' | 'block' | 'grid' | 'flex';
-
-export type Definition = {name: string; language: string; displayName: string; description?: string};
-export type Content = Definition & Color;
-type Paragraph = {displayName?: string; description: string; elaboration?: string};
-export type Chapter = Definition & {imgFiles?: string[]; paragraphs: Paragraph[]};
-
-export type HomeItem = Definition & {
-  imgFile: string;
-  link: string;
-  action: string;
-};
-export type Translation = Omit<Definition, 'description'>;
-
-// planning
-
-export type TouchPointBasics = Definition;
-export type TouchPointInPlan = TouchPointBasics & {value: number; display: 'none' | 'grid'};
-
-export type Year = {name: string; days: number};
-export type Month = {name: string; days: number};
-export type Week = {name: string; days: number; monday: string};
 
 // components
-export type Card = {title?: string; imgFile?: string; link?: string; action?: string} & CssColors;
-
 export type Accordion = Visible;
+export type Brand = {title: string} & Partial<ClassName> & Css;
 export type Button = ClassName &
   ButtonType &
   Role &
@@ -107,7 +101,7 @@ export type Button = ClassName &
     dataDismiss?: string;
     ariaLabel?: string;
   };
-
+export type Card = {title?: string; imgFile?: string; link?: string; action?: string} & CssColors;
 export type Input = ClassName &
   Partial<InputType> &
   Partial<InputValue> &
@@ -120,20 +114,14 @@ export type Input = ClassName &
     readonly?: boolean;
     disabled?: boolean;
   };
-
-export type Brand = {title: string} & Partial<ClassName> & Css;
 export type Logo = Css & Colored;
-export type Slider = Partial<InputType> &
-  InputValue & {
+export type Option = ClassName &
+  InputValue &
+  Placeholder &
+  SelectItem & {
     displayName?: string;
-    name: string;
-    id: string;
-    step: number;
-    min: number;
-    max: number;
+    selected?: 'selected';
   };
-
-export type SelectItem = {name: string; index: string};
 export type Select = ClassName &
   InputValue &
   Placeholder & {
@@ -145,11 +133,13 @@ export type Select = ClassName &
     disabled?: 'disabled';
     multiple?: 'multiple';
   };
-
-export type Option = ClassName &
-  InputValue &
-  Placeholder &
-  SelectItem & {
+export type SelectItem = {name: string; index: string};
+export type Slider = Partial<InputType> &
+  InputValue & {
     displayName?: string;
-    selected?: 'selected';
+    name: string;
+    id: string;
+    step: number;
+    min: number;
+    max: number;
   };

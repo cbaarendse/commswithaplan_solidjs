@@ -12,8 +12,9 @@ export const cookiePolicy: Readable<Chapter[]> = readable(
       displayName: 'About cookies',
       paragraphs: [
         {
-          description: 'lll',
-          elaboration: 'kkk'
+          description: 'What is a cookie?',
+          elaboration:
+            "Cookies are small text files that websites place on the computers and mobile devices of people who visit those websites. These text files allow a website to remember your device and how you interacted with the website, which is useful for a number of different purposes. For example, cookies can be used to remember username and password information so that you don't have to re-enter all of your login information every time you visit a site you frequently log in to. Other functions of cookies are to provide custom advertising to users based on searches and personal interests, as well as site performance cookies that enhance website use by remembering things such as custom video streaming or volume settings you have selected while using the website in the past."
         }
       ]
     },
@@ -87,8 +88,9 @@ export const cookiePolicy: Readable<Chapter[]> = readable(
       displayName: 'Functional cookies',
       paragraphs: [
         {
-          description: 'lll',
-          elaboration: 'kkk'
+          description: 'Use of functional (permanent) cookies',
+          elaboration:
+            "These cookies allow us to remember how you're logged in, whether you chose to no longer see advertisements, whether you made an edit to an article on the Service while logged out, when you logged in or out, the state or history of Service tools you've used. These cookies also allow us to tailor the Service to provide enhanced features and content for you and to remember how you've customized the Service in other ways, such as customizing the toolbars we offer in the right column of every page. The information these cookies collect may be anonymous, and they are not used to track your browsing activity on other sites or services."
         }
       ]
     },
