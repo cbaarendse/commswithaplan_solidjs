@@ -1,14 +1,14 @@
 <script lang="ts">
   // imports
-  import type {Input} from '../types/types';
 
   // variables
-  export let cbx: Input;
+  export let cbx: HTMLInputElement;
   export let checked: boolean = true;
+  export let displayName: string;
 </script>
 
 <form>
-  <label for={cbx.name}>{cbx.displayName}</label>
+  <label for={cbx.name}>{displayName}</label>
   <input
     class="{`input__checkbox ${cbx.className}`};"
     name={cbx.name}
@@ -17,7 +17,7 @@
     placeholder={cbx.placeholder}
     min={cbx.min}
     max={cbx.max}
-    readonly={cbx.readonly}
+    readOnly={cbx.readOnly}
     disabled={cbx.disabled}
     {checked}
     on:change={() => (checked = !checked)}

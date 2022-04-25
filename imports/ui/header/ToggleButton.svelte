@@ -10,11 +10,6 @@
   const coefficient: Tweened<number> = tweened(0, {easing: cubicInOut});
 
   // functions
-  // TODO: is first function right? Want to avoid animation by showing toggle button after change in screen size
-  isSmallScreen.subscribe((small) => (small === false ? coefficient.set(1) : coefficient.set(0)));
-  $: console.log(`small screen: ${$isSmallScreen}`);
-
-  navigationVisible.subscribe((visible) => (visible === true ? coefficient.set(1) : coefficient.set(0)));
 </script>
 
 <!-- This button animates when used for toggling navigation, but also if screen size is changed beyond threshold. -->
@@ -29,9 +24,10 @@
     disabled: false
   }}
   on:clickedButton={() => ($navigationVisible = !$navigationVisible)}
+  on:clickedButton={() => ($navigationVisible === true ? coefficient.set(1) : coefficient.set(0))}
 >
   {#if $isSmallScreen}
-    <div class="bars" transition:fade={{duration: 900}}>
+    <div class="bars" transition:fade={{duration: 900, easing: cubicInOut}}>
       <div class="bar-1" style="transform: translateY({$coefficient * 200}%) rotate({$coefficient * 45}deg)" />
       <div class="bar-2" style="transform: translateX({$coefficient * 50}%) scale({1 - $coefficient})" />
       <div class="bar-3" style="transform: translateY({$coefficient * -200}%) rotate({$coefficient * -45}deg)" />

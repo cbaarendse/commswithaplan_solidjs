@@ -1,11 +1,11 @@
 <script lang="ts">
   // imports
   import {createEventDispatcher} from 'svelte';
-  import type {Slider} from '../types/types';
 
   //variables
   let dispatch = createEventDispatcher();
-  export let slider: Slider;
+  export let slider: HTMLInputElement;
+  export let displayName: string;
 
   console.log('name,  slider.value in input type range:', slider.name, slider.value);
   function changeValue() {
@@ -17,7 +17,7 @@
 </script>
 
 <form>
-  <label for={slider.name}>{slider.displayName}</label>
+  <label for={slider.name}>{displayName}</label>
   <input
     id={slider.id}
     name={slider.name}

@@ -80,55 +80,55 @@
       )</span
     >
     <Checkbox
+      displayName="{$language == 'dutch' ? 'Advertenties' : 'Ads'},"
       cbx={{
-        displayName: $language == 'dutch' ? 'Advertenties' : 'Ads',
         name: 'ad_storage',
         id: 'ad_storage__checkbox',
         className: 'consent__checkbox',
-        readonly: false,
+        readOnly: false,
         disabled: false
       }}
       bind:checked={ad_storage_checked}
     />
     <Checkbox
+      displayName="{$language == 'dutch' ? 'Analyse' : 'Analysis'},"
       cbx={{
-        displayName: $language == 'dutch' ? 'Analyse' : 'Analysis',
         name: 'analytics_storage',
         id: 'analytics_storage__checkbox',
         className: 'consent__checkbox',
-        readonly: false,
+        readOnly: false,
         disabled: false
       }}
       bind:checked={analytics_storage_checked}
     /><Checkbox
+      displayName="{$language == 'dutch' ? 'Persoonlijk' : 'Personal'},"
       cbx={{
-        displayName: $language == 'dutch' ? 'Persoonlijk' : 'Personal',
         name: 'personalization_storage',
         id: 'personalization_storage__checkbox',
         className: 'consent__checkbox',
-        readonly: false,
+        readOnly: false,
         disabled: false
       }}
       bind:checked={personalization_storage_checked}
     />
     <Checkbox
+      displayName="{$language == 'dutch' ? 'Functioneel' : 'Functional'},"
       cbx={{
-        displayName: $language == 'dutch' ? 'Functioneel' : 'Functional',
         name: 'functional_storage',
         id: 'functional_storage__checkbox',
         className: 'consent__checkbox',
-        readonly: false,
+        readOnly: false,
         disabled: functional_storage_checked
       }}
       checked={functional_storage_checked}
     />
     <Checkbox
+      displayName="{$language == 'dutch' ? 'Veiligheid' : 'Security'},"
       cbx={{
-        displayName: $language == 'dutch' ? 'Veiligheid' : 'Security',
         name: 'security_storage',
         id: 'security_storage__checkbox',
         className: 'consent__checkbox',
-        readonly: false,
+        readOnly: false,
         disabled: security_storage_checked
       }}
       checked={security_storage_checked}

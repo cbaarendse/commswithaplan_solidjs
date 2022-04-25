@@ -35,14 +35,14 @@
   <div class="center">
     <fieldset>
       <Slider
+        displayName="{touchPoint.displayName},"
         slider={{
-          displayName: touchPoint.displayName,
           name: touchPoint.name,
           id: touchPoint.name,
-          value: touchPoint.value,
-          min: 0,
-          max: 100,
-          step: 1
+          value: touchPoint.value.toString(),
+          min: '0',
+          max: '100',
+          step: '1'
         }}
         on:changeValueForName
         on:inputValueForName
