@@ -73,7 +73,7 @@ export const cookiePolicy: Readable<Chapter[]> = readable(
         {
           description: 'Google Analytics',
           elaboration:
-            'Via onze website wordt een cookie geplaatst van het Amerikaanse bedrijf Google,  als deel van de “Analytics”-dienst. Wij gebruiken deze dienst om bij te houden en rapportages te krijgen over            hoe bezoekers de website gebruiken. Google kan deze informatie aan derden verschaffen indien Google hiertoe wettelijk            wordt verplicht, of voor zover derden de informatie namens Google verwerken. Wij hebben hier geen invloed op.            Wij hebben Google wel/niet toegestaan de verkregen analytics informatie te gebruiken voor andere Google-diensten.'
+            'Via onze website wordt een cookie geplaatst van het Amerikaanse bedrijf Google,  als deel van de “Analytics”-dienst. Wij gebruiken deze dienst om bij te houden en rapportages te krijgen over hoe bezoekers de website gebruiken. Google kan deze informatie aan derden verschaffen indien Google hiertoe wettelijk wordt verplicht, of voor zover derden de informatie namens Google verwerken. Wij hebben hier geen invloed op. Wij hebben Google wel toegestaan de verkregen analytics informatie te  gebruiken voor andere Google-diensten.'
         },
         {
           description: 'Anonimisering',
@@ -112,8 +112,9 @@ export const cookiePolicy: Readable<Chapter[]> = readable(
       displayName: 'Personal cookies',
       paragraphs: [
         {
-          description: 'lll',
-          elaboration: 'kkk'
+          description: 'Cookies for cookie policy',
+          elaboration:
+            'These are set by us and only we can read them. They remember: (1) if you have agreed to (or refused) this site’s cookie policy.'
         }
       ]
     },
@@ -146,7 +147,7 @@ export const cookiePolicy: Readable<Chapter[]> = readable(
       paragraphs: [
         {
           description: 'Voor je veiligheid',
-          elaboration: 'Veligheidscookies'
+          elaboration: 'Veiligheidscookies'
         }
       ]
     }
@@ -154,6 +155,28 @@ export const cookiePolicy: Readable<Chapter[]> = readable(
   () => {
     () => {
       console.log('Cookie Policy Chapters closed');
+    };
+  }
+);
+
+export const privacyPolicy: Readable<Chapter[]> = readable(
+  [
+    {
+      name: 'privacy_policy',
+      language: 'english',
+      displayName: 'Privacy Policy',
+      paragraphs: [
+        {
+          description: 'Personal data protection',
+          elaboration:
+            "The European Commission is committed to user privacy. The policy on protection of individuals with regard to the processing of personal data by the European Union institutions is based on the Regulation (EU) 2018/1725 on the protection of personal data by the EU institutions, bodies, offices and agencies.      This policy covers all the European Commission's websites within the ec.europa.eu domain. Although you can browse through most of these websites without giving any personal information, in some cases information is required in order to provide the e-services you request. Websites that require such information treat it in full compliance with the regulation above and provide information about the use of your data in their specific privacy policy statements. In this respect for each e-service, a controller ensures conformity with the privacy policy      for the European Commission, the Data Protection Officer ensures that the regulation is applied and advises controllers on fulfilling their obligations      for all the institutions, the European Data Protection Supervisor acts as an independent supervisory authority      The European Commission's websites within the ec.europa.eu domain may provide links to third-party sites. In order to use third party content on our websites, you may need to accept their specific terms and conditions, including their cookie policies over which we have no control.      Regulation on the protection of personal data      e-services           An e-service on Europa is a service or resource that improve communication between people and the European institutions.      3 types of e-services are offered by Europa      information services that provide easy and effective access to information      interactive communication services to facilitate policy consultations and feedback      transaction services that allow  basic forms of transactions with the EU, such as procurement, financial operations, recruitment, event enrollment, and ordering documents      Information contained in a specific privacy statement      A specific privacy policy statement will contain the following information about the use of your data      what information is collected      for what purpose it is collected      the technical means by which it is collected      who sees your information      how you can access, verify its accuracy and correct your information      how long your data is kept      what security measures are taken to safeguard your information      who to contact if you have questions or complaints      Europa Analytics      Europa Analytics is the corporate service that measures the effectiveness and efficiency of the European Commission's websites on Europa.  You are free to refuse the use of this service – either via the cookie banner that appears at the top of the first page you visit or at Europa Analytics.   Choosing not to use this service does not affect your navigation experience on Europa sites.     More about Europa Analytics     Contacting Europa sites     Many web pages on Europa have a contact button, which activates your email software and invites you to send your comments to a specific mailbox.         When you send such a message, your personal data is only collected in order to reply.    Your email will be forwarded to another service if the team responsible for the mailbox is unable to answer your question. An email will inform you about which service your question has been forwarded to.     If you have any questions about the processing of your email and related personal data, do not hesitate to include them in your message.    Safeguarding information     Collected personal data are stored by the European Commission under the Commission decision of January 2017 on the security of communication and information systems in the European Commission.        In those cases where collected personal data are stored on a computer of an external subcontractor acting as processor, they are bound by specific contractual clauses and by the confidentiality obligations deriving from the general data protection regulation of April 2016.     Regulation on the processing of personal data and on the free movement of such data     Verifying, modifying or deleting information    If you want to verify, modify or delete your personal data stored by the Europa website and its sub-sites, you can contact the Europa Web Communication unit in DG Communication using the form below.      In your email, clearly state the nature of your request (verifying, modifying or deleting personal data published on the Europa websites) and include the URL of the website/webpages your request refers to."
+        }
+      ]
+    }
+  ],
+  () => {
+    () => {
+      console.log('Privacy Policy Chapters closed');
     };
   }
 );
