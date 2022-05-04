@@ -169,7 +169,69 @@ export const privacyPolicy: Readable<Chapter[]> = readable(
         {
           description: 'Personal data protection',
           elaboration:
-            "The European Commission is committed to user privacy. The policy on protection of individuals with regard to the processing of personal data by the European Union institutions is based on the Regulation (EU) 2018/1725 on the protection of personal data by the EU institutions, bodies, offices and agencies.      This policy covers all the European Commission's websites within the ec.europa.eu domain. Although you can browse through most of these websites without giving any personal information, in some cases information is required in order to provide the e-services you request. Websites that require such information treat it in full compliance with the regulation above and provide information about the use of your data in their specific privacy policy statements. In this respect for each e-service, a controller ensures conformity with the privacy policy      for the European Commission, the Data Protection Officer ensures that the regulation is applied and advises controllers on fulfilling their obligations      for all the institutions, the European Data Protection Supervisor acts as an independent supervisory authority      The European Commission's websites within the ec.europa.eu domain may provide links to third-party sites. In order to use third party content on our websites, you may need to accept their specific terms and conditions, including their cookie policies over which we have no control.      Regulation on the protection of personal data      e-services           An e-service on Europa is a service or resource that improve communication between people and the European institutions.      3 types of e-services are offered by Europa      information services that provide easy and effective access to information      interactive communication services to facilitate policy consultations and feedback      transaction services that allow  basic forms of transactions with the EU, such as procurement, financial operations, recruitment, event enrollment, and ordering documents      Information contained in a specific privacy statement      A specific privacy policy statement will contain the following information about the use of your data      what information is collected      for what purpose it is collected      the technical means by which it is collected      who sees your information      how you can access, verify its accuracy and correct your information      how long your data is kept      what security measures are taken to safeguard your information      who to contact if you have questions or complaints      Europa Analytics      Europa Analytics is the corporate service that measures the effectiveness and efficiency of the European Commission's websites on Europa.  You are free to refuse the use of this service – either via the cookie banner that appears at the top of the first page you visit or at Europa Analytics.   Choosing not to use this service does not affect your navigation experience on Europa sites.     More about Europa Analytics     Contacting Europa sites     Many web pages on Europa have a contact button, which activates your email software and invites you to send your comments to a specific mailbox.         When you send such a message, your personal data is only collected in order to reply.    Your email will be forwarded to another service if the team responsible for the mailbox is unable to answer your question. An email will inform you about which service your question has been forwarded to.     If you have any questions about the processing of your email and related personal data, do not hesitate to include them in your message.    Safeguarding information     Collected personal data are stored by the European Commission under the Commission decision of January 2017 on the security of communication and information systems in the European Commission.        In those cases where collected personal data are stored on a computer of an external subcontractor acting as processor, they are bound by specific contractual clauses and by the confidentiality obligations deriving from the general data protection regulation of April 2016.     Regulation on the processing of personal data and on the free movement of such data     Verifying, modifying or deleting information    If you want to verify, modify or delete your personal data stored by the Europa website and its sub-sites, you can contact the Europa Web Communication unit in DG Communication using the form below.      In your email, clearly state the nature of your request (verifying, modifying or deleting personal data published on the Europa websites) and include the URL of the website/webpages your request refers to."
+            'Although you can browse through most of this website without giving any personal information, in some cases information is required in order to provide the e-services you request. This website within the commswithaplan.com domain may provide links to third-party sites. In order to use third party content on our website, you may need to accept their specific terms and conditions, including their cookie policies over which we have no control.'
+        },
+        {
+          description: 'Regulation on the protection of personal data e-services',
+          elaboration:
+            'An e-service is a service or resource that improves communication between users and Comms With A Plan. 3 types of e-services are offered by Comms With A Plan:       (1) information services that provide easy and effective access to information; (2) interactive communication services to facilitate marketing communications work by the user; (3) consultations and feedback transaction services that allow basic forms of transactions with Comms With A Plan, such as procurement, financial operations, recruitment, event enrollment and ordering documents.'
+        },
+        {
+          description: 'Information contained in a specific privacy statement',
+          elaboration:
+            'A specific privacy policy statement will contain the following information about the use of your data: (1) what information is collected; (2) for what purpose it is collected; (3) the technical means by which it is collected; (4) who sees your information; (5) how you can access, verify its accuracy and correct your information; (6) how long your data is kept; (7) what security measures are taken to safeguard your information; (8) who to contact if you have questions or complaints;'
+        },
+        {
+          description: 'Analytics',
+          elaboration:
+            'Analytics measure the effectiveness and efficiency of the Comms With A Plan website. You are free to refuse the use of this service –  via the cookie banner that appears at the bottom of the first page you visit. Choosing not to use this service does not affect your navigation experience on the Comms With A Plan site.'
+        },
+        {
+          description: 'Contacting Comms With A Plan site',
+          elaboration:
+            'Some web pages on Comms With A Pplan have a contact button, which activates your email software and invites you to send your comments to a specific mailbox. When you send such a message, your personal data is only collected in order to reply.Your email will be forwarded to another service if the person responsible for the mailbox is unable to answer your question. An email will inform you about which service your question has been forwarded to. If you have any questions about the processing of your email and related personal data, do not hesitate to include them in your message.'
+        },
+        {
+          description: 'Safeguarding information',
+          elaboration:
+            'Collected personal data are stored by Comms With A Plan. In those cases where collected personal data are stored on a computer of an external subcontractor acting as processor, they are bound by specific contractual clauses and by the confidentiality obligations deriving from the general data protection regulation of April 2016.'
+        }
+      ]
+    },
+    {
+      name: 'privacy_policy',
+      language: 'dutch',
+      displayName: 'Privacy Beleid',
+      paragraphs: [
+        {
+          description: 'Bescherming van persoonsgegevens',
+          elaboration:
+            'Comms With A Plan hecht veel belang aan de bescherming van uw persoonlijke levenssfeer. Hoewel u de meeste van deze websites kunt bezoeken zonder informatie over uzelf te geven, moet u persoonsgegevens doorgeven om van sommige e-diensten gebruik te maken. De websites het commswithaplan.com-domein linken ook naar sites van andere instanties of personen. Om inhoud van derde partijen op onze websites te kunnen gebruiken, moet u in sommige gevallen akkoord gaan met hun specifieke voorwaarden, inclusief hun cookiebeleid waarover wij geen controle hebben.'
+        },
+        {
+          description: 'Regulering bescherming persoonlijke data E-diensten',
+          elaboration:
+            'Een e-dienst is een dienst of informatiebron die toegankelijk is via internet met als doel de communicatie tussen gebruikers en Comms With A Plan te verbeteren. Op commswithaplan.com worden drie soorten e-diensten aangeboden: (2) interactieve communicatiediensten om marketing-communicatie werk door de gebruiker te vergemakkelijken; raadplegingen van informatie te vergemakkelijken; (3) transactiediensten die basistransacties met Comms With A Plan mogelijk maken, zoals opdrachten, financiële transacties, werving en selectie, inschrijvingen voor evenementen en het bestellen van documenten.'
+        },
+        {
+          description: 'Wat houdt een specifieke privacyverklaring in?',
+          elaboration:
+            'Een specifieke privacyverklaring geeft antwoord op de volgende vragen: (1) Welke gegevens worden verzameld?; (2) Waarom worden de gegevens verzameld?; (3) Hoe worden de gegevens verzameld?; (4) Wie kan uw gegevens inzien?; (5) Hoe kunt u uw gegevens inzien, controleren en corrigeren?; (6) Hoelang worden uw gegevens bewaard?; (7) Hoe worden uw gegevens beschermd?; (8) Met wie kunt u contact opnemen bij vragen en klachten?;'
+        },
+        {
+          description: 'Analytics',
+          elaboration:
+            'Analytics is de software waarmee we meten hoe doeltreffend en efficiënt de websites van Comms With A Plan is. Die dienst is niet verplicht, u kunt die uitschakelen via de banner over cookies onderaan de eerste pagina die u bezoekt. De keuze om deze dienst niet te gebruiken, heeft geen invloed op uw surfcomfort op de Comms With A Plan website.'
+        },
+        {
+          description: 'Contact opnemen met Comms With A Plan-website',
+          elaboration:
+            'Enkele pagina’s op commswithaplan.com hebben een contactlink, die uw e-mailprogramma activeert en waarmee u opmerkingen naar een specifieke mailbox kunt sturen. Als we een e-mail van u ontvangen, verzamelen we alleen uw persoonsgegevens om u te kunnen antwoorden. Als we uw vraag niet kunnen beantwoorden, sturen we uw bericht door naar een andere dienst. U krijgt dan per e-mail te horen om welke dienst het gaat. Als u vragen heeft over de verwerking van uw e-mail of uw persoonsgegevens, kunt u die in uw bericht opnemen.'
+        },
+        {
+          description: 'Gegevens beveiligen',
+          elaboration:
+            'Uw persoonsgegevens worden opgeslagen door Comms With A Plan. Indien verzamelde gegevens worden opgeslagen op een computer van een externe subcontractant, moet deze zich als verwerker ervan aan de algemene verordening gegevensbescherming (AVG - Verordening (EU) 2016/679) houden.'
         }
       ]
     }
