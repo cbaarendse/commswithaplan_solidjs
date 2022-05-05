@@ -17,7 +17,7 @@
 
 <Main>
   <Section>
-    <div class="cookie_policy__flex">
+    <div class="legal__flex">
       <Header>
         <Brand
           brand={{
@@ -53,16 +53,16 @@
 </Main>
 
 <style>
-  .cookie_policy__flex {
+  .legal__flex {
     display: flex;
     flex-direction: column;
     gap: 2rem;
   }
 
-  .cookie_policy__flex :global(header) {
+  .legal__flex :global(header) {
     flex: 0 1 100%;
   }
-  .cookie_policy__flex :global(article) {
+  .legal__flex :global(article) {
     flex: 1 1 0;
   }
   article {

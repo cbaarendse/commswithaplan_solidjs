@@ -9,7 +9,7 @@
 
 <footer on:clickedButton>
   <span>© 2013-2021 Comms With A Plan</span>
-  <nav><a href="/consultancy/contact">Contact</a></nav>
+  <nav><a href="/consultancy/contact">Contact</a><a href="/legal/termsandconditions">Legal</a></nav>
   <Button
     btn={{
       type: 'button',
@@ -35,6 +35,7 @@
   a {
     color: var(--ra-blue);
     text-decoration: none;
+    margin: 0 1rem;
   }
   span.button__text {
     font-size: var(--ra-fs-m);
