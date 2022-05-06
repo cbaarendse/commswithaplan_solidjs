@@ -5,11 +5,11 @@
   import Header from './layout/Header.svelte';
   import Brand from '../../reusable/Brand.svelte';
   import LogoReach from '../../reusable/LogoReach.svelte';
-  import {Route, active} from 'tinro';
-  import {language} from '../../stores/utils';
   import TermsAndConditions from '../legal/TermsAndConditions.svelte';
   import PrivacyPolicy from '../legal/PrivacyPolicy.svelte';
   import CookiePolicy from '../legal/CookiePolicy.svelte';
+  import {Route, active} from 'tinro';
+  import {language} from '../../stores/utils';
 </script>
 
 <Main>
@@ -49,11 +49,10 @@
             </ul>
           </nav>
         </aside>
-
         <div style="background:purple;">
-          <Route path="/legal/cookiepolicy"><CookiePolicy /></Route>
-          <Route path="/legal/privacypolicy"><PrivacyPolicy /></Route>
-          <Route path="/legal/termsandconditions"><TermsAndConditions /></Route>
+          <Route path="/termsandconditions"><TermsAndConditions /></Route>
+          <Route path="/privacypolicy"><PrivacyPolicy /></Route>
+          <Route path="/cookiepolicy"><CookiePolicy /></Route>
         </div>
       </div>
     </div>
