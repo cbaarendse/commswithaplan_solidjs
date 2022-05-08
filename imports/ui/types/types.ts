@@ -7,6 +7,7 @@ declare global {
 
 // content
 export type Chapter = Definition & {imgFiles?: string[]; paragraphs: Paragraph[]};
+export type Article = Chapter;
 export type Content = Definition & ObjectDefault;
 export type Definition = {name: string; language: string; displayName: string; description?: string};
 export type HomeItem = Definition & {

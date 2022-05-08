@@ -8,8 +8,9 @@
   import TermsAndConditions from '../legal/TermsAndConditions.svelte';
   import PrivacyPolicy from '../legal/PrivacyPolicy.svelte';
   import CookiePolicy from '../legal/CookiePolicy.svelte';
-  import {Route, active} from 'tinro';
+  import {Route, active, router} from 'tinro';
   import {language} from '../../stores/utils';
+import About from '../consultancy/About.svelte';
 </script>
 
 <Main>
@@ -20,14 +21,16 @@
           brand={{
             color: 'var(--ra-blue)',
             fontSize: 'var(--ra-fs-2xl)',
-            title: `Tools - ${$language === 'dutch' ? 'Documentatie' : 'Documentation'}`
-          }}
-          ><LogoReach
+            title: `${$language === 'dutch' ? 'Legaal' : 'Legal'} - 
+              ${$router.path.startsWith('/termsandconditions') ? ($language === 'dutch' ? 'Algemene Voorwaarden' : 'Terms and Conditions') :
+              $router.path.startsWith('/privacypolicy') ? ($language === 'dutch' ? 'Privacybeleid' : 'Privacy Policy'):
+              $router.path.startsWith('/cookiepolicy') ? ($language === 'dutch' ? 'Cookiebeleid' : 'Cookie Policy')}` />
+              <LogoReach
             logo={{fontSize: 'var(--ra-fs-5xl)', width: 'var(--ra-5xl)', height: 'var(--ra-5xl)', colored: true}}
           /></Brand
         >
       </Header>
-      <div class="chapters__flex">
+      <div class="legal__flex">
         <aside>
           <nav>
             <ul>
@@ -49,7 +52,7 @@
             </ul>
           </nav>
         </aside>
-        <div style="background:purple;">
+        <div style="border:purple;">
           <Route path="/termsandconditions"><TermsAndConditions /></Route>
           <Route path="/privacypolicy"><PrivacyPolicy /></Route>
           <Route path="/cookiepolicy"><CookiePolicy /></Route>
@@ -58,7 +61,6 @@
     </div>
   </Section>
 </Main>
-<div class="legal__flex" />
 
 <style>
   .docs__grid {
