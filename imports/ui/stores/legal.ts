@@ -4,245 +4,6 @@ import {readable, Readable} from 'svelte/store';
 // interfaces
 import type {Article} from '../types/types';
 
-export const cookiePolicy: Readable<Article[]> = readable(
-  [
-    {
-      name: 'about_cookies',
-      language: 'english',
-      displayName: 'About cookies',
-      paragraphs: [
-        {
-          description: 'What is a cookie?',
-          elaboration:
-            "Cookies are small text files that websites place on the computers and mobile devices of people who visit those websites. These text files allow a website to remember your device and how you interacted with the website, which is useful for a number of different purposes. For example, cookies can be used to remember username and password information so that you don't have to re-enter all of your login information every time you visit a site you frequently log in to. Other functions of cookies are to provide custom advertising to users based on searches and personal interests, as well as site performance cookies that enhance website use by remembering things such as custom video streaming or volume settings you have selected while using the website in the past."
-        }
-      ]
-    },
-    {
-      name: 'about_cookies',
-      language: 'dutch',
-      displayName: 'Over Cookies',
-      paragraphs: [
-        {
-          description: 'Wat is een cookie?',
-          elaboration:
-            'Wij maken op deze website gebruik van cookies. Een cookie is een eenvoudig klein bestandje dat met pagina’s van deze website [en/of Flash-applicaties] wordt meegestuurd en door uw browser op uw device (computer/telefoon/tablet) wordt opgeslagen. De daarin opgeslagen informatie kan bij een volgend bezoek weer naar onze servers teruggestuurd worden.'
-        }
-      ]
-    },
-    {
-      name: 'ads_cookies',
-      language: 'english',
-      displayName: 'Ads',
-      paragraphs: [
-        {
-          description: 'lll',
-          elaboration: 'kkk'
-        }
-      ]
-    },
-    {
-      name: 'ads_cookies',
-      language: 'dutch',
-      displayName: 'Advertenties',
-      paragraphs: [
-        {
-          description: 'Tracking cookies van onze adverteerders',
-          elaboration:
-            "Met jouw toestemming plaatsen onze adverteerders zogenaamde tracking cookies op jouw apparatuur. Deze cookies gebruiken zij om bij te houden welke pagina's je bezoekt uit hun netwerk, om zo een profiel op te bouwen van jouw online surfgedrag. Dit profiel wordt mede opgebouwd op basis van vergelijkbare informatie die zij van jouw bezoek aan andere websites uit hun netwerk krijgen. Dit profiel wordt niet gekoppeld aan jouw naam, adres, e-mailadres en dergelijke zoals bij ons bekend, maar dient alleen om advertenties af te stemmen op jouw interesses zodat deze zo veel mogelijk relevant voor je zijn."
-        }
-      ]
-    },
-    {
-      name: 'analytics_cookies',
-      language: 'english',
-      displayName: 'Analytics cookies',
-      paragraphs: [
-        {
-          description: 'lll',
-          elaboration: 'kkk'
-        }
-      ]
-    },
-    {
-      name: 'analytics_cookies',
-      language: 'dutch',
-      displayName: 'Analyse Cookies',
-
-      paragraphs: [
-        {
-          description: 'Google Analytics',
-          elaboration:
-            'Via onze website wordt een cookie geplaatst van het Amerikaanse bedrijf Google,  als deel van de “Analytics”-dienst. Wij gebruiken deze dienst om bij te houden en rapportages te krijgen over hoe bezoekers de website gebruiken. Google kan deze informatie aan derden verschaffen indien Google hiertoe wettelijk wordt verplicht, of voor zover derden de informatie namens Google verwerken. Wij hebben hier geen invloed op. Wij hebben Google wel toegestaan de verkregen analytics informatie te  gebruiken voor andere Google-diensten.'
-        },
-        {
-          description: 'Anonimisering',
-          elaboration:
-            'De informatie die Google verzamelt wordt zo veel mogelijk geanonimiseerd. Uw IP-adres wordt nadrukkelijk niet meegegeven. De informatie wordt overgebracht naar en door Google opgeslagen op servers in de Verenigde Staten. Standard Contractual Clauses zijn daarom onderdeel van de voorwaarden van Google.'
-        }
-      ]
-    },
-    {
-      name: 'functional_cookies',
-      language: 'english',
-      displayName: 'Functional cookies',
-      paragraphs: [
-        {
-          description: 'Use of functional (permanent) cookies',
-          elaboration:
-            "These cookies allow us to remember how you're logged in, whether you chose to no longer see advertisements, whether you made an edit to an Article on the Service while logged out, when you logged in or out, the state or history of Service tools you've used. These cookies also allow us to tailor the Service to provide enhanced features and content for you and to remember how you've customized the Service in other ways, such as customizing the toolbars we offer in the right column of every page. The information these cookies collect may be anonymous, and they are not used to track your browsing activity on other sites or services."
-        }
-      ]
-    },
-    {
-      name: 'functional_cookies',
-      language: 'dutch',
-      displayName: 'Functionele Cookies',
-      paragraphs: [
-        {
-          description: 'Gebruik van functionele (permanente) cookies',
-          elaboration:
-            'Met behulp van een permanente cookie kunnen wij jou herkennen bij een nieuw bezoek op onze website. De website kan daardoor speciaal op jouw voorkeuren worden ingesteld. Ook wanneer je toestemming hebt gegeven voor het plaatsen van cookies kunnen wij dit door middel van een cookie onthouden. Hierdoor hoef je niet steeds jouw voorkeuren te herhalen waardoor je dus tijd bespaart en een prettiger gebruik van onze website kunt maken. Permanente ookies kan je verwijderen via de instellingen van jouw browser.'
-        }
-      ]
-    },
-    {
-      name: 'personal_cookies',
-      language: 'english',
-      displayName: 'Personal cookies',
-      paragraphs: [
-        {
-          description: 'Cookies for cookie policy',
-          elaboration:
-            'These are set by us and only we can read them. They remember: (1) if you have agreed to (or refused) this site’s cookie policy.'
-        }
-      ]
-    },
-    {
-      name: 'personal_cookies',
-      language: 'dutch',
-      displayName: 'Persoonlijke Cookies',
-      paragraphs: [
-        {
-          description: 'Persoonlijk',
-          elaboration: 'Persoonlijke cookies'
-        }
-      ]
-    },
-    {
-      name: 'security_cookies',
-      language: 'english',
-      displayName: 'Security cookies',
-      paragraphs: [
-        {
-          description: 'ssss',
-          elaboration: 'sesesese'
-        }
-      ]
-    },
-    {
-      name: 'security_cookies',
-      language: 'dutch',
-      displayName: 'VeiligheidsCookies',
-      paragraphs: [
-        {
-          description: 'Voor je veiligheid',
-          elaboration: 'Veiligheidscookies'
-        }
-      ]
-    }
-  ],
-  () => {
-    () => {
-      console.log('Cookie Policy Chapters closed');
-    };
-  }
-);
-
-export const privacyPolicy: Readable<Article[]> = readable(
-  [
-    {
-      name: 'privacy_policy',
-      language: 'english',
-      displayName: 'Privacy Policy',
-      paragraphs: [
-        {
-          description: 'Personal data protection',
-          elaboration:
-            'Although you can browse through most of this website without giving any personal information, in some cases information is required in order to provide the e-services you request. This website within the commswithaplan.com domain may provide links to third-party sites. In order to use third party content on our website, you may need to accept their specific terms and conditions, including their cookie policies over which we have no control.'
-        },
-        {
-          description: 'Regulation on the protection of personal data e-services',
-          elaboration:
-            'An e-service is a service or resource that improves communication between users and Comms With A Plan. 3 types of e-services are offered by Comms With A Plan: (1) information services that provide easy and effective access to information; (2) interactive communication services to facilitate marketing communications work by the user; (3) consultations and feedback transaction services that allow basic forms of transactions with Comms With A Plan, such as procurement, financial operations, recruitment, event enrollment and ordering documents.'
-        },
-        {
-          description: 'Information contained in a specific privacy statement',
-          elaboration:
-            'A specific privacy policy statement will contain the following information about the use of your data: (1) what information is collected; (2) for what purpose it is collected; (3) the technical means by which it is collected; (4) who sees your information; (5) how you can access, verify its accuracy and correct your information; (6) how long your data is kept; (7) what security measures are taken to safeguard your information; (8) who to contact if you have questions or complaints;'
-        },
-        {
-          description: 'Analytics',
-          elaboration:
-            'Analytics measure the effectiveness and efficiency of the Comms With A Plan website. You are free to refuse the use of this service –  via the cookie banner that appears at the bottom of the first page you visit. Choosing not to use this service does not affect your navigation experience on the Comms With A Plan site.'
-        },
-        {
-          description: 'Contacting Comms With A Plan site',
-          elaboration:
-            'Some web pages on Comms With A Pplan have a contact button, which activates your email software and invites you to send your comments to a specific mailbox. When you send such a message, your personal data is only collected in order to reply.Your email will be forwarded to another service if the person responsible for the mailbox is unable to answer your question. An email will inform you about which service your question has been forwarded to. If you have any questions about the processing of your email and related personal data, do not hesitate to include them in your message.'
-        },
-        {
-          description: 'Safeguarding information',
-          elaboration:
-            'Collected personal data are stored by Comms With A Plan. In those cases where collected personal data are stored on a computer of an external subcontractor acting as processor, they are bound by specific contractual clauses and by the confidentiality obligations deriving from the general data protection regulation of April 2016.'
-        }
-      ]
-    },
-    {
-      name: 'privacy_policy',
-      language: 'dutch',
-      displayName: 'Privacy Beleid',
-      paragraphs: [
-        {
-          description: 'Bescherming van persoonsgegevens',
-          elaboration:
-            'Comms With A Plan hecht veel belang aan de bescherming van uw persoonlijke levenssfeer. Hoewel u de meeste van deze websites kunt bezoeken zonder informatie over uzelf te geven, moet u persoonsgegevens doorgeven om van sommige e-diensten gebruik te maken. De websites het commswithaplan.com-domein linken ook naar sites van andere instanties of personen. Om inhoud van derde partijen op onze websites te kunnen gebruiken, moet u in sommige gevallen akkoord gaan met hun specifieke voorwaarden, inclusief hun cookiebeleid waarover wij geen controle hebben.'
-        },
-        {
-          description: 'Regulering bescherming persoonlijke data E-diensten',
-          elaboration:
-            'Een e-dienst is een dienst of informatiebron die toegankelijk is via internet met als doel de communicatie tussen gebruikers en Comms With A Plan te verbeteren. Op commswithaplan.com worden drie soorten e-diensten aangeboden: (2) interactieve communicatiediensten om marketing-communicatie werk door de gebruiker te vergemakkelijken; raadplegingen van informatie te vergemakkelijken; (3) transactiediensten die basistransacties met Comms With A Plan mogelijk maken, zoals opdrachten, financiële transacties, werving en selectie, inschrijvingen voor evenementen en het bestellen van documenten.'
-        },
-        {
-          description: 'Wat houdt een specifieke privacyverklaring in?',
-          elaboration:
-            'Een specifieke privacyverklaring geeft antwoord op de volgende vragen: (1) Welke gegevens worden verzameld?; (2) Waarom worden de gegevens verzameld?; (3) Hoe worden de gegevens verzameld?; (4) Wie kan uw gegevens inzien?; (5) Hoe kunt u uw gegevens inzien, controleren en corrigeren?; (6) Hoelang worden uw gegevens bewaard?; (7) Hoe worden uw gegevens beschermd?; (8) Met wie kunt u contact opnemen bij vragen en klachten?;'
-        },
-        {
-          description: 'Analytics',
-          elaboration:
-            'Analytics is de software waarmee we meten hoe doeltreffend en efficiënt de websites van Comms With A Plan is. Die dienst is niet verplicht, u kunt die uitschakelen via de banner over cookies onderaan de eerste pagina die u bezoekt. De keuze om deze dienst niet te gebruiken, heeft geen invloed op uw surfcomfort op de Comms With A Plan website.'
-        },
-        {
-          description: 'Contact opnemen met Comms With A Plan-website',
-          elaboration:
-            'Enkele pagina’s op commswithaplan.com hebben een contactlink, die uw e-mailprogramma activeert en waarmee u opmerkingen naar een specifieke mailbox kunt sturen. Als we een e-mail van u ontvangen, verzamelen we alleen uw persoonsgegevens om u te kunnen antwoorden. Als we uw vraag niet kunnen beantwoorden, sturen we uw bericht door naar een andere dienst. U krijgt dan per e-mail te horen om welke dienst het gaat. Als u vragen heeft over de verwerking van uw e-mail of uw persoonsgegevens, kunt u die in uw bericht opnemen.'
-        },
-        {
-          description: 'Gegevens beveiligen',
-          elaboration:
-            'Uw persoonsgegevens worden opgeslagen door Comms With A Plan. Indien verzamelde gegevens worden opgeslagen op een computer van een externe subcontractant, moet deze zich als verwerker ervan aan de algemene verordening gegevensbescherming (AVG - Verordening (EU) 2016/679) houden.'
-        }
-      ]
-    }
-  ],
-  () => {
-    () => {
-      console.log('Privacy Policy Chapters closed');
-    };
-  }
-);
-
 export const termsAndConditions: Readable<Article[]> = readable(
   [
     {
@@ -414,7 +175,47 @@ export const termsAndConditions: Readable<Article[]> = readable(
         {
           description: '1.',
           elaboration:
-            "User is authorized to suspend the fulfillment of the obligations or to dissolve the agreement, if the Client does not, not fully or not timely fulfill the obligations under the agreement, after the conclusion of the agreement User becomes aware of circumstances give good reason to fear that the Client will not fulfill its obligations if, when the agreement was concluded, the Client was requested to provide security for the fulfillment of its obligations under the agreement and this security is not forthcoming or is insufficient or if due to the delay on the part of the The Client can no longer be expected to fulfill the agreement under the originally agreed conditions.'}, {description: '2.', elaboration: 'Furthermore, the User is authorized to dissolve the agreement if circumstances arise of such a nature that fulfillment of the agreement is impossible or if other circumstances arise that are of such a nature that unaltered maintenance of the agreement cannot reasonably be expected of the User.'}, {description: '3.', elaboration: 'If the agreement is dissolved, the User's claims against the Client are immediately due and payable.'}, {description: '4.', elaboration: 'If the User suspends the fulfillment of the obligations, he retains his rights under the law and the agreement. If the User proceeds to suspension or dissolution, he is in no way obliged to compensate damage and costs incurred in any way.'},{description: '5.', elaboration: 'If the dissolution is attributable to the Client, the User is entitled to compensation for the damage, including the costs, incurred directly and indirectly as a result.'},{description: '6.', elaboration: 'If the Client fails to fulfill its obligations arising from the agreement and this non-compliance justifies dissolution, the User is entitled to dissolve the agreement immediately and with immediate effect without any obligation on its part to pay any compensation or indemnification, while the Client, by virtue of of breach of contract, but is obliged to pay compensation or indemnification.'},{description: '7.', elaboration:'If the agreement is terminated prematurely by the User, the User will arrange for the transfer of work still to be performed to third parties in consultation with the Client. This unless the termination is attributable to the Client. If the transfer of the work entails additional costs for the User, these will be charged to the Client. The Client is obliged to pay these costs within the specified term, unless the User indicates otherwise.'},{description:'8.', elaboration:'In the event of liquidation, (application for) suspension of payments or bankruptcy, attachment - if and insofar as the attachment is not lifted within three months - at the expense of the Client, debt restructuring or any other circumstance as a result of which the Client can no longer freely can dispose of his assets, the User is free to terminate the agreement with immediate effect or to cancel the order or agreement, without any obligation on his part to pay any compensation or compensation. In that case, the User's claims against the Client are immediately due and payable.'},{description:'9.',elaboration:'If the Client cancels an order placed in whole or in part, the work that was performed and the items ordered or prepared for that purpose, plus any delivery, removal and delivery costs thereof and the working time reserved for the execution of the agreement, will be fully paid to be charged to the Client."
+            'User is authorized to suspend the fulfillment of the obligations or to dissolve the agreement, if the Client does not, not fully or not timely fulfill the obligations under the agreement, after the conclusion of the agreement User becomes aware of circumstances give good reason to fear that the Client will not fulfill its obligations if, when the agreement was concluded, the Client was requested to provide security for the fulfillment of its obligations under the agreement and this security is not forthcoming or is insufficient or if due to the delay on the part of the The Client can no longer be expected to fulfill the agreement under the originally agreed conditions.'
+        },
+        {
+          description: '2.',
+          elaboration:
+            'Furthermore, the User is authorized to dissolve the agreement if circumstances arise of such a nature that fulfillment of the agreement is impossible or if other circumstances arise that are of such a nature that unaltered maintenance of the agreement cannot reasonably be expected of the User.'
+        },
+        {
+          description: '3.',
+          elaboration:
+            "If the agreement is dissolved, the User's claims against the Client are immediately due and payable."
+        },
+        {
+          description: '4.',
+          elaboration:
+            'If the User suspends the fulfillment of the obligations, he retains his rights under the law and the agreement. If the User proceeds to suspension or dissolution, he is in no way obliged to compensate damage and costs incurred in any way.'
+        },
+        {
+          description: '5.',
+          elaboration:
+            'If the dissolution is attributable to the Client, the User is entitled to compensation for the damage, including the costs, incurred directly and indirectly as a result.'
+        },
+        {
+          description: '6.',
+          elaboration:
+            'If the Client fails to fulfill its obligations arising from the agreement and this non-compliance justifies dissolution, the User is entitled to dissolve the agreement immediately and with immediate effect without any obligation on its part to pay any compensation or indemnification, while the Client, by virtue of of breach of contract, but is obliged to pay compensation or indemnification.'
+        },
+        {
+          description: '7.',
+          elaboration:
+            'If the agreement is terminated prematurely by the User, the User will arrange for the transfer of work still to be performed to third parties in consultation with the Client. This unless the termination is attributable to the Client. If the transfer of the work entails additional costs for the User, these will be charged to the Client. The Client is obliged to pay these costs within the specified term, unless the User indicates otherwise.'
+        },
+        {
+          description: '8.',
+          elaboration:
+            "In the event of liquidation, (application for) suspension of payments or bankruptcy, attachment - if and insofar as the attachment is not lifted within three months - at the expense of the Client, debt restructuring or any other circumstance as a result of which the Client can no longer freely can dispose of his assets, the User is free to terminate the agreement with immediate effect or to cancel the order or agreement, without any obligation on his part to pay any compensation or compensation. In that case, the User's claims against the Client are immediately due and payable."
+        },
+        {
+          description: '9.',
+          elaboration:
+            'If the Client cancels an order placed in whole or in part, the work that was performed and the items ordered or prepared for that purpose, plus any delivery, removal and delivery costs thereof and the working time reserved for the execution of the agreement, will be fully paid to be charged to the Client.'
         }
       ]
     },
@@ -1111,6 +912,314 @@ export const termsAndConditions: Readable<Article[]> = readable(
   () => {
     () => {
       console.log('Terms And Conditions Chapters closed');
+    };
+  }
+);
+export const privacyPolicy: Readable<Article[]> = readable(
+  [
+    {
+      name: 'kll',
+      language: 'english',
+      displayName: 'Personal data protection',
+      paragraphs: [
+        {
+          description: '1',
+          elaboration:
+            'Although you can browse through most of this website without giving any personal information, in some cases information is required in order to provide the ces you request. This website within the commswithaplan.com domain may provide links to third-party sites. In order to use third party content on our te, you may need to accept their specific terms and conditions, including their cookie policies over which we have no control.'
+        }
+      ]
+    },
+    {
+      name: 'kll',
+      language: 'english',
+      displayName: 'Regulation on the protection of personal data e-services',
+      paragraphs: [
+        {
+          description: '1',
+          elaboration:
+            'An e-service is a service or resource that improves communication between users and Comms With A Plan. 3 types of e-services are offered by Comms With A Plan: (1) information services that provide easy and effective access to information; (2) interactive communication services to facilitate marketing communications wohe user; (3) consultations and feedback transaction services that allow basic forms of transactions with Comms With A Plan, such as procurement, financial tions, recruitment, event enrollment and ordering documents.'
+        }
+      ]
+    },
+    {
+      name: 'kll',
+      language: 'english',
+      displayName: 'Information contained in a specific privacy statement',
+      paragraphs: [
+        {
+          description: '1',
+          elaboration:
+            'A specific privacy policy statement will contain the following information about the use of your data: (1) what information is collected; (2) for what purpose it is collected; (3) the technical means by which it is collected; (4) who sees your information; (5) how you can access, verify its accuracy and correct your tion; (6) how long your data is kept; (7) what security measures are taken to safeguard your information; (8) who to contact if you have questions or aints;'
+        }
+      ]
+    },
+    {
+      name: 'kll',
+      language: 'english',
+      displayName: 'Analytics',
+      paragraphs: [
+        {
+          description: '1',
+          elaboration:
+            'Analytics measure the effectiveness and efficiency of the Comms With A Plan website. You are free to refuse the use of this service –  via the cookie that appears at the bottom of the first page you visit. Choosing not to use this service does not affect your navigation experience on the Comms With A Plan '
+        }
+      ]
+    },
+    {
+      name: 'kll',
+      language: 'english',
+      displayName: 'Contacting Comms With A Plan site',
+      paragraphs: [
+        {
+          description: '1',
+          elaboration:
+            'Some web pages on Comms With A Pplan have a contact button, which activates your email software and invites you to send your comments to a specific mailbox. When you send such a message, your personal data is only collected in order to reply.Your email will be forwarded to another service if the person responsible for the  is unable to answer your question. An email will inform you about which service your question has been forwarded to. If you have any questions about the ssing of your email and related personal data, do not hesitate to include them in your message.'
+        }
+      ]
+    },
+    {
+      name: 'kll',
+      language: 'english',
+      displayName: 'Safeguarding information',
+      paragraphs: [
+        {
+          description: '1',
+          elaboration:
+            'Collected personal data are stored by Comms With A Plan. In those cases where collected personal data are stored on a computer of an external subcontractor acting as processor, they are bound by specific contractual clauses and by the confidentiality obligations deriving from the general data protection regulation of April 2016.'
+        }
+      ]
+    },
+    {
+      name: 'kll',
+      language: 'dutch',
+      displayName: 'Bescherming van persoonsgegevens',
+      paragraphs: [
+        {
+          description: '1',
+          elaboration:
+            'Comms With A Plan hecht veel belang aan de bescherming van uw persoonlijke levenssfeer. Hoewel u de meeste van deze websites kunt bezoeken zonder informatie over uzelf te geven, moet u persoonsgegevens doorgeven om van sommige e-diensten gebruik te maken. De websites het commswithaplan.com-domein linken ook naar sitesdere instanties of personen. Om inhoud van derde partijen op onze websites te kunnen gebruiken, moet u in sommige gevallen akkoord gaan met hun specifieke aarden, inclusief hun cookiebeleid waarover wij geen controle hebben.'
+        }
+      ]
+    },
+    {
+      name: 'kll',
+      language: 'dutch',
+      displayName: 'Regulering bescherming persoonlijke data E-diensten',
+      paragraphs: [
+        {
+          description: '1',
+          elaboration:
+            'Een e-dienst is een dienst of informatiebron die toegankelijk is via internet met als doel de communicatie tussen gebruikers en Comms With A Plan te verbeteren. Op commswithaplan.com worden drie soorten e-diensten aangeboden: (2) interactieve communicatiediensten om marketing-communicatie werk door de gebruiker te vergemakkelijken; raadplegingen van informatie te vergemakkelijken; (3) transactiediensten die basistransacties met Comms With A Plan mogelijk maken, zoals opdrachten, financiële transacties, werving en selectie, inschrijvingen voor evenementen en het bestellen van documenten.'
+        }
+      ]
+    },
+    {
+      name: 'kll',
+      language: 'dutch',
+      displayName: 'Wat houdt een specifieke privacyverklaring in?',
+      paragraphs: [
+        {
+          description: '1',
+          elaboration:
+            'Een specifieke privacyverklaring geeft antwoord op de volgende vragen: (1) Welke gegevens worden verzameld?; (2) Waarom worden de gegevens verzameld?; (3) Hoe worden de gegevens verzameld?; (4) Wie kan uw gegevens inzien?; (5) Hoe kunt u uw gegevens inzien, controleren en corrigeren?; (6) Hoelang worden uw gegevens bewaard?; (7) Hoe worden uw gegevens beschermd?; (8) Met wie kunt u contact opnemen bij vragen en klachten?;'
+        }
+      ]
+    },
+    {
+      name: 'kll',
+      language: 'dutch',
+      displayName: 'Analytics',
+      paragraphs: [
+        {
+          description: '1',
+          elaboration:
+            'Analytics is de software waarmee we meten hoe doeltreffend en efficiënt de websites van Comms With A Plan is. Die dienst is niet verplicht, u kunt die uitschakelen via de banner over cookies onderaan de eerste pagina die u bezoekt. De keuze om deze dienst niet te gebruiken, heeft geen invloed op uw surfcomfort op de Comms With A Plan website.'
+        }
+      ]
+    },
+    {
+      name: 'kll',
+      language: 'dutch',
+      displayName: 'Contact opnemen met Comms With A Plan-website',
+      paragraphs: [
+        {
+          description: '1',
+          elaboration:
+            'Enkele pagina’s op commswithaplan.com hebben een contactlink, die uw e-mailprogramma activeert en waarmee u opmerkingen naar een specifieke mailbox kunt sturen. Als we een e-mail van u ontvangen, verzamelen we alleen uw persoonsgegevens om u te kunnen antwoorden. Als we uw vraag niet kunnen beantwoorden, sturen we uw bericht door naar een andere dienst. U krijgt dan per e-mail te horen om welke dienst het gaat. Als u vragen heeft over de verwerking van uw e-mail of uw persoonsgegevens, kunt u die in uw bericht opnemen.'
+        }
+      ]
+    },
+    {
+      name: 'kll',
+      language: 'dutch',
+      displayName: 'Gegevens beveiligen',
+      paragraphs: [
+        {
+          description: '1',
+          elaboration:
+            'Uw persoonsgegevens worden opgeslagen door Comms With A Plan. Indien verzamelde gegevens worden opgeslagen op een computer van een externe subcontractant, moet deze zich als verwerker ervan aan de algemene verordening gegevensbescherming (AVG - Verordening (EU) 2016/679) houden.'
+        }
+      ]
+    }
+  ],
+  () => {
+    () => {
+      console.log('Privacy Policy Chapters closed');
+    };
+  }
+);
+
+export const cookiePolicy: Readable<Article[]> = readable(
+  [
+    {
+      name: 'about_cookies',
+      language: 'english',
+      displayName: 'About cookies',
+      paragraphs: [
+        {
+          description: 'What is a cookie?',
+          elaboration:
+            "Cookies are small text files that websites place on the computers and mobile devices of people who visit those websites. These text files allow a website to remember your device and how you interacted with the website, which is useful for a number of different purposes. For example, cookies can be used to remember username and password information so that you don't have to re-enter all of your login information every time you visit a site you frequently log in to. Other functions of cookies are to provide custom advertising to users based on searches and personal interests, as well as site performance cookies that enhance website use by remembering things such as custom video streaming or volume settings you have selected while using the website in the past."
+        }
+      ]
+    },
+    {
+      name: 'about_cookies',
+      language: 'dutch',
+      displayName: 'Over Cookies',
+      paragraphs: [
+        {
+          description: 'Wat is een cookie?',
+          elaboration:
+            'Wij maken op deze website gebruik van cookies. Een cookie is een eenvoudig klein bestandje dat met pagina’s van deze website [en/of Flash-applicaties] wordt meegestuurd en door uw browser op uw device (computer/telefoon/tablet) wordt opgeslagen. De daarin opgeslagen informatie kan bij een volgend bezoek weer naar onze servers teruggestuurd worden.'
+        }
+      ]
+    },
+    {
+      name: 'ads_cookies',
+      language: 'english',
+      displayName: 'Ads',
+      paragraphs: [
+        {
+          description: 'lll',
+          elaboration: 'kkk'
+        }
+      ]
+    },
+    {
+      name: 'ads_cookies',
+      language: 'dutch',
+      displayName: 'Advertenties',
+      paragraphs: [
+        {
+          description: 'Tracking cookies van onze adverteerders',
+          elaboration:
+            "Met jouw toestemming plaatsen onze adverteerders zogenaamde tracking cookies op jouw apparatuur. Deze cookies gebruiken zij om bij te houden welke pagina's je bezoekt uit hun netwerk, om zo een profiel op te bouwen van jouw online surfgedrag. Dit profiel wordt mede opgebouwd op basis van vergelijkbare informatie die zij van jouw bezoek aan andere websites uit hun netwerk krijgen. Dit profiel wordt niet gekoppeld aan jouw naam, adres, e-mailadres en dergelijke zoals bij ons bekend, maar dient alleen om advertenties af te stemmen op jouw interesses zodat deze zo veel mogelijk relevant voor je zijn."
+        }
+      ]
+    },
+    {
+      name: 'analytics_cookies',
+      language: 'english',
+      displayName: 'Analytics cookies',
+      paragraphs: [
+        {
+          description: 'lll',
+          elaboration: 'kkk'
+        }
+      ]
+    },
+    {
+      name: 'analytics_cookies',
+      language: 'dutch',
+      displayName: 'Analyse Cookies',
+
+      paragraphs: [
+        {
+          description: 'Google Analytics',
+          elaboration:
+            'Via onze website wordt een cookie geplaatst van het Amerikaanse bedrijf Google,  als deel van de “Analytics”-dienst. Wij gebruiken deze dienst om bij te houden en rapportages te krijgen over hoe bezoekers de website gebruiken. Google kan deze informatie aan derden verschaffen indien Google hiertoe wettelijk wordt verplicht, of voor zover derden de informatie namens Google verwerken. Wij hebben hier geen invloed op. Wij hebben Google wel toegestaan de verkregen analytics informatie te  gebruiken voor andere Google-diensten.'
+        },
+        {
+          description: 'Anonimisering',
+          elaboration:
+            'De informatie die Google verzamelt wordt zo veel mogelijk geanonimiseerd. Uw IP-adres wordt nadrukkelijk niet meegegeven. De informatie wordt overgebracht naar en door Google opgeslagen op servers in de Verenigde Staten. Standard Contractual Clauses zijn daarom onderdeel van de voorwaarden van Google.'
+        }
+      ]
+    },
+    {
+      name: 'functional_cookies',
+      language: 'english',
+      displayName: 'Functional cookies',
+      paragraphs: [
+        {
+          description: 'Use of functional (permanent) cookies',
+          elaboration:
+            "These cookies allow us to remember how you're logged in, whether you chose to no longer see advertisements, whether you made an edit to an Article on the Service while logged out, when you logged in or out, the state or history of Service tools you've used. These cookies also allow us to tailor the Service to provide enhanced features and content for you and to remember how you've customized the Service in other ways, such as customizing the toolbars we offer in the right column of every page. The information these cookies collect may be anonymous, and they are not used to track your browsing activity on other sites or services."
+        }
+      ]
+    },
+    {
+      name: 'functional_cookies',
+      language: 'dutch',
+      displayName: 'Functionele Cookies',
+      paragraphs: [
+        {
+          description: 'Gebruik van functionele (permanente) cookies',
+          elaboration:
+            'Met behulp van een permanente cookie kunnen wij jou herkennen bij een nieuw bezoek op onze website. De website kan daardoor speciaal op jouw voorkeuren worden ingesteld. Ook wanneer je toestemming hebt gegeven voor het plaatsen van cookies kunnen wij dit door middel van een cookie onthouden. Hierdoor hoef je niet steeds jouw voorkeuren te herhalen waardoor je dus tijd bespaart en een prettiger gebruik van onze website kunt maken. Permanente ookies kan je verwijderen via de instellingen van jouw browser.'
+        }
+      ]
+    },
+    {
+      name: 'personal_cookies',
+      language: 'english',
+      displayName: 'Personal cookies',
+      paragraphs: [
+        {
+          description: 'Cookies for cookie policy',
+          elaboration:
+            'These are set by us and only we can read them. They remember: (1) if you have agreed to (or refused) this site’s cookie policy.'
+        }
+      ]
+    },
+    {
+      name: 'personal_cookies',
+      language: 'dutch',
+      displayName: 'Persoonlijke Cookies',
+      paragraphs: [
+        {
+          description: 'Persoonlijk',
+          elaboration: 'Persoonlijke cookies'
+        }
+      ]
+    },
+    {
+      name: 'security_cookies',
+      language: 'english',
+      displayName: 'Security cookies',
+      paragraphs: [
+        {
+          description: 'ssss',
+          elaboration: 'sesesese'
+        }
+      ]
+    },
+    {
+      name: 'security_cookies',
+      language: 'dutch',
+      displayName: 'VeiligheidsCookies',
+      paragraphs: [
+        {
+          description: 'Voor je veiligheid',
+          elaboration: 'Veiligheidscookies'
+        }
+      ]
+    }
+  ],
+  () => {
+    () => {
+      console.log('Cookie Policy Chapters closed');
     };
   }
 );

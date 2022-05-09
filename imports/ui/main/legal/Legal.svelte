@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   // imports
   import Main from './layout/Main.svelte';
   import Section from './layout/Section.svelte';
@@ -10,25 +10,35 @@
   import CookiePolicy from '../legal/CookiePolicy.svelte';
   import {Route, active, router} from 'tinro';
   import {language} from '../../stores/utils';
-import About from '../consultancy/About.svelte';
+
+  function policy(path: string, lang: string): string | undefined {
+    if (path.startsWith('/legal/termsandconditions')) {
+      return lang === 'dutch' ? 'Algemene Voorwaarden' : 'Terms and Conditions';
+    }
+    if (path.startsWith('/legal/privacypolicy')) {
+      return lang === 'dutch' ? 'Privacybeleid' : 'Privacy Policy';
+    }
+    if (path.startsWith('/legal/cookiepolicy')) {
+      return lang === 'dutch' ? 'Cookiebeleid' : 'Cookie Policy';
+    }
+    return;
+  }
 </script>
 
 <Main>
   <Section>
-    <div class="docs__grid">
+    <div class="legal__grid">
       <Header>
         <Brand
           brand={{
             color: 'var(--ra-blue)',
             fontSize: 'var(--ra-fs-2xl)',
-            title: `${$language === 'dutch' ? 'Legaal' : 'Legal'} - 
-              ${$router.path.startsWith('/termsandconditions') ? ($language === 'dutch' ? 'Algemene Voorwaarden' : 'Terms and Conditions') :
-              $router.path.startsWith('/privacypolicy') ? ($language === 'dutch' ? 'Privacybeleid' : 'Privacy Policy'):
-              $router.path.startsWith('/cookiepolicy') ? ($language === 'dutch' ? 'Cookiebeleid' : 'Cookie Policy')}` />
-              <LogoReach
-            logo={{fontSize: 'var(--ra-fs-5xl)', width: 'var(--ra-5xl)', height: 'var(--ra-5xl)', colored: true}}
-          /></Brand
-        >
+            title: `${$language === 'dutch' ? 'Legaal' : 'Legal'} - ${policy($router.path, $language)}`
+          }}
+        />
+        <LogoReach
+          logo={{fontSize: 'var(--ra-fs-5xl)', width: 'var(--ra-5xl)', height: 'var(--ra-5xl)', colored: true}}
+        />
       </Header>
       <div class="legal__flex">
         <aside>
@@ -36,23 +46,23 @@ import About from '../consultancy/About.svelte';
             <ul>
               <li>
                 <a href={'/legal/termsandconditions'} use:active>
-                  <span class="blue">{$language === 'dutch' ? 'Algemene Voorwaarden' : 'Terms and Conditions'}</span>
+                  <span class="blue">{policy('/legal/termsandconditions', $language)}</span>
                 </a>
               </li>
               <li>
                 <a href={'/legal/privacypolicy'} use:active>
-                  <span class="blue">{$language === 'dutch' ? 'Privacybeleid' : 'Privacy Policy'}</span>
+                  <span class="blue">{policy('/legal/privacypolicy', $language)}</span>
                 </a>
               </li>
               <li>
                 <a href={'/legal/cookiepolicy'} use:active>
-                  <span class="blue">{$language === 'dutch' ? 'Cookiebeleid' : 'Cookie Policy'}</span>
+                  <span class="blue">{policy('/legal/cookiepolicy', $language)}</span>
                 </a>
               </li>
             </ul>
           </nav>
         </aside>
-        <div style="border:purple;">
+        <div class="policy__container" style="border:purple;">
           <Route path="/termsandconditions"><TermsAndConditions /></Route>
           <Route path="/privacypolicy"><PrivacyPolicy /></Route>
           <Route path="/cookiepolicy"><CookiePolicy /></Route>
@@ -63,26 +73,37 @@ import About from '../consultancy/About.svelte';
 </Main>
 
 <style>
-  .docs__grid {
+  .legal__grid {
     display: grid;
     grid-template-columns: 1fr;
     grid-auto-rows: auto;
     gap: 2rem;
   }
-  .docs__grid :global(header) {
+  .legal__grid :global(header) {
     grid-column: 1 / -1;
   }
   div.legal__flex {
     display: flex;
+    flex-wrap: wrap;
     font-size: var(--font-size-l);
   }
   aside {
     font-size: var(--font-size-l);
     padding: 1rem;
-    flex: 1 0 25%;
+    flex: 1 0 190px;
+  }
+  .policy__container {
+    flex: 4 1 570px;
   }
 
-  ul li {
+  ul {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    list-style-type: none;
+  }
+  li {
+    flex: 1 0 190px;
     margin-bottom: 2rem;
   }
 </style>
