@@ -453,7 +453,7 @@ export const termsAndConditions: Readable<Article[]> = readable(
     },
 
     {
-      displayName: 'Artikel 1.Algemeen',
+      displayName: 'Artikel 1 Algemeen',
       language: 'dutch',
       name: 'article_01',
       paragraphs: [
@@ -918,19 +918,19 @@ export const termsAndConditions: Readable<Article[]> = readable(
 export const privacyPolicy: Readable<Article[]> = readable(
   [
     {
-      name: 'kll',
+      name: 'data_protection',
       language: 'english',
       displayName: 'Personal data protection',
       paragraphs: [
         {
-          description: '1',
+          description: 'Information requirements',
           elaboration:
-            'Although you can browse through most of this website without giving any personal information, in some cases information is required in order to provide the ces you request. This website within the commswithaplan.com domain may provide links to third-party sites. In order to use third party content on our te, you may need to accept their specific terms and conditions, including their cookie policies over which we have no control.'
+            'Although you can browse through most of this website without giving any personal information, in some cases information is required in order to provide the services you request. This website within the commswithaplan.com domain may provide links to third-party sites. In order to use third party content on our site, you may need to accept their specific terms and conditions, including their cookie policies over which we have no control.'
         }
       ]
     },
     {
-      name: 'kll',
+      name: 'e_services',
       language: 'english',
       displayName: 'Regulation on the protection of personal data e-services',
       paragraphs: [
@@ -942,7 +942,7 @@ export const privacyPolicy: Readable<Article[]> = readable(
       ]
     },
     {
-      name: 'kll',
+      name: 'privacy_statement',
       language: 'english',
       displayName: 'Information contained in a specific privacy statement',
       paragraphs: [
@@ -954,7 +954,7 @@ export const privacyPolicy: Readable<Article[]> = readable(
       ]
     },
     {
-      name: 'kll',
+      name: 'analytics',
       language: 'english',
       displayName: 'Analytics',
       paragraphs: [
@@ -966,7 +966,7 @@ export const privacyPolicy: Readable<Article[]> = readable(
       ]
     },
     {
-      name: 'kll',
+      name: 'contact',
       language: 'english',
       displayName: 'Contacting Comms With A Plan site',
       paragraphs: [
@@ -978,7 +978,7 @@ export const privacyPolicy: Readable<Article[]> = readable(
       ]
     },
     {
-      name: 'kll',
+      name: 'safe_guarding',
       language: 'english',
       displayName: 'Safeguarding information',
       paragraphs: [
@@ -990,7 +990,7 @@ export const privacyPolicy: Readable<Article[]> = readable(
       ]
     },
     {
-      name: 'kll',
+      name: 'data_protection',
       language: 'dutch',
       displayName: 'Bescherming van persoonsgegevens',
       paragraphs: [
@@ -1002,60 +1002,60 @@ export const privacyPolicy: Readable<Article[]> = readable(
       ]
     },
     {
-      name: 'kll',
+      name: 'e_services',
       language: 'dutch',
       displayName: 'Regulering bescherming persoonlijke data E-diensten',
       paragraphs: [
         {
-          description: '1',
+          description: 'E-diensten',
           elaboration:
-            'Een e-dienst is een dienst of informatiebron die toegankelijk is via internet met als doel de communicatie tussen gebruikers en Comms With A Plan te verbeteren. Op commswithaplan.com worden drie soorten e-diensten aangeboden: (2) interactieve communicatiediensten om marketing-communicatie werk door de gebruiker te vergemakkelijken; raadplegingen van informatie te vergemakkelijken; (3) transactiediensten die basistransacties met Comms With A Plan mogelijk maken, zoals opdrachten, financiële transacties, werving en selectie, inschrijvingen voor evenementen en het bestellen van documenten.'
+            'Een e-dienst is een dienst of informatiebron die toegankelijk is via internet met als doel de communicatie tussen gebruikers en Comms With A Plan te verbeteren. Op commswithaplan.com worden drie soorten e-diensten aangeboden: (1) informatieve communicatiediensten om raadplegingen van informatie te vergemakkelijken; (2) interactieve communicatiediensten om marketing-communicatie werk door de gebruiker te vergemakkelijken; (3) transactiediensten die basistransacties met Comms With A Plan mogelijk maken, zoals opdrachten, financiële transacties, werving en selectie, inschrijvingen voor evenementen en het bestellen van documenten.'
         }
       ]
     },
     {
-      name: 'kll',
+      name: 'privacy_statement',
       language: 'dutch',
       displayName: 'Wat houdt een specifieke privacyverklaring in?',
       paragraphs: [
         {
-          description: '1',
+          description: 'Een specifieke privacyverklaring geeft antwoord op de volgende vragen: ',
           elaboration:
-            'Een specifieke privacyverklaring geeft antwoord op de volgende vragen: (1) Welke gegevens worden verzameld?; (2) Waarom worden de gegevens verzameld?; (3) Hoe worden de gegevens verzameld?; (4) Wie kan uw gegevens inzien?; (5) Hoe kunt u uw gegevens inzien, controleren en corrigeren?; (6) Hoelang worden uw gegevens bewaard?; (7) Hoe worden uw gegevens beschermd?; (8) Met wie kunt u contact opnemen bij vragen en klachten?;'
+            '(1) Welke gegevens worden verzameld?; (2) Waarom worden de gegevens verzameld?; (3) Hoe worden de gegevens verzameld?; (4) Wie kan uw gegevens inzien?; (5) Hoe kunt u uw gegevens inzien, controleren en corrigeren?; (6) Hoelang worden uw gegevens bewaard?; (7) Hoe worden uw gegevens beschermd?; (8) Met wie kunt u contact opnemen bij vragen en klachten?;'
         }
       ]
     },
     {
-      name: 'kll',
+      name: 'analytics',
       language: 'dutch',
       displayName: 'Analytics',
       paragraphs: [
         {
-          description: '1',
+          description: 'Meten',
           elaboration:
-            'Analytics is de software waarmee we meten hoe doeltreffend en efficiënt de websites van Comms With A Plan is. Die dienst is niet verplicht, u kunt die uitschakelen via de banner over cookies onderaan de eerste pagina die u bezoekt. De keuze om deze dienst niet te gebruiken, heeft geen invloed op uw surfcomfort op de Comms With A Plan website.'
+            "'Analytics' is de software waarmee we meten hoe doeltreffend en efficiënt de websites van Comms With A Plan zijn. Die dienst is niet verplicht, u kunt die uitschakelen via de banner over cookies onderaan de eerste pagina die u bezoekt. De keuze om deze dienst niet te gebruiken, heeft geen invloed op uw surfcomfort op de Comms With A Plan website."
         }
       ]
     },
     {
-      name: 'kll',
+      name: 'contact',
       language: 'dutch',
       displayName: 'Contact opnemen met Comms With A Plan-website',
       paragraphs: [
         {
-          description: '1',
+          description: 'Contact en persoonsgegevens',
           elaboration:
             'Enkele pagina’s op commswithaplan.com hebben een contactlink, die uw e-mailprogramma activeert en waarmee u opmerkingen naar een specifieke mailbox kunt sturen. Als we een e-mail van u ontvangen, verzamelen we alleen uw persoonsgegevens om u te kunnen antwoorden. Als we uw vraag niet kunnen beantwoorden, sturen we uw bericht door naar een andere dienst. U krijgt dan per e-mail te horen om welke dienst het gaat. Als u vragen heeft over de verwerking van uw e-mail of uw persoonsgegevens, kunt u die in uw bericht opnemen.'
         }
       ]
     },
     {
-      name: 'kll',
+      name: 'safe_guarding',
       language: 'dutch',
       displayName: 'Gegevens beveiligen',
       paragraphs: [
         {
-          description: '1',
+          description: 'Veilige opslag',
           elaboration:
             'Uw persoonsgegevens worden opgeslagen door Comms With A Plan. Indien verzamelde gegevens worden opgeslagen op een computer van een externe subcontractant, moet deze zich als verwerker ervan aan de algemene verordening gegevensbescherming (AVG - Verordening (EU) 2016/679) houden.'
         }

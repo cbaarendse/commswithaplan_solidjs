@@ -1,13 +1,13 @@
-<script>
+<script lang="ts">
   // imports
-  import Article from '../layout/Article.svelte';
+  import type {Article} from '../../../types/types';
 
   // variables
-  export let item;
+  export let item: Article;
 </script>
 
 <article>
-  <h2>{item.displayName}</h2>
+  <h3>{item.displayName}</h3>
   {#each item.paragraphs as paragraph}
     <p>
       <strong>{paragraph.description}</strong>
@@ -20,6 +20,6 @@
   article {
     display: flex;
     flex-direction: column;
-    gap: 0.4rem;
+    gap: 1rem;
   }
 </style>

@@ -35,28 +35,29 @@
             fontSize: 'var(--ra-fs-2xl)',
             title: `${$language === 'dutch' ? 'Legaal' : 'Legal'} - ${policy($router.path, $language)}`
           }}
-        />
-        <LogoReach
-          logo={{fontSize: 'var(--ra-fs-5xl)', width: 'var(--ra-5xl)', height: 'var(--ra-5xl)', colored: true}}
-        />
+        >
+          <LogoReach
+            logo={{fontSize: 'var(--ra-fs-5xl)', width: 'var(--ra-5xl)', height: 'var(--ra-5xl)', colored: true}}
+          /></Brand
+        >
       </Header>
-      <div class="legal__flex">
+      <div class="policies__flex">
         <aside>
           <nav>
             <ul>
               <li>
                 <a href={'/legal/termsandconditions'} use:active>
-                  <span class="blue">{policy('/legal/termsandconditions', $language)}</span>
+                  <span>{policy('/legal/termsandconditions', $language)}</span>
                 </a>
               </li>
               <li>
                 <a href={'/legal/privacypolicy'} use:active>
-                  <span class="blue">{policy('/legal/privacypolicy', $language)}</span>
+                  <span>{policy('/legal/privacypolicy', $language)}</span>
                 </a>
               </li>
               <li>
                 <a href={'/legal/cookiepolicy'} use:active>
-                  <span class="blue">{policy('/legal/cookiepolicy', $language)}</span>
+                  <span>{policy('/legal/cookiepolicy', $language)}</span>
                 </a>
               </li>
             </ul>
@@ -82,7 +83,7 @@
   .legal__grid :global(header) {
     grid-column: 1 / -1;
   }
-  div.legal__flex {
+  div.policies__flex {
     display: flex;
     flex-wrap: wrap;
     font-size: var(--font-size-l);
@@ -94,6 +95,9 @@
   }
   .policy__container {
     flex: 4 1 570px;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
   }
 
   ul {
@@ -105,5 +109,19 @@
   li {
     flex: 1 0 190px;
     margin-bottom: 2rem;
+  }
+
+  a,
+  a:visited {
+    color: var(--ra-blue);
+    text-decoration-color: var(--ra-blue);
+  }
+  a:hover {
+    color: var(--ra-green);
+    text-decoration-color: var(--ra-green);
+  }
+
+  a.active {
+    color: var(--ra-red);
   }
 </style>
