@@ -11,7 +11,7 @@
   import {Route, active, router} from 'tinro';
   import {language} from '../../stores/utils';
 
-  function policy(path: string, lang: string): string | undefined {
+  function policy(path: string, lang: string): string {
     if (path.startsWith('/legal/termsandconditions')) {
       return lang === 'dutch' ? 'Algemene Voorwaarden' : 'Terms and Conditions';
     }
@@ -21,7 +21,7 @@
     if (path.startsWith('/legal/cookiepolicy')) {
       return lang === 'dutch' ? 'Cookiebeleid' : 'Cookie Policy';
     }
-    return;
+    return 'Policy';
   }
 </script>
 
@@ -46,7 +46,7 @@
           <nav>
             <ul>
               <li>
-                <a href={'/legal/termsandconditions'} use:active>
+                <a href={'/legal/termsandconditions'} class:active={$router.path === '/legal/termsandconditions'}>
                   <span>{policy('/legal/termsandconditions', $language)}</span>
                 </a>
               </li>
@@ -110,18 +110,17 @@
     flex: 1 0 190px;
     margin-bottom: 2rem;
   }
+  .active {
+    color: var(--ra-red);
+    text-decoration-color: var(--ra-red);
+  }
 
-  a,
-  a:visited {
+  a {
     color: var(--ra-blue);
     text-decoration-color: var(--ra-blue);
   }
   a:hover {
     color: var(--ra-green);
     text-decoration-color: var(--ra-green);
-  }
-
-  a.active {
-    color: var(--ra-red);
   }
 </style>

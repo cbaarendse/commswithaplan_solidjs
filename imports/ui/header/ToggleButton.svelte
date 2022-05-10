@@ -8,7 +8,11 @@
 
   // variables
   const coefficient: Tweened<number> = tweened(0, {easing: cubicInOut});
-
+  navigationVisible.subscribe((visible) => {
+    if (!visible) {
+      coefficient.set(0);
+    }
+  });
   // functions
 </script>
 

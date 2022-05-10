@@ -30,8 +30,10 @@
       </li>
     </ul>
   </nav>
-  {#if $router.path === '/'}
-    <nav class="sub-nav" in:slide={{duration: 300}} out:slide={{duration: 300}}>
+{/if}
+{#if $router.path === '/'}
+  {#if $navigationVisible === true}
+    <nav class="sub-nav" transition:slide|local={{duration: 300}}>
       <ul class="nav-list">
         <li>
           <a href={'/'} use:active>
@@ -40,8 +42,10 @@
         </li>
       </ul>
     </nav>
-  {:else if $router.path.startsWith('/consultancy')}
-    <nav class="sub-nav" in:slide={{duration: 300}} out:slide={{duration: 300}}>
+  {/if}{/if}
+{#if $router.path.startsWith('/consultancy')}
+  {#if $navigationVisible === true}
+    <nav class="sub-nav" transition:slide|local={{duration: 300}}>
       <ul class="nav-list">
         <li>
           <a href={'/consultancy/'} use:active data-exact>
@@ -65,8 +69,10 @@
         </li>
       </ul>
     </nav>
-  {:else if $router.path.startsWith('/tools')}
-    <nav class="sub-nav" in:slide={{duration: 300}} out:slide={{duration: 300}}>
+  {/if}{/if}
+{#if $router.path.startsWith('/tools')}
+  {#if $navigationVisible === true}
+    <nav class="sub-nav" transition:slide|local={{duration: 300}}>
       <ul class="nav-list">
         <li>
           <a href={'/tools/'} use:active data-exact>
@@ -128,11 +134,21 @@
   }
 
   /* links, :visited */
+  /* main */
+  .main-nav a.brand span.blue {
+    color: var(--ra-white);
+  }
+  .main-nav a span.green {
+    color: var(--ra-white);
+  }
+  .main-nav a span.red {
+    color: var(--ra-white);
+  }
   .main-nav a,
   .main-nav a:visited {
     color: var(--ra-grey-off-white);
   }
-
+  /* sub */
   .sub-nav a,
   .sub-nav a:visited {
     color: var(--ra-grey-light);
@@ -145,27 +161,26 @@
   .main-nav a:hover span.blue {
     color: var(--ra-blue);
   }
-
   .main-nav a:hover span.green {
     color: var(--ra-green);
   }
-
   .main-nav a:hover span.red {
     color: var(--ra-red);
   }
   /* .active */
-  .main-nav a.brand span.blue,
-  .main-nav a.active span.blue,
-  .sub-nav a.active span {
+  /* main */
+  .main-nav a.active span.blue {
     color: var(--ra-blue);
   }
-
-  .main-nav a span.green {
+  .main-nav a.active span.green {
     color: var(--ra-green);
   }
-
-  .main-nav a span.red {
+  .main-nav a.active span.red {
     color: var(--ra-red);
+  }
+  /* sub */
+  .sub-nav a.active span {
+    color: var(--ra-blue);
   }
 
   /* for tablet, laptop and desktop screens */
