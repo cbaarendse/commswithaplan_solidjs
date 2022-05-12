@@ -14,17 +14,31 @@
   <nav class="main-nav" transition:slide={{duration: 300}}>
     <ul class="nav-list">
       <li>
-        <a href={'/'} use:active data-exact class="brand">
+        <a
+          href={'/'}
+          use:active
+          data-exact
+          class="brand"
+          on:click={() => ($isSmallScreen ? ($navigationVisible = false) : ($navigationVisible = true))}
+        >
           <span class="blue">Comms</span>&nbsp;<span class="green">With&nbsp;A</span>&nbsp;<span class="red">Plan</span>
         </a>
       </li>
       <li>
-        <a href={'/consultancy/'} use:active>
+        <a
+          href={'/consultancy/'}
+          use:active
+          on:click={() => ($isSmallScreen ? ($navigationVisible = false) : ($navigationVisible = true))}
+        >
           <span class="blue">{$language === 'dutch' ? 'Consultancy' : 'Consultancy'}</span>
         </a>
       </li>
       <li>
-        <a href={'/tools/'} use:active>
+        <a
+          href={'/tools/'}
+          use:active
+          on:click={() => ($isSmallScreen ? ($navigationVisible = false) : ($navigationVisible = true))}
+        >
           <span class="blue">{$language === 'dutch' ? 'Tools' : 'Tools'}</span>
         </a>
       </li>
@@ -36,7 +50,11 @@
     <nav class="sub-nav" transition:slide|local={{duration: 300}}>
       <ul class="nav-list">
         <li>
-          <a href={'/'} use:active>
+          <a
+            href={'/'}
+            use:active
+            on:click={() => ($isSmallScreen ? ($navigationVisible = false) : ($navigationVisible = true))}
+          >
             <span>Home</span>
           </a>
         </li>
@@ -48,22 +66,39 @@
     <nav class="sub-nav" transition:slide|local={{duration: 300}}>
       <ul class="nav-list">
         <li>
-          <a href={'/consultancy/'} use:active data-exact>
+          <a
+            href={'/consultancy/'}
+            use:active
+            data-exact
+            on:click={() => ($isSmallScreen ? ($navigationVisible = false) : ($navigationVisible = true))}
+          >
             <span>{$language === 'dutch' ? 'Home' : 'Home'}</span>
           </a>
         </li>
         <li>
-          <a href={'/consultancy/work'} use:active>
+          <a
+            href={'/consultancy/work'}
+            use:active
+            on:click={() => ($isSmallScreen ? ($navigationVisible = false) : ($navigationVisible = true))}
+          >
             <span>{$language === 'dutch' ? 'Werk' : 'Work'}</span>
           </a>
         </li>
         <li>
-          <a href={'/consultancy/about'} use:active>
+          <a
+            href={'/consultancy/about'}
+            use:active
+            on:click={() => ($isSmallScreen ? ($navigationVisible = false) : ($navigationVisible = true))}
+          >
             <span>{$language === 'dutch' ? 'Over' : 'About'}</span>
           </a>
         </li>
         <li>
-          <a href={'/consultancy/contact'} use:active>
+          <a
+            href={'/consultancy/contact'}
+            use:active
+            on:click={() => ($isSmallScreen ? ($navigationVisible = false) : ($navigationVisible = true))}
+          >
             <span>{$language === 'dutch' ? 'Contact' : 'Contact'}</span>
           </a>
         </li>
@@ -75,17 +110,30 @@
     <nav class="sub-nav" transition:slide|local={{duration: 300}}>
       <ul class="nav-list">
         <li>
-          <a href={'/tools/'} use:active data-exact>
+          <a
+            href={'/tools/'}
+            use:active
+            data-exact
+            on:click={() => ($isSmallScreen ? ($navigationVisible = false) : ($navigationVisible = true))}
+          >
             <span>{$language === 'dutch' ? 'Home' : 'Home'}</span>
           </a>
         </li>
         <li>
-          <a href={'/tools/reach'} use:active>
+          <a
+            href={'/tools/reach'}
+            use:active
+            on:click={() => ($isSmallScreen ? ($navigationVisible = false) : ($navigationVisible = true))}
+          >
             <span>{$language === 'dutch' ? 'Bereik' : 'Reach'}</span>
           </a>
         </li>
         <li>
-          <a href={'/tools/documentation'} use:active>
+          <a
+            href={'/tools/documentation'}
+            use:active
+            on:click={() => ($isSmallScreen ? ($navigationVisible = false) : ($navigationVisible = true))}
+          >
             <span>{$language === 'dutch' ? 'Documentatie' : 'Docs'}</span>
           </a>
         </li>
