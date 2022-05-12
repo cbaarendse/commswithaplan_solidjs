@@ -20,7 +20,7 @@
 
   @media screen and (min-width: 760px) {
     header {
-      display: none;
+      display: block;
     }
   }
 </style>

@@ -63,7 +63,7 @@
             </ul>
           </nav>
         </aside>
-        <div class="policy__container" style="border:purple;">
+        <div class="policy__container">
           <Route path="/termsandconditions"><TermsAndConditions /></Route>
           <Route path="/privacypolicy"><PrivacyPolicy /></Route>
           <Route path="/cookiepolicy"><CookiePolicy /></Route>
@@ -86,29 +86,36 @@
   div.policies__flex {
     display: flex;
     flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: space-around;
     font-size: var(--font-size-l);
   }
   aside {
     font-size: var(--font-size-l);
-    padding: 1rem;
-    flex: 1 0 190px;
+    padding: 0;
+    flex: 1 1 190px;
+    border: 1px solid orangered;
   }
   .policy__container {
-    flex: 4 1 570px;
+    flex: 1 1 570px;
     display: flex;
     flex-direction: column;
     gap: 2rem;
+    border: 1px solid orange;
   }
 
   ul {
     display: flex;
     gap: 2rem;
+    margin: 0;
+    padding: 0;
+    width: 100%;
     flex-wrap: wrap;
     list-style-type: none;
+    border: 1px dashed grey;
   }
   li {
     flex: 1 0 190px;
-    margin-bottom: 2rem;
   }
   .active {
     color: var(--ra-red);

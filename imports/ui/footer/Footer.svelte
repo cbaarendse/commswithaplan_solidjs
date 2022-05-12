@@ -1,6 +1,7 @@
 <script>
   // imports
   import Button from '../reusable/Button.svelte';
+  import {language} from '../stores/utils';
 
   // variables
 
@@ -9,7 +10,11 @@
 
 <footer on:clickedButton>
   <span>© 2013-2021 Comms With A Plan</span>
-  <nav><a href="/consultancy/contact">Contact</a><a href="/legal/termsandconditions">Legal</a></nav>
+  <nav>
+    <a href="/consultancy/contact">Contact</a><a href="/legal/termsandconditions"
+      >{$language === 'dutch' ? 'Legaal' : 'Legal'}</a
+    >
+  </nav>
   <Button
     btn={{
       type: 'button',
