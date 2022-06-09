@@ -19,7 +19,7 @@ export const termsAndConditions: Readable<Article[]> = readable(
         {
           description: '2.',
           elaboration:
-            'The present terms and conditions also apply to agreements with the User, for the implementation of which the User must involve third parties.'
+            'The present terms and conditions also apply to agreements with the User, for the implementation of which the User must involve third parties. User can operate under registered trade names other than the name mentioned in Article 1, Member 1.'
         },
         {
           description: '3.',
@@ -460,12 +460,12 @@ export const termsAndConditions: Readable<Article[]> = readable(
         {
           description: '1.',
           elaboration:
-            'Deze voorwaarden zijn van toepassing op iedere aanbieding, offerte en overeenkomst tussen Five Trees BV, hierna te noemen: “Gebruiker”, en een Opdrachtgever waarop Gebruiker deze voorwaarden van toepassing heeft verklaard, voor zover van deze voorwaarden niet door partijen uitdrukkelijk en schriftelijk is afgeweken.'
+            'Deze voorwaarden zijn van toepassing op iedere aanbieding, offerte en overeenkomst tussen Five Trees BV hierna te noemen: “Gebruiker”, en een Opdrachtgever waarop Gebruiker deze voorwaarden van toepassing heeft verklaard, voor zover van deze voorwaarden niet door partijen uitdrukkelijk en schriftelijk is afgeweken.'
         },
         {
           description: '2.',
           elaboration:
-            'De onderhavige voorwaarden zijn eveneens van toepassing op overeenkomsten met Gebruiker, voor de uitvoering waarvan door Gebruiker derden dienen te worden betrokken.  '
+            'De onderhavige voorwaarden zijn eveneens van toepassing op overeenkomsten met Gebruiker, voor de uitvoering waarvan door Gebruiker derden dienen te worden betrokken. Gebruiker kan opereren onder een geregistreerde handelsnaam die anders is dan de naam genoemd in Artikel 1, Lid 1.'
         },
         {
           description: '3.',
@@ -915,6 +915,7 @@ export const termsAndConditions: Readable<Article[]> = readable(
     };
   }
 );
+
 export const privacyPolicy: Readable<Article[]> = readable(
   [
     {
@@ -925,7 +926,7 @@ export const privacyPolicy: Readable<Article[]> = readable(
         {
           description: 'Information requirements',
           elaboration:
-            'Although you can browse through most of this website without giving any personal information, in some cases information is required in order to provide the services you request. This website within the commswithaplan.com domain may provide links to third-party sites. In order to use third party content on our site, you may need to accept their specific terms and conditions, including their cookie policies over which we have no control.'
+            'Comms With A Plan cares for the protection of your private life. Although you can browse through most of its websites without giving any personal information, in some cases information is required in order to provide the services you request. This website within the commswithaplan.com domain may provide links to third-party sites. In order to use third party content on our site, you may need to accept their specific terms and conditions, including their cookie policies over which we have no control.'
         }
       ]
     },
@@ -935,7 +936,7 @@ export const privacyPolicy: Readable<Article[]> = readable(
       displayName: 'Regulation on the protection of personal data e-services',
       paragraphs: [
         {
-          description: '1',
+          description: 'E-services',
           elaboration:
             'An e-service is a service or resource that improves communication between users and Comms With A Plan. 3 types of e-services are offered by Comms With A Plan: (1) information services that provide easy and effective access to information; (2) interactive communication services to facilitate marketing communications wohe user; (3) consultations and feedback transaction services that allow basic forms of transactions with Comms With A Plan, such as procurement, financial tions, recruitment, event enrollment and ordering documents.'
         }
@@ -947,9 +948,10 @@ export const privacyPolicy: Readable<Article[]> = readable(
       displayName: 'Information contained in a specific privacy statement',
       paragraphs: [
         {
-          description: '1',
+          description:
+            'A specific privacy policy statement will contain the following information about the use of your data:',
           elaboration:
-            'A specific privacy policy statement will contain the following information about the use of your data: (1) what information is collected; (2) for what purpose it is collected; (3) the technical means by which it is collected; (4) who sees your information; (5) how you can access, verify its accuracy and correct your tion; (6) how long your data is kept; (7) what security measures are taken to safeguard your information; (8) who to contact if you have questions or aints;'
+            '(1) what information is collected; (2) for what purpose it is collected; (3) the technical means by which it is collected; (4) who sees your information; (5) how you can access, verify its accuracy and correct your tion; (6) how long your data is kept; (7) what security measures are taken to safeguard your information; (8) who to contact if you have questions or aints;'
         }
       ]
     },
@@ -959,7 +961,7 @@ export const privacyPolicy: Readable<Article[]> = readable(
       displayName: 'Analytics',
       paragraphs: [
         {
-          description: '1',
+          description: 'Measurement',
           elaboration:
             'Analytics measure the effectiveness and efficiency of the Comms With A Plan website. You are free to refuse the use of this service –  via the cookie that appears at the bottom of the first page you visit. Choosing not to use this service does not affect your navigation experience on the Comms With A Plan '
         }
@@ -971,9 +973,9 @@ export const privacyPolicy: Readable<Article[]> = readable(
       displayName: 'Contacting Comms With A Plan site',
       paragraphs: [
         {
-          description: '1',
+          description: 'Contact and personal information',
           elaboration:
-            'Some web pages on Comms With A Pplan have a contact button, which activates your email software and invites you to send your comments to a specific mailbox. When you send such a message, your personal data is only collected in order to reply.Your email will be forwarded to another service if the person responsible for the  is unable to answer your question. An email will inform you about which service your question has been forwarded to. If you have any questions about the ssing of your email and related personal data, do not hesitate to include them in your message.'
+            'Some web pages on commswithaplan.com have a contact button, which activates your email software and invites you to send your comments to a specific mailbox. When you send such a message, your personal data is only collected in order to reply.Your email will be forwarded to another service if the person responsible for the  is unable to answer your question. An email will inform you about which service your question has been forwarded to. If you have any questions about the ssing of your email and related personal data, do not hesitate to include them in your message.'
         }
       ]
     },
@@ -983,7 +985,7 @@ export const privacyPolicy: Readable<Article[]> = readable(
       displayName: 'Safeguarding information',
       paragraphs: [
         {
-          description: '1',
+          description: 'Safe storage',
           elaboration:
             'Collected personal data are stored by Comms With A Plan. In those cases where collected personal data are stored on a computer of an external subcontractor acting as processor, they are bound by specific contractual clauses and by the confidentiality obligations deriving from the general data protection regulation of April 2016.'
         }
@@ -995,7 +997,7 @@ export const privacyPolicy: Readable<Article[]> = readable(
       displayName: 'Bescherming van persoonsgegevens',
       paragraphs: [
         {
-          description: '1',
+          description: 'Informatie vereisten',
           elaboration:
             'Comms With A Plan hecht veel belang aan de bescherming van uw persoonlijke levenssfeer. Hoewel u de meeste van deze websites kunt bezoeken zonder informatie over uzelf te geven, moet u persoonsgegevens doorgeven om van sommige e-diensten gebruik te maken. De websites het commswithaplan.com-domein linken ook naar sitesdere instanties of personen. Om inhoud van derde partijen op onze websites te kunnen gebruiken, moet u in sommige gevallen akkoord gaan met hun specifieke aarden, inclusief hun cookiebeleid waarover wij geen controle hebben.'
         }
@@ -1101,8 +1103,9 @@ export const cookiePolicy: Readable<Article[]> = readable(
       displayName: 'Ads',
       paragraphs: [
         {
-          description: 'lll',
-          elaboration: 'kkk'
+          description: 'Tracking cookies of our advertisers',
+          elaboration:
+            'With your permission our advertisers place so called tracking cookies on your device. They use these cookies to keep track of the website pages and apps you visit that are in their network, to build a profile of your online surf behaviour. This profile partly gets built based on comparable information they get from your visits to other websites and apps from their network. This profile will not be linked to your name, address, e-mail address and comparable pieces of information that are known with us, but it only serves to adjust advertisements to your interests so these are most relevant for you.'
         }
       ]
     },
@@ -1124,8 +1127,9 @@ export const cookiePolicy: Readable<Article[]> = readable(
       displayName: 'Analytics cookies',
       paragraphs: [
         {
-          description: 'lll',
-          elaboration: 'kkk'
+          description: 'Google Analytics',
+          elaboration:
+            "Through our website a cookie of the American company Google will be placed, as part of their 'Analytics'-service. We use this service to keep track of and get reports on the way visitors use the website.Google can provide this information to third parties when Google is legally required to do so, or as far as third parties process the information on behalf of Google. We have no influence on this. We have allowed Google to use the acquired analytics-information for other Google-services."
         }
       ]
     },
