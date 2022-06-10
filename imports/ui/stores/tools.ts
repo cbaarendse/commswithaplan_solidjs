@@ -2,9 +2,9 @@
 import {writable, Writable, readable, Readable} from 'svelte/store';
 
 // interfaces
-import type {Content, Chapter, TouchPointBasics, Definition} from '../types/types';
+import type {Content, Chapter, HomeItem, TouchPointBasics, Definition} from '../types/types';
 
-export const toolsHomeItems: Readable<Content[]> = readable(
+export const toolsHomeItems: Readable<HomeItem[]> = readable(
   [
     {
       name: 'tools',
@@ -12,7 +12,9 @@ export const toolsHomeItems: Readable<Content[]> = readable(
       displayName: 'Tools',
       description:
         'Comms With A Plan developes tools aimed to help advertisers who are not working with media agencies. For instance because they have inhouse capabilities, or because they currently do not have the proper size.',
-      color: 'green'
+      color: 'green',
+      link: '/tools/reach',
+      action: 'Try the reach tool...'
     },
     {
       name: 'tools',
@@ -20,7 +22,9 @@ export const toolsHomeItems: Readable<Content[]> = readable(
       displayName: 'Tools',
       description:
         'Comms With A Plan ontwikkelt tools voor adverteerders die niet met mediabureaus werken. Bijvoorbeeld omdat zij intern genoeg bekwaamheid bezitten, of omdat ze op het moment niet de juiste grootte hebben.',
-      color: 'green'
+      color: 'green',
+      link: '/tools/reach',
+      action: 'Probeer de bereikstool...'
     },
     {
       name: 'reach',
@@ -28,7 +32,9 @@ export const toolsHomeItems: Readable<Content[]> = readable(
       displayName: 'Reach',
       description:
         'Right now the Reach tool uses an algoritm to estimate the total reach of your campaign; If you input the reach of the individual medium types. Read the Docs for more information.',
-      color: 'green'
+      color: 'green',
+      link: '/tools/documentation',
+      action: 'Read about the reach tool...'
     },
     {
       name: 'reach',
@@ -36,7 +42,9 @@ export const toolsHomeItems: Readable<Content[]> = readable(
       displayName: 'Bereik',
       description:
         'Op dit moment gebruikt de Bereik-tool een algoritme om het totaalbereik van je campagne in te schatten; Als je het bereik van elk individueel mediumtype invoert. Lees de Documentatie voor meer informatie.',
-      color: 'green'
+      color: 'green',
+      link: '/tools/documentation',
+      action: 'Lees over de bereikstool...'
     }
   ],
   () => {

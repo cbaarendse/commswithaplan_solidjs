@@ -37,7 +37,7 @@
       </Header>
 
       {#each translatedConsultancyHomeItems as item}
-        <Card card={{title: item.displayName, color: 'blue'}}>
+        <Card card={{title: item.displayName, color: 'blue', link: item.link, action: item.action}}>
           <span>
             {@html item.description}
           </span>

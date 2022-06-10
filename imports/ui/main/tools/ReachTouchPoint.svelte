@@ -10,11 +10,11 @@
 
   // exports
   export let touchPoint: TouchPointInPlan;
-  export let displayManualInput: 'none' | 'flex' = 'none';
-  export let displayDescription: 'none' | 'flex' = 'none';
 
   // variables
   let hovered: boolean = false;
+  let displayManualInput: 'none' | 'flex' = 'none';
+  let displayTouchPointDescription: 'none' | 'flex' = 'none';
 
   // functions
 </script>
@@ -24,7 +24,7 @@
     <button
       class="touchpoint"
       on:click|preventDefault|stopPropagation={() => {
-        displayDescription = 'flex';
+        displayTouchPointDescription = 'flex';
         displayManualInput = 'none';
       }}
       on:mouseenter={() => (hovered = true)}
@@ -51,16 +51,15 @@
   </div>
   <div class="right">
     <!-- TODO: finalize manual input: change back to button when clicking outside -->
-    <!-- TODO: three buttons under input submit, reset and cancel -->
     <button
       class="input"
       on:click={() => {
         displayManualInput = 'flex';
-        displayDescription = 'none';
+        displayTouchPointDescription = 'none';
       }}><span> {Ui.toStringFormat(touchPoint.value)}&nbsp;%</span></button
     >
   </div>
-  <Modal title={touchPoint.displayName} display={displayDescription}>{touchPoint.description}</Modal>
+  <Modal title={touchPoint.displayName} display={displayTouchPointDescription}>{touchPoint.description}</Modal>
   <Modal title={touchPoint.displayName} display={displayManualInput}>
     <Input
       displayName="touchPoint.displayName,"

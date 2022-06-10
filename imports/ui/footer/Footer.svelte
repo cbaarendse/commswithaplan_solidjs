@@ -12,7 +12,7 @@
   <span>© 2013-2021 Comms With A Plan</span>
   <nav>
     <a href="/consultancy/contact">Contact</a><a href="/legal/termsandconditions"
-      >{$language === 'dutch' ? 'Legaal' : 'Legal'}</a
+      >{$language === 'dutch' ? 'Juridisch' : 'Legal'}</a
     >
   </nav>
   <Button

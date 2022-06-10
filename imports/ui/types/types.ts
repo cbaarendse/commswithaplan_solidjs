@@ -11,7 +11,7 @@ export type Article = Chapter;
 export type Content = Definition & ObjectDefault;
 export type Definition = {name: string; language: string; displayName: string; description?: string};
 export type HomeItem = Definition & {
-  imgFile: string;
+  imgFile?: string;
   link: string;
   action: string;
 };

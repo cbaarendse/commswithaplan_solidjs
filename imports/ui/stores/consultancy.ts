@@ -26,7 +26,9 @@ export const consultancyHomeItems: Readable<Content[]> = readable(
       color: 'blue',
       displayName: 'Consultancy',
       description:
-        'Comms With A Plan is a flexible unit in the sense that work can be project based, or more continuous, based on demand. (Give me a call to explain.)'
+        'Comms With A Plan is a flexible unit in the sense that work can be project based, or continuous, based on demand. (Give me a call to explain.)',
+      link: '/consultancy/contact',
+      action: 'Call, contact me ...'
     },
     {
       name: 'consultancy',
@@ -34,7 +36,9 @@ export const consultancyHomeItems: Readable<Content[]> = readable(
       color: 'blue',
       displayName: 'Consultancy',
       description:
-        'Comms With A Plan is een flexibele partner in die zin dat het werk per project kan zijn, maar ook meer continu. Gebaseerd op vraag. (Bel me zodat ik het kan uitleggen.)'
+        'Comms With A Plan is een flexibele partner in die zin dat het werk per project kan zijn, maar ook continu. Gebaseerd op vraag. (Bel me zodat ik het kan uitleggen.)',
+      link: '/consultancy/contact',
+      action: 'Bel, neem contact op ...'
     }
   ],
   () => {
@@ -230,7 +234,7 @@ export const workItems: Readable<Content[]> = readable(
       language: 'english',
       displayName: 'Auditing',
       description:
-        "As an independent party I check spending, prices, timings, results against previous agreed benchmarks, like pitch documents, contracts, plans, previous years etcetera. Only in case I haven't worked for you in the previous 2 fiscal years, in one of the capacities above.",
+        'As an independent party I check spending, prices, timings, results against previous agreed benchmarks, like pitch documents, contracts, plans, previous years etcetera.',
       color: 'grey'
     },
     {
@@ -238,7 +242,7 @@ export const workItems: Readable<Content[]> = readable(
       language: 'dutch',
       displayName: 'Audit',
       description:
-        'Als een onafhankelijke partij vergelijk ik uitgaven, prijzen, timings, resultaten met vooraf overeengekomen ijkpunten, zoals pitch documenten, contracten, plannen, voorgaande jaren etcetera. \n Alleen als ik in de 2 voorafgaande fiscale jaren niet voor je bedrijf heb gewerkt, in een van de bovenstaande capaciteiten.',
+        'Als een onafhankelijke partij vergelijk ik uitgaven, prijzen, timings, resultaten met vooraf overeengekomen ijkpunten, zoals pitch documenten, contracten, plannen, voorgaande jaren etcetera.',
       color: 'grey'
     }
   ],

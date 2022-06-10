@@ -31,7 +31,7 @@
         >
       </Header>
       {#each translatedToolsHomeItems as item}
-        <Card card={{color: 'blue', title: item.displayName}}>
+        <Card card={{color: 'blue', title: item.displayName, link: item.link, action: item.action}}>
           {item.description}
         </Card>
       {/each}
