@@ -35,7 +35,7 @@
   <div class="center">
     <fieldset>
       <Slider
-        displayName="{touchPoint.displayName},"
+        displayName={touchPoint.displayName}
         slider={{
           name: touchPoint.name,
           id: touchPoint.name,

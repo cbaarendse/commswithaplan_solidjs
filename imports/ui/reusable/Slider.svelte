@@ -4,7 +4,7 @@
 
   //variables
   let dispatch = createEventDispatcher();
-  export let slider: HTMLInputElement;
+  export let slider: Pick<HTMLInputElement, 'id' | 'name' | 'min' | 'max' | 'step' | 'value'>;
   export let displayName: string;
 
   console.log('name,  slider.value in input type range:', slider.name, slider.value);

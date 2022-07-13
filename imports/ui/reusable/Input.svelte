@@ -4,7 +4,11 @@
   import {language} from '../stores/utils';
 
   // exports
-  export let input: HTMLInputElement;
+  export let input: Pick<
+    HTMLInputElement,
+    'name' | 'className' | 'id' | 'min' | 'max' | 'placeholder' | 'readOnly' | 'value'
+  > &
+    Partial<Pick<HTMLInputElement, 'type'>>;
   export let displayName: string;
 
   // variables
