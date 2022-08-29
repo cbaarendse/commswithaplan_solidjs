@@ -23,4 +23,3 @@ didericis:callpromise-mixin
 zodern:melte
 dev-error-overlay@0.1.1
 typescript@4.5.4
-hot-module-replacement@0.5.1
