@@ -2,7 +2,7 @@
   // imports
 
   // variables
-  export let cbx: HTMLInputElement;
+  export let cbx: Partial<HTMLInputElement>;
   export let checked: boolean = true;
   export let displayName: string;
 </script>

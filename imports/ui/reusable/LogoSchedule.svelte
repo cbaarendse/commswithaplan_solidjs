@@ -3,7 +3,7 @@
   // functions
   import {cssVariables} from '/imports/both/functions';
   // variables
-  import type {Logo} from '/imports/ui/types/interfaces';
+  import type {Logo} from '/imports/ui/types/types';
   export let logo: Logo;
 
   const setCssDiv = function (element: HTMLElement) {

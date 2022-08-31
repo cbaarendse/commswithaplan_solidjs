@@ -12,11 +12,16 @@ export type Content = Definition & ObjectDefault;
 export type Definition = {name: string; language: string; displayName: string; description?: string};
 export type HomeItem = Definition & {
   imgFile?: string;
+  link?: string;
+  action?: string;
+};
+export type ContentAttributes = {
+  imgFile?: string;
   link: string;
   action: string;
 };
 export type Month = {name: string; days: number};
-type Paragraph = {displayName?: string; description: string; elaboration?: string};
+type Paragraph = {displayName: string; description: string; elaboration?: string};
 export type Translation = Omit<Definition, 'description'>;
 export type TouchPointBasics = Definition;
 export type TouchPointInPlan = TouchPointBasics & {value: number; display: 'none' | 'grid'};
@@ -37,7 +42,6 @@ type CssColors = {
   textColor?: string;
   background?: string;
 };
-export type CssIndex = ObjectDefault;
 export type CssSizes = {
   fontSize?: string;
   padding?: string;

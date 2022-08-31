@@ -1,8 +1,8 @@
 // imports
 import {writable, Writable, readable, Readable} from 'svelte/store';
-import type {Content} from '../types/types';
+import type {Content, HomeItem} from '../types/types';
 
-export const consultancyHomeItems: Readable<Content[]> = readable(
+export const consultancyHomeItems: Readable<HomeItem[]> = readable(
   [
     {
       name: 'commswithaplan',
@@ -311,17 +311,17 @@ export const contactItems: Readable<Content[]> = readable(
     },
     {
       name: 'address',
-      color: 'blue',
       language: 'english',
       displayName: 'Address',
-      description: 'Erich Salomonstraat 507, 1087 GT Amsterdam, The Netherlands'
+      description: 'Erich Salomonstraat 507, 1087 GT Amsterdam, The Netherlands',
+      color: 'blue'
     },
     {
       name: 'address',
-      color: 'blue',
       language: 'dutch',
       displayName: 'Adres',
-      description: 'Erich Salomonstraat 507, 1087 GT Amsterdam, The Netherlands'
+      description: 'Erich Salomonstraat 507, 1087 GT Amsterdam, The Netherlands',
+      color: 'blue'
     }
   ],
   () => {

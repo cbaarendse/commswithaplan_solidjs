@@ -10,8 +10,8 @@
   <h3>{item.displayName}</h3>
   {#each item.paragraphs as paragraph}
     <p>
-      <strong>{paragraph.description}</strong>
-      {paragraph.elaboration}
+      <strong>{paragraph.displayName}</strong>
+      {paragraph.description}
     </p>
   {/each}
 </article>

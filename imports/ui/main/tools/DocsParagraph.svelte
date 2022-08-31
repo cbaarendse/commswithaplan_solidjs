@@ -4,7 +4,7 @@
   // variables
   export let subtitle: string;
   export let text: string;
-  export let elaboration: string;
+  export let elaboration: string | undefined;
 
   // functions
 </script>

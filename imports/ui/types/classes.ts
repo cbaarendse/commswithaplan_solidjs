@@ -127,7 +127,7 @@ export class Ui {
       element.name === page && element.language === language;
     })[0].displayName;
   }
-
+  // TODO:
   static describeContent(page: string, items: Content[], language: string): string {
     return items.filter((element: Content) => {
       element.name === page && element.language === language;
