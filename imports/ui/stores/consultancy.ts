@@ -1,8 +1,8 @@
 // imports
 import {writable, Writable, readable, Readable} from 'svelte/store';
-import type {Content, HomeItem} from '../types/types';
+import type {Content} from '../types/types';
 
-export const consultancyHomeItems: Readable<HomeItem[]> = readable(
+export const consultancyHomeItems: Readable<Content[]> = readable(
   [
     {
       name: 'commswithaplan',

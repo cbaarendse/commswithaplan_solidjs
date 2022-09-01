@@ -1,7 +1,7 @@
 // packages
 import dayjs from 'dayjs';
 
-// interfaces
+// types
 import type {Content, TouchPointBasics, TouchPointInPlan, Translation} from './types';
 
 // Reach
@@ -22,9 +22,10 @@ export class Reach {
     touchPointsInPlan: TouchPointInPlan[],
     touchPointsBasics: TouchPointBasics[]
   ): TouchPointInPlan[] {
-    touchPointsInPlan.forEach((touchPointInPlan) => {
+    touchPointsInPlan.forEach((touchPointInPlan: TouchPointInPlan) => {
       const thisTouchPointBasics: TouchPointBasics = touchPointsBasics.filter(
-        (touchPointBasics) => touchPointBasics.name === touchPointInPlan.name && touchPointBasics.language === language
+        (touchPointBasics: TouchPointBasics) =>
+          touchPointBasics.name === touchPointInPlan.name && touchPointBasics.language === language
       )[0];
       touchPointInPlan.displayName = thisTouchPointBasics.displayName;
       touchPointInPlan.description = thisTouchPointBasics.description;
@@ -127,7 +128,7 @@ export class Ui {
       element.name === page && element.language === language;
     })[0].displayName;
   }
-  // TODO:
+
   static describeContent(page: string, items: Content[], language: string): string {
     return items.filter((element: Content) => {
       element.name === page && element.language === language;

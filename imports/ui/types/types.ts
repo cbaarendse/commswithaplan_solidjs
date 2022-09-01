@@ -6,26 +6,23 @@ declare global {
 }
 
 // content
-export type Chapter = Definition & {imgFiles?: string[]; paragraphs: Paragraph[]};
-export type Article = Chapter;
-export type Content = Definition & ObjectDefault;
-export type Definition = {name: string; language: string; displayName: string; description?: string};
-export type HomeItem = Definition & {
+export type Definition = {name: string; language: string; displayName: string; description: string};
+
+export type Content = Definition & {
+  color?: string;
   imgFile?: string;
   link?: string;
   action?: string;
 };
-export type ContentAttributes = {
-  imgFile?: string;
-  link: string;
-  action: string;
-};
-export type Month = {name: string; days: number};
+
 type Paragraph = {displayName: string; description: string; elaboration?: string};
+export type Chapter = Omit<Definition, 'description'> & {imgFiles?: string[]; paragraphs: Paragraph[]};
+export type Article = Chapter;
 export type Translation = Omit<Definition, 'description'>;
 export type TouchPointBasics = Definition;
 export type TouchPointInPlan = TouchPointBasics & {value: number; display: 'none' | 'grid'};
 export type Week = {name: string; days: number; monday: string};
+export type Month = {name: string; days: number};
 export type Year = {name: string; days: number};
 
 // building blocks
@@ -86,9 +83,6 @@ type InputType = {
     | 'week';
 };
 type InputValue = {value: AlphaNumeric};
-type ObjectDefault = {
-  [index: string]: string;
-};
 type Placeholder = {placeholder: AlphaUncertain};
 type Role = {role: 'button'};
 export type Visible = {visible: boolean};

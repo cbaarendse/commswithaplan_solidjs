@@ -1223,7 +1223,7 @@ export const cookiePolicy: Readable<Article[]> = readable(
   ],
   () => {
     () => {
-      console.log('Cookie Policy Chapters closed');
+      console.log('Cookie Policy Articles closed');
     };
   }
 );
