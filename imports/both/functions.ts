@@ -2,10 +2,10 @@
 // packages
 import {Roles} from 'meteor/alanning:roles';
 import dayjs from 'dayjs';
-const isoWeek = require('dayjs/plugin/isoWeek');
+import isoWeek from 'dayjs/plugin/isoWeek';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
 //import {Mongo} from 'meteor/mongo';
-dayjs.extend(advancedFormat);
+dayjs.extend(isoWeek, advancedFormat);
 
 // interfaces
 import type {Year, Month, Week} from '../ui/types/types';
@@ -27,7 +27,7 @@ export function cssVariables(element: HTMLElement, setCss: (e: HTMLElement) => v
 }
 
 // cookies
-export function setCookie(name: string, value: string, exdays: number, doc: Document): void {
+export function setCookie(name: string, value: string, exdays: number, doc: Document) {
   const d = new Date();
   d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
   const expires: string = 'expires=' + d.toUTCString();
@@ -112,8 +112,8 @@ export function assembleMonths(start: Date, end: Date): Month[] {
 export function assembleWeeks(start: Date, end: Date): Week[] {
   const weeks = [];
   const dayOne = dayjs(start).startOf('month');
-  for (let current = dayOne.startOf(isoWeek); current.isBefore(dayjs(end).endOf('month')); current.add(1, 'weeks')) {
-    const scheduleDays = dayjs(current).endOf(isoWeek).diff(dayjs(current).startOf(isoWeek), 'days') + 1;
+  for (let current = dayOne.startOf('isoWeek'); current.isBefore(dayjs(end).endOf('month')); current.add(1, 'weeks')) {
+    const scheduleDays = dayjs(current).endOf('isoWeek').diff(dayjs(current).startOf('isoWeek'), 'days') + 1;
     const week = {
       name: dayjs(current).format('W'),
       days: scheduleDays,
@@ -127,8 +127,8 @@ export function assembleWeeks(start: Date, end: Date): Week[] {
 
 export function calculatePreambleDays(start: Date): number {
   const dayOne = dayjs(start).startOf('month');
-  const preambleDays = dayjs(start).startOf('month').diff(dayOne.startOf(isoWeek), 'days');
-  console.log('preambleDays:', preambleDays, dayjs(start).startOf('month'), dayOne.startOf(isoWeek));
+  const preambleDays = dayjs(start).startOf('month').diff(dayOne.startOf('isoWeek'), 'days');
+  console.log('preambleDays:', preambleDays, dayjs(start).startOf('month'), dayOne.startOf('isoWeek'));
   /* Preamble width is 2 units per day plus one to align with the right border of the first week */
   return preambleDays;
 }
@@ -234,11 +234,11 @@ export function defaultInputType(touchPointName: string): string {
 
 export function findObjectAndProject(
   input: number | string,
-  searchKey: any,
+  searchKey: string,
   collection: [],
   projectKey1: string,
   projectKey2: string
-): any {
+): number | string {
   const thisObject = collection.find((element) => element[searchKey] === input);
   if (thisObject === undefined) {
     throw new TypeError('No outcome for thisObject with 1 key.');

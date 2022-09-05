@@ -29,7 +29,7 @@
     },
     "moduleResolution": "node",
     "resolveJsonModule": true,
-    "types": ["node", "tinro"],
+    "types": ["node", "tinro", "meteor-roles"],
     "esModuleInterop": true,
     "preserveSymlinks": true,
     // added for dayjs package:

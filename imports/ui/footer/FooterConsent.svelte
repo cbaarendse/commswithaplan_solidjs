@@ -1,4 +1,5 @@
 <script lang="ts">
+  //TODO: simplify?
   // imports
   import {slide} from 'svelte/transition';
   import Button from './../reusable/Button.svelte';
@@ -26,16 +27,15 @@
 
   // fill checkboxes with the status from the consent cookies
   if (cookiesComplete) {
-    ad_analytics_personal_storage_checked = consentToChecked(
-      getCookie('_commswithaplan_ad_storage', document) &&
-        getCookie('_commswithaplan_analytics_storage', document) &&
-        getCookie('_commswithaplan_personalization_storage', document)
-    );
+    ad_analytics_personal_storage_checked =
+      consentToChecked(getCookie('_commswithaplan_ad_storage', document)) &&
+      consentToChecked(getCookie('_commswithaplan_analytics_storage', document)) &&
+      consentToChecked(getCookie('_commswithaplan_personalization_storage', document));
   }
 
   // reactively update cookies when user checks consent
   onMount(() => {
-    setCookie('_commswithaplan_functional_storage', checkedToConsent(functional_security_storage_checked, 7, document);
+    setCookie('_commswithaplan_functional_storage', checkedToConsent(functional_security_storage_checked), 7, document);
     setCookie('_commswithaplan_security_storage', checkedToConsent(functional_security_storage_checked), 7, document);
   });
 
@@ -44,7 +44,7 @@
     setCookie('_commswithaplan_ad_storage', value, 7, document);
     setCookie('_commswithaplan_analytics_storage', value, 7, document);
     setCookie('_commswithaplan_personalization_storage', value, 7, document);
-    ad_analytics_personal_storage_checked = value === 'denied' ? false : true;
+    ad_analytics_personal_storage_checked = consentToChecked(value);
     setTimeout(() => {
       $consentFooterVisible = false;
     }, 500);
@@ -98,7 +98,7 @@
         height: 'var(--ra-3xl)',
         disabled: false
       }}
-      on:clickedButton={setConsent('denied')}
+      on:clickedButton={() => setConsent('denied')}
       >{#if $language == 'dutch'}Wijs af{:else}Reject{/if}</Button
     >
     <Button
@@ -113,7 +113,7 @@
         height: 'var(--ra-3xl)',
         disabled: false
       }}
-      on:clickedButton={setConsent('granted')}
+      on:clickedButton={() => setConsent('granted')}
       >{#if $language == 'dutch'}Accepteer{:else}Accept{/if}</Button
     >
   </footer>
