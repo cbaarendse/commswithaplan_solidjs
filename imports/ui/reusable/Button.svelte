@@ -1,25 +1,24 @@
 <script lang="ts">
   // types
-  import type {Button} from '../types/types';
   import {createEventDispatcher} from 'svelte';
 
   // variables
   import {cssVariables} from '/imports/both/functions';
-  export let btn: Button;
+  export let btn: HTMLButtonElement;
   let dispatch = createEventDispatcher();
 
   // css
   const setCssButton = function (element: HTMLElement) {
-    element.style.setProperty('background-color', `${btn.backgroundColor}`);
-    element.style.setProperty('color', `${btn.textColor}`);
-    element.style.setProperty('border-width', `${btn.borderWidth}`);
-    element.style.setProperty('border-style', `${btn.borderStyle}`);
-    element.style.setProperty('border-color', `${btn.borderColor}`);
-    element.style.setProperty('font-size', `${btn.fontSize}`);
-    element.style.setProperty('padding', `${btn.padding}`);
-    element.style.setProperty('width', `${btn.width}`);
-    element.style.setProperty('height', `${btn.height}`);
-    element.style.setProperty('min-width', `${btn.minWidth}`);
+    element.style.backgroundColor = `${btn.style.backgroundColor}`;
+    element.style.color = `${btn.style.color}`;
+    element.style.borderWidth = `${btn.style.borderWidth}`;
+    element.style.borderStyle = `${btn.style.borderStyle}`;
+    element.style.borderColor = `${btn.style.borderColor}`;
+    element.style.fontSize = `${btn.style.fontSize}`;
+    element.style.padding = `${btn.style.padding}`;
+    element.style.width = `${btn.style.width}`;
+    element.style.height = `${btn.style.height}`;
+    element.style.minWidth = `${btn.style.minWidth}`;
   };
 
   // functions
@@ -38,9 +37,8 @@
   class={btn.className}
   id={btn.id}
   type={btn.type}
-  role={btn.role}
+  role={btn.ariaRoleDescription}
   disabled={btn.disabled}
-  data-dismiss={btn.dataDismiss}
   aria-label={btn.ariaLabel}
   value={btn.value}
   on:click|preventDefault|stopPropagation={clickedButton}

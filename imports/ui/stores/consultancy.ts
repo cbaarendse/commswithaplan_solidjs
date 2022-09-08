@@ -1,42 +1,46 @@
 // imports
 import {writable, Writable, readable, Readable} from 'svelte/store';
-import type {Content} from '../types/types';
+import type {ContentColored, ContentActionable} from '../types/types';
 
-export const consultancyHomeItems: Readable<Content[]> = readable(
+export const consultancyHomeItems: Readable<ContentColored | ContentActionable[]> = readable(
   [
     {
       name: 'commswithaplan',
       language: 'english',
-      color: 'blue',
       displayName: 'Comms With A Plan',
       description:
-        'Comms With A Plan is a <mark>Media Management consultancy</mark> for advertisers. At your service I initiate, maintain and evaluate your media strategy, I manage your agencies and your budget.'
+        'Comms With A Plan is a <mark>Media Management consultancy</mark> for advertisers. At your service I initiate, maintain and evaluate your media strategy, I manage your agencies and your budget.',
+      color: 'blue',
+      link: '/consultancy/contact',
+      action: 'Call, contact me ...'
     },
     {
       name: 'commswithaplan',
       language: 'dutch',
-      color: 'blue',
       displayName: 'Comms With A Plan',
       description:
-        'Comms With A Plan is een <mark>Media Management consultancy</mark> voor adverteerders. Ik initieer, onderhoud en evalueer je media strategie, ik manage je bureaus en budget.'
+        'Comms With A Plan is een <mark>Media Management consultancy</mark> voor adverteerders. Ik initieer, onderhoud en evalueer je media strategie, ik manage je bureaus en budget.',
+      color: 'blue',
+      link: '/consultancy/contact',
+      action: 'Bel, neem contact op ...'
     },
     {
       name: 'consultancy',
       language: 'english',
-      color: 'blue',
       displayName: 'Consultancy',
       description:
         'Comms With A Plan is a flexible unit in the sense that work can be project based, or continuous, based on demand. (Give me a call to explain.)',
+      color: 'blue',
       link: '/consultancy/contact',
       action: 'Call, contact me ...'
     },
     {
       name: 'consultancy',
       language: 'dutch',
-      color: 'blue',
       displayName: 'Consultancy',
       description:
         'Comms With A Plan is een flexibele partner in die zin dat het werk per project kan zijn, maar ook continu. Gebaseerd op vraag. (Bel me zodat ik het kan uitleggen.)',
+      color: 'blue',
       link: '/consultancy/contact',
       action: 'Bel, neem contact op ...'
     }
@@ -48,7 +52,7 @@ export const consultancyHomeItems: Readable<Content[]> = readable(
   }
 );
 
-export const workItems: Readable<Content[]> = readable(
+export const workItems: Readable<ContentColored[]> = readable(
   [
     {
       name: 'reporting',
@@ -253,7 +257,7 @@ export const workItems: Readable<Content[]> = readable(
   }
 );
 
-export const aboutItems: Readable<Content[]> = readable(
+export const aboutItems: Readable<ContentColored[]> = readable(
   [
     {
       name: 'about',
@@ -279,7 +283,7 @@ export const aboutItems: Readable<Content[]> = readable(
   }
 );
 
-export const contactItems: Readable<Content[]> = readable(
+export const contactItems: Readable<ContentColored[]> = readable(
   [
     {
       name: 'email',

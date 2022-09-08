@@ -2,9 +2,9 @@
 import {writable, Writable, readable, Readable} from 'svelte/store';
 
 // interfaces
-import type {Content, Chapter, TouchPointBasics, Definition} from '../types/types';
+import type {Content, ContentColored, ContentActionable, Chapter, TouchPointBasics} from '../types/types';
 
-export const toolsHomeItems: Readable<Content[]> = readable(
+export const toolsHomeItems: Readable<ContentColored | ContentActionable[]> = readable(
   [
     {
       name: 'tools',
@@ -410,7 +410,7 @@ export const touchPointsBasics = readable<TouchPointBasics[]>(
   }
 );
 
-export const definitions: Readable<Definition[]> = readable(
+export const definitions: Readable<Content[]> = readable(
   [
     {
       name: 'total_reach',

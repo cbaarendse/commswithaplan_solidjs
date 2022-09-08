@@ -1,8 +1,8 @@
 // imports
 import {readable, Readable} from 'svelte/store';
-import type {Content} from '../types/types';
+import type {ContentColored, ContentActionable} from '../types/types';
 
-export const homeItems: Readable<Content[]> = readable(
+export const homeItems: Readable<ContentColored | ContentActionable[]> = readable(
   [
     {
       name: 'consultancy',
@@ -52,7 +52,7 @@ export const homeItems: Readable<Content[]> = readable(
   }
 );
 //TODO: doubles with toolsHomeItems
-export const toolsItems: Readable<Content[]> = readable(
+export const toolsItems: Readable<ContentColored[]> = readable(
   [
     {
       name: 'reporting',
