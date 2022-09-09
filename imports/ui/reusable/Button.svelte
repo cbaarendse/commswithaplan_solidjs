@@ -1,10 +1,11 @@
 <script lang="ts">
   // types
+  import {ButtonType} from '../types/types';
   import {createEventDispatcher} from 'svelte';
 
   // variables
   import {cssVariables} from '/imports/both/functions';
-  export let btn: HTMLButtonElement;
+  export let btn: Omit<HTMLButtonElement, 'type'> & ButtonType;
   let dispatch = createEventDispatcher();
 
   // css

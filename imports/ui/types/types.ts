@@ -40,6 +40,7 @@ export type Display = 'none' | 'block' | 'grid' | 'flex';
 type InputValue = {value: AlphaNumeric};
 type Placeholder = {placeholder: AlphaUncertain};
 export type Visible = {visible: boolean};
+export type ButtonType = {type: 'submit' | 'reset' | 'button' | null | undefined};
 
 // components
 export type Accordion = Visible;
