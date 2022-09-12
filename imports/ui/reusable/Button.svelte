@@ -4,23 +4,8 @@
   import {createEventDispatcher} from 'svelte';
 
   // variables
-  import {cssVariables} from '/imports/both/functions';
   export let btn: Omit<HTMLButtonElement, 'type'> & ButtonType;
   let dispatch = createEventDispatcher();
-
-  // css
-  const setCssButton = function (element: HTMLElement) {
-    element.style.backgroundColor = `${btn.style.backgroundColor}`;
-    element.style.color = `${btn.style.color}`;
-    element.style.borderWidth = `${btn.style.borderWidth}`;
-    element.style.borderStyle = `${btn.style.borderStyle}`;
-    element.style.borderColor = `${btn.style.borderColor}`;
-    element.style.fontSize = `${btn.style.fontSize}`;
-    element.style.padding = `${btn.style.padding}`;
-    element.style.width = `${btn.style.width}`;
-    element.style.height = `${btn.style.height}`;
-    element.style.minWidth = `${btn.style.minWidth}`;
-  };
 
   // functions
   function clickedButton() {
@@ -42,10 +27,19 @@
   disabled={btn.disabled}
   aria-label={btn.ariaLabel}
   value={btn.value}
+  style:backgroundColor="{btn.style.backgroundColor};"
+  style:color="{btn.style.color};"
+  style:borderWidth="{btn.style.borderWidth};"
+  style:borderStyle="{btn.style.borderStyle};"
+  style:borderColor="{btn.style.borderColor};"
+  style:fontSize="{btn.style.fontSize};"
+  style:padding="{btn.style.padding};"
+  style:width="{btn.style.width};"
+  style:height="{btn.style.height};"
+  style:minWidth="{btn.style.minWidth};"
   on:click|preventDefault|stopPropagation={clickedButton}
   on:mouseenter|preventDefault|stopPropagation={mouseEntered}
   on:mouseleave|preventDefault|stopPropagation={mouseLeft}
-  use:cssVariables={setCssButton}
 >
   <slot />
 </button>

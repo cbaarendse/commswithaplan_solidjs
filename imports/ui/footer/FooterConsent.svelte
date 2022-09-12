@@ -104,11 +104,13 @@
         ariaRoleDescription: 'button',
         id: 'set__consent',
         className: 'consent__button',
-        color: 'var(--ra-white)',
-        backgroundColor: 'var(--ra-green)',
-        padding: '0 1rem',
-        height: 'var(--ra-3xl)',
-        disabled: false
+        disabled: false,
+        style: {
+          color: 'var(--ra-white)',
+          backgroundColor: 'var(--ra-green)',
+          padding: '0 1rem',
+          height: 'var(--ra-3xl)'
+        }
       }}
       on:clickedButton={() => setConsent('granted')}
       >{#if $language == 'dutch'}Accepteer{:else}Accept{/if}</Button
