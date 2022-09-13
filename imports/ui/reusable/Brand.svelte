@@ -1,22 +1,14 @@
 <script lang="ts">
-  // stores
-
   // types
   import type {Brand} from '../types/types';
-  import {cssVariables} from '/imports/both/functions';
 
   // variables
   export let brand: Brand;
-
-  const setCssVariables = function (element: HTMLElement) {
-    element.style.setProperty('font-size', `${brand.fontSize}`);
-    element.style.setProperty('color', `${brand.color}`);
-  };
 </script>
 
 <div class="brand">
   <slot />
-  <span use:cssVariables={setCssVariables}>
+  <span style:fontSize="{brand.style.fontSize};" style:color="{brand.style.color};">
     {brand.title}
   </span>
 </div>

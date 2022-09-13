@@ -19,8 +19,7 @@
       <Header>
         <Brand
           brand={{
-            color: 'var(--ra-green)',
-            fontSize: 'var(--ra-fs-2xl)',
+            style: {color: 'var(--ra-green)', fontSize: 'var(--ra-fs-2xl)'},
             title: `Consultancy - ${$language === 'dutch' ? 'Over' : 'About'}`
           }}
           ><LogoCommsWithAPlan

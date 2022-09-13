@@ -40,12 +40,14 @@ export type Display = 'none' | 'block' | 'grid' | 'flex';
 type InputValue = {value: AlphaNumeric};
 type Placeholder = {placeholder: AlphaUncertain};
 export type Visible = {visible: boolean};
-export type ButtonType = {type: 'submit' | 'reset' | 'button' | null | undefined};
 
 // components
 export type Accordion = Visible;
-export type Brand = {title: string} & Partial<ClassName> & Css;
-
+export type Brand = Omit<Partial<HTMLElement>, 'style'> & {style: Partial<CSSStyleDeclaration>};
+export type Button = Omit<Partial<HTMLButtonElement>, 'type' | 'style'> & {
+  type: 'submit' | 'reset' | 'button' | null | undefined;
+  style: Partial<CSSStyleDeclaration>;
+};
 export type Card = {title?: string; imgFile?: string; link?: string; action?: string} & HTMLElement;
 export type Option = ClassName &
   InputValue &

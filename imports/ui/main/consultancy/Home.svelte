@@ -20,8 +20,7 @@
         <Brand
           brand={{
             title: `Consultancy - ${$language === 'dutch' ? 'Home' : 'Home'}`,
-            color: 'var(--ra-blue)',
-            fontSize: 'var(--ra-fs-2xl)'
+            style: {color: 'var(--ra-blue)', fontSize: 'var(--ra-fs-2xl)'}
           }}
           ><LogoCommsWithAPlan
             logo={{
