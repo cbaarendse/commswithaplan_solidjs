@@ -1,8 +1,8 @@
 <script lang="ts">
   // imports
-
+  import {Checkbox} from '../types/types';
   // variables
-  export let cbx: Partial<HTMLInputElement>;
+  export let cbx: Checkbox;
   export let checked: boolean = true;
   export let displayName: string;
 </script>

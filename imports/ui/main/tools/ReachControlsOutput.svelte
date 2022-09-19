@@ -3,14 +3,14 @@
   import {createEventDispatcher} from 'svelte';
   import {language, translations} from '../../stores/utils';
   import {definitions} from '../../stores/tools';
-  import type {Definition} from '../../types/types';
+  import type {Content} from '../../types/types';
   import Modal from '../../reusable/Modal.svelte';
   import {Ui} from '../../types/classes';
 
   // variables
   const dispatch = createEventDispatcher();
   let displayOutputDescription: 'none' | 'flex' = 'none';
-  let output: Definition = $definitions[0];
+  let output: Content = $definitions[0];
   export let totalReach: number;
   export let locus: number;
   export let allTouchPointsValueIsZero: boolean;

@@ -2,35 +2,18 @@
   // types
   import type {Card} from '../types/types';
 
-  // functions
-  import {cssVariables} from '/imports/both/functions';
-
+  // variables
   export let card: Card;
-
-  const setCssArticle_Card = function (element: HTMLElement) {
-    element.style.setProperty('background-color', `${card.backgroundColor}`);
-    element.style.setProperty('color', `${card.textColor}`);
-  };
-  const setCssDiv_Card_Title = function (element: HTMLElement) {
-    element.style.setProperty('color', `${card.textColor}`);
-  };
-  const setCssDiv_Card_Footer = function (element: HTMLElement) {
-    element.style.setProperty('background-color', `${card.backgroundColor}`);
-    element.style.setProperty('color', `${card.textColor}`);
-  };
-  const setCssCard_Link = function (element: HTMLElement) {
-    element.style.setProperty('color', `${card.textColor}`);
-  };
 </script>
 
 <!-- TODO: change style directive in use:cssVariables, eventually setting different function per element -->
-<article class="card" use:cssVariables={setCssArticle_Card}>
+<article class="card" style:background-color={card.style.backgroundColor} style:color={card.style.color}>
   {#if card.imgFile}
     <img src={card.imgFile} alt={card.title} />
   {/if}
   <div class="card__main">
     {#if card.title}
-      <div class="card__title" use:cssVariables={setCssDiv_Card_Title}>
+      <div class="card__title" style:color={card.style.color}>
         <h2>{card.title}</h2>
       </div>
     {/if}
@@ -38,18 +21,18 @@
       <slot />
     </p>
   </div>
-  <div class="card__footer" use:cssVariables={setCssDiv_Card_Footer}>
+  <div class="card__footer" style:background-color={card.style.backgroundColor} style:color={card.style.color}>
     <p>
       <slot name="cardFooterText" />
     </p>
     {#if card.action}
-      <a href={card.link} use:cssVariables={setCssCard_Link}>{card.action}</a>
+      <a href={card.link} style:color={card.style.color}>{card.action}</a>
     {/if}
   </div>
 </article>
 
 <style>
-  .card {
+  article.card {
     display: flex;
     flex-direction: column;
     align-items: flex-start;

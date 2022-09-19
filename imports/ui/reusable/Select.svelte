@@ -1,13 +1,13 @@
 <script lang="ts">
   // imports
   import {createEventDispatcher} from 'svelte';
-  import type {Select, Option} from '../types/types';
   import {Ui} from '../types/classes';
   import {language, translations} from '../stores/utils';
 
   // exports
-  export let select: Select;
-  export let list: Option[];
+  export let select: HTMLInputElement;
+  export let list: HTMLInputElement[];
+  export let displayName: string;
 
   //variables
 
@@ -20,7 +20,7 @@
 </script>
 
 <form>
-  <label for={select.name}>{$language === 'dutch' ? 'Kies ' : 'Choose '}{select.displayName}</label>
+  <label for={select.name}>{$language === 'dutch' ? 'Kies ' : 'Choose '}{displayName}</label>
   <select
     class={select.className}
     id={select.id}
@@ -28,7 +28,7 @@
     bind:value={select.value}
     on:blur|preventDefault|stopPropagation={selectOption}
   >
-    {#each list as option (option.index)}
+    {#each list as option (option.id)}
       <option value={option.name}>{Ui.translate(option.name, $translations, $language) || option.value}</option>
     {/each}
   </select>

@@ -26,7 +26,10 @@
             title: `Tools - ${$language === 'dutch' ? 'Documentatie' : 'Documentation'}`
           }}
           ><LogoReach
-            logo={{fontSize: 'var(--ra-fs-5xl)', width: 'var(--ra-5xl)', height: 'var(--ra-5xl)', colored: true}}
+            logo={{
+              style: {fontSize: 'var(--ra-fs-5xl)', width: 'var(--ra-5xl)', height: 'var(--ra-5xl)'},
+              colored: true
+            }}
           /></Brand
         >
       </Header>

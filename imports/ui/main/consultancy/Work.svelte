@@ -24,11 +24,13 @@
           }}
           ><LogoCommsWithAPlan
             logo={{
-              fontSize: 'var(--ra-fs-5xl)',
-              width: 'var(--ra-5xl)',
-              height: 'var(--ra-fxl)',
-              minWidth: 'var(--ra-5xl)',
-              minHeight: 'var(--ra-fxl)',
+              style: {
+                fontSize: 'var(--ra-fs-5xl)',
+                width: 'var(--ra-5xl)',
+                height: 'var(--ra-fxl)',
+                minWidth: 'var(--ra-5xl)',
+                minHeight: 'var(--ra-fxl)'
+              },
               colored: true
             }}
           /></Brand
@@ -44,7 +46,7 @@
       </p>
 
       {#each translatedWorkItems as item}
-        <Card card={{color: item.color, title: item.displayName, imgFile: `/consultancy/${item.name}.jpg`}}>
+        <Card card={{style: {color: item.color}, title: item.displayName, imgFile: `/consultancy/${item.name}.jpg`}}>
           {item.description}
         </Card>
       {/each}

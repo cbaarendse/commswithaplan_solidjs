@@ -4,11 +4,16 @@
   import {language} from '../stores/utils';
 
   // exports
-  export let input: Pick<
-    HTMLInputElement,
-    'name' | 'className' | 'id' | 'min' | 'max' | 'placeholder' | 'readOnly' | 'value'
-  > &
-    Partial<Pick<HTMLInputElement, 'type'>>;
+  export let input: Partial<Omit<HTMLInputElement, 'value' | 'min' | 'max'>> & {
+    value: string;
+    min: string;
+    max: string;
+  };
+
+  //   ,
+  //   'name' | 'className' | 'id' | 'min' | 'max' | 'placeholder' | 'readOnly' | 'value'
+  // > &
+  //   Partial<Pick<HTMLInputElement, 'type'>>;
   export let displayName: string;
 
   // variables

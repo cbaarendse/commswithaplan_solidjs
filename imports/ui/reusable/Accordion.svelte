@@ -3,10 +3,10 @@
   import {slide} from 'svelte/transition';
   import {backInOut} from 'svelte/easing';
   import Button from './Button.svelte';
-  import type {Visible} from '../types/types';
+  import type {Accordion} from '../types/types';
 
   // variables
-  export let acc: Visible;
+  export let acc: Accordion;
   acc.visible = false;
 
   // functions
@@ -17,13 +17,15 @@
     <Button
       btn={{
         type: 'button',
-        role: 'button',
+        ariaRoleDescription: 'button',
         id: 'toggle__accordion',
         className: 'accordion__button',
-        textColor: 'var(--ra-white)',
-        backgroundColor: 'var(--ra-green)',
-        padding: '0 1rem',
-        height: 'var(--ra-3xl)',
+        style: {
+          color: 'var(--ra-white)',
+          backgroundColor: 'var(--ra-green)',
+          padding: '0 1rem',
+          height: 'var(--ra-3xl)'
+        },
         disabled: false
       }}
       on:clickedButton={() => (acc.visible = !acc.visible)}

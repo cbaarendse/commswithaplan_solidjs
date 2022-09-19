@@ -8,9 +8,12 @@
   import Card from '../../reusable/Card.svelte';
   import {language} from '../../stores/utils';
   import {toolsHomeItems} from '../../stores/tools';
+  import {ContentActionable, ContentColored} from '../../types/types';
 
   // variables
-  $: translatedToolsHomeItems = $toolsHomeItems.filter((item) => item.language === $language);
+  $: translatedToolsHomeItems = $toolsHomeItems.filter(
+    (item: ContentColored | ContentActionable) => item.language === $language
+  );
 
   // functions
 </script>
@@ -25,12 +28,15 @@
             title: `Tools - ${$language === 'dutch' ? 'Home' : 'Home'}`
           }}
           ><LogoReach
-            logo={{fontSize: 'var(--ra-fs-5xl)', width: 'var(--ra-5xl)', height: 'var(--ra-5xl)', colored: true}}
+            logo={{
+              style: {fontSize: 'var(--ra-fs-5xl)', width: 'var(--ra-5xl)', height: 'var(--ra-5xl)'},
+              colored: true
+            }}
           /></Brand
         >
       </Header>
       {#each translatedToolsHomeItems as item}
-        <Card card={{color: 'blue', title: item.displayName, link: item.link, action: item.action}}>
+        <Card card={{style: {color: 'blue'}, title: item.displayName, link: item.link, action: item.action}}>
           {item.description}
         </Card>
       {/each}

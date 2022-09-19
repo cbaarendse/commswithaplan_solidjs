@@ -4,7 +4,12 @@
 
   //variables
   let dispatch = createEventDispatcher();
-  export let slider: Pick<HTMLInputElement, 'id' | 'name' | 'min' | 'max' | 'step' | 'value'>;
+  export let slider: Partial<Omit<HTMLInputElement, 'value' | 'min' | 'max' | 'step'>> & {
+    value: string;
+    min: string;
+    max: string;
+    step: string;
+  };
   export let displayName: string;
 
   console.log('name,  slider.value in input type range:', slider.name, slider.value);

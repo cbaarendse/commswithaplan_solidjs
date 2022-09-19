@@ -68,6 +68,7 @@
         name: 'ad_analytics_personal_storage',
         id: 'ad_storage__checkbox',
         className: 'consent__checkbox',
+        style: {},
         readOnly: false,
         disabled: false
       }}
@@ -80,6 +81,7 @@
         name: 'functional_storage',
         id: 'functional_storage__checkbox',
         className: 'consent__checkbox',
+        style: {},
         readOnly: false,
         disabled: functional_security_storage_checked
       }}

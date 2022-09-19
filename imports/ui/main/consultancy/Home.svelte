@@ -8,9 +8,12 @@
   import Card from '../../reusable/Card.svelte';
   import {language} from '../../stores/utils';
   import {consultancyHomeItems} from '../../stores/consultancy';
+  import {ContentActionable, ContentColored} from '../../types/types';
 
   // variables
-  $: translatedConsultancyHomeItems = $consultancyHomeItems.filter((item) => item.language === $language);
+  $: translatedConsultancyHomeItems = $consultancyHomeItems.filter(
+    (item: ContentColored | ContentActionable) => item.language === $language
+  );
 </script>
 
 <Main>
@@ -24,11 +27,13 @@
           }}
           ><LogoCommsWithAPlan
             logo={{
-              fontSize: 'var(--ra-fs-5xl)',
-              width: 'var(--ra-5xl)',
-              height: 'var(--ra-5xl)',
-              minWidth: 'var(--ra-5xl)',
-              minHeight: 'var(--ra-fxl)',
+              style: {
+                fontSize: 'var(--ra-fs-5xl)',
+                width: 'var(--ra-5xl)',
+                height: 'var(--ra-5xl)',
+                minWidth: 'var(--ra-5xl)',
+                minHeight: 'var(--ra-fxl)'
+              },
               colored: true
             }}
           /></Brand
@@ -36,7 +41,7 @@
       </Header>
 
       {#each translatedConsultancyHomeItems as item}
-        <Card card={{title: item.displayName, color: 'blue', link: item.link, action: item.action}}>
+        <Card card={{title: item.displayName, style: {color: 'blue'}, link: item.link, action: item.action}}>
           <span>
             {@html item.description}
           </span>

@@ -21,13 +21,15 @@
       <Button
         btn={{
           className: '',
-          role: 'button',
-          backgroundColor: 'transparent',
-          borderWidth: '',
-          borderStyle: '',
-          borderColor: 'transparent',
-          fontSize: 'var(--ra-xl)',
           type: 'button',
+          ariaRoleDescription: 'button',
+          style: {
+            backgroundColor: 'transparent',
+            borderWidth: '',
+            borderStyle: '',
+            borderColor: 'transparent',
+            fontSize: 'var(--ra-xl)'
+          },
           disabled: false
         }}
         on:clickedButton={() => (display = 'none')}

@@ -1,34 +1,15 @@
 <script lang="ts">
-  // stores
-
-  // functions
-  import {cssVariables} from '/imports/both/functions';
-  // variables
+  // imports
   import type {Logo} from '../types/types';
+
+  // variables
   export let logo: Logo;
-
-  const setCssDivLogo = function (element: HTMLElement) {
-    element.style.setProperty('font-size', `${logo.fontSize}`);
-    element.style.setProperty('width', `${logo.width}`);
-    element.style.setProperty('height', `${logo.height}`);
-  };
-  const setCssDivCircle_1 = function (element: HTMLElement) {
-    element.style.setProperty('background-color', `${logo.colored ? 'var(--ra-blue)' : 'var(--ra-blue-grayscale)'}`);
-  };
-
-  const setCssDivCircle_2 = function (element: HTMLElement) {
-    element.style.setProperty('background-color', `${logo.colored ? 'var(--ra-green)' : 'var(--ra-green-grayscale)'}`);
-  };
-
-  const setCssDivCircle_3 = function (element: HTMLElement) {
-    element.style.setProperty('background-color', `${logo.colored ? 'var(--ra-red)' : 'var(--ra-red-grayscale)'}`);
-  };
 </script>
 
-<div class="logo" use:cssVariables={setCssDivLogo}>
-  <div class="circle1" use:cssVariables={setCssDivCircle_1} />
-  <div class="circle2" use:cssVariables={setCssDivCircle_2} />
-  <div class="circle3" use:cssVariables={setCssDivCircle_3} />
+<div class="logo" style:font-size={logo.style.fontSize} style:width={logo.style.width} style:height={logo.style.height}>
+  <div class="circle1" style:background-color={logo.colored ? 'var(--ra-blue)' : 'var(--ra-blue-grayscale)'} />
+  <div class="circle2" style:background-color={logo.colored ? 'var(--ra-green)' : 'var(--ra-green-grayscale)'} />
+  <div class="circle3" style:background-color={logo.colored ? 'var(--ra-red)' : 'var(--ra-red-grayscale)'} />
 </div>
 
 <style>

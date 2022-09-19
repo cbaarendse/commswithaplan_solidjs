@@ -2,7 +2,7 @@
 import {readable, Readable} from 'svelte/store';
 import type {ContentColored, ContentActionable} from '../types/types';
 
-export const homeItems: Readable<ContentColored | ContentActionable[]> = readable(
+export const homeItems: Readable<ContentColored[] | ContentActionable[]> = readable(
   [
     {
       name: 'consultancy',

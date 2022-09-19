@@ -21,10 +21,8 @@
   btn={{
     className: 'navigation__toggle',
     type: 'button',
-    role: 'button',
-    backgroundColor: 'transparent',
-    width: 'var(--ra-xl)',
-    height: 'var(--ra-xl)',
+    ariaRoleDescription: 'button',
+    style: {backgroundColor: 'transparent', width: 'var(--ra-xl)', height: 'var(--ra-xl)'},
     disabled: false
   }}
   on:clickedButton={() => ($navigationVisible = !$navigationVisible)}

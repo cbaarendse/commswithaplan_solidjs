@@ -4,7 +4,7 @@ import {writable, Writable, readable, Readable} from 'svelte/store';
 // interfaces
 import type {Content, ContentColored, ContentActionable, Chapter, TouchPointBasics} from '../types/types';
 
-export const toolsHomeItems: Readable<ContentColored | ContentActionable[]> = readable(
+export const toolsHomeItems: Readable<ContentColored[] | ContentActionable[]> = readable(
   [
     {
       name: 'tools',
