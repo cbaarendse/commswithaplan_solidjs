@@ -5,10 +5,12 @@
   import Card from '../../reusable/Card.svelte';
   import {language} from '../../stores/utils';
   import {homeItems} from '../../stores/home';
-  import {ContentActionable, ContentColored} from '../../types/types';
+  import {Content, Color, Illustrated, Actionable} from '../../types/types';
 
   // variables
-  $: translatedHomeItems = $homeItems.filter((item: ContentColored | ContentActionable) => item.language === $language);
+  $: translatedHomeItems = $homeItems.filter(
+    (item: Content & Color & Illustrated & Actionable) => item.language === $language
+  );
 </script>
 
 <Main>
@@ -19,7 +21,7 @@
           card={{
             title: item.displayName,
             style: {color: 'blue'},
-            imgFile: item.imgFile,
+            imgFiles: item.imgFiles,
             link: item.link,
             action: item.action
           }}

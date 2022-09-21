@@ -1,8 +1,8 @@
 // imports
 import {writable, Writable, readable, Readable} from 'svelte/store';
-import type {ContentColored, ContentActionable} from '../types/types';
+import type {Content, Color, Actionable} from '../types/types';
 
-export const consultancyHomeItems: Readable<ContentColored[] | ContentActionable[]> = readable(
+export const consultancyHomeItems: Readable<(Content & Color & Actionable)[]> = readable(
   [
     {
       name: 'commswithaplan',
@@ -52,7 +52,7 @@ export const consultancyHomeItems: Readable<ContentColored[] | ContentActionable
   }
 );
 
-export const workItems: Readable<ContentColored[]> = readable(
+export const workItems: Readable<(Content & Color)[]> = readable(
   [
     {
       name: 'reporting',
@@ -257,7 +257,7 @@ export const workItems: Readable<ContentColored[]> = readable(
   }
 );
 
-export const aboutItems: Readable<ContentColored[]> = readable(
+export const aboutItems: Readable<(Content & Color)[]> = readable(
   [
     {
       name: 'about',
@@ -283,7 +283,7 @@ export const aboutItems: Readable<ContentColored[]> = readable(
   }
 );
 
-export const contactItems: Readable<ContentColored[]> = readable(
+export const contactItems: Readable<(Content & Color)[]> = readable(
   [
     {
       name: 'email',

@@ -8,11 +8,11 @@
   import Card from '../../reusable/Card.svelte';
   import {language} from '../../stores/utils';
   import {consultancyHomeItems} from '../../stores/consultancy';
-  import {ContentActionable, ContentColored} from '../../types/types';
+  import {Content, Color, Actionable} from '../../types/types';
 
   // variables
   $: translatedConsultancyHomeItems = $consultancyHomeItems.filter(
-    (item: ContentColored | ContentActionable) => item.language === $language
+    (item: Content & Color & Actionable) => item.language === $language
   );
 </script>
 

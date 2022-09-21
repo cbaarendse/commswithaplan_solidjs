@@ -1,12 +1,12 @@
 // imports
 import {readable, Readable} from 'svelte/store';
-import type {ContentColored, ContentActionable} from '../types/types';
+import type {Content, Color, Illustrated, Actionable} from '../types/types';
 
-export const homeItems: Readable<ContentColored[] | ContentActionable[]> = readable(
+export const homeItems: Readable<(Content & Color & Illustrated & Actionable)[]> = readable(
   [
     {
       name: 'consultancy',
-      imgFile: '/home/consultant.jpeg',
+      imgFiles: ['/home/consultant.jpeg'],
       link: '/consultancy/',
       color: 'blue',
       language: 'english',
@@ -16,7 +16,7 @@ export const homeItems: Readable<ContentColored[] | ContentActionable[]> = reada
     },
     {
       name: 'consultancy',
-      imgFile: '/home/consultant.jpeg',
+      imgFiles: ['/home/consultant.jpeg'],
       link: '/consultancy/',
       color: 'blue',
       language: 'dutch',
@@ -26,7 +26,7 @@ export const homeItems: Readable<ContentColored[] | ContentActionable[]> = reada
     },
     {
       name: 'tools',
-      imgFile: '/home/night_crowd.jpg',
+      imgFiles: ['/home/night_crowd.jpg'],
       link: '/tools/',
       color: 'green',
       language: 'english',
@@ -36,7 +36,7 @@ export const homeItems: Readable<ContentColored[] | ContentActionable[]> = reada
     },
     {
       name: 'tools',
-      imgFile: '/home/night_crowd.jpg',
+      imgFiles: ['/home/night_crowd.jpg'],
       link: '/tools/',
       color: 'green',
       language: 'dutch',
@@ -52,7 +52,7 @@ export const homeItems: Readable<ContentColored[] | ContentActionable[]> = reada
   }
 );
 //TODO: doubles with toolsHomeItems
-export const toolsItems: Readable<ContentColored[]> = readable(
+export const toolsItems: Readable<(Content & Color)[]> = readable(
   [
     {
       name: 'reporting',

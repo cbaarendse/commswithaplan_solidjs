@@ -46,7 +46,7 @@
       </p>
 
       {#each translatedWorkItems as item}
-        <Card card={{style: {color: item.color}, title: item.displayName, imgFile: `/consultancy/${item.name}.jpg`}}>
+        <Card card={{style: {color: item.color}, title: item.displayName, imgFiles: [`/consultancy/${item.name}.jpg`]}}>
           {item.description}
         </Card>
       {/each}

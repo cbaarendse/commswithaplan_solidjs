@@ -8,8 +8,8 @@
 
 <!-- TODO: change style directive in use:cssVariables, eventually setting different function per element -->
 <article class="card" style:background-color={card.style.backgroundColor} style:color={card.style.color}>
-  {#if card.imgFile}
-    <img src={card.imgFile} alt={card.title} />
+  {#if card.imgFiles}
+    <img src={card.imgFiles[0]} alt={card.title} />
   {/if}
   <div class="card__main">
     {#if card.title}
@@ -21,12 +21,12 @@
       <slot />
     </p>
   </div>
-  <div class="card__footer" style:background-color={card.style.backgroundColor} style:color={card.style.color}>
+  <div class="card__footer" style:background-color={card.style.backgroundColor} style:colour={card.style.color}>
     <p>
       <slot name="cardFooterText" />
     </p>
     {#if card.action}
-      <a href={card.link} style:color={card.style.color}>{card.action}</a>
+      <a href={card.link}>{card.action}</a>
     {/if}
   </div>
 </article>
