@@ -27,12 +27,12 @@
   disabled={btn.disabled}
   aria-label={btn.ariaLabel}
   value={btn.value}
+  style:font-size={btn.style.fontSize}
   style:background-color={btn.style.backgroundColor}
   style:color={btn.style.color}
   style:borderWidth={btn.style.borderWidth}
   style:borderStyle={btn.style.borderStyle}
   style:borderColor={btn.style.borderColor}
-  style:font-size={btn.style.fontSize}
   style:padding={btn.style.padding}
   style:width={btn.style.width}
   style:height={btn.style.height}
@@ -41,7 +41,7 @@
   on:mouseenter|preventDefault|stopPropagation={mouseEntered}
   on:mouseleave|preventDefault|stopPropagation={mouseLeft}
 >
-  <slot />
+  <span><slot /></span>
 </button>
 
 <style>

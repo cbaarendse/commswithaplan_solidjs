@@ -1,10 +1,10 @@
-<script>
+<script lang="ts">
   // imports
   import Button from '../reusable/Button.svelte';
   import {language} from '../stores/utils';
 
   // variables
-
+  let buttonFontSize: string = 'var(--ra-fs-m)';
   //functions
 </script>
 
@@ -18,13 +18,12 @@
   <Button
     btn={{
       type: 'button',
-      role: 'button',
+      ariaRoleDescription: 'button',
       className: 'consent__visibility',
-      backgroundColor: 'transparent',
-      height: 'fit-content',
+      style: {backgroundColor: 'transparent', height: 'fit-content'},
       disabled: false
     }}
-    on:clickedButton><span class="button__text">&#127850;</span></Button
+    on:clickedButton><span class="button__text" style="--buttonFontSize: {buttonFontSize};">&#127850;</span></Button
   >
 </footer>
 
@@ -43,6 +42,6 @@
     margin: 0 1rem;
   }
   span.button__text {
-    font-size: var(--ra-fs-m);
+    font-size: var(--buttonFontSize);
   }
 </style>

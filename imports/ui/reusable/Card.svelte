@@ -21,7 +21,7 @@
       <slot />
     </p>
   </div>
-  <div class="card__footer" style:background-color={card.style.backgroundColor} style:colour={card.style.color}>
+  <div class="card__footer" style:background-color={card.style.backgroundColor} style:color={card.style.color}>
     <p>
       <slot name="cardFooterText" />
     </p>
