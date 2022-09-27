@@ -1,14 +1,12 @@
 <script lang="ts">
-  // types
-  import type {Brand} from '../types/types';
-
   // variables
-  export let brand: Brand;
+  export let brand: Omit<svelteHTML.IntrinsicElements['div'], 'size'> &
+    Omit<svelteHTML.IntrinsicElements['span'], 'size'> & {size?: string | null | undefined};
 </script>
 
 <div class="brand">
   <slot />
-  <span style:font-size={brand.style.fontSize} style:color={brand.style.color}>
+  <span style:font-size={brand.size} style:color={brand.color}>
     {brand.title}
   </span>
 </div>
