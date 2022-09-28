@@ -25,14 +25,12 @@
           }}
           ><LogoCommsWithAPlan
             logo={{
-              style: {
-                color: 'var(--ra-blue)',
-                fontSize: 'var(--ra-fs-5xl)',
-                width: 'var(--ra-5xl)',
-                height: 'var(--ra-5xl)',
-                minWidth: 'var(--ra-5xl)',
-                minHeight: 'var(--ra-fxl)'
-              },
+              color: 'var(--ra-blue)',
+              size: 'var(--ra-fs-5xl)',
+              width: 'var(--ra-5xl)',
+              height: 'var(--ra-5xl)',
+              minWidth: 'var(--ra-5xl)',
+              minHeight: 'var(--ra-fxl)',
               colored: true
             }}
           /></Brand
@@ -40,9 +38,9 @@
       </Header>
 
       {#each translatedAboutItems as item}
-        <Card card={{style: {}}}>{item.description}</Card>
+        <Card card={{}}>{item.description}</Card>
       {/each}
-      <Card card={{style: {}}}>
+      <Card card={{}}>
         <a href="https://www.linkedin.com/in/cbaarendse/"> https://www.linkedin.com/in/cbaarendse/ </a>
       </Card>
     </div>

@@ -19,18 +19,17 @@
       <Header>
         <Brand
           brand={{
-            style: {color: 'var(--ra-red)', fontSize: 'var(--ra-fs-2xl)'},
+            color: 'var(--ra-red)',
+            size: 'var(--ra-fs-2xl)',
             title: `Consultancy - ${$language === 'dutch' ? 'Werk' : 'Work'}`
           }}
           ><LogoCommsWithAPlan
             logo={{
-              style: {
-                fontSize: 'var(--ra-fs-5xl)',
-                width: 'var(--ra-5xl)',
-                height: 'var(--ra-fxl)',
-                minWidth: 'var(--ra-5xl)',
-                minHeight: 'var(--ra-fxl)'
-              },
+              size: 'var(--ra-fs-5xl)',
+              width: 'var(--ra-5xl)',
+              height: 'var(--ra-fxl)',
+              minWidth: 'var(--ra-5xl)',
+              minHeight: 'var(--ra-fxl)',
               colored: true
             }}
           /></Brand
@@ -46,7 +45,7 @@
       </p>
 
       {#each translatedWorkItems as item}
-        <Card card={{style: {color: item.color}, title: item.displayName, imgFiles: [`/consultancy/${item.name}.jpg`]}}>
+        <Card card={{color: item.color, title: item.displayName, imgFiles: [`/consultancy/${item.name}.jpg`]}}>
           {item.description}
         </Card>
       {/each}

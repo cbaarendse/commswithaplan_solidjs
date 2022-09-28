@@ -23,17 +23,16 @@
         <Brand
           brand={{
             title: `Consultancy - ${$language === 'dutch' ? 'Home' : 'Home'}`,
-            style: {color: 'var(--ra-blue)', fontSize: 'var(--ra-fs-2xl)'}
+            color: 'var(--ra-blue)',
+            size: 'var(--ra-fs-2xl)'
           }}
           ><LogoCommsWithAPlan
             logo={{
-              style: {
-                fontSize: 'var(--ra-fs-5xl)',
-                width: 'var(--ra-5xl)',
-                height: 'var(--ra-5xl)',
-                minWidth: 'var(--ra-5xl)',
-                minHeight: 'var(--ra-fxl)'
-              },
+              size: 'var(--ra-fs-5xl)',
+              width: 'var(--ra-5xl)',
+              height: 'var(--ra-5xl)',
+              minWidth: 'var(--ra-5xl)',
+              minHeight: 'var(--ra-fxl)',
               colored: true
             }}
           /></Brand

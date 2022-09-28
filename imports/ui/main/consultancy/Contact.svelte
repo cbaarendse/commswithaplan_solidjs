@@ -25,13 +25,11 @@
           }}
           ><LogoCommsWithAPlan
             logo={{
-              style: {
-                fontSize: 'var(--ra-fs-5xl)',
-                width: 'var(--ra-5xl)',
-                height: 'var(--ra-5xl)',
-                minWidth: 'var(--ra-5xl)',
-                minHeight: 'var(--ra-fxl)'
-              },
+              size: 'var(--ra-fs-5xl)',
+              width: 'var(--ra-5xl)',
+              height: 'var(--ra-5xl)',
+              minWidth: 'var(--ra-5xl)',
+              minHeight: 'var(--ra-fxl)',
               colored: true
             }}
           />
@@ -39,7 +37,7 @@
       </Header>
 
       {#each translatedContactItems as item}
-        <Card card={{style: {color: 'blue'}, title: item.displayName}}>
+        <Card card={{color: 'blue', title: item.displayName}}>
           <address>
             {item.description}
           </address>
@@ -48,7 +46,7 @@
       <Card
         card={{
           title: 'LinkedIn',
-          style: {color: 'blue'},
+          color: 'blue',
           link: 'https://www.linkedin.com/in/cbaarendse/',
           action: 'LinkedIn'
         }}

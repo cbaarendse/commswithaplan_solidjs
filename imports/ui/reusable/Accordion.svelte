@@ -20,12 +20,10 @@
         ariaRoleDescription: 'button',
         id: 'toggle__accordion',
         className: 'accordion__button',
-        style: {
-          color: 'var(--ra-white)',
-          backgroundColor: 'var(--ra-green)',
-          padding: '0 1rem',
-          height: 'var(--ra-3xl)'
-        },
+        color: 'var(--ra-white)',
+        backgroundColor: 'var(--ra-green)',
+        padding: '0 1rem',
+        height: 'var(--ra-3xl)',
         disabled: false
       }}
       on:clickedButton={() => (acc.visible = !acc.visible)}

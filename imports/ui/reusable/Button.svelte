@@ -20,23 +20,22 @@
 </script>
 
 <button
-  class={btn.className}
+  class={btn.class}
   id={btn.id}
   type={btn.type}
-  role={btn.ariaRoleDescription}
+  role={btn.role}
   disabled={btn.disabled}
-  aria-label={btn.ariaLabel}
   value={btn.value}
-  style:font-size={btn.style.fontSize}
-  style:background-color={btn.style.backgroundColor}
-  style:color={btn.style.color}
-  style:borderWidth={btn.style.borderWidth}
-  style:borderStyle={btn.style.borderStyle}
-  style:borderColor={btn.style.borderColor}
-  style:padding={btn.style.padding}
-  style:width={btn.style.width}
-  style:height={btn.style.height}
-  style:minWidth={btn.style.minWidth}
+  style:font-size={btn.size}
+  style:background-color={btn.backgroundColor}
+  style:color={btn.color}
+  style:borderWidth={btn.borderWidth}
+  style:borderStyle={btn.borderStyle}
+  style:borderColor={btn.borderColor}
+  style:padding={btn.padding}
+  style:width={btn.width}
+  style:height={btn.height}
+  style:minWidth={btn.minWidth}
   on:click|preventDefault|stopPropagation={clickedButton}
   on:mouseenter|preventDefault|stopPropagation={mouseEntered}
   on:mouseleave|preventDefault|stopPropagation={mouseLeft}

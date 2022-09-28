@@ -24,19 +24,22 @@
       <Header>
         <Brand
           brand={{
-            style: {color: 'var(--ra-blue)', fontSize: 'var(--ra-fs-2xl)'},
+            color: 'var(--ra-blue)',
+            size: 'var(--ra-fs-2xl)',
             title: `Tools - ${$language === 'dutch' ? 'Home' : 'Home'}`
           }}
           ><LogoReach
             logo={{
-              style: {fontSize: 'var(--ra-fs-5xl)', width: 'var(--ra-5xl)', height: 'var(--ra-5xl)'},
+              size: 'var(--ra-fs-5xl)',
+              width: 'var(--ra-5xl)',
+              height: 'var(--ra-5xl)',
               colored: true
             }}
           /></Brand
         >
       </Header>
       {#each translatedToolsHomeItems as item}
-        <Card card={{style: {color: 'blue'}, title: item.displayName, link: item.link, action: item.action}}>
+        <Card card={{color: 'blue', title: item.displayName, link: item.link, action: item.action}}>
           {item.description}
         </Card>
       {/each}

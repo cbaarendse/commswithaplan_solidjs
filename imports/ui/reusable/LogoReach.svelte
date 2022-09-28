@@ -6,7 +6,7 @@
   export let logo: Logo;
 </script>
 
-<div class="logo" style:font-size={logo.style.fontSize} style:width={logo.style.width} style:height={logo.style.height}>
+<div class="logo" style:font-size={logo.size} style:width={logo.width} style:height={logo.height}>
   <div class="circle1" style:background-color={logo.colored ? 'var(--ra-blue)' : 'var(--ra-blue-grayscale)'} />
   <div class="circle2" style:background-color={logo.colored ? 'var(--ra-green)' : 'var(--ra-green-grayscale)'} />
   <div class="circle3" style:background-color={logo.colored ? 'var(--ra-red)' : 'var(--ra-red-grayscale)'} />

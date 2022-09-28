@@ -30,13 +30,22 @@ type Colored = {colored: boolean};
 
 // components
 export type Accordion = {visible: boolean};
-export type Brand = Omit<Partial<HTMLElement>, 'style'> & {style: Partial<CSSStyleDeclaration>};
-export type Button = Omit<Partial<HTMLButtonElement>, 'type' | 'style'> & {
-  type: 'submit' | 'reset' | 'button' | null | undefined;
-  style: Partial<CSSStyleDeclaration>;
+export type Brand = Omit<svelteHTML.IntrinsicElements['span'], 'size'> & {size?: string | null | undefined};
+export type Button = svelteHTML.IntrinsicElements['button'] & {
+  backgroundColor?: string | null | undefined;
+  padding?: number | null | undefined;
+  minWidth?: number | null | undefined;
+  minHeight?: number | null | undefined;
+  borderWidth?: number | null | undefined;
+  borderStyle?: string | null | undefined;
+  borderColor?: string | null | undefined;
 };
-export type Card = Partial<{title: string} & Illustrated & Actionable> &
-  Omit<Partial<HTMLDivElement>, 'style'> & {style: Partial<CSSStyleDeclaration>};
-export type Checkbox = Omit<Partial<HTMLInputElement>, 'style'> & {style: Partial<CSSStyleDeclaration>};
-export type Logo = Omit<Partial<HTMLElement>, 'style'> & {style: Partial<CSSStyleDeclaration>} & Colored;
+export type Card = Partial<Illustrated & Actionable> &
+  svelteHTML.IntrinsicElements['div'] & {backgroundColor?: string | null | undefined};
+export type Checkbox = svelteHTML.IntrinsicElements['div'] & {backgroundColor?: string | null | undefined};
+export type Logo = Omit<svelteHTML.IntrinsicElements['div'], 'size'> & {
+  size?: string | null | undefined;
+  minWidth?: string | null | undefined;
+  minHeight?: string | null | undefined;
+} & Colored;
 export type SelectItem = {name: string; index: string};

@@ -10,9 +10,9 @@
   style:background={logo.colored
     ? undefined
     : 'linear-gradient(to bottom, var(--ra-red-grayscale) 33%, var(--ra-green-grayscale) 33% 67%, var(--ra-blue-grayscale) 67%'}
-  style:font-size={logo.style.fontSize}
-  style:width={logo.style.width}
-  style:height={logo.style.height}
+  style:font-size={logo.size}
+  style:width={logo.width}
+  style:height={logo.height}
 />
 
 <style>

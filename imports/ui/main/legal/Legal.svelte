@@ -31,13 +31,16 @@
       <Header>
         <Brand
           brand={{
-            style: {color: 'var(--ra-blue)', fontSize: 'var(--ra-fs-2xl)'},
+            color: 'var(--ra-blue)',
+            size: 'var(--ra-fs-2xl)',
             title: `${$language === 'dutch' ? 'Juridisch' : 'Legal'} - ${policy($router.path, $language)}`
           }}
         >
           <LogoReach
             logo={{
-              style: {fontSize: 'var(--ra-fs-5xl)', width: 'var(--ra-5xl)', height: 'var(--ra-5xl)'},
+              size: 'var(--ra-fs-5xl)',
+              width: 'var(--ra-5xl)',
+              height: 'var(--ra-5xl)',
               colored: true
             }}
           /></Brand

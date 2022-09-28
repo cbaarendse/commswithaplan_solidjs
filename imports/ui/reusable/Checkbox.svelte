@@ -10,14 +10,14 @@
 <form>
   <label for={cbx.name}>{displayName}</label>
   <input
-    class="{`input__checkbox ${cbx.className}`};"
+    class="{`input__checkbox ${cbx.class}`};"
     name={cbx.name}
     id={cbx.id}
     type="checkbox"
     placeholder={cbx.placeholder}
     min={cbx.min}
     max={cbx.max}
-    readOnly={cbx.readOnly}
+    readonly={cbx.readonly}
     disabled={cbx.disabled}
     {checked}
     on:change={() => (checked = !checked)}

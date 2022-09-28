@@ -1,7 +1,9 @@
 <script lang="ts">
+  // imports
+  import {Brand} from '../types/types';
+
   // variables
-  export let brand: Omit<svelteHTML.IntrinsicElements['div'], 'size'> &
-    Omit<svelteHTML.IntrinsicElements['span'], 'size'> & {size?: string | null | undefined};
+  export let brand: Brand;
 </script>
 
 <div class="brand">
