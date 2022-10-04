@@ -2,13 +2,10 @@
   // imports
   import {createEventDispatcher} from 'svelte';
   import {language} from '../stores/utils';
+  import {Input} from '../types/types';
 
   // exports
-  export let input: Partial<Omit<HTMLInputElement, 'value' | 'min' | 'max'>> & {
-    value: string;
-    min: string;
-    max: string;
-  };
+  export let input: Input;
 
   //   ,
   //   'name' | 'className' | 'id' | 'min' | 'max' | 'placeholder' | 'readOnly' | 'value'
@@ -31,14 +28,14 @@
 <form>
   <label for={input.name}>{$language === 'dutch' ? 'Invoer voor ' : 'Input for '}{displayName}</label>
   <input
-    class="{`input__field ${input.className}`};"
+    class="{`input__field ${input.class}`};"
     name={input.name}
     id={input.id}
     type="number"
     placeholder={input.placeholder}
     min={input.min}
     max={input.max}
-    readOnly={input.readOnly}
+    readOnly={input.readonly}
     bind:value={input.value}
   />
   <input
