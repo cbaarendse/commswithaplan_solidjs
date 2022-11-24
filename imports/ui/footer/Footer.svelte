@@ -19,8 +19,9 @@
     btn={{
       type: 'button',
       ariaRoleDescription: 'button',
-      className: 'consent__visibility',
-      style: {backgroundColor: 'transparent', height: 'fit-content'},
+      class: 'consent__visibility',
+      backgroundColor: 'transparent',
+      height: 'fit-content',
       disabled: false
     }}
     on:clickedButton><span class="button__text" style="--buttonFontSize: {buttonFontSize};">&#127850;</span></Button

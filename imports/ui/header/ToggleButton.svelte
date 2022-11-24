@@ -19,10 +19,12 @@
 <!-- This button animates when used for toggling navigation, but also if screen size is changed beyond threshold. -->
 <Button
   btn={{
-    className: 'navigation__toggle',
+    class: 'navigation__toggle',
     type: 'button',
     ariaRoleDescription: 'button',
-    style: {backgroundColor: 'transparent', width: 'var(--ra-xl)', height: 'var(--ra-xl)'},
+    backgroundColor: 'transparent',
+    width: 'var(--ra-xl)',
+    height: 'var(--ra-xl)',
     disabled: false
   }}
   on:clickedButton={() => ($navigationVisible = !$navigationVisible)}

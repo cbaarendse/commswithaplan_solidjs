@@ -19,7 +19,7 @@
         type: 'button',
         ariaRoleDescription: 'button',
         id: 'toggle__accordion',
-        className: 'accordion__button',
+        class: 'accordion__button',
         color: 'var(--ra-white)',
         backgroundColor: 'var(--ra-green)',
         padding: '0 1rem',

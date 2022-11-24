@@ -82,10 +82,6 @@
     hideIf();
   }
 
-  function print() {
-    window.print();
-  }
-
   let languageUnsubscribe: Unsubscriber = language.subscribe((newLanguage) => {
     touchPointsInPlan = Reach.changeLanguage(newLanguage, touchPointsInPlan, $touchPointsBasics);
     touchPointsInPlan = Reach.sortByName(touchPointsInPlan);

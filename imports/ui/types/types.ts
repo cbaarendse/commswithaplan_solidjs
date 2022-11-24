@@ -24,8 +24,9 @@ export type Year = {name: string; days: number};
 export type Accordion = {visible: boolean};
 export type Brand = Omit<svelteHTML.IntrinsicElements['span'], 'size'> & {size?: string | null | undefined};
 export type Button = svelteHTML.IntrinsicElements['button'] & {
+  ariaRoleDescription?: string | null | undefined;
   backgroundColor?: string | null | undefined;
-  padding?: number | null | undefined;
+  padding?: number | string | null | undefined;
   minWidth?: number | null | undefined;
   minHeight?: number | null | undefined;
   borderWidth?: number | null | undefined;

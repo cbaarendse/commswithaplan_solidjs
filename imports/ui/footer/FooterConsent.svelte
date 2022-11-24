@@ -67,9 +67,8 @@
       cbx={{
         name: 'ad_analytics_personal_storage',
         id: 'ad_storage__checkbox',
-        className: 'consent__checkbox',
-        style: {},
-        readOnly: false,
+        class: 'consent__checkbox',
+        readonly: false,
         disabled: false
       }}
       bind:checked={ad_analytics_personal_storage_checked}
@@ -80,9 +79,8 @@
       cbx={{
         name: 'functional_storage',
         id: 'functional_storage__checkbox',
-        className: 'consent__checkbox',
-        style: {},
-        readOnly: false,
+        class: 'consent__checkbox',
+        readonly: false,
         disabled: functional_security_storage_checked
       }}
       checked={functional_security_storage_checked}
@@ -93,9 +91,12 @@
         type: 'submit',
         ariaRoleDescription: 'button',
         id: 'set__consent',
-        className: 'consent__button',
+        class: 'consent__button',
         disabled: false,
-        style: {color: 'var(--ra-white)', backgroundColor: 'var(--ra-red)', padding: '0 1rem', height: 'var(--ra-3xl)'}
+        color: 'var(--ra-white)',
+        backgroundColor: 'var(--ra-red)',
+        padding: '0 1rem',
+        height: 'var(--ra-3xl)'
       }}
       on:clickedButton={() => setConsent('denied')}
       >{#if $language == 'dutch'}Wijs af{:else}Reject{/if}</Button
@@ -105,14 +106,12 @@
         type: 'submit',
         ariaRoleDescription: 'button',
         id: 'set__consent',
-        className: 'consent__button',
+        class: 'consent__button',
         disabled: false,
-        style: {
-          color: 'var(--ra-white)',
-          backgroundColor: 'var(--ra-green)',
-          padding: '0 1rem',
-          height: 'var(--ra-3xl)'
-        }
+        color: 'var(--ra-white)',
+        backgroundColor: 'var(--ra-green)',
+        padding: '0 1rem',
+        height: 'var(--ra-3xl)'
       }}
       on:clickedButton={() => setConsent('granted')}
       >{#if $language == 'dutch'}Accepteer{:else}Accept{/if}</Button

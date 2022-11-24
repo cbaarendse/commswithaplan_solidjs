@@ -34,7 +34,6 @@
   <button type="button" on:click={() => dispatch('hide')}
     >{#if showAll}&#8722;{:else}&#8801;{/if}</button
   >
-  <button type="button" on:click={() => dispatch('print')}>&#9636</button>
 
   <span class="reach-label" on:click|preventDefault|stopPropagation={() => showOutputDescription('total_reach')}
     >{Ui.translate('total', $translations, $language)}&nbsp;{Ui.translate(
