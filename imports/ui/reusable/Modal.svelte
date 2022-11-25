@@ -20,16 +20,11 @@
     <div class="modal__button__container">
       <Button
         btn={{
-          className: '',
           type: 'button',
           ariaRoleDescription: 'button',
-          style: {
-            backgroundColor: 'transparent',
-            borderWidth: '',
-            borderStyle: '',
-            borderColor: 'transparent',
-            fontSize: 'var(--ra-xl)'
-          },
+          backgroundColor: 'transparent',
+          borderColor: 'transparent',
+          fontSize: 'var(--ra-xl)',
           disabled: false
         }}
         on:clickedButton={() => (display = 'none')}

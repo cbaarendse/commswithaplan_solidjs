@@ -6,11 +6,6 @@
 
   // exports
   export let input: Input;
-
-  //   ,
-  //   'name' | 'className' | 'id' | 'min' | 'max' | 'placeholder' | 'readOnly' | 'value'
-  // > &
-  //   Partial<Pick<HTMLInputElement, 'type'>>;
   export let displayName: string;
 
   // variables
@@ -35,7 +30,7 @@
     placeholder={input.placeholder}
     min={input.min}
     max={input.max}
-    readOnly={input.readonly}
+    readonly={input.readonly}
     bind:value={input.value}
   />
   <input

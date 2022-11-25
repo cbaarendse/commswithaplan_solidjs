@@ -32,13 +32,13 @@
         <Brand
           brand={{
             color: 'var(--ra-blue)',
-            size: 'var(--ra-fs-2xl)',
+            sizes: 'var(--ra-fs-2xl)',
             title: `${$language === 'dutch' ? 'Juridisch' : 'Legal'} - ${policy($router.path, $language)}`
           }}
         >
           <LogoReach
             logo={{
-              size: 'var(--ra-fs-5xl)',
+              sizes: 'var(--ra-fs-5xl)',
               width: 'var(--ra-5xl)',
               height: 'var(--ra-5xl)',
               colored: true

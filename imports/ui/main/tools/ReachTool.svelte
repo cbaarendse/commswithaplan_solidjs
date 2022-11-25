@@ -96,12 +96,12 @@
         <Brand
           brand={{
             color: 'var(--ra-blue)',
-            size: 'var(--ra-fs-2xl)',
+            sizes: 'var(--ra-fs-2xl)',
             title: `Tools - ${$language === 'dutch' ? 'Bereik' : 'Reach'}`
           }}
           ><LogoReach
             logo={{
-              size: 'var(--ra-fs-5xl)',
+              sizes: 'var(--ra-fs-5xl)',
               width: 'var(--ra-5xl)',
               height: 'var(--ra-5xl)',
               colored: true
@@ -118,7 +118,6 @@
         on:reset={reset}
         on:sort={sort}
         on:hide={hide}
-        on:print={print}
       />
       <div class="touchpoints__flex">
         {#each touchPointsInPlan as touchPoint}

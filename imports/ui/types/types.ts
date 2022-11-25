@@ -8,6 +8,7 @@ declare global {
 // content
 export type Content = {name: string; language: string; displayName: string; description: string};
 export type Color = {color: string};
+export type Colored = {colored: boolean};
 export type Illustrated = {imgFiles: string[]};
 export type Actionable = {link: string; action: string};
 type Paragraph = {displayName: string; description: string; elaboration?: string};
@@ -22,26 +23,14 @@ export type Year = {name: string; days: number};
 
 // components
 export type Accordion = {visible: boolean};
-export type Brand = Omit<svelteHTML.IntrinsicElements['span'], 'size'> & {size?: string | null | undefined};
-export type Button = svelteHTML.IntrinsicElements['button'] & {
-  ariaRoleDescription?: string | null | undefined;
-  backgroundColor?: string | null | undefined;
-  padding?: number | string | null | undefined;
-  minWidth?: number | null | undefined;
-  minHeight?: number | null | undefined;
-  borderWidth?: number | null | undefined;
-  borderStyle?: string | null | undefined;
-  borderColor?: string | null | undefined;
-};
+export type Brand = svelteHTML.IntrinsicElements['span'] & Partial<HTMLElement['style']>;
+export type Button = svelteHTML.IntrinsicElements['button'] &
+  Partial<HTMLElement['style']> & {ariaRoleDescription?: string | null | undefined};
 export type Card = Partial<Illustrated & Actionable> &
-  svelteHTML.IntrinsicElements['div'] & {backgroundColor?: string | null | undefined};
-export type Checkbox = svelteHTML.IntrinsicElements['div'] & {backgroundColor?: string | null | undefined};
-export type Logo = Omit<svelteHTML.IntrinsicElements['div'], 'size'> & {
-  size?: string | null | undefined;
-  minWidth?: string | null | undefined;
-  minHeight?: string | null | undefined;
-  colored: boolean;
-};
+  svelteHTML.IntrinsicElements['div'] &
+  Partial<HTMLElement['style']>;
+export type Checkbox = svelteHTML.IntrinsicElements['div'] & Partial<HTMLElement['style']>;
+export type Logo = svelteHTML.IntrinsicElements['div'] & Partial<HTMLElement['style']> & Colored;
 export type SelectItem = {name: string; index: string};
 export type Input = Partial<Omit<svelteHTML.IntrinsicElements['input'], 'value' | 'min' | 'max'>> & {
   value: string;

@@ -20,7 +20,7 @@
         <Card
           card={{
             title: item.displayName,
-            style: {color: 'blue'},
+            color: 'blue',
             imgFiles: item.imgFiles,
             link: item.link,
             action: item.action

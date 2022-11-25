@@ -69,9 +69,9 @@
         value: touchPoint.value.toString(),
         min: '0',
         max: '100',
-        className: 'manual__input',
+        class: 'manual__input',
         placeholder: Ui.translate('input', $translations, $language),
-        readOnly: false
+        readonly: false
       }}
       on:submitValueForName
       on:submitValueForName={() => (displayManualInput = 'none')}

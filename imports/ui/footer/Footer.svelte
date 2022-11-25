@@ -18,7 +18,6 @@
   <Button
     btn={{
       type: 'button',
-      ariaRoleDescription: 'button',
       class: 'consent__visibility',
       backgroundColor: 'transparent',
       height: 'fit-content',

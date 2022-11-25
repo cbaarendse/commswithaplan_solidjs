@@ -24,11 +24,11 @@
           brand={{
             title: `Consultancy - ${$language === 'dutch' ? 'Home' : 'Home'}`,
             color: 'var(--ra-blue)',
-            size: 'var(--ra-fs-2xl)'
+            sizes: 'var(--ra-fs-2xl)'
           }}
           ><LogoCommsWithAPlan
             logo={{
-              size: 'var(--ra-fs-5xl)',
+              sizes: 'var(--ra-fs-5xl)',
               width: 'var(--ra-5xl)',
               height: 'var(--ra-5xl)',
               minWidth: 'var(--ra-5xl)',
@@ -40,7 +40,7 @@
       </Header>
 
       {#each translatedConsultancyHomeItems as item}
-        <Card card={{title: item.displayName, style: {color: 'blue'}, link: item.link, action: item.action}}>
+        <Card card={{title: item.displayName, color: 'blue', link: item.link, action: item.action}}>
           <span>
             {@html item.description}
           </span>

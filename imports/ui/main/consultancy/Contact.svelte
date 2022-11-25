@@ -20,12 +20,12 @@
         <Brand
           brand={{
             color: 'var(--ra-blue)',
-            size: 'var(--ra-fs-2xl)',
+            sizes: 'var(--ra-fs-2xl)',
             title: `Consultancy - ${$language === 'dutch' ? 'Contact' : 'Contact'}`
           }}
           ><LogoCommsWithAPlan
             logo={{
-              size: 'var(--ra-fs-5xl)',
+              sizes: 'var(--ra-fs-5xl)',
               width: 'var(--ra-5xl)',
               height: 'var(--ra-5xl)',
               minWidth: 'var(--ra-5xl)',
