@@ -28,7 +28,7 @@
   value={btn.value}
   style:font-size={btn.size}
   style:background-color={btn.backgroundColor}
-  style:color={btn.color}
+  style:font-color={btn.color}
   style:borderWidth={btn.borderWidth}
   style:borderStyle={btn.borderStyle}
   style:borderColor={btn.borderColor}

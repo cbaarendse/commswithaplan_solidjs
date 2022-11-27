@@ -2,11 +2,12 @@
   // imports
   import {createEventDispatcher} from 'svelte';
   import {Ui} from '../types/classes';
+  import type {Select} from '../types/types';
   import {language, translations} from '../stores/utils';
 
   // exports
-  export let select: HTMLInputElement;
-  export let list: HTMLInputElement[];
+  export let select: Select;
+  export let selectList: Select[];
   export let displayName: string;
 
   //variables
@@ -22,14 +23,14 @@
 <form>
   <label for={select.name}>{$language === 'dutch' ? 'Kies ' : 'Choose '}{displayName}</label>
   <select
-    class={select.className}
+    class={select.class}
     id={select.id}
     name={select.name}
     bind:value={select.value}
     on:blur|preventDefault|stopPropagation={selectOption}
   >
-    {#each list as option (option.id)}
-      <option value={option.name}>{Ui.translate(option.name, $translations, $language) || option.value}</option>
+    {#each selectList as option (option.id)}
+      <option value={option.name}>{Ui.translate(option.name, $translations, $language) || option.value} </option>
     {/each}
   </select>
 </form>

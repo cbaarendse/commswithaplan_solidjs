@@ -118,7 +118,7 @@ export class Reach {
 
 // Ui
 export class Ui {
-  static translate(input: string, items: Translation[], language: string): string {
+  static translate(input: string | undefined | null, items: Translation[], language: string): string {
     return items.filter((element: Translation) => element.name === input && element.language === language)[0]
       .displayName;
   }

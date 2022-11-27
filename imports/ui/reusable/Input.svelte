@@ -2,7 +2,7 @@
   // imports
   import {createEventDispatcher} from 'svelte';
   import {language} from '../stores/utils';
-  import {Input} from '../types/types';
+  import type {Input} from '../types/types';
 
   // exports
   export let input: Input;
@@ -37,7 +37,11 @@
     class="submit__button"
     type="submit"
     value={$language === 'dutch' ? 'Verstuur' : 'Submit'}
-    disabled={parseFloat(input.value) < parseInt(input.min) || parseFloat(input.value) > parseInt(input.max)}
+    disabled={input.value && input.min
+      ? parseFloat(input.value) < parseInt(input.min)
+      : false || (input.value && input.max)
+      ? parseFloat(input.value) > parseInt(input.max)
+      : false}
     on:click|preventDefault|stopPropagation={submitValue}
   />
   <input

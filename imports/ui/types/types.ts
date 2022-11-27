@@ -25,19 +25,42 @@ export type Year = {name: string; days: number};
 export type Accordion = {visible: boolean};
 export type Brand = svelteHTML.IntrinsicElements['span'] & Partial<HTMLElement['style']>;
 export type Button = svelteHTML.IntrinsicElements['button'] &
-  Partial<HTMLElement['style']> & {ariaRoleDescription?: string | null | undefined};
+  Partial<HTMLElement['style']> & {ariaRoleDescription?: string | undefined | null};
 export type Card = Partial<Illustrated & Actionable> &
   svelteHTML.IntrinsicElements['div'] &
   Partial<HTMLElement['style']>;
 export type Checkbox = svelteHTML.IntrinsicElements['div'] & Partial<HTMLElement['style']>;
 export type Logo = svelteHTML.IntrinsicElements['div'] & Partial<HTMLElement['style']> & Colored;
 export type SelectItem = {name: string; index: string};
-export type Input = Partial<Omit<svelteHTML.IntrinsicElements['input'], 'value' | 'min' | 'max'>> & {
-  value: string;
-  min: string;
-  max: string;
-};
+export type Input = Omit<
+  Partial<svelte.JSX.HTMLAttributes<HTMLElementTagNameMap['input']>>,
+  'value' | 'min' | 'max'
+> & {
+  value: string | undefined | null;
+  min: string | undefined | null;
+  max: string | undefined | null;
+} & Partial<HTMLElement['style']>;
+export type Select = Omit<
+  Partial<svelte.JSX.HTMLAttributes<HTMLElementTagNameMap['select']>>,
+  'value' | 'min' | 'max'
+> & {
+  value: string | undefined | null;
+  min: string | undefined | null;
+  max: string | undefined | null;
+} & Partial<HTMLElement['style']>;
+// export type Slider = Omit<
+//   Partial<svelte.JSX.HTMLAttributes<HTMLElementTagNameMap['input']>>,
+//   'value' | 'min' | 'max' | 'step'
+// > & {
+//   value: string | undefined | null;
+//   min: string | undefined | null;
+//   max: string | undefined | null;
+//   step: string | undefined | null;
+// } & Partial<HTMLElement['style']>;
+
+export type Slider = Omit<Input, 'step'> & {step: string | undefined | null};
 
 // building blocks
 // type CWAPColor = {color: 'blue' | 'green' | 'red' | 'teal' | 'grey' | 'transparent' | 'transparentnoborder'};
 // type Display = 'none' | 'block' | 'grid' | 'flex';
+// type Appa = svelte.JSX.AriaAttributes['aria-roledescription'];
