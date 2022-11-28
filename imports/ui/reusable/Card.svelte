@@ -7,13 +7,13 @@
 </script>
 
 <!-- TODO: change style directive in use:cssVariables, eventually setting different function per element -->
-<article class="card" style:background-color={card.backgroundColor} style:color={card.color}>
+<article class="card" style:background-color={card.backgroundColor} style:font-color={card.color}>
   {#if card.imgFiles}
     <img src={card.imgFiles[0]} alt={card.title} />
   {/if}
   <div class="card__main">
     {#if card.title}
-      <div class="card__title" style:color={card.color}>
+      <div class="card__title" style:font-color={card.color}>
         <h2>{card.title}</h2>
       </div>
     {/if}
@@ -21,7 +21,7 @@
       <slot />
     </p>
   </div>
-  <div class="card__footer" style:background-color={card.backgroundColor} style:color={card.color}>
+  <div class="card__footer" style:background-color={card.backgroundColor} style:font-color={card.color}>
     <p>
       <slot name="cardFooterText" />
     </p>

@@ -71,8 +71,7 @@
     grid-template-columns: repeat(auto-fit, minmax(3rem, 1fr));
     grid-auto-rows: 3rem;
     grid-template-areas:
-      'btn1 btn2 . . '
-      'btn3 btn4 . . '
+      'btn1 btn2 btn3 . '
       'rl rl rr rr'
       'll ll lr lr ';
     gap: 1.2rem;
@@ -104,10 +103,6 @@
   }
   .header-content > button:nth-of-type(3) {
     grid-area: btn3;
-    background-color: var(--ra-green);
-  }
-  .header-content > button:nth-of-type(4) {
-    grid-area: btn4;
     background-color: var(--ra-blue);
   }
 
@@ -172,7 +167,7 @@
     .header-content {
       grid-template-areas:
         'brand brand brand brand brand . .'
-        'btn1 btn2 btn3 btn4 btn5 . .'
+        'btn1 btn2 btn3 . . . .'
         'rl rl rr . . . . '
         'll ll lr . . . .';
     }
@@ -181,7 +176,7 @@
   @media screen and (min-width: 414px) {
     .header-content {
       grid-template-areas:
-        'btn1 btn2 btn3 btn4 . .'
+        'btn1 btn2 btn3 . . .'
         'rl rl rr rm rm rm'
         'll ll lr lm lm lm';
     }
@@ -194,7 +189,7 @@
   @media screen and (min-width: 768px) {
     .header-content {
       grid-template-areas:
-        'btn1 btn2 btn3 btn4 . . .'
+        'btn1 btn2 btn3 . . . .'
         'rl rl rr rm rm rm  rm'
         'll ll lr lm lm lm  lm';
     }
@@ -203,7 +198,7 @@
   @media screen and (min-width: 1024px) {
     .header-content {
       grid-template-areas:
-        ' . . . btn1 btn2 btn3 btn4'
+        ' . . . . btn1 btn2 btn3'
         'rl rl rr rm rm rm ll ll lr lm lm lm';
     }
   }

@@ -8,7 +8,7 @@
   //functions
 </script>
 
-<footer on:clickedButton>
+<footer>
   <span>© 2013-2021 Comms With A Plan</span>
   <nav>
     <a href="/consultancy/contact">Contact</a><a href="/legal/termsandconditions"

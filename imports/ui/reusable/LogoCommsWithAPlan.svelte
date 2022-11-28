@@ -13,8 +13,8 @@
   style:font-size={logo.sizes}
   style:width={logo.width}
   style:height={logo.height}
-  style:minWidth={logo.minWidth}
-  style:minHeight={logo.minHeight}
+  style:min-width={logo.minWidth}
+  style:min-height={logo.minHeight}
 >
   <span>P</span>
 </div>

@@ -48,6 +48,14 @@ export type Select = Omit<
   min: string | undefined | null;
   max: string | undefined | null;
 } & Partial<HTMLElement['style']>;
+
+export type Slider = Omit<Input, 'step'> & {step: string | undefined | null};
+
+// building blocks
+// type CWAPColor = {color: 'blue' | 'green' | 'red' | 'teal' | 'grey' | 'transparent' | 'transparentnoborder'};
+// type Display = 'none' | 'block' | 'grid' | 'flex';
+// type Appa = svelte.JSX.AriaAttributes['aria-roledescription'];
+
 // export type Slider = Omit<
 //   Partial<svelte.JSX.HTMLAttributes<HTMLElementTagNameMap['input']>>,
 //   'value' | 'min' | 'max' | 'step'
@@ -57,10 +65,3 @@ export type Select = Omit<
 //   max: string | undefined | null;
 //   step: string | undefined | null;
 // } & Partial<HTMLElement['style']>;
-
-export type Slider = Omit<Input, 'step'> & {step: string | undefined | null};
-
-// building blocks
-// type CWAPColor = {color: 'blue' | 'green' | 'red' | 'teal' | 'grey' | 'transparent' | 'transparentnoborder'};
-// type Display = 'none' | 'block' | 'grid' | 'flex';
-// type Appa = svelte.JSX.AriaAttributes['aria-roledescription'];

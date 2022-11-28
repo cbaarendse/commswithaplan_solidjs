@@ -1,6 +1,6 @@
 <script lang="ts">
   // imports
-  import {Brand} from '../types/types';
+  import type {Brand} from '../types/types';
 
   // variables
   export let brand: Brand;
@@ -8,7 +8,7 @@
 
 <div class="brand">
   <slot />
-  <span style:font-size={brand.sizes} style:color={brand.color}>
+  <span style:font-size={brand.sizes} style:font-color={brand.color}>
     {brand.title}
   </span>
 </div>

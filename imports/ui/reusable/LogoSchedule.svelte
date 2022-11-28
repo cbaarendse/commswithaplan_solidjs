@@ -8,7 +8,7 @@
 
 <div
   style:background={logo.colored
-    ? undefined
+    ? null
     : 'linear-gradient(to bottom, var(--ra-red-grayscale) 33%, var(--ra-green-grayscale) 33% 67%, var(--ra-blue-grayscale) 67%'}
   style:font-size={logo.sizes}
   style:width={logo.width}

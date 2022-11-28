@@ -29,9 +29,9 @@
   style:font-size={btn.size}
   style:background-color={btn.backgroundColor}
   style:font-color={btn.color}
-  style:borderWidth={btn.borderWidth}
-  style:borderStyle={btn.borderStyle}
-  style:borderColor={btn.borderColor}
+  style:border-width={btn.borderWidth}
+  style:border-style={btn.borderStyle}
+  style:border-color={btn.borderColor}
   style:padding={btn.padding}
   style:width={btn.width}
   style:height={btn.height}
