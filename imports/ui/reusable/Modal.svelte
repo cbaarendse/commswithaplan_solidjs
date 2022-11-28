@@ -24,7 +24,7 @@
           ariaRoleDescription: 'button',
           backgroundColor: 'transparent',
           borderColor: 'transparent',
-          fontSize: 'var(--ra-xl)',
+          fontSize: 'var(--ra-2xl)',
           disabled: false
         }}
         on:clickedButton={() => (display = 'none')}

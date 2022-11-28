@@ -23,8 +23,8 @@ export type Year = {name: string; days: number};
 
 // components
 export type Accordion = {visible: boolean};
-export type Brand = svelteHTML.IntrinsicElements['span'] & Partial<HTMLElement['style']>;
-export type Button = svelteHTML.IntrinsicElements['button'] &
+export type Brand = Partial<svelteHTML.IntrinsicElements['span']> & Partial<HTMLElement['style']>;
+export type Button = Partial<svelteHTML.IntrinsicElements['button']> &
   Partial<HTMLElement['style']> & {ariaRoleDescription?: string | undefined | null};
 export type Card = Partial<Illustrated & Actionable> &
   svelteHTML.IntrinsicElements['div'] &

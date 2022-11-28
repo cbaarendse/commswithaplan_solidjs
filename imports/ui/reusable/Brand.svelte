@@ -8,7 +8,7 @@
 
 <div class="brand">
   <slot />
-  <span style:font-size={brand.sizes} style:font-color={brand.color}>
+  <span style="font-size:{brand.sizes}; font-color:{brand.color}">
     {brand.title}
   </span>
 </div>

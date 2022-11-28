@@ -26,21 +26,14 @@
   role={btn.role}
   disabled={btn.disabled}
   value={btn.value}
-  style:font-size={btn.size}
-  style:background-color={btn.backgroundColor}
-  style:font-color={btn.color}
-  style:border-width={btn.borderWidth}
-  style:border-style={btn.borderStyle}
-  style:border-color={btn.borderColor}
-  style:padding={btn.padding}
-  style:width={btn.width}
-  style:height={btn.height}
-  style:minWidth={btn.minWidth}
+  style="font-size:{btn.fontSize};background-color:{btn.backgroundColor};font-color:{btn.color};
+  border-width:{btn.borderWidth}; border-style:{btn.borderStyle}; border-color:{btn.borderColor};
+  padding:{btn.padding};width:{btn.width};height:{btn.height};minWidth:{btn.minWidth}"
   on:click|preventDefault|stopPropagation={clickedButton}
   on:mouseenter|preventDefault|stopPropagation={mouseEntered}
   on:mouseleave|preventDefault|stopPropagation={mouseLeft}
 >
-  <span><slot /></span>
+  <slot />
 </button>
 
 <style>
