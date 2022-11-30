@@ -17,6 +17,7 @@
   let displayTouchPointDescription: 'none' | 'flex' = 'none';
 
   // functions
+  //style="background-image:url(/reach/{touchPoint.name}.png); opacity:{hovered || touchPoint.value > 0 ? 1 : 0.7};"
 </script>
 
 <div class="touchpoint__grid" style="display:{touchPoint.display};">
@@ -29,8 +30,12 @@
       }}
       on:mouseenter={() => (hovered = true)}
       on:mouseleave={() => (hovered = false)}
-      style="background-image:url(/reach/{touchPoint.name}.png);opacity:{hovered || touchPoint.value > 0 ? 1 : 0.7};"
-    />
+      ><img
+        src="/reach/{touchPoint.name}.png"
+        alt={touchPoint.name}
+        style="opacity:{hovered || touchPoint.value > 0 ? 1 : 0.7};"
+      /></button
+    >
   </div>
   <div class="center">
     <fieldset>
@@ -59,8 +64,20 @@
       }}><span> {Ui.toStringFormat(touchPoint.value)}&nbsp;%</span></button
     >
   </div>
-  <Modal title={touchPoint.displayName} display={displayTouchPointDescription}>{touchPoint.description}</Modal>
-  <Modal title={touchPoint.displayName} display={displayManualInput}>
+  <Modal
+    title={touchPoint.displayName}
+    display={displayTouchPointDescription}
+    on:destroyModal={() => {
+      displayTouchPointDescription = 'none';
+    }}>{touchPoint.description}</Modal
+  >
+  <Modal
+    title={touchPoint.displayName}
+    display={displayManualInput}
+    on:destroyModal={() => {
+      displayManualInput = 'none';
+    }}
+  >
     <Input
       displayName="touchPoint.displayName,"
       input={{
@@ -97,10 +114,7 @@
   }
 
   button.touchpoint {
-    height: var(--ra-7xl);
-    width: var(--ra-7xl);
     padding: var(--ra-xxs);
-    border-radius: 7%;
     border: none;
     background-repeat: no-repeat;
     background-position: center center;
@@ -108,13 +122,13 @@
     background-color: var(--ra-teal-off-white);
     cursor: pointer;
   }
+  img {
+    border-radius: 7%;
+  }
   fieldset {
     border: none;
   }
   button.input {
-    height: var(--ra-7xl);
-    min-width: var(--ra-7xl);
-    width: fit-content;
     padding: var(--ra-xxs);
     border-radius: 50%;
     border: none;
@@ -126,9 +140,9 @@
   }
 
   span {
-    font-size: clamp(var(--ra-fs-xs), var(--ra-fs-weight) * 100vw, var(--ra-fs-m));
+    font-size: clamp(var(--ra-fs-s), var(--ra-fs-weight) * 100vw, var(--ra-fs-l));
   }
-
+  .center,
   .left,
   .right {
     display: flex;

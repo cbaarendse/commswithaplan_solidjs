@@ -119,7 +119,7 @@
         on:sort={sort}
         on:hide={hide}
       />
-      <div class="touchpoints__flex">
+      <div class="touchpoints__grid">
         {#each touchPointsInPlan as touchPoint}
           <ReachTouchPoint
             {touchPoint}
@@ -144,9 +144,15 @@
     grid-column: 1 / -1;
   }
 
-  .touchpoints__flex {
+  .touchpoints__grid {
+    display: grid;
+    grid-template-rows: repeat(auto-fit, minmax(7rem, 10rem));
+    gap: 1rem;
+  }
+
+  /* .touchpoints__flex {
     display: flex;
     flex-direction: column;
     gap: 1rem;
-  }
+  } */
 </style>

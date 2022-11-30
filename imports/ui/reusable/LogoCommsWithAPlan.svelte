@@ -10,7 +10,7 @@
   style="background:{logo.colored
     ? undefined
     : 'linear-gradient(to bottom, var(--ra-red-grayscale) 33%, var(--ra-green-grayscale) 33% 67%, var(--ra-blue-grayscale) 67%'};
-  font-size:{logo.sizes};width:{logo.width};height:{logo.height};min-width:{logo.minWidth};min-height:{logo.minHeight}"
+  font-size:{logo.sizes}; width:{logo.width}; height:{logo.height}; min-width:{logo.minWidth}; min-height:{logo.minHeight}"
 >
   <span>P</span>
 </div>
