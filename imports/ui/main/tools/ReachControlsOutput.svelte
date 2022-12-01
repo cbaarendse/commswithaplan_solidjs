@@ -72,8 +72,8 @@
     grid-auto-rows: 3rem;
     grid-template-areas:
       'btn1 btn2 btn3 . '
-      'rl rl rr rr'
-      'll ll lr lr ';
+      'rl rl . rr'
+      'll ll . lr ';
     gap: 1.2rem;
     padding: 4%;
     border-radius: 0.2rem;
@@ -168,8 +168,8 @@
       grid-template-areas:
         'brand brand brand brand brand . .'
         'btn1 btn2 btn3 . . . .'
-        'rl rl rr . . . . '
-        'll ll lr . . . .';
+        'rl rl . . . . rr '
+        'll ll . . . . lr';
     }
   }
 
