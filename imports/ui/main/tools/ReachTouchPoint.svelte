@@ -17,7 +17,6 @@
   let displayTouchPointDescription: 'none' | 'flex' = 'none';
 
   // functions
-  //style="background-image:url(/reach/{touchPoint.name}.png); opacity:{hovered || touchPoint.value > 0 ? 1 : 0.7};"
 </script>
 
 <div class="touchpoint__grid" style="display:{touchPoint.display};">
@@ -30,12 +29,8 @@
       }}
       on:mouseenter={() => (hovered = true)}
       on:mouseleave={() => (hovered = false)}
-      ><img
-        src="/reach/{touchPoint.name}.png"
-        alt={touchPoint.name}
-        style="opacity:{hovered || touchPoint.value > 0 ? 1 : 0.7};"
-      /></button
-    >
+      style="background-image:url(/reach/{touchPoint.name}.png); opacity:{hovered || touchPoint.value > 0 ? 1 : 0.7};"
+    />
   </div>
   <div class="center">
     <fieldset>
@@ -107,28 +102,41 @@
     padding: 0.4em 1em 0.4em 1em;
     border-radius: 0.2em;
   }
-  @media screen and (min-width: 760px) {
+  @media screen and (min-width: 375px) {
     .touchpoint__grid {
       grid-template-columns: 1fr 5fr 1fr;
     }
   }
 
   button.touchpoint {
+    width: clamp(3rem, 10vw, 7rem);
+    height: clamp(3rem, 10vw, 7rem);
     padding: var(--ra-xxs);
     border: none;
+    border-radius: 7px;
     background-repeat: no-repeat;
     background-position: center center;
-    background-size: 100%;
+    background-size: cover;
     background-color: var(--ra-teal-off-white);
     cursor: pointer;
   }
-  img {
-    border-radius: 7%;
-  }
+
   fieldset {
+    display: none;
     border: none;
+    width: 100%;
+    height: 100%;
   }
+
+  @media screen and (min-width: 375px) {
+    fieldset {
+      display: block;
+    }
+  }
+
   button.input {
+    width: clamp(3rem, 10vw, 7rem);
+    height: clamp(3rem, 10vw, 7rem);
     padding: var(--ra-xxs);
     border-radius: 50%;
     border: none;
@@ -142,11 +150,21 @@
   span {
     font-size: clamp(var(--ra-fs-s), var(--ra-fs-weight) * 100vw, var(--ra-fs-l));
   }
-  .center,
+
   .left,
   .right {
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+  .center {
+    display: none;
+  }
+  @media screen and (min-width: 375px) {
+    .center {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
   }
 </style>
