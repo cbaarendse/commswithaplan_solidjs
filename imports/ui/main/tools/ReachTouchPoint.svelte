@@ -96,7 +96,7 @@
   .touchpoint__grid {
     display: grid;
     gap: 2em;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 2fr 1fr;
     align-items: center;
     background-color: var(--ra-teal-off-white);
     padding: 0.4em 1em 0.4em 1em;
@@ -147,23 +147,13 @@
   }
 
   span {
-    font-size: clamp(var(--ra-fs-s), var(--ra-fs-weight) * 100vw, var(--ra-fs-l));
+    /* font-size: 100%; */
   }
-
+  .center,
   .left,
   .right {
     display: flex;
     justify-content: center;
     align-items: center;
-  }
-  .center {
-    display: none;
-  }
-  @media screen and (min-width: 375px) {
-    .center {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
   }
 </style>
