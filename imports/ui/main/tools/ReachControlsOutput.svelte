@@ -78,6 +78,7 @@
     padding: 4%;
     border-radius: 0.2rem;
     background-color: var(--ra-teal-off-white);
+    font-size: 1em;
   }
 
   button {
@@ -113,7 +114,7 @@
   .reach-label {
     grid-area: rl;
     align-self: center;
-    font-size: var(--ra-fs-xl);
+    font-size: 1.4em;
     cursor: pointer;
   }
   .reach-label:hover {
@@ -122,12 +123,12 @@
   .reach-result {
     grid-area: rr;
     align-self: center;
-    font-size: var(--ra-fs-xl);
+    font-size: 1.4em;
   }
   .locus-label {
     grid-area: ll;
     align-self: center;
-    font-size: var(--ra-fs-xl);
+    font-size: 1.4em;
     cursor: pointer;
   }
   .locus-label:hover {
@@ -136,7 +137,7 @@
   .locus-result {
     grid-area: lr;
     align-self: center;
-    font-size: var(--ra-fs-xl);
+    font-size: 1.4em;
   }
   .meter {
     align-self: center;
