@@ -137,6 +137,7 @@
     width: clamp(3rem, 10vw, 7rem);
     height: clamp(3rem, 10vw, 7rem);
     padding: var(--ra-xxs);
+    font-size: 1.4em;
     border-radius: 50%;
     border: none;
     background-repeat: no-repeat;

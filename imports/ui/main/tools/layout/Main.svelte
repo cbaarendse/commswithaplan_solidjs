@@ -13,7 +13,7 @@
 <style>
   main {
     width: min(100% - 0.2rem, 70rem);
-    font-size: clamp(0.6rem, 2vw, 1rem);
+    font-size: clamp(var(--ra-fs-xs), 2vw, var(--ra-fs-m));
     margin: 0 auto;
     padding-bottom: 2rem;
     overflow: auto;

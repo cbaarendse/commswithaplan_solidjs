@@ -96,7 +96,7 @@
         <Brand
           brand={{
             color: 'var(--ra-blue)',
-            sizes: 'var(--ra-fs-2xl)',
+            sizes: '2em',
             title: `Tools - ${$language === 'dutch' ? 'Bereik' : 'Reach'}`
           }}
           ><LogoReach
@@ -143,12 +143,6 @@
   .reach__grid :global(header) {
     grid-column: 1 / -1;
   }
-
-  /* .touchpoints__grid {
-    display: grid;
-    grid-template-rows: repeat(auto-fit, minmax(7rem, 10rem));
-    gap: 1rem;
-  } */
 
   .touchpoints__flex {
     display: flex;

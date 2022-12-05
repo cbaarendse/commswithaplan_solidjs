@@ -1,7 +1,7 @@
 <script lang="ts">
   // imports
   import TopBar from './TopBar.svelte';
-  import Navigation from './Navigation.svelte';
+  import NavigationBar from './NavigationBar.svelte';
   import {isSmallScreen, useMediaQuery} from '../stores/utils';
 
   // variables
@@ -17,7 +17,7 @@
   <!-- Navigation -->
   <!-- There is an option to insert a Notifications area in the header -->
   <TopBar />
-  <Navigation />
+  <NavigationBar />
 </header>
 
 <style>
