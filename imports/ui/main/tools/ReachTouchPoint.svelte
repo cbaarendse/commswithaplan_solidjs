@@ -122,22 +122,22 @@
   }
 
   fieldset {
-    display: none;
+    display: block;
     border: none;
     width: 100%;
   }
 
-  @media screen and (min-width: 375px) {
+  /* @media screen and (min-width: 375px) {
     fieldset {
       display: block;
     }
-  }
+  } */
 
   button.input {
     width: clamp(3rem, 10vw, 7rem);
     height: clamp(3rem, 10vw, 7rem);
     padding: var(--ra-xxs);
-    font-size: 1.4em;
+    font-size: 1.1em;
     border-radius: 50%;
     border: none;
     background-repeat: no-repeat;
