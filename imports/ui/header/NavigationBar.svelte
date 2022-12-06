@@ -147,7 +147,7 @@
     display: grid;
     grid-template-columns: 1fr;
     grid-column: 1/3;
-    font-size: 1.4rem;
+    font-size: 1.4em;
   }
 
   .main-nav {
@@ -166,7 +166,7 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 1.4rem;
+    gap: clamp(var(--ra-xxs), 1vw, var(--ra-l));
     justify-content: flex-start;
     align-items: flex-start;
     flex-wrap: wrap;

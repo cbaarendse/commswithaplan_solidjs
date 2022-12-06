@@ -1,6 +1,6 @@
 <script lang="ts">
   // imports
-  import type {Article} from '../../../types/types';
+  import type {Article} from '../../types/types';
 
   // variables
   export let item: Article;

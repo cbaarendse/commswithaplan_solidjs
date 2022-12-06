@@ -1,8 +1,8 @@
 <script lang="ts">
   // imports
-  import Main from './layout/Main.svelte';
-  import Section from './layout/Section.svelte';
-  import Header from './layout/Header.svelte';
+  import Main from '../../layout/Main.svelte';
+  import Section from '../../layout/Section.svelte';
+  import Header from './Header.svelte';
   import LogoReach from '../../reusable/LogoReach.svelte';
   import Brand from '../../reusable/Brand.svelte';
   import ReachControlsOutput from './ReachControlsOutput.svelte';

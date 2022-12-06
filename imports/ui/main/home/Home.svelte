@@ -1,7 +1,7 @@
 <script lang="ts">
   // imports
-  import Main from './layout/Main.svelte';
-  import Section from './layout/Section.svelte';
+  import Main from '../../layout/Main.svelte';
+  import Section from '../../layout/Section.svelte';
   import Card from '../../reusable/Card.svelte';
   import {language} from '../../stores/utils';
   import {homeItems} from '../../stores/home';

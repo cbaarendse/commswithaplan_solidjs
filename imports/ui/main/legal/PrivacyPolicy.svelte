@@ -1,6 +1,6 @@
 <script lang="ts">
   // imports
-  import Article from './layout/Article.svelte';
+  import Article from './Article.svelte';
   import {language} from '../../stores/utils';
   import {privacyPolicy} from '../../stores/legal';
 
