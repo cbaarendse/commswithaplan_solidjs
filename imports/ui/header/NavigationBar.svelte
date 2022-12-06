@@ -246,7 +246,7 @@
       grid-column: 2/3;
       flex-direction: row;
       align-items: flex-start;
-      gap: 2rem;
+      gap: clamp(var(--ra-xxs), 4vw, var(--ra-8xl));
     }
     .main-nav ul {
       justify-content: space-evenly;
