@@ -2,9 +2,7 @@
   // imports
   import Main from '../../layout/Main.svelte';
   import Section from '../../layout/Section.svelte';
-  import Header from './Header.svelte';
-  import Brand from '../../reusable/Brand.svelte';
-  import LogoReach from '../../reusable/LogoReach.svelte';
+  import BreadCrumbs from '../../reusable/BreadCrumbs.svelte';
   import DocsLink from './DocsLink.svelte';
   import DocsChapter from './DocsChapter.svelte';
   import {language} from '../../stores/utils';
@@ -19,23 +17,7 @@
 <Main>
   <Section>
     <div class="docs__grid">
-      <Header>
-        <Brand
-          brand={{
-            color: 'var(--ra-blue)',
-            sizes: 'var(--ra-fs-2xl)',
-            title: `Tools - ${$language === 'dutch' ? 'Documentatie' : 'Documentation'}`
-          }}
-          ><LogoReach
-            logo={{
-              sizes: 'var(--ra-fs-5xl)',
-              width: 'var(--ra-5xl)',
-              height: 'var(--ra-5xl)',
-              colored: true
-            }}
-          /></Brand
-        >
-      </Header>
+      <BreadCrumbs breadCrumbs={['tools']} />
       <div class="chapters__flex">
         <aside>
           <ul>

@@ -2,9 +2,7 @@
   // imports
   import Main from '../../layout/Main.svelte';
   import Section from '../../layout/Section.svelte';
-  import Header from './Header.svelte';
-  import Brand from '../../reusable/Brand.svelte';
-  import LogoReach from '../../reusable/LogoReach.svelte';
+  import BreadCrumbs from '../../reusable/BreadCrumbs.svelte';
   import Card from '../../reusable/Card.svelte';
   import {language} from '../../stores/utils';
   import {toolsHomeItems} from '../../stores/tools';
@@ -21,23 +19,7 @@
 <Main>
   <Section>
     <div class="home__flex">
-      <Header>
-        <Brand
-          brand={{
-            color: 'var(--ra-blue)',
-            sizes: 'var(--ra-fs-2xl)',
-            title: `Tools - ${$language === 'dutch' ? 'Home' : 'Home'}`
-          }}
-          ><LogoReach
-            logo={{
-              sizes: 'var(--ra-fs-5xl)',
-              width: 'var(--ra-5xl)',
-              height: 'var(--ra-5xl)',
-              colored: true
-            }}
-          /></Brand
-        >
-      </Header>
+      <BreadCrumbs breadCrumbs={['tools', 'home']} />
       {#each translatedToolsHomeItems as item}
         <Card card={{color: 'blue', title: item.displayName, link: item.link, action: item.action}}>
           {item.description}

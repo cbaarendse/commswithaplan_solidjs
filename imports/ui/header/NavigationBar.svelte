@@ -130,7 +130,7 @@
         </li>
         <li>
           <a
-            href={'/tools/documentation'}
+            href={'/tools/docs'}
             use:active
             on:click={() => ($isSmallScreen ? ($navigationVisible = false) : ($navigationVisible = true))}
           >

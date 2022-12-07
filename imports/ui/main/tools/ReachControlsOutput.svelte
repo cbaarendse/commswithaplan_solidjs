@@ -24,15 +24,17 @@
   }
 </script>
 
-<div class="header-content">
-  <button type="button" on:click={() => dispatch('reset')}
-    >{#if allTouchPointsValueIsZero}&#8676;{:else}&#8617;{/if}</button
-  >
-  <button type="button" on:click={() => dispatch('sort')}
-    >{#if sortedByName}&#8744;{:else}&#8743;{/if}</button
-  >
-  <button type="button" on:click={() => dispatch('hide')}
-    >{#if showAll}&#8722;{:else}&#8801;{/if}</button
+<div class="container">
+  <menu>
+    <button type="button" on:click={() => dispatch('reset')}
+      >{#if allTouchPointsValueIsZero}&#8676;{:else}&#8617;{/if}</button
+    >
+    <button type="button" on:click={() => dispatch('sort')}
+      >{#if sortedByName}&#8744;{:else}&#8743;{/if}</button
+    >
+    <button type="button" on:click={() => dispatch('hide')}
+      >{#if showAll}&#8722;{:else}&#8801;{/if}</button
+    ></menu
   >
 
   <span class="reach-label" on:click|preventDefault|stopPropagation={() => showOutputDescription('total_reach')}
@@ -66,12 +68,12 @@
 
 <!-- TODO: all this in flexbox, make groups, meter is % of parent (if parent is header) or vw unit -->
 <style>
-  .header-content {
+  .container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(3rem, 1fr));
     grid-auto-rows: 3rem;
     grid-template-areas:
-      'btn1 btn2 btn3 . '
+      'menu'
       'rl rl . rr'
       'll ll . lr ';
     gap: 1.2rem;
@@ -80,7 +82,9 @@
     background-color: var(--ra-teal-off-white);
     font-size: 1em;
   }
-
+  menu {
+    grid-area: menu;
+  }
   button {
     display: flex;
     justify-content: center;
@@ -94,16 +98,13 @@
     cursor: pointer;
   }
 
-  .header-content > button:nth-of-type(1) {
-    grid-area: btn1;
+  menu > button:nth-of-type(1) {
     background-color: var(--ra-red);
   }
-  .header-content > button:nth-of-type(2) {
-    grid-area: btn2;
+  menu > button:nth-of-type(2) {
     background-color: var(--ra-green);
   }
-  .header-content > button:nth-of-type(3) {
-    grid-area: btn3;
+  menu > button:nth-of-type(3) {
     background-color: var(--ra-blue);
   }
 
@@ -165,19 +166,19 @@
     text-indent: -9999px;
   }
   @media screen and (min-width: 375px) {
-    .header-content {
+    .container {
       grid-template-areas:
         'brand brand brand brand brand . .'
-        'btn1 btn2 btn3 . . . .'
+        'menu'
         'rl rl . . . . rr '
         'll ll . . . . lr';
     }
   }
 
   @media screen and (min-width: 414px) {
-    .header-content {
+    .container {
       grid-template-areas:
-        'btn1 btn2 btn3 . . .'
+        'menu'
         'rl rl rr rm rm rm'
         'll ll lr lm lm lm';
     }
@@ -188,18 +189,18 @@
   }
 
   @media screen and (min-width: 768px) {
-    .header-content {
+    .container {
       grid-template-areas:
-        'btn1 btn2 btn3 . . . .'
+        'menu'
         'rl rl rr rm rm rm  rm'
         'll ll lr lm lm lm  lm';
     }
   }
 
   @media screen and (min-width: 1024px) {
-    .header-content {
+    .container {
       grid-template-areas:
-        ' . . . . btn1 btn2 btn3'
+        'menu'
         'rl rl rr rm rm rm ll ll lr lm lm lm';
     }
   }

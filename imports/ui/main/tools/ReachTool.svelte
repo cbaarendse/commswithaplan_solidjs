@@ -2,9 +2,7 @@
   // imports
   import Main from '../../layout/Main.svelte';
   import Section from '../../layout/Section.svelte';
-  import Header from './Header.svelte';
-  import LogoReach from '../../reusable/LogoReach.svelte';
-  import Brand from '../../reusable/Brand.svelte';
+  import BreadCrumbs from '../../reusable/BreadCrumbs.svelte';
   import ReachControlsOutput from './ReachControlsOutput.svelte';
   import ReachTouchPoint from './ReachTouchPoint.svelte';
   import {onDestroy, onMount} from 'svelte';
@@ -92,23 +90,7 @@
 <Main>
   <Section>
     <div class="reach__grid">
-      <Header>
-        <Brand
-          brand={{
-            color: 'var(--ra-blue)',
-            sizes: '2em',
-            title: `Tools - ${$language === 'dutch' ? 'Bereik' : 'Reach'}`
-          }}
-          ><LogoReach
-            logo={{
-              sizes: 'var(--ra-fs-5xl)',
-              width: 'var(--ra-5xl)',
-              height: 'var(--ra-5xl)',
-              colored: true
-            }}
-          /></Brand
-        >
-      </Header>
+      <BreadCrumbs breadCrumbs={['tools', 'reach']} />
       <ReachControlsOutput
         {totalReach}
         {locus}

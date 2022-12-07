@@ -9,7 +9,7 @@
 </script>
 
 <footer>
-  <span>© 2013-2021 Comms With A Plan</span>
+  <span>© 2013-2023 Comms With A Plan</span>
   <nav>
     <a href="/consultancy/contact">Contact</a><a href="/legal/termsandconditions"
       >{$language === 'dutch' ? 'Juridisch' : 'Legal'}</a

@@ -33,7 +33,7 @@ export const toolsHomeItems: Readable<(Content & Color & Actionable)[]> = readab
       description:
         'Right now the Reach tool uses an algoritm to estimate the total reach of your campaign; If you input the reach of the individual medium types. Read the Docs for more information.',
       color: 'green',
-      link: '/tools/documentation',
+      link: '/tools/docs',
       action: 'Read about the reach tool...'
     },
     {
@@ -43,7 +43,7 @@ export const toolsHomeItems: Readable<(Content & Color & Actionable)[]> = readab
       description:
         'Op dit moment gebruikt de Bereik-tool een algoritme om het totaalbereik van je campagne in te schatten; Als je het bereik van elk individueel mediumtype invoert. Lees de Documentatie voor meer informatie.',
       color: 'green',
-      link: '/tools/documentation',
+      link: '/tools/docs',
       action: 'Lees over de bereikstool...'
     }
   ],

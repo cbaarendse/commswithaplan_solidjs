@@ -117,6 +117,7 @@ export class Reach {
 }
 
 // Ui
+//TODO: split in Translate and Format
 export class Ui {
   static translate(input: string | undefined | null, items: Translation[], language: string): string {
     return items.filter((element: Translation) => element.name === input && element.language === language)[0]

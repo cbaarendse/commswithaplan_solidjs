@@ -25,7 +25,7 @@
   {#if chapter.imgFiles}
     {#each chapter.imgFiles as imgFile}
       <picture>
-        <img src="/documentation{imgFile}" alt={chapter.displayName} />
+        <img src="/docs{imgFile}" alt={chapter.displayName} />
       </picture>
     {/each}
   {/if}

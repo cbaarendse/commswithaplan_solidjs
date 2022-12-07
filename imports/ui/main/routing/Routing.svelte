@@ -28,7 +28,7 @@
   <Route path="/tools/*">
     <Route path="/"><ToolsHome /></Route>
     <Route path="/reach"><ReachTool /></Route>
-    <Route path="/documentation"><Docs /></Route>
+    <Route path="/docs"><Docs /></Route>
   </Route>
   <Route path="/legal/*"><Legal /></Route>
   <Route fallback><NotFound /></Route>
