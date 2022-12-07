@@ -58,6 +58,8 @@ export const translations: Readable<Translation[]> = readable(
     {name: 'home', language: 'dutch', displayName: 'Home'},
     {name: 'input', language: 'english', displayName: 'Input'},
     {name: 'input', language: 'dutch', displayName: 'Input'},
+    {name: 'legal', language: 'english', displayName: 'Legal'},
+    {name: 'legal', language: 'dutch', displayName: 'Juridisch'},
     {name: 'locus', language: 'english', displayName: 'Locus'},
     {name: 'locus', language: 'dutch', displayName: 'Locus'},
     {name: 'precisionInputFor', language: 'dutch', displayName: 'Precisie invoer voor '},

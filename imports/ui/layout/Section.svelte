@@ -14,5 +14,6 @@
   section {
     padding: 0.2rem;
     font-size: 1em;
+    margin-bottom: 1em;
   }
 </style>

@@ -15,9 +15,9 @@
 </script>
 
 <Main>
+  <BreadCrumbs breadCrumbs={['tools']} />
   <Section>
     <div class="docs__grid">
-      <BreadCrumbs breadCrumbs={['tools']} />
       <div class="chapters__flex">
         <aside>
           <ul>

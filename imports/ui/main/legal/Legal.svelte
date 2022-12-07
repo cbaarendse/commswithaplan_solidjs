@@ -2,9 +2,7 @@
   // imports
   import Main from '../../layout/Main.svelte';
   import Section from '../../layout/Section.svelte';
-  import Header from './Header.svelte';
-  import Brand from '../../reusable/Brand.svelte';
-  import LogoReach from '../../reusable/LogoReach.svelte';
+  import BreadCrumbs from '../../reusable/BreadCrumbs.svelte';
   import TermsAndConditions from '../legal/TermsAndConditions.svelte';
   import PrivacyPolicy from '../legal/PrivacyPolicy.svelte';
   import CookiePolicy from '../legal/CookiePolicy.svelte';
@@ -26,26 +24,9 @@
 </script>
 
 <Main>
+  <BreadCrumbs breadCrumbs={['legal']} />
   <Section>
     <div class="legal__grid">
-      <Header>
-        <Brand
-          brand={{
-            color: 'var(--ra-blue)',
-            sizes: 'var(--ra-fs-2xl)',
-            title: `${$language === 'dutch' ? 'Juridisch' : 'Legal'} - ${policy($router.path, $language)}`
-          }}
-        >
-          <LogoReach
-            logo={{
-              sizes: 'var(--ra-fs-5xl)',
-              width: 'var(--ra-5xl)',
-              height: 'var(--ra-5xl)',
-              colored: true
-            }}
-          /></Brand
-        >
-      </Header>
       <div class="policies__flex">
         <aside>
           <nav>

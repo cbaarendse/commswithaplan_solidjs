@@ -73,7 +73,7 @@
     grid-template-columns: repeat(auto-fit, minmax(3rem, 1fr));
     grid-auto-rows: 3rem;
     grid-template-areas:
-      'menu'
+      'menu menu menu menu'
       'rl rl . rr'
       'll ll . lr ';
     gap: 1.2rem;
@@ -83,6 +83,8 @@
     font-size: 1em;
   }
   menu {
+    display: flex;
+    justify-content: space-around;
     grid-area: menu;
   }
   button {
@@ -169,7 +171,7 @@
     .container {
       grid-template-areas:
         'brand brand brand brand brand . .'
-        'menu'
+        'menu menu menu menu menu menu menu'
         'rl rl . . . . rr '
         'll ll . . . . lr';
     }
@@ -178,7 +180,7 @@
   @media screen and (min-width: 414px) {
     .container {
       grid-template-areas:
-        'menu'
+        'menu menu menu menu menu menu'
         'rl rl rr rm rm rm'
         'll ll lr lm lm lm';
     }
@@ -191,7 +193,7 @@
   @media screen and (min-width: 768px) {
     .container {
       grid-template-areas:
-        'menu'
+        'menu menu menu menu menu menu menu'
         'rl rl rr rm rm rm  rm'
         'll ll lr lm lm lm  lm';
     }
@@ -200,7 +202,7 @@
   @media screen and (min-width: 1024px) {
     .container {
       grid-template-areas:
-        'menu'
+        'menu menu menu menu menu menu menu menu menu menu menu men'
         'rl rl rr rm rm rm ll ll lr lm lm lm';
     }
   }

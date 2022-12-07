@@ -2,41 +2,19 @@
   // imports
   import Main from '../../layout/Main.svelte';
   import Section from '../../layout/Section.svelte';
-  import Header from './Header.svelte';
-  import Brand from '../../reusable/Brand.svelte';
-  import LogoCommsWithAPlan from '../../reusable/LogoCommsWithAPlan.svelte';
+  import BreadCrumbs from '../../reusable/BreadCrumbs.svelte';
+  import Card from '../../reusable/Card.svelte';
   import {language} from '../../stores/utils';
   import {aboutItems} from '../../stores/consultancy';
-  import Card from '../../reusable/Card.svelte';
 
   // variables;
   $: translatedAboutItems = $aboutItems.filter((item) => item.language === $language);
 </script>
 
 <Main>
+  <BreadCrumbs breadCrumbs={['consultancy']} />
   <Section>
     <div class="about__flex">
-      <Header>
-        <Brand
-          brand={{
-            color: 'var(--ra-green)',
-            sizes: 'var(--ra-fs-2xl)',
-            title: `Consultancy - ${$language === 'dutch' ? 'Over' : 'About'}`
-          }}
-          ><LogoCommsWithAPlan
-            logo={{
-              color: 'var(--ra-blue)',
-              sizes: 'var(--ra-fs-5xl)',
-              width: 'var(--ra-5xl)',
-              height: 'var(--ra-5xl)',
-              minWidth: 'var(--ra-5xl)',
-              minHeight: 'var(--ra-fxl)',
-              colored: true
-            }}
-          /></Brand
-        >
-      </Header>
-
       {#each translatedAboutItems as item}
         <Card card={{}}>{item.description}</Card>
       {/each}

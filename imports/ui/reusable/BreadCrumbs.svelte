@@ -12,7 +12,7 @@
 </script>
 
 <nav>
-  <ol class="nav-list">
+  <ol>
     <li>
       <a href={'/'} use:active data-exact class="brand">
         <LogoReach
@@ -26,10 +26,10 @@
       </a>
     </li>
     {#each breadCrumbs as breadCrumb}
-      <li>></li>
+      <li>&gt;</li>
       <li>
         <a href="/{breadCrumb}/" use:active>
-          <span class="blue">{Ui.translate(breadCrumb, $translations, $language)}</span>
+          <span>{Ui.translate(breadCrumb, $translations, $language)}</span>
         </a>
       </li>
     {/each}
@@ -38,18 +38,34 @@
 
 <style>
   nav {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 2rem;
     margin: 1rem 0;
     padding: 2rem;
     background-color: var(--ra-teal-off-white);
     border-radius: 5px;
+    font-size: 1.4em;
   }
 
   @media screen and (min-width: 760px) {
     nav {
       display: none;
     }
+  }
+  ol {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 2rem;
+    list-style-type: none;
+  }
+  a {
+    text-decoration: none;
+  }
+
+  li,
+  a,
+  a:hover,
+  a:visited,
+  a.active {
+    color: var(--ra-blue);
   }
 </style>

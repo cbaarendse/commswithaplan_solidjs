@@ -88,44 +88,34 @@
 </script>
 
 <Main>
+  <BreadCrumbs breadCrumbs={['tools', 'reach']} />
   <Section>
-    <div class="reach__grid">
-      <BreadCrumbs breadCrumbs={['tools', 'reach']} />
-      <ReachControlsOutput
-        {totalReach}
-        {locus}
-        {allTouchPointsValueIsZero}
-        {sortedByName}
-        {showAll}
-        on:reset={reset}
-        on:sort={sort}
-        on:hide={hide}
-      />
-      <div class="touchpoints__flex">
-        {#each touchPointsInPlan as touchPoint}
-          <ReachTouchPoint
-            {touchPoint}
-            on:changeValueForName={handleChange}
-            on:inputValueForName={handleInput}
-            on:submitValueForName={handleSubmit}
-          />
-        {/each}
-      </div>
+    <ReachControlsOutput
+      {totalReach}
+      {locus}
+      {allTouchPointsValueIsZero}
+      {sortedByName}
+      {showAll}
+      on:reset={reset}
+      on:sort={sort}
+      on:hide={hide}
+    />
+  </Section>
+  <Section>
+    <div class="touchpoints__flex">
+      {#each touchPointsInPlan as touchPoint}
+        <ReachTouchPoint
+          {touchPoint}
+          on:changeValueForName={handleChange}
+          on:inputValueForName={handleInput}
+          on:submitValueForName={handleSubmit}
+        />
+      {/each}
     </div>
   </Section>
 </Main>
 
 <style>
-  .reach__grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 2rem;
-  }
-
-  .reach__grid :global(header) {
-    grid-column: 1 / -1;
-  }
-
   .touchpoints__flex {
     display: flex;
     flex-direction: column;

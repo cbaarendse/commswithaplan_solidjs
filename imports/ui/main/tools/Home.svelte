@@ -17,9 +17,9 @@
 </script>
 
 <Main>
+  <BreadCrumbs breadCrumbs={['tools', 'home']} />
   <Section>
     <div class="home__flex">
-      <BreadCrumbs breadCrumbs={['tools', 'home']} />
       {#each translatedToolsHomeItems as item}
         <Card card={{color: 'blue', title: item.displayName, link: item.link, action: item.action}}>
           {item.description}

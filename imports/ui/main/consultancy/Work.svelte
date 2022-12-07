@@ -2,9 +2,7 @@
   // imports
   import Main from '../../layout/Main.svelte';
   import Section from '../../layout/Section.svelte';
-  import Header from './Header.svelte';
-  import Brand from '../../reusable/Brand.svelte';
-  import LogoCommsWithAPlan from '../../reusable/LogoCommsWithAPlan.svelte';
+  import BreadCrumbs from '../../reusable/BreadCrumbs.svelte';
   import Card from '../../reusable/Card.svelte';
   import {language} from '../../stores/utils';
   import {workItems} from '../../stores/consultancy';
@@ -14,28 +12,9 @@
 </script>
 
 <Main>
+  <BreadCrumbs breadCrumbs={['consultancy']} />
   <Section>
     <div class="work__flex">
-      <Header>
-        <Brand
-          brand={{
-            color: 'var(--ra-red)',
-            sizes: 'var(--ra-fs-2xl)',
-            title: `Consultancy - ${$language === 'dutch' ? 'Werk' : 'Work'}`
-          }}
-          ><LogoCommsWithAPlan
-            logo={{
-              sizes: 'var(--ra-fs-5xl)',
-              width: 'var(--ra-5xl)',
-              height: 'var(--ra-fxl)',
-              minWidth: 'var(--ra-5xl)',
-              minHeight: 'var(--ra-fxl)',
-              colored: true
-            }}
-          /></Brand
-        >
-      </Header>
-
       <p>
         {#if $language === 'dutch'}
           Zaken die ik manage gedurende het proces (je kan kiezen en mixen):
@@ -43,7 +22,6 @@
           Things I'll manage along the process (you can pick and mix):
         {/if}
       </p>
-
       {#each translatedWorkItems as item}
         <Card card={{color: item.color, title: item.displayName, imgFiles: [`/consultancy/${item.name}.jpg`]}}>
           {item.description}

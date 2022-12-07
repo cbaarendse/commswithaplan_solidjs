@@ -2,9 +2,7 @@
   // imports
   import Main from '../../layout/Main.svelte';
   import Section from '../../layout/Section.svelte';
-  import Header from './Header.svelte';
-  import Brand from '../../reusable/Brand.svelte';
-  import LogoCommsWithAPlan from '../../reusable/LogoCommsWithAPlan.svelte';
+  import BreadCrumbs from '../../reusable/BreadCrumbs.svelte';
   import Card from '../../reusable/Card.svelte';
   import {language} from '../../stores/utils';
   import {consultancyHomeItems} from '../../stores/consultancy';
@@ -17,28 +15,9 @@
 </script>
 
 <Main>
+  <BreadCrumbs breadCrumbs={['consultancy']} />
   <Section>
     <div class="home__flex">
-      <Header>
-        <Brand
-          brand={{
-            title: `Consultancy - ${$language === 'dutch' ? 'Home' : 'Home'}`,
-            color: 'var(--ra-blue)',
-            sizes: 'var(--ra-fs-2xl)'
-          }}
-          ><LogoCommsWithAPlan
-            logo={{
-              sizes: 'var(--ra-fs-5xl)',
-              width: 'var(--ra-5xl)',
-              height: 'var(--ra-5xl)',
-              minWidth: 'var(--ra-5xl)',
-              minHeight: 'var(--ra-fxl)',
-              colored: true
-            }}
-          /></Brand
-        >
-      </Header>
-
       {#each translatedConsultancyHomeItems as item}
         <Card card={{title: item.displayName, color: 'blue', link: item.link, action: item.action}}>
           <span>

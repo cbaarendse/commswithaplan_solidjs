@@ -39,5 +39,7 @@
     // added for dayjs package:
     "allowSyntheticDefaultImports": true
   },
+  /* Include inserted to solve problem after deleting files */
+  "include": ["**/*"],
   "exclude": ["./.meteor/**", "./packages/**"],
 }
