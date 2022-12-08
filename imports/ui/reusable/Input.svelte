@@ -74,7 +74,7 @@
     background-color: var(--ra-blue-off-white);
     padding: var(--ra-xs);
     min-height: var(--ra-3xl);
-    font-size: var(--ra-fs-l);
+    font-size: var(--ra-fs-desktop);
   }
   .submit__button {
     grid-area: submit;
@@ -83,7 +83,7 @@
     border: none;
     padding: var(--ra-xs);
     min-height: var(--ra-3xl);
-    font-size: var(--ra-fs-m);
+    font-size: var(--ra-fs-ipad-pro);
   }
   .submit__button:disabled {
     background-color: var(--ra-grey-light);
@@ -95,6 +95,6 @@
     border: none;
     padding: var(--ra-xs);
     min-height: var(--ra-3xl);
-    font-size: var(--ra-fs-m);
+    font-size: var(--ra-fs-ipad-pro);
   }
 </style>

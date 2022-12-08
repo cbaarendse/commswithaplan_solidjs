@@ -12,16 +12,25 @@
 
 <style>
   main {
-    width: min(100% - 0.2rem, 70rem);
-    font-size: clamp(var(--ra-fs-s), 2vw, var(--ra-fs-m));
+    width: min(100% - 0.2em, 70em);
     margin: 0 auto;
-    padding-bottom: 2rem;
+    padding-bottom: 2em;
     overflow: auto;
   }
 
-  @media screen and (min-width: 320px) {
+  @media screen and (min-width: 32em) {
     main {
-      width: min(100% - 2rem, 70rem);
+      width: min(100% - 2em, 70em);
+    }
+  }
+  @media screen and (min-width: 102.4em) {
+    main {
+      width: min(100% - 4em, 70em);
+    }
+  }
+  @media screen and (min-width: 136.6em) {
+    main {
+      width: min(100% - 8em, 70em);
     }
   }
 </style>

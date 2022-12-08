@@ -1,7 +1,6 @@
 <script lang="ts">
   // imports
-  import Main from '../../layout/Main.svelte';
-  import Section from '../../layout/Section.svelte';
+  import Section from '../../reusable/Section.svelte';
   import BreadCrumbs from '../../reusable/BreadCrumbs.svelte';
   import DocsLink from './DocsLink.svelte';
   import DocsChapter from './DocsChapter.svelte';
@@ -14,32 +13,30 @@
   );
 </script>
 
-<Main>
-  <BreadCrumbs breadCrumbs={['tools']} />
-  <Section>
-    <div class="docs__grid">
-      <div class="chapters__flex">
-        <aside>
-          <ul>
-            {#each translatedToolsDocumentationChapters as chapter}
-              <li>
-                <DocsLink name={chapter.name} displayName={chapter.displayName} />
-              </li>
-            {/each}
-          </ul>
-        </aside>
-
+<BreadCrumbs breadCrumbs={['tools']} />
+<Section>
+  <div class="docs__grid">
+    <div class="chapters__flex">
+      <aside>
         <ul>
           {#each translatedToolsDocumentationChapters as chapter}
-            <li id={chapter.name}>
-              <DocsChapter {chapter} />
+            <li>
+              <DocsLink name={chapter.name} displayName={chapter.displayName} />
             </li>
           {/each}
         </ul>
-      </div>
+      </aside>
+
+      <ul>
+        {#each translatedToolsDocumentationChapters as chapter}
+          <li id={chapter.name}>
+            <DocsChapter {chapter} />
+          </li>
+        {/each}
+      </ul>
     </div>
-  </Section>
-</Main>
+  </div>
+</Section>
 
 <style>
   .docs__grid {

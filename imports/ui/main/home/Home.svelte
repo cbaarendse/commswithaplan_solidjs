@@ -1,7 +1,6 @@
 <script lang="ts">
   // imports
-  import Main from '../../layout/Main.svelte';
-  import Section from '../../layout/Section.svelte';
+  import Section from '../../reusable/Section.svelte';
   import BreadCrumbs from '../../reusable/BreadCrumbs.svelte';
   import Card from '../../reusable/Card.svelte';
   import {language} from '../../stores/utils';
@@ -14,30 +13,29 @@
   );
 </script>
 
-<Main>
-  <BreadCrumbs breadCrumbs={['home']} />;
-  <Section>
-    <div class="home__grid">
-      {#each translatedHomeItems as item}
-        <Card
-          card={{
-            title: item.displayName,
-            color: 'blue',
-            imgFiles: item.imgFiles,
-            link: item.link,
-            action: item.action
-          }}
-          >{item.description}
-        </Card>
-      {/each}
-    </div>
-  </Section>
-</Main>
+<BreadCrumbs breadCrumbs={['home']} />
+<Section>
+  <div class="home__grid">
+    {#each translatedHomeItems as item}
+      <Card
+        card={{
+          title: item.displayName,
+          color: 'blue',
+          imgFiles: item.imgFiles,
+          link: item.link,
+          action: item.action,
+          sizes: '1em'
+        }}
+        >{item.description}
+      </Card>
+    {/each}
+  </div>
+</Section>
 
 <style>
   .home__grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+    gap: 2em;
   }
 </style>

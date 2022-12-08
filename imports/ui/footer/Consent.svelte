@@ -2,9 +2,9 @@
   //TODO: simplify?
   // imports
   import {slide} from 'svelte/transition';
-  import Button from './../reusable/Button.svelte';
-  import Checkbox from './../reusable/Checkbox.svelte';
-  import {language, consentFooterVisible} from './../stores/utils';
+  import Button from '../reusable/Button.svelte';
+  import Checkbox from '../reusable/Checkbox.svelte';
+  import {language, consentFooterVisible} from '../stores/utils';
   import {onMount} from 'svelte';
   import {setCookie, getCookie, checkCookie, checkedToConsent, consentToChecked} from '../../both/functions';
 
@@ -52,7 +52,7 @@
 </script>
 
 {#if $consentFooterVisible}
-  <footer transition:slide={{delay: 200, duration: 1000}}>
+  <div transition:slide={{delay: 200, duration: 1000}}>
     <span
       >{$language == 'dutch' ? 'Akkoord opslag cookies' : 'Agree storage of cookies'}&nbsp;(
       <nav>
@@ -85,49 +85,49 @@
       }}
       checked={functional_security_storage_checked}
     />
-
-    <Button
-      btn={{
-        type: 'submit',
-        ariaRoleDescription: 'button',
-        id: 'set__consent',
-        class: 'consent__button',
-        disabled: false,
-        color: 'var(--ra-white)',
-        backgroundColor: 'var(--ra-red)',
-        padding: '0 1rem',
-        height: 'var(--ra-3xl)'
-      }}
-      on:clickedButton={() => setConsent('denied')}
-      >{#if $language == 'dutch'}Wijs af{:else}Reject{/if}</Button
+    <menu>
+      <Button
+        btn={{
+          type: 'submit',
+          ariaRoleDescription: 'button',
+          id: 'set__consent',
+          class: 'consent__button',
+          disabled: false,
+          color: 'var(--ra-white)',
+          backgroundColor: 'var(--ra-red)',
+          padding: '0.7em 1em'
+        }}
+        on:clickedButton={() => setConsent('denied')}
+        >{#if $language == 'dutch'}Wijs af{:else}Reject{/if}</Button
+      >
+      <Button
+        btn={{
+          type: 'submit',
+          ariaRoleDescription: 'button',
+          id: 'set__consent',
+          class: 'consent__button',
+          disabled: false,
+          color: 'var(--ra-white)',
+          backgroundColor: 'var(--ra-green)',
+          padding: '0.7em 1em',
+          height: 'var(--ra-3xl)'
+        }}
+        on:clickedButton={() => setConsent('granted')}
+        >{#if $language == 'dutch'}Accepteer{:else}Accept{/if}</Button
+      ></menu
     >
-    <Button
-      btn={{
-        type: 'submit',
-        ariaRoleDescription: 'button',
-        id: 'set__consent',
-        class: 'consent__button',
-        disabled: false,
-        color: 'var(--ra-white)',
-        backgroundColor: 'var(--ra-green)',
-        padding: '0 1rem',
-        height: 'var(--ra-3xl)'
-      }}
-      on:clickedButton={() => setConsent('granted')}
-      >{#if $language == 'dutch'}Accepteer{:else}Accept{/if}</Button
-    >
-  </footer>
+  </div>
 {/if}
 
 <style>
-  footer {
+  div {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    gap: 1rem;
-    padding: 0.2rem 0;
-    font-size: clamp(var(--font-size-xxs), var(--font-size-weight) * 100vw, var(--font-size-s));
+    gap: 1em;
+    padding: 0.2em 0;
+    font-size: 1.4em;
     background: var(--ra-red-off-white);
   }
   nav {

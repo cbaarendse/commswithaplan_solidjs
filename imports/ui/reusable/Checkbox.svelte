@@ -48,7 +48,7 @@
     background-color: var(--ra-blue-off-white);
     padding: var(--ra-xs);
     min-height: var(--ra-3xl);
-    font-size: var(--ra-fs-l);
+    font-size: var(--ra-fs-desktop);
   }
 
   .input__checkbox:disabled {

@@ -1,9 +1,13 @@
 <script lang="ts">
   // imports
-  import Header from '../header/Header.svelte';
+  import Header from '../layout/Header.svelte';
+  import Top from '../header/Top.svelte';
+  import Navigation from '../header/Navigation.svelte';
+  import Main from '../layout/Main.svelte';
   import Routing from '../main/routing/Routing.svelte';
-  import Footer from '../footer/Footer.svelte';
-  import FooterConsent from '../footer/FooterConsent.svelte';
+  import Footer from '../layout/Footer.svelte';
+  import Colofon from '../footer/Colofon.svelte';
+  import Consent from '../footer/Consent.svelte';
   import {consentFooterVisible} from '../stores/utils';
 
   // variables
@@ -14,12 +18,15 @@
   }
 </script>
 
-<!-- Everything happens in these 3 components. -->
-<!-- Header: TopBar, Navigation -->
 <!-- Routing: Main content, based on chosen routes, always wrapped in a <main>-tag   -->
-<!-- Footer: contact, copyright and consent -->
-<!-- FooterConsent: options for cookie consent to choose from for user -->
-<Header />
-<Routing />
-<Footer on:clickedButton={toggleFooterConsentVisibility} />
-<FooterConsent />
+<Header>
+  <Top />
+  <Navigation />
+</Header>
+<Main>
+  <Routing />
+</Main>
+<Footer>
+  <Colofon on:clickedButton={toggleFooterConsentVisibility} />
+  <Consent />
+</Footer>

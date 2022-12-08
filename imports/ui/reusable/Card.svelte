@@ -7,7 +7,7 @@
 </script>
 
 <!-- TODO: change style directive in use:cssVariables, eventually setting different function per element -->
-<article class="card" style="background-color:{card.backgroundColor}; font-color:{card.color}">
+<article class="card" style="background-color:{card.backgroundColor}; font-color:{card.color}; font-size:{card.sizes}">
   {#if card.imgFiles}
     <img src={card.imgFiles[0]} alt={card.title} />
   {/if}
@@ -36,7 +36,7 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    padding: 0;
+    padding: 0.7em;
     box-shadow: 0.1em 0.1em 0.2em 0 rgba(0, 0, 0, 0.1);
     box-sizing: border-box;
   }

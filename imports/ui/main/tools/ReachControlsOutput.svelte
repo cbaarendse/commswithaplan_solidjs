@@ -96,7 +96,7 @@
     border-radius: 50%;
     border: none;
     color: var(--ra-white);
-    font-size: var(--ra-fs-2xl);
+    font-size: var(--ra-fs-desktop);
     cursor: pointer;
   }
 

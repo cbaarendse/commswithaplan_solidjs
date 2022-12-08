@@ -1,7 +1,6 @@
 <script lang="ts">
   // imports
-  import Main from '../../layout/Main.svelte';
-  import Section from '../../layout/Section.svelte';
+  import Section from '../../reusable/Section.svelte';
   import BreadCrumbs from '../../reusable/BreadCrumbs.svelte';
   import ReachControlsOutput from './ReachControlsOutput.svelte';
   import ReachTouchPoint from './ReachTouchPoint.svelte';
@@ -87,33 +86,31 @@
   onDestroy(languageUnsubscribe);
 </script>
 
-<Main>
-  <BreadCrumbs breadCrumbs={['tools', 'reach']} />
-  <Section>
-    <ReachControlsOutput
-      {totalReach}
-      {locus}
-      {allTouchPointsValueIsZero}
-      {sortedByName}
-      {showAll}
-      on:reset={reset}
-      on:sort={sort}
-      on:hide={hide}
-    />
-  </Section>
-  <Section>
-    <div class="touchpoints__flex">
-      {#each touchPointsInPlan as touchPoint}
-        <ReachTouchPoint
-          {touchPoint}
-          on:changeValueForName={handleChange}
-          on:inputValueForName={handleInput}
-          on:submitValueForName={handleSubmit}
-        />
-      {/each}
-    </div>
-  </Section>
-</Main>
+<BreadCrumbs breadCrumbs={['tools', 'reach']} />
+<Section>
+  <ReachControlsOutput
+    {totalReach}
+    {locus}
+    {allTouchPointsValueIsZero}
+    {sortedByName}
+    {showAll}
+    on:reset={reset}
+    on:sort={sort}
+    on:hide={hide}
+  />
+</Section>
+<Section>
+  <div class="touchpoints__flex">
+    {#each touchPointsInPlan as touchPoint}
+      <ReachTouchPoint
+        {touchPoint}
+        on:changeValueForName={handleChange}
+        on:inputValueForName={handleInput}
+        on:submitValueForName={handleSubmit}
+      />
+    {/each}
+  </div>
+</Section>
 
 <style>
   .touchpoints__flex {

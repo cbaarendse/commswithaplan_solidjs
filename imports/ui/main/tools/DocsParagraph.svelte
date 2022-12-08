@@ -19,7 +19,7 @@
 
 <style>
   h3 {
-    font-size: var(--ra-fs-l);
+    font-size: var(--ra-fs-desktop);
   }
   p {
     margin: 1rem 0;

@@ -38,7 +38,7 @@
     gap: 1rem;
   }
   h2 {
-    font-size: var(--ra-fs-2xl);
+    font-size: var(--ra-fs-desktop);
   }
   ul {
     list-style-type: none;

@@ -1,6 +1,6 @@
 <script lang="ts">
   // imports
-  import {router, active} from 'tinro';
+  import {active} from 'tinro';
   import LogoReach from './LogoReach.svelte';
   import {language, translations} from '../stores/utils';
   import {Ui} from '../types/classes';
@@ -17,7 +17,7 @@
       <a href={'/'} use:active data-exact class="brand">
         <LogoReach
           logo={{
-            sizes: 'var(--ra-fs-5xl)',
+            sizes: 'var(--ra-fs-desktop)',
             width: 'var(--ra-5xl)',
             height: 'var(--ra-5xl)',
             colored: true
@@ -38,14 +38,14 @@
 
 <style>
   nav {
-    margin: 1rem 0;
-    padding: 2rem;
+    margin: 1em 0;
+    padding: 2em;
     background-color: var(--ra-teal-off-white);
     border-radius: 5px;
     font-size: 1.4em;
   }
 
-  @media screen and (min-width: 760px) {
+  @media screen and (min-width: 768px) {
     nav {
       display: none;
     }

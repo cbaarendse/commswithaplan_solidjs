@@ -1,7 +1,6 @@
 <script lang="ts">
   // imports
-  import Main from '../../layout/Main.svelte';
-  import Section from '../../layout/Section.svelte';
+  import Section from '../../reusable/Section.svelte';
   import BreadCrumbs from '../../reusable/BreadCrumbs.svelte';
   import TermsAndConditions from '../legal/TermsAndConditions.svelte';
   import PrivacyPolicy from '../legal/PrivacyPolicy.svelte';
@@ -23,41 +22,39 @@
   }
 </script>
 
-<Main>
-  <BreadCrumbs breadCrumbs={['legal']} />
-  <Section>
-    <div class="legal__grid">
-      <div class="policies__flex">
-        <aside>
-          <nav>
-            <ul>
-              <li>
-                <a href={'/legal/termsandconditions'} class:active={$router.path === '/legal/termsandconditions'}>
-                  <span>{policy('/legal/termsandconditions', $language)}</span>
-                </a>
-              </li>
-              <li>
-                <a href={'/legal/privacypolicy'} use:active>
-                  <span>{policy('/legal/privacypolicy', $language)}</span>
-                </a>
-              </li>
-              <li>
-                <a href={'/legal/cookiepolicy'} use:active>
-                  <span>{policy('/legal/cookiepolicy', $language)}</span>
-                </a>
-              </li>
-            </ul>
-          </nav>
-        </aside>
-        <div class="policy__container">
-          <Route path="/termsandconditions"><TermsAndConditions /></Route>
-          <Route path="/privacypolicy"><PrivacyPolicy /></Route>
-          <Route path="/cookiepolicy"><CookiePolicy /></Route>
-        </div>
+<BreadCrumbs breadCrumbs={['legal']} />
+<Section>
+  <div class="legal__grid">
+    <div class="policies__flex">
+      <aside>
+        <nav>
+          <ul>
+            <li>
+              <a href={'/legal/termsandconditions'} class:active={$router.path === '/legal/termsandconditions'}>
+                <span>{policy('/legal/termsandconditions', $language)}</span>
+              </a>
+            </li>
+            <li>
+              <a href={'/legal/privacypolicy'} use:active>
+                <span>{policy('/legal/privacypolicy', $language)}</span>
+              </a>
+            </li>
+            <li>
+              <a href={'/legal/cookiepolicy'} use:active>
+                <span>{policy('/legal/cookiepolicy', $language)}</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </aside>
+      <div class="policy__container">
+        <Route path="/termsandconditions"><TermsAndConditions /></Route>
+        <Route path="/privacypolicy"><PrivacyPolicy /></Route>
+        <Route path="/cookiepolicy"><CookiePolicy /></Route>
       </div>
     </div>
-  </Section>
-</Main>
+  </div>
+</Section>
 
 <style>
   .legal__grid {
@@ -66,18 +63,15 @@
     grid-auto-rows: auto;
     gap: 2rem;
   }
-  .legal__grid :global(header) {
-    grid-column: 1 / -1;
-  }
   div.policies__flex {
     display: flex;
     flex-wrap: wrap;
     gap: 2rem;
     justify-content: space-around;
-    font-size: var(--font-size-l);
+    font-size: 1em;
   }
   aside {
-    font-size: var(--font-size-l);
+    font-size: 1em;
     padding: 0;
     flex: 1 1 190px;
     border: 1px solid orangered;
