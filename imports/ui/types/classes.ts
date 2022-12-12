@@ -173,7 +173,6 @@ export class Reach {
     return touchPointsInPlan.every((touchPoint) => touchPoint.value === 0);
   }
 
-  // ui
   static changeLanguage(
     language: string,
     touchPointsInPlan: TouchPointInPlan[],

@@ -37,12 +37,7 @@
     flex-direction: column;
     gap: 1rem;
   }
-  h2 {
-    font-size: var(--ra-fs-desktop);
-  }
-  ul {
-    list-style-type: none;
-  }
+
   img {
     max-width: 300px;
   }

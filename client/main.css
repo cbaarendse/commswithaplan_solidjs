@@ -123,11 +123,40 @@ div.app {
   section {
     padding: 0.2em;
     margin-bottom: 1em;
-    font-size: clamp(1.4em, 3vw, 1.8em);
   }
  footer {
     border-top: 1px solid rgba(0, 0, 0, 0.1);
   }
+
+/* standards */
+a, a:visited {
+    color: var(--ra-blue);
+    text-decoration: none;
+}
+ul, ol {
+    list-style-type: none;
+}
+
+/* font sizes */
+header div.top {
+    font-size: var(--ra-s);
+} 
+
+header nav.key{
+    font-size: var(--ra-xl);
+}
+
+header nav.sub{
+    font-size: var(--ra-l);
+}
+main section {   
+    font-size: clamp(0.8em, 2vw, 1em);
+}
+
+footer div {
+    font-size: var(--ra-s);
+}
+
 /* schedule */
 
 

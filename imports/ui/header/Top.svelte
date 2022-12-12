@@ -5,8 +5,8 @@
 </script>
 
 <!-- TopBar has room for functionality used from all over the site. Eventual cookies and/or marketing messages. -->
-<div class="top-bar" role="menu">
-  <ul class="top-bar-list">
+<div class="top" role="menu">
+  <ul>
     <li>
       <ToggleButton />
     </li>
@@ -34,27 +34,26 @@
 </div>
 
 <style>
-  .top-bar ul {
+  .top ul {
     display: flex;
     flex-wrap: nowrap;
     justify-content: flex-end;
     align-items: center;
     gap: 0.4rem;
-    list-style-type: none;
     padding: 0.6rem 0.8rem;
     background-color: var(--ra-grey-off-white);
   }
 
-  .top-bar ul li:first-of-type {
+  .top ul li:first-of-type {
     flex: 1 1 0;
   }
 
   @media screen and (min-width: 760px) {
-    .top-bar ul li:first-of-type {
+    .top ul li:first-of-type {
       display: none;
     }
   }
-  .top-bar ul li:after {
+  .top ul li:after {
     content: '|';
     color: var(--ra-grey-light);
     position: absolute;
@@ -62,28 +61,28 @@
     top: 34%;
   }
 
-  .top-bar ul li:first-of-type:after,
-  .top-bar ul li:last-of-type:after {
+  .top ul li:first-of-type:after,
+  .top ul li:last-of-type:after {
     content: none;
   }
 
-  .top-bar .user {
+  .top .user {
     display: flex;
     justify-content: center;
     align-items: center;
   }
 
   /* :link, :visited */
-  .top-bar a,
-  .top-bar a:visited {
+  .top a,
+  .top a:visited {
     color: var(--ra-grey-light);
   }
 
-  .top-bar a:hover {
+  .top a:hover {
     color: var(--ra-blue-bright);
   }
 
-  .top-bar a.active span {
+  .top a.active span {
     color: var(--ra-blue);
   }
 </style>

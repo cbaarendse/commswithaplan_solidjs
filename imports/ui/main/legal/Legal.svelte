@@ -67,10 +67,8 @@
     flex-wrap: wrap;
     gap: 2rem;
     justify-content: space-around;
-    font-size: 1em;
   }
   aside {
-    font-size: 1em;
     padding: 0;
     flex: 1 1 190px;
     border: 1px solid orangered;
@@ -90,7 +88,6 @@
     padding: 0;
     width: 100%;
     flex-wrap: wrap;
-    list-style-type: none;
     border: 1px dashed grey;
   }
   li {
@@ -102,7 +99,6 @@
   }
 
   a {
-    color: var(--ra-blue);
     text-decoration-color: var(--ra-blue);
   }
   a:hover {

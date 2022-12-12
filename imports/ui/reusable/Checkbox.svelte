@@ -8,11 +8,12 @@
 </script>
 
 <form>
-  <label for={cbx.name}>{displayName}</label>
+  <label for={cbx.name} style="font-size: {cbx.fontSize}">{displayName}</label>
   <input
     class="{`input__checkbox ${cbx.class}`};"
     name={cbx.name}
     id={cbx.id}
+    style="font-size: {cbx.fontSize}"
     type="checkbox"
     placeholder={cbx.placeholder}
     min={cbx.min}
@@ -28,7 +29,7 @@
   form {
     display: grid;
     grid-template-areas: 'input label';
-    gap: var(--ra-s);
+    gap: 0.7em;
     grid-template-rows: auto;
     justify-content: end;
     align-items: center;
@@ -46,9 +47,8 @@
     border: 1px solid var(--ra-grey);
     border-radius: 0.2em;
     background-color: var(--ra-blue-off-white);
-    padding: var(--ra-xs);
-    min-height: var(--ra-3xl);
-    font-size: var(--ra-fs-desktop);
+    padding: 0.7em;
+    min-height: 1.4em;
   }
 
   .input__checkbox:disabled {

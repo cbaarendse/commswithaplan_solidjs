@@ -2,7 +2,7 @@
 
 <style>
   span {
-    font-size: 14px;
+    font-size: 3em;
     margin: 0px 14px;
   }
 </style>

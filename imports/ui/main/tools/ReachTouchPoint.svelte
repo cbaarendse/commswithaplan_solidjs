@@ -82,6 +82,7 @@
         min: '0',
         max: '100',
         class: 'manual__input',
+        fontSize: '1.1em',
         placeholder: Convert.translate('input', $translations, $language),
         readonly: false
       }}
@@ -136,7 +137,7 @@
   button.input {
     width: clamp(3rem, 10vw, 7rem);
     height: clamp(3rem, 10vw, 7rem);
-    padding: var(--ra-xxs);
+    padding: 0.7em;
     font-size: 1.1em;
     border-radius: 50%;
     border: none;
@@ -147,9 +148,6 @@
     cursor: pointer;
   }
 
-  span {
-    /* font-size: 100%; */
-  }
   .center,
   .left,
   .right {

@@ -78,6 +78,7 @@
         name: 'ad_analytics_personal_storage',
         id: 'ad_storage__checkbox',
         class: 'consent__checkbox',
+        fontSize: '1em',
         readonly: false,
         disabled: false
       }}
@@ -90,6 +91,7 @@
         name: 'functional_storage',
         id: 'functional_storage__checkbox',
         class: 'consent__checkbox',
+        fontSize: '1em',
         readonly: false,
         disabled: functional_security_storage_checked
       }}
@@ -137,7 +139,6 @@
     align-items: center;
     gap: 1em;
     padding: 0.2em 0;
-    font-size: 1.4em;
     background: var(--ra-red-off-white);
   }
   nav {

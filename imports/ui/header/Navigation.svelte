@@ -11,8 +11,8 @@
 </script>
 
 {#if $navigationVisible === true}
-  <nav class="main-nav" transition:slide={{duration: 300}}>
-    <ul class="nav-list">
+  <nav class="key" transition:slide={{duration: 300}}>
+    <ul>
       <li>
         <a
           href={'/'}
@@ -47,8 +47,8 @@
 {/if}
 {#if $router.path === '/'}
   {#if $navigationVisible === true}
-    <nav class="sub-nav" transition:slide|local={{duration: 300}}>
-      <ul class="nav-list">
+    <nav class="sub" transition:slide|local={{duration: 300}}>
+      <ul>
         <li>
           <a
             href={'/'}
@@ -63,8 +63,8 @@
   {/if}{/if}
 {#if $router.path.startsWith('/consultancy')}
   {#if $navigationVisible === true}
-    <nav class="sub-nav" transition:slide|local={{duration: 300}}>
-      <ul class="nav-list">
+    <nav class="sub" transition:slide|local={{duration: 300}}>
+      <ul>
         <li>
           <a
             href={'/consultancy/'}
@@ -107,8 +107,8 @@
   {/if}{/if}
 {#if $router.path.startsWith('/tools')}
   {#if $navigationVisible === true}
-    <nav class="sub-nav" transition:slide|local={{duration: 300}}>
-      <ul class="nav-list">
+    <nav class="sub" transition:slide|local={{duration: 300}}>
+      <ul>
         <li>
           <a
             href={'/tools/'}
@@ -147,22 +147,20 @@
     display: grid;
     grid-template-columns: 1fr;
     grid-column: 1/3;
-    font-size: 1.4em;
   }
 
-  .main-nav {
-    padding: 1rem 1.4rem 1rem 1.4rem;
+  nav.key {
+    padding: 1em 1.4em 1em 1.4em;
     background-color: var(--ra-teal-light);
   }
 
-  .sub-nav {
-    padding: 1rem 1.4rem 1rem 1.4rem;
+  nav.sub {
+    padding: 1em 1.4em 1em 1.4em;
     background-color: var(--ra-black-off-white);
   }
 
   ul {
     grid-column: 1/1;
-    list-style-type: none;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -177,57 +175,53 @@
     font-family: 'Trebuchet MS';
   }
 
-  a {
-    text-decoration: none;
-  }
-
   /* links, :visited */
   /* main */
-  .main-nav a.brand span.blue {
+  nav.key a.brand span.blue {
     color: var(--ra-white);
   }
-  .main-nav a span.green {
+  nav.key a span.green {
     color: var(--ra-white);
   }
-  .main-nav a span.red {
+  nav.key a span.red {
     color: var(--ra-white);
   }
-  .main-nav a,
-  .main-nav a:visited {
+  nav.key a,
+  nav.key a:visited {
     color: var(--ra-grey-off-white);
   }
   /* sub */
-  .sub-nav a,
-  .sub-nav a:visited {
+  nav.sub a,
+  nav.sub a:visited {
     color: var(--ra-grey-light);
   }
   /* :hover */
-  .main-nav a:hover,
-  .sub-nav a:hover {
+  nav.key a:hover,
+  nav.sub a:hover {
     color: var(--ra-blue);
   }
-  .main-nav a:hover span.blue {
+  nav.key a:hover span.blue {
     color: var(--ra-blue);
   }
-  .main-nav a:hover span.green {
+  nav.key a:hover span.green {
     color: var(--ra-green);
   }
-  .main-nav a:hover span.red {
+  nav.key a:hover span.red {
     color: var(--ra-red);
   }
   /* .active */
   /* main */
-  .main-nav a.active span.blue {
+  nav.key a.active span.blue {
     color: var(--ra-blue);
   }
-  .main-nav a.active span.green {
+  nav.key a.active span.green {
     color: var(--ra-green);
   }
-  .main-nav a.active span.red {
+  nav.key a.active span.red {
     color: var(--ra-red);
   }
   /* sub */
-  .sub-nav a.active span {
+  nav.sub a.active span {
     color: var(--ra-blue);
   }
 
@@ -236,10 +230,10 @@
     nav {
       grid-template-columns: 1fr 4fr 1fr;
     }
-    .main-nav {
+    nav.key {
       padding: 2rem 1rem 2rem 1rem;
     }
-    .sub-nav {
+    nav.sub {
       padding: 1rem 1rem 1rem 1rem;
     }
     ul {
@@ -248,15 +242,15 @@
       align-items: flex-start;
       gap: clamp(var(--ra-xxs), 4vw, var(--ra-8xl));
     }
-    .main-nav ul {
+    nav.key ul {
       justify-content: space-evenly;
     }
 
-    .main-nav ul li:nth-of-type(1) {
+    nav.key ul li:nth-of-type(1) {
       flex: 1 1 auto;
     }
 
-    .sub-nav ul {
+    nav.sub ul {
       justify-content: center;
     }
   }

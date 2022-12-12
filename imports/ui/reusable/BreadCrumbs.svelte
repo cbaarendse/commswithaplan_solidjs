@@ -26,7 +26,6 @@
       </a>
     </li>
     {#each breadCrumbs as breadCrumb}
-      <li>&gt;</li>
       <li>
         <a href="/{breadCrumb}/" use:active>
           <span>{Convert.translate(breadCrumb, $translations, $language)}</span>
@@ -42,7 +41,6 @@
     padding: 2em;
     background-color: var(--ra-teal-off-white);
     border-radius: 5px;
-    font-size: 1.4em;
   }
 
   @media screen and (min-width: 768px) {
@@ -54,17 +52,14 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 2rem;
-    list-style-type: none;
-  }
-  a {
-    text-decoration: none;
+    gap: 2em;
   }
 
-  li,
-  a,
+  span {
+    font-size: 1.4em;
+  }
+
   a:hover,
-  a:visited,
   a.active {
     color: var(--ra-blue);
   }

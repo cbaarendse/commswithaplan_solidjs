@@ -80,7 +80,6 @@
     padding: 4%;
     border-radius: 0.2rem;
     background-color: var(--ra-teal-off-white);
-    font-size: 1em;
   }
   menu {
     display: flex;
@@ -96,7 +95,6 @@
     border-radius: 50%;
     border: none;
     color: var(--ra-white);
-    font-size: var(--ra-fs-desktop);
     cursor: pointer;
   }
 

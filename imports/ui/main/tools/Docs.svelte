@@ -49,18 +49,15 @@
   }
   .chapters__flex {
     display: flex;
-    font-size: var(--font-size-l);
   }
 
   ul {
     max-height: 800px;
     overflow-y: scroll;
-    list-style-type: none;
   }
 
   aside {
     display: none;
-    font-size: var(--font-size-l);
     padding: 1rem;
   }
 

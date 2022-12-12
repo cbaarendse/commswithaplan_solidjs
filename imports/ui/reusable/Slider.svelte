@@ -35,7 +35,7 @@
 <style>
   /* General */
   form {
-    font-size: 1.1em;
+    font-size: var(--ra-m);
     width: 100%;
     --thumb-size-phone: 1.25em;
     --thumb-size-tablet: 2.5em;

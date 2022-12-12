@@ -5,7 +5,7 @@
   import {Convert} from '../types/classes';
 
   // variables
-  let buttonFontSize: string = 'var(--ra-l)';
+  let buttonFontSize: string = '1.2em';
   //functions
 </script>
 
@@ -36,12 +36,9 @@
     justify-content: center;
     align-items: center;
     gap: 2em;
-    font-size: 1.4em;
   }
 
   a {
-    color: var(--ra-blue);
-    text-decoration: none;
     margin: 0 1em;
   }
 
