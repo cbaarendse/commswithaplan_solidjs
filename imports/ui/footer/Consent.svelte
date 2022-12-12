@@ -6,19 +6,19 @@
   import Checkbox from '../reusable/Checkbox.svelte';
   import {language, consentFooterVisible} from '../stores/utils';
   import {onMount} from 'svelte';
-  import {setCookie, getCookie, checkCookie, checkedToConsent, consentToChecked} from '../../both/functions';
+  import {Cookies} from '../types/classes';
 
   // variables
-  const functional_security_storage_checked: boolean = consentToChecked('granted');
+  const functional_security_storage_checked: boolean = Cookies.consentToChecked('granted');
   let ad_analytics_personal_storage_checked: boolean;
 
   // check for all 5 consent cookies
   let cookiesComplete: boolean =
-    checkCookie('_commswithaplan_ad_storage', document) &&
-    checkCookie('_commswithaplan_analytics_storage', document) &&
-    checkCookie('_commswithaplan_functional_storage', document) &&
-    checkCookie('_commswithaplan_personalization_storage', document) &&
-    checkCookie('_commswithaplan_security_storage', document);
+    Cookies.checkCookie('_commswithaplan_ad_storage', document) &&
+    Cookies.checkCookie('_commswithaplan_analytics_storage', document) &&
+    Cookies.checkCookie('_commswithaplan_functional_storage', document) &&
+    Cookies.checkCookie('_commswithaplan_personalization_storage', document) &&
+    Cookies.checkCookie('_commswithaplan_security_storage', document);
 
   console.log(`cookiesComplete = ${cookiesComplete}`);
 
@@ -28,23 +28,33 @@
   // fill checkboxes with the status from the consent cookies
   if (cookiesComplete) {
     ad_analytics_personal_storage_checked =
-      consentToChecked(getCookie('_commswithaplan_ad_storage', document)) &&
-      consentToChecked(getCookie('_commswithaplan_analytics_storage', document)) &&
-      consentToChecked(getCookie('_commswithaplan_personalization_storage', document));
+      Cookies.consentToChecked(Cookies.getCookie('_commswithaplan_ad_storage', document)) &&
+      Cookies.consentToChecked(Cookies.getCookie('_commswithaplan_analytics_storage', document)) &&
+      Cookies.consentToChecked(Cookies.getCookie('_commswithaplan_personalization_storage', document));
   }
 
   // reactively update cookies when user checks consent
   onMount(() => {
-    setCookie('_commswithaplan_functional_storage', checkedToConsent(functional_security_storage_checked), 7, document);
-    setCookie('_commswithaplan_security_storage', checkedToConsent(functional_security_storage_checked), 7, document);
+    Cookies.setCookie(
+      '_commswithaplan_functional_storage',
+      Cookies.checkedToConsent(functional_security_storage_checked),
+      7,
+      document
+    );
+    Cookies.setCookie(
+      '_commswithaplan_security_storage',
+      Cookies.checkedToConsent(functional_security_storage_checked),
+      7,
+      document
+    );
   });
 
   // functions
   function setConsent(value: 'denied' | 'granted') {
-    setCookie('_commswithaplan_ad_storage', value, 7, document);
-    setCookie('_commswithaplan_analytics_storage', value, 7, document);
-    setCookie('_commswithaplan_personalization_storage', value, 7, document);
-    ad_analytics_personal_storage_checked = consentToChecked(value);
+    Cookies.setCookie('_commswithaplan_ad_storage', value, 7, document);
+    Cookies.setCookie('_commswithaplan_analytics_storage', value, 7, document);
+    Cookies.setCookie('_commswithaplan_personalization_storage', value, 7, document);
+    ad_analytics_personal_storage_checked = Cookies.consentToChecked(value);
     setTimeout(() => {
       $consentFooterVisible = false;
     }, 500);

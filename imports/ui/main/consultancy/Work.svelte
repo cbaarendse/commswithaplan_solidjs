@@ -1,6 +1,5 @@
 <script lang="ts">
   // imports
-  import Section from '../../reusable/Section.svelte';
   import BreadCrumbs from '../../reusable/BreadCrumbs.svelte';
   import Card from '../../reusable/Card.svelte';
   import {language} from '../../stores/utils';
@@ -11,7 +10,7 @@
 </script>
 
 <BreadCrumbs breadCrumbs={['consultancy']} />
-<Section>
+<section>
   <div class="work__flex">
     <p>
       {#if $language === 'dutch'}
@@ -26,7 +25,7 @@
       </Card>
     {/each}
   </div>
-</Section>
+</section>
 
 <style>
   .work__flex {

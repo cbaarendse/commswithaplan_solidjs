@@ -1,14 +1,11 @@
 <script lang="ts">
   // imports
-  import Header from '../layout/Header.svelte';
   import Top from '../header/Top.svelte';
   import Navigation from '../header/Navigation.svelte';
-  import Main from '../layout/Main.svelte';
   import Routing from '../main/routing/Routing.svelte';
-  import Footer from '../layout/Footer.svelte';
   import Colofon from '../footer/Colofon.svelte';
   import Consent from '../footer/Consent.svelte';
-  import {consentFooterVisible} from '../stores/utils';
+  import {consentFooterVisible, isSmallScreen, useMediaQuery} from '../stores/utils';
 
   // variables
 
@@ -16,17 +13,20 @@
   function toggleFooterConsentVisibility() {
     $consentFooterVisible = $consentFooterVisible === false ? true : false;
   }
+  useMediaQuery('(max-width: 768px)').subscribe((value: boolean | null): void => {
+    $isSmallScreen = value;
+  });
 </script>
 
-<!-- Routing: Main content, based on chosen routes, always wrapped in a <main>-tag   -->
-<Header>
+<!-- Routing: Main content, based on chosen routes   -->
+<header>
   <Top />
   <Navigation />
-</Header>
-<Main>
+</header>
+<main>
   <Routing />
-</Main>
-<Footer>
+</main>
+<footer>
   <Colofon on:clickedButton={toggleFooterConsentVisibility} />
   <Consent />
-</Footer>
+</footer>

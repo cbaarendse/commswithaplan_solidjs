@@ -1,6 +1,5 @@
 <script lang="ts">
   // imports
-  import Section from '../../reusable/Section.svelte';
   import BreadCrumbs from '../../reusable/BreadCrumbs.svelte';
   import TermsAndConditions from '../legal/TermsAndConditions.svelte';
   import PrivacyPolicy from '../legal/PrivacyPolicy.svelte';
@@ -23,7 +22,7 @@
 </script>
 
 <BreadCrumbs breadCrumbs={['legal']} />
-<Section>
+<section>
   <div class="legal__grid">
     <div class="policies__flex">
       <aside>
@@ -54,7 +53,7 @@
       </div>
     </div>
   </div>
-</Section>
+</section>
 
 <style>
   .legal__grid {

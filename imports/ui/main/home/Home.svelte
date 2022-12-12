@@ -1,6 +1,5 @@
 <script lang="ts">
   // imports
-  import Section from '../../reusable/Section.svelte';
   import BreadCrumbs from '../../reusable/BreadCrumbs.svelte';
   import Card from '../../reusable/Card.svelte';
   import {language} from '../../stores/utils';
@@ -14,7 +13,7 @@
 </script>
 
 <BreadCrumbs breadCrumbs={['home']} />
-<Section>
+<section>
   <div class="home__grid">
     {#each translatedHomeItems as item}
       <Card
@@ -30,7 +29,7 @@
       </Card>
     {/each}
   </div>
-</Section>
+</section>
 
 <style>
   .home__grid {

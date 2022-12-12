@@ -3,7 +3,7 @@
   import Slider from '../../reusable/Slider.svelte';
   import Modal from '../../reusable/Modal.svelte';
   import Input from '../../reusable/Input.svelte';
-  import {Ui} from '../../types/classes';
+  import {Convert, Format} from '../../types/classes';
   import type {TouchPointInPlan} from '../../types/types';
   import {language, translations} from '../../stores/utils';
   //import {notify} from '../../notifications/NotificationsFunctions';
@@ -56,7 +56,7 @@
       on:click={() => {
         displayManualInput = 'flex';
         displayTouchPointDescription = 'none';
-      }}><span> {Ui.toStringFormat(touchPoint.value)}&nbsp;%</span></button
+      }}><span> {Format.toStringFormat(touchPoint.value)}&nbsp;%</span></button
     >
   </div>
   <Modal
@@ -82,7 +82,7 @@
         min: '0',
         max: '100',
         class: 'manual__input',
-        placeholder: Ui.translate('input', $translations, $language),
+        placeholder: Convert.translate('input', $translations, $language),
         readonly: false
       }}
       on:submitValueForName

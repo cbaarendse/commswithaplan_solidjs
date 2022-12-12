@@ -5,7 +5,7 @@
   import {definitions} from '../../stores/tools';
   import type {Content} from '../../types/types';
   import Modal from '../../reusable/Modal.svelte';
-  import {Ui} from '../../types/classes';
+  import {Convert, Format} from '../../types/classes';
 
   // variables
   const dispatch = createEventDispatcher();
@@ -38,21 +38,21 @@
   >
 
   <span class="reach-label" on:click|preventDefault|stopPropagation={() => showOutputDescription('total_reach')}
-    >{Ui.translate('total', $translations, $language)}&nbsp;{Ui.translate(
+    >{Convert.translate('total', $translations, $language)}&nbsp;{Convert.translate(
       'reach',
       $translations,
       $language
     )}:&nbsp;</span
   >
-  <span class="reach-result">{Ui.toNumberFormat(totalReach, 0)}&nbsp;%</span>
+  <span class="reach-result">{Format.toNumberFormat(totalReach, 0)}&nbsp;%</span>
   <div class="meter">
     <span style="width:{totalReach}%;" />
   </div>
 
   <span class="locus-label" on:click|preventDefault|stopPropagation={() => showOutputDescription('locus')}
-    >{Ui.translate('locus', $translations, $language)}:&nbsp;</span
+    >{Convert.translate('locus', $translations, $language)}:&nbsp;</span
   >
-  <span class="locus-result">{Ui.toNumberFormat(locus, 1)}&nbsp;%</span>
+  <span class="locus-result">{Format.toNumberFormat(locus, 1)}&nbsp;%</span>
   <div class="meter">
     <span style="width:{locus}%;" />
   </div>

@@ -3,7 +3,7 @@
   import {active} from 'tinro';
   import LogoReach from './LogoReach.svelte';
   import {language, translations} from '../stores/utils';
-  import {Ui} from '../types/classes';
+  import {Convert} from '../types/classes';
 
   // variables
   export let breadCrumbs: string[];
@@ -29,7 +29,7 @@
       <li>&gt;</li>
       <li>
         <a href="/{breadCrumb}/" use:active>
-          <span>{Ui.translate(breadCrumb, $translations, $language)}</span>
+          <span>{Convert.translate(breadCrumb, $translations, $language)}</span>
         </a>
       </li>
     {/each}

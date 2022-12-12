@@ -1,6 +1,5 @@
 <script lang="ts">
   // imports
-  import Section from '../../reusable/Section.svelte';
   import BreadCrumbs from '../../reusable/BreadCrumbs.svelte';
   import DocsLink from './DocsLink.svelte';
   import DocsChapter from './DocsChapter.svelte';
@@ -14,7 +13,7 @@
 </script>
 
 <BreadCrumbs breadCrumbs={['tools']} />
-<Section>
+<section>
   <div class="docs__grid">
     <div class="chapters__flex">
       <aside>
@@ -36,7 +35,7 @@
       </ul>
     </div>
   </div>
-</Section>
+</section>
 
 <style>
   .docs__grid {

@@ -83,7 +83,7 @@
     border: none;
     padding: var(--ra-xs);
     min-height: var(--ra-3xl);
-    font-size: var(--ra-fs-ipad-pro);
+    font-size: var(--ra-l);
   }
   .submit__button:disabled {
     background-color: var(--ra-grey-light);
@@ -95,6 +95,6 @@
     border: none;
     padding: var(--ra-xs);
     min-height: var(--ra-3xl);
-    font-size: var(--ra-fs-ipad-pro);
+    font-size: var(--ra-l);
   }
 </style>

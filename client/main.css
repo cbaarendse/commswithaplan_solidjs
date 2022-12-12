@@ -59,22 +59,9 @@
     --ra-6xl: 6rem; /*3.75rem;*/
     --ra-7xl: 7.2rem; /*4.5rem;*/
     --ra-8xl: 9.6rem; /*6rem;*/
-    --ra-nav-1-height-xl: var(--ra-2xl);
-    --ra-nav-1-height-xs: var(--ra-xl);
-    --ra-nav-2-height-xl: var(--ra-6xl);
-    --ra-nav-2-height-xs: var(--ra-8xl);
-    --ra-nav-3-height-xl: var(--ra-3xl);
-    --ra-nav-3-height-xs: var(--ra-6xl);
-    --ra-notifications-height: var(--ra-3xl);
-    /* font-sizes in clamp() rem */
+    /* font-size weight in clamp() rem */
     --ra-fs-weight: calc(1/56);
-    --ra-fs-phone: var(--ra-xxs);
-    --ra-fs-iphone-plus: var(--ra-xs);
-    --ra-fs-ipad-mini: var(--ra-s);
-    --ra-fs-ipad: var(--ra-m);
-    --ra-fs-ipad-pro: var(--ra-l);
-    --ra-fs-desktop: var(--ra-xl);
-      /* screen sizes */
+    /* screen sizes */
     --iphone: 320px;
     --iphone-plus: 414px;
     --ipad: 768px;
@@ -102,6 +89,44 @@ div.app {
     grid-template-columns: 1fr;
     grid-template-rows: auto 1fr minmax(2rem, auto) minmax(0, auto);
     height: 100vh;
+  }
+
+ /* layout */
+ header {
+    font-size: 1.6em;
+    width: 100%;
+    z-index: 999;
+    margin-bottom: 2em;
+  }
+  main {
+    width: min(100% - 0.2em, 70em);
+    margin: 0 auto;
+    padding-bottom: 2em;
+    overflow: auto;
+  }
+
+  @media screen and (min-width: 32em) {
+    main {
+      width: min(100% - 2em, 70em);
+    }
+  }
+  @media screen and (min-width: 102.4em) {
+    main {
+      width: min(100% - 4em, 70em);
+    }
+  }
+  @media screen and (min-width: 136.6em) {
+    main {
+      width: min(100% - 8em, 70em);
+    }
+  }
+  section {
+    padding: 0.2em;
+    margin-bottom: 1em;
+    font-size: clamp(1.4em, 3vw, 1.8em);
+  }
+ footer {
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
   }
 /* schedule */
 

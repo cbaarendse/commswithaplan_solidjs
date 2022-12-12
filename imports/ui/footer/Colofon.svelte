@@ -2,7 +2,7 @@
   // imports
   import Button from '../reusable/Button.svelte';
   import {language, translations} from '../stores/utils';
-  import {Ui} from '../types/classes';
+  import {Convert} from '../types/classes';
 
   // variables
   let buttonFontSize: string = 'var(--ra-l)';
@@ -13,7 +13,7 @@
   <span>© 2013-2023 Comms With A Plan</span>
   <nav>
     <a href="/consultancy/contact">Contact</a>
-    <a href="/legal/termsandconditions">{Ui.translate('legal', $translations, $language)}</a>
+    <a href="/legal/termsandconditions">{Convert.translate('legal', $translations, $language)}</a>
   </nav>
   <menu>
     <Button

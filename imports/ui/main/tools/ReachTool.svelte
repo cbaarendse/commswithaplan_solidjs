@@ -1,6 +1,5 @@
 <script lang="ts">
   // imports
-  import Section from '../../reusable/Section.svelte';
   import BreadCrumbs from '../../reusable/BreadCrumbs.svelte';
   import ReachControlsOutput from './ReachControlsOutput.svelte';
   import ReachTouchPoint from './ReachTouchPoint.svelte';
@@ -87,7 +86,7 @@
 </script>
 
 <BreadCrumbs breadCrumbs={['tools', 'reach']} />
-<Section>
+<section>
   <ReachControlsOutput
     {totalReach}
     {locus}
@@ -98,8 +97,8 @@
     on:sort={sort}
     on:hide={hide}
   />
-</Section>
-<Section>
+</section>
+<section>
   <div class="touchpoints__flex">
     {#each touchPointsInPlan as touchPoint}
       <ReachTouchPoint
@@ -110,7 +109,7 @@
       />
     {/each}
   </div>
-</Section>
+</section>
 
 <style>
   .touchpoints__flex {
