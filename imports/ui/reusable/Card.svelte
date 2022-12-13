@@ -14,7 +14,7 @@
   <div class="card__main">
     {#if card.title}
       <div class="card__title" style="font-color:{card.color}">
-        <h2>{card.title}</h2>
+        <h3>{card.title}</h3>
       </div>
     {/if}
     <p>
@@ -50,15 +50,13 @@
   .card__main {
     flex: 1 0 0;
   }
-  .card__title {
-    padding: 0.5rem 0;
-  }
+
   .card__main p {
     display: flex;
     justify-content: center;
     align-items: center;
     line-height: 1.7em;
-    padding: 0.5rem 0;
+    padding: 0.5em 0;
   }
 
   .card__footer {
@@ -72,7 +70,7 @@
     justify-content: center;
     align-items: center;
     line-height: 1.7em;
-    padding: 0.5rem 0;
+    padding: 0.5em 0;
   }
   a {
     text-decoration: none;

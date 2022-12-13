@@ -17,9 +17,9 @@
       <a href={'/'} use:active data-exact class="brand">
         <LogoReach
           logo={{
-            sizes: 'var(--ra-fs-desktop)',
-            width: 'var(--ra-5xl)',
-            height: 'var(--ra-5xl)',
+            sizes: '1.4em',
+            width: '1.8em',
+            height: '1.8em',
             colored: true
           }}
         />
@@ -38,7 +38,7 @@
 <style>
   nav {
     margin: 1em 0;
-    padding: 2em;
+    padding: 1.6em 2em;
     background-color: var(--ra-teal-off-white);
     border-radius: 5px;
   }

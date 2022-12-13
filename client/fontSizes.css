@@ -1,0 +1,61 @@
+/* font sizes */
+header div.top {
+    font-size: var(--ra-xs);
+} 
+
+header nav.key{
+    font-size: var(--ra-m);
+}
+
+header nav.sub{
+    font-size: var(--ra-m);
+}
+main  {   
+    font-size: var(--ra-s);
+}
+
+footer div {
+    font-size: var(--ra-xs);
+}
+
+@media screen and (min-width: 76.8em){
+  header div.top {
+    font-size: var(--ra-s);
+} 
+
+header nav.key{
+    font-size: var(--ra-xl);
+}
+
+header nav.sub{
+    font-size: var(--ra-l);
+}
+main {   
+    font-size: var(--ra-m);
+}
+
+footer div {
+    font-size: var(--ra-s);
+}
+}
+
+@media screen and (min-width: 102.4em){
+  header div.top {
+    font-size: var(--ra-s);
+} 
+
+header nav.key{
+    font-size: var(--ra-xl);
+}
+
+header nav.sub{
+    font-size: var(--ra-l);
+}
+main {   
+    font-size: var(--ra-m);
+}
+
+footer div {
+    font-size: var(--ra-s);
+}
+}
