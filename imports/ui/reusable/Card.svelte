@@ -17,7 +17,7 @@
     <slot />
   </p>
 
-  <p style="background-color:{card.backgroundColor}; font-color:{card.color}">
+  <p>
     <slot name="cardFooterText" />
   </p>
   {#if card.action}
@@ -35,7 +35,7 @@
   }
 
   img {
-    height: 22rem;
+    height: 22em;
     width: 100%;
     object-fit: cover;
   }
@@ -45,7 +45,7 @@
     justify-content: center;
     align-items: center;
     line-height: 1.7em;
-    padding: 0.5em 0;
+    margin: 0.5em 0;
   }
 
   a:hover {

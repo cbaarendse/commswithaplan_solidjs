@@ -15,9 +15,9 @@
   }
 </script>
 
-<div class="modal__container" style="display:{display}" transition:fade={{delay: 0, duration: 400}}>
+<dialog style="display:{display}" transition:fade={{delay: 0, duration: 400}}>
   <div class="modal">
-    <div class="modal__button__container">
+    <menu>
       <Button
         btn={{
           type: 'button',
@@ -32,20 +32,20 @@
       >
         <span aria-hidden="true">&times;</span>
       </Button>
-    </div>
-    <div class="modal__header">
+    </menu>
+    <header>
       <h4 class="modal__title">{title}</h4>
-    </div>
+    </header>
     <div class="modal__body"><slot /></div>
 
-    <div class="modal__footer">
+    <footer>
       <slot name="footer" />
-    </div>
+    </footer>
   </div>
-</div>
+</dialog>
 
 <style>
-  .modal__container {
+  dialog {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -67,24 +67,24 @@
     /* width: min(40%, fit-content); */
     min-height: fit-content;
     /* margin: 0 1rem; */
-    padding: var(--ra-xl) var(--ra-m) var(--ra-3xl);
+    padding: 1.2em 1em 2em;
     background-color: var(--ra-white);
     border-radius: 0.6em;
   }
-  .modal__button__container {
+  menu {
     display: flex;
     justify-content: flex-end;
     width: 100%;
   }
-  .modal__header {
+  header {
     display: flex;
     justify-content: flex-start;
-    padding: var(--ra-m) 0;
+    padding: 1em 0;
   }
   div.modal__body {
     display: flex;
   }
-  div.modal__footer {
+  footer {
     display: flex;
   }
 </style>

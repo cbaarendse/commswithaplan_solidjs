@@ -37,7 +37,8 @@
 
 <style>
   nav {
-    margin: 1em 0;
+    margin-bottom: 1em;
+    margin-inline: 0;
     padding: 1.6em 2em;
     background-color: var(--ra-teal-off-white);
     border-radius: 5px;

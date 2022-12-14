@@ -9,7 +9,7 @@ div.app {
  header {
     width: 100%;
     z-index: 999;
-    margin-bottom: 2em;
+    margin-bottom: 1em;
   }
 
   main {
@@ -43,7 +43,7 @@ div.app {
   }
 
   /* font sizes */
-header div.top {
+header menu {
   font-size: var(--ra-xs);
 } 
 
@@ -63,7 +63,7 @@ footer div {
 }
 
 @media screen and (min-width: 76.8em){
-header div.top {
+header menu {
   font-size: var(--ra-s);
 } 
 
@@ -84,7 +84,7 @@ footer div {
 }
 
 @media screen and (min-width: 102.4em){
-header div.top {
+header menu {
   font-size: var(--ra-s);
 } 
 

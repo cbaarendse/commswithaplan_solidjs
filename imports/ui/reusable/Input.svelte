@@ -23,7 +23,6 @@
 <form>
   <label for={input.name}>{$language === 'dutch' ? 'Invoer voor ' : 'Input for '}{displayName}</label>
   <input
-    class="{`input__field ${input.class}`};"
     name={input.name}
     id={input.id}
     type="number"

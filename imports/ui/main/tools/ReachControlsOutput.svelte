@@ -37,25 +37,26 @@
     ></menu
   >
 
-  <span class="reach-label" on:click|preventDefault|stopPropagation={() => showOutputDescription('total_reach')}
+  <label
+    for="reach"
+    class="reach-label"
+    on:click|preventDefault|stopPropagation={() => showOutputDescription('total_reach')}
     >{Convert.translate('total', $translations, $language)}&nbsp;{Convert.translate(
       'reach',
       $translations,
       $language
-    )}:&nbsp;</span
+    )}:&nbsp;</label
   >
-  <span class="reach-result">{Format.toNumberFormat(totalReach, 0)}&nbsp;%</span>
-  <div class="meter">
-    <span style="width:{totalReach}%;" />
-  </div>
+  <output class="reach-output">{Format.toNumberFormat(totalReach, 0)}&nbsp;%</output>
+  <!-- TODO: <meter> -->
+  <meter id="reach" value={totalReach} min="0" max="100">Reach</meter>
 
-  <span class="locus-label" on:click|preventDefault|stopPropagation={() => showOutputDescription('locus')}
-    >{Convert.translate('locus', $translations, $language)}:&nbsp;</span
+  <label for="locus" class="locus-label" on:click|preventDefault|stopPropagation={() => showOutputDescription('locus')}
+    >{Convert.translate('locus', $translations, $language)}:&nbsp;</label
   >
-  <span class="locus-result">{Format.toNumberFormat(locus, 1)}&nbsp;%</span>
-  <div class="meter">
-    <span style="width:{locus}%;" />
-  </div>
+  <output class="locus-output">{Format.toNumberFormat(locus, 1)}&nbsp;%</output>
+  <!-- TODO: <meter> -->
+  <meter id="locus" value={locus} min="0" max="100">Locus</meter>
 </div>
 
 <Modal
@@ -71,27 +72,28 @@
   .container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(3rem, 1fr));
-    grid-auto-rows: 3rem;
+    grid-auto-rows: auto;
     grid-template-areas:
       'menu menu menu menu'
       'rl rl . rr'
       'll ll . lr ';
-    gap: 1.2rem;
+    gap: 2em;
     padding: 4%;
     border-radius: 0.2rem;
     background-color: var(--ra-teal-off-white);
   }
   menu {
     display: flex;
-    justify-content: space-around;
+    justify-content: flex-start;
+    gap: 3em;
     grid-area: menu;
   }
   button {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 3rem;
-    height: 3rem;
+    width: 5rem;
+    height: 5rem;
     border-radius: 50%;
     border: none;
     color: var(--ra-white);
@@ -121,11 +123,17 @@
   .reach-label:hover {
     opacity: 0.7;
   }
-  .reach-result {
-    grid-area: rr;
+  output {
     align-self: center;
     font-size: 1.4em;
   }
+  output.reach-output {
+    grid-area: rr;
+  }
+  output.locus-output {
+    grid-area: lr;
+  }
+
   .locus-label {
     grid-area: ll;
     align-self: center;
@@ -135,36 +143,60 @@
   .locus-label:hover {
     opacity: 0.7;
   }
-  .locus-result {
-    grid-area: lr;
+
+  /*for meter track*/
+  meter,
+  meter::-webkit-meter-bar {
+    display: none;
     align-self: center;
-    font-size: 1.4em;
-  }
-  .meter {
-    align-self: center;
+    /*to remove the default background property */
+    background: none;
+    height: 1.5em;
+    width: 100%;
     border: 1px solid #ccc;
     border-radius: 3px;
+    overflow: hidden;
     background-color: whiteSmoke;
     box-shadow: 0 5px 5px -5px rgba(0, 0, 0, 0.4) inset;
-    height: 1.5rem;
-    display: none;
   }
-  .reach-result + .meter {
+  /* background-image: linear-gradient(90deg, var(--ra-blue) 0%, var(--ra-blue) 100%);
+    background-size: 100% 100%;
+    text-indent: -9999px; */
+  /*for meter bar*/
+  meter::-webkit-meter-optimum-value {
+    background: none;
+    background-color: var(--ra-red);
+  }
+  :-moz-meter-optimum::-moz-meter-bar {
+    background: none;
+    background-color: var(--ra-blue);
+  }
+
+  meter::-webkit-meter-suboptimum-value {
+    background: none;
+    background-color: var(--ra-blue);
+  }
+  :-moz-meter-sub-optimum::-moz-meter-bar {
+    background: none;
+    background-color: var(--ra-blue);
+  }
+
+  meter::-webkit-meter-even-less-good-value {
+    background: none;
+    background-color: var(--ra-blue);
+  }
+  :-moz-meter-sub-sub-optimum::-moz-meter-bar {
+    background: none;
+    background-color: var(--ra-blue);
+  }
+
+  output.reach-output + meter {
     grid-area: rm;
   }
-  .locus-result + .meter {
+  output.locus-output + meter {
     grid-area: lm;
   }
-  .meter > span,
-  .meter > span {
-    height: inherit;
-    box-shadow: 0 5px 5px -5px #999 inset;
-    background-color: blue;
-    background-image: linear-gradient(90deg, var(--ra-blue) 0%, var(--ra-blue) 100%);
-    background-size: 100% 100%;
-    display: none;
-    text-indent: -9999px;
-  }
+
   @media screen and (min-width: 375px) {
     .container {
       grid-template-areas:
@@ -182,8 +214,7 @@
         'rl rl rr rm rm rm'
         'll ll lr lm lm lm';
     }
-    .meter,
-    .meter > span {
+    meter {
       display: block;
     }
   }
@@ -200,7 +231,7 @@
   @media screen and (min-width: 1024px) {
     .container {
       grid-template-areas:
-        'menu menu menu menu menu menu menu menu menu menu menu men'
+        'menu menu menu menu menu menu menu menu menu menu menu menu'
         'rl rl rr rm rm rm ll ll lr lm lm lm';
     }
   }

@@ -18,7 +18,7 @@
 </script>
 
 <form>
-  <label for={slider.name}>{displayName}</label>
+  <label for={slider.name} style="font-size:{slider.fontSize}">{displayName}</label>
   <input
     id={slider.id}
     name={slider.name}
@@ -35,7 +35,6 @@
 <style>
   /* General */
   form {
-    font-size: var(--ra-m);
     width: 100%;
     --thumb-size-phone: 1.25em;
     --thumb-size-tablet: 2.5em;

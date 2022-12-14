@@ -42,7 +42,8 @@
           value: touchPoint.value.toString(),
           min: '0',
           max: '100',
-          step: '1'
+          step: '1',
+          fontSize: '1em'
         }}
         on:changeValueForName
         on:inputValueForName
@@ -81,8 +82,7 @@
         value: touchPoint.value.toString(),
         min: '0',
         max: '100',
-        class: 'manual__input',
-        fontSize: '1.1em',
+        fontSize: 'clamp(1rem, 3vw, 2rem)',
         placeholder: Convert.translate('input', $translations, $language),
         readonly: false
       }}
@@ -103,16 +103,16 @@
     padding: 0.4em 1em 0.4em 1em;
     border-radius: 0.2em;
   }
-  @media screen and (min-width: 375px) {
+  @media screen and (min-width: 768px) {
     .touchpoint__grid {
       grid-template-columns: 1fr 5fr 1fr;
     }
   }
 
   button.touchpoint {
-    width: clamp(3rem, 10vw, 7rem);
-    height: clamp(3rem, 10vw, 7rem);
-    padding: var(--ra-xxs);
+    width: clamp(6.5rem, 9vw, 8rem);
+    height: clamp(6.5rem, 9vw, 8rem);
+    padding: 0.7em;
     border: none;
     border-radius: 7px;
     background-repeat: no-repeat;
@@ -135,10 +135,10 @@
   } */
 
   button.input {
-    width: clamp(3rem, 10vw, 7rem);
-    height: clamp(3rem, 10vw, 7rem);
+    width: clamp(6rem, 9vw, 8rem);
+    height: clamp(6rem, 9vw, 8rem);
     padding: 0.7em;
-    font-size: 1.1em;
+    font-size: clamp(1.4rem, 3vw, 1.8rem);
     border-radius: 50%;
     border: none;
     background-repeat: no-repeat;
