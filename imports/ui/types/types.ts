@@ -50,6 +50,9 @@ export type Select = Omit<
 } & Partial<HTMLElement['style']>;
 
 export type Slider = Omit<Input, 'step'> & {step: string | undefined | null};
+export type Label = svelteHTML.IntrinsicElements['label'] & Partial<HTMLElement['style']>;
+export type Meter = svelteHTML.IntrinsicElements['meter'] & Partial<HTMLElement['style']>;
+export type Dialog = HTMLDialogElement;
 
 // building blocks
 // type CWAPColor = {color: 'blue' | 'green' | 'red' | 'teal' | 'grey' | 'transparent' | 'transparentnoborder'};

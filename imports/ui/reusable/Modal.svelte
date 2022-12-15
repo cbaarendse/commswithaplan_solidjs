@@ -1,12 +1,18 @@
 <script lang="ts">
-  // packages
+  // imports
+  import type {Dialog} from '../types/types';
   import {fade} from 'svelte/transition';
   import Button from './Button.svelte';
-  import {createEventDispatcher} from 'svelte';
+  import {createEventDispatcher, onMount} from 'svelte';
 
   // variables
   export let title: string;
   export let display: string = 'none';
+  export let dialog: Dialog | null; // Reference to the dialog tag
+  onMount(() => {
+    dialog = document.getElementById('modal-dialog') as Dialog | null;
+    dialog?.close();
+  });
 
   // functions
   let dispatch = createEventDispatcher();
@@ -15,7 +21,7 @@
   }
 </script>
 
-<dialog style="display:{display}" transition:fade={{delay: 0, duration: 400}}>
+<dialog id="modal-dialog" style="display: none" transition:fade={{delay: 0, duration: 400}}>
   <div class="modal">
     <menu>
       <Button
@@ -56,6 +62,8 @@
     z-index: 100;
     top: 0px;
     left: 0px;
+  }
+  dialog::backdrop {
     background-color: rgba(0, 0, 0, 0.6);
   }
   .modal {
