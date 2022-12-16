@@ -21,33 +21,59 @@
 
 <style>
   /*for meter track*/
-  meter,
-  meter::-webkit-meter-bar {
-    display: block;
-    /*to remove the default background property */
-    background: none;
-    height: 1.5em;
+  meter {
+    /* Reset the default appearance */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+
     width: 100%;
-    border: 1px solid #ccc;
+    height: 1.5em;
+
+    /* For Firefox */
+    background: whitesmoke;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2) inset;
     border-radius: 5px;
-    overflow: hidden;
-    background-color: whiteSmoke;
-    box-shadow: 0 5px 5px -5px rgba(0, 0, 0, 0.4) inset;
   }
-  /* background-image: linear-gradient(90deg, var(--ra-blue) 0%, var(--ra-blue) 100%);
-    background-size: 100% 100%;
-    text-indent: -9999px; */
-  /*for meter bar*/
+  /* WebKit */
+  meter::-webkit-meter-bar {
+    background: whitesmoke;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2) inset;
+    border-radius: 5px;
+  }
+
   meter::-webkit-meter-optimum-value,
   meter::-webkit-meter-suboptimum-value,
   meter::-webkit-meter-even-less-good-value {
-    background: none;
-    background-image: linear-gradient(180deg, var(--ra-blue-light) 0%, var(--ra-blue) 100%);
+    border-radius: 5px;
   }
-  meter:-moz-meter-optimum::-moz-meter-bar,
-  meter:-moz-meter-sub-optimum::-moz-meter-bar,
+
+  meter::-webkit-meter-optimum-value {
+    background: linear-gradient(180deg, var(--ra-blue-light) 0%, var(--ra-blue) 100%);
+  }
+
+  meter::-webkit-meter-suboptimum-value {
+    background: linear-gradient(180deg, var(--ra-blue-light) 0%, var(--ra-blue) 100%);
+  }
+
+  meter::-webkit-meter-even-less-good-value {
+    background: linear-gradient(180deg, var(--ra-blue-light) 0%, var(--ra-blue) 100%);
+  }
+
+  /* Firefox */
+  meter::-moz-meter-bar {
+    border-radius: 5px;
+  }
+
+  meter:-moz-meter-optimum::-moz-meter-bar {
+    background: linear-gradient(180deg, var(--ra-blue-light) 0%, var(--ra-blue) 100%);
+  }
+
+  meter:-moz-meter-sub-optimum::-moz-meter-bar {
+    background: linear-gradient(180deg, var(--ra-blue-light) 0%, var(--ra-blue) 100%);
+  }
+
   meter:-moz-meter-sub-sub-optimum::-moz-meter-bar {
-    background: none;
-    background-image: linear-gradient(180deg, var(--ra-blue-light) 0%, var(--ra-blue) 100%);
+    background: linear-gradient(180deg, var(--ra-blue-light) 0%, var(--ra-blue) 100%);
   }
 </style>

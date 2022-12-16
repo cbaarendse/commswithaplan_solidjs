@@ -23,6 +23,7 @@
 <form>
   <label for={input.name}>{$language === 'dutch' ? 'Invoer voor ' : 'Input for '}{displayName}</label>
   <input
+    class="input__field"
     name={input.name}
     id={input.id}
     type="number"
@@ -72,6 +73,7 @@
     border-radius: 0.2em;
     background-color: var(--ra-blue-off-white);
     padding: var(--ra-xs);
+    width: 100%;
     min-height: var(--ra-3xl);
     font-size: var(--ra-fs-desktop);
   }

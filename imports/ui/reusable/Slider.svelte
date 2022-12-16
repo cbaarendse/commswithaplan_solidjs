@@ -36,14 +36,14 @@
   /* General */
   form {
     width: 100%;
-    --thumb-size-phone: 1.25em;
-    --thumb-size-tablet: 2.5em;
-    --thumb-size-desktop: 5em;
-    --track-height-phone: 0.25em;
+    --thumb-size-phone: 2em;
+    --thumb-size-tablet: 4em;
+    --thumb-size-desktop: 8em;
+    --track-height-phone: 0.42em;
     /* 4.2px; */
-    --track-height-tablet: 0.5em;
+    --track-height-tablet: 0.84em;
     /* 8.4px; */
-    --track-height-desktop: 1em;
+    --track-height-desktop: 0.84em;
     /* 8.4px; */
   }
 
@@ -76,7 +76,7 @@
     height: 50%;
     cursor: pointer;
     background-color: var(--ra-white);
-    border-radius: 7%;
+    border-radius: 0.6em;
   }
 
   input[type='range']::-moz-range-progress {
@@ -92,15 +92,16 @@
     background: transparent;
     border-color: transparent;
     border-width: 16px 0;
+    border-radius: 0.6em;
     color: transparent;
   }
   input[type='range']::-ms-fill-lower {
     background: var(--ra-grey-light);
-    border-radius: 2.6px;
+    border-radius: 0.6em;
   }
   input[type='range']::-ms-fill-upper {
     background: var(--ra-grey-bright);
-    border-radius: 2.6px;
+    border-radius: 0.6em;
   }
 
   input[type='range']:focus::-ms-fill-lower {

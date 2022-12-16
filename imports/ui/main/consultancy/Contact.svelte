@@ -13,7 +13,7 @@
 <section>
   <div class="contact__flex">
     {#each translatedContactItems as item}
-      <Card card={{color: 'blue', title: item.displayName}}>
+      <Card card={{color: 'blue', title: item.displayName, sizes: '1em'}}>
         <address>
           {item.description}
         </address>
@@ -23,6 +23,7 @@
       card={{
         title: 'LinkedIn',
         color: 'blue',
+        sizes: '1em',
         link: 'https://www.linkedin.com/in/cbaarendse/',
         action: 'LinkedIn'
       }}

@@ -77,14 +77,13 @@
   }}>{output.description}</Modal
 >
 
-<!-- TODO: all this in flexbox, make groups, meter is % of parent (if parent is header) or vw unit -->
 <style>
   div.container {
     display: flex;
     flex-flow: row wrap;
     gap: 2em;
-    padding: 4%;
-    border-radius: 0.2rem;
+    padding: 2em 4em;
+    border-radius: 0.2em;
     background-color: var(--ra-teal-off-white);
   }
   menu {
@@ -138,6 +137,6 @@
   }
 
   div.container > :global(meter) {
-    flex: 1 1 20em;
+    flex: 1 1 60%;
   }
 </style>

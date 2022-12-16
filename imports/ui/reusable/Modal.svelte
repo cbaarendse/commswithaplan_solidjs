@@ -1,70 +1,76 @@
 <script lang="ts">
   // imports
-  import type {Dialog} from '../types/types';
   import {fade} from 'svelte/transition';
   import Button from './Button.svelte';
-  import {createEventDispatcher, onMount} from 'svelte';
+  import {createEventDispatcher} from 'svelte';
 
   // variables
   export let title: string;
   export let display: string = 'none';
-  export let dialog: Dialog | null; // Reference to the dialog tag
-  onMount(() => {
-    dialog = document.getElementById('modal-dialog') as Dialog | null;
-    dialog?.close();
-  });
 
   // functions
   let dispatch = createEventDispatcher();
-  function destroyModal() {
-    dispatch('destroyModal');
+
+  function dismiss(event: MouseEvent | CustomEvent | KeyboardEvent): void {
+    if (
+      (event instanceof KeyboardEvent && event.key === 'Escape') ||
+      event instanceof CustomEvent ||
+      event instanceof MouseEvent
+    ) {
+      display = 'none';
+      // 'destroyModal' gives opportunity to be specific if there are multiple modals
+      dispatch('destroyModal');
+    }
   }
 </script>
 
-<dialog id="modal-dialog" style="display: none" transition:fade={{delay: 0, duration: 400}}>
-  <div class="modal">
-    <menu>
-      <Button
-        btn={{
-          type: 'button',
-          ariaRoleDescription: 'button',
-          backgroundColor: 'transparent',
-          borderColor: 'transparent',
-          fontSize: 'var(--ra-2xl)',
-          disabled: false
-        }}
-        on:clickedButton={() => (display = 'none')}
-        on:clickedButton={destroyModal}
-      >
-        <span aria-hidden="true">&times;</span>
-      </Button>
-    </menu>
-    <header>
-      <h4 class="modal__title">{title}</h4>
-    </header>
-    <div class="modal__body"><slot /></div>
-
-    <footer>
-      <slot name="footer" />
-    </footer>
+<svelte:window on:keyup={dismiss} />
+{#if display == 'flex'}
+  <div
+    class="backdrop"
+    style="display:{display}"
+    transition:fade={{delay: 0, duration: 400}}
+    on:click|preventDefault|stopPropagation|self={dismiss}
+  >
+    <div class="modal">
+      <menu>
+        <Button
+          btn={{
+            type: 'button',
+            ariaRoleDescription: 'button',
+            backgroundColor: 'transparent',
+            borderColor: 'transparent',
+            fontSize: '1.5em',
+            disabled: false
+          }}
+          on:clickedButton={dismiss}
+          >&times;
+        </Button>
+      </menu>
+      <header>
+        <h3 class="modal__title">{title}</h3>
+      </header>
+      <div class="modal__body">
+        <slot />
+      </div>
+      <footer>
+        <slot name="modal__footer" />
+      </footer>
+    </div>
   </div>
-</dialog>
+{/if}
 
 <style>
-  dialog {
-    display: flex;
+  div.backdrop {
     justify-content: center;
     align-items: center;
-    gap: 2em;
-    width: 100%;
     height: 100%;
-    position: absolute;
+    width: 100%;
+    position: fixed;
+    top: 0em;
+    left: 0em;
+    background: rgba(0, 0, 0, 0.5);
     z-index: 100;
-    top: 0px;
-    left: 0px;
-  }
-  dialog::backdrop {
-    background-color: rgba(0, 0, 0, 0.6);
   }
   .modal {
     flex: 0 1 80%;
@@ -72,10 +78,9 @@
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
-    /* width: min(40%, fit-content); */
-    min-height: fit-content;
-    /* margin: 0 1rem; */
+    margin: 0 1em;
     padding: 1.2em 1em 2em;
+    font-size: 1.2em;
     background-color: var(--ra-white);
     border-radius: 0.6em;
   }
@@ -86,13 +91,19 @@
   }
   header {
     display: flex;
-    justify-content: flex-start;
-    padding: 1em 0;
+    justify-content: center;
+    margin: 1em 0;
   }
   div.modal__body {
     display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1em 0;
   }
   footer {
     display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1em 0;
   }
 </style>

@@ -9,13 +9,15 @@
   $: translatedAboutItems = $aboutItems.filter((item) => item.language === $language);
 </script>
 
-<BreadCrumbs breadCrumbs={['consultancy']} />
+<header>
+  <BreadCrumbs breadCrumbs={['consultancy']} />
+</header>
 <section>
   <div class="about__flex">
     {#each translatedAboutItems as item}
-      <Card card={{}}>{item.description}</Card>
+      <Card card={{sizes: '1em'}}>{item.description}</Card>
     {/each}
-    <Card card={{}}>
+    <Card card={{sizes: '1em'}}>
       <a href="https://www.linkedin.com/in/cbaarendse/"> https://www.linkedin.com/in/cbaarendse/ </a>
     </Card>
   </div>

@@ -75,7 +75,7 @@
     }}
   >
     <Input
-      displayName="touchPoint.displayName,"
+      displayName={touchPoint.displayName}
       input={{
         name: touchPoint.name,
         id: touchPoint.name,

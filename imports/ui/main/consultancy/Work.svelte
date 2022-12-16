@@ -20,7 +20,9 @@
       {/if}
     </p>
     {#each translatedWorkItems as item}
-      <Card card={{color: item.color, title: item.displayName, imgFiles: [`/consultancy/${item.name}.jpg`]}}>
+      <Card
+        card={{color: item.color, title: item.displayName, sizes: '1em', imgFiles: [`/consultancy/${item.name}.jpg`]}}
+      >
         {item.description}
       </Card>
     {/each}
