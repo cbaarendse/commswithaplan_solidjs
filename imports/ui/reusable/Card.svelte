@@ -16,10 +16,11 @@
   <p>
     <slot />
   </p>
-
-  <p>
-    <slot name="cardFooterText" />
-  </p>
+  {#if $$slots.cardFooterText}
+    <p>
+      <slot name="cardFooterText" />
+    </p>
+  {/if}
   {#if card.action}
     <a href={card.link}>{card.action}</a>
   {/if}
@@ -29,21 +30,16 @@
   article.card {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    justify-content: space-between;
     padding: 0.7em;
     box-shadow: 0.1em 0.1em 0.2em 0 rgba(0, 0, 0, 0.1);
   }
 
   img {
-    height: 30%;
-    min-width: 100%;
     object-fit: cover;
   }
 
   p {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     line-height: 1.7em;
     margin: 0.5em 0;
   }

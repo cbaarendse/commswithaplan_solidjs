@@ -40,6 +40,6 @@
     flex: 0 1 100%;
   }
   .work__flex :global(.card) {
-    flex: 1 1 320px;
+    flex: 1 1 32rem;
   }
 </style>

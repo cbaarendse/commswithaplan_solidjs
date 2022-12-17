@@ -7,10 +7,9 @@
   // variables
   export let title: string;
   export let display: string = 'none';
-
-  // functions
   let dispatch = createEventDispatcher();
 
+  // functions
   function dismiss(event: MouseEvent | CustomEvent | KeyboardEvent): void {
     if (
       (event instanceof KeyboardEvent && event.key === 'Escape') ||
