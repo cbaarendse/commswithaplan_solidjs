@@ -35,8 +35,8 @@
   }
 
   img {
-    height: 22em;
-    width: 100%;
+    height: 30%;
+    min-width: 100%;
     object-fit: cover;
   }
 

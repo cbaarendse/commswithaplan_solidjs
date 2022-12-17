@@ -27,7 +27,7 @@ export type Brand = Partial<svelteHTML.IntrinsicElements['span']> & Partial<HTML
 export type Button = Partial<svelteHTML.IntrinsicElements['button']> &
   Partial<HTMLElement['style']> & {ariaRoleDescription?: string | undefined | null};
 export type Card = Partial<Illustrated & Actionable> &
-  svelteHTML.IntrinsicElements['div'] &
+  svelteHTML.IntrinsicElements['article'] &
   Partial<HTMLElement['style']>;
 export type Checkbox = svelteHTML.IntrinsicElements['div'] & Partial<HTMLElement['style']>;
 export type Logo = svelteHTML.IntrinsicElements['div'] & Partial<HTMLElement['style']> & Colored;
