@@ -23,75 +23,62 @@
 
 <BreadCrumbs breadCrumbs={['legal']} />
 <section>
-  <div class="legal__grid">
-    <div class="policies__flex">
-      <aside>
-        <nav>
-          <ul>
-            <li>
-              <a href={'/legal/termsandconditions'} class:active={$router.path === '/legal/termsandconditions'}>
-                <span>{policy('/legal/termsandconditions', $language)}</span>
-              </a>
-            </li>
-            <li>
-              <a href={'/legal/privacypolicy'} use:active>
-                <span>{policy('/legal/privacypolicy', $language)}</span>
-              </a>
-            </li>
-            <li>
-              <a href={'/legal/cookiepolicy'} use:active>
-                <span>{policy('/legal/cookiepolicy', $language)}</span>
-              </a>
-            </li>
-          </ul>
-        </nav>
-      </aside>
-      <div class="policy__container">
-        <Route path="/termsandconditions"><TermsAndConditions /></Route>
-        <Route path="/privacypolicy"><PrivacyPolicy /></Route>
-        <Route path="/cookiepolicy"><CookiePolicy /></Route>
-      </div>
+  <div class="policies__flex">
+    <aside>
+      <nav>
+        <ul>
+          <li>
+            <a href={'/legal/termsandconditions'} class:active={$router.path === '/legal/termsandconditions'}>
+              <span>{policy('/legal/termsandconditions', $language)}</span>
+            </a>
+          </li>
+          <li>
+            <a href={'/legal/privacypolicy'} use:active>
+              <span>{policy('/legal/privacypolicy', $language)}</span>
+            </a>
+          </li>
+          <li>
+            <a href={'/legal/cookiepolicy'} use:active>
+              <span>{policy('/legal/cookiepolicy', $language)}</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </aside>
+    <div class="policy__container">
+      <Route path="/termsandconditions"><TermsAndConditions /></Route>
+      <Route path="/privacypolicy"><PrivacyPolicy /></Route>
+      <Route path="/cookiepolicy"><CookiePolicy /></Route>
     </div>
   </div>
 </section>
 
 <style>
-  .legal__grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-auto-rows: auto;
-    gap: 2rem;
-  }
   div.policies__flex {
     display: flex;
-    flex-wrap: wrap;
-    gap: 2rem;
-    justify-content: space-around;
+    flex-flow: row wrap;
+    gap: 2em;
+    justify-content: space-between;
   }
   aside {
-    padding: 0;
-    flex: 1 1 190px;
-    border: 1px solid orangered;
+    flex: 1 1;
+    padding: 1em 0em;
   }
-  .policy__container {
-    flex: 1 1 570px;
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    border: 1px solid orange;
+
+  div.policy__container {
+    flex: 1 1 40em;
   }
 
   ul {
     display: flex;
-    gap: 2rem;
+    gap: 2em;
     margin: 0;
     padding: 0;
     width: 100%;
     flex-wrap: wrap;
-    border: 1px dashed grey;
   }
   li {
-    flex: 1 0 190px;
+    flex: 1 0 30ch;
   }
   .active {
     color: var(--ra-red);
