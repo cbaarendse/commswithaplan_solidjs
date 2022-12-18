@@ -22,7 +22,9 @@
     </p>
   {/if}
   {#if card.action}
-    <a href={card.link}>{card.action}</a>
+    <p>
+      <a href={card.link}>{card.action}</a>
+    </p>
   {/if}
 </article>
 
@@ -36,10 +38,14 @@
   }
 
   img {
+    flex: 0 0 22em;
     object-fit: cover;
+    width: 100%;
+    max-height: 22em;
   }
 
   p {
+    flex: 1 0;
     line-height: 1.7em;
     margin: 0.5em 0;
   }

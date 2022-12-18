@@ -11,14 +11,14 @@
 
 <BreadCrumbs breadCrumbs={['consultancy']} />
 <section>
+  <p>
+    {#if $language === 'dutch'}
+      Zaken die ik manage gedurende het proces (je kan kiezen en mixen):
+    {:else}
+      Things I'll manage along the process (you can pick and mix):
+    {/if}
+  </p>
   <div class="work__flex">
-    <p>
-      {#if $language === 'dutch'}
-        Zaken die ik manage gedurende het proces (je kan kiezen en mixen):
-      {:else}
-        Things I'll manage along the process (you can pick and mix):
-      {/if}
-    </p>
     {#each translatedWorkItems as item}
       <Card
         card={{color: item.color, title: item.displayName, sizes: '1em', imgFiles: [`/consultancy/${item.name}.jpg`]}}
@@ -33,13 +33,10 @@
   .work__flex {
     display: flex;
     flex-wrap: wrap;
-    gap: 2rem;
+    gap: 2em;
   }
 
-  .work__flex :global(p) {
-    flex: 0 1 100%;
-  }
-  .work__flex :global(.card) {
+  .work__flex :global(article) {
     flex: 1 1 32rem;
   }
 </style>
