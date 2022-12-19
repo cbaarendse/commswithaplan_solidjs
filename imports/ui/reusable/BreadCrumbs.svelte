@@ -1,31 +1,23 @@
 <script lang="ts">
   // imports
-  import {active} from 'tinro';
+  import {meta, active} from 'tinro';
   import LogoReach from './LogoReach.svelte';
   import {language, translations} from '../stores/utils';
   import {Convert} from '../types/classes';
 
   // variables
-  export let breadCrumbs: string[];
-  const link = function (pages: string[]): string {
-    if (pages.length === 1) {
-      return '';
-    } else {
-      return pages.reduce((page, fullRoute): string => {
-        return fullRoute.concat('/', page);
-      }, '');
-    }
-  };
+  let route = meta();
+  console.log('breadCrumbs =', route.breadcrumbs);
 
   // functions
 </script>
 
 <nav>
   <ol>
-    {#each breadCrumbs as breadCrumb, index}
+    {#each route.breadcrumbs as breadCrumb, index}
       <li>
-        <a href={link(breadCrumbs.slice(0, index))} use:active
-          >{#if breadCrumb == '/'}<LogoReach
+        <a href={breadCrumb.path} use:active
+          >{#if index === 0}<LogoReach
               logo={{
                 sizes: '1.4em',
                 width: '1.8em',
@@ -33,7 +25,7 @@
                 colored: true
               }}
             />{:else}
-            <span>{Convert.translate(breadCrumb, $translations, $language)}</span>
+            <span>{Convert.translate(breadCrumb.name, $translations, $language)}</span>
           {/if}
         </a>
       </li>

@@ -14,7 +14,7 @@
   // functions
 </script>
 
-<BreadCrumbs breadCrumbs={['tools', 'home']} />
+<BreadCrumbs />
 <section>
   <div class="home__flex">
     {#each translatedToolsHomeItems as item}

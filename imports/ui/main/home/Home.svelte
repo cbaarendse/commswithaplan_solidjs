@@ -12,7 +12,7 @@
   );
 </script>
 
-<BreadCrumbs breadCrumbs={['/']} />
+<BreadCrumbs />
 <section>
   <div class="home__grid">
     {#each translatedHomeItems as item}

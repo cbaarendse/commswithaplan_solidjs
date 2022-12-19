@@ -12,7 +12,7 @@
   );
 </script>
 
-<BreadCrumbs breadCrumbs={['consultancy']} />
+<BreadCrumbs />
 <section>
   <div class="home__flex">
     {#each translatedConsultancyHomeItems as item}

@@ -21,7 +21,7 @@
   }
 </script>
 
-<BreadCrumbs breadCrumbs={['legal']} />
+<BreadCrumbs />
 <section>
   <div class="policies__flex">
     <aside>

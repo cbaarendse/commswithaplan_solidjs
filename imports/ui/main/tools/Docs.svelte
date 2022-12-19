@@ -12,7 +12,7 @@
   );
 </script>
 
-<BreadCrumbs breadCrumbs={['tools']} />
+<BreadCrumbs />
 <section>
   <div class="docs__grid">
     <div class="chapters__flex">

@@ -85,7 +85,7 @@
   onDestroy(languageUnsubscribe);
 </script>
 
-<BreadCrumbs breadCrumbs={['tools', 'reach']} />
+<BreadCrumbs />
 <section>
   <ReachControlsOutput
     {totalReach}

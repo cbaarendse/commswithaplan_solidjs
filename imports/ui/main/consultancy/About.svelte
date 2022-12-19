@@ -10,7 +10,7 @@
 </script>
 
 <header>
-  <BreadCrumbs breadCrumbs={['consultancy', 'about']} />
+  <BreadCrumbs />
 </header>
 <section>
   <div class="about__flex">

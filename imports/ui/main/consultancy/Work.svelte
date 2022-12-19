@@ -9,7 +9,7 @@
   $: translatedWorkItems = $workItems.filter((item) => item.language === $language);
 </script>
 
-<BreadCrumbs breadCrumbs={['consultancy', 'work']} />
+<BreadCrumbs />
 <section>
   <p>
     {#if $language === 'dutch'}

@@ -17,19 +17,19 @@
   // functions
 </script>
 
-<Route path="/*">
-  <Route path="/"><Home /></Route>
-  <Route path="/consultancy/*">
-    <Route path="/"><ConsultancyHome /></Route>
-    <Route path="/work"><Work /></Route>
-    <Route path="/about"><About /></Route>
-    <Route path="/contact"><Contact /></Route>
+<Route path="/*" breadcrumb="home">
+  <Route path="/" breadcrumb="home"><Home /></Route>
+  <Route path="/consultancy/*" breadcrumb="consultancy">
+    <Route path="/" breadcrumb="consultancy"><ConsultancyHome /></Route>
+    <Route path="/work" breadcrumb="work"><Work /></Route>
+    <Route path="/about" breadcrumb="about"><About /></Route>
+    <Route path="/contact" breadcrumb="contact"><Contact /></Route>
   </Route>
-  <Route path="/tools/*">
-    <Route path="/"><ToolsHome /></Route>
-    <Route path="/reach"><ReachTool /></Route>
-    <Route path="/docs"><Docs /></Route>
+  <Route path="/tools/*" breadcrumb="tools">
+    <Route path="/" breadcrumb="tools"><ToolsHome /></Route>
+    <Route path="/reach" breadcrumb="reach"><ReachTool /></Route>
+    <Route path="/docs" breadcrumb="docs"><Docs /></Route>
   </Route>
-  <Route path="/legal/*"><Legal /></Route>
-  <Route fallback><NotFound /></Route>
+  <Route path="/legal/*" breadcrumb="legal"><Legal /></Route>
+  <Route fallback breadcrumb="notfound"><NotFound /></Route>
 </Route>
