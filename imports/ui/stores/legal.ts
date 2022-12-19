@@ -1129,7 +1129,7 @@ export const cookiePolicy: Readable<Article[]> = readable(
         {
           displayName: 'Google Analytics',
           description:
-            "Through our website a cookie of the American company Google will be placed, as part of their 'Analytics'-service. We use this service to keep track of and get reports on the way visitors use the website.Google can provide this information to third parties when Google is legally required to do so, or as far as third parties process the information on behalf of Google. We have no influence on this. We have allowed Google to use the acquired analytics-information for other Google-services."
+            "Through our website cookies of the American company Google will be placed, as part of their 'Analytics'-service. We use this service to keep track of and get reports on the way visitors use the website.Google can provide this information to third parties when Google is legally required to do so, or as far as third parties process the information on behalf of Google. We have no influence on this. We have allowed Google to use the acquired analytics-information for other Google-services. Names of these cookies can be: '__gpi', '__gads', '__ga', '__gid'"
         }
       ]
     },
@@ -1142,7 +1142,7 @@ export const cookiePolicy: Readable<Article[]> = readable(
         {
           displayName: 'Google Analytics',
           description:
-            'Via onze website wordt een cookie geplaatst van het Amerikaanse bedrijf Google,  als deel van de “Analytics”-dienst. Wij gebruiken deze dienst om bij te houden en rapportages te krijgen over hoe bezoekers de website gebruiken. Google kan deze informatie aan derden verschaffen indien Google hiertoe wettelijk wordt verplicht, of voor zover derden de informatie namens Google verwerken. Wij hebben hier geen invloed op. Wij hebben Google wel toegestaan de verkregen analytics informatie te  gebruiken voor andere Google-diensten.'
+            "Via onze website worden cookies geplaatst van het Amerikaanse bedrijf Google,  als deel van de “Analytics”-dienst. Wij gebruiken deze dienst om bij te houden en rapportages te krijgen over hoe bezoekers de website gebruiken. Google kan deze informatie aan derden verschaffen indien Google hiertoe wettelijk wordt verplicht, of voor zover derden de informatie namens Google verwerken. Wij hebben hier geen invloed op. Wij hebben Google wel toegestaan de verkregen analytics informatie te  gebruiken voor andere Google-diensten.  Namen van deze cookies kunnen zijn: '__gpi', '__gads', '__ga', '__gid'"
         },
         {
           displayName: 'Anonimisering',
@@ -1171,7 +1171,7 @@ export const cookiePolicy: Readable<Article[]> = readable(
         {
           displayName: 'Gebruik van functionele (permanente) cookies',
           description:
-            'Met behulp van een permanente cookie kunnen wij jou herkennen bij een nieuw bezoek op onze website. De website kan daardoor speciaal op jouw voorkeuren worden ingesteld. Ook wanneer je toestemming hebt gegeven voor het plaatsen van cookies kunnen wij dit door middel van een cookie onthouden. Hierdoor hoef je niet steeds jouw voorkeuren te herhalen waardoor je dus tijd bespaart en een prettiger gebruik van onze website kunt maken. Permanente ookies kan je verwijderen via de instellingen van jouw browser.'
+            'Met behulp van een permanente cookie kunnen wij jou herkennen bij een nieuw bezoek op onze website. De website kan daardoor speciaal op jouw voorkeuren worden ingesteld. Ook wanneer je toestemming hebt gegeven voor het plaatsen van cookies kunnen wij dit door middel van een cookie onthouden. Hierdoor hoef je niet steeds jouw voorkeuren te herhalen waardoor je dus tijd bespaart en een prettiger gebruik van onze website kunt maken. Permanente cookies kun je verwijderen via de instellingen van jouw browser.'
         }
       ]
     },
@@ -1183,7 +1183,7 @@ export const cookiePolicy: Readable<Article[]> = readable(
         {
           displayName: 'Cookies for cookie policy',
           description:
-            'These are set by us and only we can read them. They remember: (1) if you have agreed to (or refused) this site’s cookie policy.'
+            "These are set by us and only we can read them. They remember: (1) if you have agreed to (or refused) this site’s cookie policy; (2) if you have already replied to our survey pop-up (about how helpful the site content was) - so you won't be asked again."
         }
       ]
     },
@@ -1193,8 +1193,9 @@ export const cookiePolicy: Readable<Article[]> = readable(
       displayName: 'Persoonlijke Cookies',
       paragraphs: [
         {
-          displayName: 'Persoonlijk',
-          description: 'Persoonlijke cookies'
+          displayName: 'Cookies voor cookie beleid',
+          description:
+            'Deze worden door ons ingesteld en alleen wij kunnen ze lezen. Zij onthouden: of u het cookiebeleid van de website heeft aanvaard (of afgewezen) of u onze enquête al heeft beantwoord (over hoe nuttig de inhoud van de site was), zodat wij u dat niet telkens opnieuw hoeven te vragen.'
         }
       ]
     },
@@ -1204,8 +1205,9 @@ export const cookiePolicy: Readable<Article[]> = readable(
       displayName: 'Security cookies',
       paragraphs: [
         {
-          displayName: 'ssss',
-          description: 'sesesese'
+          displayName: 'Use of security cookies',
+          description:
+            'It is our aim to optimize security for you when you visit our website. For this purpose it might be necessary to maintain cookies, set through us, that track unwanted third party activity on your browser.'
         }
       ]
     },
@@ -1215,8 +1217,9 @@ export const cookiePolicy: Readable<Article[]> = readable(
       displayName: 'VeiligheidsCookies',
       paragraphs: [
         {
-          displayName: 'Voor je veiligheid',
-          description: 'Veiligheidscookies'
+          displayName: 'Gebruik van veiligheidscookies',
+          description:
+            "Ons doel is om de veiligheid te optimaliseren wanneer U onze website bezoekt. Voor dit doel is het mogelijk nodig om cookies te plaatsen, door ons, die ongewilde 'third party' activiteit volgt in uw browser."
         }
       ]
     }

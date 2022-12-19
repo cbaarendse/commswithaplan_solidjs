@@ -18,7 +18,7 @@
       data-tinro-ignore><span>NL</span></a
     >
   </li>
-  <span class="divider">|</span>
+  <li><span class="divider">|</span></li>
   <li>
     <a
       href={'javascript:void(0)'}

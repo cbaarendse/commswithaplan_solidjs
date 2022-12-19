@@ -9,7 +9,7 @@
   $: translatedContactItems = $contactItems.filter((item) => item.language === $language);
 </script>
 
-<BreadCrumbs breadCrumbs={['consultancy']} />
+<BreadCrumbs breadCrumbs={['consultancy', 'contact']} />
 <section>
   <div class="contact__flex">
     {#each translatedContactItems as item}

@@ -61,12 +61,13 @@
     justify-content: space-between;
   }
   aside {
-    flex: 1 1;
+    flex: 1 0 12rem;
     padding: 1em 0em;
   }
 
   div.policy__container {
-    flex: 1 1 40em;
+    flex: 1 1 75ch;
+    padding: 0em 1em;
   }
 
   ul {

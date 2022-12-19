@@ -7,28 +7,34 @@
 
   // variables
   export let breadCrumbs: string[];
+  const link = function (pages: string[]): string {
+    if (pages.length === 1) {
+      return '';
+    } else {
+      return pages.reduce((page, fullRoute): string => {
+        return fullRoute.concat('/', page);
+      }, '');
+    }
+  };
 
   // functions
 </script>
 
 <nav>
   <ol>
-    <li>
-      <a href={'/'} use:active data-exact class="brand">
-        <LogoReach
-          logo={{
-            sizes: '1.4em',
-            width: '1.8em',
-            height: '1.8em',
-            colored: true
-          }}
-        />
-      </a>
-    </li>
-    {#each breadCrumbs as breadCrumb}
+    {#each breadCrumbs as breadCrumb, index}
       <li>
-        <a href="/{breadCrumb}/" use:active>
-          <span>{Convert.translate(breadCrumb, $translations, $language)}</span>
+        <a href={link(breadCrumbs.slice(0, index))} use:active
+          >{#if breadCrumb == '/'}<LogoReach
+              logo={{
+                sizes: '1.4em',
+                width: '1.8em',
+                height: '1.8em',
+                colored: true
+              }}
+            />{:else}
+            <span>{Convert.translate(breadCrumb, $translations, $language)}</span>
+          {/if}
         </a>
       </li>
     {/each}
