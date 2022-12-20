@@ -4,6 +4,7 @@
   import Card from '../../reusable/Card.svelte';
   import {language} from '../../stores/utils';
   import {contactItems} from '../../stores/consultancy';
+  import {claim_element} from 'svelte/internal';
 
   // variables
   $: translatedContactItems = $contactItems.filter((item) => item.language === $language);
@@ -32,27 +33,42 @@
         <a href="https://www.linkedin.com/in/cbaarendse/"><b>In</b></a>
       </address>
     </Card>
+    <Card card={{title: 'LinkedIn Profiel'}}
+      ><div
+        class="badge-base LI-profile-badge"
+        data-locale="nl_NL"
+        data-size="large"
+        data-theme="light"
+        data-type="VERTICAL"
+        data-vanity="cbaarendse"
+        data-version="v1"
+      >
+        <a class="badge-base__link LI-simple-link" href="https://nl.linkedin.com/in/cbaarendse/nl?trk=profile-badge"
+          >Constantijn Baarendse</a
+        >
+      </div>
+    </Card>
   </div>
-  <span
-    >{#if $language == 'dutch'}
-      Bel me of schrijf.
+  <h4>
+    {#if $language == 'dutch'}
+      E-mail, bel, schrijf of stuur een bericht via LinkedIn.
     {:else}
-      Give me a call or write.
+      E-mail, claim_element, write or send a message through LinkedIn.
     {/if}
-  </span>
+  </h4>
 </section>
 
 <style>
-  span {
+  h4 {
     color: var(--ra-red);
   }
   .contact__flex {
     display: flex;
     flex-wrap: wrap;
-    gap: 2rem;
+    gap: 2em;
   }
 
   .contact__flex :global(.card) {
-    flex: 1 1 320px;
+    flex: 1 1 32rem;
   }
 </style>

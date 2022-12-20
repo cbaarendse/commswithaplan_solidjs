@@ -3,6 +3,6 @@
 <style>
   span {
     font-size: 3em;
-    margin: 0px 14px;
+    margin: 0em 1.4em;
   }
 </style>

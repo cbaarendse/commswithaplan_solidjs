@@ -38,6 +38,8 @@ export const useMediaQuery = (mediaQuery: string): Readable<boolean | null> => {
 
 export const translations: Readable<Translation[]> = readable(
   [
+    {name: '/', language: 'english', displayName: 'Home'},
+    {name: '/', language: 'dutch', displayName: 'Home'},
     {name: 'advertisement', language: 'english', displayName: 'Advertisement'},
     {name: 'advertisement', language: 'dutch', displayName: 'Advertentie'},
     {name: 'consultancy', language: 'english', displayName: 'Consultancy'},
@@ -62,6 +64,8 @@ export const translations: Readable<Translation[]> = readable(
     {name: 'legal', language: 'dutch', displayName: 'Juridisch'},
     {name: 'locus', language: 'english', displayName: 'Locus'},
     {name: 'locus', language: 'dutch', displayName: 'Locus'},
+    {name: 'notfound', language: 'english', displayName: 'Not Found'},
+    {name: 'notfound', language: 'dutch', displayName: 'Niet Gevonden'},
     {name: 'precisionInputFor', language: 'dutch', displayName: 'Precisie invoer voor '},
     {name: 'precisionInputFor', language: 'english', displayName: 'Precision input for '},
     {name: 'reach', language: 'english', displayName: 'Reach'},
@@ -78,8 +82,8 @@ export const translations: Readable<Translation[]> = readable(
     {name: 'tools', language: 'dutch', displayName: 'Tools'},
     {name: 'total', language: 'english', displayName: 'Total'},
     {name: 'total', language: 'dutch', displayName: 'Totaal'},
-    {name: 'werk', language: 'english', displayName: 'Work'},
-    {name: 'werk', language: 'dutch', displayName: 'Werk'}
+    {name: 'work', language: 'english', displayName: 'Work'},
+    {name: 'work', language: 'dutch', displayName: 'Werk'}
   ],
   () => {
     () => {

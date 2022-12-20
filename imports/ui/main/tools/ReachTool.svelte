@@ -115,6 +115,6 @@
   .touchpoints__flex {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 1em;
   }
 </style>

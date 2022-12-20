@@ -26,7 +26,7 @@
       </li>
       <li>
         <a
-          href={'/consultancy/'}
+          href={'/consultancy'}
           use:active
           on:click={() => ($isSmallScreen ? ($navigationVisible = false) : ($navigationVisible = true))}
         >
@@ -35,7 +35,7 @@
       </li>
       <li>
         <a
-          href={'/tools/'}
+          href={'/tools'}
           use:active
           on:click={() => ($isSmallScreen ? ($navigationVisible = false) : ($navigationVisible = true))}
         >
@@ -67,7 +67,7 @@
       <ul>
         <li>
           <a
-            href={'/consultancy/'}
+            href={'/consultancy'}
             use:active
             data-exact
             on:click={() => ($isSmallScreen ? ($navigationVisible = false) : ($navigationVisible = true))}
@@ -111,7 +111,7 @@
       <ul>
         <li>
           <a
-            href={'/tools/'}
+            href={'/tools'}
             use:active
             data-exact
             on:click={() => ($isSmallScreen ? ($navigationVisible = false) : ($navigationVisible = true))}

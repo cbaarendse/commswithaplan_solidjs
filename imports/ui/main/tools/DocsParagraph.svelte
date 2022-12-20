@@ -19,6 +19,6 @@
 
 <style>
   p {
-    margin: 1rem 0;
+    margin: 1em 0;
   }
 </style>

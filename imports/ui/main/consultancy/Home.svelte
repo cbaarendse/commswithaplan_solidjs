@@ -29,10 +29,10 @@
   .home__flex {
     display: flex;
     flex-wrap: wrap;
-    gap: 2rem;
+    gap: 2em;
   }
 
   .home__flex :global(.card) {
-    flex: 1 1 320px;
+    flex: 1 1 32rem;
   }
 </style>

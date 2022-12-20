@@ -1,7 +1,6 @@
 <script lang="ts">
   // imports
   import BreadCrumbs from '../../reusable/BreadCrumbs.svelte';
-  import DocsLink from './DocsLink.svelte';
   import DocsChapter from './DocsChapter.svelte';
   import {language} from '../../stores/utils';
   import {toolsDocumentationChapters} from '../../stores/tools';
@@ -14,58 +13,47 @@
 
 <BreadCrumbs />
 <section>
-  <div class="docs__grid">
-    <div class="chapters__flex">
-      <aside>
-        <ul>
-          {#each translatedToolsDocumentationChapters as chapter}
-            <li>
-              <DocsLink name={chapter.name} displayName={chapter.displayName} />
-            </li>
-          {/each}
-        </ul>
-      </aside>
-
+  <div class="chapters__flex">
+    <aside>
       <ul>
         {#each translatedToolsDocumentationChapters as chapter}
-          <li id={chapter.name}>
-            <DocsChapter {chapter} />
+          <li>
+            <a href="#{chapter.name}" data-tinro-ignore>{chapter.displayName}</a>
           </li>
         {/each}
       </ul>
-    </div>
+    </aside>
+
+    <ul>
+      {#each translatedToolsDocumentationChapters as chapter}
+        <li id={chapter.name}>
+          <DocsChapter {chapter} />
+        </li>
+      {/each}
+    </ul>
   </div>
 </section>
 
 <style>
-  .docs__grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-auto-rows: auto;
-    gap: 2rem;
-  }
-  .docs__grid :global(header) {
-    grid-column: 1 / -1;
-  }
   .chapters__flex {
     display: flex;
+    margin: 0em auto;
   }
 
   ul {
-    max-height: 800px;
     overflow-y: scroll;
   }
 
   aside {
     display: none;
-    padding: 1rem;
+    padding: 1em;
   }
 
   ul li {
-    margin-bottom: 2rem;
+    margin-bottom: 2em;
   }
 
-  @media screen and (min-width: 760px) {
+  @media screen and (min-width: 76rem) {
     aside {
       display: block;
       flex: 1 0 25%;

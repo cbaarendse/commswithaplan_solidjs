@@ -35,10 +35,12 @@
   article {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 1em;
   }
-
+  h2 {
+    margin: 0em 0em;
+  }
   img {
-    max-width: 300px;
+    max-width: 30rem;
   }
 </style>
