@@ -20,6 +20,7 @@
     "noUnusedParameters": true,
     "noImplicitReturns": false,
     "noFallthroughCasesInSwitch": false,
+    "preserveValueImports": true,
 
     /* Module Resolution Options */
     "baseUrl": ".",
@@ -33,7 +34,7 @@
     },
     "moduleResolution": "node",
     "resolveJsonModule": true,
-    "types": ["node", "tinro", "meteor-roles"],
+    "types": ["node", "meteor-roles"],
     "esModuleInterop": true,
     "preserveSymlinks": true,
     // added for dayjs package:

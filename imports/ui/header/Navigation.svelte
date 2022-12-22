@@ -2,9 +2,14 @@
   // imports
   import {slide} from 'svelte/transition';
   import {router, active} from 'tinro';
-  import {language, isSmallScreen, navigationVisible} from '../stores/utils';
+  import {language, isSmallScreen, navigationVisible, useMediaQuery} from '../stores/utils';
 
   // variables
+
+  useMediaQuery('(max-width: 768px)').subscribe((value: boolean | null): void => {
+    $isSmallScreen = value;
+  });
+
   isSmallScreen.subscribe((small) => {
     $navigationVisible = small === true ? false : true;
   });

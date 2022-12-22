@@ -5,7 +5,7 @@
   import Routing from '../main/routing/Routing.svelte';
   import Colofon from '../footer/Colofon.svelte';
   import Consent from '../footer/Consent.svelte';
-  import {consentFooterVisible, isSmallScreen, useMediaQuery} from '../stores/utils';
+  import {consentFooterVisible} from '../stores/utils';
 
   // variables
 
@@ -13,9 +13,6 @@
   function toggleFooterConsentVisibility() {
     $consentFooterVisible = $consentFooterVisible === false ? true : false;
   }
-  useMediaQuery('(max-width: 768px)').subscribe((value: boolean | null): void => {
-    $isSmallScreen = value;
-  });
 </script>
 
 <!-- Routing: Main content, based on chosen routes   -->

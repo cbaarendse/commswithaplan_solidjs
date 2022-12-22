@@ -40,6 +40,8 @@ export const translations: Readable<Translation[]> = readable(
   [
     {name: '/', language: 'english', displayName: 'Home'},
     {name: '/', language: 'dutch', displayName: 'Home'},
+    {name: 'about', language: 'english', displayName: 'About'},
+    {name: 'about', language: 'dutch', displayName: 'Over'},
     {name: 'advertisement', language: 'english', displayName: 'Advertisement'},
     {name: 'advertisement', language: 'dutch', displayName: 'Advertentie'},
     {name: 'consultancy', language: 'english', displayName: 'Consultancy'},

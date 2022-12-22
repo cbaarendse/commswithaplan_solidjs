@@ -18,8 +18,8 @@
       <Card card={{sizes: '1em'}}>{item.description}</Card>
     {/each}
     <Card card={{sizes: '1em'}}>
-      <a href="https://www.linkedin.com/in/cbaarendse/"> https://www.linkedin.com/in/cbaarendse/ </a>
-    </Card>
+      <a href="https://www.linkedin.com/in/cbaarendse/">https://www.linkedin.com/in/cbaarendse/ </a></Card
+    >
   </div>
 </section>
 

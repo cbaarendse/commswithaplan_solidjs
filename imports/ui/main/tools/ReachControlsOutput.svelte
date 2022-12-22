@@ -82,14 +82,14 @@
     display: flex;
     flex-flow: row wrap;
     gap: 2em;
-    padding: 2em 4em;
+    padding: 1.2em 1.8em;
     border-radius: 0.2em;
     background-color: var(--ra-teal-off-white);
   }
   menu {
     display: flex;
     flex: 100%;
-    justify-content: flex-start;
+    justify-content: start;
     gap: 3em;
   }
   button {

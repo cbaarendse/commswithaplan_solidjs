@@ -1,6 +1,6 @@
 <script lang="ts">
   // imports
-  import {meta, TinroRouteMeta} from 'tinro';
+  import {meta, TinroRouteMeta, active} from 'tinro';
   import LogoReach from './LogoReach.svelte';
   import {language, translations} from '../stores/utils';
   import {Convert} from '../types/classes';
@@ -8,6 +8,7 @@
   // variables
   let route: TinroRouteMeta = meta();
   console.log('breadcrumbs =', route.breadcrumbs);
+  console.log('breadcrumbs length =', route.breadcrumbs?.length);
 
   // functions
 </script>
@@ -15,10 +16,35 @@
 {#if route.breadcrumbs}
   <nav>
     <ol>
-      {#each route.breadcrumbs as breadcrumb}
-        {#if breadcrumb.name !== 'home'}
+      {#each route.breadcrumbs as breadcrumb, index}
+        {#if index == 0 && route.breadcrumbs.length == 1}
           <li>
-            <a href={breadcrumb.path}>
+            <LogoReach
+              logo={{
+                sizes: '1em',
+                width: '1.2em',
+                height: '1.2em',
+                colored: true
+              }}
+            />
+          </li>
+        {:else if index == 0 && route.breadcrumbs.length > 1}
+          <li>
+            <a href="/">
+              <LogoReach
+                logo={{
+                  sizes: '1em',
+                  width: '1.2em',
+                  height: '1.2em',
+                  colored: true
+                }}
+              />
+            </a>
+          </li>
+        {:else if index > 0}
+          <li><span>&gt;</span></li>
+          <li>
+            <a href={breadcrumb.path} data-exact use:active>
               <span>{Convert.translate(breadcrumb.name, $translations, $language)}</span>
             </a>
           </li>
@@ -27,9 +53,9 @@
             <a href="/">
               <LogoReach
                 logo={{
-                  sizes: '1.4em',
-                  width: '1.8em',
-                  height: '1.8em',
+                  sizes: '1em',
+                  width: '1.2em',
+                  height: '1.2em',
                   colored: true
                 }}
               />
@@ -46,8 +72,8 @@
     display: flex;
     margin-bottom: 1em;
     margin-inline: 0;
-    padding: 1em 1.4em;
-    font-size: 1.2em;
+    padding: 0.8em 1.2em;
+    font-size: 1em;
     background-color: var(--ra-teal-off-white);
     border-radius: 5px;
   }
@@ -57,15 +83,17 @@
       display: none;
     }
   }
-  ol {
+  nav ol {
     display: flex;
-    flex-wrap: wrap;
+    flex-flow: row wrap;
     align-items: center;
-    gap: 2em;
+    gap: 1.2em;
   }
 
-  a:hover,
-  a.active {
-    color: var(--ra-blue);
+  nav ol li a:hover span {
+    color: var(--ra-green);
+  }
+  nav ol li a.active span {
+    color: var(--ra-red);
   }
 </style>
