@@ -96,8 +96,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 4em;
-    height: 4em;
+    width: 2.8em;
+    height: 2.8em;
     border-radius: 50%;
     border: none;
     color: var(--ra-white);
@@ -138,5 +138,18 @@
 
   div.container > :global(meter) {
     flex: 1 1 60%;
+  }
+  @media screen and (min-width: 76.8em) {
+    button {
+      width: 3.4em;
+      height: 3.4em;
+    }
+  }
+
+  @media screen and (min-width: 102.4em) {
+    button {
+      width: 4em;
+      height: 4em;
+    }
   }
 </style>

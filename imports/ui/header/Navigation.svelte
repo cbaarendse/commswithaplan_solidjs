@@ -30,20 +30,12 @@
         </a>
       </li>
       <li>
-        <a
-          href={'/consultancy'}
-          use:active
-          on:click={() => ($isSmallScreen ? ($navigationVisible = false) : ($navigationVisible = true))}
-        >
+        <a href={'/consultancy'} use:active>
           <span class="blue">{$language === 'dutch' ? 'Consultancy' : 'Consultancy'}</span>
         </a>
       </li>
       <li>
-        <a
-          href={'/tools'}
-          use:active
-          on:click={() => ($isSmallScreen ? ($navigationVisible = false) : ($navigationVisible = true))}
-        >
+        <a href={'/tools'} use:active>
           <span class="blue">{$language === 'dutch' ? 'Tools' : 'Tools'}</span>
         </a>
       </li>

@@ -103,7 +103,7 @@
     padding: 0.4em 1em 0.4em 1em;
     border-radius: 0.2em;
   }
-  @media screen and (min-width: 768px) {
+  @media screen and (min-width: 76.8rem) {
     .touchpoint__grid {
       grid-template-columns: 1fr 5fr 1fr;
     }
@@ -128,7 +128,7 @@
     width: 100%;
   }
 
-  /* @media screen and (min-width: 375px) {
+  /* @media screen and (min-width: 3.75rem) {
     fieldset {
       display: block;
     }

@@ -46,7 +46,7 @@ div.app {
 
   /* font sizes */
 header {
-  font-size: var(--ra-m);
+  font-size: var(--ra-s);
 }
 main {   
   font-size: var(--ra-s);
@@ -57,7 +57,7 @@ footer {
 
 @media screen and (min-width: 76.8em){
 header {
-  font-size: var(--ra-l);
+  font-size: var(--ra-m);
 } 
 
 main {   
@@ -71,7 +71,7 @@ footer {
 
 @media screen and (min-width: 102.4em){
 header {
-  font-size: var(--ra-xl);
+  font-size: var(--ra-l);
 } 
 main {   
   font-size: var(--ra-l);
