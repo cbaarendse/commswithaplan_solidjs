@@ -23,8 +23,8 @@
     type: 'button',
     ariaRoleDescription: 'button',
     backgroundColor: 'transparent',
-    width: 'var(--ra-xl)',
-    height: 'var(--ra-xl)',
+    width: '4rem',
+    height: '4rem',
     disabled: false
   }}
   on:clickedButton={() => ($navigationVisible = !$navigationVisible)}

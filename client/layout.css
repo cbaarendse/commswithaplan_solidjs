@@ -28,7 +28,7 @@ div.app {
     border-top: 1px solid rgba(0, 0, 0, 0.1);
   }
 
-  @media screen and (min-width: 76.8em) {
+  @media screen and (min-width: 768em) {
     main {
       width: min(100% - 4em, 70em);
     }
@@ -46,39 +46,39 @@ div.app {
 
   /* font sizes */
 header {
-  font-size: var(--ra-s);
+  font-size: 1rem;
 }
 main {   
-  font-size: var(--ra-s);
+  font-size: 1.6rem;
 }
 footer {   
-  font-size: var(--ra-xs);
+  font-size: 0.8rem;
 }
 
 @media screen and (min-width: 76.8em){
 header {
-  font-size: var(--ra-m);
+  font-size: 1.4rem;
 } 
 
 main {   
-  font-size: var(--ra-m);
+  font-size: 1.6rem;
 }
 
 footer {
-  font-size: var(--ra-s);
+  font-size: 1.2rem;
 }
 }
 
 @media screen and (min-width: 102.4em){
 header {
-  font-size: var(--ra-l);
+  font-size: 1.4rem;
 } 
 main {   
-  font-size: var(--ra-l);
+  font-size: 1.8rem;
 }
 
 footer {
-  font-size: var(--ra-m);
+  font-size: 1;
 }
 }
 

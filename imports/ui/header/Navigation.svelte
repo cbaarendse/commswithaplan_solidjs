@@ -161,7 +161,7 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: clamp(var(--ra-xxs), 1vw, var(--ra-l));
+    gap: clamp(0.4rem, 1vw, 1rem);
     justify-content: flex-start;
     align-items: flex-start;
     flex-wrap: wrap;
@@ -237,7 +237,7 @@
       grid-column: 2/3;
       flex-direction: row;
       align-items: flex-start;
-      gap: clamp(var(--ra-xxs), 4vw, var(--ra-8xl));
+      gap: clamp(0.4rem, 4vw, 9.6rem);
     }
     nav.key ul {
       justify-content: space-evenly;

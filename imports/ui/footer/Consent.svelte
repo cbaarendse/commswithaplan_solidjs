@@ -122,7 +122,7 @@
           color: 'var(--ra-white)',
           backgroundColor: 'var(--ra-green)',
           padding: '0.7em 1em',
-          height: 'var(--ra-3xl)'
+          height: '4rem'
         }}
         on:clickedButton={() => setConsent('granted')}
         >{#if $language == 'dutch'}Accepteer{:else}Accept{/if}</Button

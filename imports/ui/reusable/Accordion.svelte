@@ -23,7 +23,7 @@
         color: 'var(--ra-white)',
         backgroundColor: 'var(--ra-green)',
         padding: '0 1rem',
-        height: 'var(--ra-3xl)',
+        height: '4rem',
         disabled: false
       }}
       on:clickedButton={() => (acc.visible = !acc.visible)}

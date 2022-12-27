@@ -36,20 +36,20 @@
      --ra-white-transparant: rgba(255, 255, 255, 0.9);
      --ra-teal-transparant: rgba(117, 174, 162, 0.9);
      --ra-teal-light-transparant: rgba(172, 205, 198, 0.95);
-     /* sizes in rem; font-size: 62.5%, so 10px; */
-     --ra-xxs: 0.8rem; /*0.5rem;*/
-     --ra-xs: 1.2rem; /*0.75rem;*/
-     --ra-s: 1.4rem; /*0.875rem;*/
-     --ra-m: 1.6rem; /*1rem;*/
-     --ra-l: 1.8rem; /*1.125rem;*/
-     --ra-xl: 2rem; /*1.25rem;*/
-     --ra-2xl: 2.4rem; /*1.5rem;*/
-     --ra-3xl: 3rem; /*1.875rem;*/
-     --ra-4xl: 3.6rem; /*2.25rem;*/
-     --ra-5xl: 4.8rem; /*3rem;*/
-     --ra-6xl: 6rem; /*3.75rem;*/
-     --ra-7xl: 7.2rem; /*4.5rem;*/
-     --ra-8xl: 9.6rem; /*6rem;*/
+     /* sizes in rem; font-size: 62.5%, so 10px; 
+     0.8rem; 0.5rem;
+     1.2rem; 0.75rem;
+     1.4rem; 0.875rem;
+     1.6rem; 1rem;
+     1.8rem; 1.125rem;
+     2rem; 1.25rem;
+     2.4rem; 1.5rem;
+     3rem; 1.875rem;
+     3.6rem; 2.25rem;
+     4.8rem; 3rem;
+     6rem; 3.75rem;
+     7.2rem; 4.5rem;
+     9.6rem; 6rem; */
      /* font-size weight in clamp() rem */
      --ra-fs-weight: calc(1/56);
      /* screen sizes */

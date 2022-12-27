@@ -59,7 +59,7 @@
       'label label'
       'input input'
       'submit cancel';
-    gap: var(--ra-s);
+    gap: 1rem;
     grid-template-rows: auto;
     min-height: fit-content;
     min-width: fit-content;
@@ -72,9 +72,9 @@
     border: 1px solid var(--ra-grey);
     border-radius: 0.2em;
     background-color: var(--ra-blue-off-white);
-    padding: var(--ra-xs);
+    padding: 0.8rem;
     width: 100%;
-    min-height: var(--ra-3xl);
+    min-height: 4rem;
     font-size: var(--ra-fs-desktop);
   }
   .submit__button {
@@ -82,9 +82,9 @@
     background-color: var(--ra-blue);
     color: var(--ra-white);
     border: none;
-    padding: var(--ra-xs);
-    min-height: var(--ra-3xl);
-    font-size: var(--ra-l);
+    padding: 0.8rem;
+    min-height: 4.8rem;
+    font-size: 3rem;
   }
   .submit__button:disabled {
     background-color: var(--ra-grey-light);
@@ -94,8 +94,8 @@
     background-color: var(--ra-red);
     color: var(--ra-white);
     border: none;
-    padding: var(--ra-xs);
-    min-height: var(--ra-3xl);
-    font-size: var(--ra-l);
+    padding: 0.8rem;
+    min-height: 4.8rem;
+    font-size: 3rem;
   }
 </style>
