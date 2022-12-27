@@ -59,6 +59,7 @@
     flex-flow: row wrap;
     gap: 2em;
     justify-content: space-between;
+    font-size: 1.2em;
   }
   aside {
     flex: 1 0 12rem;

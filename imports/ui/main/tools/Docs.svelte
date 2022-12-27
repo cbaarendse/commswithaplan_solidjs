@@ -38,6 +38,7 @@
   .chapters__flex {
     display: flex;
     margin: 0em auto;
+    font-size: 1.2em;
   }
 
   ul {

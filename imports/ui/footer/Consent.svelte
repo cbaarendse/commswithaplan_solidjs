@@ -62,7 +62,7 @@
 </script>
 
 {#if $consentFooterVisible}
-  <div transition:slide={{delay: 200, duration: 1000}}>
+  <section transition:slide={{delay: 200, duration: 1000}}>
     <span
       >{$language == 'dutch' ? 'Akkoord opslag cookies' : 'Agree storage of cookies'}&nbsp;(
       <nav>
@@ -128,11 +128,12 @@
         >{#if $language == 'dutch'}Accepteer{:else}Accept{/if}</Button
       ></menu
     >
-  </div>
+  </section>
 {/if}
 
 <style>
-  div {
+  section {
+    all: unset;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;

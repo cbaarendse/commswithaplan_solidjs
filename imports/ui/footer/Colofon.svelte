@@ -9,7 +9,7 @@
   //functions
 </script>
 
-<div>
+<section>
   <span>© 2013-2023 Comms With A Plan</span>
   <nav>
     <a href="/consultancy/contact">Contact</a>
@@ -27,10 +27,11 @@
       on:clickedButton><span class="button__text" style="--buttonFontSize: {buttonFontSize};">&#127850;</span></Button
     >
   </menu>
-</div>
+</section>
 
 <style>
-  div {
+  section {
+    all: unset;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
