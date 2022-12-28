@@ -24,8 +24,10 @@
         height: 'fit-content',
         disabled: false
       }}
-      on:clickedButton><span class="button__text" style="--buttonFontSize: {buttonFontSize};">&#127850;</span></Button
+      on:clickedButton
     >
+      <span class="button__text" style="--buttonFontSize: {buttonFontSize};">&#127850;</span>
+    </Button>
   </menu>
 </section>
 
@@ -43,6 +45,6 @@
   }
 
   span.button__text {
-    font-size: 0.8rem;
+    font-size: var(--buttonFontSize);
   }
 </style>

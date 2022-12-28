@@ -1,106 +1,102 @@
 /* layout */
 div.app {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: auto 1fr minmax(2rem, auto) minmax(0, auto);
-    height: 100vh;
-  }
- 
- header {
-    width: 100%;
-    z-index: 999;
-    margin-bottom: 1em;
-  }
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto 1fr minmax(2rem, auto) minmax(0, auto);
+  height: 100vh;
+}
 
+header {
+  width: 100%;
+  z-index: 999;
+  margin-bottom: 1em;
+}
+
+main {
+  width: min(100% - 1em, 70em);
+  margin: 0 auto;
+  padding-bottom: 2em;
+  overflow: auto;
+}
+
+footer {
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+@media screen and (min-width: 76.8em) {
   main {
-    width: min(100% - 1em, 70em);
-    margin: 0 auto;
-    padding-bottom: 2em;
-    overflow: auto;
+    width: min(100% - 4em, 70em);
   }
-  
- footer {
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+@media screen and (min-width: 102.4em) {
+  main {
+    width: min(100% - 6em, 70em);
   }
+}
+@media screen and (min-width: 136.6em) {
+  main {
+    width: min(100% - 8em, 70em);
+  }
+}
 
-  @media screen and (min-width: 76.8em) {
-    main {
-      width: min(100% - 4em, 70em);
-    }
-  }
-  @media screen and (min-width: 102.4em) {
-    main {
-      width: min(100% - 6em, 70em);
-    }
-  }
-  @media screen and (min-width: 136.6em) {
-    main {
-      width: min(100% - 8em, 70em);
-    }
-  }
-
-  /* font sizes */
+/* font sizes */
 header {
   font-size: 1.8rem;
 }
-main {   
+main {
   font-size: 1.6rem;
 }
-footer {   
+footer {
   font-size: 1.4rem;
 }
 
-@media screen and (min-width: 76.8em){
-header {
-  font-size: 2.0rem;
-} 
+@media screen and (min-width: 76.8em) {
+  header {
+    font-size: 2rem;
+  }
 
-main {   
-  font-size: 1.8rem;
-}
+  main {
+    font-size: 1.8rem;
+  }
 
-footer {
-  font-size: 1.6rem;
-}
-}
-
-@media screen and (min-width: 102.4em){
-header {
-  font-size: 2.2rem;
-} 
-main {   
-  font-size: 2.0rem;
+  footer {
+    font-size: 1.6rem;
+  }
 }
 
-footer {
-  font-size: 1.8rem;
-}
+@media screen and (min-width: 102.4em) {
+  header {
+    font-size: 2.2rem;
+  }
+  main {
+    font-size: 2rem;
+  }
+
+  footer {
+    font-size: 1.8rem;
+  }
 }
 
 /* font-sizes parts */
 header menu {
   font-size: 0.7em;
-} 
-
-header nav.key{
-  font-size: 1.0em;
 }
 
-header nav.sub{
+header nav.key {
+  font-size: 1em;
+}
+
+header nav.sub {
   font-size: 0.875em;
 }
 
-main section {   
+main section {
   font-size: 1em;
-    padding: 0.2em;
-    margin-bottom: 1em;
+  padding: 0.2em;
+  margin-bottom: 1em;
 }
 
 footer section {
   font-size: 1em;
   padding: 0.2em 0;
-  background: var(--ra-red-off-white);
 }
-
-
-

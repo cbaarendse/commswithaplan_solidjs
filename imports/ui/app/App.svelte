@@ -11,7 +11,7 @@
 
   // functions
   function toggleFooterConsentVisibility() {
-    $consentFooterVisible = $consentFooterVisible === false ? true : false;
+    $consentFooterVisible = $consentFooterVisible === false ? true : $consentFooterVisible === true ? false : true;
   }
 </script>
 

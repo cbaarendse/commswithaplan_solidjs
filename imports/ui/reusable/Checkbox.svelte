@@ -1,9 +1,10 @@
 <script lang="ts">
   // imports
   import {Checkbox} from '../types/types';
+
   // variables
   export let cbx: Checkbox;
-  export let checked: boolean = true;
+  export let checked: boolean;
   export let displayName: string;
 </script>
 
@@ -20,8 +21,7 @@
     max={cbx.max}
     readonly={cbx.readonly}
     disabled={cbx.disabled}
-    {checked}
-    on:change={() => (checked = !checked)}
+    bind:checked
   />
 </form>
 

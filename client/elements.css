@@ -1,40 +1,48 @@
 /* elements */
-h1, h2, h3, h4, h5, h6 {
-    font-weight: bold;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: bold;
 }
 /* h1 is in main.css, normalize */
-h2{
-    margin: 0.83em 0em;
-    font-size: 1.5em;
+h2 {
+  margin: 0.83em 0em;
+  font-size: 1.5em;
 }
-h3{
-    margin: 1em 0em;
-    font-size: 1.17em;
+h3 {
+  margin: 1em 0em;
+  font-size: 1.17em;
 }
-h4{
-    margin: 1.33em 0em;
-    font-size: 1em;
+h4 {
+  margin: 1.33em 0em;
+  font-size: 1em;
 }
-h5{
-    margin: 1.67em 0em;
-    font-size: 0.83em;
+h5 {
+  margin: 1.67em 0em;
+  font-size: 0.83em;
 }
-h6{
-    margin: 0.67em 0em;
-    font-size: 1.33em;
-}
-
-a, a:visited {
-    color: var(--ra-blue);
-    text-decoration: none;
-  }
-  p{
-    display: block;
-    margin-top: 1em;
-    margin-bottom: 1em;
-    margin-left: 0;
-    margin-right: 0;
+h6 {
+  margin: 0.67em 0em;
+  font-size: 1.33em;
 }
 
- button {min-height: 0.6rem}
-     /* slider-thumb: 5rem */
+a,
+a:visited {
+  color: var(--ra-blue);
+  text-decoration: none;
+}
+p {
+  display: block;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+button {
+  min-height: 0.6rem;
+}
+/* slider-thumb: 5rem */

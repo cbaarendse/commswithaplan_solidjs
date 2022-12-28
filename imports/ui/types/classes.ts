@@ -118,7 +118,7 @@ export class Cookies {
   }
 
   static checkedToConsent(arg: boolean): 'granted' | 'denied' {
-    return arg === false ? 'denied' : 'granted';
+    return arg === false ? 'denied' : arg === true ? 'granted' : 'granted';
   }
   static consentToChecked(arg: string): boolean {
     return arg === 'denied' ? false : arg === 'granted' ? true : true;
