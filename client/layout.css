@@ -18,12 +18,7 @@ div.app {
     padding-bottom: 2em;
     overflow: auto;
   }
-
-  section {
-    padding: 0.2em;
-    margin-bottom: 1em;
-  }
-
+  
  footer {
     border-top: 1px solid rgba(0, 0, 0, 0.1);
   }
@@ -46,18 +41,18 @@ div.app {
 
   /* font sizes */
 header {
-  font-size: 1.4rem;
+  font-size: 1.8rem;
 }
 main {   
   font-size: 1.6rem;
 }
 footer {   
-  font-size: 1.2rem;
+  font-size: 1.4rem;
 }
 
 @media screen and (min-width: 76.8em){
 header {
-  font-size: 1.6rem;
+  font-size: 2.0rem;
 } 
 
 main {   
@@ -65,44 +60,46 @@ main {
 }
 
 footer {
-  font-size: 1.4rem;
+  font-size: 1.6rem;
 }
 }
 
 @media screen and (min-width: 102.4em){
 header {
-  font-size: 1.8rem;
+  font-size: 2.2rem;
 } 
 main {   
   font-size: 2.0rem;
 }
 
 footer {
-  font-size: 1.6rem;
+  font-size: 1.8rem;
 }
 }
 
 /* font-sizes parts */
 header menu {
-  font-size: 0.8em;
+  font-size: 0.7em;
 } 
 
 header nav.key{
-  font-size: 1.2em;
+  font-size: 1.0em;
 }
 
 header nav.sub{
-  font-size: 1em;
+  font-size: 0.875em;
 }
 
-main header {   
-  font-size: 1.2em;
-}
 main section {   
   font-size: 1em;
+    padding: 0.2em;
+    margin-bottom: 1em;
 }
-footer div {
+
+footer section {
   font-size: 1em;
+  padding: 0.2em 0;
+  background: var(--ra-red-off-white);
 }
 
 

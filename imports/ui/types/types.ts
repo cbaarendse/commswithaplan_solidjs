@@ -29,7 +29,7 @@ export type Button = Partial<svelteHTML.IntrinsicElements['button']> &
 export type Card = Partial<Illustrated & Actionable> &
   svelteHTML.IntrinsicElements['article'] &
   Partial<HTMLElement['style']>;
-export type Checkbox = svelteHTML.IntrinsicElements['div'] & Partial<HTMLElement['style']>;
+export type Checkbox = svelteHTML.IntrinsicElements['input'] & Partial<HTMLElement['style']>;
 export type Logo = svelteHTML.IntrinsicElements['div'] & Partial<HTMLElement['style']> & Colored;
 export type SelectItem = {name: string; index: string};
 export type Input = Omit<

@@ -133,14 +133,11 @@
 
 <style>
   section {
-    all: unset;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     gap: 1em;
-    padding: 0.2em 0;
-    background: var(--ra-red-off-white);
   }
   nav {
     display: inline-block;

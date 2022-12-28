@@ -35,3 +35,6 @@ a, a:visited {
     margin-left: 0;
     margin-right: 0;
 }
+
+ button {min-height: 0.6rem}
+     /* slider-thumb: 5rem */

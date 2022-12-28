@@ -31,7 +31,6 @@
 
 <style>
   section {
-    all: unset;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -44,6 +43,6 @@
   }
 
   span.button__text {
-    font-size: var(--buttonFontSize);
+    font-size: 0.8rem;
   }
 </style>

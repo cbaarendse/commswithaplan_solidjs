@@ -36,28 +36,7 @@
      --ra-white-transparant: rgba(255, 255, 255, 0.9);
      --ra-teal-transparant: rgba(117, 174, 162, 0.9);
      --ra-teal-light-transparant: rgba(172, 205, 198, 0.95);
-     /* sizes in rem; font-size: 62.5%, so 10px; 
-     /* < 768 */
-     /* standaard: 16 px; 1.6 rem; 1 em */
-     /* header top: 12 px; 1.2 rem; 0.75 em; */
-     /* header navigation: 18 px; 1.8 rem; 1.125 em; */
-     /* footer: 14 px; 1.4 rem; 0.875 em; */
-    
-     /* > 768 px && < 1024 px */
-     /* standaard: 18 px; 1.8 rem; 1.125 em; */
-     /* header top: 14 px; 1.4 rem; 0.875 em; */
-     /* header navigation: 20 px; 2.0 rem; 1.25 em; */
-     /* footer: 16 px; 1.6 rem; 1 em */
-  
-     /* > 1024 px */
-     /* standaard: 20 px; 2.0 rem; 1.25 em; */
-     /* header top: 16 px; 1.6 rem; 1 em */
-     /* header navigation: 22 px; 2.2 rem; 1.375 em; */
-     /* footer: 18 px; 1.8 rem; 1.125 em; */
-
-     /* button height: 1.2rem */
-     /* slider-thumb: 5rem */
-
+   
      /* font-size weight in clamp() rem */
      --ra-fs-weight: calc(1/56);
      /* screen sizes */

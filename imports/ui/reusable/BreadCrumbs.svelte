@@ -21,7 +21,7 @@
           <li>
             <LogoReach
               logo={{
-                sizes: '1em',
+                fontSize: '1em',
                 width: '1.2em',
                 height: '1.2em',
                 colored: true
@@ -33,7 +33,7 @@
             <a href="/">
               <LogoReach
                 logo={{
-                  sizes: '1em',
+                  fontSize: '1em',
                   width: '1.2em',
                   height: '1.2em',
                   colored: true
@@ -53,7 +53,7 @@
             <a href="/">
               <LogoReach
                 logo={{
-                  sizes: '1em',
+                  fontSize: '1em',
                   width: '1.2em',
                   height: '1.2em',
                   colored: true
