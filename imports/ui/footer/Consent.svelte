@@ -6,6 +6,29 @@
   import {language, consentFooterVisible} from '../stores/utils';
   import {Cookies} from '../types/classes';
 
+  // functions
+  const removeConsentSection = function () {
+    setTimeout(() => ($consentFooterVisible = false), 700);
+  };
+  const setPersistentConsent = function (consentChecked: boolean): void {
+    let cookieValue = Cookies.checkedToConsent(consentChecked);
+    ['_commswithaplan_functional_storage', '_commswithaplan_security_storage'].forEach((item) => {
+      Cookies.setCookie(item, cookieValue, 7, document);
+    });
+  };
+  const setDynamicConsent = function (consentChecked: boolean): void {
+    let cookieValue = Cookies.checkedToConsent(consentChecked);
+    [
+      '_commswithaplan_ad_storage',
+      '_commswithaplan_analytics_storage',
+      '_commswithaplan_personalization_storage'
+    ].forEach((item) => {
+      Cookies.setCookie(item, cookieValue, 7, document);
+    });
+    removeConsentSection();
+  };
+
+  // variables
   // check for all 5 consent cookies
   $: cookiesComplete =
     Cookies.checkCookie('_commswithaplan_ad_storage', document) &&
@@ -14,39 +37,28 @@
     Cookies.checkCookie('_commswithaplan_personalization_storage', document) &&
     Cookies.checkCookie('_commswithaplan_security_storage', document);
 
-  // if consent cookies are missing, show consent banner as an opportunity to update consent
-  $consentFooterVisible = !cookiesComplete;
+  // set check for persistent cookies
+  let functional_security_storage_checked: boolean = true;
 
-  // variables
-  $: functional_security_storage_checked = cookiesComplete
-    ? Cookies.consentToChecked(Cookies.getCookie('_commswithaplan_functional_storage', document)) &&
-      Cookies.consentToChecked(Cookies.getCookie('_commswithaplan_security_storage', document))
-    : true;
+  $: {
+    console.log('cookiesComplete =', cookiesComplete);
+    console.log('functional_security_storage_checked =', functional_security_storage_checked);
+    console.log('ad_analytics_personal_storage_checked =', ad_analytics_personal_storage_checked);
+  }
 
+  // set check for dynamic cookies, based on existing cookie settings. If one or more fail, set to false
   $: ad_analytics_personal_storage_checked = cookiesComplete
     ? Cookies.consentToChecked(Cookies.getCookie('_commswithaplan_ad_storage', document)) &&
       Cookies.consentToChecked(Cookies.getCookie('_commswithaplan_analytics_storage', document)) &&
       Cookies.consentToChecked(Cookies.getCookie('_commswithaplan_personalization_storage', document))
-    : Cookies.setCookie(
-        '_commswithaplan_ad_storage',
-        Cookies.checkedToConsent(ad_analytics_personal_storage_checked),
-        7,
-        document
-      );
-  Cookies.setCookie(
-    '_commswithaplan_analytics_storage',
-    Cookies.checkedToConsent(ad_analytics_personal_storage_checked),
-    7,
-    document
-  );
-  Cookies.setCookie(
-    '_commswithaplan_personalization_storage',
-    Cookies.checkedToConsent(ad_analytics_personal_storage_checked),
-    7,
-    document
-  );
+    : false;
 
-  // functions
+  // if dynamic consent cookies are missing, or dynamic cookies check is equal to false, show consent banner as an opportunity to update consent
+  $consentFooterVisible = !cookiesComplete || ad_analytics_personal_storage_checked === false;
+  // anyway renew persistent cookies for another 7 days
+  setPersistentConsent(true);
+  // update dynamic cookies on change by user
+  $: setDynamicConsent(ad_analytics_personal_storage_checked);
 </script>
 
 {#if $consentFooterVisible}
@@ -97,7 +109,8 @@
           backgroundColor: 'var(--ra-red)',
           padding: '0.7em 1em'
         }}
-        on:clickedButton={() => setConsent('denied')}
+        on:clickedButton={() => (ad_analytics_personal_storage_checked = false)}
+        on:clickedButton={() => removeConsentSection()}
       >
         {#if $language == 'dutch'}Wijs af{:else}Reject{/if}
       </Button>
@@ -112,7 +125,8 @@
           backgroundColor: 'var(--ra-green)',
           padding: '0.7em 1em'
         }}
-        on:clickedButton={() => setConsent('granted')}
+        on:clickedButton={() => (ad_analytics_personal_storage_checked = true)}
+        on:clickedButton={() => removeConsentSection()}
       >
         {#if $language == 'dutch'}Accepteer{:else}Accept{/if}
       </Button>

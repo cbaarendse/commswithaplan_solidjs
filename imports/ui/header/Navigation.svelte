@@ -26,7 +26,11 @@
           class="brand"
           on:click={() => ($isSmallScreen ? ($navigationVisible = false) : ($navigationVisible = true))}
         >
-          <span class="blue">Comms</span>&nbsp;<span class="green">With&nbsp;A</span>&nbsp;<span class="red">Plan</span>
+          <span class="blue">Comms</span>
+          &nbsp;
+          <span class="green">With&nbsp;A</span>
+          &nbsp;
+          <span class="red">Plan</span>
         </a>
       </li>
       <li>
@@ -161,7 +165,7 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: clamp(0.4rem, 1vw, 1rem);
+    gap: 1em;
     justify-content: flex-start;
     align-items: flex-start;
     flex-wrap: wrap;
@@ -237,7 +241,7 @@
       grid-column: 2/3;
       flex-direction: row;
       align-items: flex-start;
-      gap: clamp(0.4rem, 4vw, 9.6rem);
+      gap: clamp(0.4em, 4vw, 9.6em);
     }
     nav.key ul {
       justify-content: space-evenly;

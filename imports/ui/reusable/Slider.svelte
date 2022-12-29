@@ -18,7 +18,7 @@
 </script>
 
 <form>
-  <label for={slider.name} style="font-size:{slider.fontSize}">{displayName}</label>
+  <label for={slider.name}>{displayName}</label>
   <input
     id={slider.id}
     name={slider.name}
@@ -36,9 +36,9 @@
   /* General */
   form {
     width: 100%;
-    --thumb-size-phone: 2em;
-    --thumb-size-tablet: 4em;
-    --thumb-size-desktop: 8em;
+    --thumb-size-phone: 2.2rem;
+    --thumb-size-tablet: 3rem;
+    --thumb-size-desktop: 3.3rem;
     --track-height-phone: 0.42em;
     /* 4.2px; */
     --track-height-tablet: 0.84em;
@@ -47,6 +47,20 @@
     /* 8.4px; */
   }
 
+  label {
+    font-size: 1.4rem;
+  }
+  @media screen and (min-width: 768px) {
+    label {
+      font-size: 1.6rem;
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    label {
+      font-size: 1.8rem;
+    }
+  }
   input[type='range']:focus {
     outline: none;
   }
@@ -159,9 +173,15 @@
       height: var(--track-height-tablet);
     }
     /* thumb safari */
-    input[type='range']::-webkit-slider-thumb,
-     /* thumb firefox */
-    input[type='range']::-moz-range-thumb,
+    input[type='range']::-webkit-slider-thumb {
+      height: var(--thumb-size-tablet);
+      width: var(--thumb-size-tablet);
+    }
+    /* thumb firefox */
+    input[type='range']::-moz-range-thumb {
+      height: var(--thumb-size-tablet);
+      width: var(--thumb-size-tablet);
+    }
     /* thumb internet explorer */
     input[type='range']::-ms-thumb {
       height: var(--thumb-size-tablet);
@@ -181,9 +201,15 @@
       height: var(--track-height-desktop);
     }
     /* thumb safari */
-    input[type='range']::-webkit-slider-thumb,
-     /* thumb firefox */
-    input[type='range']::-moz-range-thumb,
+    input[type='range']::-webkit-slider-thumb {
+      height: var(--thumb-size-desktop);
+      width: var(--thumb-size-desktop);
+    }
+    /* thumb firefox */
+    input[type='range']::-moz-range-thumb {
+      height: var(--thumb-size-desktop);
+      width: var(--thumb-size-desktop);
+    }
     /* thumb internet explorer */
     input[type='range']::-ms-thumb {
       height: var(--thumb-size-desktop);

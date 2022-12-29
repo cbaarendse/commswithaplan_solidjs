@@ -1,10 +1,10 @@
 <script lang="ts">
   // imports
+  import type {TouchPointInPlan} from '../../types/types';
+  import {Convert, Format} from '../../types/classes';
   import Slider from '../../reusable/Slider.svelte';
   import Modal from '../../reusable/Modal.svelte';
   import Input from '../../reusable/Input.svelte';
-  import {Convert, Format} from '../../types/classes';
-  import type {TouchPointInPlan} from '../../types/types';
   import {language, translations} from '../../stores/utils';
   //import {notify} from '../../notifications/NotificationsFunctions';
 
@@ -42,8 +42,7 @@
           value: touchPoint.value.toString(),
           min: '0',
           max: '100',
-          step: '1',
-          fontSize: '1em'
+          step: '1'
         }}
         on:changeValueForName
         on:inputValueForName
@@ -57,16 +56,20 @@
       on:click={() => {
         displayManualInput = 'flex';
         displayTouchPointDescription = 'none';
-      }}><span> {Format.toStringFormat(touchPoint.value)}&nbsp;%</span></button
+      }}
     >
+      <span>{Format.toStringFormat(touchPoint.value)}&nbsp;%</span>
+    </button>
   </div>
   <Modal
     title={touchPoint.displayName}
     display={displayTouchPointDescription}
     on:destroyModal={() => {
       displayTouchPointDescription = 'none';
-    }}>{touchPoint.description}</Modal
+    }}
   >
+    {touchPoint.description}
+  </Modal>
   <Modal
     title={touchPoint.displayName}
     display={displayManualInput}
@@ -82,7 +85,7 @@
         value: touchPoint.value.toString(),
         min: '0',
         max: '100',
-        fontSize: 'clamp(1rem, 3vw, 2rem)',
+        fontSize: '1em',
         placeholder: Convert.translate('input', $translations, $language),
         readonly: false
       }}
@@ -103,15 +106,15 @@
     padding: 0.4em 1em 0.4em 1em;
     border-radius: 0.2em;
   }
-  @media screen and (min-width: 76.8rem) {
+  @media screen and (min-width: 768px) {
     .touchpoint__grid {
       grid-template-columns: 1fr 5fr 1fr;
     }
   }
 
   button.touchpoint {
-    width: clamp(6.5rem, 9vw, 8rem);
-    height: clamp(6.5rem, 9vw, 8rem);
+    width: 4em;
+    height: 4em;
     padding: 0.7em;
     border: none;
     border-radius: 7px;
@@ -128,17 +131,17 @@
     width: 100%;
   }
 
-  /* @media screen and (min-width: 3.75rem) {
+  /* @media screen and (min-width: 375px) {
     fieldset {
       display: block;
     }
   } */
 
   button.input {
-    width: clamp(6rem, 9vw, 8rem);
-    height: clamp(6rem, 9vw, 8rem);
+    width: 4em;
+    height: 4em;
     padding: 0.7em;
-    font-size: clamp(1.4rem, 3vw, 1.8rem);
+    font-size: 0.8em;
     border-radius: 50%;
     border: none;
     background-repeat: no-repeat;

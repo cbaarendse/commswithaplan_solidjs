@@ -27,24 +27,25 @@
 
 <div class="container">
   <menu>
-    <button type="button" on:click={() => dispatch('reset')}
-      >{#if allTouchPointsValueIsZero}&#8676;{:else}&#8617;{/if}</button
-    >
-    <button type="button" on:click={() => dispatch('sort')}
-      >{#if sortedByName}&#8744;{:else}&#8743;{/if}</button
-    >
-    <button type="button" on:click={() => dispatch('hide')}
-      >{#if showAll}&#8722;{:else}&#8801;{/if}</button
-    ></menu
-  >
+    <button type="button" on:click={() => dispatch('reset')}>
+      {#if allTouchPointsValueIsZero}&#8676;{:else}&#8617;{/if}
+    </button>
+    <button type="button" on:click={() => dispatch('sort')}>
+      {#if sortedByName}&#8744;{:else}&#8743;{/if}
+    </button>
+    <button type="button" on:click={() => dispatch('hide')}>
+      {#if showAll}&#8722;{:else}&#8801;{/if}
+    </button>
+  </menu>
   <label on:click|preventDefault|stopPropagation={() => showOutputDescription('total_reach')}>
-    <span
-      >{Convert.translate('total', $translations, $language)}&nbsp;{Convert.translate(
+    <span>
+      {Convert.translate('total', $translations, $language)}&nbsp;{Convert.translate(
         'reach',
         $translations,
         $language
-      )}:&nbsp;</span
-    ><output>{Format.toNumberFormat(totalReach, 0)}&nbsp;%</output>
+      )}:&nbsp;
+    </span>
+    <output>{Format.toNumberFormat(totalReach, 0)}&nbsp;%</output>
   </label>
   <Meter
     meter={{
@@ -74,8 +75,10 @@
   display={displayOutputDescription}
   on:destroyModal={() => {
     displayOutputDescription = 'none';
-  }}>{output.description}</Modal
+  }}
 >
+  {output.description}
+</Modal>
 
 <style>
   div.container {
@@ -139,14 +142,14 @@
   div.container > :global(meter) {
     flex: 1 1 60%;
   }
-  @media screen and (min-width: 76.8em) {
+  @media screen and (min-width: 768px) {
     button {
       width: 3.4em;
       height: 3.4em;
     }
   }
 
-  @media screen and (min-width: 102.4em) {
+  @media screen and (min-width: 1024px) {
     button {
       width: 4em;
       height: 4em;

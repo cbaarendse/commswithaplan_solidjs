@@ -38,7 +38,6 @@
   .chapters__flex {
     display: flex;
     margin: 0em auto;
-    font-size: 1.2em;
   }
 
   ul {
@@ -54,7 +53,7 @@
     margin-bottom: 2em;
   }
 
-  @media screen and (min-width: 76rem) {
+  @media screen and (min-width: 768px) {
     aside {
       display: block;
       flex: 1 0 25%;
