@@ -85,22 +85,21 @@
     display: flex;
     flex-flow: row wrap;
     gap: 2em;
-    padding: 1.2em 1.8em;
     border-radius: 0.2em;
     background-color: var(--ra-teal-off-white);
   }
   menu {
     display: flex;
     flex: 100%;
-    justify-content: start;
+    justify-content: space-around;
     gap: 3em;
   }
   button {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 2.8em;
-    height: 2.8em;
+    width: var(--button-size-phone);
+    height: var(--button-size-phone);
     border-radius: 50%;
     border: none;
     color: var(--ra-white);
@@ -125,7 +124,7 @@
     display: flex;
     flex: 0 0 15em;
     gap: 1em;
-    font-size: 1.2em;
+    font-size: 1.1em;
     cursor: pointer;
   }
   label:hover {
@@ -144,15 +143,15 @@
   }
   @media screen and (min-width: 768px) {
     button {
-      width: 3.4em;
-      height: 3.4em;
+      width: var(--button-size-tablet);
+      height: var(--button-size-tablet);
     }
   }
 
   @media screen and (min-width: 1024px) {
     button {
-      width: 4em;
-      height: 4em;
+      width: var(--button-size-desktop);
+      height: var(--button-size-desktop);
     }
   }
 </style>

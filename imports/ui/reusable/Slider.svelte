@@ -18,37 +18,42 @@
 </script>
 
 <form>
-  <label for={slider.name}>{displayName}</label>
-  <input
-    id={slider.id}
-    name={slider.name}
-    type="range"
-    min={slider.min}
-    max={slider.max}
-    step={slider.step}
-    bind:value={slider.value}
-    on:change={changeValue}
-    on:input={inputValue}
-  />
+  <fieldset>
+    <label for={slider.name}>{displayName}</label>
+    <input
+      id={slider.id}
+      name={slider.name}
+      type="range"
+      min={slider.min}
+      max={slider.max}
+      step={slider.step}
+      bind:value={slider.value}
+      on:change={changeValue}
+      on:input={inputValue}
+    />
+  </fieldset>
 </form>
 
 <style>
   /* General */
   form {
     width: 100%;
-    --thumb-size-phone: 2.2rem;
+    --thumb-size-phone: 2rem;
     --thumb-size-tablet: 3rem;
     --thumb-size-desktop: 3.3rem;
-    --track-height-phone: 0.42em;
-    /* 4.2px; */
-    --track-height-tablet: 0.84em;
-    /* 8.4px; */
-    --track-height-desktop: 0.84em;
-    /* 8.4px; */
+    --track-height-phone: 0.2rem;
+    --track-height-tablet: 0.84rem;
+    --track-height-desktop: 0.84rem;
   }
-
+  fieldset {
+    display: block;
+    border: none;
+    padding: 0rem;
+    margin: 0rem;
+  }
   label {
     font-size: 1.4rem;
+    display: inline-block;
   }
   @media screen and (min-width: 768px) {
     label {
@@ -67,7 +72,7 @@
 
   input[type='range'] {
     -webkit-appearance: none;
-    margin: 18px 0;
+    margin: 1rem 0;
     width: 100%;
   }
 
@@ -136,7 +141,6 @@
     cursor: pointer;
     -webkit-appearance: none;
     margin-top: -0.6em;
-    /* margin-top: -1em; */
   }
 
   /* thumb firefox */
@@ -163,10 +167,12 @@
 
   @media screen and (min-width: 768px) {
     /* track safari */
-    input[type='range']::-webkit-slider-runnable-track,
+    input[type='range']::-webkit-slider-runnable-track {
+      height: var(--track-height-tablet);
+    }
     /* track firefox */
     input[type='range']::-moz-range-track {
-      height: 100%;
+      height: var(--track-height-tablet);
     }
     /* track internet explorer */
     input[type='range']::-ms-track {
@@ -191,10 +197,12 @@
 
   @media screen and (min-width: 1024px) {
     /* track safari */
-    input[type='range']::-webkit-slider-runnable-track,
+    input[type='range']::-webkit-slider-runnable-track {
+      height: var(--track-height-desktop);
+    }
     /* track firefox */
-       input[type='range']::-moz-range-track {
-      height: 100%;
+    input[type='range']::-moz-range-track {
+      height: var(--track-height-desktop);
     }
     /* track internet explorer */
     input[type='range']::-ms-track {

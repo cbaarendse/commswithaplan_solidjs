@@ -33,21 +33,19 @@
     />
   </div>
   <div class="center">
-    <fieldset>
-      <Slider
-        displayName={touchPoint.displayName}
-        slider={{
-          name: touchPoint.name,
-          id: touchPoint.name,
-          value: touchPoint.value.toString(),
-          min: '0',
-          max: '100',
-          step: '1'
-        }}
-        on:changeValueForName
-        on:inputValueForName
-      />
-    </fieldset>
+    <Slider
+      displayName={touchPoint.displayName}
+      slider={{
+        name: touchPoint.name,
+        id: touchPoint.name,
+        value: touchPoint.value.toString(),
+        min: '0',
+        max: '100',
+        step: '1'
+      }}
+      on:changeValueForName
+      on:inputValueForName
+    />
   </div>
   <div class="right">
     <!-- TODO: finalize manual input: change back to button when clicking outside -->
@@ -103,7 +101,7 @@
     grid-template-columns: 1fr 2fr 1fr;
     align-items: center;
     background-color: var(--ra-teal-off-white);
-    padding: 0.4em 1em 0.4em 1em;
+    padding: 0.4rem 1rem 0.4rem 1rem;
     border-radius: 0.2em;
   }
   @media screen and (min-width: 768px) {
@@ -113,8 +111,8 @@
   }
 
   button.touchpoint {
-    width: 4em;
-    height: 4em;
+    width: var(--button-size-phone);
+    height: var(--button-size-phone);
     padding: 0.7em;
     border: none;
     border-radius: 7px;
@@ -125,23 +123,11 @@
     cursor: pointer;
   }
 
-  fieldset {
-    display: block;
-    border: none;
-    width: 100%;
-  }
-
-  /* @media screen and (min-width: 375px) {
-    fieldset {
-      display: block;
-    }
-  } */
-
   button.input {
-    width: 4em;
-    height: 4em;
+    width: var(--button-size-phone);
+    height: var(--button-size-phone);
     padding: 0.7em;
-    font-size: 0.8em;
+    font-size: var(--font-size-phone);
     border-radius: 50%;
     border: none;
     background-repeat: no-repeat;
@@ -149,6 +135,30 @@
     background-size: 100%;
     background-color: var(--ra-white);
     cursor: pointer;
+  }
+
+  @media screen and (min-width: 768px) {
+    button.touchpoint {
+      width: var(--button-size-tablet);
+      height: var(--button-size-tablet);
+    }
+    button.input {
+      width: var(--button-size-tablet);
+      height: var(--button-size-tablet);
+      font-size: var(--font-size-tablet);
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    button.touchpoint {
+      width: var(--button-size-desktop);
+      height: var(--button-size-desktop);
+    }
+    button.input {
+      width: var(--button-size-desktop);
+      height: var(--button-size-desktop);
+      font-size: var(--font-size-desktop);
+    }
   }
 
   .center,

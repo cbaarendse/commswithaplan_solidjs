@@ -112,6 +112,8 @@
 </section>
 
 <style>
+  section {
+  }
   .touchpoints__flex {
     display: flex;
     flex-direction: column;
