@@ -75,7 +75,6 @@
     padding: 0.8rem;
     width: 100%;
     min-height: 4rem;
-    font-size: var(--ra-fs-desktop);
   }
   .submit__button {
     grid-area: submit;
@@ -84,7 +83,6 @@
     border: none;
     padding: 0.8rem;
     min-height: 4.8rem;
-    font-size: 3rem;
   }
   .submit__button:disabled {
     background-color: var(--ra-grey-light);
@@ -96,6 +94,5 @@
     border: none;
     padding: 0.8rem;
     min-height: 4.8rem;
-    font-size: 3rem;
   }
 </style>

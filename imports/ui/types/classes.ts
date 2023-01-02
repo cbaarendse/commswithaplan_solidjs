@@ -166,7 +166,7 @@ export class Reach {
   static setTouchPointsForPlan(touchPointsBasics: TouchPointBasics[], language: string): TouchPointInPlan[] {
     return touchPointsBasics
       .filter((touchPointBasics: TouchPointBasics) => touchPointBasics.language === language)
-      .map((touchPointBasics): TouchPointInPlan => ({...touchPointBasics, value: 0.0, display: 'grid'}));
+      .map((touchPointBasics): TouchPointInPlan => ({...touchPointBasics, value: 0.0, display: 'flex'}));
   }
 
   static areAllTouchPointsValueZero(touchPointsInPlan: TouchPointInPlan[]): boolean {

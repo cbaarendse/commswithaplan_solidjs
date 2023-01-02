@@ -43,7 +43,8 @@
             disabled: false
           }}
           on:clickedButton={dismiss}
-          >&times;
+        >
+          &times;
         </Button>
       </menu>
       <header>
@@ -72,14 +73,14 @@
     z-index: 100;
   }
   .modal {
-    flex: 0 1 80%;
+    flex: 0 1 40rem;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
-    margin: 0 1em;
+    margin: 1.4em;
     padding: 1.2em 1em 2em;
-    font-size: 1.2em;
+    font-size: 1em;
     background-color: var(--ra-white);
     border-radius: 0.6em;
   }

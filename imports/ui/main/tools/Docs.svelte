@@ -13,8 +13,8 @@
 
 <BreadCrumbs />
 <section>
-  <div class="chapters__flex">
-    <aside>
+  <div class="container">
+    <nav>
       <ul>
         {#each translatedToolsDocumentationChapters as chapter}
           <li>
@@ -22,20 +22,21 @@
           </li>
         {/each}
       </ul>
-    </aside>
-
-    <ul>
-      {#each translatedToolsDocumentationChapters as chapter}
-        <li id={chapter.name}>
-          <DocsChapter {chapter} />
-        </li>
-      {/each}
-    </ul>
+    </nav>
+    <div class="chapters">
+      <ul>
+        {#each translatedToolsDocumentationChapters as chapter}
+          <li id={chapter.name}>
+            <DocsChapter {chapter} />
+          </li>
+        {/each}
+      </ul>
+    </div>
   </div>
 </section>
 
 <style>
-  .chapters__flex {
+  .container {
     display: flex;
     margin: 0em auto;
   }
@@ -44,8 +45,11 @@
     overflow-y: scroll;
   }
 
-  aside {
+  nav {
     display: none;
+    padding: 1em;
+  }
+  div.chapters {
     padding: 1em;
   }
 
@@ -54,9 +58,14 @@
   }
 
   @media screen and (min-width: 768px) {
-    aside {
+    nav {
       display: block;
-      flex: 1 0 25%;
+      flex: 1 1 25%;
+      min-width: 30ch;
+      max-width: 60ch;
+    }
+    div.chapters {
+      flex: 1 1 75%;
     }
   }
 </style>

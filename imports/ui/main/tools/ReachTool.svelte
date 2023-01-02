@@ -87,19 +87,17 @@
 
 <BreadCrumbs />
 <section>
-  <ReachControlsOutput
-    {totalReach}
-    {locus}
-    {allTouchPointsValueIsZero}
-    {sortedByName}
-    {showAll}
-    on:reset={reset}
-    on:sort={sort}
-    on:hide={hide}
-  />
-</section>
-<section>
-  <div class="touchpoints__flex">
+  <div class="container">
+    <ReachControlsOutput
+      {totalReach}
+      {locus}
+      {allTouchPointsValueIsZero}
+      {sortedByName}
+      {showAll}
+      on:reset={reset}
+      on:sort={sort}
+      on:hide={hide}
+    />
     {#each touchPointsInPlan as touchPoint}
       <ReachTouchPoint
         {touchPoint}
@@ -112,9 +110,7 @@
 </section>
 
 <style>
-  section {
-  }
-  .touchpoints__flex {
+  .container {
     display: flex;
     flex-direction: column;
     gap: 1em;

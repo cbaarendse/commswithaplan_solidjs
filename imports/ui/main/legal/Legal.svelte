@@ -23,29 +23,28 @@
 
 <BreadCrumbs />
 <section>
-  <div class="policies__flex">
-    <aside>
-      <nav>
-        <ul>
-          <li>
-            <a href={'/legal/termsandconditions'} class:active={$router.path === '/legal/termsandconditions'}>
-              <span>{policy('/legal/termsandconditions', $language)}</span>
-            </a>
-          </li>
-          <li>
-            <a href={'/legal/privacypolicy'} use:active>
-              <span>{policy('/legal/privacypolicy', $language)}</span>
-            </a>
-          </li>
-          <li>
-            <a href={'/legal/cookiepolicy'} use:active>
-              <span>{policy('/legal/cookiepolicy', $language)}</span>
-            </a>
-          </li>
-        </ul>
-      </nav>
-    </aside>
-    <div class="policy__container">
+  <div class="container">
+    <nav>
+      <ul>
+        <li>
+          <a href={'/legal/termsandconditions'} class:active={$router.path === '/legal/termsandconditions'}>
+            <span>{policy('/legal/termsandconditions', $language)}</span>
+          </a>
+        </li>
+        <li>
+          <a href={'/legal/privacypolicy'} use:active>
+            <span>{policy('/legal/privacypolicy', $language)}</span>
+          </a>
+        </li>
+        <li>
+          <a href={'/legal/cookiepolicy'} use:active>
+            <span>{policy('/legal/cookiepolicy', $language)}</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="policies">
       <Route path="/termsandconditions"><TermsAndConditions /></Route>
       <Route path="/privacypolicy"><PrivacyPolicy /></Route>
       <Route path="/cookiepolicy"><CookiePolicy /></Route>
@@ -54,20 +53,22 @@
 </section>
 
 <style>
-  div.policies__flex {
+  div.container {
     display: flex;
     flex-flow: row wrap;
     gap: 2em;
     justify-content: space-between;
   }
-  aside {
-    flex: 1 0 12rem;
+  nav {
+    all: unset;
+    flex: 1 1 30%;
     padding: 1em 0em;
   }
 
-  div.policy__container {
-    flex: 1 1 75ch;
+  div.policies {
+    flex: 1 1 70%;
     padding: 0em 1em;
+    max-width: 75ch;
   }
 
   ul {
@@ -79,7 +80,7 @@
     flex-wrap: wrap;
   }
   li {
-    flex: 1 0 30ch;
+    flex: 1 1 30ch;
   }
   .active {
     color: var(--ra-red);

@@ -19,7 +19,7 @@
   // functions
 </script>
 
-<div class="touchpoint__grid" style="display:{touchPoint.display};">
+<div class="container" style="display:{touchPoint.display};">
   <div class="left">
     <button
       class="touchpoint"
@@ -95,19 +95,14 @@
 </div>
 
 <style>
-  .touchpoint__grid {
-    display: grid;
+  .container {
+    display: flex;
+    flex-flow: row nowrap;
     gap: 2em;
-    grid-template-columns: 1fr 2fr 1fr;
     align-items: center;
     background-color: var(--ra-teal-off-white);
     padding: 0.4rem 1rem 0.4rem 1rem;
     border-radius: 0.2em;
-  }
-  @media screen and (min-width: 768px) {
-    .touchpoint__grid {
-      grid-template-columns: 1fr 5fr 1fr;
-    }
   }
 
   button.touchpoint {
@@ -165,7 +160,18 @@
   .left,
   .right {
     display: flex;
-    justify-content: center;
     align-items: center;
+  }
+
+  .left {
+    justify-content: flex-start;
+  }
+  .center {
+    flex: 1 1 80%;
+    justify-content: center;
+  }
+
+  .right {
+    justify-content: flex-end;
   }
 </style>

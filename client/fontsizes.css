@@ -1,0 +1,69 @@
+/* font sizes */
+header {
+  font-size: 1.8rem;
+}
+header > menu {
+  font-size: 1em;
+}
+
+header > nav.key {
+  font-size: 1em;
+}
+
+header > nav.sub {
+  font-size: 0.875em;
+}
+main {
+  font-size: 1.6rem;
+}
+
+footer {
+  font-size: 1.4rem;
+}
+
+@media screen and (min-width: 768px) {
+  header {
+    font-size: 2rem;
+  }
+  header > menu {
+    font-size: 1em;
+  }
+  header > nav.key {
+    font-size: 1em;
+  }
+
+  header > nav.sub {
+    font-size: 0.875em;
+  }
+
+  main {
+    font-size: 1.8rem;
+  }
+
+  footer {
+    font-size: 1.6rem;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  header {
+    font-size: 2.2rem;
+  }
+  header > menu {
+    font-size: 1em;
+  }
+  header > nav.key {
+    font-size: 1em;
+  }
+
+  header > nav.sub {
+    font-size: 0.875em;
+  }
+  main {
+    font-size: 2rem;
+  }
+
+  footer {
+    font-size: 1.8rem;
+  }
+}

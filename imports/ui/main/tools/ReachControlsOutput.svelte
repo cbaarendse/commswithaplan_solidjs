@@ -84,15 +84,17 @@
   div.container {
     display: flex;
     flex-flow: row wrap;
-    gap: 2em;
+    gap: 1.4em;
+    justify-content: flex-start;
+    padding: 1rem;
     border-radius: 0.2em;
     background-color: var(--ra-teal-off-white);
   }
   menu {
-    display: flex;
     flex: 100%;
-    justify-content: space-around;
-    gap: 3em;
+    display: flex;
+    gap: 7%;
+    justify-content: flex-start;
   }
   button {
     display: flex;
@@ -100,12 +102,15 @@
     align-items: center;
     width: var(--button-size-phone);
     height: var(--button-size-phone);
+    font-size: var(--font-size-phone);
     border-radius: 50%;
     border: none;
     color: var(--ra-white);
     cursor: pointer;
   }
-
+  button:hover {
+    opacity: 0.7;
+  }
   menu > button:nth-of-type(1) {
     background-color: var(--ra-red);
   }
@@ -116,13 +121,9 @@
     background-color: var(--ra-blue);
   }
 
-  button:hover {
-    opacity: 0.7;
-  }
-
   label {
+    flex: 0 1 30rem;
     display: flex;
-    flex: 0 0 15em;
     gap: 1em;
     font-size: 1.1em;
     cursor: pointer;
@@ -138,13 +139,15 @@
     flex: 1;
   }
 
-  div.container > :global(meter) {
+  :global(meter) {
     flex: 1 1 60%;
   }
+
   @media screen and (min-width: 768px) {
     button {
       width: var(--button-size-tablet);
       height: var(--button-size-tablet);
+      font-size: var(--font-size-tablet);
     }
   }
 
@@ -152,6 +155,7 @@
     button {
       width: var(--button-size-desktop);
       height: var(--button-size-desktop);
+      font-size: 3.2rem;
     }
   }
 </style>
