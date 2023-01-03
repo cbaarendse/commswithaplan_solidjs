@@ -2,6 +2,8 @@
   // imports
   import ToggleButton from './ToggleButton.svelte';
   import {language} from '../stores/utils';
+  import Fa from 'svelte-fa/src/fa.svelte';
+  import {faUser} from '@fortawesome/free-solid-svg-icons';
 </script>
 
 <!-- TopBar has room for functionality used from all over the site. Eventual cookies and/or marketing messages. -->
@@ -15,8 +17,10 @@
       href={'javascript:void(0)'}
       class:active={$language === 'dutch'}
       on:click={() => ($language = 'dutch')}
-      data-tinro-ignore><span>NL</span></a
+      data-tinro-ignore
     >
+      <span>NL</span>
+    </a>
   </li>
   <li><span class="divider">|</span></li>
   <li>
@@ -24,11 +28,13 @@
       href={'javascript:void(0)'}
       class:active={$language === 'english'}
       on:click={() => ($language = 'english')}
-      data-tinro-ignore><span>EN</span></a
+      data-tinro-ignore
     >
+      <span>EN</span>
+    </a>
   </li>
   <li>
-    <div class="user">&#128100</div>
+    <div class="user"><Fa icon={faUser} /></div>
   </li>
 </menu>
 

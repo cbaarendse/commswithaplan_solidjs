@@ -7,6 +7,15 @@
   import Meter from '../../reusable/Meter.svelte';
   import Modal from '../../reusable/Modal.svelte';
   import {Convert, Format} from '../../types/classes';
+  import Fa from 'svelte-fa/src/fa.svelte';
+  import {
+    faArrowRotateLeft,
+    fa0,
+    faArrowDownAZ,
+    faArrowDownWideShort,
+    faBars,
+    faMinus
+  } from '@fortawesome/free-solid-svg-icons';
 
   // variables
   const dispatch = createEventDispatcher();
@@ -28,13 +37,13 @@
 <div class="container">
   <menu>
     <button type="button" on:click={() => dispatch('reset')}>
-      {#if allTouchPointsValueIsZero}&#8676;{:else}&#8617;{/if}
+      {#if allTouchPointsValueIsZero}<Fa icon={faArrowRotateLeft} />{:else}<Fa icon={fa0} />{/if}
     </button>
     <button type="button" on:click={() => dispatch('sort')}>
-      {#if sortedByName}&#8744;{:else}&#8743;{/if}
+      {#if sortedByName}<Fa icon={faArrowDownAZ} />{:else}<Fa icon={faArrowDownWideShort} />{/if}
     </button>
     <button type="button" on:click={() => dispatch('hide')}>
-      {#if showAll}&#8722;{:else}&#8801;{/if}
+      {#if showAll}<Fa icon={faBars} scale={0.8} />{:else}<fa icon={faMinus} scale={0.8} />{/if}
     </button>
   </menu>
   <label on:click|preventDefault|stopPropagation={() => showOutputDescription('total_reach')}>
