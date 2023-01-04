@@ -21,7 +21,12 @@
   <div class="work__flex">
     {#each translatedWorkItems as item}
       <Card
-        card={{color: item.color, title: item.displayName, sizes: '1em', imgFiles: [`/consultancy/${item.name}.jpg`]}}
+        card={{
+          color: item.color,
+          title: item.displayName,
+          fontSize: '0.9em',
+          imgFiles: [`/consultancy/${item.name}.jpg`]
+        }}
       >
         {item.description}
       </Card>

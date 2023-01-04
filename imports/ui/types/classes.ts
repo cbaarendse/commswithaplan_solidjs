@@ -166,7 +166,7 @@ export class Reach {
   static setTouchPointsForPlan(touchPointsBasics: TouchPointBasics[], language: string): TouchPointInPlan[] {
     return touchPointsBasics
       .filter((touchPointBasics: TouchPointBasics) => touchPointBasics.language === language)
-      .map((touchPointBasics): TouchPointInPlan => ({...touchPointBasics, value: 0.0, display: 'flex'}));
+      .map((touchPointBasics): TouchPointInPlan => ({...touchPointBasics, value: 0.0, show: true}));
   }
 
   static areAllTouchPointsValueZero(touchPointsInPlan: TouchPointInPlan[]): boolean {
@@ -263,19 +263,19 @@ export class Reach {
   static hide(touchPointsInPlan: TouchPointInPlan[]) {
     touchPointsInPlan.forEach((touchPoint) => {
       if (touchPoint.value === 0) {
-        touchPoint.display = 'none';
+        touchPoint.show = false;
       }
     });
     return touchPointsInPlan;
   }
 
   static show(touchPointsInPlan: TouchPointInPlan[]) {
-    touchPointsInPlan.forEach((touchPoint) => (touchPoint.display = 'grid'));
+    touchPointsInPlan.forEach((touchPoint) => (touchPoint.show = true));
     return touchPointsInPlan;
   }
 
   static isShowAll(touchPointsInPlan: TouchPointInPlan[]): boolean {
-    return touchPointsInPlan.every((touchPoint) => touchPoint.display === 'grid');
+    return touchPointsInPlan.every((touchPoint) => touchPoint.show === true);
   }
 
   // results

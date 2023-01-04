@@ -5,13 +5,28 @@
   import type {Input} from '../types/types';
 
   // exports
+  let value: string;
   export let input: Input;
   export let displayName: string;
 
   // variables
   let dispatch = createEventDispatcher();
+  $: disabled = isValid(input) ? false : true;
+
+  $: {
+    console.log('disabled input = ', disabled);
+  }
 
   // functions
+  function isValid(i: Input): boolean {
+    let vl = i.value;
+    let mn = i.min;
+    let mx = i.max;
+    if (typeof vl != 'string') vl = '0';
+    if (typeof mn != 'string') mn = '0';
+    if (typeof mx != 'string') mx = '100';
+    return parseFloat(vl) < parseInt(mn) || parseFloat(vl) > parseInt(mx) ? false : true;
+  }
   function submitValue() {
     dispatch('submitValueForName', {name: input.name, value: input.value});
   }
@@ -30,6 +45,7 @@
     placeholder={input.placeholder}
     min={input.min}
     max={input.max}
+    step={input.step}
     readonly={input.readonly}
     bind:value={input.value}
   />
@@ -37,11 +53,7 @@
     class="submit__button"
     type="submit"
     value={$language === 'dutch' ? 'Verstuur' : 'Submit'}
-    disabled={input.value && input.min
-      ? parseFloat(input.value) < parseInt(input.min)
-      : false || (input.value && input.max)
-      ? parseFloat(input.value) > parseInt(input.max)
-      : false}
+    {disabled}
     on:click|preventDefault|stopPropagation={submitValue}
   />
   <input

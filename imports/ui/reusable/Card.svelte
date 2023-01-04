@@ -6,12 +6,15 @@
   export let card: Card;
 </script>
 
-<article class="card" style="background-color:{card.backgroundColor}; font-color:{card.color}; font-size:{card.sizes}">
+<article
+  class="card"
+  style="background-color:{card.backgroundColor}; font-color:{card.color}; font-size:{card.fontSize}"
+>
   {#if card.imgFiles}
     <img src={card.imgFiles[0]} alt={card.title} />
   {/if}
   {#if card.title}
-    <h3>{card.title}</h3>
+    <h4>{card.title}</h4>
   {/if}
   <p>
     <slot />
@@ -49,7 +52,9 @@
     line-height: 1.7em;
     margin: 0.5em 0;
   }
-
+  a {
+    font-size: 0.9em;
+  }
   a:hover {
     opacity: 0.7;
   }

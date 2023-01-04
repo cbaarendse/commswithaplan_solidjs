@@ -3,6 +3,8 @@
   import {fade} from 'svelte/transition';
   import Button from './Button.svelte';
   import {createEventDispatcher} from 'svelte';
+  import Fa from 'svelte-fa/src/fa.svelte';
+  import {faXmark} from '@fortawesome/free-solid-svg-icons';
 
   // variables
   export let title: string;
@@ -44,7 +46,7 @@
           }}
           on:clickedButton={dismiss}
         >
-          &times;
+          <Fa icon={faXmark} />
         </Button>
       </menu>
       <header>

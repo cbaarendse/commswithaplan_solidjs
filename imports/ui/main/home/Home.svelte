@@ -23,9 +23,10 @@
           imgFiles: item.imgFiles,
           link: item.link,
           action: item.action,
-          sizes: '1em'
+          fontSize: '0.9em'
         }}
-        >{item.description}
+      >
+        {item.description}
       </Card>
     {/each}
   </div>

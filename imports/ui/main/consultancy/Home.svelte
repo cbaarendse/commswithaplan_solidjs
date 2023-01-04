@@ -16,7 +16,7 @@
 <section>
   <div class="home__flex">
     {#each translatedConsultancyHomeItems as item}
-      <Card card={{title: item.displayName, color: 'blue', link: item.link, action: item.action, sizes: '1em'}}>
+      <Card card={{title: item.displayName, color: 'blue', link: item.link, action: item.action, fontSize: '0.9em'}}>
         <!-- @html because of <mark></mark> tags in text -->
         {@html item.description}
       </Card>

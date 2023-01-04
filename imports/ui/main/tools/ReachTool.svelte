@@ -16,8 +16,9 @@
   let locus: number = 0;
   let sortedByName: boolean = true;
   $: allTouchPointsValueIsZero = Reach.areAllTouchPointsValueZero(touchPointsInPlan);
-  //TODO: check showAll, should be true or false, nothing else
+  //TODO: check showAll
   $: showAll = Reach.isShowAll(touchPointsInPlan);
+
   onMount(() => (touchPointsInPlan = Reach.sortByName(touchPointsInPlan)));
 
   // functions

@@ -19,7 +19,7 @@
   // functions
 </script>
 
-<div class="container" style="display:{touchPoint.display};">
+<div class="container" style="display:{touchPoint.show ? 'flex' : 'none'};">
   <div class="left">
     <button
       class="touchpoint"
@@ -83,8 +83,9 @@
         value: touchPoint.value.toString(),
         min: '0',
         max: '100',
+        step: '1',
         fontSize: '1em',
-        placeholder: Convert.translate('input', $translations, $language),
+        placeholder: `${Convert.translate('input', $translations, $language) + '0 - 100'}`,
         readonly: false
       }}
       on:submitValueForName

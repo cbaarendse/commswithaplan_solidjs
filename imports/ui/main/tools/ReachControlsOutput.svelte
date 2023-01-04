@@ -43,7 +43,7 @@
       {#if sortedByName}<Fa icon={faArrowDownAZ} />{:else}<Fa icon={faArrowDownWideShort} />{/if}
     </button>
     <button type="button" on:click={() => dispatch('hide')}>
-      {#if showAll}<Fa icon={faBars} scale={0.8} />{:else}<fa icon={faMinus} scale={0.8} />{/if}
+      {#if showAll}<Fa icon={faMinus} scale={0.8} />{:else}<fa icon={faBars} scale={0.8} />{/if}
     </button>
   </menu>
   <label on:click|preventDefault|stopPropagation={() => showOutputDescription('total_reach')}>
@@ -149,6 +149,10 @@
   }
 
   :global(meter) {
+    flex: 1 1 60%;
+  }
+
+  :global(div.meter) {
     flex: 1 1 60%;
   }
 

@@ -18,7 +18,7 @@
 <section>
   <div class="home__flex">
     {#each translatedToolsHomeItems as item}
-      <Card card={{color: 'blue', title: item.displayName, link: item.link, action: item.action}}>
+      <Card card={{color: 'blue', title: item.displayName, link: item.link, action: item.action, fontSize: '0.9em'}}>
         {item.description}
       </Card>
     {/each}

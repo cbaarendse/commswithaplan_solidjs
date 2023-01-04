@@ -15,11 +15,11 @@
 <section>
   <div class="about__flex">
     {#each translatedAboutItems as item}
-      <Card card={{sizes: '1em'}}>{item.description}</Card>
+      <Card card={{fontSize: '0.9em'}}>{item.description}</Card>
     {/each}
-    <Card card={{sizes: '1em'}}>
-      <a href="https://www.linkedin.com/in/cbaarendse/">https://www.linkedin.com/in/cbaarendse/ </a></Card
-    >
+    <Card card={{fontSize: '0.9em'}}>
+      <a href="https://www.linkedin.com/in/cbaarendse/">https://www.linkedin.com/in/cbaarendse/</a>
+    </Card>
   </div>
 </section>
 

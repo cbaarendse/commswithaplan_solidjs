@@ -13,7 +13,7 @@
 <section>
   <div class="contact__flex">
     {#each translatedContactItems as item}
-      <Card card={{color: 'blue', title: item.displayName, sizes: '1em'}}>
+      <Card card={{color: 'blue', title: item.displayName, fontSize: '0.9em'}}>
         <address>
           {item.description}
         </address>
