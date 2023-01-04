@@ -32,13 +32,8 @@ export type Card = Partial<Illustrated & Actionable> &
 export type Checkbox = svelteHTML.IntrinsicElements['input'] & Partial<HTMLElement['style']>;
 export type Logo = svelteHTML.IntrinsicElements['div'] & Partial<HTMLElement['style']> & Colored;
 export type SelectItem = {name: string; index: string};
-export type Input = Omit<
-  Partial<svelte.JSX.HTMLAttributes<HTMLElementTagNameMap['input']>>,
-  'value' | 'min' | 'max'
-> & {
-  value: string | undefined | null;
-  min: string | undefined | null;
-  max: string | undefined | null;
+export type Input = Omit<Partial<svelte.JSX.HTMLAttributes<HTMLElementTagNameMap['input']>>, 'value'> & {
+  value: number | string | undefined | null;
 } & Partial<HTMLElement['style']>;
 export type Select = Omit<
   Partial<svelte.JSX.HTMLAttributes<HTMLElementTagNameMap['select']>>,

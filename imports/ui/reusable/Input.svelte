@@ -5,7 +5,6 @@
   import type {Input} from '../types/types';
 
   // exports
-  let value: string;
   export let input: Input;
   export let displayName: string;
 
@@ -13,19 +12,18 @@
   let dispatch = createEventDispatcher();
   $: disabled = isValid(input) ? false : true;
 
-  $: {
-    console.log('disabled input = ', disabled);
-  }
-
   // functions
   function isValid(i: Input): boolean {
-    let vl = i.value;
-    let mn = i.min;
-    let mx = i.max;
-    if (typeof vl != 'string') vl = '0';
-    if (typeof mn != 'string') mn = '0';
-    if (typeof mx != 'string') mx = '100';
-    return parseFloat(vl) < parseInt(mn) || parseFloat(vl) > parseInt(mx) ? false : true;
+    if (typeof i.value != 'number') {
+      return false;
+    }
+    if (typeof i.min != 'number') {
+      i.min = 0;
+    }
+    if (typeof i.max != 'number') {
+      i.max = 100;
+    }
+    return i.value >= i.min && i.value <= i.max;
   }
   function submitValue() {
     dispatch('submitValueForName', {name: input.name, value: input.value});
@@ -35,7 +33,7 @@
   }
 </script>
 
-<form>
+<form autocomplete="off">
   <label for={input.name}>{$language === 'dutch' ? 'Invoer voor ' : 'Input for '}{displayName}</label>
   <input
     class="input__field"

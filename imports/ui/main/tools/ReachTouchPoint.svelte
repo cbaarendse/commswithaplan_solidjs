@@ -48,7 +48,6 @@
     />
   </div>
   <div class="right">
-    <!-- TODO: finalize manual input: change back to button when clicking outside -->
     <button
       class="input"
       on:click={() => {
@@ -80,12 +79,12 @@
       input={{
         name: touchPoint.name,
         id: touchPoint.name,
-        value: touchPoint.value.toString(),
-        min: '0',
-        max: '100',
-        step: '1',
+        value: touchPoint.value,
+        min: 0,
+        max: 100,
+        step: 1,
         fontSize: '1em',
-        placeholder: `${Convert.translate('input', $translations, $language) + '0 - 100'}`,
+        placeholder: `${Convert.translate('input', $translations, $language) + ' 0 - 100'}`,
         readonly: false
       }}
       on:submitValueForName

@@ -14,9 +14,8 @@
   let touchPointsInPlan: TouchPointInPlan[] = Reach.setTouchPointsForPlan($touchPointsBasics, $language);
   let totalReach: number = 0;
   let locus: number = 0;
-  let sortedByName: boolean = true;
+  let sortedByName = true;
   $: allTouchPointsValueIsZero = Reach.areAllTouchPointsValueZero(touchPointsInPlan);
-  //TODO: check showAll
   $: showAll = Reach.isShowAll(touchPointsInPlan);
 
   onMount(() => (touchPointsInPlan = Reach.sortByName(touchPointsInPlan)));
@@ -61,11 +60,7 @@
 
   function sortBy(): void {
     touchPointsInPlan = sortedByName ? Reach.sortByReach(touchPointsInPlan) : Reach.sortByName(touchPointsInPlan);
-  }
-
-  function sort(): void {
-    sortBy();
-    sortedByName = !sortedByName;
+    sortedByName = sortedByName ? false : true;
   }
 
   function hideIf() {
@@ -74,10 +69,6 @@
     } else if (!showAll || allTouchPointsValueIsZero) {
       touchPointsInPlan = Reach.show(touchPointsInPlan);
     }
-  }
-
-  function hide() {
-    hideIf();
   }
 
   let languageUnsubscribe: Unsubscriber = language.subscribe((newLanguage) => {
@@ -97,8 +88,8 @@
       {sortedByName}
       {showAll}
       on:reset={reset}
-      on:sort={sort}
-      on:hide={hide}
+      on:sort={sortBy}
+      on:hide={hideIf}
     />
     {#each touchPointsInPlan as touchPoint}
       <ReachTouchPoint

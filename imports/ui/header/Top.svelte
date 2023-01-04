@@ -7,7 +7,6 @@
 </script>
 
 <!-- TopBar has room for functionality used from all over the site. Eventual cookies and/or marketing messages. -->
-<!-- TODO: language buttons in <menu> then top = flex, pspace in between -->
 <menu>
   <li>
     <ToggleButton />

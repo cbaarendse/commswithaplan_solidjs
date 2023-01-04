@@ -21,6 +21,7 @@
   const dispatch = createEventDispatcher();
   let displayOutputDescription: 'none' | 'flex' = 'none';
   let output: Content = $definitions[0];
+  let iconSize = '100%';
   export let totalReach: number;
   export let locus: number;
   export let allTouchPointsValueIsZero: boolean;
@@ -37,13 +38,19 @@
 <div class="container">
   <menu>
     <button type="button" on:click={() => dispatch('reset')}>
-      {#if allTouchPointsValueIsZero}<Fa icon={faArrowRotateLeft} />{:else}<Fa icon={fa0} />{/if}
+      {#if allTouchPointsValueIsZero}<Fa icon={faArrowRotateLeft} size={iconSize} />{:else}<Fa
+          icon={fa0}
+          size={iconSize}
+        />{/if}
     </button>
     <button type="button" on:click={() => dispatch('sort')}>
-      {#if sortedByName}<Fa icon={faArrowDownAZ} />{:else}<Fa icon={faArrowDownWideShort} />{/if}
+      {#if sortedByName}<Fa icon={faArrowDownWideShort} size={iconSize} />{:else}<Fa
+          icon={faArrowDownAZ}
+          size={iconSize}
+        />{/if}
     </button>
     <button type="button" on:click={() => dispatch('hide')}>
-      {#if showAll}<Fa icon={faMinus} scale={0.8} />{:else}<fa icon={faBars} scale={0.8} />{/if}
+      {#if showAll}<Fa icon={faMinus} size={iconSize} />{:else}<Fa icon={faBars} size={iconSize} />{/if}
     </button>
   </menu>
   <label on:click|preventDefault|stopPropagation={() => showOutputDescription('total_reach')}>
