@@ -1,12 +1,12 @@
 <script lang="ts">
   // imports
-  import Button from '../reusable/Button.svelte';
   import {language, translations} from '../stores/utils';
   import {Convert} from '../types/classes';
   import Fa from 'svelte-fa/src/fa.svelte';
   import {faCookie, faCookieBite} from '@fortawesome/free-solid-svg-icons';
 
   // variables
+  let disabled = false;
   let buttonFontSize: string = '1.2em';
   let wholeCookie: boolean = true;
   //functions
@@ -25,17 +25,13 @@
     <a href="/legal/termsandconditions">{Convert.translate('legal', $translations, $language)}</a>
   </nav>
   <menu>
-    <Button
-      btn={{
-        type: 'button',
-        class: 'consent__visibility',
-        backgroundColor: 'transparent',
-        height: 'fit-content',
-        disabled: false
-      }}
-      on:clickedButton
-      on:mouseEntered={biteCookie}
-      on:mouseLeft={repairCookie}
+    <button
+      class="consent__visibility"
+      type="button"
+      {disabled}
+      on:click|stopPropagation|preventDefault
+      on:mouseenter|stopPropagation|preventDefault={biteCookie}
+      on:mouseleave|stopPropagation|preventDefault={repairCookie}
     >
       <span class="button__text" style="--buttonFontSize: {buttonFontSize};">
         {#if wholeCookie}
@@ -44,7 +40,7 @@
           <Fa icon={faCookieBite} color={'goldenrod'} />
         {/if}
       </span>
-    </Button>
+    </button>
   </menu>
 </section>
 
@@ -56,7 +52,14 @@
     align-items: center;
     gap: 1em;
   }
-
+  button {
+    height: fit-content;
+    background-color: transparent;
+    margin: 0 0.4em;
+    cursor: pointer;
+    border-radius: 5%;
+    border: none;
+  }
   a {
     margin: 0 1em;
   }

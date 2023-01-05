@@ -53,6 +53,7 @@
     } else {
       touchPointsInPlan = Reach.setTouchPointsForPlan($touchPointsBasics, $language);
       touchPointsInPlan = Reach.sortByName(touchPointsInPlan);
+      sortedByName = true;
     }
     const results = [0, 0];
     [totalReach, locus] = results;
@@ -60,10 +61,10 @@
 
   function sortBy(): void {
     touchPointsInPlan = sortedByName ? Reach.sortByReach(touchPointsInPlan) : Reach.sortByName(touchPointsInPlan);
-    sortedByName = sortedByName ? false : true;
+    sortedByName = showAll && allTouchPointsValueIsZero ? true : !sortedByName;
   }
 
-  function hideIf() {
+  function hideIf(): void {
     if (showAll && !allTouchPointsValueIsZero) {
       touchPointsInPlan = Reach.hide(touchPointsInPlan);
     } else if (!showAll || allTouchPointsValueIsZero) {

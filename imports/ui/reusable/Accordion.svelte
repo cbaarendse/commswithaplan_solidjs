@@ -2,11 +2,11 @@
   // imports
   import {slide} from 'svelte/transition';
   import {backInOut} from 'svelte/easing';
-  import Button from './Button.svelte';
   import type {Accordion} from '../types/types';
 
   // variables
   export let acc: Accordion;
+  let disabled = false;
   acc.visible = false;
 
   // functions
@@ -14,22 +14,16 @@
 
 <article class="accordion">
   <header>
-    <Button
-      btn={{
-        type: 'button',
-        ariaRoleDescription: 'button',
-        id: 'toggle__accordion',
-        class: 'accordion__button',
-        color: 'var(--ra-white)',
-        backgroundColor: 'var(--ra-green)',
-        padding: '0 1rem',
-        height: '4rem',
-        disabled: false
-      }}
-      on:clickedButton={() => (acc.visible = !acc.visible)}
+    <button
+      type="button"
+      aria-roledescription="button"
+      id="toggle__accordion"
+      class="accordion__button"
+      {disabled}
+      on:click|stopPropagation|preventDefault={() => (acc.visible = !acc.visible)}
     >
-      {#if acc.visible}<b>-</b>{:else}<b>+</b>{/if}</Button
-    >
+      {#if acc.visible}<b>-</b>{:else}<b>+</b>{/if}
+    </button>
     <slot name="title" />
   </header>
   {#if acc.visible}
@@ -56,7 +50,19 @@
     background-color: var(--ra-teal-off-white);
     cursor: pointer;
   }
-
+  button {
+    height: 4rem;
+    margin: 0 0.4em;
+    color: var(--ra-white);
+    cursor: pointer;
+    background-color: var(--ra-green);
+    padding: 0rem 1rem;
+    border-radius: 5%;
+    border: none;
+  }
+  button:hover {
+    opacity: 0.7;
+  }
   div.accordion-main {
     background-color: var(--ra-white);
     padding: 1em 2em;

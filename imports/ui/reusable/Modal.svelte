@@ -1,7 +1,6 @@
 <script lang="ts">
   // imports
   import {fade} from 'svelte/transition';
-  import Button from './Button.svelte';
   import {createEventDispatcher} from 'svelte';
   import Fa from 'svelte-fa/src/fa.svelte';
   import {faXmark} from '@fortawesome/free-solid-svg-icons';
@@ -10,6 +9,7 @@
   export let title: string;
   export let display: string = 'none';
   let dispatch = createEventDispatcher();
+  let disabled = false;
 
   // functions
   function dismiss(event: MouseEvent | CustomEvent | KeyboardEvent): void {
@@ -35,19 +35,14 @@
   >
     <div class="modal">
       <menu>
-        <Button
-          btn={{
-            type: 'button',
-            ariaRoleDescription: 'button',
-            backgroundColor: 'transparent',
-            borderColor: 'transparent',
-            fontSize: '1.5em',
-            disabled: false
-          }}
-          on:clickedButton={dismiss}
+        <button
+          type="button"
+          aria-roledescription="button"
+          {disabled}
+          on:click|stopPropagation|preventDefault={dismiss}
         >
           <Fa icon={faXmark} />
-        </Button>
+        </button>
       </menu>
       <header>
         <h3 class="modal__title">{title}</h3>
@@ -90,6 +85,19 @@
     display: flex;
     justify-content: flex-end;
     width: 100%;
+  }
+  button {
+    background-color: transparent;
+    border-color: transparent;
+    font-size: 1.5em;
+    margin: 0 0.4em;
+    cursor: pointer;
+    border-radius: 5%;
+    border: none;
+  }
+
+  button:hover {
+    opacity: 0.7;
   }
   header {
     display: flex;

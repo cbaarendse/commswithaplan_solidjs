@@ -24,6 +24,6 @@
   <Routing />
 </main>
 <footer>
-  <Colofon on:clickedButton={toggleFooterConsentVisibility} />
+  <Colofon on:click={toggleFooterConsentVisibility} />
   <Consent />
 </footer>

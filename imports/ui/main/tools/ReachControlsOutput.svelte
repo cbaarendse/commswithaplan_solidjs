@@ -44,10 +44,14 @@
         />{/if}
     </button>
     <button type="button" on:click={() => dispatch('sort')}>
-      {#if sortedByName}<Fa icon={faArrowDownWideShort} size={iconSize} />{:else}<Fa
+      {#if sortedByName}<Fa
+          icon={faArrowDownWideShort}
+          size={iconSize}
+        />{:else if !sortedByName && allTouchPointsValueIsZero && showAll}<Fa
           icon={faArrowDownAZ}
           size={iconSize}
-        />{/if}
+        />{:else}<Fa icon={faArrowDownAZ} size={iconSize} />
+      {/if}
     </button>
     <button type="button" on:click={() => dispatch('hide')}>
       {#if showAll}<Fa icon={faMinus} size={iconSize} />{:else}<Fa icon={faBars} size={iconSize} />{/if}

@@ -2,7 +2,6 @@
   // imports
   import {onMount} from 'svelte';
   import {slide} from 'svelte/transition';
-  import Button from '../reusable/Button.svelte';
   import Checkbox from '../reusable/Checkbox.svelte';
   import {language, consentFooterVisible} from '../stores/utils';
   import {Cookies} from '../types/classes';
@@ -20,6 +19,7 @@
   };
 
   // variables
+  let disabled = false;
   let persistentCookies: Array<string> = ['_commswithaplan_functional_storage', '_commswithaplan_security_storage'];
   let dynamicCookies: string[] = [
     '_commswithaplan_ad_storage',
@@ -75,9 +75,9 @@
     <Checkbox
       displayName={$language == 'dutch' ? 'Advertenties / Analyse / Persoonlijk' : 'Ads / Analysis / Personal'}
       cbx={{
-        name: 'dynamic_cookies_consent',
-        id: 'dynamic_cookies__checkbox',
         class: 'consent__checkbox',
+        id: 'dynamic_cookies__checkbox',
+        name: 'dynamic_cookies_consent',
         fontSize: '1em',
         readonly: false,
         disabled: false
@@ -88,9 +88,9 @@
     <Checkbox
       displayName={$language == 'dutch' ? 'Functioneel / Veiligheid' : 'Functional / Security'}
       cbx={{
-        name: 'persistent_cookies_consent',
-        id: 'persistent_cookies__checkbox',
         class: 'consent__checkbox',
+        id: 'persistent_cookies__checkbox',
+        name: 'persistent_cookies_consent',
         fontSize: '1em',
         readonly: false,
         disabled: persistent_cookies_checked
@@ -98,38 +98,26 @@
       checked={persistent_cookies_checked}
     />
     <menu>
-      <Button
-        btn={{
-          type: 'submit',
-          ariaRoleDescription: 'button',
-          id: 'set__consent',
-          class: 'consent__button',
-          disabled: false,
-          color: 'var(--ra-white)',
-          backgroundColor: 'var(--ra-red)',
-          padding: '0.7em 1em'
-        }}
-        on:clickedButton={() => (dynamic_cookies_checked = false)}
-        on:clickedButton={() => closeConsentSection()}
+      <button
+        class="deny"
+        type="submit"
+        aria-roledescription="button"
+        {disabled}
+        on:click|stopPropagation|preventDefault={() => (dynamic_cookies_checked = false)}
+        on:click|stopPropagation|preventDefault={() => closeConsentSection()}
       >
         {#if $language == 'dutch'}Wijs af{:else}Reject{/if}
-      </Button>
-      <Button
-        btn={{
-          type: 'submit',
-          ariaRoleDescription: 'button',
-          id: 'set__consent',
-          class: 'consent__button',
-          disabled: false,
-          color: 'var(--ra-white)',
-          backgroundColor: 'var(--ra-green)',
-          padding: '0.7em 1em'
-        }}
-        on:clickedButton={() => (dynamic_cookies_checked = true)}
-        on:clickedButton={() => closeConsentSection()}
+      </button>
+      <button
+        class="grant"
+        type="submit"
+        aria-roledescription="button"
+        {disabled}
+        on:click|stopPropagation|preventDefault={() => (dynamic_cookies_checked = true)}
+        on:click|stopPropagation|preventDefault={() => closeConsentSection()}
       >
         {#if $language == 'dutch'}Accepteer{:else}Accept{/if}
-      </Button>
+      </button>
     </menu>
   </section>
 {/if}
@@ -145,5 +133,22 @@
   }
   nav {
     display: inline-block;
+  }
+  button {
+    margin: 0 0.4em;
+    padding: 0.7em 1em;
+    cursor: pointer;
+    color: var(--ra-white);
+    border-radius: 5%;
+    border: none;
+  }
+  button:hover {
+    opacity: 0.7;
+  }
+  button.deny {
+    background-color: var(--ra-red);
+  }
+  button.grant {
+    background-color: var(--ra-green);
   }
 </style>

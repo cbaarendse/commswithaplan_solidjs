@@ -3,10 +3,10 @@
   import {cubicInOut} from 'svelte/easing';
   import {fade} from 'svelte/transition';
   import {Tweened, tweened} from 'svelte/motion';
-  import Button from '../../ui/reusable/Button.svelte';
   import {navigationVisible, isSmallScreen} from '../stores/utils';
 
   // variables
+  let disabled = false;
   const coefficient: Tweened<number> = tweened(0, {easing: cubicInOut});
   navigationVisible.subscribe((visible) => {
     if (!visible) {
@@ -17,18 +17,14 @@
 </script>
 
 <!-- This button animates when used for toggling navigation, but also if screen size is changed beyond threshold. -->
-<Button
-  btn={{
-    class: 'navigation__toggle',
-    type: 'button',
-    ariaRoleDescription: 'button',
-    backgroundColor: 'transparent',
-    width: '4rem',
-    height: '4rem',
-    disabled: false
-  }}
-  on:clickedButton={() => ($navigationVisible = !$navigationVisible)}
-  on:clickedButton={() => ($navigationVisible === true ? coefficient.set(1) : coefficient.set(0))}
+<button
+  class="navigation__toggle"
+  type="button"
+  aria-roledescription="button"
+  {disabled}
+  on:click|preventDefault|stopPropagation={() => ($navigationVisible = !$navigationVisible)}
+  on:click|preventDefault|stopPropagation={() =>
+    $navigationVisible === true ? coefficient.set(1) : coefficient.set(0)}
 >
   {#if $isSmallScreen}
     <div class="bars" transition:fade={{duration: 900, easing: cubicInOut}}>
@@ -37,13 +33,25 @@
       <div class="bar-3" style="transform: translateY({$coefficient * -200}%) rotate({$coefficient * -45}deg)" />
     </div>
   {/if}
-</Button>
+</button>
 
 <style>
+  button {
+    width: 3.7rem;
+    height: 3.7rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 0.4em;
+    cursor: pointer;
+    background-color: transparent;
+    border-radius: 5%;
+    border: none;
+  }
   .bars {
     position: relative;
-    width: 2rem;
-    height: 2rem;
+    width: 90%;
+    height: 90%;
     background-color: var(--ra-grey-off-white);
   }
   .bar-1,
