@@ -1,7 +1,8 @@
 {
   "galaxy.meteor.com": {
     "env": {
-      "ROOT_URL": "https://www.commswithaplan.com"
+      "ROOT_URL": "https://commswithaplan.meteorapp.com",
+      "MONGO_URL": "mongodb+srv://cbaarendse:Cbdollardollar5426@cluster0-lnrah.mongodb.net/reachapp"
     }
   },
   "public":{
