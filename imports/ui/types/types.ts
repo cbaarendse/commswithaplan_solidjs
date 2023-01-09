@@ -33,16 +33,11 @@ export type SelectItem = {name: string; index: string};
 export type Input = Omit<Partial<svelte.JSX.HTMLAttributes<HTMLElementTagNameMap['input']>>, 'value'> & {
   value: number | string | undefined | null;
 } & Partial<HTMLElement['style']>;
-export type Select = Omit<
-  Partial<svelte.JSX.HTMLAttributes<HTMLElementTagNameMap['select']>>,
-  'value' | 'min' | 'max'
-> & {
-  value: string | undefined | null;
-  min: string | undefined | null;
-  max: string | undefined | null;
+export type Select = Omit<Partial<svelte.JSX.HTMLAttributes<HTMLElementTagNameMap['select']>>, 'value'> & {
+  value: number | string | undefined | null;
 } & Partial<HTMLElement['style']>;
 
-export type Slider = Omit<Input, 'step'> & {step: string | undefined | null};
+// export type RangeInput = Omit<Input, 'step'> & {step: number | string | undefined | null};
 export type Label = svelteHTML.IntrinsicElements['label'] & Partial<HTMLElement['style']>;
 export type Meter = svelteHTML.IntrinsicElements['meter'] & Partial<HTMLElement['style']>;
 

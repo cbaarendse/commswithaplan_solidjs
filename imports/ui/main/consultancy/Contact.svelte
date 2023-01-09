@@ -15,7 +15,8 @@
     {#each translatedContactItems as item}
       <Card card={{color: 'blue', title: item.displayName, fontSize: '0.9em'}}>
         <address>
-          {item.description}
+          <!-- @html because of new lines in address items (phne number, home address) -->
+          {@html item.description.split(', ').join('<br>')}
         </address>
       </Card>
     {/each}
@@ -23,7 +24,7 @@
       card={{
         title: 'LinkedIn',
         color: 'blue',
-        sizes: '1em',
+        fontSize: '1em',
         link: 'https://www.linkedin.com/in/cbaarendse/',
         action: 'Constantijn Baarendse'
       }}
@@ -33,7 +34,7 @@
     {#if $language == 'dutch'}
       E-mail, bel, schrijf of stuur een bericht via LinkedIn.
     {:else}
-      E-mail, claim_element, write or send a message through LinkedIn.
+      E-mail, call, write or send a message through LinkedIn.
     {/if}
   </h5>
 </section>

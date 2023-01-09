@@ -1,33 +1,33 @@
 <script lang="ts">
   // imports
   import {createEventDispatcher} from 'svelte';
-  import type {Slider} from '../types/types';
+  import type {Input} from '../../types/types';
 
   //variables
   let dispatch = createEventDispatcher();
-  export let slider: Slider;
+  export let rangeInput: Input;
   export let displayName: string;
 
-  console.log('name,  slider.value in input type range:', slider.name, slider.value);
+  console.log('name,  slider.value in input type range:', rangeInput.name, rangeInput.value);
   function changeValue() {
-    dispatch('changeValueForName', {name: slider.name, value: slider.value});
+    dispatch('changeValueForName', {name: rangeInput.name, value: rangeInput.value});
   }
   function inputValue() {
-    dispatch('inputValueForName', {name: slider.name, value: slider.value});
+    dispatch('inputValueForName', {name: rangeInput.name, value: rangeInput.value});
   }
 </script>
 
 <form>
   <fieldset>
-    <label for={slider.name}>{displayName}</label>
+    <label for={rangeInput.name}>{displayName}</label>
     <input
-      id={slider.id}
-      name={slider.name}
+      id={rangeInput.id}
+      name={rangeInput.name}
       type="range"
-      min={slider.min}
-      max={slider.max}
-      step={slider.step}
-      bind:value={slider.value}
+      min={rangeInput.min}
+      max={rangeInput.max}
+      step={rangeInput.step}
+      bind:value={rangeInput.value}
       on:change={changeValue}
       on:input={inputValue}
     />

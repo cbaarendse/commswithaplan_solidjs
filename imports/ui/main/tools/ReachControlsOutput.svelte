@@ -4,7 +4,7 @@
   import {language, translations} from '../../stores/utils';
   import {definitions} from '../../stores/tools';
   import type {Content} from '../../types/types';
-  import Meter from '../../reusable/Meter.svelte';
+  import ReachOutputMeter from './ReachOutputMeter.svelte';
   import Modal from '../../reusable/Modal.svelte';
   import {Convert, Format} from '../../types/classes';
   import Fa from 'svelte-fa/src/fa.svelte';
@@ -67,8 +67,8 @@
     </span>
     <output>{Format.toNumberFormat(totalReach, 0)}&nbsp;%</output>
   </label>
-  <Meter
-    meter={{
+  <ReachOutputMeter
+    outputMeter={{
       id: 'reach',
       value: totalReach,
       min: 0,
@@ -80,8 +80,8 @@
     <span>{Convert.translate('locus', $translations, $language)}:&nbsp;</span>
     <output>{Format.toNumberFormat(locus, 0)}&nbsp;%</output>
   </label>
-  <Meter
-    meter={{
+  <ReachOutputMeter
+    outputMeter={{
       id: 'locus',
       value: locus,
       min: 0,

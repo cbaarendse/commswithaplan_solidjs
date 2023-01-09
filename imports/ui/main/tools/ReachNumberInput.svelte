@@ -1,16 +1,16 @@
 <script lang="ts">
   // imports
   import {createEventDispatcher} from 'svelte';
-  import {language} from '../stores/utils';
-  import type {Input} from '../types/types';
+  import {language} from '../../stores/utils';
+  import type {Input} from '../../types/types';
 
   // exports
-  export let input: Input;
+  export let numberInput: Input;
   export let displayName: string;
 
   // variables
   let dispatch = createEventDispatcher();
-  $: disabled = isValid(input) ? false : true;
+  $: disabled = isValid(numberInput) ? false : true;
 
   // functions
   function isValid(i: Input): boolean {
@@ -26,7 +26,7 @@
     return i.value >= i.min && i.value <= i.max;
   }
   function submitValue() {
-    dispatch('submitValueForName', {name: input.name, value: input.value});
+    dispatch('submitValueForName', {name: numberInput.name, value: numberInput.value});
   }
   function submitCancel() {
     dispatch('submitCancel');
@@ -34,18 +34,18 @@
 </script>
 
 <form autocomplete="off">
-  <label for={input.name}>{$language === 'dutch' ? 'Invoer voor ' : 'Input for '}{displayName}</label>
+  <label for={numberInput.name}>{$language === 'dutch' ? 'Invoer voor ' : 'Input for '}{displayName}</label>
   <input
     class="input__field"
-    name={input.name}
-    id={input.id}
+    name={numberInput.name}
+    id={numberInput.id}
     type="number"
-    placeholder={input.placeholder}
-    min={input.min}
-    max={input.max}
-    step={input.step}
-    readonly={input.readonly}
-    bind:value={input.value}
+    placeholder={numberInput.placeholder}
+    min={numberInput.min}
+    max={numberInput.max}
+    step={numberInput.step}
+    readonly={numberInput.readonly}
+    bind:value={numberInput.value}
   />
   <input
     class="submit__button"

@@ -303,14 +303,14 @@ export const contactItems: Readable<(Content & Color)[]> = readable(
       name: 'telephone',
       language: 'english',
       displayName: 'Telephone',
-      description: 'Telephone: plus three one six one two three nine eight seven three four',
+      description: 'Telephone: plus three one six, one two three nine eight seven three four',
       color: 'blue'
     },
     {
       name: 'telephone',
       language: 'dutch',
       displayName: 'Telefoon',
-      description: 'Telefoon: nul zes een twee drie negen acht zeven drie vier',
+      description: 'Telefoon: nul zes, een twee drie negen acht zeven drie vier',
       color: 'blue'
     },
     {

@@ -2,9 +2,9 @@
   // imports
   import type {TouchPointInPlan} from '../../types/types';
   import {Convert, Format} from '../../types/classes';
-  import Slider from '../../reusable/Slider.svelte';
+  import ReachRangeInput from './ReachRangeInput.svelte';
   import Modal from '../../reusable/Modal.svelte';
-  import Input from '../../reusable/Input.svelte';
+  import ReachNumberInput from './ReachNumberInput.svelte';
   import {language, translations} from '../../stores/utils';
   //import {notify} from '../../notifications/NotificationsFunctions';
 
@@ -33,9 +33,9 @@
     />
   </div>
   <div class="center">
-    <Slider
+    <ReachRangeInput
       displayName={touchPoint.displayName}
-      slider={{
+      rangeInput={{
         name: touchPoint.name,
         id: touchPoint.name,
         value: touchPoint.value.toString(),
@@ -74,9 +74,9 @@
       displayManualInput = 'none';
     }}
   >
-    <Input
+    <ReachNumberInput
       displayName={touchPoint.displayName}
-      input={{
+      numberInput={{
         name: touchPoint.name,
         id: touchPoint.name,
         value: touchPoint.value,
