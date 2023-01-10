@@ -22,4 +22,10 @@
     flex-direction: column;
     gap: 1em;
   }
+  h3 {
+    margin: 0em;
+  }
+  p {
+    margin: 0em;
+  }
 </style>

@@ -56,24 +56,27 @@
   div.container {
     display: flex;
     flex-flow: row wrap;
-    gap: 2em;
+    gap: 1.4em;
     justify-content: space-between;
   }
   nav {
     all: unset;
     flex: 1 1 30%;
-    padding: 1em 0em;
+    padding: 0em 1em;
   }
 
   div.policies {
     flex: 1 1 70%;
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 1.4em;
     padding: 0em 1em;
     max-width: 75ch;
   }
 
   ul {
     display: flex;
-    gap: 2em;
+    gap: 1.6em;
     margin: 0;
     padding: 0;
     width: 100%;

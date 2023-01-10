@@ -28,6 +28,7 @@
     <button
       class="consent__visibility"
       type="button"
+      aria-roledescription="button"
       {disabled}
       on:click|stopPropagation|preventDefault
       on:mouseenter|stopPropagation|preventDefault={biteCookie}

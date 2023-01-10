@@ -33,7 +33,7 @@
     </a>
   </li>
   <li>
-    <div class="user"><Fa icon={faUser} /></div>
+    <Fa icon={faUser} />
   </li>
 </menu>
 
@@ -43,9 +43,15 @@
     flex-wrap: nowrap;
     justify-content: flex-end;
     align-items: center;
-    gap: 0.4rem;
+    gap: 1.4rem;
     padding: 0.6rem 0.8rem;
     background-color: var(--ra-grey-off-white);
+  }
+
+  menu li {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
   }
 
   menu li:first-of-type {
@@ -70,13 +76,12 @@
     content: none;
   }
 
-  menu .user {
+  /* :link, :visited */
+  menu a {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: baseline;
   }
-
-  /* :link, :visited */
   menu a,
   menu a:visited {
     color: var(--ra-grey-light);

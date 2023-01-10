@@ -50,7 +50,7 @@
   p {
     flex: 1 0;
     line-height: 1.7em;
-    margin: 0.5em 0;
+    margin: 0.5em 0em;
   }
   a {
     font-size: 0.9em;

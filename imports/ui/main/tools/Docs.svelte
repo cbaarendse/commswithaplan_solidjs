@@ -50,11 +50,12 @@
     padding: 1em;
   }
   div.chapters {
-    padding: 1em;
   }
 
-  ul li {
-    margin-bottom: 2em;
+  ul {
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 1.6em;
   }
 
   @media screen and (min-width: 768px) {

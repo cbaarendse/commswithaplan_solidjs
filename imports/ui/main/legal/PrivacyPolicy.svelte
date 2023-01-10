@@ -1,6 +1,6 @@
 <script lang="ts">
   // imports
-  import Article from './Article.svelte';
+  import PolicyArticle from './PolicyArticle.svelte';
   import {language} from '../../stores/utils';
   import {privacyPolicy} from '../../stores/legal';
 
@@ -9,5 +9,5 @@
 </script>
 
 {#each translatedPrivacyPolicy as item}
-  <Article {item} />
+  <PolicyArticle {item} />
 {/each}
