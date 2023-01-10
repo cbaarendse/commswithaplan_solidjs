@@ -58,33 +58,29 @@
     flex-flow: row wrap;
     gap: 1.4em;
     justify-content: space-between;
+    margin: 0em 1em;
   }
   nav {
     all: unset;
-    flex: 1 1 30%;
-    padding: 0em 1em;
+    flex: 0 1 30ch;
+    flex-flow: row wrap;
   }
-
-  div.policies {
-    flex: 1 1 70%;
-    display: flex;
-    flex-flow: column nowrap;
-    gap: 1.4em;
-    padding: 0em 1em;
-    max-width: 75ch;
-  }
-
   ul {
     display: flex;
     gap: 1.6em;
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    flex-wrap: wrap;
   }
   li {
-    flex: 1 1 30ch;
+    flex-basis: min(30ch, 100%);
   }
+
+  div.policies {
+    flex: 0 1 60ch;
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 1.4em;
+    max-width: 75ch;
+  }
+
   .active {
     color: var(--ra-red);
     text-decoration-color: var(--ra-red);

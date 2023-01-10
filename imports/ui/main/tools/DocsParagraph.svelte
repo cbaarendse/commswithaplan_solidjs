@@ -19,6 +19,6 @@
 
 <style>
   p {
-    margin: 1em 0;
+    padding: 1em 0;
   }
 </style>
