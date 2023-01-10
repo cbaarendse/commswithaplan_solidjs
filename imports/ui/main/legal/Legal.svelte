@@ -62,19 +62,21 @@
   }
   nav {
     all: unset;
-    flex: 0 1 30ch;
-    flex-flow: row wrap;
+    flex: 1 1 100%;
+    max-width: 75ch;
   }
   ul {
     display: flex;
+    flex-flow: row wrap;
     gap: 1.6em;
+    width: 100%;
   }
   li {
-    flex-basis: min(30ch, 100%);
+    flex: 1 1 21ch;
   }
 
   div.policies {
-    flex: 0 1 60ch;
+    flex: 1 0 70%;
     display: flex;
     flex-flow: column nowrap;
     gap: 1.4em;
