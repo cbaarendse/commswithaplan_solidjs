@@ -32,10 +32,11 @@
 </article>
 
 <style>
-  article {
+  article,
+  ul {
     display: flex;
-    flex-direction: column;
-    gap: 1em;
+    flex-wrap: wrap;
+    gap: 0.8em;
   }
   h2 {
     margin: 0em 0em;

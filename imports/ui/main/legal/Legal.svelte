@@ -55,29 +55,31 @@
 <style>
   div.container {
     display: flex;
-    flex-flow: row wrap;
+    flex-wrap: wrap;
     gap: 1.4em;
     justify-content: space-between;
   }
   nav {
     all: unset;
-    flex: 1 1 30rem;
+    flex-basis: 30%;
+    flex-grow: 1;
+    width: 100%;
     max-width: 75ch;
   }
   ul {
     display: flex;
-    flex-flow: row wrap;
-    gap: 1.6em;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 1.4em;
     width: 100%;
   }
-  li {
-    flex: 1 1 100%;
-  }
 
+  li {
+    flex-basis: 100%;
+  }
   div.policies {
-    flex: 1 1 70rem;
     display: flex;
-    flex-flow: column nowrap;
+    flex-wrap: wrap;
     gap: 1.4em;
     max-width: 75ch;
   }
@@ -95,9 +97,18 @@
     text-decoration-color: var(--ra-green);
   }
 
-  @media screen and (min-width: 768px) and (max-width: 1024px) {
+  @media screen and (min-width: 768px) {
     ul {
       flex-wrap: nowrap;
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    div.container {
+      flex-wrap: nowrap;
+    }
+    ul {
+      flex-wrap: wrap;
     }
   }
 </style>

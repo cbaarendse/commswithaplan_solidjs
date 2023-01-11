@@ -41,29 +41,34 @@
     margin: 0em auto;
   }
 
-  ul {
-    overflow-y: scroll;
-  }
-
   nav {
     display: none;
-    padding: 1em;
   }
   div.chapters {
-    display: flex;
     padding: 1em;
   }
 
-  ul li {
-    margin-bottom: 2em;
+  div.chapters ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.8em;
+    overflow-y: scroll;
   }
 
   @media screen and (min-width: 768px) {
     nav {
       display: block;
-      flex: 1 1 25%;
-      min-width: 30ch;
-      max-width: 60ch;
+      flex: 0 0 25%;
+      padding: 1em;
+    }
+    nav ul {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.6em;
+    }
+
+    nav ul li {
+      flex-basis: 100%;
     }
     div.chapters {
       flex: 1 1 75%;

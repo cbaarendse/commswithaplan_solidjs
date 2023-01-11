@@ -9,16 +9,29 @@
   // functions
 </script>
 
-<h3>&para;&nbsp;{subtitle}</h3>
-<p>
-  {text}
-</p>
-<p>
-  <i>{elaboration}</i>
-</p>
+<article>
+  <h3>&para;&nbsp;{subtitle}</h3>
+  <p>
+    {text}
+  </p>
+  {#if elaboration}
+    <p>
+      <i>{elaboration}</i>
+    </p>
+  {/if}
+</article>
 
 <style>
+  article {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8em;
+  }
+  h3 {
+    margin: 0em 0em;
+  }
   p {
-    padding: 1em 0;
+    margin: 0em 0em;
+    padding: 0em 0em;
   }
 </style>

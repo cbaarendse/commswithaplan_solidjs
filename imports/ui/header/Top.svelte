@@ -50,7 +50,6 @@
 
   menu li {
     display: flex;
-    justify-content: center;
     align-items: baseline;
   }
 
@@ -58,7 +57,7 @@
     flex: 1 1 0;
   }
 
-  @media screen and (min-width: 760px) {
+  @media screen and (min-width: 768px) {
     menu li:first-of-type {
       display: none;
     }

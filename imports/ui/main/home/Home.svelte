@@ -14,7 +14,7 @@
 
 <BreadCrumbs />
 <section>
-  <div class="home__grid">
+  <div class="home__flex">
     {#each translatedHomeItems as item}
       <Card
         card={{
@@ -33,9 +33,13 @@
 </section>
 
 <style>
-  .home__grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+  .home__flex {
+    display: flex;
+    flex-wrap: wrap;
     gap: 2em;
+  }
+
+  .home__flex :global(.card) {
+    flex: 1 1 32rem;
   }
 </style>

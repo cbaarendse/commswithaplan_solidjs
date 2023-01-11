@@ -34,23 +34,27 @@
 <style>
   article.card {
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.8em;
     padding: 0.7em;
     box-shadow: 0.1em 0.1em 0.2em 0 rgba(0, 0, 0, 0.1);
   }
 
   img {
-    flex: 0 0 22em;
+    flex: 0 0 100%;
     object-fit: cover;
-    width: 100%;
-    max-height: 22em;
+    height: 80%;
+    max-height: 28rem;
+  }
+  h4 {
+    flex: 0 0 100%;
+    margin: 0em 0em;
   }
 
   p {
-    flex: 1 0;
+    flex: 0 0 100%;
     line-height: 1.7em;
-    margin: 0.5em 0em;
+    margin: 0em 0em;
   }
   a {
     font-size: 0.9em;

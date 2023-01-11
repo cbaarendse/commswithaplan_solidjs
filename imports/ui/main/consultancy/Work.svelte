@@ -41,7 +41,7 @@
     gap: 2em;
   }
 
-  .work__flex :global(article) {
+  .work__flex :global(.card) {
     flex: 1 1 32rem;
   }
 </style>
