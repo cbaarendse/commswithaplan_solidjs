@@ -58,11 +58,10 @@
     flex-flow: row wrap;
     gap: 1.4em;
     justify-content: space-between;
-    margin: 0em 1em;
   }
   nav {
     all: unset;
-    flex: 1 1 100%;
+    flex: 1 1 30rem;
     max-width: 75ch;
   }
   ul {
@@ -72,11 +71,11 @@
     width: 100%;
   }
   li {
-    flex: 1 1 21ch;
+    flex: 1 1 100%;
   }
 
   div.policies {
-    flex: 1 0 70%;
+    flex: 1 1 70rem;
     display: flex;
     flex-flow: column nowrap;
     gap: 1.4em;
@@ -94,5 +93,11 @@
   a:hover {
     color: var(--ra-green);
     text-decoration-color: var(--ra-green);
+  }
+
+  @media screen and (min-width: 768px) and (max-width: 1024px) {
+    ul {
+      flex-wrap: nowrap;
+    }
   }
 </style>

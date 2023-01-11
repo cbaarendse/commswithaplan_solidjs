@@ -6,7 +6,7 @@ export const homeItems: Readable<(Content & Color & Illustrated & Actionable)[]>
   [
     {
       name: 'consultancy',
-      imgFiles: ['/home/consultant.jpeg'],
+      imgFiles: ['/home/night_crowd.jpg'],
       link: '/consultancy/',
       color: 'blue',
       language: 'english',
@@ -16,7 +16,7 @@ export const homeItems: Readable<(Content & Color & Illustrated & Actionable)[]>
     },
     {
       name: 'consultancy',
-      imgFiles: ['/home/consultant.jpeg'],
+      imgFiles: ['/home/night_crowd.jpg'],
       link: '/consultancy/',
       color: 'blue',
       language: 'dutch',
@@ -26,7 +26,7 @@ export const homeItems: Readable<(Content & Color & Illustrated & Actionable)[]>
     },
     {
       name: 'tools',
-      imgFiles: ['/home/night_crowd.jpg'],
+      imgFiles: ['/home/tools.jpg'],
       link: '/tools/',
       color: 'green',
       language: 'english',
@@ -36,7 +36,7 @@ export const homeItems: Readable<(Content & Color & Illustrated & Actionable)[]>
     },
     {
       name: 'tools',
-      imgFiles: ['/home/night_crowd.jpg'],
+      imgFiles: ['/home/tools.jpg'],
       link: '/tools/',
       color: 'green',
       language: 'dutch',
