@@ -7,8 +7,6 @@
 
   // variables
   let route: TinroRouteMeta = meta();
-  console.log('breadcrumbs =', route.breadcrumbs);
-  console.log('breadcrumbs length =', route.breadcrumbs?.length);
 
   // functions
 </script>

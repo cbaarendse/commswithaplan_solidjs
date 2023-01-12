@@ -84,7 +84,6 @@ export class Cookies {
     d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
     const expires: string = 'expires=' + d.toUTCString();
     doc.cookie = name + '=' + value + ';' + expires + ';path=/';
-    console.log('setCookie: ', name + '=' + value + ';' + expires + ';path=/');
   }
 
   static getCookie(name: string, doc: Document): string {
@@ -137,7 +136,6 @@ export class Format {
     str = str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
     str = str.split(' ').join('');
     str = str.toLowerCase();
-    console.log('Latinized and Joined:', str);
     return str;
   }
 

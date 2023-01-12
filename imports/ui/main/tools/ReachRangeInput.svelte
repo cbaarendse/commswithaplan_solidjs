@@ -8,7 +8,6 @@
   export let rangeInput: Input;
   export let displayName: string;
 
-  console.log('name,  slider.value in input type range:', rangeInput.name, rangeInput.value);
   function changeValue() {
     dispatch('changeValueForName', {name: rangeInput.name, value: rangeInput.value});
   }
