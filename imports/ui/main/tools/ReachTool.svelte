@@ -108,5 +108,11 @@
     display: flex;
     flex-direction: column;
     gap: 1em;
+    margin: 0em auto;
+  }
+  @media screen and (min-width: 768px) {
+    .container {
+      width: 80%;
+    }
   }
 </style>

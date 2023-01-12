@@ -101,7 +101,7 @@
     gap: 2em;
     align-items: center;
     background-color: var(--ra-teal-off-white);
-    padding: 0.4rem 1rem 0.4rem 1rem;
+    padding: 0.4em 1em 0.4em 1em;
     border-radius: 0.2em;
   }
 

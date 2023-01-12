@@ -13,9 +13,9 @@
 <section>
   <p>
     {#if $language === 'dutch'}
-      Zaken die ik manage gedurende het proces (je kan kiezen en mixen):
+      Zaken die ik manage gedurende het reclameproces (je kan kiezen en mixen):
     {:else}
-      Things I'll manage along the process (you can pick and mix):
+      Things I'll manage along the advertising process (you can pick and mix):
     {/if}
   </p>
   <div class="work__flex">

@@ -106,7 +106,7 @@
     flex-flow: row wrap;
     gap: 1.4em;
     justify-content: flex-start;
-    padding: 1rem;
+    padding: 1em;
     border-radius: 0.2em;
     background-color: var(--ra-teal-off-white);
   }
@@ -120,9 +120,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: var(--button-size-phone);
-    height: var(--button-size-phone);
-    font-size: var(--font-size-phone);
+    width: 3.6em;
+    height: 3.6em;
+    font-size: 1em;
     border-radius: 50%;
     border: none;
     color: var(--ra-white);
@@ -169,17 +169,13 @@
 
   @media screen and (min-width: 768px) {
     button {
-      width: var(--button-size-tablet);
-      height: var(--button-size-tablet);
-      font-size: var(--font-size-tablet);
+      font-size: 1em;
     }
   }
 
   @media screen and (min-width: 1024px) {
     button {
-      width: var(--button-size-desktop);
-      height: var(--button-size-desktop);
-      font-size: 3.2rem;
+      font-size: 1em;
     }
   }
 </style>

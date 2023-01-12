@@ -44,15 +44,16 @@
   nav {
     display: none;
   }
+
   div.chapters {
-    padding: 1em;
+    padding: 0em 0em;
+    overflow-y: scroll;
   }
 
   div.chapters ul {
     display: flex;
     flex-wrap: wrap;
     gap: 1.8em;
-    overflow-y: scroll;
   }
 
   @media screen and (min-width: 768px) {
@@ -65,6 +66,7 @@
       display: flex;
       flex-wrap: wrap;
       gap: 1.6em;
+      position: fixed;
     }
 
     nav ul li {

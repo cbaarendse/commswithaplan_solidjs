@@ -43,7 +43,7 @@
   img {
     flex: 0 0 100%;
     object-fit: cover;
-    height: 80%;
+    height: 60%;
     max-height: 28rem;
   }
   h4 {
