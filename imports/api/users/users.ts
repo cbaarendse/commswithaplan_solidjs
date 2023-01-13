@@ -1,8 +1,6 @@
 // ====== IMPORTS ===============================
 import {Meteor} from 'meteor/meteor';
 
-import {LANGUAGES, CAMPAIGN_DATATYPES} from '../../both/constants';
-
 // ======= USERS == DEFINITIONS ==================
 Meteor.users.allow({
   insert() {
@@ -32,12 +30,12 @@ Meteor.users.deny({
 // METEOR.USERS IS ALREADY IN METEOR GLOBAL SPACE.
 
 export interface Settings {
-  lastLanguage?: LANGUAGES;
+  lastLanguage?: string;
   lastCompanyId?: string;
   lastBrandId?: string;
   lastProductId?: string;
   lastStrategyId: string;
-  lastCampaignDataType?: CAMPAIGN_DATATYPES;
+  lastCampaignDataType?: string;
   lastRoute?: string;
 }
 
@@ -62,12 +60,6 @@ export interface UsersMethods {
   touchPoint: string;
 }
 
-declare module 'meteor/didericis:callpromise-mixin' {
-  export namespace CallPromiseMixin {
-    function CallPromise(args: any): Function;
-    function CallPromiseMixinType(methodOptions: Function[]): Function;
-  }
-}
 export const usernameRegExp = /^[A-Za-z0-9]{7,14}$/;
 export const emailRegExp =
   /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;

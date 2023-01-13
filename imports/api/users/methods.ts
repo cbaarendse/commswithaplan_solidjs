@@ -2,11 +2,7 @@
 import {Meteor} from 'meteor/meteor';
 import {Accounts} from 'meteor/accounts-base';
 import {Roles} from 'meteor/alanning:roles';
-import {} from '/@types/meteor-roles';
 import {ValidatedMethod} from 'meteor/mdg:validated-method';
-//import {CallPromiseMixin} from '../../both/typings';
-import {CallPromiseMixin} from 'meteor/didericis:callpromise-mixin';
-import {CallPromiseMixinType} from './users';
 import {Match} from 'meteor/check';
 
 import {Settings, ReachAppUser, UsersMethods, usernameRegExp, emailRegExp, passwordRegExp} from './users';
@@ -392,7 +388,6 @@ export const usersUpdate = new ValidatedMethod({
 
 export const usersSaveSettings = new ValidatedMethod({
   name: 'users.saveSettings',
-  //mixins: [CallPromiseMixin],
   validate(args: Settings) {
     if (!Match.test(args, Object)) {
       throw new Meteor.Error('general.invalid.input', 'Invalid input', '[{ "name": "invalidInput" }]');
@@ -500,7 +495,6 @@ export const usersAddTouchPointToRoles = new ValidatedMethod({
 
 export const usersRemoveTouchPointFromRoles = new ValidatedMethod({
   name: 'users.removeTouchPointFromRoles',
-  //mixins: [CallPromiseMixin],
   validate(args: UsersMethods) {
     if (
       !Match.test(args._id, [String]) ||
@@ -537,7 +531,6 @@ export const usersRemoveTouchPointFromRoles = new ValidatedMethod({
 
 export const usersRemoveRoles = new ValidatedMethod({
   name: 'users.removeRoles',
-  //mixins: [CallPromiseMixin],
   validate(args: UsersMethods) {
     if (
       !Match.test(args._id, [String]) ||
@@ -719,7 +712,6 @@ export const usersAddRoles = new ValidatedMethod({
 
 export const usersDownPermission = new ValidatedMethod({
   name: 'users.downPermission',
-  //mixins: [CallPromiseMixin],
   validate(args: {[key: string]: string}) {
     if (!Match.test(args.userId, String) || !Match.test(args.companyId, String)) {
       throw new Meteor.Error('general.invalid.input', 'Invalid input', '[{ "name": "invalidInput" }]');
@@ -763,7 +755,6 @@ export const usersDownPermission = new ValidatedMethod({
 
 export const usersDoubleDownPermission = new ValidatedMethod({
   name: 'users.doubleDownPermission',
-  //mixins: [CallPromiseMixin],
   validate(args: {[key: string]: string}) {
     if (!Match.test(args.userId, String) || !Match.test(args.companyId, String)) {
       throw new Meteor.Error('general.invalid.input', 'Invalid input', '[{ "name": "invalidInput" }]');
@@ -800,7 +791,6 @@ export const usersDoubleDownPermission = new ValidatedMethod({
 
 export const usersUpPermission = new ValidatedMethod({
   name: 'users.upPermission',
-  // mixins: [CallPromiseMixin],
   validate(args: {[key: string]: string}) {
     if (!Match.test(args.userId, String) || !Match.test(args.companyId, String)) {
       throw new Meteor.Error('general.invalid.input', 'Invalid input', '[{ "name": "invalidInput" }]');
@@ -843,7 +833,6 @@ export const usersUpPermission = new ValidatedMethod({
 
 export const usersDoubleUpPermission = new ValidatedMethod({
   name: 'users.doubleUpPermission',
-  //mixins: [CallPromiseMixin],
   validate(args: {[key: string]: string}) {
     if (!Match.test(args.userId, String) || !Match.test(args.companyId, String)) {
       throw new Meteor.Error('general.invalid.input', 'Invalid input', '[{ "name": "invalidInput" }]');
@@ -880,7 +869,6 @@ export const usersDoubleUpPermission = new ValidatedMethod({
 
 export const usersRemoveContributor = new ValidatedMethod({
   name: 'users.removeContributor',
-  //mixins: [CallPromiseMixin],
   validate(args: {[key: string]: string}) {
     if (!Match.test(args.userId, String) || !Match.test(args.companyId, String)) {
       throw new Meteor.Error('general.invalid.input', 'Invalid input', '[{ "name": "invalidInput" }]');

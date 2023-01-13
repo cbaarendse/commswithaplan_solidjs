@@ -1,5 +1,9 @@
 import '../imports/both/constants';
-// import './fixtures';
+import './fixtures';
+
+import '../imports/api/users/server/publications.ts';
+// import '../imports/api/users/server/users_payments';
+import '../imports/api/users/methods.ts';
 
 // import '../imports/api/notifications/server/publications';
 //import '../imports/api/notifications/methods';
@@ -39,7 +43,3 @@ import '../imports/both/constants';
 
 // import '../imports/api/translations/server/publications.ts';
 // import '../imports/api/translations/methods.js';
-
-import '../imports/api/users/server/publications.ts';
-// import '../imports/api/users/server/users_payments';
-import '../imports/api/users/methods.ts';

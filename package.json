@@ -13,11 +13,13 @@
         "test-app": "TEST_WATCH=1 meteor test --full-app --driver-package meteortesting:mocha",
         "visualize": "meteor --production --extra-packages bundle-visualizer",
         "svelte-check": "svelte-check",
-        "lint": "eslint"
+        "lint": "eslint",
+        "mongo": "MONGO_URL='mongodb+srv://cbaarendse:Cbdollardollar5426@cluster0.lnrah.mongodb.net/?retryWrites=true&w=majority' meteor"
     },
     "dependencies": {
         "@babel/runtime": "^7.15.4",
         "@fortawesome/free-solid-svg-icons": "^6.2.1",
+        "@types/meteor-mdg-validated-method": "^1.2.5",
         "@types/meteor-roles": "^1.2.34",
         "dayjs": "^1.11.7",
         "meteor-node-stubs": "^1.2.5",
