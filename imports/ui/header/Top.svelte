@@ -1,44 +1,49 @@
 <script lang="ts">
   // imports
   import ToggleButton from './ToggleButton.svelte';
-  import {language} from '../stores/utils';
+  import {router, active} from 'tinro';
+  import {language, isSmallScreen, navigationVisible} from '../stores/utils';
   import Fa from 'svelte-fa/src/fa.svelte';
   import {faUser} from '@fortawesome/free-solid-svg-icons';
 </script>
 
 <!-- TopBar has room for functionality used from all over the site. Eventual cookies and/or marketing messages. -->
-<menu>
-  <li>
-    <ToggleButton />
-  </li>
-  <li>
-    <a
-      href={'javascript:void(0)'}
-      class:active={$language === 'dutch'}
-      on:click={() => ($language = 'dutch')}
-      data-tinro-ignore
-    >
-      <span>NL</span>
+<div class="container">
+  <menu>
+    <li>
+      <ToggleButton />
+    </li>
+    <li>
+      <a
+        href={'javascript:void(0)'}
+        class:active={$language === 'dutch'}
+        on:click={() => ($language = 'dutch')}
+        data-tinro-ignore
+      >
+        <span>NL</span>
+      </a>
+    </li>
+    <li><span class="divider">|</span></li>
+    <li>
+      <a
+        href={'javascript:void(0)'}
+        class:active={$language === 'english'}
+        on:click={() => ($language = 'english')}
+        data-tinro-ignore
+      >
+        <span>EN</span>
+      </a>
+    </li>
+  </menu>
+  <nav>
+    <a href={'/user/user'} use:active>
+      <Fa icon={faUser} />
     </a>
-  </li>
-  <li><span class="divider">|</span></li>
-  <li>
-    <a
-      href={'javascript:void(0)'}
-      class:active={$language === 'english'}
-      on:click={() => ($language = 'english')}
-      data-tinro-ignore
-    >
-      <span>EN</span>
-    </a>
-  </li>
-  <li>
-    <Fa icon={faUser} />
-  </li>
-</menu>
+  </nav>
+</div>
 
 <style>
-  menu {
+  div.container {
     display: flex;
     flex-wrap: nowrap;
     justify-content: flex-end;
@@ -46,6 +51,14 @@
     gap: 1.4rem;
     padding: 0.6rem 0.8rem;
     background-color: var(--ra-grey-off-white);
+  }
+
+  menu {
+    flex-basis: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+    gap: 1.4rem;
   }
 
   menu li {
