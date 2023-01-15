@@ -1,6 +1,21 @@
 <script lang="ts">
+  import Meteor from 'meteor/meteor';
+  import Mongo from 'meteor/mongo';
   import Fa from 'svelte-fa/src/fa.svelte';
   import {faPencil} from '@fortawesome/free-solid-svg-icons';
+
+  const Users = new Mongo.Collection('usersForAdmin');
+  let subReady = false;
+  let users: Meteor.Subscription;
+  $m: {
+    let userSubscription: Meteor.Subscription = Meteor.subscribe('usersForAdmin');
+    subReady = userSubscription.ready();
+  }
+  $m: {
+    users = Users.find().fetch();
+  }
+
+  $: user = users[0];
 </script>
 
 <section>
@@ -9,25 +24,24 @@
     <thead>
       <tr>
         <th>Company</th>
-        <th>Comms With A Plan</th>
+        <th>{user.company}</th>
       </tr>
     </thead>
     <tbody>
       <tr>
         <td>Street</td>
-        <td><address>Erich Salomonstraat 507</address></td>
+        <td><address>{user.profile.street}</address></td>
       </tr>
       <tr>
         <td>Zip Code</td>
-        <td><address>1087 GT</address></td>
+        <td><address>{user.profile.zipcode}</address></td>
       </tr>
-      <tr>
-        <td>City</td>
-        <td><address>Amsterdam</address></td>
-      </tr>
+      <tr><td>City</td></tr>
+      <tr><td><address>{user.profile.city}</address></td></tr>
+
       <tr>
         <td>Phone</td>
-        <td><address>0612398734</address></td>
+        <td><address>{user.phone}</address></td>
         <td />
       </tr>
     </tbody>

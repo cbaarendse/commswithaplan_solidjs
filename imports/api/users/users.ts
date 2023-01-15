@@ -43,6 +43,9 @@ export interface Profile extends Settings {
   firstname?: string;
   surname?: string;
   phone?: number;
+  street?: string;
+  zipcode?: string;
+  city?: string;
 }
 // TODO: look up
 export interface ReachAppUser extends Meteor.User {

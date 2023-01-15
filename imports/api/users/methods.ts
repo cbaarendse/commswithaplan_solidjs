@@ -21,7 +21,6 @@ import {TOUCHPOINTSNAMES, COMPANY_ALL_ROLES} from '../../both/constants';
 // 1. FIND
 export const usersFindUserByEmail = new ValidatedMethod({
   name: 'users.findUserByEmail',
-  //mixins: [CallPromiseMixin],
   validate(args: {[key: string]: string}) {
     if (!Match.test(args.email, String) || !emailRegExp.test(args.email)) {
       throw new Meteor.Error('users.signup.email', 'Invalid email address', '[{ "name": "invalidEmail" }]');
@@ -53,7 +52,6 @@ export const usersFindUserByEmail = new ValidatedMethod({
 
 export const usersFindUserIdByEmail = new ValidatedMethod({
   name: 'users.findUserIdByEmail',
-  //mixins: [CallPromiseMixin],
   validate(args: {[key: string]: string}) {
     if (!Match.test(args.email, {address: String, verified: Boolean}) || !emailRegExp.test(args.email)) {
       throw new Meteor.Error('users.signup.email', 'Invalid email address', '[{ "name": "invalidEmail" }]');
@@ -82,7 +80,6 @@ export const usersFindUserIdByEmail = new ValidatedMethod({
 
 export const usersFindUserIdByUsername = new ValidatedMethod({
   name: 'users.findUserIdByUsername',
-  // mixins: [CallPromiseMixin],
   validate(args: {[key: string]: string}) {
     if (!Match.test(args.username, String) || !usernameRegExp.test(args.username)) {
       throw new Meteor.Error('users.signup.username', 'Invalid username', '[{ "name": "invalidUsername" }]');
@@ -111,7 +108,6 @@ export const usersFindUserIdByUsername = new ValidatedMethod({
 
 export const usersFindEmailByUsername = new ValidatedMethod({
   name: 'users.findEmailByUsername',
-  //mixins: [CallPromiseMixin],
   validate(args: {[key: string]: string}) {
     if (!Match.test(args.username, String) || !usernameRegExp.test(args.username)) {
       throw new Meteor.Error('users.signup.username', 'Invalid username', '[{ "name": "invalidUsername" }]');
@@ -144,7 +140,6 @@ export const usersFindEmailByUsername = new ValidatedMethod({
 
 export const usersFindEmailById = new ValidatedMethod({
   name: 'users.findEmailById',
-  //mixins: [CallPromiseMixin],
   validate(args: {[key: string]: string}) {
     if (!Match.test(args._id, String)) {
       throw new Meteor.Error('general.invalid.input', 'Invalid input', '[{ "name": "invalidInput" }]');
@@ -177,7 +172,6 @@ export const usersFindEmailById = new ValidatedMethod({
 
 export const usersFindIdsByRole = new ValidatedMethod({
   name: 'users.findIdsByRole',
-  // mixins: [CallPromiseMixin],
   validate(args: {[key: string]: string}) {
     if (!Match.test(args.role, String) || !Match.test(args.companyId, String)) {
       throw new Meteor.Error('general.invalid.input', 'Invalid input', '[{ "name": "invalidInput" }]');
@@ -218,7 +212,6 @@ export const usersFindIdsByRole = new ValidatedMethod({
 // 2. CRUD
 export const usersRemove = new ValidatedMethod({
   name: 'users.remove',
-  //mixins: [CallPromiseMixin],
   validate(args: {[key: string]: string}) {
     if (!Match.test(args._id, String)) {
       throw new Meteor.Error('general.invalid.input', 'Invalid input', '[{ "name": "invalidInput" }]');
@@ -250,7 +243,6 @@ export const usersRemove = new ValidatedMethod({
 
 export const usersCreateUser = new ValidatedMethod({
   name: 'users.createUser',
-  // mixins: [CallPromiseMixin],
   validate(options: {[key: string]: string}) {
     // NO PASSWORD NEEDED; TO BE ASKED LATER, FOR EXAMPLE WITH ENROLLMENT
     if (!Match.test(options.username, String) || !usernameRegExp.test(options.username)) {
@@ -283,7 +275,6 @@ export const usersCreateUser = new ValidatedMethod({
 
 export const usersSetUsername = new ValidatedMethod({
   name: 'users.setUsername',
-  //mixins: [CallPromiseMixin],
   validate(args: {[key: string]: string}) {
     if (!Match.test(args.userId, String)) {
       throw new Meteor.Error('general.invalid.input', 'Invalid input', '[{ "name": "invalidInput" }]');
@@ -310,7 +301,6 @@ export const usersSetUsername = new ValidatedMethod({
 
 export const usersSetPassword = new ValidatedMethod({
   name: 'users.setPassword',
-  //mixins: [CallPromiseMixin],
   validate(args: {[key: string]: string}) {
     if (!Match.test(args.userId, String) || !usernameRegExp.test(args.userId)) {
       throw new Meteor.Error('general.invalid.input', 'Invalid input', '[{ "name": "invalidInput" }]');
@@ -336,7 +326,6 @@ export const usersSetPassword = new ValidatedMethod({
 
 export const usersUpdate = new ValidatedMethod({
   name: 'users.update',
-  //mixins: [CallPromiseMixin],
   validate(args: UsersMethods) {
     if (!Match.test(args._id, String) || !Match.test(args.modifier, Object)) {
       throw new Meteor.Error('general.invalid.input', 'Invalid input', '[{ "name": "invalidInput" }]');
@@ -431,7 +420,6 @@ export const usersSaveSettings = new ValidatedMethod({
 // 3. PERMISSIONS
 export const usersIsInRoles = new ValidatedMethod({
   name: 'users.isInRoles',
-  //mixins: [CallPromiseMixin],
   validate(args: UsersMethods) {
     if (!Match.test(args.roles, [String]) || !Match.test(args.companyId, String)) {
       throw new Meteor.Error('general.invalid.input', 'Invalid input', '[{ "name": "invalidInput" }]');
@@ -452,7 +440,6 @@ export const usersIsInRoles = new ValidatedMethod({
 
 export const usersAddTouchPointToRoles = new ValidatedMethod({
   name: 'users.addTouchPointToRoles',
-  //mixins: [CallPromiseMixin],
   validate(args: UsersMethods) {
     if (
       !Match.test(args._id, [String]) ||
@@ -615,7 +602,6 @@ export const usersRemoveRoles = new ValidatedMethod({
 
 export const usersAddRoles = new ValidatedMethod({
   name: 'users.addRoles',
-  //mixins: [CallPromiseMixin],
   validate(args: UsersMethods) {
     if (
       !Match.test(args._id, [String]) ||
