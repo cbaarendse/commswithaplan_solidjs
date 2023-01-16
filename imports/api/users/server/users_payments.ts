@@ -18,7 +18,7 @@ Meteor.methods({
     let customer;
     try {
       customer = await stripe.customers.retrieve(stripeId);
-    } catch (error) {
+    } catch (error: [key: string]:string) {
       console.log('payment details error: ', error.message);
       throw new Meteor.Error(error);
     }
@@ -42,7 +42,7 @@ Meteor.methods({
     return card;
   },
 
-  'users.createStripeCustomer': async function (tokenId: string) {
+  'users.createStripeCustomer': async function(tokenId: string) {
     const user: ReachAppUser | null | undefined = Meteor.user();
     let userEmail: string = '';
     if (user != undefined && user.emails != undefined) {

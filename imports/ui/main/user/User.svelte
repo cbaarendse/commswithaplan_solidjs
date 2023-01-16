@@ -1,56 +1,72 @@
 <script lang="ts">
-  import Meteor from 'meteor/meteor';
-  import Mongo from 'meteor/mongo';
+  // imports
+  import {Meteor} from 'meteor/meteor';
   import Fa from 'svelte-fa/src/fa.svelte';
   import {faPencil} from '@fortawesome/free-solid-svg-icons';
+  import {ReachAppUser} from '/imports/api/users/users';
+  import Users from '../../../api/users/users';
 
-  const Users = new Mongo.Collection('usersForAdmin');
+  // variables
+  let users: ReachAppUser[];
+  let userSubscription = Meteor.subscribe('usersForAdmin');
   let subReady = false;
-  let users: Meteor.Subscription;
+  let user: ReachAppUser;
+
   $m: {
-    let userSubscription: Meteor.Subscription = Meteor.subscribe('usersForAdmin');
     subReady = userSubscription.ready();
-  }
-  $m: {
     users = Users.find().fetch();
+    user = users[0];
   }
 
-  $: user = users[0];
+  $: {
+    console.log('subReady in client', subReady);
+    console.log('user in client', user);
+  }
 </script>
 
 <section>
   <table>
     <caption>Constantijn Baarendse</caption>
-    <thead>
-      <tr>
-        <th>Company</th>
-        <th>{user.company}</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Street</td>
-        <td><address>{user.profile.street}</address></td>
-      </tr>
-      <tr>
-        <td>Zip Code</td>
-        <td><address>{user.profile.zipcode}</address></td>
-      </tr>
-      <tr><td>City</td></tr>
-      <tr><td><address>{user.profile.city}</address></td></tr>
+    {#if subReady}
+      <thead>
+        <tr>
+          <th>Company</th>
+          <th>{user.profile?.companyId}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Email</td>
+          <td>
+            <address>
+              {#if user.emails}{user.emails[0].address}{:else}---{/if}
+            </address>
+          </td>
+        </tr>
+        <tr>
+          <td>Street</td>
+          <td><address>{user.profile?.street}</address></td>
+        </tr>
+        <tr>
+          <td>Zip Code</td>
+          <td><address>{user.profile?.zipcode}</address></td>
+        </tr>
+        <tr><td>City</td></tr>
+        <tr><td><address>{user.profile?.city}</address></td></tr>
 
-      <tr>
-        <td>Phone</td>
-        <td><address>{user.phone}</address></td>
-        <td />
-      </tr>
-    </tbody>
-    <tfoot>
-      <tr>
-        <td>Payment through</td>
-        <td>Card</td>
-      </tr>
-    </tfoot>
+        <tr>
+          <td>Phone</td>
+          <td><address>{user.profile?.phone}</address></td>
+          <td />
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td>Payment through</td>
+          <td>Card</td>
+        </tr>
+      </tfoot>
+    {/if}
   </table>
   <menu><button><Fa icon={faPencil} /></button></menu>
 </section>

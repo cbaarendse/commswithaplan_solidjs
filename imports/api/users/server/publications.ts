@@ -1,31 +1,36 @@
 // imports
 import {Meteor} from 'meteor/meteor';
 import {Roles} from 'meteor/alanning:roles';
+import Users from '../users';
 
 import {TOUCHPOINTSNAMES, COMPANY_CONTRIBUTOR_ROLES, COMPANY_EMPLOYEE_ROLES} from '../../../both/constants';
 
 // PUBLISH USERS
 Meteor.publish('userData', function () {
   if (this.userId) {
-    return Meteor.users.find({_id: this.userId}, {fields: {roles: 1, stripeId: 1}});
+    return Users.find({_id: this.userId}, {fields: {roles: 1, stripeId: 1}});
   }
   return this.ready();
 });
 
 Meteor.publish('userForEnroll', function (token) {
   if (token) {
-    return Meteor.users.find({'services.password.reset.token': token});
+    return Users.find({'services.password.reset.token': token});
   }
   return this.ready();
 });
 
 Meteor.publish('usersForAdmin', function () {
-  if (this.userId) {
-    if (Roles.userIsInRole(this.userId, 'admin', Roles.GLOBAL_GROUP)) {
-      return Meteor.users.find({});
-    }
-    return this.ready();
-  }
+  console.log('usersForAsdmin publication on');
+
+  // if (this.userId) {
+  //   if (Roles.userIsInRole(this.userId, 'admin', Roles.GLOBAL_GROUP)) {
+  console.log('First user in publication: ', Users.findOne());
+
+  return Users.find({});
+  //   }
+  //   return this.ready();
+  // }
 });
 
 Meteor.publish('contributorsForOwner', function (companyId: string) {
