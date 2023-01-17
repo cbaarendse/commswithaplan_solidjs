@@ -1,7 +1,8 @@
-// ====== IMPORTS ===============================
+// imports
 import {Mongo} from 'meteor/mongo';
+import {Match} from 'meteor/check';
 
-// ====== PROBABILITIES == DEFINITIONS ==========
+// definitions
 const Probabilities = new Mongo.Collection('probabilities');
 
 Probabilities.allow({
@@ -27,6 +28,51 @@ Probabilities.deny({
     return true;
   }
 });
+// type
+export type Probability = {
+  _id: Mongo.ObjectID;
+  market: string;
+} & {
+  [key: string]: number;
+};
 
+// schema pattern
+export const probabilityPattern = {
+  _id: Object,
+  market: String,
+  advocacy: Number,
+  ambassador: Number,
+  app: Number,
+  asset: Number,
+  cinema: Number,
+  console_game: Number,
+  direct_mail: Number,
+  display: Number,
+  door_drop: Number,
+  internal_employee: Number,
+  event: Number,
+  experiential: Number,
+  e_mail: Number,
+  loyalty_crm: Number,
+  magazines: Number,
+  mobile: Number,
+  newspapers: Number,
+  outdoor: Number,
+  packaging: Number,
+  pr: Number,
+  promotion: Number,
+  shopper: Number,
+  radio: Number,
+  sem: Number,
+  seo: Number,
+  social: Number,
+  sponsorship: Number,
+  trade_fair: Number,
+  television: Number,
+  video_on_demand: Number,
+  viral: Number,
+  website: Number,
+  word_of_mouth: Number
+};
 // ====== EXPORTS ===============================
 export default Probabilities;

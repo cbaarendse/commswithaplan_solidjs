@@ -5,5 +5,5 @@ import Probabilities from './probabilities';
 
 // publications
 Meteor.publish('probabilities', function (market) {
-  return Probabilities.find({market: 'nl'});
+  return Probabilities.find({market});
 });
