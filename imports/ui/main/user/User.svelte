@@ -15,19 +15,23 @@
   $m: {
     subReady = userSubscription.ready();
     users = Users.find().fetch();
-    user = users[0];
+    user = users.find((user) => user.username === 'harry');
   }
 
   $: {
     console.log('subReady in client', subReady);
     console.log('user in client', user);
+    console.log('users in client', users);
+    console.log('Meteor.settings in client', Meteor.settings);
   }
 </script>
 
 <section>
   <table>
-    <caption>Constantijn Baarendse</caption>
     {#if subReady}
+      <caption>
+        {#if user.profile}{user.profile.firstname}&nbsp;{user.profile.surname}{/if}
+      </caption>
       <thead>
         <tr>
           <th>Company</th>
@@ -36,13 +40,21 @@
       </thead>
       <tbody>
         <tr>
-          <td>Email</td>
-          <td>
-            <address>
-              {#if user.emails}{user.emails[0].address}{:else}---{/if}
-            </address>
-          </td>
+          <td>Username</td>
+          <td><address>{user.username}</address></td>
         </tr>
+        {#if user.emails}
+          {#each user.emails as email, index}
+            <tr>
+              <td>Email {index + 1}</td>
+              <td>
+                <address>
+                  {email.address}
+                </address>
+              </td>
+            </tr>
+          {/each}
+        {/if}
         <tr>
           <td>Street</td>
           <td><address>{user.profile?.street}</address></td>
@@ -63,7 +75,7 @@
       <tfoot>
         <tr>
           <td>Payment through</td>
-          <td>Card</td>
+          <td>{user.stripeId}</td>
         </tr>
       </tfoot>
     {/if}

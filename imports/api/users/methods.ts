@@ -4,8 +4,8 @@ import {Accounts} from 'meteor/accounts-base';
 import {Roles} from 'meteor/alanning:roles';
 import {ValidatedMethod} from 'meteor/mdg:validated-method';
 import {Match} from 'meteor/check';
-import Users from './users';
-import {Settings, ReachAppUser, UsersMethods, usernameRegExp, emailRegExp, passwordRegExp} from './users';
+import type {UserProfile} from './users';
+import {UsersMethods, usernameRegExp, emailRegExp, passwordRegExp} from './users';
 import {TOUCHPOINTSNAMES, COMPANY_ALL_ROLES} from '../../both/constants';
 
 // TODO: stripe methods here????
@@ -122,7 +122,7 @@ export const usersFindEmailByUsername = new ValidatedMethod({
         '[{ "name": "notLoggedIn" }]'
       );
     }
-    let user: ReachAppUser | undefined | null;
+    let user: (Omit<Meteor.User, 'profile'> & {profile: UserProfile}) | undefined | null;
     if (Meteor.isServer) {
       user = Accounts.findUserByUsername(args.username);
       if (!user) {
@@ -156,9 +156,7 @@ export const usersFindEmailById = new ValidatedMethod({
     }
     let email: string | undefined;
     if (Meteor.isServer) {
-      const user: ReachAppUser | undefined = Users.findOne({_id: args._id})
-        ? Users.findOne({_id: args._id})
-        : undefined;
+      const user: Meteor.User | undefined = Users.findOne({_id: args._id}) ? Users.findOne({_id: args._id}) : undefined;
       if (user) {
         email = user.emails ? user.emails[0].address : undefined;
       }
@@ -196,14 +194,14 @@ export const usersFindIdsByRole = new ValidatedMethod({
         '[{ "name": "notARole" }]'
       );
     }
-    const users: ReachAppUser[] = Roles.getUsersInRole(args.role, args.companyId).fetch();
+    const users: Meteor.User[] = Roles.getUsersInRole(args.role, args.companyId).fetch();
     console.log('users in findIdsByRole :', users);
     // UNDEFINED, OTHERWISE IT GOES IN MAILTO: LINK
     if (!users) {
       return undefined;
     }
 
-    return users.map((user: ReachAppUser) => {
+    return users.map((user: Meteor.User) => {
       return user._id;
     });
   }
@@ -356,7 +354,7 @@ export const usersUpdate = new ValidatedMethod({
       }
     }
     if (Meteor.isServer) {
-      let user: ReachAppUser | null | undefined;
+      let user: Meteor.User | null | undefined;
       if (args.modifier.emails) {
         user = Accounts.findUserByEmail(args.modifier.emails[0].address);
       }
@@ -377,12 +375,12 @@ export const usersUpdate = new ValidatedMethod({
 
 export const usersSaveSettings = new ValidatedMethod({
   name: 'users.saveSettings',
-  validate(args: Settings) {
+  validate(args: Meteor.UserProfile) {
     if (!Match.test(args, Object)) {
       throw new Meteor.Error('general.invalid.input', 'Invalid input', '[{ "name": "invalidInput" }]');
     }
   },
-  run(this: Meteor.MethodThisType, args: Settings) {
+  run(this: Meteor.MethodThisType, args: Meteor.UserProfile) {
     console.log('usersSaveSettings runs with ', args);
     const companiesForUser: string[] = Roles.getGroupsForUser({user: this.userId});
     if (!this.userId) {
