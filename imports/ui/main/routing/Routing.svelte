@@ -3,8 +3,6 @@
   import {Route} from 'tinro';
   import Home from '../home/Home.svelte';
   import User from '../user/User.svelte';
-  import LoginSignin from '../user/LoginSignin.svelte';
-  import UserInformation from '../user/UserInformation.svelte';
   import ConsultancyHome from '../consultancy/Home.svelte';
   import Work from '../consultancy/Work.svelte';
   import About from '../consultancy/About.svelte';
@@ -34,10 +32,8 @@
     <Route path="/docs" breadcrumb="docs"><Docs /></Route>
   </Route>
   <Route path="/legal/*" breadcrumb="legal"><Legal /></Route>
-  <Route path="/user/*" breadcrumb="user">
-    <User />
-    <Route path="/loginsignin" breadcrumb="loginsignin"><LoginSignin /></Route>
-    <Route path="/userinformation" breadcrumb="userinformation"><UserInformation /></Route>
-  </Route>
+
+  <Route path="/user" breadcrumb="loginsignin"><User /></Route>
+
   <Route fallback breadcrumb="notfound"><NotFound /></Route>
 </Route>

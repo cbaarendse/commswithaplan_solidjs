@@ -4,7 +4,7 @@ import {Accounts} from 'meteor/accounts-base';
 import {Roles} from 'meteor/alanning:roles';
 import {ValidatedMethod} from 'meteor/mdg:validated-method';
 import {Match} from 'meteor/check';
-import type {CWAPUser} from './users';
+import type {CWAPUser, UserProfile} from './users';
 import {UsersMethods, usernameRegExp, emailRegExp, passwordRegExp} from './users';
 import {TOUCHPOINTSNAMES, COMPANY_ALL_ROLES} from '../../both/constants';
 
@@ -155,8 +155,9 @@ export const usersFindEmailById = new ValidatedMethod({
       );
     }
     let email: string | undefined;
+    let user: CWAPUser | undefined;
     if (Meteor.isServer) {
-      const user: CWAPUser = Meteor.users.findOne({_id: args._id}) ? Meteor.users.findOne({_id: args._id}) : undefined;
+      user = Meteor.users.findOne({_id: args._id}) ? Meteor.users.findOne({_id: args._id}) : undefined;
       if (user) {
         email = user.emails ? user.emails[0].address : undefined;
       }
@@ -375,12 +376,12 @@ export const usersUpdate = new ValidatedMethod({
 
 export const usersSaveSettings = new ValidatedMethod({
   name: 'users.saveSettings',
-  validate(args: Meteor.UserProfile) {
+  validate(args: UserProfile) {
     if (!Match.test(args, Object)) {
       throw new Meteor.Error('general.invalid.input', 'Invalid input', '[{ "name": "invalidInput" }]');
     }
   },
-  run(this: Meteor.MethodThisType, args: Meteor.UserProfile) {
+  run(this: Meteor.MethodThisType, args: UserProfile) {
     console.log('usersSaveSettings runs with ', args);
     const companiesForUser: string[] = Roles.getGroupsForUser({user: this.userId});
     if (!this.userId) {
@@ -418,12 +419,12 @@ export const usersSaveSettings = new ValidatedMethod({
 // 3. PERMISSIONS
 export const usersIsInRoles = new ValidatedMethod({
   name: 'users.isInRoles',
-  validate(args: UsersMethods) {
-    if (!Match.test(args.roles, [String]) || !Match.test(args.companyId, String)) {
+  validate(args: {[key: string]: string | string[]}) {
+    if ((args.roles && !Match.test(args.roles, [String])) || !Match.test(args.companyId, String)) {
       throw new Meteor.Error('general.invalid.input', 'Invalid input', '[{ "name": "invalidInput" }]');
     }
   },
-  run(this: Meteor.MethodThisType, args: UsersMethods) {
+  run(this: Meteor.MethodThisType, args: {[key: string]: string | string[]}) {
     console.log('usersIsInRoles runs with ', args.roles, args.companyId, this.userId);
     if (!this.userId) {
       throw new Meteor.Error(
@@ -438,7 +439,7 @@ export const usersIsInRoles = new ValidatedMethod({
 
 export const usersAddTouchPointToRoles = new ValidatedMethod({
   name: 'users.addTouchPointToRoles',
-  validate(args: UsersMethods) {
+  validate(args: {[key: string]: string}) {
     if (
       !Match.test(args._id, [String]) ||
       !Match.test(args.touchPoint, String) ||
@@ -447,7 +448,7 @@ export const usersAddTouchPointToRoles = new ValidatedMethod({
       throw new Meteor.Error('general.invalid.input', 'Invalid input', '[{ "name": "invalidInput" }]');
     }
   },
-  run(this: Meteor.MethodThisType, args: UsersMethods) {
+  run(this: Meteor.MethodThisType, args: {[key: string]: string}) {
     console.log('usersAddTouchPointToRoles runs with ', args._id, args.touchPoint, args.companyId);
     // CHECK IF USER IS LOGGED IN
     if (!this.userId) {
@@ -480,7 +481,7 @@ export const usersAddTouchPointToRoles = new ValidatedMethod({
 
 export const usersRemoveTouchPointFromRoles = new ValidatedMethod({
   name: 'users.removeTouchPointFromRoles',
-  validate(args: UsersMethods) {
+  validate(args: {[key: string]: string}) {
     if (
       !Match.test(args._id, [String]) ||
       !Match.test(args.touchPoint, String) ||
@@ -489,7 +490,7 @@ export const usersRemoveTouchPointFromRoles = new ValidatedMethod({
       throw new Meteor.Error('general.invalid.input', 'Invalid input', '[{ "name": "invalidInput" }]');
     }
   },
-  run(this: Meteor.MethodThisType, args: UsersMethods) {
+  run(this: Meteor.MethodThisType, args: {[key: string]: string}) {
     console.log('usersRemoveTouchPointFromRoles runs with ', args._id, args.touchPoint, args.companyId);
     // CHECK IF USER IS LOGGED IN
     if (!this.userId) {
@@ -516,7 +517,7 @@ export const usersRemoveTouchPointFromRoles = new ValidatedMethod({
 
 export const usersRemoveRoles = new ValidatedMethod({
   name: 'users.removeRoles',
-  validate(args: UsersMethods) {
+  validate(args: {[key: string]: string | string[]}) {
     if (
       !Match.test(args._id, [String]) ||
       !Match.test(args.touchPoint, String) ||
@@ -525,7 +526,7 @@ export const usersRemoveRoles = new ValidatedMethod({
       throw new Meteor.Error('general.invalid.input', 'Invalid input', '[{ "name": "invalidInput" }]');
     }
   },
-  run(this: Meteor.MethodThisType, args: UsersMethods) {
+  run(this: Meteor.MethodThisType, args: {[key: string]: string | string[]}) {
     console.log('usersRemoveRoles runs with ', args._id, args.roles, args.companyId);
     const rolesAreForContributor = args.roles.reduce((result: boolean, role: string) => {
       if ([...TOUCHPOINTSNAMES, 'dates', 'input', 'costs', 'invited'].indexOf(role) === -1 || result === false) {

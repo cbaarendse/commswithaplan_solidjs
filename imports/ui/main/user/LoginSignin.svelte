@@ -6,7 +6,7 @@
   import {language} from '../../stores/utils';
 
   // variables
-  export let signin = false;
+  let signin = false;
   let username: CWAPUser['username'];
   let email: Meteor.UserEmail['address'];
   let password: CWAPUser['username'];
@@ -28,6 +28,32 @@
 </script>
 
 <div class="container">
+  <nav>
+    <ul>
+      <li>
+        <a
+          href={'#'}
+          role="button"
+          on:click={() => {
+            signin = false;
+          }}
+        >
+          Login
+        </a>
+      </li>
+      <li>
+        <a
+          href={'#'}
+          role="button"
+          on:click={() => {
+            signin = true;
+          }}
+        >
+          Signin
+        </a>
+      </li>
+    </ul>
+  </nav>
   <form>
     <fieldset>
       {#if signin}
@@ -39,21 +65,21 @@
           placeholder={$language == 'dutch' ? 'gebruikersnaam (1 woord)' : 'username (1 word)'}
           bind:value={username}
         />
-        <label for="email">Username</label>
+        <label for="email">E-mail</label>
         <input
           type="email"
           name="email"
           placeholder={$language == 'dutch' ? 'e-mail adres' : 'e-mail address'}
           bind:value={email}
         />{/if}
-      {#if !signin}<label for="login">Username</label>
+      {#if !signin}<label for="login">Login</label>
         <input
           type="text"
           name="login"
           placeholder={$language == 'dutch' ? 'e-mail adres of gebrukersnaam' : 'e-mail address or username'}
           bind:value={login}
         />{/if}
-      <label for="password">Username</label>
+      <label for="password">Password</label>
       <input
         type="password"
         name="password"

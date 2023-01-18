@@ -7,7 +7,6 @@
   // variables
   let userSubscription = Meteor.subscribe('userData');
   let subReady = false;
-  let signin = false;
 
   $m: {
     subReady = userSubscription.ready();
@@ -21,37 +20,11 @@
 
 <section>
   <div class="container">
-    <nav>
-      <ul>
-        <li>
-          <a
-            href="#"
-            role="button"
-            on:click={() => {
-              signin = false;
-            }}
-          >
-            Login
-          </a>
-        </li>
-        <li>
-          <a
-            href="#"
-            role="button"
-            on:click={() => {
-              signin = true;
-            }}
-          >
-            Login
-          </a>
-        </li>
-      </ul>
-    </nav>
     {#if subReady}
       {#if Meteor.user()}
-        <UserInformation user={Meteor.user()} />
+        <UserInformation />
       {:else}
-        <LoginSignin {signin} />
+        <LoginSignin />
       {/if}
     {:else}
       <div>Loading..</div>
@@ -60,6 +33,11 @@
 </section>
 
 <style>
+  div.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
   button {
     display: flex;
     justify-content: center;

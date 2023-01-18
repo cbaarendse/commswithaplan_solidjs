@@ -36,7 +36,7 @@
     </li>
   </menu>
   <nav>
-    <a href={'/user/user'} use:active>
+    <a href={'/user'} use:active>
       <Fa icon={faUser} />
     </a>
   </nav>
