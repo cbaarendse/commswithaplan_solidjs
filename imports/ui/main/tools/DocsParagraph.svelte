@@ -23,6 +23,7 @@
 
 <style>
   article {
+    /* TODO: flex needed? */
     display: flex;
     flex-wrap: wrap;
     gap: 0.8em;

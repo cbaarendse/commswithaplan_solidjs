@@ -37,6 +37,7 @@
 
 <style>
   .container {
+    /* TODO: flex needed? */
     display: flex;
     margin: 0em auto;
   }
@@ -51,6 +52,7 @@
   }
 
   div.chapters ul {
+    /* TODO: flex needed */
     display: flex;
     flex-wrap: wrap;
     gap: 1.8em;

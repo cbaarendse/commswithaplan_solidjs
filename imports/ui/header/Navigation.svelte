@@ -162,6 +162,7 @@
 
   ul {
     grid-column: 1/1;
+    /* TODO: remove flex, or row */
     display: flex;
     flex-direction: column;
     gap: 1em;

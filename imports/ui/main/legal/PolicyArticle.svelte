@@ -18,6 +18,7 @@
 
 <style>
   article {
+    /* TODO: no flex or row */
     display: flex;
     flex-direction: column;
     gap: 1em;

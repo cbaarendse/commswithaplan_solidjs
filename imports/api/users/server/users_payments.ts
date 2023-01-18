@@ -1,6 +1,6 @@
 import {Meteor} from 'meteor/meteor';
 import stripePackage from 'stripe';
-import {ReachAppUser} from '../users';
+import {CWAPUser} from '../users';
 
 const stripeSecretKey = Meteor.settings.private.stripe;
 const stripe = stripePackage(stripeSecretKey);
@@ -9,7 +9,7 @@ const stripe = stripePackage(stripeSecretKey);
 
 Meteor.methods({
   'users.stripeCustomerDetails': async function ():Promise<any> {
-    const user: ReachAppUser | null | undefined = Meteor.user();
+    const user: CWAPUser | null | undefined = Meteor.user();
     let stripeId: string = '';
     if (user != undefined && user.stripeId != undefined) {
       stripeId = user.stripeId;
@@ -26,7 +26,7 @@ Meteor.methods({
   },
 
   'users.stripeCustomerCard': async function (cardId):Promise<any> {
-    const user: ReachAppUser | null | undefined = Meteor.user();
+    const user: CWAPUser | null | undefined = Meteor.user();
     let stripeId: string = '';
     if (user != undefined && user.stripeId != undefined) {
       stripeId = user.stripeId;
@@ -43,7 +43,7 @@ Meteor.methods({
   },
 
   'users.createStripeCustomer': async function(tokenId: string) {
-    const user: ReachAppUser | null | undefined = Meteor.user();
+    const user: CWAPUser | null | undefined = Meteor.user();
     let userEmail: string = '';
     if (user != undefined && user.emails != undefined) {
       userEmail = user.emails[0].address;
@@ -65,7 +65,7 @@ Meteor.methods({
   },
 
   'users.createStripeSubscription': async function (customerPlan:any, _id:string):Promise<any> {
-    const user: ReachAppUser | null | undefined = Meteor.user();
+    const user: CWAPUser | null | undefined = Meteor.user();
     let stripeId: string = '';
     if (user != undefined && user.stripeId != undefined) {
       stripeId = user.stripeId;
@@ -91,7 +91,7 @@ Meteor.methods({
   },
 
   'users.cancelStripeSubscription': async function (subscriptionId: string):Promise<any> {
-    const user: ReachAppUser | null | undefined = Meteor.user();
+    const user: CWAPUser | null | undefined = Meteor.user();
     let stripeId: string = '';
     if (user != undefined && user.stripeId != undefined) {
       stripeId = user.stripeId;

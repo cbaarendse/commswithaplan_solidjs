@@ -1,48 +1,65 @@
 <script lang="ts">
   // imports
   import {Meteor} from 'meteor/meteor';
-  import {Accounts} from 'meteor/accounts-base';
   import UserInformation from './UserInformation.svelte';
   import LoginSignin from './LoginSignin.svelte';
-  import {CWAPUser} from '/imports/api/users/users';
 
   // variables
-  let users: CWAPUser[];
-  let userSubscription = Meteor.subscribe('usersForAdmin');
+  let userSubscription = Meteor.subscribe('userData');
   let subReady = false;
-  let user: CWAPUser;
-  let loggedIn: boolean = false;
+  let signin = false;
 
   $m: {
     subReady = userSubscription.ready();
-    users = Meteor.users.find().fetch();
-    user = users.find((user) => user.username === 'harry');
   }
 
   $: {
     console.log('subReady in client', subReady);
-    console.log('user in client', user);
-    console.log('users in client', users);
     console.log('Meteor.settings in client', Meteor.settings);
   }
 </script>
 
 <section>
-  {#if LoggedIn}
-    <UserInformation />
-  {:else}
-    <LoginSignin />
-  {/if}
+  <div class="container">
+    <nav>
+      <ul>
+        <li>
+          <a
+            href="#"
+            role="button"
+            on:click={() => {
+              signin = false;
+            }}
+          >
+            Login
+          </a>
+        </li>
+        <li>
+          <a
+            href="#"
+            role="button"
+            on:click={() => {
+              signin = true;
+            }}
+          >
+            Login
+          </a>
+        </li>
+      </ul>
+    </nav>
+    {#if subReady}
+      {#if Meteor.user()}
+        <UserInformation user={Meteor.user()} />
+      {:else}
+        <LoginSignin {signin} />
+      {/if}
+    {:else}
+      <div>Loading..</div>
+    {/if}
+  </div>
 </section>
 
 <style>
-  table {
-    margin: 2rem auto;
-  }
-  th,
-  td {
-    padding: 1em;
-  }
   button {
     display: flex;
     justify-content: center;

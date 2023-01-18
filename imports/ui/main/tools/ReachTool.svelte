@@ -105,6 +105,7 @@
 
 <style>
   .container {
+    /* TODO: no flex column */
     display: flex;
     flex-direction: column;
     gap: 1em;

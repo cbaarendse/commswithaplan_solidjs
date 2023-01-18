@@ -50,7 +50,11 @@ export interface UserProfile {
   heartbeat?: Date;
 }
 
-export type CWAPUser = Omit<Meteor.User, 'profile'> & {profile?: UserProfile};
+//export type CWAPUser = Omit<Meteor.User, 'profile'> & {profile?: UserProfile};
+
+export interface CWAPUser extends Meteor.User {
+  profile: UserProfile;
+}
 
 export interface UsersMethods {
   _id: string;

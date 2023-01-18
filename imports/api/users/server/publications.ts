@@ -7,14 +7,14 @@ import {TOUCHPOINTSNAMES, COMPANY_CONTRIBUTOR_ROLES, COMPANY_EMPLOYEE_ROLES} fro
 // PUBLISH USERS
 Meteor.publish('userData', function () {
   if (this.userId) {
-    return Users.find({_id: this.userId}, {fields: {roles: 1, stripeId: 1}});
+    return Meteor.users.find({_id: this.userId}, {fields: {roles: 1, stripeId: 1}});
   }
   return this.ready();
 });
 
 Meteor.publish('userForEnroll', function (token) {
   if (token) {
-    return Users.find({'services.password.reset.token': token});
+    return Meteor.users.find({'services.password.reset.token': token});
   }
   return this.ready();
 });
@@ -24,9 +24,9 @@ Meteor.publish('usersForAdmin', function () {
 
   // if (this.userId) {
   //   if (Roles.userIsInRole(this.userId, 'admin', Roles.GLOBAL_GROUP)) {
-  console.log('First user in publication: ', Users.findOne());
+  console.log('First user in publication: ', Meteor.users.findOne());
 
-  return Users.find({});
+  return Meteor.users.find({});
   //   }
   //   return this.ready();
   // }
