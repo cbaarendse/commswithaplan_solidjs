@@ -4,7 +4,7 @@ import {Accounts} from 'meteor/accounts-base';
 import {Roles} from 'meteor/alanning:roles';
 import {ValidatedMethod} from 'meteor/mdg:validated-method';
 import {Match} from 'meteor/check';
-import type {UserProfile} from './users';
+import type {CWAPUser} from './users';
 import {UsersMethods, usernameRegExp, emailRegExp, passwordRegExp} from './users';
 import {TOUCHPOINTSNAMES, COMPANY_ALL_ROLES} from '../../both/constants';
 
@@ -122,7 +122,7 @@ export const usersFindEmailByUsername = new ValidatedMethod({
         '[{ "name": "notLoggedIn" }]'
       );
     }
-    let user: (Omit<Meteor.User, 'profile'> & {profile: UserProfile}) | undefined | null;
+    let user: CWAPUser | undefined | null;
     if (Meteor.isServer) {
       user = Accounts.findUserByUsername(args.username);
       if (!user) {
@@ -156,7 +156,7 @@ export const usersFindEmailById = new ValidatedMethod({
     }
     let email: string | undefined;
     if (Meteor.isServer) {
-      const user: Meteor.User | undefined = Users.findOne({_id: args._id}) ? Users.findOne({_id: args._id}) : undefined;
+      const user: CWAPUser = Meteor.users.findOne({_id: args._id}) ? Meteor.users.findOne({_id: args._id}) : undefined;
       if (user) {
         email = user.emails ? user.emails[0].address : undefined;
       }
@@ -234,7 +234,7 @@ export const usersRemove = new ValidatedMethod({
     if (Meteor.isServer) {
       /** REMOVE BLOCKS UNTIL THE DATABASE ACKNOWLEDGES THE WRITE AND THEN RETURNS THE NUMBER OF REMOVED DOCUMENTS, 
       OR THROWS AN EXCEPTION IF SOMETHING WENT WRONG. **/
-      return Users.remove({_id: args.userId});
+      return Meteor.users.remove({_id: args.userId});
     }
   }
 });
@@ -361,7 +361,7 @@ export const usersUpdate = new ValidatedMethod({
       // CHECK IF EMAIL ALREADY EXISTS IN DATABASE, IF NOT, OR IF EMAIL IS OF USER TO BE UPDATED,
       // UDATE USER DOCUMENT
       if (!user || user._id === args._id) {
-        Users.update({_id: args._id}, args.modifier);
+        Meteor.users.update({_id: args._id}, args.modifier);
       } else {
         throw new Meteor.Error(
           'users.update.emailExists',
@@ -397,7 +397,7 @@ export const usersSaveSettings = new ValidatedMethod({
       );
     } else {
       // UPDATE IN COLLECTION2 RETURNS ERROR MESSAGES TO CLIENT
-      Users.update(
+      Meteor.users.update(
         {_id: this.userId},
         {
           $set: {

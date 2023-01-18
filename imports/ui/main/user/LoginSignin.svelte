@@ -1,9 +1,8 @@
 <script lang="ts">
   // imports
   import {Meteor} from 'meteor/meteor';
-  import {Accounts} from 'meteor/accounts-base';
-  import UserInformation from './UserInformation.svelte';
-  import LoginSignin from './LoginSignin.svelte';
+  import Fa from 'svelte-fa/src/fa.svelte';
+  import {faPencil} from '@fortawesome/free-solid-svg-icons';
   import {CWAPUser} from '/imports/api/users/users';
 
   // variables
@@ -11,7 +10,7 @@
   let userSubscription = Meteor.subscribe('usersForAdmin');
   let subReady = false;
   let user: CWAPUser;
-  let loggedIn: boolean = false;
+  let login: true;
 
   $m: {
     subReady = userSubscription.ready();
@@ -27,27 +26,9 @@
   }
 </script>
 
-<section>
-  {#if LoggedIn}
-    <UserInformation />
-  {:else}
-    <LoginSignin />
-  {/if}
-</section>
+<div class="container">
+  {#if login}<Input{:else}{/if}
+</div>
 
 <style>
-  table {
-    margin: 2rem auto;
-  }
-  th,
-  td {
-    padding: 1em;
-  }
-  button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: var(--button-size-phone);
-    width: var(--button-size-phone);
-  }
 </style>

@@ -162,7 +162,6 @@
 
   ul {
     grid-column: 1/1;
-    width: 100%;
     display: flex;
     flex-direction: column;
     gap: 1em;

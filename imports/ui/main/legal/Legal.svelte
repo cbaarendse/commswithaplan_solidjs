@@ -64,7 +64,7 @@
     flex-basis: 30%;
     flex-grow: 1;
     flex-shrink: 0;
-    width: 100%;
+    /* width: 100%; */
     max-width: 75ch;
   }
   ul {
@@ -72,7 +72,7 @@
     flex-wrap: wrap;
     justify-content: space-between;
     gap: 1.4em;
-    width: 100%;
+    /* width: 100%; */
   }
 
   li {

@@ -35,9 +35,6 @@
 </article>
 
 <style>
-  article.accordion {
-    width: 100%;
-  }
   header {
     min-height: 4em;
     border: none;

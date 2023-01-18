@@ -1,7 +1,6 @@
 // imports
 import {Meteor} from 'meteor/meteor';
 import {Roles} from 'meteor/alanning:roles';
-import Users from '../users';
 
 import {TOUCHPOINTSNAMES, COMPANY_CONTRIBUTOR_ROLES, COMPANY_EMPLOYEE_ROLES} from '../../../both/constants';
 

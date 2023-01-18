@@ -39,7 +39,7 @@ export interface UserProfile {
   city?: string;
   companyId?: string;
   lastLanguage?: string;
-  lastCompanyId?: string;
+  lastCompanyId: string;
   lastBrandId?: string;
   lastProductId?: string;
   lastStrategyId?: string;
@@ -50,9 +50,11 @@ export interface UserProfile {
   heartbeat?: Date;
 }
 
+export type CWAPUser = Omit<Meteor.User, 'profile'> & {profile?: UserProfile};
+
 export interface UsersMethods {
   _id: string;
-  modifier: Meteor.User;
+  modifier: Omit<Meteor.User, 'profile'> & {profile: UserProfile};
   touchPoint: string;
 }
 
