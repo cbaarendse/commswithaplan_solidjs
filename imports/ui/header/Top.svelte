@@ -106,4 +106,7 @@
   menu a.active span {
     color: var(--ra-blue);
   }
+  nav a.active {
+    color: var(--ra-red);
+  }
 </style>

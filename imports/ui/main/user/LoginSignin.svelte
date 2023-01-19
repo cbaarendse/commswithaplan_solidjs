@@ -59,7 +59,7 @@
     <ul>
       <li>
         <a
-          href={'#'}
+          href={null}
           role="button"
           style="color:{!signin ? 'var(--ra-red)' : ''}"
           on:click={() => {
@@ -71,7 +71,7 @@
       </li>
       <li>
         <a
-          href={'#'}
+          href={null}
           role="button"
           style="color:{signin ? 'var(--ra-red)' : ''}"
           on:click={() => {
@@ -132,12 +132,13 @@
     display: flex;
     gap: 3rem;
   }
+  a {
+    color: var(--ra-grey-light);
+  }
   a:hover {
     color: var(--ra-green);
   }
-  a.active {
-    color: var(--ra-red);
-  }
+
   form {
     padding-block: 1rem;
   }
