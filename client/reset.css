@@ -24,6 +24,8 @@ body {
   /* % because it takes into account space that is taken up by a vertical scroll bar */
   /* min-height: 100vh; */
   /* vh because it takes up 100 points of the viewport, the html element follows this as well */
+
+  background: var(--ra-grey-off-white);
 }
 
 img,
