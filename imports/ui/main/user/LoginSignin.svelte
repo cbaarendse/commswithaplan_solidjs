@@ -54,75 +54,73 @@
   };
 </script>
 
-<div class="container">
-  <nav>
-    <ul>
-      <li>
-        <a
-          href={null}
-          role="button"
-          style="color:{!signin ? 'var(--ra-red)' : ''}"
-          on:click={() => {
-            signin = false;
-          }}
-        >
-          Login
-        </a>
-      </li>
-      <li>
-        <a
-          href={null}
-          role="button"
-          style="color:{signin ? 'var(--ra-red)' : ''}"
-          on:click={() => {
-            signin = true;
-          }}
-        >
-          Signin
-        </a>
-      </li>
-    </ul>
-  </nav>
-  <form autocomplete="on">
-    <fieldset>
-      {#if signin}
-        <label for="username">Username</label>
-        <input
-          type="text"
-          name="username"
-          class="input__field"
-          placeholder={$language == 'dutch' ? 'gebruikersnaam (1 woord)' : 'username (1 word)'}
-          bind:value={username}
-        />
-        <label for="email">E-mail</label>
-        <input
-          type="email"
-          name="email"
-          class="input__field"
-          placeholder={$language == 'dutch' ? 'e-mail adres' : 'e-mail address'}
-          bind:value={email}
-        />{/if}
-      {#if !signin}<label for="login">Login</label>
-        <input
-          type="text"
-          name="login"
-          class="input__field"
-          placeholder={$language == 'dutch' ? 'e-mail adres of gebruikersnaam' : 'e-mail address or username'}
-          bind:value={login}
-        />{/if}
-      <label for="password">Password</label>
+<nav>
+  <ul>
+    <li>
+      <a
+        href={'javascript:void(0)'}
+        role="button"
+        style="color:{!signin ? 'var(--ra-red)' : ''}"
+        on:click={() => {
+          signin = false;
+        }}
+      >
+        Login
+      </a>
+    </li>
+    <li>
+      <a
+        href={'javascript:void(0)'}
+        role="button"
+        style="color:{signin ? 'var(--ra-red)' : ''}"
+        on:click={() => {
+          signin = true;
+        }}
+      >
+        Signin
+      </a>
+    </li>
+  </ul>
+</nav>
+<form autocomplete="on">
+  <fieldset>
+    {#if signin}
+      <label for="username">Username</label>
       <input
-        type="password"
-        name="password"
+        type="text"
+        name="username"
         class="input__field"
-        placeholder={$language == 'dutch' ? 'wachtwoord' : 'password'}
-        bind:value={password}
+        placeholder={$language == 'dutch' ? 'gebruikersnaam (1 woord)' : 'username (1 word)'}
+        bind:value={username}
       />
-    </fieldset>
-    <input type="submit" class="submit__button" {disabled} on:click|stopPropagation|preventDefault={handleSubmit} />
-    <input type="reset" class="reset__button" />
-  </form>
-</div>
+      <label for="email">E-mail</label>
+      <input
+        type="email"
+        name="email"
+        class="input__field"
+        placeholder={$language == 'dutch' ? 'e-mail adres' : 'e-mail address'}
+        bind:value={email}
+      />{/if}
+    {#if !signin}<label for="login">Login</label>
+      <input
+        type="text"
+        name="login"
+        class="input__field"
+        placeholder={$language == 'dutch' ? 'e-mail adres of gebruikersnaam' : 'e-mail address or username'}
+        bind:value={login}
+      />{/if}
+    <label for="password">Password</label>
+    <input
+      type="password"
+      name="password"
+      class="input__field"
+      placeholder={$language == 'dutch' ? 'wachtwoord' : 'password'}
+      bind:value={password}
+    />
+  </fieldset>
+  <input type="submit" class="submit__button" {disabled} on:click|stopPropagation|preventDefault={handleSubmit} />
+  <input type="reset" class="reset__button" />
+</form>
 
 <style>
   nav {

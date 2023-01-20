@@ -1,13 +1,21 @@
 <script lang="ts">
   // imports
+  import {Meteor} from 'meteor/meteor';
   import ToggleButton from './ToggleButton.svelte';
   import {router, active} from 'tinro';
   import {language, isSmallScreen, navigationVisible} from '../stores/utils';
   import Fa from 'svelte-fa/src/fa.svelte';
-  import {faUser} from '@fortawesome/free-solid-svg-icons';
+  import {faSignOut, faUser} from '@fortawesome/free-solid-svg-icons';
+  import type {CWAPUser} from '/imports/api/users/users';
+
+  let currentUser: CWAPUser | null;
+
+  $m: {
+    currentUser = Meteor.user();
+  }
 </script>
 
-<!-- TopBar has room for functionality used from all over the site. Eventual cookies and/or marketing messages. -->
+<!-- Top has room for functionality used from all over the site. Eventual cookies and/or marketing messages. -->
 <div class="container">
   <menu>
     <li>
@@ -36,7 +44,7 @@
     </li>
   </menu>
   <nav>
-    <a href={'/user'} use:active>
+    <a href={'/user'} class:active={currentUser}>
       <Fa icon={faUser} />
     </a>
   </nav>
@@ -105,6 +113,12 @@
 
   menu a.active span {
     color: var(--ra-blue);
+  }
+  nav a {
+    color: var(--ra-grey-light);
+  }
+  nav a:hover {
+    color: var(--ra-green);
   }
   nav a.active {
     color: var(--ra-red);
