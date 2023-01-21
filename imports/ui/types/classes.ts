@@ -201,7 +201,7 @@ export class Reach {
         'app',
         'console_game',
         'display',
-        'e-mail',
+        'e_mail',
         'mobile',
         'social',
         'video_on_demand',

@@ -7,17 +7,17 @@
   import {router, active} from 'tinro';
   import {Match} from 'meteor/check';
   import {emailRegExp} from '../../../api/users/users';
+  import {signin} from '../../stores/utils';
 
   // variables
-  let signin = false;
   let username: CWAPUser['username'];
   let email: Meteor.UserEmail['address'];
   let password: string | undefined;
   let login: CWAPUser['username'] | Meteor.UserEmail['address'];
-  $: disabled = isValid(signin, username, email, password, login) ? false : true;
+  $: disabled = isValid($signin, username, email, password, login) ? false : true;
 
   // functions
-  function isValid(s: boolean, u?: string, e?: string, p?: string, l?: string): boolean {
+  function isValid(s: boolean | null, u?: string, e?: string, p?: string, l?: string): boolean {
     if (s) {
       if (typeof u == 'string' && typeof e == 'string' && emailRegExp.test(e) && typeof p == 'string') {
         return true;
@@ -38,7 +38,7 @@
   // functions
   const handleSubmit = function () {
     console.log('handle submit with', login, password);
-    if (!signin && login && password) {
+    if (!$signin && login && password) {
       console.log('login started', Meteor.loggingIn);
 
       Meteor.loginWithPassword(login, password, (error) => {
@@ -46,7 +46,7 @@
         return error?.message;
       });
     }
-    if (signin && username && email && password) {
+    if ($signin && username && email && password) {
       Accounts.createUser({username, email, password}, (error) => {
         return error?.message;
       });
@@ -60,9 +60,9 @@
       <a
         href={'javascript:void(0)'}
         role="button"
-        style="color:{!signin ? 'var(--ra-red)' : ''}"
+        style="color:{!$signin ? 'var(--ra-red)' : ''}"
         on:click={() => {
-          signin = false;
+          $signin = false;
         }}
       >
         Login
@@ -74,7 +74,7 @@
         role="button"
         style="color:{signin ? 'var(--ra-red)' : ''}"
         on:click={() => {
-          signin = true;
+          $signin = true;
         }}
       >
         Signin
@@ -84,7 +84,7 @@
 </nav>
 <form autocomplete="on">
   <fieldset>
-    {#if signin}
+    {#if $signin}
       <label for="username">Username</label>
       <input
         type="text"
@@ -101,7 +101,7 @@
         placeholder={$language == 'dutch' ? 'e-mail adres' : 'e-mail address'}
         bind:value={email}
       />{/if}
-    {#if !signin}<label for="login">Login</label>
+    {#if !$signin}<label for="login">Login</label>
       <input
         type="text"
         name="login"

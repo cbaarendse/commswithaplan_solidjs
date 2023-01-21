@@ -13,6 +13,8 @@ export const isSmallScreen: Writable<boolean | null> = writable(true);
 
 export const navigationVisible: Writable<boolean | null> = writable(false);
 
+export const signin: Writable<boolean | null> = writable(false);
+
 //export a function that return a readable given a string media query as input
 export const useMediaQuery = (mediaQuery: string): Readable<boolean | null> => {
   //we inizialize the readable as null and get the callback with the set function

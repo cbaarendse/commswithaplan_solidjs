@@ -52,7 +52,7 @@ export const TOUCHPOINTSNAMES = [
   'internal_employee',
   'event',
   'experiential',
-  'e-mail',
+  'e_mail',
   'loyalty_crm',
   'magazines',
   'mobile',
