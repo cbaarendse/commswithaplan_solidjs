@@ -12,27 +12,26 @@
   import type {Strategy} from '/imports/api/strategies/strategies';
 
   // variables
+  let title: string = 'New Strategy';
   let marketData = false;
-  let strategy: Strategy = Reach.setStrategy(marketData, touchPointsBasics);
-  let touchPointsInPlan = strategy.deployment;
-  let totalReach: number = 0;
-  let locus: number = 0;
+  let market: 'nl' | 'uk' | 'gb' | 'en' | 'be' = 'nl';
+  let strategy: Strategy = Reach.setStrategy(title, market, marketData, $touchPointsBasics);
   let sortedByName = true;
-  $: allTouchPointsValueIsZero = Reach.areAllTouchPointsValueZero(touchPointsInPlan);
-  $: showAll = Reach.isShowAll(touchPointsInPlan);
+  $: allTouchPointsValueIsZero = Reach.areAllTouchPointsValueZero(strategy.deployment);
+  $: showAll = Reach.isShowAll(strategy.deployment);
 
-  onMount(() => (touchPointsInPlan = Reach.sortByName(touchPointsInPlan)));
+  onMount(() => (strategy.deployment = Reach.sortByName(strategy.deployment, $language)));
 
   // functions
   function changeReachForTouchPoint(event: CustomEvent) {
     const touchPointName: string = event.detail.name;
     const sliderValue: number = event.detail.value;
-    touchPointsInPlan = Reach.updateDeployedTouchPoint(touchPointName, sliderValue, touchPointsInPlan);
+    strategy.deployment = Reach.updateDeployedTouchPoint(touchPointName, sliderValue, strategy.deployment);
   }
 
   function getResults(): void {
-    const results = Reach.calculateResults(touchPointsInPlan);
-    [totalReach, locus] = results;
+    const results = Reach.calculateResults(strategy.deployment);
+    [strategy.totalReach, strategy.overlap] = results;
   }
 
   function handleChange(event: CustomEvent) {
@@ -52,32 +51,33 @@
 
   function reset(): void {
     if (!allTouchPointsValueIsZero) {
-      touchPointsInPlan = Reach.resetTouchPoints(touchPointsInPlan);
+      strategy = Reach.setStrategy(title, market, marketData, $touchPointsBasics);
     } else {
-      touchPointsInPlan = Reach.setTouchPointsForPlan($touchPointsBasics, $language);
-      touchPointsInPlan = Reach.sortByName(touchPointsInPlan);
+      strategy = Reach.setStrategy(title, market, marketData, $touchPointsBasics);
+      strategy.deployment = Reach.sortByName(strategy.deployment, $language);
       sortedByName = true;
     }
     const results = [0, 0];
-    [totalReach, locus] = results;
+    [strategy.totalReach, strategy.overlap] = results;
   }
 
   function sortBy(): void {
-    touchPointsInPlan = sortedByName ? Reach.sortByReach(touchPointsInPlan) : Reach.sortByName(touchPointsInPlan);
+    strategy.deployment = sortedByName
+      ? Reach.sortByReach(strategy.deployment)
+      : Reach.sortByName(strategy.deployment, $language);
     sortedByName = showAll && allTouchPointsValueIsZero ? true : !sortedByName;
   }
 
   function hideIf(): void {
     if (showAll && !allTouchPointsValueIsZero) {
-      touchPointsInPlan = Reach.hide(touchPointsInPlan);
+      strategy.deployment = Reach.hide(strategy.deployment);
     } else if (!showAll || allTouchPointsValueIsZero) {
-      touchPointsInPlan = Reach.show(touchPointsInPlan);
+      strategy.deployment = Reach.show(strategy.deployment);
     }
   }
 
-  let languageUnsubscribe: Unsubscriber = language.subscribe((newLanguage) => {
-    touchPointsInPlan = Reach.changeLanguage(newLanguage, touchPointsInPlan, $touchPointsBasics);
-    touchPointsInPlan = Reach.sortByName(touchPointsInPlan);
+  let languageUnsubscribe: Unsubscriber = language.subscribe(() => {
+    strategy.deployment = Reach.sortByName(strategy.deployment, $language);
   });
   onDestroy(languageUnsubscribe);
 </script>
@@ -86,8 +86,7 @@
 <section>
   <div class="container">
     <ReachControlsOutput
-      {totalReach}
-      {locus}
+      {strategy}
       {allTouchPointsValueIsZero}
       {sortedByName}
       {showAll}
@@ -95,7 +94,7 @@
       on:sort={sortBy}
       on:hide={hideIf}
     />
-    {#each touchPointsInPlan as touchPoint}
+    {#each strategy.deployment as touchPoint}
       <ReachTouchPoint
         {touchPoint}
         on:changeValueForName={handleChange}

@@ -939,16 +939,16 @@ export const definitions: Readable<Content[]> = readable(
         'Het % mensen dat je boodschap waarneemt, door middel van één of meer van de geselecteerde Mediumtypen/ Touch Points'
     },
     {
-      name: 'locus',
+      name: 'overlap',
       language: 'english',
-      displayName: 'Locus',
+      displayName: 'Overlap',
       description:
         'Only the % of people that perceive your message(s), through áll of the selected Medium Types/ Touch Points'
     },
     {
-      name: 'locus',
+      name: 'overlap',
       language: 'dutch',
-      displayName: 'Locus',
+      displayName: 'Overlap',
       description:
         'Alleen het % mensen dat je boodschap waarneemt door middel van álle geselecteerde Mediumtypen/ Touch Points'
     }

@@ -170,53 +170,44 @@ export class Reach {
     );
   }
 
-  static setStrategy(marketData: boolean, touchPointsBasics: TouchPointBasics[], user?: string | Mongo.ObjectID) {
+  static setStrategy(
+    title: string,
+    market: 'nl' | 'gb' | 'uk' | 'en' | 'be',
+    marketData: boolean,
+    touchPointsBasics: TouchPointBasics[],
+    user?: string | Mongo.ObjectID
+  ) {
     return {
-      title: 'new',
+      title: title,
       marketData: marketData,
-      market: 'nl',
+      market: market,
       createdAt: new Date(),
       lastChanged: new Date(),
       deployment: this.setTouchPointsForPlan(touchPointsBasics),
-      locus: 0,
-      reach: 0,
+      overlap: 0,
+      totalReach: 0,
       // Only required when marketData (population & probabilities) true
       userId: user,
-      ageStart: null,
-      ageEnd: null,
-      ageGroupStart: null,
-      ageGroupEnd: null,
-      female: null,
-      male: null,
-      peopleInAgeRange: null,
-      respondentsCount: null,
-      reachedNonUnique: null,
-      reachedUnique: null,
-      companyId: null,
-      brandId: null,
-      productId: null
+      ageStart: undefined,
+      ageEnd: undefined,
+      ageGroupStart: undefined,
+      ageGroupEnd: undefined,
+      female: undefined,
+      male: undefined,
+      peopleInAgeRange: undefined,
+      respondentsCount: undefined,
+      reachedNonUnique: undefined,
+      reachedUnique: undefined,
+      companyId: undefined,
+      brand: undefined,
+      product: undefined
     };
   }
 
-  static areAllTouchPointsValueZero(touchPointsInPlan: DeployedTouchPoint[]): boolean {
-    return touchPointsInPlan.every((touchPoint) => touchPoint.value === 0);
+  static areAllTouchPointsValueZero(touchPoints: DeployedTouchPoint[]): boolean {
+    return touchPoints.every((touchPoint) => touchPoint.value === 0);
   }
 
-  static changeLanguage(
-    language: string,
-    touchPointsInPlan: DeployedTouchPoint[],
-    touchPointsBasics: TouchPointBasics[]
-  ): DeployedTouchPoint[] {
-    touchPointsInPlan.forEach((touchPointInPlan: DeployedTouchPoint) => {
-      const thisTouchPointBasics: TouchPointBasics = touchPointsBasics.filter(
-        (touchPointBasics: TouchPointBasics) =>
-          touchPointBasics.name === touchPointInPlan.name && touchPointBasics.language === language
-      )[0];
-      touchPointInPlan.displayName = thisTouchPointBasics.displayName;
-      touchPointInPlan.description = thisTouchPointBasics.description;
-    });
-    return touchPointsInPlan;
-  }
   // input
   static defaultInputType(touchPointName: string): string {
     if (
@@ -267,71 +258,76 @@ export class Reach {
   }
 
   // reset
-  static resetTouchPoints(touchPointsInPlan: DeployedTouchPoint[]): DeployedTouchPoint[] {
-    touchPointsInPlan.forEach((touchPoint) => (touchPoint.value = 0.0));
-    return touchPointsInPlan;
+  static resetTouchPoints(touchPoints: DeployedTouchPoint[]): DeployedTouchPoint[] {
+    touchPoints.forEach((touchPoint) => (touchPoint.value = 0.0));
+    return touchPoints;
   }
 
   // sort
-  static sortByName(touchPointsInPlan: DeployedTouchPoint[]) {
-    return touchPointsInPlan.sort((a: TouchPointBasics, b: TouchPointBasics) => {
-      if (a.displayName > b.displayName) {
-        return 1;
-      }
-      if (a.displayName < b.displayName) {
-        return -1;
+  static sortByName(touchPoints: DeployedTouchPoint[], language: string) {
+    return touchPoints.sort((a: TouchPointBasics, b: TouchPointBasics) => {
+      const basicsOfTouchPointA = a.basics.find((item) => item.language == language);
+      const basicsOfTouchPointB = b.basics.find((item) => item.language == language);
+      if (basicsOfTouchPointA && basicsOfTouchPointB) {
+        if (basicsOfTouchPointA.displayName > basicsOfTouchPointB.displayName) {
+          return 1;
+        }
+        if (basicsOfTouchPointA.displayName < basicsOfTouchPointB.displayName) {
+          return -1;
+        }
       }
       return 0;
     });
   }
-  static sortByReach(touchPointsInPlan: DeployedTouchPoint[]) {
-    return touchPointsInPlan.sort((a: DeployedTouchPoint, b: DeployedTouchPoint) => b.value - a.value);
+
+  static sortByReach(touchPoints: DeployedTouchPoint[]) {
+    return touchPoints.sort((a: DeployedTouchPoint, b: DeployedTouchPoint) => b.value - a.value);
   }
 
   // hide
-  static hide(touchPointsInPlan: DeployedTouchPoint[]) {
-    touchPointsInPlan.forEach((touchPoint) => {
+  static hide(touchPoints: DeployedTouchPoint[]) {
+    touchPoints.forEach((touchPoint) => {
       if (touchPoint.value === 0) {
         touchPoint.show = false;
       }
     });
-    return touchPointsInPlan;
+    return touchPoints;
   }
 
-  static show(touchPointsInPlan: DeployedTouchPoint[]) {
-    touchPointsInPlan.forEach((touchPoint) => (touchPoint.show = true));
-    return touchPointsInPlan;
+  static show(touchPoints: DeployedTouchPoint[]) {
+    touchPoints.forEach((touchPoint) => (touchPoint.show = true));
+    return touchPoints;
   }
 
-  static isShowAll(touchPointsInPlan: DeployedTouchPoint[]): boolean {
-    return touchPointsInPlan.every((touchPoint) => touchPoint.show === true);
+  static isShowAll(touchPoints: DeployedTouchPoint[]): boolean {
+    return touchPoints.every((touchPoint) => touchPoint.show === true);
   }
 
   // results
   static updateDeployedTouchPoint(
     touchPointName: string,
     value: number,
-    touchPointsInPlan: DeployedTouchPoint[]
+    touchPoints: DeployedTouchPoint[]
   ): DeployedTouchPoint[] {
-    const index: number = touchPointsInPlan.findIndex((touchPoint: DeployedTouchPoint): boolean => {
+    const index: number = touchPoints.findIndex((touchPoint: DeployedTouchPoint): boolean => {
       return touchPoint.name === touchPointName;
     });
-    const touchPointToUpdate: DeployedTouchPoint = touchPointsInPlan[index];
+    const touchPointToUpdate: DeployedTouchPoint = touchPoints[index];
     touchPointToUpdate.value = value;
-    touchPointsInPlan.splice(index, 1, touchPointToUpdate);
-    return touchPointsInPlan;
+    touchPoints.splice(index, 1, touchPointToUpdate);
+    return touchPoints;
   }
-  private static calculateTotalReach(touchPointsInPlan: DeployedTouchPoint[]): number {
+  private static calculateTotalReach(touchPoints: DeployedTouchPoint[]): number {
     let totalReachPortion = 0.0;
-    for (const touchPoint of touchPointsInPlan) {
+    for (const touchPoint of touchPoints) {
       const r = touchPoint.value / 100;
       totalReachPortion = totalReachPortion + (1 - totalReachPortion) * r;
     }
     return 100 * totalReachPortion;
   }
-  private static calculateLocus(touchPointsInPlan: DeployedTouchPoint[]): number {
+  private static calculateLocus(touchPoints: DeployedTouchPoint[]): number {
     let duplicateReachPortion = 0.0;
-    for (const touchPoint of touchPointsInPlan) {
+    for (const touchPoint of touchPoints) {
       if (touchPoint.value != 0.0 && duplicateReachPortion != 0.0) {
         const r = touchPoint.value / 100;
         duplicateReachPortion *= r;
@@ -342,10 +338,10 @@ export class Reach {
     }
     return 100 * duplicateReachPortion;
   }
-  static calculateResults(touchPointsInPlan: DeployedTouchPoint[]): [number, number] {
-    const totalReach = Reach.calculateTotalReach(touchPointsInPlan);
-    const locus = Reach.calculateLocus(touchPointsInPlan);
-    return [totalReach, locus];
+  static calculateResults(touchPoints: DeployedTouchPoint[]): [number, number] {
+    const totalReach = Reach.calculateTotalReach(touchPoints);
+    const overlap = Reach.calculateLocus(touchPoints);
+    return [totalReach, overlap];
   }
 
   // Reach with data

@@ -6,7 +6,7 @@
   //variables
   let dispatch = createEventDispatcher();
   export let rangeInput: Input;
-  export let displayName: string;
+  export let displayName: string = 'touchpoint_name';
 
   function changeValue() {
     dispatch('changeValueForName', {name: rangeInput.name, value: rangeInput.value});

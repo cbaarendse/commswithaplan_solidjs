@@ -6,7 +6,7 @@
   import {faXmark} from '@fortawesome/free-solid-svg-icons';
 
   // variables
-  export let title: string;
+  export let title: string = 'modal_title';
   export let display: string = 'none';
   let dispatch = createEventDispatcher();
   let disabled = false;

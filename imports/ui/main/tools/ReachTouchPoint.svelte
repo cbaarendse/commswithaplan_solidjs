@@ -1,6 +1,6 @@
 <script lang="ts">
   // imports
-  import type {TouchPointInPlan} from '../../types/types';
+  import type {DeployedTouchPoint} from '../../types/types';
   import {Convert, Format} from '../../types/classes';
   import ReachRangeInput from './ReachRangeInput.svelte';
   import Modal from '../../reusable/Modal.svelte';
@@ -9,9 +9,10 @@
   //import {notify} from '../../notifications/NotificationsFunctions';
 
   // exports
-  export let touchPoint: TouchPointInPlan;
+  export let touchPoint: DeployedTouchPoint;
 
   // variables
+  let basics = touchPoint.basics.find((item) => item.language == $language);
   let hovered: boolean = false;
   let displayManualInput: 'none' | 'flex' = 'none';
   let displayTouchPointDescription: 'none' | 'flex' = 'none';
@@ -34,7 +35,7 @@
   </div>
   <div class="center">
     <ReachRangeInput
-      displayName={touchPoint.displayName}
+      displayName={basics?.displayName}
       rangeInput={{
         name: touchPoint.name,
         id: touchPoint.name,
@@ -59,23 +60,23 @@
     </button>
   </div>
   <Modal
-    title={touchPoint.displayName}
+    title={basics?.displayName}
     display={displayTouchPointDescription}
     on:destroyModal={() => {
       displayTouchPointDescription = 'none';
     }}
   >
-    {touchPoint.description}
+    {basics?.description}
   </Modal>
   <Modal
-    title={touchPoint.displayName}
+    title={basics?.displayName}
     display={displayManualInput}
     on:destroyModal={() => {
       displayManualInput = 'none';
     }}
   >
     <ReachNumberInput
-      displayName={touchPoint.displayName}
+      displayName={basics?.displayName}
       numberInput={{
         name: touchPoint.name,
         id: touchPoint.name,

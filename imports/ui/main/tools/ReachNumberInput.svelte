@@ -6,7 +6,7 @@
 
   // exports
   export let numberInput: Input;
-  export let displayName: string;
+  export let displayName: string = 'touchpoint_name';
 
   // variables
   let dispatch = createEventDispatcher();

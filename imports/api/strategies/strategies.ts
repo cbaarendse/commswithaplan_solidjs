@@ -2,6 +2,7 @@
 import {Meteor} from 'meteor/meteor';
 import {Mongo} from 'meteor/mongo';
 import {MARKETS} from '../../both/constants';
+import type {DeployedTouchPoint} from '/imports/ui/types/types';
 
 //= ====== STRATEGIES == DEFINITIONS ==================
 const Strategies = new Mongo.Collection('strategies');
@@ -80,15 +81,15 @@ enum AgeGroup {
   '65 plus' = 5
 }
 export interface Strategy {
-  _id: string | Mongo.ObjectID;
+  _id?: string | Mongo.ObjectID;
   title?: string;
   marketData: boolean;
   market: 'nl' | 'gb' | 'uk' | 'en' | 'be';
   createdAt: Date;
   lastChanged: Date;
-  deployment: TouchPointInPlan[];
-  locus: number;
-  reach: number;
+  deployment: DeployedTouchPoint[];
+  overlap: number;
+  totalReach: number;
   // Only required when marketData (population & probabilities) true
   userId?: string | Mongo.ObjectID;
   ageStart?: number;
@@ -102,8 +103,8 @@ export interface Strategy {
   reachedNonUnique?: number;
   reachedUnique?: number;
   companyId?: string | {[key: string]: string};
-  brandId?: string | {[key: string]: string};
-  productId?: string | {[key: string]: string};
+  brand?: string;
+  product?: string;
 }
 
 // schema
@@ -128,8 +129,8 @@ const strategiesSchema = {
       return new Date();
     }
   },
-  locus: {type: Number, defaultValue: 0, max: 100},
-  reach: {type: Number, defaultValue: 0, max: 100},
+  overlap: {type: Number, defaultValue: 0, max: 100},
+  totalReach: {type: Number, defaultValue: 0, max: 100},
   // Only required when marketData (population & probabilities) available (optional: true)
   ageStart: {type: Number, optional: true},
   ageEnd: {type: Number, optional: true},
@@ -142,8 +143,8 @@ const strategiesSchema = {
   touchPoints: {type: Array},
   // Not required (optional: true)
   companyId: {type: String, regEx: String, optional: true},
-  brandId: {type: String, regEx: String, optional: true},
-  productId: {type: String, regEx: String, optional: true}
+  brand: {type: String, optional: true},
+  product: {type: String, optional: true}
 };
 
 // ====== EXPORTS ===============================
