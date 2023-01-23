@@ -67,34 +67,43 @@ interface TouchPointInPlan {
     | 'viral'
     | 'website'
     | 'word_of_mouth';
-  inputType: 'contacts' | 'grps' | 'impressions' | 'reach';
+  inputType?: 'contacts' | 'grps' | 'impressions' | 'reach';
   value: number;
   show: boolean;
 }
+enum AgeGroup {
+  '9 - 11' = 0,
+  '12 - 19' = 1,
+  '20 - 34' = 2,
+  '35 - 49' = 3,
+  '50 - 64' = 4,
+  '65 plus' = 5
+}
 export interface Strategy {
-  _id: string | {[key: string]: string};
-  title: string;
+  _id: string | Mongo.ObjectID;
+  title?: string;
   marketData: boolean;
   market: 'nl' | 'gb' | 'uk' | 'en' | 'be';
-  user: string;
   createdAt: Date;
   lastChanged: Date;
+  deployment: TouchPointInPlan[];
   locus: number;
   reach: number;
-  // Only required when marketData (population & probabilities) available (optional: true)
-  ageStart: number;
-  ageEnd: number;
-  female: boolean;
-  male: boolean;
-  peopleInAgeRange: number;
-  respondentsCount: number;
-  reachedNonUnique: number;
-  reachedUnique: number;
-  touchPoints: TouchPointInPlan[];
-  // Not required (optional: true)
-  companyId: string | {[key: string]: string};
-  brandId: string | {[key: string]: string};
-  productId: string | {[key: string]: string};
+  // Only required when marketData (population & probabilities) true
+  userId?: string | Mongo.ObjectID;
+  ageStart?: number;
+  ageEnd?: number;
+  ageGroupStart?: AgeGroup;
+  ageGroupEnd?: AgeGroup;
+  female?: boolean;
+  male?: boolean;
+  peopleInAgeRange?: number;
+  respondentsCount?: number;
+  reachedNonUnique?: number;
+  reachedUnique?: number;
+  companyId?: string | {[key: string]: string};
+  brandId?: string | {[key: string]: string};
+  productId?: string | {[key: string]: string};
 }
 
 // schema

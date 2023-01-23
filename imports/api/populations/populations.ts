@@ -33,6 +33,10 @@ Populations.deny({
 // type
 export type Probability = {
   _id: Mongo.ObjectID;
+  respondentId: number;
+  age_group: 0 | 1 | 2 | 3 | 4 | 5;
+  age: number;
+  gender: 'm' | 'f' | 'x';
   market: string;
 } & {
   [key: string]: number;
@@ -41,12 +45,14 @@ export type Probability = {
 const languageItemPattern = {displayName: String, description: Match.Maybe(String)};
 
 // schema pattern
-export const probabilityPattern = {
-  _id: Object,
+export const probabilityPattern = Match.ObjectIncluding({
+  _id: Match.OneOf(String, Object),
+  respondentId: Number,
   market: String,
-  english: languageItemPattern,
-  dutch: languageItemPattern
-};
+  age_group: Match.OneOf(0, 1, 2, 3, 4, 5),
+  age: Number,
+  gender: Match.OneOf('m', 'f', 'x')
+});
 
 // ====== EXPORTS ===============================
 export default Populations;

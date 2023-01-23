@@ -8,10 +8,13 @@
   import {Reach} from '../../types/classes';
   import {language} from '../../stores/utils';
   import {touchPointsBasics} from '../../stores/tools';
-  import type {TouchPointInPlan} from '../../types/types';
+  import type {DeployedTouchPoint} from '../../types/types';
+  import type {Strategy} from '/imports/api/strategies/strategies';
 
   // variables
-  let touchPointsInPlan: TouchPointInPlan[] = Reach.setTouchPointsForPlan($touchPointsBasics, $language);
+  let marketData = false;
+  let strategy: Strategy = Reach.setStrategy(marketData, touchPointsBasics);
+  let touchPointsInPlan = strategy.deployment;
   let totalReach: number = 0;
   let locus: number = 0;
   let sortedByName = true;
@@ -24,7 +27,7 @@
   function changeReachForTouchPoint(event: CustomEvent) {
     const touchPointName: string = event.detail.name;
     const sliderValue: number = event.detail.value;
-    touchPointsInPlan = Reach.updateTouchPointInPlan(touchPointName, sliderValue, touchPointsInPlan);
+    touchPointsInPlan = Reach.updateDeployedTouchPoint(touchPointName, sliderValue, touchPointsInPlan);
   }
 
   function getResults(): void {

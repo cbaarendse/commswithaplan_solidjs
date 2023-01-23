@@ -6,7 +6,7 @@ declare global {
 }
 
 // content
-export type Content = {name: string; language: string; displayName: string; description: string};
+export type Content = {name: string; language: 'english' | 'dutch'; displayName: string; description: string};
 export type Color = {color: string};
 export type Colored = {colored: boolean};
 export type Illustrated = {imgFiles: string[]};
@@ -15,8 +15,12 @@ type Paragraph = {displayName: string; description: string; elaboration?: string
 export type Chapter = Omit<Content & Illustrated, 'description'> & {paragraphs: Paragraph[]};
 export type Article = Omit<Content, 'description'> & {paragraphs: Paragraph[]};
 export type Translation = Omit<Content, 'description'>;
-export type TouchPointBasics = Content;
-export type TouchPointInPlan = TouchPointBasics & {value: number; show: boolean};
+export type TouchPointBasics = Pick<Content, 'name'> & {basics: Omit<Content, 'name'>[]};
+export type DeployedTouchPoint = TouchPointBasics & {
+  value: number;
+  show: boolean;
+  inputType?: 'contacts' | 'grps' | 'impressions' | 'reach';
+};
 export type Week = {name: string; days: number; monday: string};
 export type Month = {name: string; days: number};
 export type Year = {name: string; days: number};
