@@ -12,7 +12,7 @@
   export let touchPoint: DeployedTouchPoint;
 
   // variables
-  let basics = touchPoint.basics.find((item) => item.language == $language);
+  $: basics = touchPoint.basics.find((item) => item.language == $language);
   let hovered: boolean = false;
   let displayManualInput: 'none' | 'flex' = 'none';
   let displayTouchPointDescription: 'none' | 'flex' = 'none';

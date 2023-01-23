@@ -51,7 +51,7 @@
 
   function reset(): void {
     if (!allTouchPointsValueIsZero) {
-      strategy = Reach.setStrategy(title, market, marketData, $touchPointsBasics);
+      strategy.deployment = Reach.resetTouchPoints(strategy.deployment);
     } else {
       strategy = Reach.setStrategy(title, market, marketData, $touchPointsBasics);
       strategy.deployment = Reach.sortByName(strategy.deployment, $language);

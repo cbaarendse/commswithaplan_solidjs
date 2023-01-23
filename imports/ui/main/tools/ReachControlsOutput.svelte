@@ -37,6 +37,7 @@
 
 <div class="container">
   <menu>
+    <div>🇳🇱</div>
     <button type="button" on:click={() => dispatch('reset')}>
       {#if allTouchPointsValueIsZero}<Fa icon={faArrowRotateLeft} size={iconSize} />{:else}<Fa
           icon={fa0}
@@ -57,6 +58,8 @@
       {#if showAll}<Fa icon={faMinus} size={iconSize} />{:else}<Fa icon={faBars} size={iconSize} />{/if}
     </button>
   </menu>
+</div>
+<div class="container">
   <label on:click|preventDefault|stopPropagation={() => showOutputDescription('total_reach')}>
     <span>
       {Convert.translate('total', $translations, $language)}&nbsp;{Convert.translate(
