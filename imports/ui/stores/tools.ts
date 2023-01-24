@@ -2,7 +2,7 @@
 import {writable, Writable, readable, Readable} from 'svelte/store';
 
 // interfaces
-import type {Content, Color, Actionable, Chapter, TouchPointBasics} from '../types/types';
+import {Content, Color, Actionable, Chapter, TouchPointBasics, Market, AgeGroup, Genders} from '../types/types';
 
 export const toolsHomeItems: Readable<(Content & Color & Actionable)[]> = readable(
   [
@@ -50,6 +50,77 @@ export const toolsHomeItems: Readable<(Content & Color & Actionable)[]> = readab
   () => {
     () => {
       console.log('Tools Home Items closed');
+    };
+  }
+);
+
+export const markets = readable<Market[]>(
+  [
+    {
+      name: 'nl',
+      flag: '🇳🇱',
+      displayNames: [
+        {language: 'english', displayName: 'The Netherlands'},
+        {language: 'dutch', displayName: 'Nederland'}
+      ]
+    },
+    {
+      name: 'uk',
+      flag: '🇬🇧',
+      displayNames: [
+        {language: 'english', displayName: 'United Kingdom'},
+        {language: 'dutch', displayName: 'Verenigd Koninkrijk'}
+      ]
+    },
+    {
+      name: 'gb',
+      flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿🏴󠁧󠁢󠁳󠁣󠁴󠁿',
+      displayNames: [
+        {language: 'english', displayName: 'Great-Britain'},
+        {language: 'dutch', displayName: 'Groot-Brittannië'}
+      ]
+    },
+    {
+      name: 'en',
+      flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿',
+      displayNames: [
+        {language: 'english', displayName: 'England'},
+        {language: 'dutch', displayName: 'Engeland'}
+      ]
+    },
+    {
+      name: 'be',
+      flag: '🇧🇪',
+      displayNames: [
+        {language: 'english', displayName: 'Belgium'},
+        {language: 'dutch', displayName: 'België'}
+      ]
+    }
+  ],
+  () => {
+    () => {
+      console.log('Markets closed');
+    };
+  }
+);
+export const genders = readable<Genders>({f: false, m: false, x: false}, () => {
+  () => {
+    console.log('Genders closed');
+  };
+});
+
+export const ageGroups = readable<AgeGroup[]>(
+  [
+    [9, 11],
+    [12, 19],
+    [20, 34],
+    [35, 49],
+    [50, 64],
+    [65, '+']
+  ],
+  () => {
+    () => {
+      console.log('Age Groups closed');
     };
   }
 );

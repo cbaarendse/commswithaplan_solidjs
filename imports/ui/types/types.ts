@@ -1,3 +1,7 @@
+// imports
+import {Mongo} from 'meteor/mongo';
+import GenderButton from '../main/tools/GenderButton.svelte';
+
 // global
 declare global {
   interface Window {
@@ -21,6 +25,44 @@ export type DeployedTouchPoint = TouchPointBasics & {
   show: boolean;
   inputType?: 'contacts' | 'grps' | 'impressions' | 'reach';
 };
+export type Market = {
+  name: 'nl' | 'uk' | 'gb' | 'en' | 'be';
+  flag: string;
+  displayNames: {language: string; displayName: string}[];
+};
+export type AgeGroup = [number, number | string];
+
+export interface Genders {
+  m: boolean;
+  f: boolean;
+  x: boolean;
+}
+export interface Strategy {
+  _id?: string | Mongo.ObjectID;
+  title?: string;
+  marketData?: boolean;
+  market: Market;
+  createdAt: Date;
+  lastChanged: Date;
+  deployment: DeployedTouchPoint[];
+  overlap: number;
+  totalReach: number;
+  // Only required when marketData (population & probabilities) true
+  userId?: string | Mongo.ObjectID;
+  ageStart?: number;
+  ageEnd?: number;
+  ageGroupStart?: AgeGroup;
+  ageGroupEnd?: AgeGroup;
+  genders: Genders;
+  peopleInAgeRange?: number;
+  respondentsCount?: number;
+  reachedNonUnique?: number;
+  reachedUnique?: number;
+  companyId?: string | {[key: string]: string};
+  brand?: string;
+  product?: string;
+}
+
 export type Week = {name: string; days: number; monday: string};
 export type Month = {name: string; days: number};
 export type Year = {name: string; days: number};

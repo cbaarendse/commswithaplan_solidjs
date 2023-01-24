@@ -2,12 +2,12 @@
   // imports
   import {createEventDispatcher} from 'svelte';
   import {language, translations} from '../../stores/utils';
-  import {definitions} from '../../stores/tools';
-  import type {Content} from '../../types/types';
-  import type {Strategy} from '/imports/api/strategies/strategies';
+  import {markets, genders, ageGroups, definitions} from '../../stores/tools';
+  import type {Content, Strategy, AgeGroup} from '../../types/types';
+  import {Convert, Format} from '../../types/classes';
+  import MarketSelect from './MarketSelect.svelte';
   import ReachOutputMeter from './ReachOutputMeter.svelte';
   import Modal from '../../reusable/Modal.svelte';
-  import {Convert, Format} from '../../types/classes';
   import Fa from 'svelte-fa/src/fa.svelte';
   import {
     faArrowRotateLeft,
@@ -17,6 +17,8 @@
     faBars,
     faMinus
   } from '@fortawesome/free-solid-svg-icons';
+  import GenderButton from './GenderButton.svelte';
+  import AgeGroupSelect from './AgeGroupSelect.svelte';
 
   // variables
   const dispatch = createEventDispatcher();
@@ -24,6 +26,16 @@
   let output: Content = $definitions[0];
   let iconSize = '100%';
   export let strategy: Strategy;
+
+  strategy.market = $markets[0];
+  strategy.genders = $genders;
+  strategy.ageGroupStart = $ageGroups[0];
+  strategy.ageGroupEnd = $ageGroups[5];
+  $: {
+    console.log('strategy.market ', strategy.market.name);
+    console.log('strategy.genders ', strategy.genders);
+    console.log('strategy.ageGroups ', strategy.ageGroupStart, ' - ', strategy.ageGroupStart);
+  }
   export let allTouchPointsValueIsZero: boolean;
   export let sortedByName: boolean;
   export let showAll: boolean;
@@ -37,7 +49,11 @@
 
 <div class="container">
   <menu>
-    <div>🇳🇱</div>
+    <MarketSelect bind:market={strategy.market} markets={$markets} />
+    <GenderButton genders={$genders} />
+    <AgeGroupSelect bind:ageGroup={strategy.ageGroupStart} ageGroups={$ageGroups} />
+    <AgeGroupSelect bind:ageGroup={strategy.ageGroupEnd} ageGroups={$ageGroups} />
+
     <button type="button" on:click={() => dispatch('reset')}>
       {#if allTouchPointsValueIsZero}<Fa icon={faArrowRotateLeft} size={iconSize} />{:else}<Fa
           icon={fa0}

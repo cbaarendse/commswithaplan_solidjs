@@ -8,14 +8,11 @@
   import {Reach} from '../../types/classes';
   import {language} from '../../stores/utils';
   import {touchPointsBasics} from '../../stores/tools';
-  import type {DeployedTouchPoint} from '../../types/types';
-  import type {Strategy} from '/imports/api/strategies/strategies';
+  import type {Strategy} from '../../types/types';
 
   // variables
   let title: string = 'New Strategy';
-  let marketData = false;
-  let market: 'nl' | 'uk' | 'gb' | 'en' | 'be' = 'nl';
-  let strategy: Strategy = Reach.setStrategy(title, market, marketData, $touchPointsBasics);
+  let strategy: Strategy = Reach.setStrategy(title, $touchPointsBasics);
   let sortedByName = true;
   $: allTouchPointsValueIsZero = Reach.areAllTouchPointsValueZero(strategy.deployment);
   $: showAll = Reach.isShowAll(strategy.deployment);

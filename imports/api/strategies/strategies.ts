@@ -2,7 +2,7 @@
 import {Meteor} from 'meteor/meteor';
 import {Mongo} from 'meteor/mongo';
 import {MARKETS} from '../../both/constants';
-import type {DeployedTouchPoint} from '/imports/ui/types/types';
+import type {DeployedTouchPoint, Market} from '/imports/ui/types/types';
 
 //= ====== STRATEGIES == DEFINITIONS ==================
 const Strategies = new Mongo.Collection('strategies');
@@ -71,40 +71,6 @@ interface TouchPointInPlan {
   inputType?: 'contacts' | 'grps' | 'impressions' | 'reach';
   value: number;
   show: boolean;
-}
-enum AgeGroup {
-  '9 - 11' = 0,
-  '12 - 19' = 1,
-  '20 - 34' = 2,
-  '35 - 49' = 3,
-  '50 - 64' = 4,
-  '65 plus' = 5
-}
-export interface Strategy {
-  _id?: string | Mongo.ObjectID;
-  title?: string;
-  marketData: boolean;
-  market: 'nl' | 'gb' | 'uk' | 'en' | 'be';
-  createdAt: Date;
-  lastChanged: Date;
-  deployment: DeployedTouchPoint[];
-  overlap: number;
-  totalReach: number;
-  // Only required when marketData (population & probabilities) true
-  userId?: string | Mongo.ObjectID;
-  ageStart?: number;
-  ageEnd?: number;
-  ageGroupStart?: AgeGroup;
-  ageGroupEnd?: AgeGroup;
-  female?: boolean;
-  male?: boolean;
-  peopleInAgeRange?: number;
-  respondentsCount?: number;
-  reachedNonUnique?: number;
-  reachedUnique?: number;
-  companyId?: string | {[key: string]: string};
-  brand?: string;
-  product?: string;
 }
 
 // schema

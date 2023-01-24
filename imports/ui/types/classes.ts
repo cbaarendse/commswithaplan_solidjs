@@ -170,17 +170,11 @@ export class Reach {
     );
   }
 
-  static setStrategy(
-    title: string,
-    market: 'nl' | 'gb' | 'uk' | 'en' | 'be',
-    marketData: boolean,
-    touchPointsBasics: TouchPointBasics[],
-    user?: string | Mongo.ObjectID
-  ) {
+  static setStrategy(title: string, touchPointsBasics: TouchPointBasics[], user?: string | Mongo.ObjectID) {
     return {
       title: title,
-      marketData: marketData,
-      market: market,
+      marketData: undefined,
+      market: undefined,
       createdAt: new Date(),
       lastChanged: new Date(),
       deployment: this.setTouchPointsForPlan(touchPointsBasics),
@@ -192,8 +186,7 @@ export class Reach {
       ageEnd: undefined,
       ageGroupStart: undefined,
       ageGroupEnd: undefined,
-      female: undefined,
-      male: undefined,
+      genders: undefined,
       peopleInAgeRange: undefined,
       respondentsCount: undefined,
       reachedNonUnique: undefined,
