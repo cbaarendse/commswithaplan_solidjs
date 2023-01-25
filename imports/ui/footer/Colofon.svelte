@@ -1,13 +1,14 @@
 <script lang="ts">
   // imports
   import {language, translations} from '../stores/utils';
-  import {Convert} from '../typings/classes';
+  import createConverter from '../functions/convert';
   import Fa from 'svelte-fa/src/fa.svelte';
   import {faCookie, faCookieBite} from '@fortawesome/free-solid-svg-icons';
 
   // variables
   let disabled = false;
   let buttonFontSize: string = '1.2em';
+  const converter = createConverter();
   let wholeCookie: boolean = true;
   //functions
   const biteCookie = function () {
@@ -22,7 +23,7 @@
   <span>© 2013-2023 Comms With A Plan</span>
   <nav>
     <a href="/consultancy/contact">Contact</a>
-    <a href="/legal/termsandconditions">{Convert.translate('legal', $translations, $language)}</a>
+    <a href="/legal/termsandconditions">{converter.translate('legal', $translations, $language)}</a>
   </nav>
   <menu>
     <button

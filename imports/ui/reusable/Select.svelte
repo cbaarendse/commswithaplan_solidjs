@@ -1,7 +1,7 @@
 <script lang="ts">
   // imports
   import {createEventDispatcher} from 'svelte';
-  import {Convert} from '../typings/classes';
+  import createConverter from '../functions/convert';
   import type {Select} from '../typings/types';
   import {language, translations} from '../stores/utils';
 
@@ -11,6 +11,7 @@
   export let displayName: string;
 
   //variables
+  const converter = createConverter();
 
   // functions
   const dispatch = createEventDispatcher();
@@ -30,7 +31,7 @@
     on:blur|preventDefault|stopPropagation={selectOption}
   >
     {#each selectList as option (option.id)}
-      <option value={option.name}>{Convert.translate(option.name, $translations, $language) || option.value}</option>
+      <option value={option.name}>{converter.translate(option.name, $translations, $language) || option.value}</option>
     {/each}
   </select>
 </form>

@@ -4,19 +4,7 @@
   import {slide} from 'svelte/transition';
   import Checkbox from '../reusable/Checkbox.svelte';
   import {language, consentFooterVisible} from '../stores/utils';
-  import {Cookies} from '../typings/classes';
-
-  // functions
-  const closeConsentSection = function () {
-    setTimeout(() => ($consentFooterVisible = false), 700);
-  };
-  const setConsent = function (cookies: string[], consentChecked: boolean): void {
-    let cookieValue = Cookies.checkedToConsent(consentChecked);
-    cookies.forEach((cookie) => {
-      Cookies.setCookie(cookie, cookieValue, 7, document);
-    });
-    closeConsentSection();
-  };
+  import createCookieManager from '../functions/cookies';
 
   // variables
   let disabled = false;
@@ -26,27 +14,28 @@
     '_commswithaplan_analytics_storage',
     '_commswithaplan_personalization_storage'
   ];
+  const cookieManager = createCookieManager();
   // check for all 2 persistent consent cookies
   $: persistentCookiesComplete = persistentCookies.every((cookie) => {
-    Cookies.checkCookie(cookie, document);
+    cookieManager.checkCookie(cookie, document);
   });
 
   // check for all 3 dynamic consent cookies
   $: dynamicCookiesComplete = dynamicCookies.every((cookie) => {
-    Cookies.checkCookie(cookie, document);
+    cookieManager.checkCookie(cookie, document);
   });
 
   // set check for persistent cookies
   $: persistent_cookies_checked = persistentCookiesComplete
     ? persistentCookies.every((cookie) => {
-        Cookies.consentToChecked(Cookies.getCookie(cookie, document));
+        cookieManager.consentToChecked(cookieManager.getCookie(cookie, document));
       })
     : true;
 
   // set check for dynamic cookies, based on existing cookie settings. If one or more fail, set to false
   $: dynamic_cookies_checked = dynamicCookiesComplete
     ? dynamicCookies.every((cookie) => {
-        Cookies.consentToChecked(Cookies.getCookie(cookie, document));
+        cookieManager.consentToChecked(cookieManager.getCookie(cookie, document));
       })
     : false;
 
@@ -59,6 +48,17 @@
 
   // update dynamic cookies on change by user
   $: setConsent(dynamicCookies, dynamic_cookies_checked);
+  // functions
+  function closeConsentSection() {
+    setTimeout(() => ($consentFooterVisible = false), 700);
+  }
+  function setConsent(cookies: string[], consentChecked: boolean): void {
+    let cookieValue = cookieManager.checkedToConsent(consentChecked);
+    cookies.forEach((cookie) => {
+      cookieManager.setCookie(cookie, cookieValue, 7, document);
+    });
+    closeConsentSection();
+  }
 </script>
 
 {#if $consentFooterVisible}

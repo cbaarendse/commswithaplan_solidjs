@@ -7,36 +7,45 @@ import isoWeek from 'dayjs/plugin/isoWeek';
 dayjs.extend(isoWeek, advancedFormat);
 
 // class
-export default class Format {
-  static capitalizeAndSplit(str: string): string {
+export default function createFormatter() {
+  function capitalizeAndSplit(str: string): string {
     str = str[0].toUpperCase() + str.slice(1);
     str = str.split(/(?=[A-Z])/).join(' ');
     return str;
   }
 
-  static latinizeAndJoin(str: string): string {
+  function latinizeAndJoin(str: string): string {
     str = str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
     str = str.split(' ').join('');
     str = str.toLowerCase();
     return str;
   }
 
-  static toStringFormat(value: number): string {
+  function toStringFormat(value: number): string {
     return value.toLocaleString();
   }
 
-  static percentFixed(input: number, digits: number): string {
+  function percentFixed(input: number, digits: number): string {
     return (input / 100).toFixed(digits);
   }
-  static toDateFormat(date: Date): string {
+  function toDateFormat(date: Date): string {
     return dayjs(date).format('DD-MMM-YYYY');
   }
-  static toNumberFormat(value: number, digits: number): string {
+  function toNumberFormat(value: number, digits: number): string {
     return `${value.toLocaleString(undefined, {maximumFractionDigits: digits})}`;
   }
 
-  static toCurrencySymbol(currency: string): string {
+  function toCurrencySymbol(currency: string): string {
     const symbol = currency === 'EUR' ? '€' : currency === 'GBP' ? '£' : currency === 'USD' ? '$' : '?';
     return `${symbol}`;
   }
+  return {
+    capitalizeAndSplit,
+    latinizeAndJoin,
+    toStringFormat,
+    percentFixed,
+    toDateFormat,
+    toNumberFormat,
+    toCurrencySymbol
+  };
 }

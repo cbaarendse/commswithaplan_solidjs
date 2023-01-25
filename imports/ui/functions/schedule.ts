@@ -3,12 +3,12 @@
 import dayjs from 'dayjs';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
 import isoWeek from 'dayjs/plugin/isoWeek';
-import {Month, Week, Year} from './types';
+import {Month, Week, Year} from '../typings/types';
 dayjs.extend(isoWeek, advancedFormat);
 
 // class
-export default class Schedule {
-  static assembleYears(start: Date, end: Date): Year[] {
+export default function Scheduler() {
+  function assembleYears(start: Date, end: Date): Year[] {
     const years = [];
     const calendarDaysInFirstYear = dayjs(start).endOf('year').diff(dayjs(start).startOf('year'), 'days') + 1;
     const scheduledDaysInFirstYear = dayjs(start).endOf('year').diff(dayjs(start).startOf('month'), 'days') + 1;
@@ -30,7 +30,7 @@ export default class Schedule {
     return years;
   }
 
-  static assembleMonths(start: Date, end: Date): Month[] {
+  function assembleMonths(start: Date, end: Date): Month[] {
     const months = [];
     for (let current = dayjs(start); current.isBefore(dayjs(end).add(1, 'months'), 'month'); current.add(1, 'months')) {
       const scheduleDays = dayjs(current).daysInMonth();
@@ -44,7 +44,7 @@ export default class Schedule {
     return months;
   }
 
-  static assembleWeeks(start: Date, end: Date): Week[] {
+  function assembleWeeks(start: Date, end: Date): Week[] {
     const weeks = [];
     const dayOne = dayjs(start).startOf('month');
     for (
@@ -64,11 +64,12 @@ export default class Schedule {
     return weeks;
   }
 
-  static calculatePreambleDays(start: Date): number {
+  function calculatePreambleDays(start: Date): number {
     const dayOne = dayjs(start).startOf('month');
     const preambleDays = dayjs(start).startOf('month').diff(dayOne.startOf('isoWeek'), 'days');
     console.log('preambleDays:', preambleDays, dayjs(start).startOf('month'), dayOne.startOf('isoWeek'));
     /* Preamble width is 2 units per day plus one to align with the right border of the first week */
     return preambleDays;
   }
+  return {assembleYears, assembleMonths, assembleWeeks, calculatePreambleDays};
 }

@@ -1,32 +1,31 @@
 <script lang="ts">
   // imports
-  import {cubicInOut} from 'svelte/easing';
-  import {fade} from 'svelte/transition';
-  import {Tweened, tweened} from 'svelte/motion';
-  import type {Strategy} from '../../typings/types';
+  import {strategy} from '../../stores/tools';
   import Fa from 'svelte-fa/src/fa.svelte';
-  import {faPersonHalfDress, faPerson, faPersonDress} from '@fortawesome/free-solid-svg-icons';
+  import {faPerson, faPersonDress} from '@fortawesome/free-solid-svg-icons';
   // variables
   let disabled = false;
-  const coefficient: Tweened<number> = tweened(0, {easing: cubicInOut});
 
   // exports
-  $: genders = {f: false, m: false, x: false};
 
   // functions
   const combineGenders = function () {
-    console.log('genders in combineGenders()', genders);
-    if (!genders.f && !genders.m && !genders.x) {
-      return {f: true, m: false, x: false};
-    }
-    if (genders.f && !genders.m && !genders.x) {
-      return {f: false, m: true, x: false};
-    }
-    if (!genders.f && genders.m && !genders.x) {
-      return {f: true, m: true, x: false};
-    }
-    if (genders.f && genders.m && !genders.x) {
-      return {f: false, m: false, x: false};
+    console.log('genders in combineGenders()', $strategy.genders);
+    if ($strategy.genders) {
+      let f = $strategy.genders.f;
+      let m = $strategy.genders.m;
+      if (f == false && m == false) {
+        $strategy.genders = {f: true, m: false, x: false};
+      }
+      if (f == true && m == false) {
+        $strategy.genders = {f: false, m: true, x: false};
+      }
+      if (f == false && m == true) {
+        $strategy.genders = {f: true, m: true, x: false};
+      }
+      if (f == true && m == true) {
+        $strategy.genders = {f: false, m: false, x: false};
+      }
     }
   };
 </script>
@@ -38,8 +37,8 @@
   {disabled}
   on:click|preventDefault|stopPropagation={combineGenders}
 >
-  <Fa icon={faPersonDress} size="4rem" color={genders.f ? 'var(--ra-red)' : 'var(--ra-grey-light'} />
-  <Fa icon={faPerson} size="4rem" color={genders.m ? 'var(--ra-red)' : 'var(--ra-grey-light'} />
+  <Fa icon={faPersonDress} size="4rem" color={$strategy.genders?.f ? 'var(--ra-red)' : 'var(--ra-grey-light'} />
+  <Fa icon={faPerson} size="4rem" color={$strategy.genders?.m ? 'var(--ra-red)' : 'var(--ra-grey-light'} />
 </button>
 
 <style>

@@ -4,8 +4,8 @@
 import {Roles} from 'meteor/alanning:roles';
 
 // class
-export class Authorization {
-  static mayChange(touchPointName: string, userId: string, companyId: string): boolean {
+export default function createAuthorizationManager() {
+  function mayChange(touchPointName: string, userId: string, companyId: string): boolean {
     // This check happens just for the ui, real authorisation check happens in validated methods.
     if (
       Roles.userIsInRole(userId, ['owner', 'companyAdmin', touchPointName], companyId) ||
@@ -16,7 +16,7 @@ export class Authorization {
     return false;
   }
 
-  static maySeeDatesForCompany(userId: string, companyId?: string): boolean {
+  function maySeeDatesForCompany(userId: string, companyId?: string): boolean {
     // Client based check for more relevant presentation
     return (
       Roles.userIsInRole(userId, 'dates', companyId) ||
@@ -25,7 +25,7 @@ export class Authorization {
     );
   }
 
-  static maySeeInputForCompany(userId: string, companyId?: string): boolean {
+  function maySeeInputForCompany(userId: string, companyId?: string): boolean {
     // Client based check for more relevant presentation
     return (
       Roles.userIsInRole(userId, 'input', companyId) ||
@@ -34,7 +34,7 @@ export class Authorization {
     );
   }
 
-  static maySeeCostsForCompany(userId: string, companyId?: string): boolean {
+  function maySeeCostsForCompany(userId: string, companyId?: string): boolean {
     // Client based check for more relevant presentation
     return (
       Roles.userIsInRole(userId, 'costs', companyId) ||
@@ -43,7 +43,7 @@ export class Authorization {
     );
   }
 
-  static mayChangeTouchPointForCompany(userId: string, touchPoint: string | string[], companyId?: string): boolean {
+  function mayChangeTouchPointForCompany(userId: string, touchPoint: string | string[], companyId?: string): boolean {
     // Client based check for more relevant presentation
     return (
       Roles.userIsInRole(userId, touchPoint, companyId) ||
@@ -51,4 +51,11 @@ export class Authorization {
       Roles.userIsInRole(userId, 'admin', Roles.GLOBAL_GROUP)
     );
   }
+  return {
+    mayChange,
+    maySeeDatesForCompany,
+    maySeeInputForCompany,
+    maySeeCostsForCompany,
+    mayChangeTouchPointForCompany
+  };
 }

@@ -1,11 +1,12 @@
 <script lang="ts">
   // imports
   import type {DeployedTouchPoint} from '../../typings/types';
-  import {Convert, Format} from '../../typings/classes';
   import ReachRangeInput from './ReachRangeInput.svelte';
   import Modal from '../../reusable/Modal.svelte';
   import ReachNumberInput from './ReachNumberInput.svelte';
   import {language, translations} from '../../stores/utils';
+  import createFormatter from '../../functions/format';
+  import createConverter from '../../functions/convert';
   //import {notify} from '../../notifications/NotificationsFunctions';
 
   // exports
@@ -13,8 +14,10 @@
 
   // variables
   $: basics = touchPoint.basics.find((item) => item.language == $language);
+  const formatter = createFormatter();
+  const converter = createConverter();
   let hovered: boolean = false;
-  let displayManualInput: 'none' | 'flex' = 'none';
+  let displayManualInput: string;
   let displayTouchPointDescription: 'none' | 'flex' = 'none';
 
   // functions
@@ -44,8 +47,6 @@
         max: '100',
         step: '1'
       }}
-      on:changeValueForName
-      on:inputValueForName
     />
   </div>
   <div class="right">
@@ -56,7 +57,7 @@
         displayTouchPointDescription = 'none';
       }}
     >
-      <span>{Format.toStringFormat(touchPoint.value)}&nbsp;%</span>
+      <span>{formatter.toStringFormat(touchPoint.value)}&nbsp;%</span>
     </button>
   </div>
   <Modal
@@ -77,6 +78,7 @@
   >
     <ReachNumberInput
       displayName={basics?.displayName}
+      {displayManualInput}
       numberInput={{
         name: touchPoint.name,
         id: touchPoint.name,
@@ -85,12 +87,9 @@
         max: 100,
         step: 1,
         fontSize: '1em',
-        placeholder: `${Convert.translate('input', $translations, $language) + ' 0 - 100'}`,
+        placeholder: `${converter.translate('input', $translations, $language) + ' 0 - 100'}`,
         readonly: false
       }}
-      on:submitValueForName
-      on:submitValueForName={() => (displayManualInput = 'none')}
-      on:submitCancel={() => (displayManualInput = 'none')}
     />
   </Modal>
 </div>

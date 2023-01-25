@@ -1,15 +1,16 @@
 <script lang="ts">
   // imports
-  import {createEventDispatcher} from 'svelte';
   import {language} from '../../stores/utils';
   import type {Input} from '../../typings/types';
-
+  import createReachTool from '../../functions/reachtool';
+  import {markets, strategy} from '../../stores/tools';
   // exports
   export let numberInput: Input;
   export let displayName: string = 'touchpoint_name';
+  export let displayManualInput = 'flex';
 
   // variables
-  let dispatch = createEventDispatcher();
+  const reachTool = createReachTool($markets[0]);
   $: disabled = isValid(numberInput) ? false : true;
 
   // functions
@@ -26,10 +27,23 @@
     return i.value >= i.min && i.value <= i.max;
   }
   function submitValue() {
-    dispatch('submitValueForName', {name: numberInput.name, value: numberInput.value});
+    if (numberInput.name && typeof numberInput.value == 'number') {
+      $strategy.deployment = reachTool.updateDeployedTouchPoint(
+        numberInput.name,
+        numberInput.value,
+        $strategy.deployment
+      );
+      getResults();
+    }
   }
+
   function submitCancel() {
-    dispatch('submitCancel');
+    displayManualInput = 'none';
+  }
+
+  function getResults(): void {
+    const results = reachTool.calculateResults($strategy.deployment);
+    [$strategy.totalReach, $strategy.overlap] = results;
   }
 </script>
 
@@ -52,13 +66,13 @@
     type="submit"
     value={$language === 'dutch' ? 'Verstuur' : 'Submit'}
     {disabled}
-    on:click|preventDefault|stopPropagation={submitValue}
+    on:click|preventDefault|stopPropagation={() => submitValue}
   />
   <input
     class="cancel__button"
     type="submit"
     value={$language === 'dutch' ? 'Annuleer' : 'Cancel'}
-    on:click|preventDefault|stopPropagation={submitCancel}
+    on:click|preventDefault|stopPropagation={() => submitCancel}
   />
 </form>
 

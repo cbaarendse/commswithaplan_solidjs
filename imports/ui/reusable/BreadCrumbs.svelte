@@ -3,10 +3,11 @@
   import {meta, TinroRouteMeta, active} from 'tinro';
   import LogoReach from './LogoReach.svelte';
   import {language, translations} from '../stores/utils';
-  import {Convert} from '../typings/classes';
+  import createConverter from '../functions/convert';
 
   // variables
   let route: TinroRouteMeta = meta();
+  const converter = createConverter();
 
   // functions
 </script>
@@ -43,7 +44,7 @@
           <li><span>&gt;</span></li>
           <li>
             <a href={breadcrumb.path} data-exact use:active>
-              <span>{Convert.translate(breadcrumb.name, $translations, $language)}</span>
+              <span>{converter.translate(breadcrumb.name, $translations, $language)}</span>
             </a>
           </li>
         {:else}

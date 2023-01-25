@@ -1,18 +1,38 @@
 <script lang="ts">
   // imports
-  import {createEventDispatcher} from 'svelte';
   import type {Input} from '../../typings/types';
+  import {markets, strategy} from '../../stores/tools';
+  import createReachTool from '../../functions/reachtool';
 
   //variables
-  let dispatch = createEventDispatcher();
+  const reachTool = createReachTool($markets[0]);
   export let rangeInput: Input;
   export let displayName: string = 'touchpoint_name';
 
+  // functions
   function changeValue() {
-    dispatch('changeValueForName', {name: rangeInput.name, value: rangeInput.value});
+    if (rangeInput.name && typeof rangeInput.value == 'number') {
+      $strategy.deployment = reachTool.updateDeployedTouchPoint(
+        rangeInput.name,
+        rangeInput.value,
+        $strategy.deployment
+      );
+    }
   }
   function inputValue() {
-    dispatch('inputValueForName', {name: rangeInput.name, value: rangeInput.value});
+    if (rangeInput.name && typeof rangeInput.value == 'number') {
+      $strategy.deployment = reachTool.updateDeployedTouchPoint(
+        rangeInput.name,
+        rangeInput.value,
+        $strategy.deployment
+      );
+    }
+    getResults();
+  }
+
+  function getResults(): void {
+    const results = reachTool.calculateResults($strategy.deployment);
+    [$strategy.totalReach, $strategy.overlap] = results;
   }
 </script>
 

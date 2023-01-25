@@ -1,6 +1,7 @@
 <script lang="ts">
   // imports
   import type {AgeGroup} from '../../typings/types';
+  import {strategy} from '../../stores/tools';
 
   //variables
 

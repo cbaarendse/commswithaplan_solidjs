@@ -1,13 +1,17 @@
 <script lang="ts">
   // imports
-  import {createEventDispatcher} from 'svelte';
-  import {language, translations} from '../../stores/utils';
-  import {markets, genders, ageGroups, definitions} from '../../stores/tools';
-  import type {Content, Strategy, AgeGroup} from '../../typings/types';
-  import {Convert, Format} from '../../typings/classes';
+  import GenderButton from './GenderButton.svelte';
+  import AgeGroupSelect from './AgeGroupSelect.svelte';
+  import Checkbox from '../../reusable/Checkbox.svelte';
   import MarketSelect from './MarketSelect.svelte';
   import ReachOutputMeter from './ReachOutputMeter.svelte';
   import Modal from '../../reusable/Modal.svelte';
+  import createConverter from '../../functions/convert';
+  import createReachTool from '../../functions/reachtool';
+  import createFormatter from '../../functions/format';
+  import {language, translations} from '../../stores/utils';
+  import {markets, genders, ageGroups, definitions, strategy} from '../../stores/tools';
+  import type {Content} from '../../typings/types';
   import Fa from 'svelte-fa/src/fa.svelte';
   import {
     faArrowRotateLeft,
@@ -17,52 +21,70 @@
     faBars,
     faMinus
   } from '@fortawesome/free-solid-svg-icons';
-  import GenderButton from './GenderButton.svelte';
-  import AgeGroupSelect from './AgeGroupSelect.svelte';
-  import Checkbox from '../../reusable/Checkbox.svelte';
 
   // variables
-  const dispatch = createEventDispatcher();
+  const reachTool = createReachTool($markets[0]);
+  const converter = createConverter();
+  const formatter = createFormatter();
   let displayOutputDescription: 'none' | 'flex' = 'none';
   let output: Content = $definitions[0];
   let iconSize = '100%';
-  export let strategy: Strategy;
 
-  strategy.market = $markets[0];
-  strategy.genders = $genders;
-  strategy.ageGroupStart = $ageGroups[0];
-  strategy.ageGroupEnd = $ageGroups[5];
+  $: allTouchPointsValueIsZero = reachTool.areAllTouchPointsValueZero($strategy.deployment);
+  let sortedByName = true;
+  $: showAll = reachTool.isShowAll($strategy.deployment);
   $: {
-    console.log('strategy.market ', strategy.market.name);
-    console.log('strategy.genders ', strategy.genders);
-    console.log('strategy.ageGroups ', strategy.ageGroupStart, ' - ', strategy.ageGroupStart);
+    console.log('strategy: ', $strategy);
   }
-  export let allTouchPointsValueIsZero: boolean;
-  export let sortedByName: boolean;
-  export let showAll: boolean;
-
   // functions
   function showOutputDescription(outputName: string) {
     displayOutputDescription = 'flex';
     output = $definitions.filter((definition) => definition.name === outputName)[0];
   }
+
+  function reset(): void {
+    if (!allTouchPointsValueIsZero) {
+      $strategy.deployment = reachTool.setAllTouchPointsToZero($strategy.deployment);
+    } else {
+      $strategy = reachTool.setNewStrategy('New Strategy', false);
+      $strategy.deployment = reachTool.sortByName($strategy.deployment, $language);
+      sortedByName = true;
+    }
+    const results = [0, 0];
+    [$strategy.totalReach, $strategy.overlap] = results;
+  }
+
+  function sortBy(): void {
+    $strategy.deployment = sortedByName
+      ? reachTool.sortByReach($strategy.deployment)
+      : reachTool.sortByName($strategy.deployment, $language);
+    sortedByName = showAll && allTouchPointsValueIsZero ? true : !sortedByName;
+  }
+
+  function hideIf(): void {
+    if (showAll && !allTouchPointsValueIsZero) {
+      $strategy.deployment = reachTool.hide($strategy.deployment);
+    } else if (!showAll || allTouchPointsValueIsZero) {
+      $strategy.deployment = reachTool.show($strategy.deployment);
+    }
+  }
 </script>
 
 <div class="container">
   <menu>
-    <MarketSelect bind:market={strategy.market} markets={$markets} />
-    <Checkbox cbx={{}} checked={strategy.marketData ? strategy.marketData : false} displayName={''} />
+    <MarketSelect bind:market={$strategy.market} markets={$markets} />
+    <Checkbox cbx={{}} checked={$strategy.marketData ? $strategy.marketData : false} displayName={''} />
     <GenderButton genders={$genders} />
-    <AgeGroupSelect bind:ageGroup={strategy.ageGroupStart} ageGroups={$ageGroups} />
-    <AgeGroupSelect bind:ageGroup={strategy.ageGroupEnd} ageGroups={$ageGroups} />
+    <AgeGroupSelect bind:ageGroup={$strategy.ageGroupStart} ageGroups={$ageGroups} />
+    <AgeGroupSelect bind:ageGroup={$strategy.ageGroupEnd} ageGroups={$ageGroups} />
 
-    <button type="button" on:click={() => dispatch('reset')}>
+    <button type="button" on:click|stopPropagation|preventDefault={reset}>
       {#if allTouchPointsValueIsZero}<Fa icon={faArrowRotateLeft} size={iconSize} />{:else}<Fa
           icon={fa0}
           size={iconSize}
         />{/if}
     </button>
-    <button type="button" on:click={() => dispatch('sort')}>
+    <button type="button" on:click|stopPropagation|preventDefault={sortBy}>
       {#if sortedByName}<Fa
           icon={faArrowDownWideShort}
           size={iconSize}
@@ -72,7 +94,7 @@
         />{:else}<Fa icon={faArrowDownAZ} size={iconSize} />
       {/if}
     </button>
-    <button type="button" on:click={() => dispatch('hide')}>
+    <button type="button" on:click={hideIf}>
       {#if showAll}<Fa icon={faMinus} size={iconSize} />{:else}<Fa icon={faBars} size={iconSize} />{/if}
     </button>
   </menu>
@@ -80,31 +102,31 @@
 <div class="container">
   <label on:click|preventDefault|stopPropagation={() => showOutputDescription('total_reach')}>
     <span>
-      {Convert.translate('total', $translations, $language)}&nbsp;{Convert.translate(
+      {converter.translate('total', $translations, $language)}&nbsp;{converter.translate(
         'reach',
         $translations,
         $language
       )}:&nbsp;
     </span>
-    <output>{Format.toNumberFormat(strategy.totalReach, 0)}&nbsp;%</output>
+    <output>{formatter.toNumberFormat($strategy.totalReach, 0)}&nbsp;%</output>
   </label>
   <ReachOutputMeter
     outputMeter={{
       id: 'reach',
-      value: strategy.totalReach,
+      value: $strategy.totalReach,
       min: 0,
       max: 100
     }}
   />
 
   <label on:click|preventDefault|stopPropagation={() => showOutputDescription('overlap')}>
-    <span>{Convert.translate('overlap', $translations, $language)}:&nbsp;</span>
-    <output>{Format.toNumberFormat(strategy.overlap, 0)}&nbsp;%</output>
+    <span>{converter.translate('overlap', $translations, $language)}:&nbsp;</span>
+    <output>{formatter.toNumberFormat($strategy.overlap, 0)}&nbsp;%</output>
   </label>
   <ReachOutputMeter
     outputMeter={{
       id: 'overlap',
-      value: strategy.overlap,
+      value: $strategy.overlap,
       min: 0,
       max: 100
     }}
