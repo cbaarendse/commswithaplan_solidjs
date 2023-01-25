@@ -1,7 +1,7 @@
 <script lang="ts">
   // imports
   import DocsParagraph from './DocsParagraph.svelte';
-  import type {Chapter} from '../../types/types';
+  import type {Chapter} from '../../typings/types';
 
   // exports
   export let chapter: Chapter;

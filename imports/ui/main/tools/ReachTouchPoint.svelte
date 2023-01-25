@@ -1,7 +1,7 @@
 <script lang="ts">
   // imports
-  import type {DeployedTouchPoint} from '../../types/types';
-  import {Convert, Format} from '../../types/classes';
+  import type {DeployedTouchPoint} from '../../typings/types';
+  import {Convert, Format} from '../../typings/classes';
   import ReachRangeInput from './ReachRangeInput.svelte';
   import Modal from '../../reusable/Modal.svelte';
   import ReachNumberInput from './ReachNumberInput.svelte';

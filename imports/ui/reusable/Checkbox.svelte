@@ -1,6 +1,6 @@
 <script lang="ts">
   // imports
-  import {Checkbox} from '../types/types';
+  import {Checkbox} from '../typings/types';
 
   // variables
   export let cbx: Checkbox;

@@ -3,8 +3,8 @@
   import {createEventDispatcher} from 'svelte';
   import {language, translations} from '../../stores/utils';
   import {markets, genders, ageGroups, definitions} from '../../stores/tools';
-  import type {Content, Strategy, AgeGroup} from '../../types/types';
-  import {Convert, Format} from '../../types/classes';
+  import type {Content, Strategy, AgeGroup} from '../../typings/types';
+  import {Convert, Format} from '../../typings/classes';
   import MarketSelect from './MarketSelect.svelte';
   import ReachOutputMeter from './ReachOutputMeter.svelte';
   import Modal from '../../reusable/Modal.svelte';
@@ -19,6 +19,7 @@
   } from '@fortawesome/free-solid-svg-icons';
   import GenderButton from './GenderButton.svelte';
   import AgeGroupSelect from './AgeGroupSelect.svelte';
+  import Checkbox from '../../reusable/Checkbox.svelte';
 
   // variables
   const dispatch = createEventDispatcher();
@@ -50,6 +51,7 @@
 <div class="container">
   <menu>
     <MarketSelect bind:market={strategy.market} markets={$markets} />
+    <Checkbox cbx={{}} checked={strategy.marketData ? strategy.marketData : false} displayName={''} />
     <GenderButton genders={$genders} />
     <AgeGroupSelect bind:ageGroup={strategy.ageGroupStart} ageGroups={$ageGroups} />
     <AgeGroupSelect bind:ageGroup={strategy.ageGroupEnd} ageGroups={$ageGroups} />

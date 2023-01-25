@@ -3,7 +3,7 @@
   import {cubicInOut} from 'svelte/easing';
   import {fade} from 'svelte/transition';
   import {Tweened, tweened} from 'svelte/motion';
-  import type {Strategy} from '../../types/types';
+  import type {Strategy} from '../../typings/types';
   import Fa from 'svelte-fa/src/fa.svelte';
   import {faPersonHalfDress, faPerson, faPersonDress} from '@fortawesome/free-solid-svg-icons';
   // variables
@@ -11,23 +11,22 @@
   const coefficient: Tweened<number> = tweened(0, {easing: cubicInOut});
 
   // exports
-  export let genders: Strategy['genders'];
-  $: {
-    console.log('genders in GenderButton', genders);
-  }
+  $: genders = {f: false, m: false, x: false};
+
   // functions
   const combineGenders = function () {
+    console.log('genders in combineGenders()', genders);
     if (!genders.f && !genders.m && !genders.x) {
-      genders = {f: true, m: false, x: false};
+      return {f: true, m: false, x: false};
     }
     if (genders.f && !genders.m && !genders.x) {
-      genders = {f: false, m: true, x: false};
+      return {f: false, m: true, x: false};
     }
     if (!genders.f && genders.m && !genders.x) {
-      genders = {f: true, m: true, x: false};
+      return {f: true, m: true, x: false};
     }
     if (genders.f && genders.m && !genders.x) {
-      genders = {f: false, m: false, x: false};
+      return {f: false, m: false, x: false};
     }
   };
 </script>

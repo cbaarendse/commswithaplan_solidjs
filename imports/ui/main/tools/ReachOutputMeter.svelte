@@ -1,6 +1,6 @@
 <script lang="ts">
   // imports
-  import type {Meter} from '../../types/types';
+  import type {Meter} from '../../typings/types';
 
   // variables
   export let outputMeter: Meter;

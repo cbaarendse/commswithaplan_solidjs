@@ -1,7 +1,7 @@
 <script lang="ts">
   // imports
   import {createEventDispatcher} from 'svelte';
-  import type {Input} from '../../types/types';
+  import type {Input} from '../../typings/types';
 
   //variables
   let dispatch = createEventDispatcher();

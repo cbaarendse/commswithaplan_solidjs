@@ -1,6 +1,6 @@
 <script lang="ts">
   // imports
-  import type {Strategy} from '../../types/types';
+  import type {Strategy} from '../../typings/types';
 
   //variables
 

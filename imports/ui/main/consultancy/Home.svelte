@@ -4,7 +4,7 @@
   import Card from '../../reusable/Card.svelte';
   import {language} from '../../stores/utils';
   import {consultancyHomeItems} from '../../stores/consultancy';
-  import {Content, Color, Actionable} from '../../types/types';
+  import {Content, Color, Actionable} from '../../typings/types';
 
   // variables
   $: translatedConsultancyHomeItems = $consultancyHomeItems.filter(

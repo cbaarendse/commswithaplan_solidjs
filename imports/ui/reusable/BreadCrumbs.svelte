@@ -3,7 +3,7 @@
   import {meta, TinroRouteMeta, active} from 'tinro';
   import LogoReach from './LogoReach.svelte';
   import {language, translations} from '../stores/utils';
-  import {Convert} from '../types/classes';
+  import {Convert} from '../typings/classes';
 
   // variables
   let route: TinroRouteMeta = meta();

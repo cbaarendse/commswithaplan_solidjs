@@ -2,7 +2,7 @@
   // imports
   import {slide} from 'svelte/transition';
   import {backInOut} from 'svelte/easing';
-  import type {Accordion} from '../types/types';
+  import type {Accordion} from '../typings/types';
 
   // variables
   export let acc: Accordion;

@@ -5,10 +5,10 @@
   import ReachTouchPoint from './ReachTouchPoint.svelte';
   import {onDestroy, onMount} from 'svelte';
   import {Unsubscriber} from 'svelte/store';
-  import {Reach} from '../../types/classes';
+  import {Reach} from '../../typings/classes';
   import {language} from '../../stores/utils';
   import {touchPointsBasics} from '../../stores/tools';
-  import type {Strategy} from '../../types/types';
+  import type {Strategy} from '../../typings/types';
 
   // variables
   let title: string = 'New Strategy';

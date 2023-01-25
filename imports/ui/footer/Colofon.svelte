@@ -1,7 +1,7 @@
 <script lang="ts">
   // imports
   import {language, translations} from '../stores/utils';
-  import {Convert} from '../types/classes';
+  import {Convert} from '../typings/classes';
   import Fa from 'svelte-fa/src/fa.svelte';
   import {faCookie, faCookieBite} from '@fortawesome/free-solid-svg-icons';
 

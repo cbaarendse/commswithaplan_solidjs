@@ -4,7 +4,7 @@
   import {slide} from 'svelte/transition';
   import Checkbox from '../reusable/Checkbox.svelte';
   import {language, consentFooterVisible} from '../stores/utils';
-  import {Cookies} from '../types/classes';
+  import {Cookies} from '../typings/classes';
 
   // functions
   const closeConsentSection = function () {

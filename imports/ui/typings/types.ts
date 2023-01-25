@@ -1,6 +1,5 @@
 // imports
 import {Mongo} from 'meteor/mongo';
-import GenderButton from '../main/tools/GenderButton.svelte';
 
 // global
 declare global {
@@ -53,7 +52,7 @@ export interface Strategy {
   ageEnd?: number;
   ageGroupStart?: AgeGroup;
   ageGroupEnd?: AgeGroup;
-  genders: Genders;
+  genders?: Genders;
   peopleInAgeRange?: number;
   respondentsCount?: number;
   reachedNonUnique?: number;
