@@ -2,15 +2,15 @@
   // imports
   import {language} from '../../stores/utils';
   import type {Input} from '../../typings/types';
-  import createReachTool from '../../functions/reachtool';
-  import {markets, strategy} from '../../stores/tools';
+  import createReachTool from '../../functions/reach';
+  import {strategy} from '../../stores/tools';
   // exports
   export let numberInput: Input;
   export let displayName: string = 'touchpoint_name';
   export let displayManualInput = 'flex';
 
   // variables
-  const reachTool = createReachTool($markets[0]);
+  const reachTool = createReachTool();
   $: disabled = isValid(numberInput) ? false : true;
 
   // functions

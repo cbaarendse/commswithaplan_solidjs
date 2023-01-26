@@ -86,8 +86,14 @@ export const translations: Readable<Translation[]> = readable(
     {name: 'tools', language: 'dutch', displayName: 'Tools'},
     {name: 'total', language: 'english', displayName: 'Total'},
     {name: 'total', language: 'dutch', displayName: 'Totaal'},
+    {name: 'using_data', language: 'english', displayName: 'uses data'},
+    {name: 'using_data', language: 'dutch', displayName: 'gebruikt data'},
+    {name: 'using_formula', language: 'english', displayName: 'uses formula'},
+    {name: 'using_formula', language: 'dutch', displayName: 'gebruikt formule'},
     {name: 'work', language: 'english', displayName: 'Work'},
-    {name: 'work', language: 'dutch', displayName: 'Werk'}
+    {name: 'work', language: 'dutch', displayName: 'Werk'},
+    {name: 'year', language: 'english', displayName: 'Year'},
+    {name: 'year', language: 'dutch', displayName: 'Jaar'}
   ],
   () => {
     () => {

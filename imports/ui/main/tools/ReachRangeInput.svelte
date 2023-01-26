@@ -2,7 +2,7 @@
   // imports
   import type {Input} from '../../typings/types';
   import {markets, strategy} from '../../stores/tools';
-  import createReachTool from '../../functions/reachtool';
+  import createReachTool from '../../functions/reach';
 
   //variables
   const reachTool = createReachTool($markets[0]);

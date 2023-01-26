@@ -4,7 +4,7 @@
 
   // variables
   export let cbx: Checkbox;
-  export let checked: boolean;
+  export let checked: boolean = false;
   export let displayName: string;
 </script>
 
@@ -22,6 +22,7 @@
     readonly={cbx.readonly}
     disabled={cbx.disabled}
     bind:checked
+    on:change
   />
 </form>
 

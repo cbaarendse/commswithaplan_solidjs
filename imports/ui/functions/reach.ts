@@ -3,10 +3,10 @@
 import type {TouchPointBasics, DeployedTouchPoint, Strategy, Market} from '../typings/types';
 
 // class
-export default function createReachTool(market: Market) {
+export default function createReachTool() {
   const defaultStrategy: Strategy = {
     title: undefined,
-    market: market,
+    market: undefined,
     marketData: undefined,
     createdAt: new Date(),
     lastChanged: new Date(),
@@ -29,8 +29,9 @@ export default function createReachTool(market: Market) {
     product: undefined
   };
 
-  function setNewStrategy(title: string, marketData: boolean) {
+  function setNewStrategy(title: string, market: Market, marketData: boolean) {
     defaultStrategy.title = title;
+    defaultStrategy.market = market;
     defaultStrategy.marketData = marketData;
     return defaultStrategy;
   }

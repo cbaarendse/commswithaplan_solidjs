@@ -1,20 +1,17 @@
 <script lang="ts">
   // imports
-  import type {Strategy} from '../../typings/types';
-  import {strategy} from '../../stores/tools';
+  import {strategy, markets} from '../../stores/tools';
 
   //variables
 
   // functions
 
   // exports
-  export let markets: Strategy['market'][];
-  export let market: Strategy['market'];
 </script>
 
 <form>
-  <select class="market" name="market" bind:value={market}>
-    {#each markets as thisMarket}
+  <select class="market" name="market" bind:value={$strategy.market}>
+    {#each $markets as thisMarket}
       <option value={thisMarket}>{thisMarket.flag || thisMarket.name}</option>
     {/each}
   </select>
@@ -22,9 +19,10 @@
 
 <style>
   select {
-    width: 100%;
-    margin: 7px;
+    all: unset;
+    width: auto;
+    margin: 0em 0em;
     border: none;
-    background-color: --ra-grey-bright;
+    background-color: transparent;
   }
 </style>

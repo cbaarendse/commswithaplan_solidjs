@@ -69,6 +69,14 @@ export const strategy = writable<Strategy>();
 export const markets = readable<Market[]>(
   [
     {
+      name: 'be',
+      flag: '🇧🇪',
+      displayNames: [
+        {language: 'english', displayName: 'Belgium'},
+        {language: 'dutch', displayName: 'België'}
+      ]
+    },
+    {
       name: 'nl',
       flag: '🇳🇱',
       displayNames: [
@@ -82,30 +90,6 @@ export const markets = readable<Market[]>(
       displayNames: [
         {language: 'english', displayName: 'United Kingdom'},
         {language: 'dutch', displayName: 'Verenigd Koninkrijk'}
-      ]
-    },
-    {
-      name: 'gb',
-      flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿🏴󠁧󠁢󠁳󠁣󠁴󠁿',
-      displayNames: [
-        {language: 'english', displayName: 'Great-Britain'},
-        {language: 'dutch', displayName: 'Groot-Brittannië'}
-      ]
-    },
-    {
-      name: 'en',
-      flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿',
-      displayNames: [
-        {language: 'english', displayName: 'England'},
-        {language: 'dutch', displayName: 'Engeland'}
-      ]
-    },
-    {
-      name: 'be',
-      flag: '🇧🇪',
-      displayNames: [
-        {language: 'english', displayName: 'Belgium'},
-        {language: 'dutch', displayName: 'België'}
       ]
     }
   ],
@@ -121,18 +105,45 @@ export const genders = readable<Genders>({f: false, m: false, x: false}, () => {
   };
 });
 
-export const ageGroups = readable<AgeGroup[]>(
+export const agesForMarkets = readable<{marketName: Market['name']; groups: AgeGroup[]}[]>(
   [
-    [9, 11],
-    [12, 19],
-    [20, 34],
-    [35, 49],
-    [50, 64],
-    [65, '+']
+    {
+      marketName: 'be',
+      groups: [
+        [9, 11],
+        [12, 19],
+        [20, 34],
+        [35, 49],
+        [50, 64],
+        [65, '+']
+      ]
+    },
+    {
+      marketName: 'nl',
+      groups: [
+        [9, 11],
+        [12, 19],
+        [20, 34],
+        [35, 49],
+        [50, 64],
+        [65, '+']
+      ]
+    },
+    {
+      marketName: 'uk',
+      groups: [
+        [9, 11],
+        [12, 19],
+        [20, 34],
+        [35, 49],
+        [50, 64],
+        [65, '+']
+      ]
+    }
   ],
   () => {
     () => {
-      console.log('Age Groups closed');
+      console.log('Age for Markets closed');
     };
   }
 );

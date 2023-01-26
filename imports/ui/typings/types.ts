@@ -25,7 +25,7 @@ export type DeployedTouchPoint = TouchPointBasics & {
   inputType?: 'contacts' | 'grps' | 'impressions' | 'reach';
 };
 export type Market = {
-  name: 'nl' | 'uk' | 'gb' | 'en' | 'be';
+  name: 'be' | 'nl' | 'uk';
   flag: string;
   displayNames: {language: string; displayName: string}[];
 };
@@ -40,7 +40,7 @@ export interface Strategy {
   _id?: string | Mongo.ObjectID;
   title?: string;
   marketData?: boolean;
-  market: Market;
+  market?: Market;
   createdAt: Date;
   lastChanged: Date;
   deployment: DeployedTouchPoint[];

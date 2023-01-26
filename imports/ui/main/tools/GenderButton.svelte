@@ -11,21 +11,22 @@
   // functions
   const combineGenders = function () {
     console.log('genders in combineGenders()', $strategy.genders);
-    if ($strategy.genders) {
-      let f = $strategy.genders.f;
-      let m = $strategy.genders.m;
-      if (f == false && m == false) {
-        $strategy.genders = {f: true, m: false, x: false};
-      }
-      if (f == true && m == false) {
-        $strategy.genders = {f: false, m: true, x: false};
-      }
-      if (f == false && m == true) {
-        $strategy.genders = {f: true, m: true, x: false};
-      }
-      if (f == true && m == true) {
-        $strategy.genders = {f: false, m: false, x: false};
-      }
+    if (!$strategy.genders) {
+      $strategy.genders = {f: false, m: false, x: false};
+    }
+    const f = $strategy.genders.f;
+    const m = $strategy.genders.m;
+    if (f == false && m == false) {
+      $strategy.genders = {f: true, m: false, x: false};
+    }
+    if (f == true && m == false) {
+      $strategy.genders = {f: false, m: true, x: false};
+    }
+    if (f == false && m == true) {
+      $strategy.genders = {f: true, m: true, x: false};
+    }
+    if (f == true && m == true) {
+      $strategy.genders = {f: false, m: false, x: false};
     }
   };
 </script>

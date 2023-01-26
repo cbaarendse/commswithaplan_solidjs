@@ -3,20 +3,18 @@
   import BreadCrumbs from '../../reusable/BreadCrumbs.svelte';
   import ReachControlsOutput from './ReachControlsOutput.svelte';
   import ReachTouchPoint from './ReachTouchPoint.svelte';
-  import {onDestroy, onMount} from 'svelte';
+  import {onDestroy} from 'svelte';
   import {Unsubscriber} from 'svelte/store';
-  import createReachTool from '../../functions/reachtool';
+  import createReachTool from '../../functions/reach';
   import {language} from '../../stores/utils';
   import {markets, strategy} from '../../stores/tools';
 
   // variables
-  const reachTool = createReachTool($markets[0]);
-  $strategy = reachTool.setNewStrategy('New Strategy', false);
-
-  onMount(() => ($strategy.deployment = reachTool.sortByName($strategy.deployment, $language)));
+  const reachTool = createReachTool();
+  $strategy = reachTool.setNewStrategy('New Strategy', $markets[1], false);
+  $strategy.deployment = reachTool.sortByName($strategy.deployment, $language);
 
   // functions
-
   let languageUnsubscribe: Unsubscriber = language.subscribe(() => {
     $strategy.deployment = reachTool.sortByName($strategy.deployment, $language);
   });

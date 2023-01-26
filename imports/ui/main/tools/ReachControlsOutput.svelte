@@ -7,10 +7,10 @@
   import ReachOutputMeter from './ReachOutputMeter.svelte';
   import Modal from '../../reusable/Modal.svelte';
   import createConverter from '../../functions/convert';
-  import createReachTool from '../../functions/reachtool';
+  import createReachTool from '../../functions/reach';
   import createFormatter from '../../functions/format';
   import {language, translations} from '../../stores/utils';
-  import {markets, genders, ageGroups, definitions, strategy} from '../../stores/tools';
+  import {markets, definitions, strategy} from '../../stores/tools';
   import type {Content} from '../../typings/types';
   import Fa from 'svelte-fa/src/fa.svelte';
   import {
@@ -23,7 +23,7 @@
   } from '@fortawesome/free-solid-svg-icons';
 
   // variables
-  const reachTool = createReachTool($markets[0]);
+  const reachTool = createReachTool();
   const converter = createConverter();
   const formatter = createFormatter();
   let displayOutputDescription: 'none' | 'flex' = 'none';
@@ -41,12 +41,13 @@
     displayOutputDescription = 'flex';
     output = $definitions.filter((definition) => definition.name === outputName)[0];
   }
-
+  // TODO: at change of market check for existence probabiities for that market and enable/ disable checkbox marketdata
+  // TODO: functions in createReachTool
   function reset(): void {
     if (!allTouchPointsValueIsZero) {
       $strategy.deployment = reachTool.setAllTouchPointsToZero($strategy.deployment);
     } else {
-      $strategy = reachTool.setNewStrategy('New Strategy', false);
+      $strategy = reachTool.setNewStrategy('New Strategy', $markets[1], false);
       $strategy.deployment = reachTool.sortByName($strategy.deployment, $language);
       sortedByName = true;
     }
@@ -72,12 +73,27 @@
 
 <div class="container">
   <menu>
-    <MarketSelect bind:market={$strategy.market} markets={$markets} />
-    <Checkbox cbx={{}} checked={$strategy.marketData ? $strategy.marketData : false} displayName={''} />
-    <GenderButton genders={$genders} />
-    <AgeGroupSelect bind:ageGroup={$strategy.ageGroupStart} ageGroups={$ageGroups} />
-    <AgeGroupSelect bind:ageGroup={$strategy.ageGroupEnd} ageGroups={$ageGroups} />
-
+    <MarketSelect />
+    <Checkbox
+      cbx={{name: 'marketdata__check'}}
+      bind:checked={$strategy.marketData}
+      displayName={$strategy.marketData
+        ? converter.translate('using_data', $translations, $language)
+        : converter.translate('using_formula', $translations, $language)}
+    />
+    {#if $strategy.marketData}
+      <GenderButton />
+      <AgeGroupSelect
+        ageGroup={$strategy.ageGroupStart ? $strategy.ageGroupStart : [0, '+']}
+        name="ageStart"
+        displayAge={$strategy.ageGroupStart ? $strategy.ageGroupStart : [0, '+']}
+      />
+      <AgeGroupSelect
+        ageGroup={$strategy.ageGroupStart ? $strategy.ageGroupStart : [0, '+']}
+        name="ageEnd"
+        displayAge={$strategy.ageGroupStart ? $strategy.ageGroupStart : [0, '+']}
+      />
+    {/if}
     <button type="button" on:click|stopPropagation|preventDefault={reset}>
       {#if allTouchPointsValueIsZero}<Fa icon={faArrowRotateLeft} size={iconSize} />{:else}<Fa
           icon={fa0}
