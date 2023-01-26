@@ -10,7 +10,7 @@
 </script>
 
 <form>
-  <select class="market" name="market" bind:value={$strategy.market}>
+  <select class="market" name="market" bind:value={$strategy.market} on:change>
     {#each $markets as thisMarket}
       <option value={thisMarket}>{thisMarket.flag || thisMarket.name}</option>
     {/each}

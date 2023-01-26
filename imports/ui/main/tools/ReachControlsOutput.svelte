@@ -1,9 +1,9 @@
 <script lang="ts">
   // imports
-  import GenderButton from './GenderButton.svelte';
-  import AgeGroupSelect from './AgeGroupSelect.svelte';
+  import GenderButton from './ReachGenderButton.svelte';
+  import AgeGroupSelect from './ReachAgeGroupSelect.svelte';
   import Checkbox from '../../reusable/Checkbox.svelte';
-  import MarketSelect from './MarketSelect.svelte';
+  import MarketSelect from './ReachMarketSelect.svelte';
   import ReachOutputMeter from './ReachOutputMeter.svelte';
   import Modal from '../../reusable/Modal.svelte';
   import createConverter from '../../functions/convert';
@@ -37,11 +37,18 @@
     console.log('strategy: ', $strategy);
   }
   // functions
+  function prepareNewStrategy() {
+    if ($strategy.market) {
+      reachTool.setNewStrategy('New Strategy', $strategy.market, false);
+    } else {
+      reachTool.setNewStrategy('New Strategy', $markets[1], false);
+    }
+  }
   function showOutputDescription(outputName: string) {
     displayOutputDescription = 'flex';
     output = $definitions.filter((definition) => definition.name === outputName)[0];
   }
-  // TODO: at change of market check for existence probabiities for that market and enable/ disable checkbox marketdata
+  // TODO: at change of market check for existence probabilities for that market and enable/ disable checkbox marketdata
   // TODO: functions in createReachTool
   function reset(): void {
     if (!allTouchPointsValueIsZero) {
@@ -73,10 +80,11 @@
 
 <div class="container">
   <menu>
-    <MarketSelect />
+    <MarketSelect on:change={prepareNewStrategy} />
     <Checkbox
       cbx={{name: 'marketdata__check'}}
       bind:checked={$strategy.marketData}
+      on:change={prepareNewStrategy}
       displayName={$strategy.marketData
         ? converter.translate('using_data', $translations, $language)
         : converter.translate('using_formula', $translations, $language)}
@@ -84,14 +92,14 @@
     {#if $strategy.marketData}
       <GenderButton />
       <AgeGroupSelect
-        ageGroup={$strategy.ageGroupStart ? $strategy.ageGroupStart : [0, '+']}
+        bind:ageGroup={$strategy.ageGroupStart}
         name="ageStart"
-        displayAge={$strategy.ageGroupStart ? $strategy.ageGroupStart : [0, '+']}
+        displayAge={$strategy.ageGroupStart ? $strategy.ageGroupStart[0] : 6}
       />
       <AgeGroupSelect
-        ageGroup={$strategy.ageGroupStart ? $strategy.ageGroupStart : [0, '+']}
+        bind:ageGroup={$strategy.ageGroupEnd}
         name="ageEnd"
-        displayAge={$strategy.ageGroupStart ? $strategy.ageGroupStart : [0, '+']}
+        displayAge={$strategy.ageGroupEnd ? $strategy.ageGroupEnd[1] : '+'}
       />
     {/if}
     <button type="button" on:click|stopPropagation|preventDefault={reset}>

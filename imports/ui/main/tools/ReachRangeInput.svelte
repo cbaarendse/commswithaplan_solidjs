@@ -5,7 +5,7 @@
   import createReachTool from '../../functions/reach';
 
   //variables
-  const reachTool = createReachTool($markets[0]);
+  const reachTool = createReachTool();
   export let rangeInput: Input;
   export let displayName: string = 'touchpoint_name';
 
@@ -36,6 +36,7 @@
   }
 </script>
 
+<!-- TODO: select field for inputtype between label and input -->
 <form>
   <fieldset>
     <label for={rangeInput.name}>{displayName}</label>

@@ -1,6 +1,7 @@
 // Reach
 // imports
-import type {TouchPointBasics, DeployedTouchPoint, Strategy, Market} from '../typings/types';
+import type {TouchPointBasics, DeployedTouchPoint, Strategy, Market, AgeGroup} from '../typings/types';
+import {markets, genders, agesForMarkets} from '../stores/tools';
 
 // class
 export default function createReachTool() {
@@ -15,11 +16,11 @@ export default function createReachTool() {
     totalReach: 0,
     // Only required when marketData (population & probabilities) true
     userId: undefined,
+    genders: undefined,
     ageStart: undefined,
     ageEnd: undefined,
     ageGroupStart: undefined,
     ageGroupEnd: undefined,
-    genders: undefined,
     peopleInAgeRange: undefined,
     respondentsCount: undefined,
     reachedNonUnique: undefined,
@@ -29,10 +30,18 @@ export default function createReachTool() {
     product: undefined
   };
 
-  function setNewStrategy(title: string, market: Market, marketData: boolean) {
-    defaultStrategy.title = title;
+  function setNewStrategy(market: Market, marketData: boolean) {
+    //TODO: if marketdata set genders
+    let ageGroupsForMarket = $agesForMarkets.find((item: {marketName: Market['name']; groups: AgeGroup[]}) => item.marketName == market.name);
+    defaultStrategy.title = 'New Strategy';
     defaultStrategy.market = market;
     defaultStrategy.marketData = marketData;
+    if (marketData == true) {
+      defaultStrategy.ageGroupStart= agesForMarkets[0],
+      defaultStrategy.ageGroupEnd= agesForMarkets[1],
+      defaultStrategy.genders= $genders,
+
+    }
     return defaultStrategy;
   }
 

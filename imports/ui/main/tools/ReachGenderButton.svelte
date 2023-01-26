@@ -9,8 +9,7 @@
   // exports
 
   // functions
-  const combineGenders = function () {
-    console.log('genders in combineGenders()', $strategy.genders);
+  const toggleGenders = function () {
     if (!$strategy.genders) {
       $strategy.genders = {f: false, m: false, x: false};
     }
@@ -36,7 +35,7 @@
   type="button"
   aria-roledescription="button"
   {disabled}
-  on:click|preventDefault|stopPropagation={combineGenders}
+  on:click|preventDefault|stopPropagation={toggleGenders}
 >
   <Fa icon={faPersonDress} size="4rem" color={$strategy.genders?.f ? 'var(--ra-red)' : 'var(--ra-grey-light'} />
   <Fa icon={faPerson} size="4rem" color={$strategy.genders?.m ? 'var(--ra-red)' : 'var(--ra-grey-light'} />
