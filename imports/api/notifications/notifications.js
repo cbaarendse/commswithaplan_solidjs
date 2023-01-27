@@ -2,6 +2,7 @@
 import {Mongo} from 'meteor/mongo';
 import {Meteor} from 'meteor/meteor';
 import {Match} from 'meteor/check';
+import {Language} from '/imports/ui/typings/types';
 
 // ====== NOTIFICATIONS == DEFINITIONS ==========
 const Notifications = new Mongo.Collection('notifications');
@@ -34,7 +35,7 @@ Notifications.deny({
 export interface Notification {
   name: string;
   type: 'info' | 'success' | 'warning' | 'error' | 'personal';
-  language: string;
+  language: Language;
   title: string;
   message: string;
 }

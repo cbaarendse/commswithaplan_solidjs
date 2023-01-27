@@ -10,8 +10,8 @@
   import createReachTool from '../../functions/reach';
   import createFormatter from '../../functions/format';
   import {language, translations} from '../../stores/utils';
-  import {markets, definitions, strategy} from '../../stores/tools';
-  import type {Content} from '../../typings/types';
+  import {definitions, strategy} from '../../stores/tools';
+  import type {Content, Market, Strategy} from '../../typings/types';
   import Fa from 'svelte-fa/src/fa.svelte';
   import {
     faArrowRotateLeft,
@@ -26,65 +26,42 @@
   const reachTool = createReachTool();
   const converter = createConverter();
   const formatter = createFormatter();
+  export let market: Strategy['market'];
+  export let marketData: Strategy['marketData'];
   let displayOutputDescription: 'none' | 'flex' = 'none';
   let output: Content = $definitions[0];
   let iconSize = '100%';
 
-  $: allTouchPointsValueIsZero = reachTool.areAllTouchPointsValueZero($strategy.deployment);
-  let sortedByName = true;
-  $: showAll = reachTool.isShowAll($strategy.deployment);
   $: {
     console.log('strategy: ', $strategy);
   }
   // functions
-  function prepareNewStrategy() {
-    if ($strategy.market) {
-      reachTool.setNewStrategy('New Strategy', $strategy.market, false);
-    } else {
-      reachTool.setNewStrategy('New Strategy', $markets[1], false);
-    }
-  }
   function showOutputDescription(outputName: string) {
     displayOutputDescription = 'flex';
     output = $definitions.filter((definition) => definition.name === outputName)[0];
   }
   // TODO: at change of market check for existence probabilities for that market and enable/ disable checkbox marketdata
-  // TODO: functions in createReachTool
-  function reset(): void {
-    if (!allTouchPointsValueIsZero) {
-      $strategy.deployment = reachTool.setAllTouchPointsToZero($strategy.deployment);
-    } else {
-      $strategy = reachTool.setNewStrategy('New Strategy', $markets[1], false);
-      $strategy.deployment = reachTool.sortByName($strategy.deployment, $language);
-      sortedByName = true;
-    }
-    const results = [0, 0];
-    [$strategy.totalReach, $strategy.overlap] = results;
+
+  function reset() {
+    $strategy = reachTool.reset($strategy, $language);
   }
 
-  function sortBy(): void {
-    $strategy.deployment = sortedByName
-      ? reachTool.sortByReach($strategy.deployment)
-      : reachTool.sortByName($strategy.deployment, $language);
-    sortedByName = showAll && allTouchPointsValueIsZero ? true : !sortedByName;
+  function sort() {
+    $strategy = reachTool.sort($strategy, $language);
   }
 
-  function hideIf(): void {
-    if (showAll && !allTouchPointsValueIsZero) {
-      $strategy.deployment = reachTool.hide($strategy.deployment);
-    } else if (!showAll || allTouchPointsValueIsZero) {
-      $strategy.deployment = reachTool.show($strategy.deployment);
-    }
+  function hide() {
+    $strategy.deployment = reachTool.hide($strategy.deployment);
   }
 </script>
 
 <div class="container">
   <menu>
-    <MarketSelect on:change={prepareNewStrategy} />
+    <MarketSelect {market} on:change />
     <Checkbox
       cbx={{name: 'marketdata__check'}}
-      bind:checked={$strategy.marketData}
-      on:change={prepareNewStrategy}
+      bind:checked={marketData}
+      on:change
       displayName={$strategy.marketData
         ? converter.translate('using_data', $translations, $language)
         : converter.translate('using_formula', $translations, $language)}
@@ -103,23 +80,26 @@
       />
     {/if}
     <button type="button" on:click|stopPropagation|preventDefault={reset}>
-      {#if allTouchPointsValueIsZero}<Fa icon={faArrowRotateLeft} size={iconSize} />{:else}<Fa
-          icon={fa0}
+      {#if reachTool.areAllTouchPointsValueZero($strategy.deployment)}<Fa
+          icon={faArrowRotateLeft}
           size={iconSize}
-        />{/if}
+        />{:else}<Fa icon={fa0} size={iconSize} />{/if}
     </button>
-    <button type="button" on:click|stopPropagation|preventDefault={sortBy}>
-      {#if sortedByName}<Fa
+    <button type="button" on:click|stopPropagation|preventDefault={sort}>
+      {#if $strategy.sortedByName}<Fa
           icon={faArrowDownWideShort}
           size={iconSize}
-        />{:else if !sortedByName && allTouchPointsValueIsZero && showAll}<Fa
+        />{:else if !$strategy.sortedByName && reachTool.areAllTouchPointsValueZero($strategy.deployment) && reachTool.isShowAll($strategy.deployment)}<Fa
           icon={faArrowDownAZ}
           size={iconSize}
         />{:else}<Fa icon={faArrowDownAZ} size={iconSize} />
       {/if}
     </button>
-    <button type="button" on:click={hideIf}>
-      {#if showAll}<Fa icon={faMinus} size={iconSize} />{:else}<Fa icon={faBars} size={iconSize} />{/if}
+    <button type="button" on:click={hide}>
+      {#if reachTool.isShowAll($strategy.deployment)}<Fa icon={faMinus} size={iconSize} />{:else}<Fa
+          icon={faBars}
+          size={iconSize}
+        />{/if}
     </button>
   </menu>
 </div>

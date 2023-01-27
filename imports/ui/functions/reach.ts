@@ -1,17 +1,30 @@
 // Reach
 // imports
-import type {TouchPointBasics, DeployedTouchPoint, Strategy, Market, AgeGroup} from '../typings/types';
-import {markets, genders, agesForMarkets} from '../stores/tools';
+import type {
+  TouchPointBasics,
+  DeployedTouchPoint,
+  Strategy,
+  Market,
+  AgeGroup,
+  Genders,
+  Language
+} from '../typings/types';
 
-// class
+// main function (closure)
 export default function createReachTool() {
+  const markets = setMarkets();
+  const genders = setGenders();
+  const agesForMarkets = setAgesForMarkets();
+  const touchPointsBasics = setTouchPointsBasics();
+
   const defaultStrategy: Strategy = {
     title: undefined,
     market: undefined,
     marketData: undefined,
     createdAt: new Date(),
     lastChanged: new Date(),
-    deployment: setTouchPointsForPlan(),
+    deployment: deployTouchPoints(),
+    sortedByName: true,
     overlap: 0,
     totalReach: 0,
     // Only required when marketData (population & probabilities) true
@@ -19,7 +32,7 @@ export default function createReachTool() {
     genders: undefined,
     ageStart: undefined,
     ageEnd: undefined,
-    ageGroupStart: undefined,
+    ageGroupStart: null,
     ageGroupEnd: undefined,
     peopleInAgeRange: undefined,
     respondentsCount: undefined,
@@ -30,25 +43,37 @@ export default function createReachTool() {
     product: undefined
   };
 
-  function setNewStrategy(market: Market, marketData: boolean) {
-    //TODO: if marketdata set genders
-    let ageGroupsForMarket = $agesForMarkets.find((item: {marketName: Market['name']; groups: AgeGroup[]}) => item.marketName == market.name);
+  function setNewStrategy(marketName: Market['name'], marketData: boolean) {
+    const market = markets.find((item) => item.name == marketName);
+    const ageGroupsForMarket = agesForMarkets.find(
+      (item: {marketName: Market['name']; groups: AgeGroup[]}) => item.marketName == marketName
+    );
     defaultStrategy.title = 'New Strategy';
     defaultStrategy.market = market;
     defaultStrategy.marketData = marketData;
     if (marketData == true) {
-      defaultStrategy.ageGroupStart= agesForMarkets[0],
-      defaultStrategy.ageGroupEnd= agesForMarkets[1],
-      defaultStrategy.genders= $genders,
-
+      defaultStrategy.ageGroupStart = ageGroupsForMarket?.groups[0];
+      defaultStrategy.ageGroupEnd = ageGroupsForMarket?.groups[5];
+      defaultStrategy.genders = genders;
     }
     return defaultStrategy;
+  }
+
+  function deployTouchPoints(): DeployedTouchPoint[] {
+    const deployedTouchPoints: DeployedTouchPoint[] = [];
+    touchPointsBasics.forEach(
+      (item, index) => (deployedTouchPoints[index] = {name: item.name, basics: item.basics, value: 0.0, show: true})
+    );
+    return deployedTouchPoints;
   }
 
   function areAllTouchPointsValueZero(touchPoints: DeployedTouchPoint[]): boolean {
     return touchPoints.every((touchPoint) => touchPoint.value === 0);
   }
 
+  function isShowAll(touchPoints: DeployedTouchPoint[]): boolean {
+    return touchPoints.every((touchPoint) => touchPoint.show === true);
+  }
   // input
 
   // reset
@@ -57,8 +82,21 @@ export default function createReachTool() {
     return touchPoints;
   }
 
+  function reset(strategy: Strategy, language: Language): Strategy {
+    if (areAllTouchPointsValueZero(strategy.deployment)) {
+      strategy.deployment = setAllTouchPointsToZero(strategy.deployment);
+    } else {
+      strategy = setNewStrategy(strategy.market?.name || 'nl', false);
+      strategy.deployment = sortByName(strategy.deployment, language);
+      strategy.sortedByName = true;
+    }
+    const results = [0, 0];
+    [strategy.totalReach, strategy.overlap] = results;
+    return strategy;
+  }
+
   // sort
-  function sortByName(touchPoints: DeployedTouchPoint[], language: string) {
+  function sortByName(touchPoints: DeployedTouchPoint[], language: Language) {
     return touchPoints.sort((a: TouchPointBasics, b: TouchPointBasics) => {
       const basicsOfTouchPointA = a.basics.find((item) => item.language == language);
       const basicsOfTouchPointB = b.basics.find((item) => item.language == language);
@@ -78,23 +116,27 @@ export default function createReachTool() {
     return touchPoints.sort((a: DeployedTouchPoint, b: DeployedTouchPoint) => b.value - a.value);
   }
 
-  // hide
-  function hide(touchPoints: DeployedTouchPoint[]) {
-    touchPoints.forEach((touchPoint) => {
-      if (touchPoint.value === 0) {
-        touchPoint.show = false;
-      }
-    });
-    return touchPoints;
+  function sort(strategy: Strategy, language: Language): Strategy {
+    strategy.deployment = strategy.sortedByName
+      ? sortByReach(strategy.deployment)
+      : sortByName(strategy.deployment, language);
+    strategy.sortedByName =
+      isShowAll(strategy.deployment) && areAllTouchPointsValueZero(strategy.deployment) ? true : !strategy.sortedByName;
+    return strategy;
   }
 
-  function show(touchPoints: DeployedTouchPoint[]) {
-    touchPoints.forEach((touchPoint) => (touchPoint.show = true));
-    return touchPoints;
-  }
-
-  function isShowAll(touchPoints: DeployedTouchPoint[]): boolean {
-    return touchPoints.every((touchPoint) => touchPoint.show === true);
+  // hide - show
+  function hide(deployment: Strategy['deployment']): Strategy['deployment'] {
+    if (isShowAll(deployment) && !areAllTouchPointsValueZero(deployment)) {
+      deployment.forEach((touchPoint: DeployedTouchPoint) => {
+        if (touchPoint.value === 0) {
+          touchPoint.show = false;
+        }
+      });
+    } else if (!isShowAll(deployment) || areAllTouchPointsValueZero(deployment)) {
+      deployment.forEach((touchPoint: DeployedTouchPoint) => (touchPoint.show = true));
+    }
+    return deployment;
   }
 
   // results
@@ -206,8 +248,78 @@ export default function createReachTool() {
     }
   }
 
-  function setTouchPointsForPlan(): DeployedTouchPoint[] {
-    const touchPointsBasics = [
+  function setMarkets(): Market[] {
+    return [
+      {
+        name: 'be',
+        flag: '🇧🇪',
+        displayNames: [
+          {language: 'english', displayName: 'Belgium'},
+          {language: 'dutch', displayName: 'België'}
+        ]
+      },
+      {
+        name: 'nl',
+        flag: '🇳🇱',
+        displayNames: [
+          {language: 'english', displayName: 'The Netherlands'},
+          {language: 'dutch', displayName: 'Nederland'}
+        ]
+      },
+      {
+        name: 'uk',
+        flag: '🇬🇧',
+        displayNames: [
+          {language: 'english', displayName: 'United Kingdom'},
+          {language: 'dutch', displayName: 'Verenigd Koninkrijk'}
+        ]
+      }
+    ];
+  }
+
+  function setGenders(): Genders {
+    return {f: false, m: false, x: false};
+  }
+
+  function setAgesForMarkets(): {marketName: Market['name']; groups: AgeGroup[]}[] {
+    return [
+      {
+        marketName: 'be',
+        groups: [
+          [9, 11],
+          [12, 19],
+          [20, 34],
+          [35, 49],
+          [50, 64],
+          [65, '+']
+        ]
+      },
+      {
+        marketName: 'nl',
+        groups: [
+          [9, 11],
+          [12, 19],
+          [20, 34],
+          [35, 49],
+          [50, 64],
+          [65, '+']
+        ]
+      },
+      {
+        marketName: 'uk',
+        groups: [
+          [9, 11],
+          [12, 19],
+          [20, 34],
+          [35, 49],
+          [50, 64],
+          [65, '+']
+        ]
+      }
+    ];
+  }
+  function setTouchPointsBasics(): TouchPointBasics[] {
+    return [
       {
         name: 'advocacy',
         basics: [
@@ -712,20 +824,16 @@ export default function createReachTool() {
         ]
       }
     ];
-    return touchPointsBasics.map(
-      (touchPointBasics): DeployedTouchPoint => ({...touchPointBasics, value: 0.0, show: true})
-    );
   }
 
   return {
+    setMarkets,
     setNewStrategy,
     calculateResults,
     areAllTouchPointsValueZero,
-    setAllTouchPointsToZero,
-    sortByName,
-    sortByReach,
+    reset,
+    sort,
     hide,
-    show,
     isShowAll,
     updateDeployedTouchPoint
   };

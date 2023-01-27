@@ -9,7 +9,8 @@ declare global {
 }
 
 // content
-export type Content = {name: string; language: 'english' | 'dutch'; displayName: string; description: string};
+export type Language = 'english' | 'dutch';
+export type Content = {name: string; language: Language; displayName: string; description: string};
 export type Color = {color: string};
 export type Colored = {colored: boolean};
 export type Illustrated = {imgFiles: string[]};
@@ -18,7 +19,7 @@ type Paragraph = {displayName: string; description: string; elaboration?: string
 export type Chapter = Omit<Content & Illustrated, 'description'> & {paragraphs: Paragraph[]};
 export type Article = Omit<Content, 'description'> & {paragraphs: Paragraph[]};
 export type Translation = Omit<Content, 'description'>;
-export type TouchPointBasics = Pick<Content, 'name'> & {basics: Omit<Content, 'name'>[]};
+export type TouchPointBasics = {name: string; basics: {language: Language; displayName: string; description: string}[]};
 export type DeployedTouchPoint = TouchPointBasics & {
   value: number;
   show: boolean;
@@ -27,7 +28,7 @@ export type DeployedTouchPoint = TouchPointBasics & {
 export type Market = {
   name: 'be' | 'nl' | 'uk';
   flag: string;
-  displayNames: {language: string; displayName: string}[];
+  displayNames: {language: Language; displayName: string}[];
 };
 export type AgeGroup = [number, number | string];
 
@@ -44,14 +45,15 @@ export interface Strategy {
   createdAt: Date;
   lastChanged: Date;
   deployment: DeployedTouchPoint[];
+  sortedByName: boolean;
   overlap: number;
   totalReach: number;
   // Only required when marketData (population & probabilities) true
   userId?: string | Mongo.ObjectID;
-  ageStart?: number;
-  ageEnd?: number;
-  ageGroupStart?: AgeGroup;
-  ageGroupEnd?: AgeGroup;
+  ageStart?: number | null;
+  ageEnd?: number | null;
+  ageGroupStart?: AgeGroup | null;
+  ageGroupEnd?: AgeGroup | null;
   genders?: Genders;
   peopleInAgeRange?: number;
   respondentsCount?: number;

@@ -1,8 +1,12 @@
 <script lang="ts">
   // imports
-  import {strategy, markets} from '../../stores/tools';
+  import {Strategy} from '../../typings/types';
+  import createReachTool from '../../functions/reach';
 
   //variables
+  export let market: Strategy['market'];
+  const reachTool = createReachTool();
+  const markets = reachTool.setMarkets();
 
   // functions
 
@@ -10,8 +14,8 @@
 </script>
 
 <form>
-  <select class="market" name="market" bind:value={$strategy.market} on:change>
-    {#each $markets as thisMarket}
+  <select class="market" name="market" bind:value={market} on:change>
+    {#each markets as thisMarket}
       <option value={thisMarket}>{thisMarket.flag || thisMarket.name}</option>
     {/each}
   </select>

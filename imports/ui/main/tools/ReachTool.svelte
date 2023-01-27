@@ -7,16 +7,21 @@
   import {Unsubscriber} from 'svelte/store';
   import createReachTool from '../../functions/reach';
   import {language} from '../../stores/utils';
-  import {markets, strategy} from '../../stores/tools';
+  import {strategy} from '../../stores/tools';
+  import {Market} from '../../typings/types';
 
   // variables
   const reachTool = createReachTool();
-  $strategy = reachTool.setNewStrategy('New Strategy', $markets[1], false);
-  $strategy.deployment = reachTool.sortByName($strategy.deployment, $language);
+  const markets = reachTool.setMarkets();
+  let market: Market = markets[1];
+  let marketData: boolean = false;
+  $strategy = reachTool.setNewStrategy(market.name, marketData);
+  $strategy = reachTool.sort($strategy, $language);
 
   // functions
   let languageUnsubscribe: Unsubscriber = language.subscribe(() => {
-    $strategy.deployment = reachTool.sortByName($strategy.deployment, $language);
+    $strategy = reachTool.sort($strategy, $language);
+    $strategy.sortedByName = true;
   });
 
   onDestroy(languageUnsubscribe);
@@ -25,7 +30,7 @@
 <BreadCrumbs />
 <section>
   <div class="container">
-    <ReachControlsOutput />
+    <ReachControlsOutput {market} {marketData} />
     {#each $strategy.deployment as touchPoint}
       <ReachTouchPoint {touchPoint} />
     {/each}

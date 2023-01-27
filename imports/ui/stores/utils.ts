@@ -2,10 +2,10 @@
 import {writable, Writable, readable, Readable} from 'svelte/store';
 
 // interfaces
-import type {Translation} from '../types/types';
+import type {Translation, Language} from '../typings/types';
 
 // stores
-export const language: Writable<string> = writable('dutch');
+export const language: Writable<Language> = writable('dutch');
 
 export const consentFooterVisible: Writable<boolean | null> = writable(true);
 
