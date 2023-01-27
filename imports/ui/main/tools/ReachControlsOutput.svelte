@@ -2,16 +2,16 @@
   // imports
   import GenderButton from './ReachGenderButton.svelte';
   import AgeGroupSelect from './ReachAgeGroupSelect.svelte';
-  import Checkbox from '../../reusable/Checkbox.svelte';
+  import MarketDataCheck from './ReachMarketDataCheck.svelte';
   import MarketSelect from './ReachMarketSelect.svelte';
-  import ReachOutputMeter from './ReachOutputMeter.svelte';
+  import OutputMeter from './ReachOutputMeter.svelte';
   import Modal from '../../reusable/Modal.svelte';
   import createConverter from '../../functions/convert';
   import createReachTool from '../../functions/reach';
   import createFormatter from '../../functions/format';
   import {language, translations} from '../../stores/utils';
   import {definitions, strategy} from '../../stores/tools';
-  import type {Content, Market, Strategy} from '../../typings/types';
+  import type {Content} from '../../typings/types';
   import Fa from 'svelte-fa/src/fa.svelte';
   import {
     faArrowRotateLeft,
@@ -22,25 +22,20 @@
     faMinus
   } from '@fortawesome/free-solid-svg-icons';
 
+  // TODO: at change of market check for existence probabilities for that market and enable/ disable checkbox marketdata
   // variables
   const reachTool = createReachTool();
   const converter = createConverter();
   const formatter = createFormatter();
-  export let market: Strategy['market'];
-  export let marketData: Strategy['marketData'];
   let displayOutputDescription: 'none' | 'flex' = 'none';
   let output: Content = $definitions[0];
   let iconSize = '100%';
 
-  $: {
-    console.log('strategy: ', $strategy);
-  }
   // functions
   function showOutputDescription(outputName: string) {
     displayOutputDescription = 'flex';
     output = $definitions.filter((definition) => definition.name === outputName)[0];
   }
-  // TODO: at change of market check for existence probabilities for that market and enable/ disable checkbox marketdata
 
   function reset() {
     $strategy = reachTool.reset($strategy, $language);
@@ -57,28 +52,15 @@
 
 <div class="container">
   <menu>
-    <MarketSelect {market} on:change />
-    <Checkbox
-      cbx={{name: 'marketdata__check'}}
-      bind:checked={marketData}
-      on:change
-      displayName={$strategy.marketData
-        ? converter.translate('using_data', $translations, $language)
-        : converter.translate('using_formula', $translations, $language)}
-    />
+    <MarketSelect />
+    <MarketDataCheck />
     {#if $strategy.marketData}
       <GenderButton />
-      <AgeGroupSelect
-        bind:ageGroup={$strategy.ageGroupStart}
-        name="ageStart"
-        displayAge={$strategy.ageGroupStart ? $strategy.ageGroupStart[0] : 6}
-      />
-      <AgeGroupSelect
-        bind:ageGroup={$strategy.ageGroupEnd}
-        name="ageEnd"
-        displayAge={$strategy.ageGroupEnd ? $strategy.ageGroupEnd[1] : '+'}
-      />
+      <AgeGroupSelect bind:ageGroup={$strategy.ageGroupStart} name="age-start__select" id="age-start__select" />
+      <AgeGroupSelect bind:ageGroup={$strategy.ageGroupEnd} name="age-end__select" id="age-end__select" />
     {/if}
+  </menu>
+  <menu>
     <button type="button" on:click|stopPropagation|preventDefault={reset}>
       {#if reachTool.areAllTouchPointsValueZero($strategy.deployment)}<Fa
           icon={faArrowRotateLeft}
@@ -114,7 +96,7 @@
     </span>
     <output>{formatter.toNumberFormat($strategy.totalReach, 0)}&nbsp;%</output>
   </label>
-  <ReachOutputMeter
+  <OutputMeter
     outputMeter={{
       id: 'reach',
       value: $strategy.totalReach,
@@ -127,7 +109,7 @@
     <span>{converter.translate('overlap', $translations, $language)}:&nbsp;</span>
     <output>{formatter.toNumberFormat($strategy.overlap, 0)}&nbsp;%</output>
   </label>
-  <ReachOutputMeter
+  <OutputMeter
     outputMeter={{
       id: 'overlap',
       value: $strategy.overlap,

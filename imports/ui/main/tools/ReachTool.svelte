@@ -9,14 +9,21 @@
   import {language} from '../../stores/utils';
   import {strategy} from '../../stores/tools';
   import {Market} from '../../typings/types';
-
   // variables
   const reachTool = createReachTool();
   const markets = reachTool.setMarkets();
   let market: Market = markets[1];
   let marketData: boolean = false;
+
   $strategy = reachTool.setNewStrategy(market.name, marketData);
   $strategy = reachTool.sort($strategy, $language);
+  $: {
+    console.log('marktNaam: ', market.name);
+    console.log('marketData var: ', marketData);
+  }
+  $: {
+    console.log('strategy: ', $strategy);
+  }
 
   // functions
   let languageUnsubscribe: Unsubscriber = language.subscribe(() => {
@@ -30,7 +37,7 @@
 <BreadCrumbs />
 <section>
   <div class="container">
-    <ReachControlsOutput {market} {marketData} />
+    <ReachControlsOutput />
     {#each $strategy.deployment as touchPoint}
       <ReachTouchPoint {touchPoint} />
     {/each}

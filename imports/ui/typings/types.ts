@@ -52,8 +52,8 @@ export interface Strategy {
   userId?: string | Mongo.ObjectID;
   ageStart?: number | null;
   ageEnd?: number | null;
-  ageGroupStart?: AgeGroup | null;
-  ageGroupEnd?: AgeGroup | null;
+  ageGroupStart?: AgeGroup;
+  ageGroupEnd?: AgeGroup;
   genders?: Genders;
   peopleInAgeRange?: number;
   respondentsCount?: number;

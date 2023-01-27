@@ -14,7 +14,7 @@ import type {
 export default function createReachTool() {
   const markets = setMarkets();
   const genders = setGenders();
-  const agesForMarkets = setAgesForMarkets();
+  const ageGroupsForMarkets = setAgeGroupsForMarkets();
   const touchPointsBasics = setTouchPointsBasics();
 
   const defaultStrategy: Strategy = {
@@ -45,12 +45,13 @@ export default function createReachTool() {
 
   function setNewStrategy(marketName: Market['name'], marketData: boolean) {
     const market = markets.find((item) => item.name == marketName);
-    const ageGroupsForMarket = agesForMarkets.find(
+    const ageGroupsForMarket = ageGroupsForMarkets.find(
       (item: {marketName: Market['name']; groups: AgeGroup[]}) => item.marketName == marketName
     );
     defaultStrategy.title = 'New Strategy';
     defaultStrategy.market = market;
     defaultStrategy.marketData = marketData;
+    defaultStrategy.deployment = deployTouchPoints();
     if (marketData == true) {
       defaultStrategy.ageGroupStart = ageGroupsForMarket?.groups[0];
       defaultStrategy.ageGroupEnd = ageGroupsForMarket?.groups[5];
@@ -83,7 +84,7 @@ export default function createReachTool() {
   }
 
   function reset(strategy: Strategy, language: Language): Strategy {
-    if (areAllTouchPointsValueZero(strategy.deployment)) {
+    if (!areAllTouchPointsValueZero(strategy.deployment)) {
       strategy.deployment = setAllTouchPointsToZero(strategy.deployment);
     } else {
       strategy = setNewStrategy(strategy.market?.name || 'nl', false);
@@ -281,7 +282,7 @@ export default function createReachTool() {
     return {f: false, m: false, x: false};
   }
 
-  function setAgesForMarkets(): {marketName: Market['name']; groups: AgeGroup[]}[] {
+  function setAgeGroupsForMarkets(): {marketName: Market['name']; groups: AgeGroup[]}[] {
     return [
       {
         marketName: 'be',
@@ -828,6 +829,7 @@ export default function createReachTool() {
 
   return {
     setMarkets,
+    setAgeGroupsForMarkets,
     setNewStrategy,
     calculateResults,
     areAllTouchPointsValueZero,

@@ -1,20 +1,21 @@
 <script lang="ts">
   // imports
-  import {Strategy} from '../../typings/types';
   import createReachTool from '../../functions/reach';
+  import {strategy} from '../../stores/tools';
 
   //variables
-  export let market: Strategy['market'];
   const reachTool = createReachTool();
   const markets = reachTool.setMarkets();
 
   // functions
-
+  function adaptMarketData() {
+    $strategy.marketData = false; // TODO: or check for probabilities existence and then eventually change
+  }
   // exports
 </script>
 
 <form>
-  <select class="market" name="market" bind:value={market} on:change>
+  <select class="market" name="market" bind:value={$strategy.market} on:change={adaptMarketData}>
     {#each markets as thisMarket}
       <option value={thisMarket}>{thisMarket.flag || thisMarket.name}</option>
     {/each}
@@ -23,10 +24,13 @@
 
 <style>
   select {
-    all: unset;
+    appearance: none;
     width: auto;
     margin: 0em 0em;
+    padding: 0.6em;
     border: none;
-    background-color: transparent;
+    outline: none;
+    box-shadow: none;
+    background-color: var(--ra-teal-light);
   }
 </style>
