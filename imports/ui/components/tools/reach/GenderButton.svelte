@@ -37,14 +37,12 @@
   {disabled}
   on:click|preventDefault|stopPropagation={toggleGenders}
 >
-  <Fa icon={faPersonDress} size="4rem" color={$strategy.genders?.f ? 'var(--ra-red)' : 'var(--ra-grey-light'} />
-  <Fa icon={faPerson} size="4rem" color={$strategy.genders?.m ? 'var(--ra-red)' : 'var(--ra-grey-light'} />
+  <Fa icon={faPersonDress} color={$strategy.genders?.f ? 'var(--ra-red)' : 'var(--ra-grey-light'} />
+  <Fa icon={faPerson} color={$strategy.genders?.m ? 'var(--ra-red)' : 'var(--ra-grey-light'} />
 </button>
 
 <style>
   button {
-    width: 3.7rem;
-    height: 3.7rem;
     display: flex;
     justify-content: center;
     align-items: center;

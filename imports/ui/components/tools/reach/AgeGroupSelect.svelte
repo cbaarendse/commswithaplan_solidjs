@@ -1,7 +1,6 @@
 <script lang="ts">
   // imports
   import type {AgeGroup} from '../../../typings/types';
-  import {strategy} from '../../../stores/tools';
   import {translations, language} from '../../../stores/utils';
   import createReachTool from '../../../functions/reach';
   import createConverter from '../../../functions/convert';
@@ -9,35 +8,28 @@
   import {faSort} from '@fortawesome/free-solid-svg-icons';
 
   //variables
-  const reachTool = createReachTool();
   const converter = createConverter();
-  const ageGroupsForMarkets = reachTool.setAgeGroupsForMarkets();
-  const ageGroups = getGroups();
-  export let ageGroup: AgeGroup | undefined;
+  const reachTool = createReachTool();
+  export let groups: AgeGroup[];
+  export let value: number = 0;
   export let name: string;
   export let id: string;
 
   // functions
-  function getGroups() {
-    let marketName = $strategy.market?.name;
-    let ageGroupsForMarket = ageGroupsForMarkets.find((item) => item.marketName == marketName);
-    return ageGroupsForMarket?.groups;
-  }
 </script>
 
-{#if ageGroups}
+{#if groups}
   <form>
-    <label for={id}>
-      <select class="age__select" {id} {name} bind:value={ageGroup}>
-        {#each ageGroups as thisAgeGroup}
-          <option value={thisAgeGroup}>
-            {thisAgeGroup[0]} - {thisAgeGroup[1]}
-            {converter.translate('year', $translations, $language)}
-          </option>
-        {/each}
-      </select>
-      <Fa icon={faSort} />
-    </label>
+    <label for={id} />
+    <select class="age__select" {id} {name} bind:value>
+      {#each groups as thisAgeGroup, index}
+        <option value={index}>
+          {thisAgeGroup[0]} - {thisAgeGroup[1]}
+          {converter.translate('year', $translations, $language)}
+        </option>
+      {/each}
+    </select>
+    <Fa icon={faSort} />
   </form>
 {/if}
 

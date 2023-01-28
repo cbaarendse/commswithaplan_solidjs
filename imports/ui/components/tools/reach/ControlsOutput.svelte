@@ -30,6 +30,14 @@
   let displayOutputDescription: 'none' | 'flex' = 'none';
   let output: Content = $definitions[0];
   let iconSize = '100%';
+  let indexStart: number = 0;
+  let indexEnd: number = 5;
+  const ageGroupsForMarkets = reachTool.setAgeGroupsForMarkets();
+  let ageGroupsForMarket = ageGroupsForMarkets.find((item) => item.marketName == $strategy.market?.name);
+  function groupsForAgeEnd() {
+    let index = ageGroupsForMarket?.groups.indexOf($strategy.ageGroupStart);
+    return ageGroupsForMarket?.groups.slice(index ? index + 1 : 1);
+  }
 
   // functions
   function showOutputDescription(outputName: string) {
@@ -56,8 +64,8 @@
     <MarketDataCheck />
     {#if $strategy.marketData}
       <GenderButton />
-      <AgeGroupSelect bind:ageGroup={$strategy.ageGroupStart} name="age-start__select" id="age-start__select" />
-      <AgeGroupSelect bind:ageGroup={$strategy.ageGroupEnd} name="age-end__select" id="age-end__select" />
+      <AgeGroupSelect bind:indexStart groups={[0, 1, 2, 3, 4, 5]} name="age-start__select" id="age-start__select" />
+      <AgeGroupSelect bind:indexEnd groups={[0, 1, 2, 3, 4, 5]} name="age-end__select" id="age-end__select" />
     {/if}
   </menu>
   <menu>

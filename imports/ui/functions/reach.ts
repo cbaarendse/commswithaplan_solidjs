@@ -32,7 +32,7 @@ export default function createReachTool() {
     genders: undefined,
     ageStart: undefined,
     ageEnd: undefined,
-    ageGroupStart: null,
+    ageGroupStart: undefined,
     ageGroupEnd: undefined,
     peopleInAgeRange: undefined,
     respondentsCount: undefined,
