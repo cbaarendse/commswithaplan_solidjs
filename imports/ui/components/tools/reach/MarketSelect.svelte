@@ -1,36 +1,52 @@
 <script lang="ts">
+  import {faSort} from '@fortawesome/free-solid-svg-icons';
+  import Fa from 'svelte-fa/src/fa.svelte';
+
   // imports
-  import createReachTool from '../../../functions/reach';
   import {strategy} from '../../../stores/tools';
+  import {Market} from '/imports/ui/typings/types';
 
   //variables
-  const reachTool = createReachTool();
-  const markets = reachTool.setMarkets();
+  export let markets: Market[];
+  export let value: number = 1;
 
   // functions
-  function adaptMarketData() {
-    $strategy.marketData = false; // TODO: or check for probabilities existence and then eventually change
-  }
   // exports
 </script>
 
 <form>
-  <select class="market" name="market" bind:value={$strategy.market} on:change={adaptMarketData}>
-    {#each markets as thisMarket}
-      <option value={thisMarket}>{thisMarket.flag || thisMarket.name}</option>
+  <label for="market__select"><Fa icon={faSort} color={'var(--ra-teal'} /></label>
+  <select class="market" name="market" id="market__select" bind:value on:change={() => ($strategy.marketData = false)}>
+    {#each markets as thisMarket, index}
+      <option value={index}>{thisMarket.flag || thisMarket.name}</option>
     {/each}
   </select>
 </form>
 
 <style>
+  form {
+    display: grid;
+    grid-template-columns: 1fr 3rem;
+    grid-template-areas: 'select label';
+    padding: 0;
+    align-items: center;
+    border: solid 1px var(--ra-teal-light);
+    background-color: transparent;
+    border-radius: 3px;
+  }
   select {
+    grid-area: select;
     appearance: none;
-    width: auto;
-    margin: 0em 0em;
-    padding: 0.6em;
     border: none;
-    outline: none;
-    box-shadow: none;
-    background-color: var(--ra-teal-light);
+    background-color: transparent;
+    padding: 0.4em 0.6em 0.4em 0.4em;
+  }
+  select:focus {
+    outline: solid 1px var(--ra-green);
+  }
+  label {
+    grid-area: label;
+    background-color: transparent;
+    padding: 0.2em 0.4em;
   }
 </style>

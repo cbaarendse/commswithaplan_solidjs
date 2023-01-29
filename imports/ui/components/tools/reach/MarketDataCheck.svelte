@@ -26,27 +26,34 @@
 
 <style>
   form {
-    display: flex;
-    gap: 0.7em;
+    display: grid;
+    grid-template-columns: 2rem auto;
     grid-template-rows: auto;
-    justify-content: end;
+    grid-template-areas: 'checkbox label';
+    gap: 0.7em;
+    padding: 0.2rem 0.6rem;
     align-items: center;
-    min-height: fit-content;
-    min-width: fit-content;
+    border: solid 1px var(--ra-teal-light);
+    border-radius: 3px;
   }
   label {
+    grid-area: label;
+    background-color: none;
+    padding: 0.2em 0.4em;
   }
 
   input[type='checkbox'] {
-    width: 3em;
-    border: none;
-    border-radius: 0.2em;
-    background: var(--ra-teal-light);
-    accent-color: var(--ra-red);
+    grid-area: checkbox;
+    appearance: none;
+    font: inherit;
+    height: 2rem;
+    border: 1px solid var(--ra-teal-light);
+    border-radius: 2px;
     color: var(--ra-blue);
-    padding: 0.7em;
-    min-height: 1.4em;
     cursor: pointer;
+  }
+  input[type='checkbox']:checked {
+    background-color: var(--ra-red);
   }
 
   .marketdata__checkbox:disabled {

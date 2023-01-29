@@ -46,6 +46,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 3.6em;
+    height: 3.6em;
+    font-size: 1em;
     margin: 0 0.4em;
     cursor: pointer;
     background-color: transparent;

@@ -1,7 +1,8 @@
 <script lang="ts">
   // imports
   import BreadCrumbs from '../../reusable/BreadCrumbs.svelte';
-  import ControlsOutput from './ControlsOutput.svelte';
+  import Controls from './Controls.svelte';
+  import Output from './Output.svelte';
   import ReachTouchPoint from './TouchPoint.svelte';
   import {onDestroy} from 'svelte';
   import {Unsubscriber} from 'svelte/store';
@@ -37,7 +38,8 @@
 <BreadCrumbs />
 <section>
   <div class="container">
-    <ControlsOutput />
+    <Controls />
+    <Output />
     {#each $strategy.deployment as touchPoint}
       <ReachTouchPoint {touchPoint} />
     {/each}

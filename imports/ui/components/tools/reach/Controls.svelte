@@ -4,14 +4,9 @@
   import AgeGroupSelect from './AgeGroupSelect.svelte';
   import MarketDataCheck from './MarketDataCheck.svelte';
   import MarketSelect from './MarketSelect.svelte';
-  import OutputMeter from './OutputMeter.svelte';
-  import Modal from '../../reusable/Modal.svelte';
-  import createConverter from '../../../functions/convert';
   import createReachTool from '../../../functions/reach';
-  import createFormatter from '../../../functions/format';
-  import {language, translations} from '../../../stores/utils';
-  import {definitions, strategy} from '../../../stores/tools';
-  import type {Content} from '../../../typings/types';
+  import {language} from '../../../stores/utils';
+  import {strategy} from '../../../stores/tools';
   import Fa from 'svelte-fa/src/fa.svelte';
   import {
     faArrowRotateLeft,
@@ -22,29 +17,21 @@
     faMinus
   } from '@fortawesome/free-solid-svg-icons';
 
-  // TODO: at change of market check for existence probabilities for that market and enable/ disable checkbox marketdata
   // variables
   const reachTool = createReachTool();
-  const converter = createConverter();
-  const formatter = createFormatter();
-  let displayOutputDescription: 'none' | 'flex' = 'none';
-  let output: Content = $definitions[0];
   let iconSize = '100%';
+  let markets = reachTool.setMarkets();
+  let indexMarket = 1;
   let indexStart: number = 0;
-  let indexEnd: number = 5;
+  let indexEnd: number = 0;
   const ageGroupsForMarkets = reachTool.setAgeGroupsForMarkets();
-  let ageGroupsForMarket = ageGroupsForMarkets.find((item) => item.marketName == $strategy.market?.name);
-  function groupsForAgeEnd() {
-    let index = ageGroupsForMarket?.groups.indexOf($strategy.ageGroupStart);
-    return ageGroupsForMarket?.groups.slice(index ? index + 1 : 1);
-  }
+  let ageGroupsForMarket = $strategy.market?.name
+    ? ageGroupsForMarkets.find((item) => item.marketName == $strategy.market?.name)
+    : ageGroupsForMarkets.find((item) => item.marketName == 'nl');
+  $: groupsForAgeStart = ageGroupsForMarket?.groups;
+  $: groupsForAgeEnd = ageGroupsForMarket?.groups.slice(indexStart ? indexStart : 1);
 
   // functions
-  function showOutputDescription(outputName: string) {
-    displayOutputDescription = 'flex';
-    output = $definitions.filter((definition) => definition.name === outputName)[0];
-  }
-
   function reset() {
     $strategy = reachTool.reset($strategy, $language);
   }
@@ -60,12 +47,17 @@
 
 <div class="container">
   <menu>
-    <MarketSelect />
+    <MarketSelect {markets} bind:value={indexMarket} />
     <MarketDataCheck />
     {#if $strategy.marketData}
       <GenderButton />
-      <AgeGroupSelect bind:indexStart groups={[0, 1, 2, 3, 4, 5]} name="age-start__select" id="age-start__select" />
-      <AgeGroupSelect bind:indexEnd groups={[0, 1, 2, 3, 4, 5]} name="age-end__select" id="age-end__select" />
+      <AgeGroupSelect
+        bind:value={indexStart}
+        groups={groupsForAgeStart}
+        name="age-start__select"
+        id="age-start__select"
+      />
+      <AgeGroupSelect bind:value={indexEnd} groups={groupsForAgeEnd} name="age-end__select" id="age-end__select" />
     {/if}
   </menu>
   <menu>
@@ -93,49 +85,6 @@
     </button>
   </menu>
 </div>
-<div class="container">
-  <label on:click|preventDefault|stopPropagation={() => showOutputDescription('total_reach')}>
-    <span>
-      {converter.translate('total', $translations, $language)}&nbsp;{converter.translate(
-        'reach',
-        $translations,
-        $language
-      )}:&nbsp;
-    </span>
-    <output>{formatter.toNumberFormat($strategy.totalReach, 0)}&nbsp;%</output>
-  </label>
-  <OutputMeter
-    outputMeter={{
-      id: 'reach',
-      value: $strategy.totalReach,
-      min: 0,
-      max: 100
-    }}
-  />
-
-  <label on:click|preventDefault|stopPropagation={() => showOutputDescription('overlap')}>
-    <span>{converter.translate('overlap', $translations, $language)}:&nbsp;</span>
-    <output>{formatter.toNumberFormat($strategy.overlap, 0)}&nbsp;%</output>
-  </label>
-  <OutputMeter
-    outputMeter={{
-      id: 'overlap',
-      value: $strategy.overlap,
-      min: 0,
-      max: 100
-    }}
-  />
-</div>
-
-<Modal
-  title={output.displayName}
-  display={displayOutputDescription}
-  on:destroyModal={() => {
-    displayOutputDescription = 'none';
-  }}
->
-  {output.description}
-</Modal>
 
 <style>
   div.container {
@@ -176,32 +125,6 @@
   }
   menu > button:nth-of-type(3) {
     background-color: var(--ra-blue);
-  }
-
-  label {
-    flex: 0 1 30rem;
-    display: flex;
-    gap: 1em;
-    font-size: 1.1em;
-    cursor: pointer;
-  }
-  label:hover {
-    opacity: 0.7;
-  }
-  span {
-    flex: 2;
-  }
-
-  output {
-    flex: 1;
-  }
-
-  :global(meter) {
-    flex: 1 1 60%;
-  }
-
-  :global(div.meter) {
-    flex: 1 1 60%;
   }
 
   @media screen and (min-width: 768px) {
