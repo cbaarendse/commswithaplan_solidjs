@@ -7,6 +7,7 @@
   import createReachTool from '../../../functions/reach';
   import {language} from '../../../stores/utils';
   import {strategy} from '../../../stores/tools';
+  import {Genders} from '/imports/ui/typings/types';
   import Fa from 'svelte-fa/src/fa.svelte';
   import {
     faArrowRotateLeft,
@@ -19,19 +20,34 @@
 
   // variables
   const reachTool = createReachTool();
-  let iconSize = '100%';
   let markets = reachTool.setMarkets();
-  let indexMarket = 1;
+  let indexMarket: number = 1; // == 'nl'
+  let genders: Genders = reachTool.setGenders();
   let indexStart: number = 0;
   let indexEnd: number = 0;
-  const ageGroupsForMarkets = reachTool.setAgeGroupsForMarkets();
-  let ageGroupsForMarket = $strategy.market?.name
-    ? ageGroupsForMarkets.find((item) => item.marketName == $strategy.market?.name)
-    : ageGroupsForMarkets.find((item) => item.marketName == 'nl');
-  $: groupsForAgeStart = ageGroupsForMarket?.groups;
-  $: groupsForAgeEnd = ageGroupsForMarket?.groups.slice(indexStart ? indexStart : 1);
+  const ageGroupsForMarket = reachTool.setAgeGroupsForMarket($strategy.marketName);
+
+  $: {
+    $strategy.marketName = markets[indexMarket].name;
+    $strategy.genders = genders;
+  }
+  $: groupsForAgeStart = ageGroupsForMarket;
+  $: groupsForAgeEnd = ageGroupsForMarket.slice(indexStart ? indexStart : 1);
+
+  let iconSize = '100%';
 
   // functions
+  function handleChangeMarket() {
+    $strategy = reachTool.setNewStrategyWithFormula($strategy.marketName);
+  }
+  function handleChangeMarketData() {
+    if ($strategy.marketData) {
+      $strategy = reachTool.setNewStrategyWithData($strategy.marketName);
+    } else {
+      $strategy = reachTool.setNewStrategyWithFormula($strategy.marketName);
+    }
+  }
+
   function reset() {
     $strategy = reachTool.reset($strategy, $language);
   }
@@ -46,21 +62,29 @@
 </script>
 
 <div class="container">
-  <menu>
-    <MarketSelect {markets} bind:value={indexMarket} />
-    <MarketDataCheck />
+  <form>
+    <fieldset class="market">
+      <MarketSelect {markets} bind:value={indexMarket} on:change={handleChangeMarket} />
+    </fieldset>
+    <fieldset class="data">
+      <MarketDataCheck bind:checked={$strategy.marketData} on:change={handleChangeMarketData} />
+    </fieldset>
     {#if $strategy.marketData}
-      <GenderButton />
-      <AgeGroupSelect
-        bind:value={indexStart}
-        groups={groupsForAgeStart}
-        name="age-start__select"
-        id="age-start__select"
-      />
-      <AgeGroupSelect bind:value={indexEnd} groups={groupsForAgeEnd} name="age-end__select" id="age-end__select" />
+      <fieldset class="gender">
+        <GenderButton bind:value={genders} />
+      </fieldset>
+      <fieldset class="age">
+        <AgeGroupSelect
+          bind:value={indexStart}
+          groups={groupsForAgeStart}
+          name="age-start__select"
+          id="age-start__select"
+        />
+        <AgeGroupSelect bind:value={indexEnd} groups={groupsForAgeEnd} name="age-end__select" id="age-end__select" />
+      </fieldset>
     {/if}
-  </menu>
-  <menu>
+  </form>
+  <menu class="buttons">
     <button type="button" on:click|stopPropagation|preventDefault={reset}>
       {#if reachTool.areAllTouchPointsValueZero($strategy.deployment)}<Fa
           icon={faArrowRotateLeft}
@@ -88,13 +112,45 @@
 
 <style>
   div.container {
-    display: flex;
-    flex-flow: row wrap;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
     gap: 1.4em;
-    justify-content: flex-start;
     padding: 1em;
     border-radius: 0.2em;
     background-color: var(--ra-teal-off-white);
+  }
+  form {
+    display: grid;
+    gap: 0.4rem;
+    grid-template-areas: 'market data data gender age age age';
+  }
+  fieldset {
+    padding: 0;
+    height: 100%;
+    align-items: center;
+    border: solid 1px var(--ra-teal-light);
+    background-color: transparent;
+    border-radius: 3px;
+    justify-content: flex-start;
+  }
+  fieldset.market {
+    grid-area: market;
+    display: flex;
+  }
+  fieldset.data {
+    grid-area: data;
+    display: flex;
+  }
+  fieldset.gender {
+    grid-area: gender;
+    display: flex;
+  }
+  fieldset.age {
+    grid-area: age;
+    width: 100%;
+    display: grid;
+    grid-auto-flow: column;
   }
   menu {
     flex: 100%;
@@ -102,6 +158,7 @@
     gap: 7%;
     justify-content: flex-start;
   }
+
   button {
     display: flex;
     justify-content: center;

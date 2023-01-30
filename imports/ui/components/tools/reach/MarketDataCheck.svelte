@@ -1,28 +1,20 @@
 <script lang="ts">
   // imports
-  import {strategy} from '../../../stores/tools';
-  import {translations, language} from '../../../stores/utils';
   import createConverter from '../../../functions/convert';
+  import {translations, language} from '../../../stores/utils';
+  import {strategy} from '../../../stores/tools';
 
   // variables
   const converter = createConverter();
+  export let checked: boolean;
   let disabled = false;
-  let displayName: string = $strategy.marketData
+  $: displayName = $strategy.marketData
     ? converter.translate('using_data', $translations, $language)
     : converter.translate('using_formula', $translations, $language);
 </script>
 
-<form>
-  <input
-    class="marketdata__checkbox"
-    name="marketdata"
-    type="checkbox"
-    {disabled}
-    bind:checked={$strategy.marketData}
-    on:change
-  />
-  <label for="market-data">{displayName}</label>
-</form>
+<input class="marketdata__checkbox" name="marketdata" type="checkbox" {disabled} bind:checked on:change />
+<label for="market-data">{displayName}</label>
 
 <style>
   form {

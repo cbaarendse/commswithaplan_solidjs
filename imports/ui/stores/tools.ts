@@ -2,17 +2,9 @@
 import {writable, Writable, readable, Readable} from 'svelte/store';
 
 // interfaces
-import {
-  Content,
-  Color,
-  Actionable,
-  Chapter,
-  TouchPointBasics,
-  Market,
-  AgeGroup,
-  Genders,
-  Strategy
-} from '../typings/types';
+import {Content, Color, Actionable, Chapter, StrategyExtended} from '../typings/types';
+
+export const strategy = writable<StrategyExtended>();
 
 export const toolsHomeItems: Readable<(Content & Color & Actionable)[]> = readable(
   [
@@ -63,8 +55,6 @@ export const toolsHomeItems: Readable<(Content & Color & Actionable)[]> = readab
     };
   }
 );
-
-export const strategy = writable<Strategy>();
 
 export const definitions: Readable<Content[]> = readable(
   [

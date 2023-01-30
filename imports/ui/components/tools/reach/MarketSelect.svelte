@@ -3,7 +3,6 @@
   import Fa from 'svelte-fa/src/fa.svelte';
 
   // imports
-  import {strategy} from '../../../stores/tools';
   import {Market} from '/imports/ui/typings/types';
 
   //variables
@@ -14,14 +13,12 @@
   // exports
 </script>
 
-<form>
-  <label for="market__select"><Fa icon={faSort} color={'var(--ra-teal'} /></label>
-  <select class="market" name="market" id="market__select" bind:value on:change={() => ($strategy.marketData = false)}>
-    {#each markets as thisMarket, index}
-      <option value={index}>{thisMarket.flag || thisMarket.name}</option>
-    {/each}
-  </select>
-</form>
+<label for="market__select"><Fa icon={faSort} color={'var(--ra-teal'} /></label>
+<select class="market" name="market" id="market__select" bind:value on:change>
+  {#each markets as thisMarket, index}
+    <option value={index}>{thisMarket.flag || thisMarket.name}</option>
+  {/each}
+</select>
 
 <style>
   form {

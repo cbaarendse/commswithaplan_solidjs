@@ -5,8 +5,10 @@
   import createConverter from '../../../functions/convert';
   import Fa from 'svelte-fa/src/fa.svelte';
   import {faSort} from '@fortawesome/free-solid-svg-icons';
+  import {onMount} from 'svelte';
 
   //variables
+  onMount(() => {});
   const converter = createConverter();
   export let groups: AgeGroup[];
   export let value: number = 0;
@@ -17,31 +19,18 @@
 </script>
 
 {#if groups}
-  <form>
-    <label for={id}><Fa icon={faSort} color={'var(--ra-teal'} /></label>
-    <select class="age__select" {id} {name} bind:value>
-      {#each groups as thisAgeGroup, index}
-        <option value={index}>
-          {thisAgeGroup[0]} - {thisAgeGroup[1]}
-          {converter.translate('year', $translations, $language)}
-        </option>
-      {/each}
-    </select>
-  </form>
+  <label for={id}><Fa icon={faSort} color={'var(--ra-teal'} /></label>
+  <select class="age__select" {id} {name} bind:value>
+    {#each groups as ageGroup, index}
+      <option value={index}>
+        {ageGroup[0]} - {ageGroup[1]}
+        {converter.translate('year', $translations, $language)}
+      </option>
+    {/each}
+  </select>
 {/if}
 
 <style>
-  form {
-    display: grid;
-    grid-template-columns: auto 3rem;
-    grid-template-areas: 'select label';
-    padding: 0;
-    height: fit-content;
-    align-items: center;
-    border: solid 1px var(--ra-teal-light);
-    background-color: transparent;
-    border-radius: 3px;
-  }
   select {
     grid-area: select;
     appearance: none;

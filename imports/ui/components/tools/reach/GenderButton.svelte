@@ -3,36 +3,41 @@
   import {strategy} from '../../../stores/tools';
   import Fa from 'svelte-fa/src/fa.svelte';
   import {faPerson, faPersonDress} from '@fortawesome/free-solid-svg-icons';
+  import {Genders} from '/imports/ui/typings/types';
+
   // variables
+  export let value: Genders;
+
   let disabled = false;
+  $: {
+    console.log('value in genderbutton: ', value);
+  }
 
   // exports
 
   // functions
-  const toggleGenders = function () {
-    if (!$strategy.genders) {
-      $strategy.genders = {f: false, m: false, x: false};
-    }
-    const f = $strategy.genders.f;
-    const m = $strategy.genders.m;
+  function toggleGenders() {
+    console.log('value before togglegenders: ', value);
+    const f = value.f;
+    const m = value.m;
     if (f == false && m == false) {
-      $strategy.genders = {f: true, m: false, x: false};
+      value = {f: true, m: false, x: false};
     }
     if (f == true && m == false) {
-      $strategy.genders = {f: false, m: true, x: false};
+      value = {f: false, m: true, x: false};
     }
     if (f == false && m == true) {
-      $strategy.genders = {f: true, m: true, x: false};
+      value = {f: true, m: true, x: false};
     }
     if (f == true && m == true) {
-      $strategy.genders = {f: false, m: false, x: false};
+      value = {f: false, m: false, x: false};
     }
-  };
+  }
 </script>
 
 <button
   class="genders__toggle"
-  type="button"
+  type="submit"
   aria-roledescription="button"
   {disabled}
   on:click|preventDefault|stopPropagation={toggleGenders}

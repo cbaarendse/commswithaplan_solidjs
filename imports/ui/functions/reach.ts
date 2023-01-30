@@ -1,5 +1,6 @@
 // Reach
 // imports
+import {homeItems} from '../stores/home';
 import type {
   TouchPointBasics,
   DeployedTouchPoint,
@@ -7,27 +8,37 @@ import type {
   Market,
   AgeGroup,
   Genders,
-  Language
+  Language,
+  StrategyExtended
 } from '../typings/types';
 
 // main function (closure)
 export default function createReachTool() {
   const markets = setMarkets();
   const genders = setGenders();
-  const ageGroupsForMarkets = setAgeGroupsForMarkets();
   const touchPointsBasics = setTouchPointsBasics();
 
   const defaultStrategy: Strategy = {
-    title: undefined,
-    market: undefined,
-    marketData: undefined,
+    title: 'New Strategy',
+    marketName: 'nl',
+    marketData: false,
+    createdAt: new Date(),
+    lastChanged: new Date(),
+    deployment: deployTouchPoints(),
+    sortedByName: true,
+    overlap: 0,
+    totalReach: 0
+  };
+  const defaultStrategyWithData: StrategyExtended = {
+    title: 'New Strategy',
+    marketName: 'nl',
+    marketData: false,
     createdAt: new Date(),
     lastChanged: new Date(),
     deployment: deployTouchPoints(),
     sortedByName: true,
     overlap: 0,
     totalReach: 0,
-    // Only required when marketData (population & probabilities) true
     userId: undefined,
     genders: undefined,
     ageStart: undefined,
@@ -43,21 +54,25 @@ export default function createReachTool() {
     product: undefined
   };
 
-  function setNewStrategy(marketName: Market['name'], marketData: boolean) {
-    const market = markets.find((item) => item.name == marketName);
-    const ageGroupsForMarket = ageGroupsForMarkets.find(
-      (item: {marketName: Market['name']; groups: AgeGroup[]}) => item.marketName == marketName
-    );
-    defaultStrategy.title = 'New Strategy';
-    defaultStrategy.market = market;
-    defaultStrategy.marketData = marketData;
+  function setNewStrategyWithFormula(marketName: Market['name']): Strategy {
+    defaultStrategy.marketName = marketName;
+    defaultStrategy.marketData = false;
     defaultStrategy.deployment = deployTouchPoints();
-    if (marketData == true) {
-      defaultStrategy.ageGroupStart = ageGroupsForMarket?.groups[0];
-      defaultStrategy.ageGroupEnd = ageGroupsForMarket?.groups[5];
-      defaultStrategy.genders = genders;
-    }
+    [defaultStrategy.totalReach, defaultStrategy.overlap] = [0, 0];
+
     return defaultStrategy;
+  }
+
+  function setNewStrategyWithData(marketName: Market['name']): StrategyExtended {
+    const ageGroupsForMarket = setAgeGroupsForMarket(marketName);
+    defaultStrategyWithData.marketName = marketName;
+    defaultStrategyWithData.marketData = true;
+    defaultStrategyWithData.deployment = deployTouchPoints();
+    [defaultStrategyWithData.totalReach, defaultStrategyWithData.overlap] = [0, 0];
+    defaultStrategyWithData.genders = genders;
+    defaultStrategyWithData.ageGroupStart = ageGroupsForMarket[0];
+    defaultStrategyWithData.ageGroupStart = ageGroupsForMarket[0];
+    return defaultStrategyWithData;
   }
 
   function deployTouchPoints(): DeployedTouchPoint[] {
@@ -83,11 +98,13 @@ export default function createReachTool() {
     return touchPoints;
   }
 
-  function reset(strategy: Strategy, language: Language): Strategy {
+  function reset(strategy: Strategy, language: Language): StrategyExtended {
     if (!areAllTouchPointsValueZero(strategy.deployment)) {
       strategy.deployment = setAllTouchPointsToZero(strategy.deployment);
     } else {
-      strategy = setNewStrategy(strategy.market?.name || 'nl', false);
+      strategy = strategy.marketData
+        ? setNewStrategyWithData(strategy.marketName || 'nl')
+        : setNewStrategyWithFormula(strategy.marketName || 'nl');
       strategy.deployment = sortByName(strategy.deployment, language);
       strategy.sortedByName = true;
     }
@@ -257,6 +274,14 @@ export default function createReachTool() {
         displayNames: [
           {language: 'english', displayName: 'Belgium'},
           {language: 'dutch', displayName: 'België'}
+        ],
+        ageGroups: [
+          [9, 11],
+          [12, 19],
+          [20, 34],
+          [35, 49],
+          [50, 64],
+          [65, '+']
         ]
       },
       {
@@ -265,6 +290,14 @@ export default function createReachTool() {
         displayNames: [
           {language: 'english', displayName: 'The Netherlands'},
           {language: 'dutch', displayName: 'Nederland'}
+        ],
+        ageGroups: [
+          [9, 11],
+          [12, 19],
+          [20, 34],
+          [35, 49],
+          [50, 64],
+          [65, '+']
         ]
       },
       {
@@ -273,6 +306,14 @@ export default function createReachTool() {
         displayNames: [
           {language: 'english', displayName: 'United Kingdom'},
           {language: 'dutch', displayName: 'Verenigd Koninkrijk'}
+        ],
+        ageGroups: [
+          [9, 11],
+          [12, 19],
+          [20, 34],
+          [35, 49],
+          [50, 64],
+          [65, '+']
         ]
       }
     ];
@@ -282,43 +323,18 @@ export default function createReachTool() {
     return {f: false, m: false, x: false};
   }
 
-  function setAgeGroupsForMarkets(): {marketName: Market['name']; groups: AgeGroup[]}[] {
-    return [
-      {
-        marketName: 'be',
-        groups: [
-          [9, 11],
-          [12, 19],
-          [20, 34],
-          [35, 49],
-          [50, 64],
-          [65, '+']
-        ]
-      },
-      {
-        marketName: 'nl',
-        groups: [
-          [9, 11],
-          [12, 19],
-          [20, 34],
-          [35, 49],
-          [50, 64],
-          [65, '+']
-        ]
-      },
-      {
-        marketName: 'uk',
-        groups: [
-          [9, 11],
-          [12, 19],
-          [20, 34],
-          [35, 49],
-          [50, 64],
-          [65, '+']
-        ]
-      }
+  function setAgeGroupsForMarket(marketName: Market['name']) {
+    const ageGroups = markets.find((item) => item.name == marketName)?.ageGroups || [
+      [9, 11],
+      [12, 19],
+      [20, 34],
+      [35, 49],
+      [50, 64],
+      [65, '+']
     ];
+    return ageGroups;
   }
+
   function setTouchPointsBasics(): TouchPointBasics[] {
     return [
       {
@@ -829,8 +845,10 @@ export default function createReachTool() {
 
   return {
     setMarkets,
-    setAgeGroupsForMarkets,
-    setNewStrategy,
+    setGenders,
+    setAgeGroupsForMarket,
+    setNewStrategyWithFormula,
+    setNewStrategyWithData,
     calculateResults,
     areAllTouchPointsValueZero,
     reset,

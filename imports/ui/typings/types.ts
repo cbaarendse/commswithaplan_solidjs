@@ -29,26 +29,28 @@ export type Market = {
   name: 'be' | 'nl' | 'uk';
   flag: string;
   displayNames: {language: Language; displayName: string}[];
+  ageGroups: AgeGroup[];
 };
 export type AgeGroup = [number, number | string];
 
-export interface Genders {
+export type Genders = {
   m: boolean;
   f: boolean;
   x: boolean;
-}
-export interface Strategy {
-  _id?: string | Mongo.ObjectID;
-  title?: string;
-  marketData?: boolean;
-  market?: Market;
+};
+export type Strategy = {
+  title: string;
+  marketData: boolean;
+  marketName: Market['name'];
   createdAt: Date;
   lastChanged: Date;
   deployment: DeployedTouchPoint[];
   sortedByName: boolean;
   overlap: number;
   totalReach: number;
-  // Only required when marketData (population & probabilities) true
+};
+export type StrategyExtended = Strategy & {
+  _id?: string | Mongo.ObjectID;
   userId?: string | Mongo.ObjectID;
   ageStart?: number | null;
   ageEnd?: number | null;
@@ -59,10 +61,10 @@ export interface Strategy {
   respondentsCount?: number;
   reachedNonUnique?: number;
   reachedUnique?: number;
-  companyId?: string | {[key: string]: string};
+  companyId?: string | Mongo.ObjectID;
   brand?: string;
   product?: string;
-}
+};
 
 export type Week = {name: string; days: number; monday: string};
 export type Month = {name: string; days: number};
