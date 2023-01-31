@@ -4,7 +4,7 @@
   import Card from '../reusable/Card.svelte';
   import {language} from '../../stores/utils';
   import {homeItems} from '../../stores/home';
-  import {Content, Color, Illustrated, Actionable} from '../../typings/types';
+  import {Content, Color, Illustrated, Actionable} from '../../../both/typings/types';
 
   // variables
   $: translatedHomeItems = $homeItems.filter(

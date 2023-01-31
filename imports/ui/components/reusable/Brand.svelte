@@ -1,6 +1,6 @@
 <script lang="ts">
   // imports
-  import type {Brand} from '../../typings/types';
+  import type {Brand} from '../../../both/typings/types';
 
   // variables
   export let brand: Brand;

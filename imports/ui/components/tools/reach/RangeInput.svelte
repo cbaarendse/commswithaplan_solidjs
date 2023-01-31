@@ -1,6 +1,6 @@
 <script lang="ts">
   // imports
-  import type {Input} from '../../../typings/types';
+  import type {Input} from '../../../../both/typings/types';
   import {strategy} from '../../../stores/tools';
   import createReachTool from '../../../functions/reach';
 

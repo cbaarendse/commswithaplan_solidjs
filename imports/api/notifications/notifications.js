@@ -2,7 +2,7 @@
 import {Mongo} from 'meteor/mongo';
 import {Meteor} from 'meteor/meteor';
 import {Match} from 'meteor/check';
-import {Language} from '/imports/ui/typings/types';
+import {Language} from '../../both/typings/types';
 
 // ====== NOTIFICATIONS == DEFINITIONS ==========
 const Notifications = new Mongo.Collection('notifications');

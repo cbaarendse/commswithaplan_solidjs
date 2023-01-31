@@ -6,7 +6,7 @@ import {ValidatedMethod} from 'meteor/mdg:validated-method';
 import {Match} from 'meteor/check';
 import type {CWAPUser, UserProfile} from './users';
 import {UsersMethods, usernameRegExp, emailRegExp, passwordRegExp} from './users';
-import {TOUCHPOINTSNAMES, COMPANY_ALL_ROLES} from '../../both/constants';
+import {TOUCHPOINTSNAMES, COMPANY_ALL_ROLES} from '../../both/constants/constants';
 
 // TODO: stripe methods here????
 // TODO: set up basic methods, then combine these in actual needed methods. Advantages: use async await on server; just result in callback, no error;

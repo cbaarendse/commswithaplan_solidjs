@@ -1,6 +1,6 @@
 <script lang="ts">
   // imports
-  import type {DeployedTouchPoint} from '../../../typings/types';
+  import type {DeployedTouchPoint} from '../../../../both/typings/types';
   import RangeInput from './RangeInput.svelte';
   import Modal from '../../reusable/Modal.svelte';
   import NumberInput from './NumberInput.svelte';

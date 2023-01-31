@@ -2,7 +2,7 @@
   // imports
   import {createEventDispatcher} from 'svelte';
   import createConverter from '../../functions/convert';
-  import type {Select} from '../../typings/types';
+  import type {Select} from '../../../both/typings/types';
   import {language, translations} from '../../stores/utils';
 
   // exports

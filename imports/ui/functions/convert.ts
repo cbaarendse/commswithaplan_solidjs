@@ -1,4 +1,4 @@
-import {Content, Translation, Language} from '../typings/types';
+import {Content, Translation, Language} from '../../both/typings/types';
 
 // Convert
 export default function createConverter() {

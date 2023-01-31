@@ -3,7 +3,7 @@
   import Fa from 'svelte-fa/src/fa.svelte';
 
   // imports
-  import {Market} from '/imports/ui/typings/types';
+  import {Market} from '../../../../both/typings/types';
 
   //variables
   export let markets: Market[];

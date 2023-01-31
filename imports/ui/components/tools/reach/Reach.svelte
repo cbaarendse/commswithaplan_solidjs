@@ -4,19 +4,22 @@
   import Controls from './Controls.svelte';
   import Output from './Output.svelte';
   import ReachTouchPoint from './TouchPoint.svelte';
-  import {onDestroy} from 'svelte';
+  import {onDestroy, onMount} from 'svelte';
   import {Unsubscriber} from 'svelte/store';
   import createReachTool from '../../../functions/reach';
   import {language} from '../../../stores/utils';
   import {strategy} from '../../../stores/tools';
-  import {Market} from '../../../typings/types';
+  import {Market} from '../../../../both/typings/types';
+
   // variables
   const reachTool = createReachTool();
   const markets = reachTool.setMarkets();
   let market: Market = markets[1];
 
-  $strategy = reachTool.setNewStrategyWithFormula(market.name);
-  $strategy = reachTool.sort($strategy, $language);
+  onMount(() => {
+    $strategy = reachTool.setNewStrategyWithFormula(market.name);
+    $strategy = reachTool.sort($strategy, $language);
+  });
 
   $: {
     console.log('strategy: ', $strategy);

@@ -31,16 +31,6 @@ Populations.deny({
 });
 
 // type
-export type Probability = {
-  _id: Mongo.ObjectID;
-  respondentId: number;
-  age_group: 0 | 1 | 2 | 3 | 4 | 5;
-  age: number;
-  gender: 'm' | 'f' | 'x';
-  market: string;
-} & {
-  [key: string]: number;
-};
 
 const languageItemPattern = {displayName: String, description: Match.Maybe(String)};
 

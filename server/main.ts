@@ -1,4 +1,4 @@
-import '../imports/both/constants';
+import '../imports/both/constants/constants';
 import './fixtures';
 
 import '../imports/api/users/server/publications';

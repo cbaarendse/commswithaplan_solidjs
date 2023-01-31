@@ -2,7 +2,7 @@
 import {Meteor} from 'meteor/meteor';
 import {Roles} from 'meteor/alanning:roles';
 
-import {TOUCHPOINTSNAMES, COMPANY_CONTRIBUTOR_ROLES, COMPANY_EMPLOYEE_ROLES} from '../../../both/constants';
+import {TOUCHPOINTSNAMES, COMPANY_CONTRIBUTOR_ROLES, COMPANY_EMPLOYEE_ROLES} from '../../../both/constants/constants';
 
 // PUBLISH USERS
 Meteor.publish('userData', function () {

@@ -66,6 +66,23 @@ export type StrategyExtended = Strategy & {
   product?: string;
 };
 
+export type Population = {
+  _id: Mongo.ObjectID;
+  market: string;
+} & {
+  [key: string]: number;
+};
+export type Probability = {
+  _id: Mongo.ObjectID;
+  respondentId: number;
+  age_group: number;
+  age: number;
+  gender: 'm' | 'f' | 'x';
+  marketName: string;
+} & {
+  [key: string]: number;
+};
+
 export type Week = {name: string; days: number; monday: string};
 export type Month = {name: string; days: number};
 export type Year = {name: string; days: number};
@@ -104,3 +121,7 @@ export type Meter = svelteHTML.IntrinsicElements['meter'] & Partial<HTMLElement[
 //   max: string | undefined | null;
 //   step: string | undefined | null;
 // } & Partial<HTMLElement['style']>;
+
+// declare module 'meteor/didericis:callpromise-mixin' {
+//   export function CallPromiseMixinType(methodOptions: any): any;
+// }

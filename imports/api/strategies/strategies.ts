@@ -1,7 +1,7 @@
 // imports
 import {Meteor} from 'meteor/meteor';
 import {Mongo} from 'meteor/mongo';
-import {MARKETS} from '../../both/constants';
+import {MARKETS} from '../../both/constants/constants';
 import type {DeployedTouchPoint, Market} from '/imports/ui/types/types';
 
 //= ====== STRATEGIES == DEFINITIONS ==================

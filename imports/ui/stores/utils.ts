@@ -2,7 +2,7 @@
 import {writable, Writable, readable, Readable} from 'svelte/store';
 
 // interfaces
-import type {Translation, Language} from '../typings/types';
+import type {Translation, Language} from '../../both/typings/types';
 
 // stores
 export const language: Writable<Language> = writable('dutch');

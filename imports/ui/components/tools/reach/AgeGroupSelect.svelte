@@ -1,6 +1,6 @@
 <script lang="ts">
   // imports
-  import type {AgeGroup} from '../../../typings/types';
+  import type {AgeGroup} from '../../../../both/typings/types';
   import {translations, language} from '../../../stores/utils';
   import createConverter from '../../../functions/convert';
   import Fa from 'svelte-fa/src/fa.svelte';

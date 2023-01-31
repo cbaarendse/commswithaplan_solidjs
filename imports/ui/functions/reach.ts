@@ -10,7 +10,7 @@ import type {
   Genders,
   Language,
   StrategyExtended
-} from '../typings/types';
+} from '../../both/typings/types';
 
 // main function (closure)
 export default function createReachTool() {

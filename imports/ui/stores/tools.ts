@@ -2,7 +2,7 @@
 import {writable, Writable, readable, Readable} from 'svelte/store';
 
 // interfaces
-import {Content, Color, Actionable, Chapter, StrategyExtended} from '../typings/types';
+import {Content, Color, Actionable, Chapter, StrategyExtended} from '../../both/typings/types';
 
 export const strategy = writable<StrategyExtended>();
 

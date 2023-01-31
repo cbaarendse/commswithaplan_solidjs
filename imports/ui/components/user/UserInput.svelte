@@ -2,7 +2,7 @@
   // imports
   import {createEventDispatcher} from 'svelte';
   import {language} from '../../stores/utils';
-  import type {Input} from '../../typings/types';
+  import type {Input} from '../../../both/typings/types';
 
   // exports
   export let numberInput: Input;

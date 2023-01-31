@@ -1,6 +1,6 @@
 <script lang="ts">
   // imports
-  import type {Article} from '../../typings/types';
+  import type {Article} from '../../../both/typings/types';
 
   // variables
   export let item: Article;

@@ -3,7 +3,7 @@
   import {strategy} from '../../../stores/tools';
   import Fa from 'svelte-fa/src/fa.svelte';
   import {faPerson, faPersonDress} from '@fortawesome/free-solid-svg-icons';
-  import {Genders} from '/imports/ui/typings/types';
+  import {Genders} from '../../../../both/typings/types';
 
   // variables
   export let value: Genders;

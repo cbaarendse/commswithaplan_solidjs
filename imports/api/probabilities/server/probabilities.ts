@@ -28,13 +28,6 @@ Probabilities.deny({
     return true;
   }
 });
-// type
-export type Probability = {
-  _id: Mongo.ObjectID;
-  market: string;
-} & {
-  [key: string]: number;
-};
 
 // schema pattern
 export const probabilityPattern = {

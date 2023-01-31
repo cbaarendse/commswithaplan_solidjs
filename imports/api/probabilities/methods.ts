@@ -1,12 +1,15 @@
-// ====== IMPORTS ===============================
+// imports
 import {Meteor} from 'meteor/meteor';
 import {ValidatedMethod} from 'meteor/mdg:validated-method';
 import {Match} from 'meteor/check';
-import {filterProbabilitiesForMarket, filterProbabilitiesForStrategy} from './server/functions';
+import createDataTool from './data';
+import {MARKETS} from '../../both/constants/constants';
+import {Probability} from '../../both/typings/types';
 
-// import Strategies from '../strategies/strategies';
-import {MARKETS} from '../../both/constants';
+// variables
+const dataTool = createDataTool();
 
+// methods
 export const probabilitiesCountRespondentsForMarket = new ValidatedMethod({
   name: 'probabilities.countRespondentsForMarket',
   validate(args: {[key: string]: string}): void {
@@ -24,12 +27,12 @@ export const probabilitiesCountRespondentsForMarket = new ValidatedMethod({
         '[{ "name": "notLoggedIn" }]'
       );
     }
-    let probabilitiesForMarket;
+    let probabilitiesForMarket: Probability[] = [];
     if (this.isSimulation) {
       // TODO:
       console.log('this is simulation');
     } else {
-      probabilitiesForMarket = filterProbabilitiesForMarket(args.market);
+      probabilitiesForMarket = dataTool.filterProbabilitiesForMarket(args.market);
       console.log(
         'probabilitiesForRespondents in server count for strategy:',
         typeof probabilitiesForMarket,

@@ -1,6 +1,6 @@
 <script lang="ts">
   // imports
-  import type {Logo} from '../../typings/types';
+  import type {Logo} from '../../../both/typings/types';
 
   // variables
   export let logo: Logo;
