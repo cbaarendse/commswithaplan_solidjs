@@ -8,43 +8,43 @@ const stripe = stripePackage(stripeSecretKey);
 // TODO: Check with new Stripe API
 
 Meteor.methods({
-  'users.stripeCustomerDetails': async function ():Promise<any> {
+  'users.stripeCustomerDetails': async function (): Promise<any> {
     const user: CWAPUser | null | undefined = Meteor.user();
-    let stripeId: string = '';
-    if (user != undefined && user.stripeId != undefined) {
-      stripeId = user.stripeId;
+    let stripeId = '';
+    if (user != undefined && user.profile?.stripeId != undefined) {
+      stripeId = user.profile?.stripeId;
       console.log('user payment details with: ', stripeId);
     }
     let customer;
     try {
       customer = await stripe.customers.retrieve(stripeId);
-    } catch (error: [key: string]:string) {
+    } catch (error: any) {
       console.log('payment details error: ', error.message);
       throw new Meteor.Error(error);
     }
     return customer;
   },
 
-  'users.stripeCustomerCard': async function (cardId):Promise<any> {
+  'users.stripeCustomerCard': async function (cardId): Promise<any> {
     const user: CWAPUser | null | undefined = Meteor.user();
-    let stripeId: string = '';
-    if (user != undefined && user.stripeId != undefined) {
-      stripeId = user.stripeId;
+    let stripeId: string;
+    if (user != undefined && user.profile != undefined && user.profile.stripeId != undefined) {
+      stripeId = user.profile.stripeId;
       console.log('user card with: ', stripeId, ' and ', cardId);
     }
     let card;
     try {
       card = await stripe.customers.retrieveCard(stripeId, cardId);
-    } catch (error) {
+    } catch (error: any) {
       console.log('card error: ', error.message);
       throw new Meteor.Error(error);
     }
     return card;
   },
 
-  'users.createStripeCustomer': async function(tokenId: string) {
+  'users.createStripeCustomer': async function (tokenId: string) {
     const user: CWAPUser | null | undefined = Meteor.user();
-    let userEmail: string = '';
+    let userEmail = '';
     if (user != undefined && user.emails != undefined) {
       userEmail = user.emails[0].address;
     }
@@ -54,7 +54,7 @@ Meteor.methods({
     try {
       customer = await stripe.customers.create({
         email: userEmail,
-        source: tokenId,
+        source: tokenId
       });
     } catch (error) {
       console.log(`Create customer - error: ${error.message}`);
@@ -64,24 +64,24 @@ Meteor.methods({
     console.log('new customer stripe:', customer.id, 'usersData', user.stripeId);
   },
 
-  'users.createStripeSubscription': async function (customerPlan:any, _id:string):Promise<any> {
+  'users.createStripeSubscription': async function (customerPlan: any, _id: string): Promise<any> {
     const user: CWAPUser | null | undefined = Meteor.user();
-    let stripeId: string = '';
+    let stripeId = '';
     if (user != undefined && user.stripeId != undefined) {
       stripeId = user.stripeId;
       console.log(`create subscription with ${customerPlan}, ${_id} and ${stripeId}`);
     }
-   
+
     let subscription;
     try {
       subscription = await stripe.subscriptions.create({
         customer: stripeId,
         items: [
           {
-            plan: customerPlan,
-          },
+            plan: customerPlan
+          }
         ],
-        metadata: {companyId: _id},
+        metadata: {companyId: _id}
       });
     } catch (error) {
       console.log(`Create customer - error: ${error.message}`);
@@ -90,13 +90,13 @@ Meteor.methods({
     return subscription;
   },
 
-  'users.cancelStripeSubscription': async function (subscriptionId: string):Promise<any> {
+  'users.cancelStripeSubscription': async function (subscriptionId: string): Promise<any> {
     const user: CWAPUser | null | undefined = Meteor.user();
-    let stripeId: string = '';
+    let stripeId = '';
     if (user != undefined && user.stripeId != undefined) {
       stripeId = user.stripeId;
       console.log(`cancel subscription with ${subscriptionId} and ${stripeId}`);
-    }   
+    }
     let subscription;
     try {
       subscription = await stripe.subscriptions.del(subscriptionId);
@@ -107,9 +107,9 @@ Meteor.methods({
     return subscription;
   },
 
-  'users.listAllPlans': async function ():Promise<any[]> {
+  'users.listAllPlans': async function (): Promise<any[]> {
     console.log(`list all Plans for ReachApp`);
-    let plansList:any[];
+    let plansList: any[];
     try {
       plansList = await stripe.plans.list();
     } catch (error) {
@@ -117,5 +117,5 @@ Meteor.methods({
       throw new Meteor.Error(error);
     }
     return plansList;
-  },
+  }
 });

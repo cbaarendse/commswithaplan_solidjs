@@ -10,7 +10,7 @@
   import createReachTool from '../../../functions/reach';
   import {language} from '../../../stores/utils';
   import {strategy} from '../../../stores/tools';
-  import {probabilitiesCheckForMarket} from '../../../../api/probabilities/methods';
+  import {probabilitiesCheckForMarket} from '../../../../api/probabilities/server/methods';
   import {Market} from '../../../../both/typings/types';
 
   // variables

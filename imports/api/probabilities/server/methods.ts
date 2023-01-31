@@ -1,24 +1,24 @@
 // imports
 import {Meteor} from 'meteor/meteor';
-import {ValidatedMethod} from 'meteor/mdg:validated-method';
 import {Match} from 'meteor/check';
-import createDataTool from './datatool';
-import {MARKETS} from '../../both/constants/constants';
-import {Probability} from '../../both/typings/types';
-import Probabilities from './server/probabilities';
+import createDataTool from '../datatool';
+import {MARKETS} from '../../../both/constants/constants';
+import {Probability} from '../../../both/typings/types';
+import Probabilities from './probabilities';
+import Strategies from '../../strategies/strategies';
 
 // variables
 const dataTool = createDataTool();
+const probabilities = Probabilities.find({}).fetch();
+const strategies = Strategies.find({}).fetch();
 
 // methods
-export const probabilitiesCheckForMarket = new ValidatedMethod({
-  name: 'probabilities.checkForMarket',
-  validate(args: {[key: string]: string}): void {
+Meteor.methods({
+  'probabilities.checkForMarket'(args: {[key: string]: string}) {
     if (!Match.test(args.market, String) || !Match.test(args.market, MARKETS.includes(args.market))) {
       throw new Meteor.Error('general.invalid.input', 'Invalid input', '[{ "name": "invalidInput" }]');
     }
-  },
-  run(args: {[key: string]: string}): boolean {
+
     console.log('probabilities.checkProbabilitiesForMarket runs with: ', args.market);
 
     let probabilityForMarket: Probability | undefined;
@@ -33,17 +33,12 @@ export const probabilitiesCheckForMarket = new ValidatedMethod({
       );
     }
     return probabilityForMarket ? true : false;
-  }
-});
+  },
 
-export const probabilitiesCountRespondentsForMarket = new ValidatedMethod({
-  name: 'probabilities.countRespondentsForMarket',
-  validate(args: {[key: string]: string}): void {
+  'probabilities.countRespondentsForMarket'(args: {[key: string]: string}): number | undefined {
     if (!Match.test(args.market, String) || !Match.test(args.market, MARKETS.includes(args.market))) {
       throw new Meteor.Error('general.invalid.input', 'Invalid input', '[{ "name": "invalidInput" }]');
     }
-  },
-  run(args: {[key: string]: string}) {
     console.log('probabilities.countRespondentsForMarket runs with: ', args.market);
 
     if (!this.userId) {
@@ -53,12 +48,12 @@ export const probabilitiesCountRespondentsForMarket = new ValidatedMethod({
         '[{ "name": "notLoggedIn" }]'
       );
     }
-    let probabilitiesForMarket: Probability[] = [];
+    let probabilitiesForMarket: Probability[];
     if (this.isSimulation) {
       // TODO:
       console.log('this is simulation');
     } else {
-      probabilitiesForMarket = dataTool.filterProbabilitiesForMarket(args.market);
+      probabilitiesForMarket = dataTool.filterProbabilitiesForMarket(probabilities, args.market);
       console.log(
         'probabilitiesForRespondents in server count for strategy:',
         typeof probabilitiesForMarket,
@@ -67,20 +62,15 @@ export const probabilitiesCountRespondentsForMarket = new ValidatedMethod({
 
       return probabilitiesForMarket.length;
     }
-  }
-});
+  },
 
-export const probabilitiesCountRespondentsForStrategy = new ValidatedMethod({
-  name: 'probabilities.countForStrategy',
-  validate(args: {[key: string]: string}): void {
+  'probabilities.countForStrategy'(args: {[key: string]: string}): number | undefined {
     if (!Match.test(args.strategyId, String)) {
       throw new Meteor.Error('general.invalid.input', 'Invalid input', '[{ "name": "invalidInput" }]');
     }
-  },
-  run(args: {[key: string]: string}) {
     console.log('probabilities.countForStrategy runs with: ', args.strategyId);
 
-    const strategy = Strategies.findOne({_id: strategyId});
+    const strategy = Strategies.findOne({_id: args.strategyId});
     const {_id, user} = strategy;
 
     if (!this.userId) {
@@ -99,12 +89,12 @@ export const probabilitiesCountRespondentsForStrategy = new ValidatedMethod({
       );
     }
 
-    let probabilitiesForStrategy;
+    let probabilitiesForStrategy: Probability[];
     if (this.isSimulation) {
       // TODO:
       console.log('this is simulation');
     } else {
-      probabilitiesForStrategy = filterProbabilitiesForStrategy(_id);
+      probabilitiesForStrategy = dataTool.filterProbabilitiesForStrategy(probabilities, strategies, _id);
       console.log(
         'probabilitiesForRespondents in server count for strategy:',
         typeof probabilitiesForStrategy,

@@ -30,7 +30,7 @@ Meteor.users.deny({
 });
 
 // type
-export interface UserProfile {
+export type UserProfile = {
   firstname?: string;
   surname?: string;
   phone?: number;
@@ -48,11 +48,11 @@ export interface UserProfile {
   stripeId?: string;
   roles?: {[key: string]: [string]};
   heartbeat?: Date;
-}
+};
 
-export interface CWAPUser extends Meteor.User {
+export type CWAPUser = Meteor.User & {
   profile?: UserProfile;
-}
+};
 
 export interface UsersMethods {
   _id: string;
