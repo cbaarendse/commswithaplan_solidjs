@@ -1,5 +1,6 @@
 <script lang="ts">
   // imports
+  import {Meteor} from 'meteor/meteor';
   import BreadCrumbs from '../../reusable/BreadCrumbs.svelte';
   import Controls from './Controls.svelte';
   import Output from './Output.svelte';
@@ -9,6 +10,7 @@
   import createReachTool from '../../../functions/reach';
   import {language} from '../../../stores/utils';
   import {strategy} from '../../../stores/tools';
+  import {probabilitiesCheckForMarket} from '../../../../api/probabilities/methods';
   import {Market} from '../../../../both/typings/types';
 
   // variables
@@ -19,6 +21,14 @@
   onMount(() => {
     $strategy = reachTool.setNewStrategyWithFormula(market.name);
     $strategy = reachTool.sort($strategy, $language);
+  });
+
+  probabilitiesCheckForMarket.call({arg: $strategy.marketName}, (error, result) => {
+    if (error) {
+      console.log('error i probabilitiesChaeckForMarket', error);
+    } else {
+      $strategy.marketData = result;
+    }
   });
 
   $: {

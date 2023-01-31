@@ -2,14 +2,40 @@
 import {Meteor} from 'meteor/meteor';
 import {ValidatedMethod} from 'meteor/mdg:validated-method';
 import {Match} from 'meteor/check';
-import createDataTool from './data';
+import createDataTool from './datatool';
 import {MARKETS} from '../../both/constants/constants';
 import {Probability} from '../../both/typings/types';
+import Probabilities from './server/probabilities';
 
 // variables
 const dataTool = createDataTool();
 
 // methods
+export const probabilitiesCheckForMarket = new ValidatedMethod({
+  name: 'probabilities.checkForMarket',
+  validate(args: {[key: string]: string}): void {
+    if (!Match.test(args.market, String) || !Match.test(args.market, MARKETS.includes(args.market))) {
+      throw new Meteor.Error('general.invalid.input', 'Invalid input', '[{ "name": "invalidInput" }]');
+    }
+  },
+  run(args: {[key: string]: string}): boolean {
+    console.log('probabilities.checkProbabilitiesForMarket runs with: ', args.market);
+
+    let probabilityForMarket: Probability | undefined;
+    if (this.isSimulation) {
+      console.log('this is simulation');
+    } else {
+      probabilityForMarket = Probabilities.findOne({market: args.market});
+      console.log(
+        'type of probabilityForMarket in server check for probability:',
+        typeof probabilityForMarket,
+        probabilityForMarket
+      );
+    }
+    return probabilityForMarket ? true : false;
+  }
+});
+
 export const probabilitiesCountRespondentsForMarket = new ValidatedMethod({
   name: 'probabilities.countRespondentsForMarket',
   validate(args: {[key: string]: string}): void {

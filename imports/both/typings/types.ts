@@ -41,6 +41,7 @@ export type Genders = {
 export type Strategy = {
   title: string;
   marketData: boolean;
+  useMarketData: boolean;
   marketName: Market['name'];
   createdAt: Date;
   lastChanged: Date;
