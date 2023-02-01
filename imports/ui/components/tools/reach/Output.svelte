@@ -6,7 +6,7 @@
   import createFormatter from '../../../functions/format';
   import {language, translations} from '../../../stores/utils';
   import {definitions, strategy} from '../../../stores/tools';
-  import Spinner from '../../reusable/Spinner.svelte';
+  // import Spinner from '../../reusable/Spinner.svelte';
 
   // variables
   const converter = createConverter();
@@ -20,7 +20,7 @@
 
 <div class="container">
   <!-- svelte-ignore missing-declaration -->
-  <Spinner />
+  <!-- <Spinner /> -->
   <label
     on:click|preventDefault|stopPropagation={() => {
       displayOutputDescription = 'flex';

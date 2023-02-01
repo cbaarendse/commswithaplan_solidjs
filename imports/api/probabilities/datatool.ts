@@ -1,8 +1,8 @@
 import type {TouchPointBasics, Probability} from '../../both/typings/types';
 
 export default function createDataTool() {
-  function filterProbabilitiesForMarket(probabilities: Probability[], market: string) {
-    console.log('filterProbabilitiesForMarket server function runs with  :', promarket);
+  function filterProbabilitiesForMarket(probabilities: Probability[], marketName: string) {
+    console.log('filterProbabilitiesForMarket server function runs with  :', probabilities, marketName);
 
     const fields = {respondentId: 1, market: 1, age: 1, gender: 1};
     console.log('fields in filterProbabilitiesForMarket:', fields);
@@ -11,7 +11,7 @@ export default function createDataTool() {
       throw new Error('Empty argument(s) for filterProbabilitiesForMarket');
     } else {
       return probabilities.find((probability) => {
-        probability.market == market;
+        probability.marketName == marketName;
       });
     }
   }

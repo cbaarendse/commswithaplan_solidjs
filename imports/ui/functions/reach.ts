@@ -22,6 +22,7 @@ export default function createReachTool() {
     title: 'New Strategy',
     marketName: 'nl',
     marketData: false,
+    useMarketData: false,
     createdAt: new Date(),
     lastChanged: new Date(),
     deployment: deployTouchPoints(),
@@ -33,6 +34,7 @@ export default function createReachTool() {
     title: 'New Strategy',
     marketName: 'nl',
     marketData: false,
+    useMarketData: false,
     createdAt: new Date(),
     lastChanged: new Date(),
     deployment: deployTouchPoints(),
@@ -57,6 +59,7 @@ export default function createReachTool() {
   function setNewStrategyWithFormula(marketName: Market['name']): Strategy {
     defaultStrategy.marketName = marketName;
     defaultStrategy.marketData = false;
+    defaultStrategy.useMarketData = false;
     defaultStrategy.deployment = deployTouchPoints();
     [defaultStrategy.totalReach, defaultStrategy.overlap] = [0, 0];
 
@@ -67,6 +70,7 @@ export default function createReachTool() {
     const ageGroupsForMarket = setAgeGroupsForMarket(marketName);
     defaultStrategyWithData.marketName = marketName;
     defaultStrategyWithData.marketData = true;
+    defaultStrategyWithData.useMarketData = false;
     defaultStrategyWithData.deployment = deployTouchPoints();
     [defaultStrategyWithData.totalReach, defaultStrategyWithData.overlap] = [0, 0];
     defaultStrategyWithData.genders = genders;

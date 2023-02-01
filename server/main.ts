@@ -8,6 +8,9 @@ import '../imports/api/users/methods';
 import '../imports/api/translations/server/publications';
 import '../imports/api/translations/methods';
 
+// import '../imports/api/probabilities/server/functions';
+import '../imports/api/probabilities/server/methods';
+
 // import '../imports/api/notifications/server/publications';
 //import '../imports/api/notifications/methods';
 
@@ -28,9 +31,6 @@ import '../imports/api/translations/methods';
 
 // import '../imports/api/populations/server/publications';
 // import '../imports/api/populations/methods';
-
-// import '../imports/api/probabilities/server/functions';
-// import '../imports/api/probabilities/methods.js';
 
 // import '../imports/api/products/server/publications.js';
 // import '../imports/api/products/methods.js';

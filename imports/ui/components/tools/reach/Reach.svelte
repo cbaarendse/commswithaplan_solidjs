@@ -10,7 +10,6 @@
   import createReachTool from '../../../functions/reach';
   import {language} from '../../../stores/utils';
   import {strategy} from '../../../stores/tools';
-  import {probabilitiesCheckForMarket} from '../../../../api/probabilities/server/methods';
   import {Market} from '../../../../both/typings/types';
 
   // variables
@@ -18,21 +17,25 @@
   const markets = reachTool.setMarkets();
   let market: Market = markets[1];
 
-  onMount(() => {
-    $strategy = reachTool.setNewStrategyWithFormula(market.name);
-    $strategy = reachTool.sort($strategy, $language);
-  });
+  // onMount(() => {
+  $strategy = reachTool.setNewStrategyWithFormula(market.name);
+  // $strategy = reachTool.sort($strategy, $language);
+  // });
 
-  probabilitiesCheckForMarket.call({arg: $strategy.marketName}, (error, result) => {
-    if (error) {
-      console.log('error i probabilitiesChaeckForMarket', error);
-    } else {
-      $strategy.marketData = result;
-    }
+  const call = Meteor.callAsync('probabilities.checkForMarket', {args: $strategy.marketName});
+  call.catch((error) => console.log('error in call', error));
+  call.then((result, rejected) => {
+    $strategy.marketData = result;
+    console.log('rejected == ', rejected);
   });
+  const count = Meteor.callAsync('probabilities.countRespondentsForMarket', {args: $strategy.marketName});
+  console.log('count', count);
+  console.log('Meteor.methods', Meteor.methods);
 
+  console.log('strategy. marketData log: ', $strategy.marketData);
   $: {
-    console.log('strategy: ', $strategy);
+    console.log('strategy. marketData: in $: ', $strategy.marketData);
+    console.log('strategy in $: ', $strategy);
   }
 
   // functions

@@ -14,7 +14,7 @@ const strategies = Strategies.find({}).fetch();
 
 // methods
 Meteor.methods({
-  'probabilities.checkForMarket'(args: {[key: string]: string}) {
+  'probabilities.checkForMarket': function (args: {[key: string]: string}) {
     if (!Match.test(args.market, String) || !Match.test(args.market, MARKETS.includes(args.market))) {
       throw new Meteor.Error('general.invalid.input', 'Invalid input', '[{ "name": "invalidInput" }]');
     }
@@ -35,7 +35,7 @@ Meteor.methods({
     return probabilityForMarket ? true : false;
   },
 
-  'probabilities.countRespondentsForMarket'(args: {[key: string]: string}): number | undefined {
+  'probabilities.countRespondentsForMarket': function (args: {[key: string]: string}): number | undefined {
     if (!Match.test(args.market, String) || !Match.test(args.market, MARKETS.includes(args.market))) {
       throw new Meteor.Error('general.invalid.input', 'Invalid input', '[{ "name": "invalidInput" }]');
     }
@@ -48,23 +48,18 @@ Meteor.methods({
         '[{ "name": "notLoggedIn" }]'
       );
     }
-    let probabilitiesForMarket: Probability[];
+    let count: number | undefined;
     if (this.isSimulation) {
       // TODO:
       console.log('this is simulation');
     } else {
-      probabilitiesForMarket = dataTool.filterProbabilitiesForMarket(probabilities, args.market);
-      console.log(
-        'probabilitiesForRespondents in server count for strategy:',
-        typeof probabilitiesForMarket,
-        probabilitiesForMarket
-      );
+      count = Probabilities.find({market: args.marketName}).count();
 
-      return probabilitiesForMarket.length;
+      return count;
     }
   },
 
-  'probabilities.countForStrategy'(args: {[key: string]: string}): number | undefined {
+  'probabilities.countForStrategy': function (args: {[key: string]: string}): number | undefined {
     if (!Match.test(args.strategyId, String)) {
       throw new Meteor.Error('general.invalid.input', 'Invalid input', '[{ "name": "invalidInput" }]');
     }
