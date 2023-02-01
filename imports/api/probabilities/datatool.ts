@@ -1,4 +1,4 @@
-import type {TouchPointBasics, Probability} from '../../both/typings/types';
+import type {TouchPointBasics, Probability, Genders} from '../../both/typings/types';
 
 export default function createDataTool() {
   function filterProbabilitiesForMarket(probabilities: Probability[], marketName: string) {
@@ -19,14 +19,8 @@ export default function createDataTool() {
   function filterProbabilitiesForStrategy(probabilities: Probability[], strategies: any, strategyId: string) {
     console.log('filterProbabilitiesForStrategy server function runs with  :', strategyId);
     const strategy = strategies.findOne({_id: strategyId});
-    const {market, male, female, ageStart, ageEnd} = strategy;
-    const genders: number[] = [];
-    if (male) {
-      genders.push(0);
-    }
-    if (female) {
-      genders.push(1);
-    }
+    const {market, ageStart, ageEnd, genders} = strategy;
+    const selectedGenders = Object.keys(genders).filter((element) => genders[element] == true);
 
     const fields = {respondentId: 1, market: 1, age: 1, gender: 1};
     console.log('fields in filterProbabilitiesForStrategy:', fields);

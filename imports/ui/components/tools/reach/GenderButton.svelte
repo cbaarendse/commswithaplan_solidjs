@@ -7,7 +7,7 @@
 
   // variables
   export let value: Genders;
-
+  let tuple: ['f'?, 'm'?, 'x'?];
   let disabled = false;
   $: {
     console.log('value in genderbutton: ', value);
@@ -31,6 +31,22 @@
     }
     if (f == true && m == true) {
       value = {f: false, m: false, x: false};
+    }
+  }
+  console.log('value before togglegenders: ', value);
+
+  function tupleGenders() {
+    if (!tuple.includes('f') && !tuple.includes('m') && !tuple.includes('x')) {
+      tuple = ['f'];
+    }
+    if (tuple.includes('f') && !tuple.includes('m') && !tuple.includes('x')) {
+      tuple = [, 'm'];
+    }
+    if (!tuple.includes('f') && tuple.includes('m') && !tuple.includes('x')) {
+      tuple = ['f', 'm'];
+    }
+    if (tuple.includes('f') && tuple.includes('m') && !tuple.includes('x')) {
+      tuple = [];
     }
   }
 </script>

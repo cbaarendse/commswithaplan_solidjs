@@ -35,7 +35,7 @@ export const PROBABILITIES_CODING = {
     ]
   }
 };
-export const MARKETS = ['nl', 'gb', 'uk', 'en', 'de', 'fr', 'be', 'es', 'ie', 'us', 'ca', 'ch', 'my', 'sg'];
+export const MARKETS = ['be', 'nl', 'uk'];
 // TODO: rename to subscriptions or tiers
 export const PLANS = ['oneByOne', 'oneForMore', 'oneForAll'];
 

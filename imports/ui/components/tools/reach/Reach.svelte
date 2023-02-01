@@ -22,15 +22,21 @@
   // $strategy = reachTool.sort($strategy, $language);
   // });
 
-  const call = Meteor.callAsync('probabilities.checkForMarket', {args: $strategy.marketName});
-  call.catch((error) => console.log('error in call', error));
-  call.then((result, rejected) => {
+  Meteor.callAsync('test', 'Hanno!')
+    .then((result: any) => console.log('result in callAsync test', result))
+    .catch((error) => console.log('error in callAsync test', error));
+
+  const check = Meteor.callAsync('probabilities.checkForMarket', {marketName: $strategy.marketName});
+  check.then((result) => {
+    console.log('check result', result);
     $strategy.marketData = result;
-    console.log('rejected == ', rejected);
   });
-  const count = Meteor.callAsync('probabilities.countRespondentsForMarket', {args: $strategy.marketName});
-  console.log('count', count);
-  console.log('Meteor.methods', Meteor.methods);
+  check.catch((error) => console.log('error in check', error));
+  console.log('check is: ', check);
+
+  Meteor.callAsync('probabilities.countRespondentsForMarket', {marketName: 'nl'})
+    .then((result) => console.log('count result =', result))
+    .catch((error) => console.log('error in count', error));
 
   console.log('strategy. marketData log: ', $strategy.marketData);
   $: {

@@ -14,18 +14,27 @@ const strategies = Strategies.find({}).fetch();
 
 // methods
 Meteor.methods({
+  test: function (param: string): string {
+    return 'Test hallo ' + param;
+  },
   'probabilities.checkForMarket': function (args: {[key: string]: string}) {
-    if (!Match.test(args.market, String) || !Match.test(args.market, MARKETS.includes(args.market))) {
+    console.log('probabilities.checkProbabilitiesForMarket runs with: ', args.marketName);
+
+    if (
+      !Match.test(args.marketName, String) ||
+      !Match.test(
+        args.marketName,
+        Match.Where((arg) => MARKETS.includes(arg))
+      )
+    ) {
       throw new Meteor.Error('general.invalid.input', 'Invalid input', '[{ "name": "invalidInput" }]');
     }
-
-    console.log('probabilities.checkProbabilitiesForMarket runs with: ', args.market);
 
     let probabilityForMarket: Probability | undefined;
     if (this.isSimulation) {
       console.log('this is simulation');
     } else {
-      probabilityForMarket = Probabilities.findOne({market: args.market});
+      probabilityForMarket = Probabilities.findOne({market: args.marketName});
       console.log(
         'type of probabilityForMarket in server check for probability:',
         typeof probabilityForMarket,
@@ -36,18 +45,24 @@ Meteor.methods({
   },
 
   'probabilities.countRespondentsForMarket': function (args: {[key: string]: string}): number | undefined {
-    if (!Match.test(args.market, String) || !Match.test(args.market, MARKETS.includes(args.market))) {
+    if (
+      !Match.test(args.marketName, String) ||
+      !Match.test(
+        args.marketName,
+        Match.Where((arg) => MARKETS.includes(arg))
+      )
+    ) {
       throw new Meteor.Error('general.invalid.input', 'Invalid input', '[{ "name": "invalidInput" }]');
     }
-    console.log('probabilities.countRespondentsForMarket runs with: ', args.market);
+    console.log('probabilities.countRespondentsForMarket runs with: ', args.marketName);
 
-    if (!this.userId) {
-      throw new Meteor.Error(
-        'users.general.notLoggedIn',
-        'User is not properly logged in',
-        '[{ "name": "notLoggedIn" }]'
-      );
-    }
+    // if (!this.userId) {
+    //   throw new Meteor.Error(
+    //     'users.general.notLoggedIn',
+    //     'User is not properly logged in',
+    //     '[{ "name": "notLoggedIn" }]'
+    //   );
+    // }
     let count: number | undefined;
     if (this.isSimulation) {
       // TODO:
@@ -68,23 +83,23 @@ Meteor.methods({
     const strategy = Strategies.findOne({_id: args.strategyId});
     const {_id, user} = strategy;
 
-    if (!this.userId) {
-      throw new Meteor.Error(
-        'users.general.notLoggedIn',
-        'User is not properly logged in',
-        '[{ "name": "notLoggedIn" }]'
-      );
-    }
+    // if (!this.userId) {
+    //   throw new Meteor.Error(
+    //     'users.general.notLoggedIn',
+    //     'User is not properly logged in',
+    //     '[{ "name": "notLoggedIn" }]'
+    //   );
+    // }
     // Check if strategy is from user
-    if (user !== this.userId) {
-      throw new Meteor.Error(
-        'Not authorized',
-        'You are not authorized to calculate for this strategy',
-        '[{ "name": "notAuthorized" }]'
-      );
-    }
+    // if (user !== this.userId) {
+    //   throw new Meteor.Error(
+    //     'Not authorized',
+    //     'You are not authorized to calculate for this strategy',
+    //     '[{ "name": "notAuthorized" }]'
+    //   );
+    // }
 
-    let probabilitiesForStrategy: Probability[];
+    let probabilitiesForStrategy: Probability[] | undefined;
     if (this.isSimulation) {
       // TODO:
       console.log('this is simulation');

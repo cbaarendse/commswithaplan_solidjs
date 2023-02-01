@@ -32,7 +32,6 @@ export type Market = {
   ageGroups: AgeGroup[];
 };
 export type AgeGroup = [number, number | string];
-
 export type Genders = {
   m: boolean;
   f: boolean;
