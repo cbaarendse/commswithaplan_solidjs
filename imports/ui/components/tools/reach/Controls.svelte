@@ -1,5 +1,6 @@
 <script lang="ts">
   // imports
+  import {Meteor} from 'meteor/meteor';
   import GenderButton from './GenderButton.svelte';
   import AgeGroupSelect from './AgeGroupSelect.svelte';
   import MarketDataCheck from './MarketDataCheck.svelte';
@@ -7,7 +8,7 @@
   import createReachTool from '../../../functions/reach';
   import {language} from '../../../stores/utils';
   import {strategy} from '../../../stores/tools';
-  import {Genders} from '../../../../both/typings/types';
+  import {CWAPUser, Genders} from '../../../../both/typings/types';
   import Fa from 'svelte-fa/src/fa.svelte';
   import {
     faArrowRotateLeft,
@@ -19,6 +20,11 @@
   } from '@fortawesome/free-solid-svg-icons';
 
   // variables
+  let currentUser: CWAPUser | null;
+
+  $m: {
+    currentUser = Meteor.user();
+  }
   const reachTool = createReachTool();
   let markets = reachTool.setMarkets();
   let indexMarket: number = 1; // == 'nl'
@@ -62,28 +68,30 @@
 </script>
 
 <div class="container">
-  <form>
-    <fieldset class="market">
-      <MarketSelect {markets} bind:value={indexMarket} on:change={handleChangeMarket} />
-    </fieldset>
-    <fieldset class="data">
-      <MarketDataCheck bind:checked={$strategy.marketData} on:change={handleChangeMarketData} />
-    </fieldset>
-    {#if $strategy.marketData}
-      <fieldset class="gender">
-        <GenderButton bind:value={genders} />
+  {#if currentUser}
+    <form>
+      <fieldset class="market">
+        <MarketSelect {markets} bind:value={indexMarket} on:change={handleChangeMarket} />
       </fieldset>
-      <fieldset class="age">
-        <AgeGroupSelect
-          bind:value={indexStart}
-          groups={groupsForAgeStart}
-          name="age-start__select"
-          id="age-start__select"
-        />
-        <AgeGroupSelect bind:value={indexEnd} groups={groupsForAgeEnd} name="age-end__select" id="age-end__select" />
+      <fieldset class="data">
+        <MarketDataCheck bind:checked={$strategy.marketData} on:change={handleChangeMarketData} />
       </fieldset>
-    {/if}
-  </form>
+      {#if $strategy.marketData}
+        <fieldset class="gender">
+          <GenderButton bind:value={genders} />
+        </fieldset>
+        <fieldset class="age">
+          <AgeGroupSelect
+            bind:value={indexStart}
+            groups={groupsForAgeStart}
+            name="age-start__select"
+            id="age-start__select"
+          />
+          <AgeGroupSelect bind:value={indexEnd} groups={groupsForAgeEnd} name="age-end__select" id="age-end__select" />
+        </fieldset>
+      {/if}
+    </form>
+  {/if}
   <menu class="buttons">
     <button type="button" on:click|stopPropagation|preventDefault={reset}>
       {#if reachTool.areAllTouchPointsValueZero($strategy.deployment)}<Fa
@@ -123,7 +131,7 @@
   form {
     display: grid;
     gap: 0.4rem;
-    grid-template-areas: 'market data data gender age age age';
+    grid-template-columns: 1fr 1fr;
   }
   fieldset {
     padding: 0;
@@ -135,19 +143,15 @@
     justify-content: flex-start;
   }
   fieldset.market {
-    grid-area: market;
     display: flex;
   }
   fieldset.data {
-    grid-area: data;
     display: flex;
   }
   fieldset.gender {
-    grid-area: gender;
     display: flex;
   }
   fieldset.age {
-    grid-area: age;
     width: 100%;
     display: grid;
     grid-auto-flow: column;

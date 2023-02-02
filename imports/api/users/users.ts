@@ -29,37 +29,7 @@ Meteor.users.deny({
   }
 });
 
-// type
-export type UserProfile = {
-  firstname?: string;
-  surname?: string;
-  phone?: number;
-  street?: string;
-  zipcode?: string;
-  city?: string;
-  companyId?: string;
-  lastLanguage?: string;
-  lastCompanyId?: string;
-  lastBrandId?: string;
-  lastProductId?: string;
-  lastStrategyId?: string;
-  lastCampaignDataType?: string;
-  lastRoute?: string;
-  stripeId?: string;
-  roles?: {[key: string]: [string]};
-  heartbeat?: Date;
-};
-
-export type CWAPUser = Meteor.User & {
-  profile?: UserProfile;
-};
-
-export interface UsersMethods {
-  _id: string;
-  modifier: Omit<Meteor.User, 'profile'> & {profile: UserProfile};
-  touchPoint: string;
-}
-
+// Regex
 export const usernameRegExp = /^[A-Za-z0-9]{7,14}$/;
 export const emailRegExp =
   /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;

@@ -1,9 +1,8 @@
 <script lang="ts">
   // imports
-  import {Meteor} from 'meteor/meteor';
   import {CWAPUser} from '/imports/api/users/users';
   import Fa from 'svelte-fa/src/fa.svelte';
-  import {faPencil, faSignOut} from '@fortawesome/free-solid-svg-icons';
+  import {faPencil} from '@fortawesome/free-solid-svg-icons';
 
   // variables
   export let user: CWAPUser;
@@ -18,18 +17,11 @@
       return '--';
     }
   };
-  const logout = function () {
-    Meteor.logout((error) => {
-      console.log('logging out == ', Meteor.loggingOut, 'for ', user.username);
-      console.error('error at logout: ', error);
-    });
-  };
 </script>
 
 <section>
   <menu>
     <button><Fa icon={faPencil} /></button>
-    <button on:click|stopPropagation|preventDefault={logout}><Fa icon={faSignOut} /></button>
   </menu>
   <table>
     <caption>

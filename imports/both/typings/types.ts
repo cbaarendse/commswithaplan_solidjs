@@ -1,4 +1,5 @@
 // imports
+import {Meteor} from 'meteor/meteor';
 import {Mongo} from 'meteor/mongo';
 
 // global
@@ -25,6 +26,37 @@ export type DeployedTouchPoint = TouchPointBasics & {
   show: boolean;
   inputType?: 'contacts' | 'grps' | 'impressions' | 'reach';
 };
+
+export type UserProfile = {
+  firstname?: string;
+  surname?: string;
+  phone?: number;
+  street?: string;
+  zipcode?: string;
+  city?: string;
+  companyId?: string;
+  lastLanguage?: string;
+  lastCompanyId?: string;
+  lastBrandId?: string;
+  lastProductId?: string;
+  lastStrategyId?: string;
+  lastCampaignDataType?: string;
+  lastRoute?: string;
+  stripeId?: string;
+  roles?: {[key: string]: [string]};
+  heartbeat?: Date;
+};
+
+export type CWAPUser = Meteor.User & {
+  profile?: UserProfile;
+};
+
+export interface UsersMethods {
+  _id: string;
+  modifier: Omit<Meteor.User, 'profile'> & {profile: UserProfile};
+  touchPoint: string;
+}
+
 export type Market = {
   name: 'be' | 'nl' | 'uk';
   flag: string;
@@ -32,11 +64,8 @@ export type Market = {
   ageGroups: AgeGroup[];
 };
 export type AgeGroup = [number, number | string];
-export type Genders = {
-  m: boolean;
-  f: boolean;
-  x: boolean;
-};
+export type Genders = ['f'?, 'm'?, 'x'?];
+
 export type Strategy = {
   title: string;
   marketData: boolean;

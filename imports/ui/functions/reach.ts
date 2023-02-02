@@ -324,7 +324,7 @@ export default function createReachTool() {
   }
 
   function setGenders(): Genders {
-    return {f: false, m: false, x: false};
+    return ['f', 'm', 'x'];
   }
 
   function setAgeGroupsForMarket(marketName: Market['name']) {

@@ -5,7 +5,7 @@
   import {router, active} from 'tinro';
   import {language, isSmallScreen, navigationVisible} from '../../stores/utils';
   import Fa from 'svelte-fa/src/fa.svelte';
-  import {faSignOut, faUser} from '@fortawesome/free-solid-svg-icons';
+  import {faSignIn, faSignOut, faUser} from '@fortawesome/free-solid-svg-icons';
   import type {CWAPUser} from '/imports/api/users/users';
 
   let currentUser: CWAPUser | null;
@@ -13,6 +13,12 @@
   $m: {
     currentUser = Meteor.user();
   }
+  const logout = function () {
+    Meteor.logout((error) => {
+      console.log('logging out == ', Meteor.loggingOut, 'for ', currentUser.username);
+      console.error('error at logout: ', error);
+    });
+  };
 </script>
 
 <!-- Top has room for functionality used from all over the site. Eventual cookies and/or marketing messages. -->
@@ -25,7 +31,7 @@
       <a
         href={'javascript:void(0)'}
         class:active={$language === 'dutch'}
-        on:click={() => ($language = 'dutch')}
+        on:click|stopPropagation|preventDefault={() => ($language = 'dutch')}
         data-tinro-ignore
       >
         <span>NL</span>
@@ -36,7 +42,7 @@
       <a
         href={'javascript:void(0)'}
         class:active={$language === 'english'}
-        on:click={() => ($language = 'english')}
+        on:click|stopPropagation|preventDefault={() => ($language = 'english')}
         data-tinro-ignore
       >
         <span>EN</span>
@@ -47,6 +53,15 @@
     <a href={'/user'} class:active={currentUser}>
       <Fa icon={faUser} />
     </a>
+    {#if currentUser}
+      <a href={'javascript:void(0)'} class:active={currentUser} on:click|stopPropagation|preventDefault={logout}>
+        <Fa icon={faSignOut} />
+      </a>
+    {:else}
+      <a href={'/user'} class:active={!currentUser} data-tinro-ignore>
+        <Fa icon={faSignIn} />
+      </a>
+    {/if}
   </nav>
 </div>
 

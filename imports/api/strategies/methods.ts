@@ -1,9 +1,6 @@
 // ====== IMPORTS ===============================
 import {Meteor} from 'meteor/meteor';
 import {ValidatedMethod} from 'meteor/mdg:validated-method';
-import {CallPromiseMixin} from 'meteor/didericis:callpromise-mixin';
-
-import SimpleSchema from 'simpl-schema';
 
 import Strategies from './strategies.js';
 import TouchPoints from '../touchpoints/touchpoints';

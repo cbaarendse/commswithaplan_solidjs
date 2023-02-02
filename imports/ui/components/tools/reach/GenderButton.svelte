@@ -16,26 +16,10 @@
   // exports
 
   // functions
-  function toggleGenders() {
-    console.log('value before togglegenders: ', value);
-    const f = value.f;
-    const m = value.m;
-    if (f == false && m == false) {
-      value = {f: true, m: false, x: false};
-    }
-    if (f == true && m == false) {
-      value = {f: false, m: true, x: false};
-    }
-    if (f == false && m == true) {
-      value = {f: true, m: true, x: false};
-    }
-    if (f == true && m == true) {
-      value = {f: false, m: false, x: false};
-    }
-  }
+
   console.log('value before togglegenders: ', value);
 
-  function tupleGenders() {
+  function toggleGenders() {
     if (!tuple.includes('f') && !tuple.includes('m') && !tuple.includes('x')) {
       tuple = ['f'];
     }
@@ -49,6 +33,24 @@
       tuple = [];
     }
   }
+  // alternative function:
+  // function toggleGenders() {
+  //   console.log('value before togglegenders: ', value);
+  //   const f = value.f;
+  //   const m = value.m;
+  //   if (f == false && m == false) {
+  //     value = {f: true, m: false, x: false};
+  //   }
+  //   if (f == true && m == false) {
+  //     value = {f: false, m: true, x: false};
+  //   }
+  //   if (f == false && m == true) {
+  //     value = {f: true, m: true, x: false};
+  //   }
+  //   if (f == true && m == true) {
+  //     value = {f: false, m: false, x: false};
+  //   }
+  // }
 </script>
 
 <button
@@ -58,7 +60,7 @@
   {disabled}
   on:click|preventDefault|stopPropagation={toggleGenders}
 >
-  <Fa icon={faPersonDress} color={$strategy.genders?.f ? 'var(--ra-red)' : 'var(--ra-grey-light'} />
+  <Fa icon={faPersonDress} color={$strategy.genders?.includes['f'] ? 'var(--ra-red)' : 'var(--ra-grey-light'} />
   <Fa icon={faPerson} color={$strategy.genders?.m ? 'var(--ra-red)' : 'var(--ra-grey-light'} />
 </button>
 
