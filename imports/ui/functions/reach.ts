@@ -1,6 +1,5 @@
 // Reach
 // imports
-import {homeItems} from '../stores/home';
 import type {
   TouchPointBasics,
   DeployedTouchPoint,
@@ -25,7 +24,7 @@ export default function createReachTool() {
     useMarketData: false,
     createdAt: new Date(),
     lastChanged: new Date(),
-    deployment: deployTouchPoints(),
+    deployment: deployTouchPointsForFormula(),
     sortedByName: true,
     overlap: 0,
     totalReach: 0
@@ -37,7 +36,7 @@ export default function createReachTool() {
     useMarketData: false,
     createdAt: new Date(),
     lastChanged: new Date(),
-    deployment: deployTouchPoints(),
+    deployment: deployTouchPointsForData(),
     sortedByName: true,
     overlap: 0,
     totalReach: 0,
@@ -60,7 +59,7 @@ export default function createReachTool() {
     defaultStrategy.marketName = marketName;
     defaultStrategy.marketData = false;
     defaultStrategy.useMarketData = false;
-    defaultStrategy.deployment = deployTouchPoints();
+    defaultStrategy.deployment = deployTouchPointsForFormula();
     [defaultStrategy.totalReach, defaultStrategy.overlap] = [0, 0];
 
     return defaultStrategy;
@@ -71,7 +70,7 @@ export default function createReachTool() {
     defaultStrategyWithData.marketName = marketName;
     defaultStrategyWithData.marketData = true;
     defaultStrategyWithData.useMarketData = false;
-    defaultStrategyWithData.deployment = deployTouchPoints();
+    defaultStrategyWithData.deployment = deployTouchPointsForData();
     [defaultStrategyWithData.totalReach, defaultStrategyWithData.overlap] = [0, 0];
     defaultStrategyWithData.genders = genders;
     defaultStrategyWithData.ageGroupStart = ageGroupsForMarket[0];
@@ -79,10 +78,32 @@ export default function createReachTool() {
     return defaultStrategyWithData;
   }
 
-  function deployTouchPoints(): DeployedTouchPoint[] {
+  function deployTouchPointsForFormula(): DeployedTouchPoint[] {
     const deployedTouchPoints: DeployedTouchPoint[] = [];
     touchPointsBasics.forEach(
-      (item, index) => (deployedTouchPoints[index] = {name: item.name, basics: item.basics, value: 0.0, show: true})
+      (item, index) =>
+        (deployedTouchPoints[index] = {
+          name: item.name,
+          basics: item.basics,
+          value: 0.0,
+          show: true,
+          inputType: 'reach'
+        })
+    );
+    return deployedTouchPoints;
+  }
+
+  function deployTouchPointsForData(): DeployedTouchPoint[] {
+    const deployedTouchPoints: DeployedTouchPoint[] = [];
+    touchPointsBasics.forEach(
+      (item, index) =>
+        (deployedTouchPoints[index] = {
+          name: item.name,
+          basics: item.basics,
+          value: 0.0,
+          show: true,
+          inputType: setDefaultInputType(item.name)
+        })
     );
     return deployedTouchPoints;
   }
@@ -205,7 +226,7 @@ export default function createReachTool() {
   }
 
   // Reach with data
-  function setDefaultInputType(touchPointName: string): string {
+  function setDefaultInputType(touchPointName: string): 'contacts' | 'grps' | 'impressions' | 'reach' {
     if (
       ['asset', 'cinema', 'outdoor', 'pr', 'promotion', 'television', 'radio', 'sponsorship'].indexOf(
         touchPointName
@@ -252,6 +273,7 @@ export default function createReachTool() {
     }
     return 'contacts';
   }
+
   function findObjectAndProject(
     input: number | string,
     searchKey: string,

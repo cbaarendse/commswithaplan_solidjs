@@ -58,7 +58,7 @@
         <Fa icon={faSignOut} />
       </a>
     {:else}
-      <a href={'/user'} class:active={!currentUser} data-tinro-ignore>
+      <a href={'/user'} class:active={currentUser} data-tinro-ignore>
         <Fa icon={faSignIn} />
       </a>
     {/if}
@@ -129,13 +129,20 @@
   menu a.active span {
     color: var(--ra-blue);
   }
+  nav {
+    display: flex;
+    gap: 1.4rem;
+  }
   nav a {
     color: var(--ra-grey-light);
   }
   nav a:hover {
     color: var(--ra-green);
   }
-  nav a.active {
+  nav a:first-of-type.active {
     color: var(--ra-red);
+  }
+  nav a.active {
+    color: var(--ra-blue);
   }
 </style>

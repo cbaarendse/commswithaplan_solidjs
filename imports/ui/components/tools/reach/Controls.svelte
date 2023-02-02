@@ -122,16 +122,26 @@
   div.container {
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: auto auto;
+    grid-template-rows: auto;
     gap: 1.4em;
     padding: 1em;
     border-radius: 0.2em;
     background-color: var(--ra-teal-off-white);
   }
+  /* form {
+    display: grid;
+    grid-template-columns: 1fr 3rem;
+    grid-template-areas: 'select label';
+    padding: 0;
+    align-items: center;
+    border: solid 1px var(--ra-teal-light);
+    background-color: transparent;
+    border-radius: 3px;
+  } */
   form {
     display: grid;
     gap: 0.4rem;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 2fr 3fr;
   }
   fieldset {
     padding: 0;
@@ -140,21 +150,23 @@
     border: solid 1px var(--ra-teal-light);
     background-color: transparent;
     border-radius: 3px;
-    justify-content: flex-start;
   }
   fieldset.market {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
   }
   fieldset.data {
-    display: flex;
+    display: grid;
+    height: 100%;
+    grid-template-columns: 1.4rem 1fr;
   }
   fieldset.gender {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
   }
   fieldset.age {
-    width: 100%;
     display: grid;
-    grid-auto-flow: column;
+    grid-template-columns: 1fr 1fr;
   }
   menu {
     flex: 100%;

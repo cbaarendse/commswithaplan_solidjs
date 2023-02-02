@@ -67,6 +67,8 @@ export type AgeGroup = [number, number | string];
 export type Genders = ['f'?, 'm'?, 'x'?];
 
 export type Strategy = {
+  _id?: string | Mongo.ObjectID;
+  userId?: string | Mongo.ObjectID;
   title: string;
   marketData: boolean;
   useMarketData: boolean;

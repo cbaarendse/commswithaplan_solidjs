@@ -1,5 +1,5 @@
 import {Mongo} from 'meteor/mongo';
-import type {TouchPointBasics, Probability, Genders, StrategyExtended} from '../../both/typings/types';
+import type {TouchPointBasics, Probability, Genders, StrategyExtended, Market} from '../../both/typings/types';
 
 export default function createDataTool() {
   function filterProbabilitiesForMarket(probabilities: Probability[], marketName: string): Probability[] {
@@ -24,22 +24,31 @@ export default function createDataTool() {
   ) {
     console.log('filterProbabilitiesForStrategy server function runs with  :', strategyId);
     const strategy = strategies.find((item) => item._id == strategyId);
-    // if (strategy) {
-    const {marketName, ageStart, ageEnd, genders} = strategy;
-    // }
+
+    const {
+      marketName,
+      ageStart,
+      ageEnd,
+      genders
+    }: {
+      marketName: Market['name'];
+      ageStart: number;
+      ageEnd: number;
+      genders: Genders;
+    } = strategy;
 
     const fields = {respondentId: 1, market: 1, age: 1, gender: 1};
     console.log('fields in filterProbabilitiesForStrategy:', fields);
 
     return probabilities.filter((probability) => {
-      probability.market == marketName,
+      probability.marketName == marketName,
         genders.includes(probability.gender),
         probability.age >= ageStart && probability.age <= ageEnd;
     });
   }
 
   function arrangeProbabilitiesForTouchPoints(
-    strategyId: string,
+    strategyId: string | Mongo.ObjectIDStatic,
     probabilities: Probability[],
     touchPoints: TouchPointBasics[]
   ) {

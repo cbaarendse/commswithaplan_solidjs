@@ -1,11 +1,11 @@
 // ====== IMPORTS ===============================
 
 // ====== EXPORTS ===============================
-export function reachWithAlgorithmForStrategy(rV) {
+export function totalReachWithAlgorithmForStrategy(rV: number[]) {
   if (rV.length === 0) {
     return 0;
   } else if (rV.length > 0) {
-    let reach1;
+    let reach1 = 100;
     let reach2 = 1;
     for (let i = 0; i < rV.length; i++) {
       if (i === 0) {
@@ -20,7 +20,7 @@ export function reachWithAlgorithmForStrategy(rV) {
   }
 }
 
-export function locusWithAlgorithmForStrategy(rV) {
+export function overlapWithAlgorithmForStrategy(rV: number[]) {
   if (rV.length === 0) {
     return 0;
   } else if (rV.length > 0) {

@@ -19,7 +19,6 @@
 </script>
 
 {#if groups}
-  <label for={id}><Fa icon={faSort} color={'var(--ra-teal'} /></label>
   <select class="age__select" {id} {name} bind:value>
     {#each groups as ageGroup, index}
       <option value={index}>
@@ -28,11 +27,11 @@
       </option>
     {/each}
   </select>
+  <label for={id}><Fa icon={faSort} color={'var(--ra-teal'} /></label>
 {/if}
 
 <style>
   select {
-    grid-area: select;
     appearance: none;
     border: none;
     background-color: transparent;
@@ -42,7 +41,6 @@
     outline: solid 1px var(--ra-green);
   }
   label {
-    grid-area: label;
     background-color: none;
     padding: 0.2em 0.4em;
   }

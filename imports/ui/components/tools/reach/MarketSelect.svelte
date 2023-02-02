@@ -13,24 +13,14 @@
   // exports
 </script>
 
-<label for="market__select"><Fa icon={faSort} color={'var(--ra-teal'} /></label>
 <select class="market" name="market" id="market__select" bind:value on:change>
   {#each markets as thisMarket, index}
     <option value={index}>{thisMarket.flag || thisMarket.name}</option>
   {/each}
 </select>
+<label for="market__select"><Fa icon={faSort} color={'var(--ra-teal'} /></label>
 
 <style>
-  form {
-    display: grid;
-    grid-template-columns: 1fr 3rem;
-    grid-template-areas: 'select label';
-    padding: 0;
-    align-items: center;
-    border: solid 1px var(--ra-teal-light);
-    background-color: transparent;
-    border-radius: 3px;
-  }
   select {
     grid-area: select;
     appearance: none;
