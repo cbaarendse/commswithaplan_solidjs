@@ -197,7 +197,7 @@ export const usersFindIdsByRole = new ValidatedMethod({
     }
     const users: Meteor.User[] = Roles.getUsersInRole(args.role, args.companyId).fetch();
     console.log('users in findIdsByRole :', users);
-    // UNDEFINED, OTHERWISE IT GOES IN MAILTO: LINK
+    // Undefined, otherwise it goes in mailto: link
     if (!users) {
       return undefined;
     }
@@ -233,8 +233,8 @@ export const usersRemove = new ValidatedMethod({
       );
     }
     if (Meteor.isServer) {
-      /** REMOVE BLOCKS UNTIL THE DATABASE ACKNOWLEDGES THE WRITE AND THEN RETURNS THE NUMBER OF REMOVED DOCUMENTS, 
-      OR THROWS AN EXCEPTION IF SOMETHING WENT WRONG. **/
+      /** Remove blocks until the database acknowledges the write and then returns the number of removed documents, 
+      or throws an exception if something went wrong. **/
       return Meteor.users.remove({_id: args.userId});
     }
   }
@@ -243,7 +243,7 @@ export const usersRemove = new ValidatedMethod({
 export const usersCreateUser = new ValidatedMethod({
   name: 'users.createUser',
   validate(options: {[key: string]: string}) {
-    // NO PASSWORD NEEDED; TO BE ASKED LATER, FOR EXAMPLE WITH ENROLLMENT
+    // No password needed; to be asked later, for example with enrollment
     if (!Match.test(options.username, String) || !usernameRegExp.test(options.username)) {
       throw new Meteor.Error('users.signup.username', 'Invalid username', '[{ "name": "invalidUsername" }]');
     }
@@ -316,7 +316,7 @@ export const usersSetPassword = new ValidatedMethod({
         '[{ "name": "notLoggedIn" }]'
       );
     }
-    // BECAUSE ON SERVER RETURNS USERID, NO CALLBACK FOR ERRORS
+    // Because on server returns userid, no callback for errors
     if (Meteor.isServer) {
       return Accounts.setPassword(args.userId, args.password);
     }
@@ -332,7 +332,7 @@ export const usersUpdate = new ValidatedMethod({
   },
   run(this: Meteor.MethodThisType, args: UsersMethods) {
     console.log('usersUpdate runs with ', args._id, args.modifier);
-    // CHECK IF USER IS LOGGED IN
+    // Check if user is logged in
     if (!this.userId) {
       throw new Meteor.Error(
         'users.general.notLoggedIn',
@@ -340,9 +340,9 @@ export const usersUpdate = new ValidatedMethod({
         '[{ "name": "notLoggedIn" }]'
       );
     }
-    // CHECK IF USER WANTS TO UPDATE OTHER USER
+    // Check if user wants to update other user
     if (args._id !== this.userId) {
-      // CHECK IF USER IS AUTHORIZED TO UPDATE OTHER USER
+      // Check if user is authorized to update other user
       if (
         !Roles.userIsInRole(this.userId, ['owner', 'companyAdmin']) &&
         !Roles.userIsInRole(this.userId, 'admin', Roles.GLOBAL_GROUP)
@@ -359,8 +359,8 @@ export const usersUpdate = new ValidatedMethod({
       if (args.modifier.emails) {
         user = Accounts.findUserByEmail(args.modifier.emails[0].address);
       }
-      // CHECK IF EMAIL ALREADY EXISTS IN DATABASE, IF NOT, OR IF EMAIL IS OF USER TO BE UPDATED,
-      // UDATE USER DOCUMENT
+      // Check if email already exists in database, if not, or if email is of user to be updated,
+      // update user document
       if (!user || user._id === args._id) {
         Meteor.users.update({_id: args._id}, args.modifier);
       } else {
@@ -397,7 +397,7 @@ export const usersSaveSettings = new ValidatedMethod({
         '[{ "name": "notAuthorized" }]'
       );
     } else {
-      // UPDATE IN COLLECTION2 RETURNS ERROR MESSAGES TO CLIENT
+      // Update in collection2 returns error messages to client
       Meteor.users.update(
         {_id: this.userId},
         {
@@ -450,7 +450,7 @@ export const usersAddTouchPointToRoles = new ValidatedMethod({
   },
   run(this: Meteor.MethodThisType, args: {[key: string]: string}) {
     console.log('usersAddTouchPointToRoles runs with ', args._id, args.touchPoint, args.companyId);
-    // CHECK IF USER IS LOGGED IN
+    // Check if user is logged in
     if (!this.userId) {
       throw new Meteor.Error(
         'users.general.notLoggedIn',
@@ -458,7 +458,7 @@ export const usersAddTouchPointToRoles = new ValidatedMethod({
         '[{ "name": "notLoggedIn" }]'
       );
     }
-    // CHECK IF USER IS AUTHORIZED TO ADD TOUCHPOINT TO ROLE
+    // Check if user is authorized to add touchpoint to role
     if (
       !Roles.userIsInRole(this.userId, ['owner', 'companyAdmin'], args.companyId) &&
       !Roles.userIsInRole(this.userId, 'admin', Roles.GLOBAL_GROUP)
@@ -469,7 +469,7 @@ export const usersAddTouchPointToRoles = new ValidatedMethod({
         '[{ "name": "notAuthorized" }]'
       );
     }
-    // CHECK WHETHER THIS ROLE IS ALREADY GIVEN TO USERS, IF YES THEN REMOVE
+    // Check whether this role is already given to users, if yes then remove
     const usersWithTouchPointRole = Roles.getUsersInRole(args.touchPoint, args.companyId);
 
     if (usersWithTouchPointRole) {
@@ -492,7 +492,7 @@ export const usersRemoveTouchPointFromRoles = new ValidatedMethod({
   },
   run(this: Meteor.MethodThisType, args: {[key: string]: string}) {
     console.log('usersRemoveTouchPointFromRoles runs with ', args._id, args.touchPoint, args.companyId);
-    // CHECK IF USER IS LOGGED IN
+    // Check if user is logged in
     if (!this.userId) {
       throw new Meteor.Error(
         'users.general.notLoggedIn',
@@ -500,7 +500,7 @@ export const usersRemoveTouchPointFromRoles = new ValidatedMethod({
         '[{ "name": "notLoggedIn" }]'
       );
     }
-    // CHECK IF USER IS AUTHORIZED TO ADD TOUCHPOINT TO ROLE
+    // Check if user is authorized to add touchpoint to role
     if (
       !Roles.userIsInRole(this.userId, ['owner', 'companyAdmin'], args.companyId) &&
       !Roles.userIsInRole(this.userId, 'admin', Roles.GLOBAL_GROUP)
@@ -534,7 +534,7 @@ export const usersRemoveRoles = new ValidatedMethod({
       }
       return result;
     }, true);
-    // CHECK IF USER IS LOGGED IN
+    // Check if user is logged in
     if (!this.userId) {
       throw new Meteor.Error(
         'users.general.notLoggedIn',
@@ -542,7 +542,7 @@ export const usersRemoveRoles = new ValidatedMethod({
         '[{ "name": "notLoggedIn" }]'
       );
     }
-    // ONLY ADMIN, OWNER and CANDIDATE OWNER CAN CHANGE DATES, INPUT, COSTS, INVITED,TOUCHPOINTS ROLES
+    // Only admin, owner and candidate owner can change dates, input, costs, invited,touchpoints roles
     if (rolesAreForContributor) {
       if (
         !Roles.userIsInRole(this.userId, 'admin', Roles.GLOBAL_GROUP) &&
@@ -562,7 +562,7 @@ export const usersRemoveRoles = new ValidatedMethod({
         '[{ "name": "notAuthorized" }]'
       );
     }
-    // ONLY ADMIN AND USER SELF CAN CHANGE EMPLOYEE ROLE
+    // Only admin and user self can change employee role
     if (args.roles.indexOf('employee') !== -1) {
       if (!Roles.userIsInRole(this.userId, 'admin', Roles.GLOBAL_GROUP) && args._id !== this.userId) {
         throw new Meteor.Error(
@@ -572,7 +572,7 @@ export const usersRemoveRoles = new ValidatedMethod({
         );
       }
     }
-    // ONLY ADMIN CAN CHANGE OWNER ROLE
+    // Only admin can change owner role
     if (args.roles.indexOf('owner') !== -1) {
       if (!Roles.userIsInRole(this.userId, 'admin', Roles.GLOBAL_GROUP)) {
         throw new Meteor.Error(
@@ -582,7 +582,7 @@ export const usersRemoveRoles = new ValidatedMethod({
         );
       }
     }
-    // ONLY ADMIN AND OWNER CAN CHANGE CANDIDATE OWNER ROLE
+    // Only admin and owner can change candidate owner role
     if (args.roles.indexOf('companyAdmin') !== -1) {
       if (
         !Roles.userIsInRole(this.userId, 'admin', Roles.GLOBAL_GROUP) &&
@@ -620,7 +620,7 @@ export const usersAddRoles = new ValidatedMethod({
         '[{ "name": "notLoggedIn" }]'
       );
     }
-    // CHECK IF USER IS AUTHORIZED TO ADD ROLES
+    // Check if user is authorized to add roles
     if (args.roles.indexOf('owner') !== -1) {
       if (!Roles.userIsInRole(this.userId, ['admin'], Roles.GLOBAL_GROUP)) {
         throw new Meteor.Error(
@@ -642,7 +642,7 @@ export const usersAddRoles = new ValidatedMethod({
         );
       }
     }
-    // MAKE SURE USER IS NOT AN EMPLOYEE OF MORE THAN ONE COMPANY
+    // Make sure user is not an employee of more than one company
     if (args.roles.indexOf('employee') !== -1) {
       const companyIds = Roles.getGroupsForUser(this.userId, 'employee');
       console.log('companyIds in users.addRoles method :', companyIds);
@@ -650,20 +650,20 @@ export const usersAddRoles = new ValidatedMethod({
         Roles.removeUsersFromRoles([this.userId], ['employee'], companyId);
       });
     }
-    // ONLY 'DATES', 'INPUT', 'COST', EMPLOYEE' AND 'INVITED' ARE ROLES THAT CAN BE ASSIGNED TO MORE THAN ONE USER
-    // MAKE SURE NO ONE ELSE IS OWNER
+    // Only 'dates', 'input', 'cost', employee' and 'invited' are roles that can be assigned to more than one user
+    // Make sure no one else is owner
     if (args.roles.indexOf('owner') !== -1) {
       const owners = Roles.getUsersInRole('owner', args.companyId).fetch();
       console.log('owners :', owners);
       Roles.removeUsersFromRoles(owners, ['owner'], args.companyId);
     }
-    // MAKE SURE NO ONE ELSE IS CANDIDATE OWNER
+    // Make sure no one else is candidate owner
     if (args.roles.indexOf('companyAdmin') !== -1) {
       const companyAdmins = Roles.getUsersInRole('companyAdmin', args.companyId).fetch();
       console.log('companyAdmins :', companyAdmins);
       Roles.removeUsersFromRoles(companyAdmins, ['companyAdmin'], args.companyId);
     }
-    // ANY MAJOR ROLE IMPLIES ADDITION OF MINOR ROLES IF COSTS, THEN ALSO INPUT AND DATES. IF INPUT, THEN ALSO DATES
+    // Any major role implies addition of minor roles if costs, then also input and dates. if input, then also dates
     if (args.roles.indexOf('input') !== -1) {
       args.roles.push('dates');
     }
@@ -674,7 +674,7 @@ export const usersAddRoles = new ValidatedMethod({
       args.roles.push('dates', 'input', 'costs');
     }
 
-    // MAKE SURE NO ONE ELSE IS ALLOWED TO CHANGE TOUCH POINT
+    // Make sure no one else is allowed to change touch point
     for (const role in args.roles) {
       if (TOUCHPOINTSNAMES.indexOf(role) !== -1) {
         const contributors = Roles.getUsersInRole(role, args.companyId).fetch();
@@ -682,14 +682,14 @@ export const usersAddRoles = new ValidatedMethod({
         Roles.removeUsersFromRoles(contributors, [role], args.companyId);
       }
 
-      // DEDOUBLE THROUGH SET
+      // Dedouble through set
       const uniqueRoles = Array.from(new Set(args.roles));
       console.log('usersAddRoles implements uniqueRoles ', uniqueRoles);
 
-      // REMOVE CONTRIBUTOR AND EMPLOYEE ROLES TO PREVENT ROLES STICKING TO USER
+      // Remove contributor and employee roles to prevent roles sticking to user
       //Roles.removeUsersFromRoles(userId, [...COMPANY_CONTRIBUTOR_ROLES, ...COMPANY_EMPLOYEE_ROLES, ...COMPANY_OWNER_ROLES], companyId);
 
-      // ADD ROLES
+      // Add roles
       Roles.addUsersToRoles(args._id, uniqueRoles, args.companyId);
     }
   }
@@ -704,7 +704,7 @@ export const usersDownPermission = new ValidatedMethod({
   },
   run(this: Meteor.MethodThisType, args: {[key: string]: string}) {
     console.log('usersDownPermission runs with ', args.userId, args.companyId);
-    // CHECK IF USER IS LOGGED IN
+    // Check if user is logged in
     if (!this.userId) {
       throw new Meteor.Error(
         'users.general.notLoggedIn',

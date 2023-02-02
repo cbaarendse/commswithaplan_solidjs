@@ -56,13 +56,13 @@ Meteor.methods({
     }
     console.log('probabilities.countRespondentsForMarket runs with: ', args.marketName);
 
-    // if (!this.userId) {
-    //   throw new Meteor.Error(
-    //     'users.general.notLoggedIn',
-    //     'User is not properly logged in',
-    //     '[{ "name": "notLoggedIn" }]'
-    //   );
-    // }
+    if (!this.userId) {
+      throw new Meteor.Error(
+        'users.general.notLoggedIn',
+        'User is not properly logged in',
+        '[{ "name": "notLoggedIn" }]'
+      );
+    }
     let count: number | undefined;
     if (this.isSimulation) {
       // TODO:
@@ -81,17 +81,17 @@ Meteor.methods({
     console.log('probabilities.countForStrategy runs with: ', args.strategyId);
 
     const strategy = Strategies.findOne({_id: args.strategyId});
-    const {_id, user} = strategy;
+    const {_id, userId} = strategy;
 
-    // if (!this.userId) {
-    //   throw new Meteor.Error(
-    //     'users.general.notLoggedIn',
-    //     'User is not properly logged in',
-    //     '[{ "name": "notLoggedIn" }]'
-    //   );
-    // }
+    if (!this.userId) {
+      throw new Meteor.Error(
+        'users.general.notLoggedIn',
+        'User is not properly logged in',
+        '[{ "name": "notLoggedIn" }]'
+      );
+    }
     // Check if strategy is from user
-    // if (user !== this.userId) {
+    // if (userId !== this.userId) {
     //   throw new Meteor.Error(
     //     'Not authorized',
     //     'You are not authorized to calculate for this strategy',
