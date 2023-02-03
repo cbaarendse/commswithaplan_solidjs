@@ -1,5 +1,12 @@
 import {Mongo} from 'meteor/mongo';
-import type {TouchPointBasics, Probability, Genders, StrategyExtended, Market} from '../../both/typings/types';
+import type {
+  TouchPointBasics,
+  Probability,
+  Genders,
+  StrategyExtended,
+  Market,
+  AgeGroup
+} from '../../both/typings/types';
 
 export default function createDataTool() {
   function filterProbabilitiesForMarket(probabilities: Probability[], marketName: string): Probability[] {
@@ -23,27 +30,20 @@ export default function createDataTool() {
     strategyId: string | Mongo.ObjectIDStatic
   ) {
     console.log('filterProbabilitiesForStrategy server function runs with  :', strategyId);
-    const strategy = strategies.find((item) => item._id == strategyId);
+    const strategy = strategies.filter((item) => item._id == strategyId)[0];
 
-    const {
-      marketName,
-      ageStart,
-      ageEnd,
-      genders
-    }: {
-      marketName: Market['name'];
-      ageStart: number;
-      ageEnd: number;
-      genders: Genders;
-    } = strategy;
+    const marketName = strategy.marketName;
+    const ageGroupStart = strategy.ageGroupStart;
+    const ageGroupEnd = strategy.ageGroupEnd;
+    const genders = strategy.genders;
 
     const fields = {respondentId: 1, market: 1, age: 1, gender: 1};
     console.log('fields in filterProbabilitiesForStrategy:', fields);
 
     return probabilities.filter((probability) => {
       probability.marketName == marketName,
-        genders.includes(probability.gender),
-        probability.age >= ageStart && probability.age <= ageEnd;
+        genders.has(probability.gender),
+        probability.age >= ageGroupStart[0] && probability.age <= ageGroupEnd[1];
     });
   }
 

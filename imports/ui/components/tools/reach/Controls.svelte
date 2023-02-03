@@ -3,12 +3,12 @@
   import {Meteor} from 'meteor/meteor';
   import GenderButton from './GenderButton.svelte';
   import AgeGroupSelect from './AgeGroupSelect.svelte';
-  import MarketDataCheck from './MarketDataCheck.svelte';
+  import UseMarketDataCheck from './UseMarketDataCheck.svelte';
   import MarketSelect from './MarketSelect.svelte';
   import createReachTool from '../../../functions/reach';
   import {language} from '../../../stores/utils';
   import {strategy} from '../../../stores/tools';
-  import {CWAPUser, Genders} from '../../../../both/typings/types';
+  import {CWAPUser} from '../../../../both/typings/types';
   import Fa from 'svelte-fa/src/fa.svelte';
   import {
     faArrowRotateLeft,
@@ -28,30 +28,25 @@
   const reachTool = createReachTool();
   let markets = reachTool.setMarkets();
   let indexMarket: number = 1; // == 'nl'
-  let genders: Genders = reachTool.setGenders();
   let indexStart: number = 0;
   let indexEnd: number = 0;
   const ageGroupsForMarket = reachTool.setAgeGroupsForMarket($strategy.marketName);
 
   $: {
     $strategy.marketName = markets[indexMarket].name;
-    $strategy.genders = genders;
   }
   $: groupsForAgeStart = ageGroupsForMarket;
   $: groupsForAgeEnd = ageGroupsForMarket.slice(indexStart ? indexStart : 1);
 
+  $: {
+    $strategy.ageGroupStart = groupsForAgeStart[indexStart];
+    $strategy.ageGroupEnd = groupsForAgeEnd[indexEnd];
+  }
   let iconSize = '100%';
 
   // functions
   function handleChangeMarket() {
     $strategy = reachTool.setNewStrategyWithFormula($strategy.marketName);
-  }
-  function handleChangeMarketData() {
-    if ($strategy.marketData) {
-      $strategy = reachTool.setNewStrategyWithData($strategy.marketName);
-    } else {
-      $strategy = reachTool.setNewStrategyWithFormula($strategy.marketName);
-    }
   }
 
   function reset() {
@@ -74,11 +69,11 @@
         <MarketSelect {markets} bind:value={indexMarket} on:change={handleChangeMarket} />
       </fieldset>
       <fieldset class="data">
-        <MarketDataCheck bind:checked={$strategy.marketData} on:change={handleChangeMarketData} />
+        <UseMarketDataCheck />
       </fieldset>
-      {#if $strategy.marketData}
+      {#if $strategy.marketData && $strategy.useMarketData}
         <fieldset class="gender">
-          <GenderButton bind:value={genders} />
+          <GenderButton />
         </fieldset>
         <fieldset class="age">
           <AgeGroupSelect
@@ -140,12 +135,15 @@
   } */
   form {
     display: grid;
-    gap: 0.4rem;
+    gap: 0.8rem;
     grid-template-columns: 2fr 3fr;
+    grid-template-rows: auto auto;
+    justify-content: center;
+    align-items: center;
   }
   fieldset {
-    padding: 0;
     height: 100%;
+    padding: 0.4remrem 0.6rem;
     align-items: center;
     border: solid 1px var(--ra-teal-light);
     background-color: transparent;
@@ -153,16 +151,18 @@
   }
   fieldset.market {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 3fr 1fr;
   }
   fieldset.data {
     display: grid;
-    height: 100%;
+    gap: 0.8rem;
     grid-template-columns: 1.4rem 1fr;
   }
   fieldset.gender {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: auto;
+    justify-content: center;
+    align-items: center;
   }
   fieldset.age {
     display: grid;

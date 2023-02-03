@@ -63,12 +63,13 @@ export type Market = {
   displayNames: {language: Language; displayName: string}[];
   ageGroups: AgeGroup[];
 };
-export type AgeGroup = [number, number | string];
-export type Genders = ['f'?, 'm'?, 'x'?];
+export type AgeGroup = [number, number];
+// export type Genders = {f: boolean; m: boolean; x: boolean};
+export type Genders = Set<'f' | 'm' | 'x' | undefined | null>;
 
 export type Strategy = {
   _id?: string | Mongo.ObjectID;
-  userId?: string | Mongo.ObjectID;
+  userId: string | Mongo.ObjectID;
   title: string;
   marketData: boolean;
   useMarketData: boolean;
@@ -80,14 +81,12 @@ export type Strategy = {
   overlap: number;
   totalReach: number;
 };
-export type StrategyExtended = Strategy & {
-  _id?: string | Mongo.ObjectID;
-  userId?: string | Mongo.ObjectID;
-  ageStart?: number | null;
-  ageEnd?: number | null;
+export type StrategyExtension = {
   ageGroupStart?: AgeGroup;
   ageGroupEnd?: AgeGroup;
   genders?: Genders;
+  ageStart?: number;
+  ageEnd?: number;
   peopleInAgeRange?: number;
   respondentsCount?: number;
   reachedNonUnique?: number;

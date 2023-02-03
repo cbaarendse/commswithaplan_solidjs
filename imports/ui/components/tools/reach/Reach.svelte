@@ -5,7 +5,7 @@
   import Controls from './Controls.svelte';
   import Output from './Output.svelte';
   import ReachTouchPoint from './TouchPoint.svelte';
-  import {onDestroy, onMount} from 'svelte';
+  import {onDestroy} from 'svelte';
   import {Unsubscriber} from 'svelte/store';
   import createReachTool from '../../../functions/reach';
   import {language} from '../../../stores/utils';
@@ -16,11 +16,9 @@
   const reachTool = createReachTool();
   const markets = reachTool.setMarkets();
   let market: Market = markets[1];
-
-  // onMount(() => {
+  // TODO: set new strategy with formula should first check for marketData
   $strategy = reachTool.setNewStrategyWithFormula(market.name);
-  // $strategy = reachTool.sort($strategy, $language);
-  // });
+  $strategy = reachTool.sort($strategy, $language);
 
   Meteor.callAsync('test', 'Hanno!')
     .then((result: any) => console.log('result in callAsync test', result))
@@ -35,7 +33,7 @@
   console.log('check is: ', check);
 
   Meteor.callAsync('probabilities.countRespondentsForMarket', {marketName: 'nl'})
-    .then((result) => console.log('count result =', result))
+    .then((result) => ($strategy.respondentsCount = result))
     .catch((error) => console.log('error in count', error));
 
   console.log('strategy. marketData log: ', $strategy.marketData);

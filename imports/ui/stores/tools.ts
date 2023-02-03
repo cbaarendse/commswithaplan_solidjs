@@ -2,9 +2,9 @@
 import {writable, Writable, readable, Readable} from 'svelte/store';
 
 // interfaces
-import {Content, Color, Actionable, Chapter, StrategyExtended} from '../../both/typings/types';
+import {Content, Color, Actionable, Chapter, Strategy, StrategyExtension} from '../../both/typings/types';
 
-export const strategy = writable<StrategyExtended>();
+export const strategy = writable<Strategy & StrategyExtension>();
 
 export const toolsHomeItems: Readable<(Content & Color & Actionable)[]> = readable(
   [

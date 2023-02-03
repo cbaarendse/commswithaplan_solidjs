@@ -4,11 +4,11 @@ import type {
   TouchPointBasics,
   DeployedTouchPoint,
   Strategy,
+  StrategyExtension,
   Market,
   AgeGroup,
   Genders,
-  Language,
-  StrategyExtended
+  Language
 } from '../../both/typings/types';
 
 // main function (closure)
@@ -17,7 +17,8 @@ export default function createReachTool() {
   const genders = setGenders();
   const touchPointsBasics = setTouchPointsBasics();
 
-  const defaultStrategy: Strategy = {
+  const defaultStrategyWithFormula: Strategy = {
+    userId: '',
     title: 'New Strategy',
     marketName: 'nl',
     marketData: false,
@@ -29,10 +30,11 @@ export default function createReachTool() {
     overlap: 0,
     totalReach: 0
   };
-  const defaultStrategyWithData: StrategyExtended = {
+  const defaultStrategyWithData: Strategy & StrategyExtension = {
+    userId: '',
     title: 'New Strategy',
     marketName: 'nl',
-    marketData: false,
+    marketData: true,
     useMarketData: false,
     createdAt: new Date(),
     lastChanged: new Date(),
@@ -40,12 +42,11 @@ export default function createReachTool() {
     sortedByName: true,
     overlap: 0,
     totalReach: 0,
-    userId: undefined,
-    genders: undefined,
+    genders: setGenders(),
     ageStart: undefined,
     ageEnd: undefined,
-    ageGroupStart: undefined,
-    ageGroupEnd: undefined,
+    ageGroupStart: setAgeGroupsForMarket('nl')[0],
+    ageGroupEnd: setAgeGroupsForMarket('nl')[0],
     peopleInAgeRange: undefined,
     respondentsCount: undefined,
     reachedNonUnique: undefined,
@@ -56,16 +57,15 @@ export default function createReachTool() {
   };
 
   function setNewStrategyWithFormula(marketName: Market['name']): Strategy {
-    defaultStrategy.marketName = marketName;
-    defaultStrategy.marketData = false;
-    defaultStrategy.useMarketData = false;
-    defaultStrategy.deployment = deployTouchPointsForFormula();
-    [defaultStrategy.totalReach, defaultStrategy.overlap] = [0, 0];
-
-    return defaultStrategy;
+    defaultStrategyWithFormula.marketName = marketName;
+    defaultStrategyWithFormula.marketData = false;
+    defaultStrategyWithFormula.useMarketData = false;
+    defaultStrategyWithFormula.deployment = deployTouchPointsForFormula();
+    [defaultStrategyWithFormula.totalReach, defaultStrategyWithFormula.overlap] = [0, 0];
+    return defaultStrategyWithFormula;
   }
 
-  function setNewStrategyWithData(marketName: Market['name']): StrategyExtended {
+  function setNewStrategyWithData(marketName: Market['name']): Strategy & StrategyExtension {
     const ageGroupsForMarket = setAgeGroupsForMarket(marketName);
     defaultStrategyWithData.marketName = marketName;
     defaultStrategyWithData.marketData = true;
@@ -123,7 +123,7 @@ export default function createReachTool() {
     return touchPoints;
   }
 
-  function reset(strategy: Strategy, language: Language): StrategyExtended {
+  function reset(strategy: Strategy, language: Language): Strategy | (Strategy & StrategyExtension) {
     if (!areAllTouchPointsValueZero(strategy.deployment)) {
       strategy.deployment = setAllTouchPointsToZero(strategy.deployment);
     } else {
@@ -159,7 +159,7 @@ export default function createReachTool() {
     return touchPoints.sort((a: DeployedTouchPoint, b: DeployedTouchPoint) => b.value - a.value);
   }
 
-  function sort(strategy: Strategy, language: Language): Strategy {
+  function sort(strategy: Strategy, language: Language): Strategy | (Strategy & StrategyExtension) {
     strategy.deployment = strategy.sortedByName
       ? sortByReach(strategy.deployment)
       : sortByName(strategy.deployment, language);
@@ -307,7 +307,7 @@ export default function createReachTool() {
           [20, 34],
           [35, 49],
           [50, 64],
-          [65, '+']
+          [65, 107]
         ]
       },
       {
@@ -323,7 +323,7 @@ export default function createReachTool() {
           [20, 34],
           [35, 49],
           [50, 64],
-          [65, '+']
+          [65, 107]
         ]
       },
       {
@@ -339,14 +339,14 @@ export default function createReachTool() {
           [20, 34],
           [35, 49],
           [50, 64],
-          [65, '+']
+          [65, 107]
         ]
       }
     ];
   }
 
   function setGenders(): Genders {
-    return ['f', 'm', 'x'];
+    return new Set(['f', 'm', 'x']);
   }
 
   function setAgeGroupsForMarket(marketName: Market['name']) {
@@ -356,7 +356,7 @@ export default function createReachTool() {
       [20, 34],
       [35, 49],
       [50, 64],
-      [65, '+']
+      [65, 107]
     ];
     return ageGroups;
   }

@@ -5,10 +5,8 @@
   import createConverter from '../../../functions/convert';
   import Fa from 'svelte-fa/src/fa.svelte';
   import {faSort} from '@fortawesome/free-solid-svg-icons';
-  import {onMount} from 'svelte';
 
   //variables
-  onMount(() => {});
   const converter = createConverter();
   export let groups: AgeGroup[];
   export let value: number = 0;
