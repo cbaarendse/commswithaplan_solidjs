@@ -40,60 +40,195 @@ export const useMediaQuery = (mediaQuery: string): Readable<boolean | null> => {
 
 export const translations: Readable<Translation[]> = readable(
   [
-    {name: '/', language: 'english', displayName: 'Home'},
-    {name: '/', language: 'dutch', displayName: 'Home'},
-    {name: 'about', language: 'english', displayName: 'About'},
-    {name: 'about', language: 'dutch', displayName: 'Over'},
-    {name: 'advertisement', language: 'english', displayName: 'Advertisement'},
-    {name: 'advertisement', language: 'dutch', displayName: 'Advertentie'},
-    {name: 'consultancy', language: 'english', displayName: 'Consultancy'},
-    {name: 'consultancy', language: 'dutch', displayName: 'Consultancy'},
-    {name: 'contact', language: 'english', displayName: 'Contact'},
-    {name: 'contact', language: 'dutch', displayName: 'Contact'},
-    {name: 'docs', language: 'english', displayName: 'Docs'},
-    {name: 'docs', language: 'dutch', displayName: 'Documentatie'},
-    {name: 'dutch', language: 'english', displayName: 'Dutch'},
-    {name: 'dutch', language: 'dutch', displayName: 'Nederlands'},
-    {name: 'english', language: 'english', displayName: 'English'},
-    {name: 'english', language: 'dutch', displayName: 'Engels'},
-    {name: 'enter_reach', language: 'english', displayName: 'Enter Reach for'},
-    {name: 'enter_reach', language: 'dutch', displayName: 'Vul Bereik in voor'},
-    {name: 'hide', language: 'english', displayName: 'HIDE'},
-    {name: 'hide', language: 'dutch', displayName: 'VERBERG'},
-    {name: 'home', language: 'english', displayName: 'Home'},
-    {name: 'home', language: 'dutch', displayName: 'Home'},
-    {name: 'input', language: 'english', displayName: 'Input'},
-    {name: 'input', language: 'dutch', displayName: 'Input'},
-    {name: 'legal', language: 'english', displayName: 'Legal'},
-    {name: 'legal', language: 'dutch', displayName: 'Juridisch'},
-    {name: 'notfound', language: 'english', displayName: 'Not Found'},
-    {name: 'notfound', language: 'dutch', displayName: 'Niet Gevonden'},
-    {name: 'overlap', language: 'english', displayName: 'Overlap'},
-    {name: 'overlap', language: 'dutch', displayName: 'Overlap'},
-    {name: 'precisionInputFor', language: 'dutch', displayName: 'Precisie invoer voor '},
-    {name: 'precisionInputFor', language: 'english', displayName: 'Precision input for '},
-    {name: 'reach', language: 'english', displayName: 'Reach'},
-    {name: 'reach', language: 'dutch', displayName: 'Bereik'},
-    {name: 'reach_error', language: 'english', displayName: 'Reach can be maximum 100, minimum 0'},
-    {name: 'reach_error', language: 'dutch', displayName: 'Bereik mag maximaal 100 zijn, minimaal 0'},
-    {name: 'read', language: 'english', displayName: 'Read'},
-    {name: 'read', language: 'dutch', displayName: 'Lees'},
-    {name: 'reset', language: 'english', displayName: 'RESET'},
-    {name: 'reset', language: 'dutch', displayName: 'RESET'},
-    {name: 'show', language: 'english', displayName: 'SHOW'},
-    {name: 'show', language: 'dutch', displayName: 'TOON'},
-    {name: 'tools', language: 'english', displayName: 'Tools'},
-    {name: 'tools', language: 'dutch', displayName: 'Tools'},
-    {name: 'total', language: 'english', displayName: 'Total'},
-    {name: 'total', language: 'dutch', displayName: 'Totaal'},
-    {name: 'using_data', language: 'english', displayName: 'uses data'},
-    {name: 'using_data', language: 'dutch', displayName: 'gebruikt data'},
-    {name: 'using_formula', language: 'english', displayName: 'uses formula'},
-    {name: 'using_formula', language: 'dutch', displayName: 'gebruikt formule'},
-    {name: 'work', language: 'english', displayName: 'Work'},
-    {name: 'work', language: 'dutch', displayName: 'Werk'},
-    {name: 'year', language: 'english', displayName: 'Year'},
-    {name: 'year', language: 'dutch', displayName: 'Jaar'}
+    {
+      name: '/',
+      definitions: [
+        {language: 'english', displayName: 'Home'},
+        {language: 'dutch', displayName: 'Home'}
+      ]
+    },
+    {
+      name: 'about',
+      definitions: [
+        {language: 'english', displayName: 'About'},
+        {language: 'dutch', displayName: 'Over'}
+      ]
+    },
+    {
+      name: 'advertisement',
+      definitions: [
+        {language: 'english', displayName: 'Advertisement'},
+        {language: 'dutch', displayName: 'Advertentie'}
+      ]
+    },
+    {
+      name: 'consultancy',
+      definitions: [
+        {language: 'english', displayName: 'Consultancy'},
+        {language: 'dutch', displayName: 'Consultancy'}
+      ]
+    },
+    {
+      name: 'contact',
+      definitions: [
+        {language: 'english', displayName: 'Contact'},
+        {language: 'dutch', displayName: 'Contact'}
+      ]
+    },
+    {
+      name: 'docs',
+      definitions: [
+        {language: 'english', displayName: 'Docs'},
+        {language: 'dutch', displayName: 'Documentatie'}
+      ]
+    },
+    {
+      name: 'dutch',
+      definitions: [
+        {language: 'english', displayName: 'Dutch'},
+        {language: 'dutch', displayName: 'Nederlands'}
+      ]
+    },
+    {
+      name: 'english',
+      definitions: [
+        {language: 'english', displayName: 'English'},
+        {language: 'dutch', displayName: 'Engels'}
+      ]
+    },
+    {
+      name: 'enter_reach',
+      definitions: [
+        {language: 'english', displayName: 'Enter Reach for'},
+        {language: 'dutch', displayName: 'Vul Bereik in voor'}
+      ]
+    },
+    {
+      name: 'hide',
+      definitions: [
+        {language: 'english', displayName: 'HIDE'},
+        {language: 'dutch', displayName: 'VERBERG'}
+      ]
+    },
+    {
+      name: 'home',
+      definitions: [
+        {language: 'english', displayName: 'Home'},
+        {language: 'dutch', displayName: 'Home'}
+      ]
+    },
+    {
+      name: 'input',
+      definitions: [
+        {language: 'english', displayName: 'Input'},
+        {language: 'dutch', displayName: 'Input'}
+      ]
+    },
+    {
+      name: 'legal',
+      definitions: [
+        {language: 'english', displayName: 'Legal'},
+        {language: 'dutch', displayName: 'Juridisch'}
+      ]
+    },
+    {
+      name: 'notfound',
+      definitions: [
+        {language: 'english', displayName: 'Not Found'},
+        {language: 'dutch', displayName: 'Niet Gevonden'}
+      ]
+    },
+    {
+      name: 'overlap',
+      definitions: [
+        {language: 'english', displayName: 'Overlap'},
+        {language: 'dutch', displayName: 'Overlap'}
+      ]
+    },
+    {
+      name: 'precisionInputFor',
+      definitions: [
+        {language: 'dutch', displayName: 'Precisie invoer voor '},
+        {language: 'english', displayName: 'Precision input for '}
+      ]
+    },
+    {
+      name: 'reach',
+      definitions: [
+        {language: 'english', displayName: 'Reach'},
+        {language: 'dutch', displayName: 'Bereik'}
+      ]
+    },
+    {
+      name: 'reach_error',
+      definitions: [
+        {language: 'english', displayName: 'Reach can be maximum 100, minimum 0'},
+        {language: 'dutch', displayName: 'Bereik mag maximaal 100 zijn, minimaal 0'}
+      ]
+    },
+    {
+      name: 'read',
+      definitions: [
+        {language: 'english', displayName: 'Read'},
+        {language: 'dutch', displayName: 'Lees'}
+      ]
+    },
+    {
+      name: 'reset',
+      definitions: [
+        {language: 'english', displayName: 'RESET'},
+        {language: 'dutch', displayName: 'RESET'}
+      ]
+    },
+    {
+      name: 'show',
+      definitions: [
+        {language: 'english', displayName: 'SHOW'},
+        {language: 'dutch', displayName: 'TOON'}
+      ]
+    },
+    {
+      name: 'tools',
+      definitions: [
+        {language: 'english', displayName: 'Tools'},
+        {language: 'dutch', displayName: 'Tools'}
+      ]
+    },
+    {
+      name: 'total',
+      definitions: [
+        {language: 'english', displayName: 'Total'},
+        {language: 'dutch', displayName: 'Totaal'}
+      ]
+    },
+    {
+      name: 'using_data',
+      definitions: [
+        {language: 'english', displayName: 'uses data'},
+        {language: 'dutch', displayName: 'gebruikt data'}
+      ]
+    },
+    {
+      name: 'using_formula',
+      definitions: [
+        {language: 'english', displayName: 'uses formula'},
+        {language: 'dutch', displayName: 'gebruikt formule'}
+      ]
+    },
+    {
+      name: 'work',
+      definitions: [
+        {language: 'english', displayName: 'Work'},
+        {language: 'dutch', displayName: 'Werk'}
+      ]
+    },
+    {
+      name: 'year',
+      definitions: [
+        {language: 'english', displayName: 'Year'},
+        {language: 'dutch', displayName: 'Jaar'}
+      ]
+    }
   ],
   () => {
     () => {

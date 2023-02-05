@@ -22,7 +22,6 @@ export default function createReachTool() {
     title: 'New Strategy',
     marketName: 'nl',
     marketData: false,
-    useMarketData: false,
     createdAt: new Date(),
     lastChanged: new Date(),
     deployment: deployTouchPointsForFormula(),
@@ -59,7 +58,6 @@ export default function createReachTool() {
   function setNewStrategyWithFormula(marketName: Market['name']): Strategy {
     defaultStrategyWithFormula.marketName = marketName;
     defaultStrategyWithFormula.marketData = false;
-    defaultStrategyWithFormula.useMarketData = false;
     defaultStrategyWithFormula.deployment = deployTouchPointsForFormula();
     [defaultStrategyWithFormula.totalReach, defaultStrategyWithFormula.overlap] = [0, 0];
     return defaultStrategyWithFormula;

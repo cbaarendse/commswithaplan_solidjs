@@ -11,15 +11,23 @@ declare global {
 
 // content
 export type Language = 'english' | 'dutch';
-export type Content = {name: string; language: Language; displayName: string; description: string};
+export type Definition = {language: Language; displayName: string; description: string};
+export type Content = {name: string; definitions: Definition[]};
+export type Translation = {name: string; definitions: Omit<Definition, 'description'>[]};
+export type Action = {action: string};
+export type Link = {link: string};
+export type Actionable = {name: string; definitions: (Definition & Action)[]} & Link;
 export type Color = {color: string};
 export type Colored = {colored: boolean};
 export type Illustrated = {imgFiles: string[]};
-export type Actionable = {link: string; action: string};
 type Paragraph = {displayName: string; description: string; elaboration?: string};
-export type Chapter = Omit<Content & Illustrated, 'description'> & {paragraphs: Paragraph[]};
-export type Article = Omit<Content, 'description'> & {paragraphs: Paragraph[]};
-export type Translation = Omit<Content, 'description'>;
+export type Chapter = Omit<Definition, 'description'> &
+  Omit<Content, 'definitions'> &
+  Illustrated & {
+    paragraphs: Paragraph[];
+  };
+export type Article = Omit<Definition, 'description'> & Omit<Content, 'definitions'> & {paragraphs: Paragraph[]};
+
 export type TouchPointBasics = {name: string; basics: {language: Language; displayName: string; description: string}[]};
 export type DeployedTouchPoint = TouchPointBasics & {
   value: number;
@@ -72,7 +80,6 @@ export type Strategy = {
   userId: string | Mongo.ObjectID;
   title: string;
   marketData: boolean;
-  useMarketData: boolean;
   marketName: Market['name'];
   createdAt: Date;
   lastChanged: Date;
@@ -82,6 +89,7 @@ export type Strategy = {
   totalReach: number;
 };
 export type StrategyExtension = {
+  useMarketData?: boolean;
   ageGroupStart?: AgeGroup;
   ageGroupEnd?: AgeGroup;
   genders?: Genders;

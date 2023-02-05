@@ -87,7 +87,7 @@
       {/if}
     </form>
   {/if}
-  <menu class="buttons">
+  <menu class="operations">
     <button type="button" on:click|stopPropagation|preventDefault={reset}>
       {#if reachTool.areAllTouchPointsValueZero($strategy.deployment)}<Fa
           icon={faArrowRotateLeft}
@@ -109,6 +109,20 @@
           icon={faBars}
           size={iconSize}
         />{/if}
+    </button>
+  </menu>
+  <menu class="files">
+    <button type="button" on:click|stopPropagation|preventDefault={reset}>
+      {#if reachTool.areAllTouchPointsValueZero($strategy.deployment)}<Fa
+          icon={faArrowRotateLeft}
+          size={iconSize}
+        />{:else}<Fa icon={fa0} size={iconSize} />{/if}
+    </button>
+    <button type="button" on:click|stopPropagation|preventDefault={reset}>
+      {#if reachTool.areAllTouchPointsValueZero($strategy.deployment)}<Fa
+          icon={faArrowRotateLeft}
+          size={iconSize}
+        />{:else}<Fa icon={fa0} size={iconSize} />{/if}
     </button>
   </menu>
 </div>
@@ -176,13 +190,7 @@
   }
 
   button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 3.6em;
-    height: 3.6em;
     font-size: 1em;
-    border-radius: 50%;
     border: none;
     color: var(--ra-white);
     cursor: pointer;
@@ -190,14 +198,15 @@
   button:hover {
     opacity: 0.7;
   }
-  menu > button:nth-of-type(1) {
-    background-color: var(--ra-red);
+  menu.operations button {
+    color: var(--ra-red);
   }
-  menu > button:nth-of-type(2) {
-    background-color: var(--ra-green);
+  menu.files button {
+    color: var(--ra-blue);
   }
-  menu > button:nth-of-type(3) {
-    background-color: var(--ra-blue);
+
+  menu button:hover {
+    color: var(--ra-green);
   }
 
   @media screen and (min-width: 768px) {

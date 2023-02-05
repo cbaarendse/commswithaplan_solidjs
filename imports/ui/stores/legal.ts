@@ -2,7 +2,7 @@
 import {readable, Readable} from 'svelte/store';
 
 // interfaces
-import type {Article} from '../types/types';
+import type {Article} from '../../both/typings/types';
 
 export const termsAndConditions: Readable<Article[]> = readable(
   [

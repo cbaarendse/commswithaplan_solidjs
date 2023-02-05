@@ -17,18 +17,6 @@ Translations.deny({
   }
 });
 
-// type
-interface LanguageItem {
-  displayName: string;
-  description?: string;
-}
-export interface Translation {
-  name: string;
-  route?: string;
-  english?: LanguageItem;
-  dutch?: LanguageItem;
-}
-
 const languageItemPattern = {displayName: String, description: Match.Maybe(String)};
 
 // schema pattern

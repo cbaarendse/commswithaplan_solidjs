@@ -29,7 +29,7 @@
     dispatch('submitLogin', {name: numberInput.name, value: numberInput.value});
   }
   function submitSignin() {
-    dispatch('submitLogin', {name: numberInput.name, value: numberInput.value});
+    dispatch('submitSignin', {name: numberInput.name, value: numberInput.value});
   }
   function submitCancel() {
     dispatch('submitCancel');
@@ -55,7 +55,7 @@
     type="submit"
     value={$language === 'dutch' ? 'Verstuur' : 'Submit'}
     {disabled}
-    on:click|preventDefault|stopPropagation={submitValue}
+    on:click|preventDefault|stopPropagation={submitLogin}
   />
   <input
     class="cancel__button"

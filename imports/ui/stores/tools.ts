@@ -2,51 +2,66 @@
 import {writable, Writable, readable, Readable} from 'svelte/store';
 
 // interfaces
-import {Content, Color, Actionable, Chapter, Strategy, StrategyExtension} from '../../both/typings/types';
+import {
+  Content,
+  Color,
+  Actionable,
+  Chapter,
+  Strategy,
+  StrategyExtension,
+  Translation,
+  Market
+} from '../../both/typings/types';
 
-export const strategy = writable<Strategy & StrategyExtension>();
+export const marketName: Writable<Market['name']> = writable('nl');
 
-export const toolsHomeItems: Readable<(Content & Color & Actionable)[]> = readable(
+export const marketData: Writable<boolean> = writable(false);
+
+export const strategy: Writable<Strategy & StrategyExtension> = writable();
+
+export const toolsHomeItems: Readable<(Actionable & Color)[]> = readable(
   [
     {
       name: 'tools',
-      language: 'english',
-      displayName: 'Tools',
-      description:
-        'Comms With A Plan developes tools aimed to help advertisers who are not working with media agencies. For instance because they have inhouse capabilities, or because they currently do not have the proper size.',
       color: 'green',
       link: '/tools/reach',
-      action: 'Try the reach tool...'
-    },
-    {
-      name: 'tools',
-      language: 'dutch',
-      displayName: 'Tools',
-      description:
-        'Comms With A Plan ontwikkelt tools voor adverteerders die niet met mediabureaus werken. Bijvoorbeeld omdat zij intern genoeg bekwaamheid bezitten, of omdat ze op het moment niet de juiste grootte hebben.',
-      color: 'green',
-      link: '/tools/reach',
-      action: 'Probeer de bereikstool...'
+      definitions: [
+        {
+          language: 'english',
+          displayName: 'Tools',
+          description:
+            'Comms With A Plan developes tools aimed to help advertisers who are not working with media agencies. For instance because they have inhouse capabilities, or because they currently do not have the proper size.',
+          action: 'Try the reach tool...'
+        },
+        {
+          language: 'dutch',
+          displayName: 'Tools',
+          description:
+            'Comms With A Plan ontwikkelt tools voor adverteerders die niet met mediabureaus werken. Bijvoorbeeld omdat zij intern genoeg bekwaamheid bezitten, of omdat ze op het moment niet de juiste grootte hebben.',
+          action: 'Probeer de bereikstool...'
+        }
+      ]
     },
     {
       name: 'reach',
-      language: 'english',
-      displayName: 'Reach',
-      description:
-        'Right now the Reach tool uses an algoritm to estimate the total reach of your campaign; If you input the reach of the individual medium types. Read the Docs for more information.',
       color: 'green',
       link: '/tools/docs',
-      action: 'Read about the reach tool...'
-    },
-    {
-      name: 'reach',
-      language: 'dutch',
-      displayName: 'Bereik',
-      description:
-        'Op dit moment gebruikt de Bereik-tool een algoritme om het totaalbereik van je campagne in te schatten; Als je het bereik van elk individueel mediumtype invoert. Lees de Documentatie voor meer informatie.',
-      color: 'green',
-      link: '/tools/docs',
-      action: 'Lees over de bereikstool...'
+      definitions: [
+        {
+          language: 'english',
+          displayName: 'Reach',
+          description:
+            'Right now the Reach tool uses an algoritm to estimate the total reach of your campaign; If you input the reach of the individual medium types. Read the Docs for more information.',
+          action: 'Read about the reach tool...'
+        },
+        {
+          language: 'dutch',
+          displayName: 'Bereik',
+          description:
+            'Op dit moment gebruikt de Bereik-tool een algoritme om het totaalbereik van je campagne in te schatten; Als je het bereik van elk individueel mediumtype invoert. Lees de Documentatie voor meer informatie.',
+          action: 'Lees over de bereikstool...'
+        }
+      ]
     }
   ],
   () => {
@@ -60,31 +75,37 @@ export const definitions: Readable<Content[]> = readable(
   [
     {
       name: 'total_reach',
-      language: 'english',
-      displayName: 'Total Reach',
-      description:
-        'The % of people that perceive your message(s), through one or more of the selected Medium Types/ Touch Points'
-    },
-    {
-      name: 'total_reach',
-      language: 'dutch',
-      displayName: 'Total Bereik',
-      description:
-        'Het % mensen dat je boodschap waarneemt, door middel van één of meer van de geselecteerde Mediumtypen/ Touch Points'
-    },
-    {
-      name: 'overlap',
-      language: 'english',
-      displayName: 'Overlap',
-      description:
-        'Only the % of people that perceive your message(s), through áll of the selected Medium Types/ Touch Points'
+      definitions: [
+        {
+          language: 'english',
+          displayName: 'Total Reach',
+          description:
+            'The % of people that perceive your message(s), through one or more of the selected Medium Types/ Touch Points'
+        },
+        {
+          language: 'dutch',
+          displayName: 'Total Bereik',
+          description:
+            'Het % mensen dat je boodschap waarneemt, door middel van één of meer van de geselecteerde Mediumtypen/ Touch Points'
+        }
+      ]
     },
     {
       name: 'overlap',
-      language: 'dutch',
-      displayName: 'Overlap',
-      description:
-        'Alleen het % mensen dat je boodschap waarneemt door middel van álle geselecteerde Mediumtypen/ Touch Points'
+      definitions: [
+        {
+          language: 'english',
+          displayName: 'Overlap',
+          description:
+            'Only the % of people that perceive your message(s), through áll of the selected Medium Types/ Touch Points'
+        },
+        {
+          language: 'dutch',
+          displayName: 'Overlap',
+          description:
+            'Alleen het % mensen dat je boodschap waarneemt door middel van álle geselecteerde Mediumtypen/ Touch Points'
+        }
+      ]
     }
   ],
   () => {

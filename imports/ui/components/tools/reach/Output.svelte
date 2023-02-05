@@ -13,7 +13,8 @@
   const formatter = createFormatter();
   let displayOutputDescription: 'none' | 'flex' = 'none';
   let outputName: 'total_reach' | 'overlap' = 'total_reach';
-  $: output = $definitions.filter((definition) => definition.name === outputName)[0];
+  $: title = converter.displayContent(outputName, $definitions, $language);
+  $: description = converter.describeContent(outputName, $definitions, $language);
 
   // functions
 </script>
@@ -65,13 +66,13 @@
 </div>
 
 <Modal
-  title={output.displayName}
+  {title}
   display={displayOutputDescription}
   on:destroyModal={() => {
     displayOutputDescription = 'none';
   }}
 >
-  {output.description}
+  {description}
 </Modal>
 
 <style>
