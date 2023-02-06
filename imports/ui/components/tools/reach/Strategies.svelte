@@ -46,10 +46,14 @@
         <h4>{strategy.title}</h4>
         <span>{currentUser?.profile?.firstname}&nbsp;{currentUser?.profile?.surname}</span>
         <nav>
-          <button class="edit"><Fa icon={faEdit} /></button>
-          <button class="edit"><Fa icon={faTableList} /></button>
+          <a class="list" href={'/tools/reach/'} data-tinro-ignore>
+            <Fa icon={faTableList} />
+          </a>
         </nav>
-        <menu><button class="delete"><Fa icon={faXmark} /></button></menu>
+        <menu>
+          <button class="edit"><Fa icon={faEdit} /></button>
+          <button class="delete"><Fa icon={faXmark} /></button>
+        </menu>
       </li>
     {/each}
   </ul>

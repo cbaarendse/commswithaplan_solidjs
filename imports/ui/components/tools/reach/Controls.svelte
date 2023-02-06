@@ -119,20 +119,17 @@
       <Fa icon={faFolderOpen} />
     </a>
   </nav>
-  <nav class="files">
-    <button type="button" on:click|stopPropagation|preventDefault={reset}>
-      {#if reachTool.areAllTouchPointsValueZero($strategy.deployment)}<Fa
-          icon={faArrowRotateLeft}
-          size={iconSize}
-        />{:else}<Fa icon={fa0} size={iconSize} />{/if}
+  <menu class="memory">
+    <button class="save" type="button" on:click|stopPropagation|preventDefault={reset}>
+      <Fa icon={faDownload} />
     </button>
-  </nav>
+  </menu>
 </div>
 
 <style>
   div.container {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: auto;
     gap: 1.4em;
     padding: 1em;
@@ -150,6 +147,7 @@
     border-radius: 3px;
   } */
   form {
+    grid-column: span 3;
     display: grid;
     gap: 0.8rem;
     grid-template-columns: 2fr 3fr;
@@ -192,9 +190,9 @@
   }
 
   button {
-    font-size: 1em;
+    font-size: 2.1rem;
+    background: none;
     border: none;
-    color: var(--ra-white);
     cursor: pointer;
   }
   button:hover {
@@ -203,7 +201,10 @@
   menu.operations button {
     color: var(--ra-red);
   }
-  nav.files button {
+  nav.files a {
+    color: var(--ra-green);
+  }
+  menu.memory button {
     color: var(--ra-blue);
   }
 
