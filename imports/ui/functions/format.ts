@@ -1,10 +1,5 @@
-// Format
-
 // imports
-import dayjs from 'dayjs';
-import advancedFormat from 'dayjs/plugin/advancedFormat';
-import isoWeek from 'dayjs/plugin/isoWeek';
-dayjs.extend(isoWeek, advancedFormat);
+import {DateTime} from 'luxon';
 
 // class
 export default function createFormatter() {
@@ -29,7 +24,7 @@ export default function createFormatter() {
     return (input / 100).toFixed(digits);
   }
   function toDateFormat(date: Date): string {
-    return dayjs(date).format('DD-MMM-YYYY');
+    return DateTime.fromJSDate(date).toLocaleString(DateTime.DATETIME_MED);
   }
   function toNumberFormat(value: number, digits: number): string {
     return `${value.toLocaleString(undefined, {maximumFractionDigits: digits})}`;

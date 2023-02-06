@@ -188,6 +188,13 @@ export const translations: Readable<Translation[]> = readable(
       ]
     },
     {
+      name: 'strategies',
+      definitions: [
+        {language: 'english', displayName: 'Strategies'},
+        {language: 'dutch', displayName: 'Strategieën'}
+      ]
+    },
+    {
       name: 'tools',
       definitions: [
         {language: 'english', displayName: 'Tools'},

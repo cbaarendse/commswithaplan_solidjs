@@ -1,7 +1,5 @@
 // packages
-import dayjs from 'dayjs';
-import QuarterOfYear from 'dayjs/plugin/quarterOfYear';
-dayjs.extend(QuarterOfYear);
+import {DateTime} from 'luxon';
 
 // Consts
 export const PROBABILITIES_CODING = {
@@ -76,21 +74,21 @@ export const TOUCHPOINTSNAMES = [
 ];
 
 export const YEARS = [
-  dayjs().subtract(2, 'years').format('YYYY'),
-  dayjs().subtract(1, 'years').format('YYYY'),
-  dayjs().format('YYYY'),
-  dayjs().add(1, 'years').format('YYYY'),
-  dayjs().add(2, 'years').format('YYYY')
+  DateTime.now().minus({years: 2}).toFormat('YYYY'),
+  DateTime.now().minus({years: 1}).toFormat('YYYY'),
+  DateTime.now().toFormat('YYYY'),
+  DateTime.now().plus({years: 1}).toFormat('YYYY'),
+  DateTime.now().plus({years: 2}).toFormat('YYYY')
 ];
-export const QUARTERS = [1, 2, 3, 4].map((quarter) => {
+export const QUARTERS = [1, 2, 3, 4].map(() => {
   return {
-    name: dayjs().quarter(quarter).format('Q'),
+    name: DateTime.now().quarter,
     selected: false
   };
 });
 export const MONTHS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((month) => {
   return {
-    name: dayjs().month(month).format('MMMM'),
+    name: DateTime.now().monthLong,
     selected: false
   };
 });

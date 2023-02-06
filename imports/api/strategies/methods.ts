@@ -3,19 +3,19 @@ import {Meteor} from 'meteor/meteor';
 import {Match} from 'meteor/check';
 import {ValidatedMethod} from 'meteor/mdg:validated-method';
 
-import Strategies from './strategies.js';
+import Strategies from './strategies';
 
-import {StrategyExtended} from '/imports/both/typings/types.js';
+import {Strategy, StrategyExtension} from '/imports/both/typings/types.js';
 import {Mongo} from 'meteor/mongo';
 
 export const strategiesInsert = new ValidatedMethod({
   name: 'strategies.insert',
-  validate(args: {[key: string]: StrategyExtended}) {
+  validate(args: {[key: string]: Strategy & StrategyExtension}) {
     if (!Match.test(args.strategy, Object)) {
       throw new Meteor.Error('general.invalid.input', 'Invalid input', '[{ "name": "invalidInput" }]');
     }
   },
-  run(args: {[key: string]: StrategyExtended}): string | Mongo.ObjectIDStatic {
+  async run(args: {[key: string]: Strategy & StrategyExtension}): Promise<string | Mongo.ObjectIDStatic> {
     console.log('strategies insert runs with: ', args.strategy);
     if (!this.userId) {
       throw new Meteor.Error(
@@ -24,7 +24,7 @@ export const strategiesInsert = new ValidatedMethod({
         '[{ "name": "notLoggedIn" }]'
       );
     }
-    return Strategies.insert(args.strategy);
+    return await Strategies.insert(args.strategy);
   }
 });
 
@@ -47,13 +47,13 @@ export const strategiesUpdate = new ValidatedMethod({
         '[{ "name": "notLoggedIn" }]'
       );
     }
-    // if (user != this.userId) {
-    //   throw new Meteor.Error(
-    //     'Not authorized',
-    //     'You are not authorized to update this strategy',
-    //     '[{ "name": "notAuthorized" }]'
-    //   );
-    // }
+    if (userId != this.userId) {
+      throw new Meteor.Error(
+        'Not authorized',
+        'You are not authorized to update this strategy',
+        '[{ "name": "notAuthorized" }]'
+      );
+    }
     Strategies.update({_id: args._id}, args.modifier);
   }
 });

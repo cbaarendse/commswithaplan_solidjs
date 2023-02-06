@@ -95,13 +95,13 @@ export type StrategyExtension = {
   genders?: Genders;
   ageStart?: number;
   ageEnd?: number;
-  peopleInAgeRange?: number;
   respondentsCount?: number;
+  peopleInRange?: number;
   reachedNonUnique?: number;
   reachedUnique?: number;
   companyId?: string | Mongo.ObjectID;
-  brand?: string;
-  product?: string;
+  brandName?: string;
+  productName?: string;
 };
 
 export type Population = {

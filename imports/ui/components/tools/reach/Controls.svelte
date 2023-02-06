@@ -16,7 +16,9 @@
     faArrowDownAZ,
     faArrowDownWideShort,
     faBars,
-    faMinus
+    faMinus,
+    faFolderOpen,
+    faDownload
   } from '@fortawesome/free-solid-svg-icons';
 
   // variables
@@ -111,20 +113,20 @@
         />{/if}
     </button>
   </menu>
-  <menu class="files">
+
+  <nav class="files">
+    <a href={'/tools/reach/strategies'} data-tinro-ignore>
+      <Fa icon={faFolderOpen} />
+    </a>
+  </nav>
+  <nav class="files">
     <button type="button" on:click|stopPropagation|preventDefault={reset}>
       {#if reachTool.areAllTouchPointsValueZero($strategy.deployment)}<Fa
           icon={faArrowRotateLeft}
           size={iconSize}
         />{:else}<Fa icon={fa0} size={iconSize} />{/if}
     </button>
-    <button type="button" on:click|stopPropagation|preventDefault={reset}>
-      {#if reachTool.areAllTouchPointsValueZero($strategy.deployment)}<Fa
-          icon={faArrowRotateLeft}
-          size={iconSize}
-        />{:else}<Fa icon={fa0} size={iconSize} />{/if}
-    </button>
-  </menu>
+  </nav>
 </div>
 
 <style>
@@ -201,7 +203,7 @@
   menu.operations button {
     color: var(--ra-red);
   }
-  menu.files button {
+  nav.files button {
     color: var(--ra-blue);
   }
 

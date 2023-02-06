@@ -1,27 +1,27 @@
 // Schedule
 // imports
-import dayjs from 'dayjs';
-import advancedFormat from 'dayjs/plugin/advancedFormat';
-import isoWeek from 'dayjs/plugin/isoWeek';
+import {DateTime} from 'luxon';
 import {Month, Week, Year} from '../../both/typings/types';
-dayjs.extend(isoWeek, advancedFormat);
 
 // class
 export default function Scheduler() {
   function assembleYears(start: Date, end: Date): Year[] {
     const years = [];
-    const calendarDaysInFirstYear = dayjs(start).endOf('year').diff(dayjs(start).startOf('year'), 'days') + 1;
-    const scheduledDaysInFirstYear = dayjs(start).endOf('year').diff(dayjs(start).startOf('month'), 'days') + 1;
+    const calendarDaysInFirstYear =
+      DateTime.fromJSDate(start).endOf('year').diff(DateTime.fromJSDate(start).startOf('year')).as('days') + 1;
+    const scheduledDaysInFirstYear =
+      DateTime.fromJSDate(start).endOf('year').diff(DateTime.fromJSDate(start).startOf('month')).as('days') + 1;
     let year = {
-      name: dayjs(start).format('YYYY'),
+      name: DateTime.fromJSDate(start).toFormat('YYYY'),
       days: scheduledDaysInFirstYear
     };
     years.push(year);
 
     if (scheduledDaysInFirstYear < calendarDaysInFirstYear) {
-      const scheduledDaysInSecondYear = dayjs(end).endOf('month').diff(dayjs(end).startOf('year'), 'days') + 1;
+      const scheduledDaysInSecondYear =
+        DateTime.fromJSDate(end).endOf('month').diff(DateTime.fromJSDate(end).startOf('year')).as('days') + 1;
       year = {
-        name: dayjs(end).format('YYYY'),
+        name: DateTime.fromJSDate(end).toFormat('YYYY'),
         days: scheduledDaysInSecondYear
       };
       years.push(year);
@@ -32,10 +32,10 @@ export default function Scheduler() {
 
   function assembleMonths(start: Date, end: Date): Month[] {
     const months = [];
-    for (let current = dayjs(start); current.isBefore(dayjs(end).add(1, 'months'), 'month'); current.add(1, 'months')) {
-      const scheduleDays = dayjs(current).daysInMonth();
+    for (let current = DateTime.fromJSDate(start); current < DateTime.fromJSDate(end); current.plus({months: 1})) {
+      const scheduleDays = current.daysInMonth;
       const month = {
-        name: dayjs(current).format('MMM'),
+        name: current.toFormat('MMM'),
         days: scheduleDays
       };
       months.push(month);
@@ -46,17 +46,18 @@ export default function Scheduler() {
 
   function assembleWeeks(start: Date, end: Date): Week[] {
     const weeks = [];
-    const dayOne = dayjs(start).startOf('month');
+    const dayOne = DateTime.fromJSDate(start).startOf('month');
     for (
-      let current = dayOne.startOf('isoWeek');
-      current.isBefore(dayjs(end).endOf('month'));
-      current.add(1, 'weeks')
+      //TODO: isoweek??
+      let current = dayOne.startOf('week');
+      current < DateTime.fromJSDate(end).endOf('month');
+      current.plus({weeks: 1})
     ) {
-      const scheduleDays = dayjs(current).endOf('isoWeek').diff(dayjs(current).startOf('isoWeek'), 'days') + 1;
+      const scheduleDays = current.endOf('week').diff(current.startOf('week')).as('days') + 1;
       const week = {
-        name: dayjs(current).format('W'),
+        name: current.toFormat('W'),
         days: scheduleDays,
-        monday: dayjs(current).format('D')
+        monday: current.toFormat('D')
       };
       weeks.push(week);
     }
@@ -65,9 +66,9 @@ export default function Scheduler() {
   }
 
   function calculatePreambleDays(start: Date): number {
-    const dayOne = dayjs(start).startOf('month');
-    const preambleDays = dayjs(start).startOf('month').diff(dayOne.startOf('isoWeek'), 'days');
-    console.log('preambleDays:', preambleDays, dayjs(start).startOf('month'), dayOne.startOf('isoWeek'));
+    const dayOne = DateTime.fromJSDate(start).startOf('month');
+    const preambleDays = DateTime.fromJSDate(start).startOf('month').diff(dayOne.startOf('week')).as('days');
+    console.log('preambleDays:', preambleDays, DateTime.fromJSDate(start).startOf('month'), dayOne.startOf('week'));
     /* Preamble width is 2 units per day plus one to align with the right border of the first week */
     return preambleDays;
   }

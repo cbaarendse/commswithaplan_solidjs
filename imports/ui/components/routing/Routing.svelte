@@ -9,6 +9,7 @@
   import Contact from '../consultancy/contact/Contact.svelte';
   import Tools from '../tools/home/Tools.svelte';
   import Reach from '../tools/reach/Reach.svelte';
+  import Strategies from '../tools/reach/Strategies.svelte';
   import Docs from '../tools/docs/Docs.svelte';
   import Legal from '../legal/Legal.svelte';
   import NotFound from '../notfound/NotFound.svelte';
@@ -28,7 +29,10 @@
   </Route>
   <Route path="/tools/*" breadcrumb="tools">
     <Route path="/"><Tools /></Route>
-    <Route path="/reach" breadcrumb="reach"><Reach /></Route>
+    <Route path="/reach" breadcrumb="reach">
+      <Reach />
+    </Route>
+    <Route path="/reach/strategies" breadcrumb="strategies"><Strategies /></Route>
     <Route path="/docs" breadcrumb="docs"><Docs /></Route>
   </Route>
   <Route path="/legal/*" breadcrumb="legal"><Legal /></Route>

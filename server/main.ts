@@ -11,6 +11,9 @@ import '../imports/api/translations/methods';
 // import '../imports/api/probabilities/server/functions';
 import '../imports/api/probabilities/server/methods';
 
+import '../imports/api/strategies/server/publications';
+import '../imports/api/strategies/methods';
+
 // import '../imports/api/notifications/server/publications';
 //import '../imports/api/notifications/methods';
 
@@ -25,9 +28,6 @@ import '../imports/api/probabilities/server/methods';
 
 // import '../imports/api/emails/server/publications';
 //import '../imports/api/emails/methods';
-
-// import '../imports/api/strategies/server/publications';
-// import '../imports/api/strategies/methods';
 
 // import '../imports/api/populations/server/publications';
 // import '../imports/api/populations/methods';

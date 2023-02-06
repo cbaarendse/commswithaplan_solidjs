@@ -1,5 +1,5 @@
 // ====== IMPORTS ===============================
-import { Meteor } from 'meteor/meteor';
+import {Meteor} from 'meteor/meteor';
 import Strategies from '../strategies';
 
 Meteor.publish('strategies', function () {
@@ -7,5 +7,5 @@ Meteor.publish('strategies', function () {
     return this.ready;
   }
 
-  return Strategies.find({ user: this.userId });
+  return Strategies.find({userId: this.userId});
 });
