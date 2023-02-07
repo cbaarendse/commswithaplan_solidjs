@@ -132,6 +132,13 @@ export const translations: Readable<Translation[]> = readable(
       ]
     },
     {
+      name: 'no_data',
+      definitions: [
+        {language: 'english', displayName: 'no data for this market'},
+        {language: 'dutch', displayName: 'geen data voor deze markt'}
+      ]
+    },
+    {
       name: 'notfound',
       definitions: [
         {language: 'english', displayName: 'Not Found'},

@@ -4,18 +4,21 @@
 
   // imports
   import {Market} from '../../../../both/typings/types';
+  import createReachTool from '/imports/ui/functions/reach';
+  import {marketName} from '../../../stores/tools';
 
   //variables
-  export let markets: Market[];
-  export let value: number = 1;
+  const reachTool = createReachTool();
+  let markets: Market[] = reachTool.setMarkets();
 
   // functions
+
   // exports
 </script>
 
-<select class="market" name="market" id="market__select" bind:value on:change>
-  {#each markets as thisMarket, index}
-    <option value={index}>{thisMarket.flag || thisMarket.name}</option>
+<select class="market" name="market" id="market__select" bind:value={$marketName}>
+  {#each markets as thisMarket}
+    <option value={thisMarket.name}>{thisMarket.flag || thisMarket.name}</option>
   {/each}
 </select>
 <label for="market__select"><Fa icon={faSort} color={'var(--ra-teal'} /></label>

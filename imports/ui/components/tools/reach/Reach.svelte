@@ -36,6 +36,12 @@
   }
 
   $: {
+    $strategy = $marketData
+      ? reachTool.setNewStrategyWithData($marketName)
+      : reachTool.setNewStrategyWithFormula($marketName);
+  }
+
+  $: {
     console.log('strategy. marketData: in $: ', $strategy.marketData);
     console.log('strategy in $: ', $strategy);
   }

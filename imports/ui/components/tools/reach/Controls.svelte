@@ -7,7 +7,7 @@
   import MarketSelect from './MarketSelect.svelte';
   import createReachTool from '../../../functions/reach';
   import {language} from '../../../stores/utils';
-  import {strategy} from '../../../stores/tools';
+  import {marketName, strategy} from '../../../stores/tools';
   import {CWAPUser} from '../../../../both/typings/types';
   import Fa from 'svelte-fa/src/fa.svelte';
   import {
@@ -28,29 +28,13 @@
     currentUser = Meteor.user();
   }
   const reachTool = createReachTool();
-  let markets = reachTool.setMarkets();
-  let indexMarket: number = 1; // == 'nl'
-  let indexStart: number = 0;
-  let indexEnd: number = 0;
+  let indexStart: number;
+  let indexEnd: number;
   const ageGroupsForMarket = reachTool.setAgeGroupsForMarket($strategy.marketName);
-
-  $: {
-    $strategy.marketName = markets[indexMarket].name;
-  }
   $: groupsForAgeStart = ageGroupsForMarket;
   $: groupsForAgeEnd = ageGroupsForMarket.slice(indexStart ? indexStart : 1);
 
-  $: {
-    $strategy.ageGroupStart = groupsForAgeStart[indexStart];
-    $strategy.ageGroupEnd = groupsForAgeEnd[indexEnd];
-  }
-  let iconSize = '100%';
-
   // functions
-  function handleChangeMarket() {
-    $strategy = reachTool.setNewStrategyWithFormula($strategy.marketName);
-  }
-
   function reset() {
     $strategy = reachTool.reset($strategy, $language);
   }
@@ -68,7 +52,7 @@
   {#if currentUser}
     <form>
       <fieldset class="market">
-        <MarketSelect {markets} bind:value={indexMarket} on:change={handleChangeMarket} />
+        <MarketSelect />
       </fieldset>
       <fieldset class="data">
         <UseMarketDataCheck />
@@ -78,39 +62,28 @@
           <GenderButton />
         </fieldset>
         <fieldset class="age">
-          <AgeGroupSelect
-            bind:value={indexStart}
-            groups={groupsForAgeStart}
-            name="age-start__select"
-            id="age-start__select"
-          />
-          <AgeGroupSelect bind:value={indexEnd} groups={groupsForAgeEnd} name="age-end__select" id="age-end__select" />
+          <AgeGroupSelect groups={groupsForAgeStart} name="ageGroupStart" id="age-start__select" index={indexStart} />
+          <AgeGroupSelect groups={groupsForAgeEnd} name="ageGroupEnd" id="age-end__select" index={indexEnd} />
         </fieldset>
       {/if}
     </form>
   {/if}
   <menu class="operations">
     <button type="button" on:click|stopPropagation|preventDefault={reset}>
-      {#if reachTool.areAllTouchPointsValueZero($strategy.deployment)}<Fa
-          icon={faArrowRotateLeft}
-          size={iconSize}
-        />{:else}<Fa icon={fa0} size={iconSize} />{/if}
+      {#if reachTool.areAllTouchPointsValueZero($strategy.deployment)}<Fa icon={faArrowRotateLeft} />{:else}<Fa
+          icon={fa0}
+        />{/if}
     </button>
     <button type="button" on:click|stopPropagation|preventDefault={sort}>
       {#if $strategy.sortedByName}<Fa
           icon={faArrowDownWideShort}
-          size={iconSize}
         />{:else if !$strategy.sortedByName && reachTool.areAllTouchPointsValueZero($strategy.deployment) && reachTool.isShowAll($strategy.deployment)}<Fa
           icon={faArrowDownAZ}
-          size={iconSize}
-        />{:else}<Fa icon={faArrowDownAZ} size={iconSize} />
+        />{:else}<Fa icon={faArrowDownAZ} />
       {/if}
     </button>
     <button type="button" on:click={hide}>
-      {#if reachTool.isShowAll($strategy.deployment)}<Fa icon={faMinus} size={iconSize} />{:else}<Fa
-          icon={faBars}
-          size={iconSize}
-        />{/if}
+      {#if reachTool.isShowAll($strategy.deployment)}<Fa icon={faMinus} />{:else}<Fa icon={faBars} />{/if}
     </button>
   </menu>
 

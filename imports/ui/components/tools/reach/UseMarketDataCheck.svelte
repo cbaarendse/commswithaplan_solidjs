@@ -2,19 +2,22 @@
   // imports
   import createConverter from '../../../functions/convert';
   import {translations, language} from '../../../stores/utils';
-  import {strategy} from '../../../stores/tools';
+  import {marketData, strategy} from '../../../stores/tools';
   import createReachTool from '/imports/ui/functions/reach';
 
   // variables
   const reachTool = createReachTool();
   const converter = createConverter();
   let checked = false;
-  $: disabled = !$strategy.marketData;
+  $: disabled = !$marketData;
 
   $: $strategy.useMarketData = checked;
-  $: message = $strategy.useMarketData
-    ? converter.translate('using_data', $translations, $language)
-    : converter.translate('using_formula', $translations, $language);
+  $: message =
+    $strategy.useMarketData && $strategy.marketData
+      ? converter.translate('using_data', $translations, $language)
+      : !$strategy.useMarketData && $strategy.marketData
+      ? converter.translate('using_formula', $translations, $language)
+      : converter.translate('no_data', $translations, $language);
 
   // functions
   function handleChangeUseMarketData() {
@@ -22,6 +25,7 @@
       $strategy = reachTool.setNewStrategyWithData($strategy.marketName);
     } else {
       $strategy = reachTool.setNewStrategyWithFormula($strategy.marketName);
+      checked = false;
     }
   }
 </script>
