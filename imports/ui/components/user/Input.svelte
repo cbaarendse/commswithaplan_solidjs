@@ -36,36 +36,44 @@
   }
 </script>
 
-<form autocomplete="off">
-  <label for={numberInput.name}>{$language === 'dutch' ? 'Invoer voor ' : 'Input for '}{displayName}</label>
-  <input
-    class="input__field"
-    name={numberInput.name}
-    id={numberInput.id}
-    type="number"
-    placeholder={numberInput.placeholder}
-    min={numberInput.min}
-    max={numberInput.max}
-    step={numberInput.step}
-    readonly={numberInput.readonly}
-    bind:value={numberInput.value}
-  />
-  <input
-    class="submit__button"
-    type="submit"
-    value={$language === 'dutch' ? 'Verstuur' : 'Submit'}
-    {disabled}
-    on:click|preventDefault|stopPropagation={submitLogin}
-  />
-  <input
-    class="cancel__button"
-    type="submit"
-    value={$language === 'dutch' ? 'Annuleer' : 'Cancel'}
-    on:click|preventDefault|stopPropagation={submitCancel}
-  />
-</form>
+<section>
+  <div class="container">
+    <form autocomplete="off">
+      <label for={numberInput.name}>{$language === 'dutch' ? 'Invoer voor ' : 'Input for '}{displayName}</label>
+      <input
+        class="input__field"
+        name={numberInput.name}
+        id={numberInput.id}
+        type="number"
+        placeholder={numberInput.placeholder}
+        min={numberInput.min}
+        max={numberInput.max}
+        step={numberInput.step}
+        readonly={numberInput.readonly}
+        bind:value={numberInput.value}
+      />
+      <input
+        class="submit__button"
+        type="submit"
+        value={$language === 'dutch' ? 'Verstuur' : 'Submit'}
+        {disabled}
+        on:click|preventDefault|stopPropagation={submitLogin}
+      />
+      <input
+        class="cancel__button"
+        type="submit"
+        value={$language === 'dutch' ? 'Annuleer' : 'Cancel'}
+        on:click|preventDefault|stopPropagation={submitCancel}
+      />
+    </form>
+  </div>
+</section>
 
 <style>
+  div.container {
+    width: min(100% - 1em, 60ch);
+    margin: 0 auto;
+  }
   form {
     display: grid;
     grid-template-areas:

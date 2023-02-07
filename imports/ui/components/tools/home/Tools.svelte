@@ -5,8 +5,10 @@
   import {language} from '../../../stores/utils';
   import {toolsHomeItems} from '../../../stores/tools';
   import {Content, Color, Actionable} from '../../../../both/typings/types';
+  import createConverter from '/imports/ui/functions/convert';
 
   // variables
+  const converter = createConverter();
   $: translatedToolsHomeItems = $toolsHomeItems.filter(
     (item: Content & Color & Actionable) => item.language === $language
   );

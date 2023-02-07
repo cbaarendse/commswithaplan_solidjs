@@ -1,13 +1,31 @@
 <script lang="ts">
   // imports
+  // imports
   import {Meteor} from 'meteor/meteor';
+  import {CWAPUser} from '../../../both/typings/types';
   import {Accounts} from 'meteor/accounts-base';
-  import {CWAPUser} from '/imports/api/users/users';
   import {language} from '../../stores/utils';
   import {router, active} from 'tinro';
   import {Match} from 'meteor/check';
   import {emailRegExp} from '../../../api/users/users';
   import {signin} from '../../stores/utils';
+
+  // variables
+  let subReady = false;
+  let currentUser: CWAPUser | null;
+
+  $m: {
+    let userSubscription = Meteor.subscribe('userData');
+    subReady = userSubscription.ready();
+    currentUser = Meteor.user();
+  }
+
+  $: {
+    if (subReady && currentUser) {
+      router.goto(`/user/${currentUser.username}`);
+    }
+    console.log('currentUser in loginsignin', currentUser);
+  }
 
   // variables
   let username: CWAPUser['username'];
@@ -54,75 +72,83 @@
   };
 </script>
 
-<nav>
-  <ul>
-    <li>
-      <a
-        href={'javascript:void(0)'}
-        role="button"
-        style="color:{!$signin ? 'var(--ra-red)' : ''}"
-        on:click={() => {
-          $signin = false;
-        }}
-      >
-        Login
-      </a>
-    </li>
-    <li>
-      <a
-        href={'javascript:void(0)'}
-        role="button"
-        style="color:{signin ? 'var(--ra-red)' : ''}"
-        on:click={() => {
-          $signin = true;
-        }}
-      >
-        Signin
-      </a>
-    </li>
-  </ul>
-</nav>
-<form autocomplete="on">
-  <fieldset>
-    {#if $signin}
-      <label for="username">Username</label>
-      <input
-        type="text"
-        name="username"
-        class="input__field"
-        placeholder={$language == 'dutch' ? 'gebruikersnaam (1 woord)' : 'username (1 word)'}
-        bind:value={username}
-      />
-      <label for="email">E-mail</label>
-      <input
-        type="email"
-        name="email"
-        class="input__field"
-        placeholder={$language == 'dutch' ? 'e-mail adres' : 'e-mail address'}
-        bind:value={email}
-      />{/if}
-    {#if !$signin}<label for="login">Login</label>
-      <input
-        type="text"
-        name="login"
-        class="input__field"
-        placeholder={$language == 'dutch' ? 'e-mail adres of gebruikersnaam' : 'e-mail address or username'}
-        bind:value={login}
-      />{/if}
-    <label for="password">Password</label>
-    <input
-      type="password"
-      name="password"
-      class="input__field"
-      placeholder={$language == 'dutch' ? 'wachtwoord' : 'password'}
-      bind:value={password}
-    />
-  </fieldset>
-  <input type="submit" class="submit__button" {disabled} on:click|stopPropagation|preventDefault={handleSubmit} />
-  <input type="reset" class="reset__button" />
-</form>
+<section>
+  <div class="container">
+    <nav>
+      <ul>
+        <li>
+          <a
+            href={'javascript:void(0)'}
+            role="button"
+            style="color:{!$signin ? 'var(--ra-red)' : ''}"
+            on:click={() => {
+              $signin = false;
+            }}
+          >
+            Login
+          </a>
+        </li>
+        <li>
+          <a
+            href={'javascript:void(0)'}
+            role="button"
+            style="color:{signin ? 'var(--ra-red)' : ''}"
+            on:click={() => {
+              $signin = true;
+            }}
+          >
+            Signin
+          </a>
+        </li>
+      </ul>
+    </nav>
+    <form autocomplete="on">
+      <fieldset>
+        {#if $signin}
+          <label for="username">Username</label>
+          <input
+            type="text"
+            name="username"
+            class="input__field"
+            placeholder={$language == 'dutch' ? 'gebruikersnaam (1 woord)' : 'username (1 word)'}
+            bind:value={username}
+          />
+          <label for="email">E-mail</label>
+          <input
+            type="email"
+            name="email"
+            class="input__field"
+            placeholder={$language == 'dutch' ? 'e-mail adres' : 'e-mail address'}
+            bind:value={email}
+          />{/if}
+        {#if !$signin}<label for="login">Login</label>
+          <input
+            type="text"
+            name="login"
+            class="input__field"
+            placeholder={$language == 'dutch' ? 'e-mail adres of gebruikersnaam' : 'e-mail address or username'}
+            bind:value={login}
+          />{/if}
+        <label for="password">Password</label>
+        <input
+          type="password"
+          name="password"
+          class="input__field"
+          placeholder={$language == 'dutch' ? 'wachtwoord' : 'password'}
+          bind:value={password}
+        />
+      </fieldset>
+      <input type="submit" class="submit__button" {disabled} on:click|stopPropagation|preventDefault={handleSubmit} />
+      <input type="reset" class="reset__button" />
+    </form>
+  </div>
+</section>
 
 <style>
+  div.container {
+    width: min(100% - 1em, 60ch);
+    margin: 0 auto;
+  }
   nav {
     margin-bottom: 4rem;
   }

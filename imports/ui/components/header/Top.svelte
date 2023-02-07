@@ -6,7 +6,7 @@
   import {language, isSmallScreen, navigationVisible} from '../../stores/utils';
   import Fa from 'svelte-fa/src/fa.svelte';
   import {faSignIn, faSignOut, faUser} from '@fortawesome/free-solid-svg-icons';
-  import type {CWAPUser} from '/imports/api/users/users';
+  import type {CWAPUser} from '../../../both/typings/types';
 
   let currentUser: CWAPUser | null;
 
@@ -50,15 +50,21 @@
     </li>
   </menu>
   <nav>
-    <a href={'/user'} class:active={currentUser}>
-      <Fa icon={faUser} />
-    </a>
     {#if currentUser}
-      <a href={'javascript:void(0)'} class:active={currentUser} on:click|stopPropagation|preventDefault={logout}>
+      <a href={`/user/${currentUser.username}`} class:active={currentUser}>
+        <Fa icon={faUser} />
+      </a>
+    {:else}
+      <a href={'/user/loginsignin'} class:active={currentUser} data-tinro-ignore>
+        <Fa icon={faUser} />
+      </a>
+    {/if}
+    {#if currentUser}
+      <a href={'/'} class:active={currentUser} on:click|stopPropagation|preventDefault={logout}>
         <Fa icon={faSignOut} />
       </a>
     {:else}
-      <a href={'/user'} class:active={currentUser} data-tinro-ignore>
+      <a href={'/user/loginsignin'} class:active={currentUser} data-tinro-ignore>
         <Fa icon={faSignIn} />
       </a>
     {/if}
