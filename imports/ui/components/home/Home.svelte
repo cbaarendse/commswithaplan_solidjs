@@ -4,18 +4,21 @@
   import Card from '../reusable/Card.svelte';
   import {language} from '../../stores/utils';
   import {homeItems} from '../../stores/home';
-  import {Content, Color, Illustrated, Actionable} from '../../../both/typings/types';
+  import createConverter from '../../functions/convert';
 
   // variables
-  $: translatedHomeItems = $homeItems.filter(
-    (item: Content & Color & Illustrated & Actionable) => item.language === $language
+  const converter = createConverter();
+
+  $: expandedHomeItems = converter.expandItems<typeof $homeItems[number], typeof $homeItems[number]['definitions'][0]>(
+    $homeItems,
+    $language
   );
 </script>
 
 <BreadCrumbs />
 <section>
   <div class="home__flex">
-    {#each translatedHomeItems as item}
+    {#each expandedHomeItems as item}
       <Card
         card={{
           title: item.displayName,

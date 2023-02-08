@@ -4,19 +4,31 @@
   import Card from '../../reusable/Card.svelte';
   import {language} from '../../../stores/utils';
   import {contactItems} from '../../../stores/consultancy';
+  import createConverter from '/imports/ui/functions/convert';
 
   // variables
-  $: translatedContactItems = $contactItems.filter((item) => item.language === $language);
+  const converter = createConverter();
+
+  $: expandedContactItems = converter.expandItems<
+    typeof $contactItems[number],
+    typeof $contactItems[number]['definitions'][0]
+  >($contactItems, $language);
 </script>
 
 <BreadCrumbs />
 <section>
   <div class="contact__flex">
-    {#each translatedContactItems as item}
-      <Card card={{color: 'blue', title: item.displayName, fontSize: '0.9em'}}>
+    {#each expandedContactItems as item}
+      <Card
+        card={{
+          color: item.color,
+          title: item.displayName,
+          fontSize: '0.9em'
+        }}
+      >
         <address>
           <!-- @html because of new lines in address items (phne number, home address) -->
-          {@html item.description.split(', ').join('<br>')}
+          {@html item.description?.split(', ').join('<br>')}
         </address>
       </Card>
     {/each}

@@ -4,9 +4,15 @@
   import Card from '../../reusable/Card.svelte';
   import {language} from '../../../stores/utils';
   import {aboutItems} from '../../../stores/consultancy';
+  import createConverter from '/imports/ui/functions/convert';
 
-  // variables;
-  $: translatedAboutItems = $aboutItems.filter((item) => item.language === $language);
+  // variables
+  const converter = createConverter();
+
+  $: expandedAboutItems = converter.expandItems<
+    typeof $aboutItems[number],
+    typeof $aboutItems[number]['definitions'][0]
+  >($aboutItems, $language);
 </script>
 
 <header>
@@ -14,7 +20,7 @@
 </header>
 <section>
   <div class="about__flex">
-    {#each translatedAboutItems as item}
+    {#each expandedAboutItems as item}
       <Card card={{fontSize: '0.9em'}}>{item.description}</Card>
     {/each}
     <Card card={{fontSize: '0.9em'}}>

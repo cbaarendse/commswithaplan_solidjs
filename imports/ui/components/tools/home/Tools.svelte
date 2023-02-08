@@ -3,15 +3,15 @@
   import BreadCrumbs from '../../reusable/BreadCrumbs.svelte';
   import Card from '../../reusable/Card.svelte';
   import {language} from '../../../stores/utils';
-  import {toolsHomeItems} from '../../../stores/tools';
-  import {Content, Color, Actionable} from '../../../../both/typings/types';
+  import {definitions, toolsHomeItems} from '../../../stores/tools';
   import createConverter from '/imports/ui/functions/convert';
 
   // variables
   const converter = createConverter();
-  $: translatedToolsHomeItems = $toolsHomeItems.filter(
-    (item: Content & Color & Actionable) => item.language === $language
-  );
+  $: expandedToolsHomeItems = converter.expandItems<
+    typeof $toolsHomeItems[number],
+    typeof $toolsHomeItems[number]['definitions'][0]
+  >($toolsHomeItems, $language);
 
   // functions
 </script>
@@ -19,8 +19,16 @@
 <BreadCrumbs />
 <section>
   <div class="home__flex">
-    {#each translatedToolsHomeItems as item}
-      <Card card={{color: 'blue', title: item.displayName, link: item.link, action: item.action, fontSize: '0.9em'}}>
+    {#each expandedToolsHomeItems as item}
+      <Card
+        card={{
+          color: item.color,
+          title: item.displayName,
+          link: item.link,
+          action: item.action,
+          fontSize: '0.9em'
+        }}
+      >
         {item.description}
       </Card>
     {/each}

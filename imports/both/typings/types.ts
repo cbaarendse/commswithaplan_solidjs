@@ -128,7 +128,7 @@ export type Year = {name: string; days: number};
 // components
 export type Accordion = {visible: boolean};
 export type Brand = Partial<svelteHTML.IntrinsicElements['span']> & Partial<HTMLElement['style']>;
-export type Card = Partial<Illustrated & Actionable> &
+export type Card = Partial<Illustrated & Action & Link> &
   svelteHTML.IntrinsicElements['article'] &
   Partial<HTMLElement['style']>;
 export type Checkbox = svelteHTML.IntrinsicElements['input'] & Partial<HTMLElement['style']>;

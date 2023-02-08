@@ -4,9 +4,14 @@
   import Card from '../../reusable/Card.svelte';
   import {language} from '../../../stores/utils';
   import {workItems} from '../../../stores/consultancy';
+  import createConverter from '/imports/ui/functions/convert';
 
   // variables
-  $: translatedWorkItems = $workItems.filter((item) => item.language === $language);
+  const converter = createConverter();
+  $: expandedWorkItems = converter.expandItems<typeof $workItems[number], typeof $workItems[number]['definitions'][0]>(
+    $workItems,
+    $language
+  );
 </script>
 
 <BreadCrumbs />
@@ -19,7 +24,7 @@
     {/if}
   </p>
   <div class="work__flex">
-    {#each translatedWorkItems as item}
+    {#each expandedWorkItems as item}
       <Card
         card={{
           color: item.color,
