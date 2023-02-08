@@ -50,24 +50,30 @@
     </li>
   </menu>
   <nav>
-    {#if currentUser}
-      <a href={`/user/${currentUser.username}`} class:active={currentUser}>
-        <Fa icon={faUser} />
-      </a>
-    {:else}
-      <a href={'/user/loginsignin'} class:active={currentUser} data-tinro-ignore>
-        <Fa icon={faUser} />
-      </a>
-    {/if}
-    {#if currentUser}
-      <a href={'/'} class:active={currentUser} on:click|stopPropagation|preventDefault={logout}>
-        <Fa icon={faSignOut} />
-      </a>
-    {:else}
-      <a href={'/user/loginsignin'} class:active={currentUser} data-tinro-ignore>
-        <Fa icon={faSignIn} />
-      </a>
-    {/if}
+    <ul>
+      <li>
+        {#if currentUser}
+          <a href={`/user/${currentUser.username}`} class:active={currentUser}>
+            <Fa icon={faUser} />
+          </a>
+        {:else}
+          <a href={'/user/loginsignin'} class:active={currentUser} data-tinro-ignore>
+            <Fa icon={faUser} />
+          </a>
+        {/if}
+      </li>
+      <li>
+        {#if currentUser}
+          <a href={'/'} class:active={currentUser} on:click|stopPropagation|preventDefault={logout}>
+            <Fa icon={faSignOut} />
+          </a>
+        {:else}
+          <a href={'/user/loginsignin'} class:active={currentUser} data-tinro-ignore>
+            <Fa icon={faSignIn} />
+          </a>
+        {/if}
+      </li>
+    </ul>
   </nav>
 </div>
 
@@ -82,6 +88,7 @@
     background-color: var(--ra-grey-off-white);
   }
 
+  ul,
   menu {
     flex-basis: 100%;
     display: flex;
@@ -92,7 +99,7 @@
 
   menu li {
     display: flex;
-    align-items: baseline;
+    align-items: center;
   }
 
   menu li:first-of-type {

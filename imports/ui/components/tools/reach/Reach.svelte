@@ -28,7 +28,7 @@
   }
 
   $: {
-    if ($marketData) {
+    if ($marketData && $strategy.useMarketData) {
       Meteor.callAsync('probabilities.countRespondentsForMarket', {marketName: $marketName})
         .then((result) => ($strategy.respondentsCount = result))
         .catch((error) => console.log('error in count', error));

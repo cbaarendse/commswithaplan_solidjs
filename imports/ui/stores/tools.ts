@@ -19,6 +19,8 @@ export const marketData: Writable<boolean> = writable(false);
 
 export const strategy: Writable<Strategy & StrategyExtension> = writable();
 
+export const strategyWithData: Writable<Strategy & StrategyExtension> = writable();
+
 export const toolsHomeItems: Readable<(Actionable & Color)[]> = readable(
   [
     {

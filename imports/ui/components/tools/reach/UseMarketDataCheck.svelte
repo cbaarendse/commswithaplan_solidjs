@@ -3,15 +3,11 @@
   import createConverter from '../../../functions/convert';
   import {translations, language} from '../../../stores/utils';
   import {marketData, strategy} from '../../../stores/tools';
-  import createReachTool from '/imports/ui/functions/reach';
 
   // variables
-  const reachTool = createReachTool();
   const converter = createConverter();
-  let checked = false;
   $: disabled = !$marketData;
 
-  $: $strategy.useMarketData = checked;
   $: message =
     $strategy.useMarketData && $strategy.marketData
       ? converter.translate('using_data', $translations, $language)
@@ -20,14 +16,6 @@
       : converter.translate('no_data', $translations, $language);
 
   // functions
-  function handleChangeUseMarketData() {
-    if ($strategy.marketData && $strategy.useMarketData) {
-      $strategy = reachTool.setNewStrategyWithData($strategy.marketName);
-    } else {
-      $strategy = reachTool.setNewStrategyWithFormula($strategy.marketName);
-      checked = false;
-    }
-  }
 </script>
 
 <input
@@ -35,8 +23,7 @@
   name="marketdata"
   type="checkbox"
   {disabled}
-  bind:checked
-  on:change={handleChangeUseMarketData}
+  bind:checked={$strategy.useMarketData}
 />
 <label for="market-data">{message}</label>
 
