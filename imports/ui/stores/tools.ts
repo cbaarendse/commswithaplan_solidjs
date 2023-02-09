@@ -2,24 +2,15 @@
 import {writable, Writable, readable, Readable} from 'svelte/store';
 
 // interfaces
-import {
-  Content,
-  Color,
-  Actionable,
-  Chapter,
-  Strategy,
-  StrategyExtension,
-  Translation,
-  Market
-} from '../../both/typings/types';
+import {Content, Color, Actionable, Chapter, Market, Strategy, StrategyExtension} from '../../both/typings/types';
 
 export const marketName: Writable<Market['name']> = writable('nl');
 
 export const marketData: Writable<boolean> = writable(false);
 
-export const strategy: Writable<Strategy & StrategyExtension> = writable();
+export const useMarketData: Writable<boolean> = writable(false);
 
-export const strategyWithData: Writable<Strategy & StrategyExtension> = writable();
+export const strategy: Writable<Strategy & StrategyExtension> = writable();
 
 export const toolsHomeItems: Readable<(Actionable & Color)[]> = readable(
   [

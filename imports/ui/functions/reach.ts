@@ -6,7 +6,6 @@ import type {
   Strategy,
   StrategyExtension,
   Market,
-  AgeGroup,
   Genders,
   Language
 } from '../../both/typings/types';
@@ -15,6 +14,7 @@ import type {
 export default function createReachTool() {
   const markets = setMarkets();
   const genders = setGenders();
+  let strategy: Strategy & StrategyExtension;
   const touchPointsBasics = setTouchPointsBasics();
 
   const defaultStrategyWithFormula: Strategy = {
@@ -46,24 +46,24 @@ export default function createReachTool() {
     ageEnd: undefined,
     ageGroupStart: setAgeGroupsForMarket('nl')[0],
     ageGroupEnd: setAgeGroupsForMarket('nl')[0],
-    peopleInAgeRange: undefined,
+    peopleInRange: undefined,
     respondentsCount: undefined,
     reachedNonUnique: undefined,
     reachedUnique: undefined,
     companyId: undefined,
-    brand: undefined,
-    product: undefined
+    brandName: undefined,
+    productName: undefined
   };
 
-  function setNewStrategyWithFormula(marketName: Market['name']): Strategy {
+  function setNewStrategyWithFormula(marketName: Market['name']): void {
     defaultStrategyWithFormula.marketName = marketName;
     defaultStrategyWithFormula.marketData = false;
     defaultStrategyWithFormula.deployment = deployTouchPointsForFormula();
     [defaultStrategyWithFormula.totalReach, defaultStrategyWithFormula.overlap] = [0, 0];
-    return defaultStrategyWithFormula;
+    strategy = defaultStrategyWithFormula;
   }
 
-  function setNewStrategyWithData(marketName: Market['name']): Strategy & StrategyExtension {
+  function setNewStrategyWithData(marketName: Market['name']): void {
     const ageGroupsForMarket = setAgeGroupsForMarket(marketName);
     defaultStrategyWithData.marketName = marketName;
     defaultStrategyWithData.marketData = true;
@@ -73,7 +73,7 @@ export default function createReachTool() {
     defaultStrategyWithData.genders = genders;
     defaultStrategyWithData.ageGroupStart = ageGroupsForMarket[0];
     defaultStrategyWithData.ageGroupStart = ageGroupsForMarket[0];
-    return defaultStrategyWithData;
+    strategy = defaultStrategyWithData;
   }
 
   function deployTouchPointsForFormula(): DeployedTouchPoint[] {
@@ -106,12 +106,25 @@ export default function createReachTool() {
     return deployedTouchPoints;
   }
 
-  function areAllTouchPointsValueZero(touchPoints: DeployedTouchPoint[]): boolean {
-    return touchPoints.every((touchPoint) => touchPoint.value === 0);
+  function setRespondentsCount<T extends number | undefined>(input: T) {
+    strategy.respondentsCount = input;
   }
 
-  function isShowAll(touchPoints: DeployedTouchPoint[]): boolean {
-    return touchPoints.every((touchPoint) => touchPoint.show === true);
+  function setStrategy<S extends Strategy & StrategyExtension>(input: S): void {
+    if (input) {
+      strategy = input;
+    }
+  }
+
+  function areAllTouchPointsValueZero(): boolean {
+    return strategy.deployment.every((touchPoint) => touchPoint.value === 0);
+  }
+
+  function isShowAll(): boolean {
+    return strategy.deployment.every((touchPoint) => touchPoint.show === true);
+  }
+  function isSortedByName(): boolean {
+    return strategy.sortedByName;
   }
   // input
 
@@ -121,11 +134,11 @@ export default function createReachTool() {
     return touchPoints;
   }
 
-  function reset(strategy: Strategy, language: Language): Strategy | (Strategy & StrategyExtension) {
-    if (!areAllTouchPointsValueZero(strategy.deployment)) {
+  function reset(language: Language) {
+    if (!areAllTouchPointsValueZero()) {
       strategy.deployment = setAllTouchPointsToZero(strategy.deployment);
     } else {
-      strategy = strategy.marketData
+      strategy.marketData
         ? setNewStrategyWithData(strategy.marketName || 'nl')
         : setNewStrategyWithFormula(strategy.marketName || 'nl');
       strategy.deployment = sortByName(strategy.deployment, language);
@@ -133,7 +146,6 @@ export default function createReachTool() {
     }
     const results = [0, 0];
     [strategy.totalReach, strategy.overlap] = results;
-    return strategy;
   }
 
   // sort
@@ -153,31 +165,28 @@ export default function createReachTool() {
     });
   }
 
-  function sortByReach(touchPoints: DeployedTouchPoint[]) {
+  function sortByValue(touchPoints: DeployedTouchPoint[]) {
     return touchPoints.sort((a: DeployedTouchPoint, b: DeployedTouchPoint) => b.value - a.value);
   }
 
-  function sort(strategy: Strategy, language: Language): Strategy | (Strategy & StrategyExtension) {
+  function sort(language: Language): void {
     strategy.deployment = strategy.sortedByName
-      ? sortByReach(strategy.deployment)
+      ? sortByValue(strategy.deployment)
       : sortByName(strategy.deployment, language);
-    strategy.sortedByName =
-      isShowAll(strategy.deployment) && areAllTouchPointsValueZero(strategy.deployment) ? true : !strategy.sortedByName;
-    return strategy;
+    strategy.sortedByName = isShowAll() && areAllTouchPointsValueZero() ? true : !strategy.sortedByName;
   }
 
   // hide - show
-  function hide(deployment: Strategy['deployment']): Strategy['deployment'] {
-    if (isShowAll(deployment) && !areAllTouchPointsValueZero(deployment)) {
-      deployment.forEach((touchPoint: DeployedTouchPoint) => {
+  function hide() {
+    if (isShowAll() && !areAllTouchPointsValueZero()) {
+      strategy.deployment.forEach((touchPoint: DeployedTouchPoint) => {
         if (touchPoint.value === 0) {
           touchPoint.show = false;
         }
       });
-    } else if (!isShowAll(deployment) || areAllTouchPointsValueZero(deployment)) {
-      deployment.forEach((touchPoint: DeployedTouchPoint) => (touchPoint.show = true));
+    } else if (!isShowAll() || areAllTouchPointsValueZero()) {
+      strategy.deployment.forEach((touchPoint: DeployedTouchPoint) => (touchPoint.show = true));
     }
-    return deployment;
   }
 
   // results
@@ -288,6 +297,9 @@ export default function createReachTool() {
     } else {
       return thisObject[projectKey1][projectKey2];
     }
+  }
+  function getStrategy(): Strategy & StrategyExtension {
+    return strategy;
   }
 
   function setMarkets(): Market[] {
@@ -868,17 +880,21 @@ export default function createReachTool() {
   }
 
   return {
+    getStrategy,
     setMarkets,
     setGenders,
     setAgeGroupsForMarket,
     setNewStrategyWithFormula,
     setNewStrategyWithData,
+    setRespondentsCount,
+    setStrategy,
     calculateResults,
     areAllTouchPointsValueZero,
     reset,
     sort,
     hide,
     isShowAll,
+    isSortedByName,
     updateDeployedTouchPoint
   };
 }

@@ -7,8 +7,8 @@
   import MarketSelect from './MarketSelect.svelte';
   import createReachTool from '../../../functions/reach';
   import {language} from '../../../stores/utils';
-  import {marketName, strategy} from '../../../stores/tools';
-  import {CWAPUser} from '../../../../both/typings/types';
+  import {marketName, marketData, useMarketData} from '../../../stores/tools';
+  import {AgeGroup, CWAPUser, Genders} from '../../../../both/typings/types';
   import Fa from 'svelte-fa/src/fa.svelte';
   import {
     faArrowRotateLeft,
@@ -30,22 +30,14 @@
   const reachTool = createReachTool();
   let indexStart: number;
   let indexEnd: number;
-  const ageGroupsForMarket = reachTool.setAgeGroupsForMarket($strategy.marketName);
-  $: groupsForAgeStart = ageGroupsForMarket;
-  $: groupsForAgeEnd = ageGroupsForMarket.slice(indexStart ? indexStart : 1);
+  const ageGroupsForMarket = reachTool.setAgeGroupsForMarket($marketName);
+  $: ageGroupsStart = ageGroupsForMarket;
+  $: ageGroupsEnd = ageGroupsForMarket.slice(indexStart ? indexStart : 1);
+  export let genders: Genders;
+  export let ageGroupStart: AgeGroup;
+  export let ageGroupEnd: AgeGroup;
 
   // functions
-  function reset() {
-    $strategy = reachTool.reset($strategy, $language);
-  }
-
-  function sort() {
-    $strategy = reachTool.sort($strategy, $language);
-  }
-
-  function hide() {
-    $strategy.deployment = reachTool.hide($strategy.deployment);
-  }
 </script>
 
 <div class="container">
@@ -57,33 +49,43 @@
       <fieldset class="data">
         <UseMarketDataCheck />
       </fieldset>
-      {#if $strategy.marketData && $strategy.useMarketData}
+      {#if $marketData && $useMarketData}
         <fieldset class="gender">
-          <GenderButton />
+          <GenderButton {genders} />
         </fieldset>
         <fieldset class="age">
-          <AgeGroupSelect groups={groupsForAgeStart} name="ageGroupStart" id="age-start__select" index={indexStart} />
-          <AgeGroupSelect groups={groupsForAgeEnd} name="ageGroupEnd" id="age-end__select" index={indexEnd} />
+          <AgeGroupSelect
+            groups={ageGroupsStart}
+            name="ageGroupStart"
+            id="age-start__select"
+            index={indexStart}
+            {ageGroupStart}
+          />
+          <AgeGroupSelect
+            groups={ageGroupsEnd}
+            name="ageGroupEnd"
+            id="age-end__select"
+            index={indexEnd}
+            {ageGroupEnd}
+          />
         </fieldset>
       {/if}
     </form>
   {/if}
   <menu class="operations">
-    <button type="button" on:click|stopPropagation|preventDefault={reset}>
-      {#if reachTool.areAllTouchPointsValueZero($strategy.deployment)}<Fa icon={faArrowRotateLeft} />{:else}<Fa
-          icon={fa0}
-        />{/if}
+    <button type="button" on:click|stopPropagation|preventDefault={() => reachTool.reset($language)}>
+      {#if reachTool.areAllTouchPointsValueZero()}<Fa icon={faArrowRotateLeft} />{:else}<Fa icon={fa0} />{/if}
     </button>
-    <button type="button" on:click|stopPropagation|preventDefault={sort}>
-      {#if $strategy.sortedByName}<Fa
+    <button type="button" on:click|stopPropagation|preventDefault={() => reachTool.sort($language)}>
+      {#if reachTool.isSortedByName()}<Fa
           icon={faArrowDownWideShort}
-        />{:else if !$strategy.sortedByName && reachTool.areAllTouchPointsValueZero($strategy.deployment) && reachTool.isShowAll($strategy.deployment)}<Fa
+        />{:else if !reachTool.isSortedByName && reachTool.areAllTouchPointsValueZero() && reachTool.isShowAll()}<Fa
           icon={faArrowDownAZ}
         />{:else}<Fa icon={faArrowDownAZ} />
       {/if}
     </button>
-    <button type="button" on:click={hide}>
-      {#if reachTool.isShowAll($strategy.deployment)}<Fa icon={faMinus} />{:else}<Fa icon={faBars} />{/if}
+    <button type="button" on:click|stopPropagation|preventDefault={() => reachTool.hide()}>
+      {#if reachTool.isShowAll()}<Fa icon={faMinus} />{:else}<Fa icon={faBars} />{/if}
     </button>
   </menu>
 
@@ -93,7 +95,7 @@
     </a>
   </nav>
   <menu class="memory">
-    <button class="save" type="button" on:click|stopPropagation|preventDefault={reset}>
+    <button class="save" type="button" on:click|stopPropagation|preventDefault={() => reachTool.reset($language)}>
       <Fa icon={faDownload} />
     </button>
   </menu>

@@ -33,14 +33,6 @@ export default function createConverter() {
     return list.filter((item: C) => item[key] == key)[0];
   }
 
-  function contentDefinition<D>(definitions: D[], language: Language) {
-    return definitions.filter((item) => {
-      if (typeof item === 'object' && item && 'language' in item) {
-        return item.language == language;
-      }
-    })[0];
-  }
-
   function expandItems<I, D>(list: I[], language: Language) {
     const result: (I & Partial<D>)[] = [];
     list.forEach((item) => {
@@ -54,6 +46,14 @@ export default function createConverter() {
       }
     });
     return result;
+  }
+
+  function contentDefinition<D>(definitions: D[], language: Language) {
+    return definitions.filter((item) => {
+      if (typeof item === 'object' && item && 'language' in item) {
+        return item.language == language;
+      }
+    })[0];
   }
 
   return {

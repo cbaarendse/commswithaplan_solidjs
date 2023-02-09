@@ -3,11 +3,13 @@
   import type {AgeGroup} from '../../../../both/typings/types';
   import {translations, language} from '../../../stores/utils';
   import {strategy} from '../../../stores/tools';
+  import createReachTool from '/imports/ui/functions/reach';
   import createConverter from '../../../functions/convert';
   import Fa from 'svelte-fa/src/fa.svelte';
   import {faSort} from '@fortawesome/free-solid-svg-icons';
 
   //variables
+  const reachTool = createReachTool();
   const converter = createConverter();
   export let groups: AgeGroup[];
   export let name: string;
