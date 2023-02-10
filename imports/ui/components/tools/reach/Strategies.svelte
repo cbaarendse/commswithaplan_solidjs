@@ -42,7 +42,9 @@
   <ul>
     {#each strategies as strategy}
       <li>
-        <span class="date">{DateTime.fromJSDate(strategy.lastChanged).toLocaleString(DateTime.DATETIME_MED)}</span>
+        <time class="date" datetime={strategy.lastChanged}>
+          {DateTime.fromJSDate(strategy.lastChanged).toLocaleString(DateTime.DATETIME_MED)}
+        </time>
         <h4>{strategy.title}</h4>
         <span>{currentUser?.profile?.firstname}&nbsp;{currentUser?.profile?.surname}</span>
         <nav>
@@ -81,7 +83,7 @@
   h4 {
     grid-column: span 2;
   }
-  span.date {
+  time.date {
     font-size: 0.8em;
     grid-column: span 2;
     color: var(--ra-grey-light);

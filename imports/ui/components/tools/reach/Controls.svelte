@@ -29,7 +29,6 @@
   }
   const reachTool = createReachTool();
   let indexStart: number;
-  let indexEnd: number;
   const ageGroupsForMarket = reachTool.setAgeGroupsForMarket($marketName);
   $: ageGroupsStart = ageGroupsForMarket;
   $: ageGroupsEnd = ageGroupsForMarket.slice(indexStart ? indexStart : 1);
@@ -54,20 +53,8 @@
           <GenderButton {genders} />
         </fieldset>
         <fieldset class="age">
-          <AgeGroupSelect
-            groups={ageGroupsStart}
-            name="ageGroupStart"
-            id="age-start__select"
-            index={indexStart}
-            {ageGroupStart}
-          />
-          <AgeGroupSelect
-            groups={ageGroupsEnd}
-            name="ageGroupEnd"
-            id="age-end__select"
-            index={indexEnd}
-            {ageGroupEnd}
-          />
+          <AgeGroupSelect groups={ageGroupsStart} name="ageGroupStart" id="age-start__select" value={ageGroupStart} />
+          <AgeGroupSelect groups={ageGroupsEnd} name="ageGroupEnd" id="age-end__select" value={ageGroupEnd} />
         </fieldset>
       {/if}
     </form>

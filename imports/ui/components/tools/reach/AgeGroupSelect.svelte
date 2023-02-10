@@ -14,24 +14,16 @@
   export let groups: AgeGroup[];
   export let name: string;
   export let id: string;
-  export let index: number = 0;
+  export let value: AgeGroup;
   let thisSelect: HTMLSelectElement;
 
   // functions
-  function handleAgeGroupSelect() {
-    if (thisSelect.name == 'ageGroupStart') {
-      $strategy.ageGroupStart = groups[index];
-    }
-    if (thisSelect.name == 'ageGroupEnd') {
-      $strategy.ageGroupEnd = groups[index];
-    }
-  }
 </script>
 
 {#if groups}
-  <select class="age__select" {id} {name} on:change={handleAgeGroupSelect} bind:this={thisSelect} bind:value={index}>
+  <select class="age__select" {id} {name} bind:this={thisSelect} bind:value>
     {#each groups as ageGroup, index}
-      <option value={index}>
+      <option value={ageGroup}>
         {ageGroup[0]} - {ageGroup[1]}
         {converter.translate('year', $translations, $language)}
       </option>
