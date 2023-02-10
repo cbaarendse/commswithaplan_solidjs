@@ -4,10 +4,8 @@
   import {faPerson, faPersonDress} from '@fortawesome/free-solid-svg-icons';
   import {Genders} from '/imports/both/typings/types';
   import {marketData} from '../../../stores/tools';
-  import createReachTool from '/imports/ui/functions/reach';
 
   // variables
-  const reachTool = createReachTool();
   export let genders: Genders;
 
   let disabled = false; //$marketData && $useMarketData;
@@ -19,7 +17,7 @@
 
   // functions
   function toggleGenders() {
-    console.log('$strategy.genders in/ before togglegenders: ', genders);
+    console.log('genders in/ before togglegenders: ', genders);
     if ($marketData && genders) {
       if (genders.has('f') && genders.has('m') && genders.has('x')) {
         genders.clear();

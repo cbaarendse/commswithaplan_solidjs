@@ -4,12 +4,11 @@
 
   // imports
   import {Market} from '../../../../both/typings/types';
-  import createReachTool from '/imports/ui/functions/reach';
+  import reachTool from '/imports/ui/functions/reach';
   import {marketName} from '../../../stores/tools';
 
   //variables
-  const reachTool = createReachTool();
-  let markets: Market[] = reachTool.setMarkets();
+  let markets: Market[] = reachTool.markets;
 
   // functions
 

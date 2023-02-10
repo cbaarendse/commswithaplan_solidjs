@@ -5,7 +5,7 @@
   import AgeGroupSelect from './AgeGroupSelect.svelte';
   import UseMarketDataCheck from './UseMarketDataCheck.svelte';
   import MarketSelect from './MarketSelect.svelte';
-  import createReachTool from '../../../functions/reach';
+  import reachTool from '../../../functions/reach';
   import {language} from '../../../stores/utils';
   import {marketName, marketData, useMarketData} from '../../../stores/tools';
   import {AgeGroup, CWAPUser, Genders} from '../../../../both/typings/types';
@@ -20,14 +20,12 @@
     faFolderOpen,
     faDownload
   } from '@fortawesome/free-solid-svg-icons';
-
   // variables
   let currentUser: CWAPUser | null;
 
   $m: {
     currentUser = Meteor.user();
   }
-  const reachTool = createReachTool();
   let indexStart: number;
   const ageGroupsForMarket = reachTool.setAgeGroupsForMarket($marketName);
   $: ageGroupsStart = ageGroupsForMarket;

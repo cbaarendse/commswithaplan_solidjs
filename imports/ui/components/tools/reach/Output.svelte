@@ -4,8 +4,9 @@
   import Modal from '../../reusable/Modal.svelte';
   import createConverter from '../../../functions/convert';
   import createFormatter from '../../../functions/format';
+  import reachTool from '/imports/ui/functions/reach';
   import {language, translations} from '../../../stores/utils';
-  import {definitions, strategy} from '../../../stores/tools';
+  import {definitions} from '../../../stores/tools';
   // import Spinner from '../../reusable/Spinner.svelte';
 
   // variables
@@ -13,6 +14,7 @@
   const formatter = createFormatter();
   let displayOutputDescription: 'none' | 'flex' = 'none';
   let outputName: 'total_reach' | 'overlap' = 'total_reach';
+  let strategy = reachTool.getStrategy();
   $: title = converter.displayContent(outputName, $definitions, $language);
   $: description = converter.describeContent(outputName, $definitions, $language);
 
@@ -35,12 +37,12 @@
         $language
       )}:&nbsp;
     </span>
-    <output>{formatter.toNumberFormat($strategy.totalReach, 0)}&nbsp;%</output>
+    <output>{formatter.toNumberFormat(strategy.totalReach, 0)}&nbsp;%</output>
   </label>
   <OutputMeter
     outputMeter={{
       id: 'reach',
-      value: $strategy.totalReach,
+      value: strategy.totalReach,
       min: 0,
       max: 100
     }}
@@ -53,12 +55,12 @@
     }}
   >
     <span>{converter.translate('overlap', $translations, $language)}:&nbsp;</span>
-    <output>{formatter.toNumberFormat($strategy.overlap, 0)}&nbsp;%</output>
+    <output>{formatter.toNumberFormat(strategy.overlap, 0)}&nbsp;%</output>
   </label>
   <OutputMeter
     outputMeter={{
       id: 'overlap',
-      value: $strategy.overlap,
+      value: strategy.overlap,
       min: 0,
       max: 100
     }}

@@ -10,8 +10,8 @@ import type {
   Language
 } from '../../both/typings/types';
 
-// main function (closure)
-export default function createReachTool() {
+// main function (IIFE closure)
+const reachTool = (function createReachTool() {
   const markets = setMarkets();
   const genders = setGenders();
   let strategy: Strategy & StrategyExtension;
@@ -190,18 +190,14 @@ export default function createReachTool() {
   }
 
   // results
-  function updateDeployedTouchPoint(
-    touchPointName: string,
-    value: number,
-    touchPoints: DeployedTouchPoint[]
-  ): DeployedTouchPoint[] {
-    const index: number = touchPoints.findIndex((touchPoint: DeployedTouchPoint): boolean => {
+  function updateDeployedTouchPoint(touchPointName: string, value: number): DeployedTouchPoint[] {
+    const index: number = strategy.deployment.findIndex((touchPoint: DeployedTouchPoint): boolean => {
       return touchPoint.name === touchPointName;
     });
-    const touchPointToUpdate: DeployedTouchPoint = touchPoints[index];
+    const touchPointToUpdate: DeployedTouchPoint = strategy.deployment[index];
     touchPointToUpdate.value = value;
-    touchPoints.splice(index, 1, touchPointToUpdate);
-    return touchPoints;
+    strategy.deployment.splice(index, 1, touchPointToUpdate);
+    return strategy.deployment;
   }
 
   function calculateTotalReach(touchPoints: DeployedTouchPoint[]): number {
@@ -226,9 +222,9 @@ export default function createReachTool() {
     }
     return 100 * duplicateReachPortion;
   }
-  function calculateResults(touchPoints: DeployedTouchPoint[]): [number, number] {
-    const totalReach = calculateTotalReach(touchPoints);
-    const overlap = calculateOverlap(touchPoints);
+  function calculateResults(): [number, number] {
+    const totalReach = calculateTotalReach(strategy.deployment);
+    const overlap = calculateOverlap(strategy.deployment);
     return [totalReach, overlap];
   }
 
@@ -881,6 +877,8 @@ export default function createReachTool() {
 
   return {
     getStrategy,
+    markets,
+    genders,
     setMarkets,
     setGenders,
     setAgeGroupsForMarket,
@@ -897,4 +895,6 @@ export default function createReachTool() {
     isSortedByName,
     updateDeployedTouchPoint
   };
-}
+})();
+
+export default reachTool;

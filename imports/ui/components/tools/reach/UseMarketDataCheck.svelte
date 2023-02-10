@@ -2,29 +2,23 @@
   // imports
   import createConverter from '../../../functions/convert';
   import {translations, language} from '../../../stores/utils';
-  import {marketData, strategy} from '../../../stores/tools';
+  import {marketData, useMarketData} from '../../../stores/tools';
 
   // variables
   const converter = createConverter();
   $: disabled = !$marketData;
 
   $: message =
-    $strategy.useMarketData && $strategy.marketData
+    $marketData && $useMarketData
       ? converter.translate('using_data', $translations, $language)
-      : !$strategy.useMarketData && $strategy.marketData
+      : $marketData && !$useMarketData
       ? converter.translate('using_formula', $translations, $language)
       : converter.translate('no_data', $translations, $language);
 
   // functions
 </script>
 
-<input
-  class="marketdata__checkbox"
-  name="marketdata"
-  type="checkbox"
-  {disabled}
-  bind:checked={$strategy.useMarketData}
-/>
+<input class="marketdata__checkbox" name="marketdata" type="checkbox" {disabled} bind:checked={$useMarketData} />
 <label for="market-data">{message}</label>
 
 <style>

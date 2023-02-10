@@ -1,38 +1,31 @@
 <script lang="ts">
   // imports
   import type {Input} from '../../../../both/typings/types';
-  import {strategy} from '../../../stores/tools';
-  import createReachTool from '../../../functions/reach';
+  import reachTool from '../../../functions/reach';
 
   //variables
-  const reachTool = createReachTool();
+  let strategy = reachTool.getStrategy();
   export let rangeInput: Input;
   export let displayName: string = 'touchpoint_name';
 
   // functions
   function changeValue() {
     if (rangeInput.name && typeof rangeInput.value == 'number') {
-      $strategy.deployment = reachTool.updateDeployedTouchPoint(
-        rangeInput.name,
-        rangeInput.value,
-        $strategy.deployment
-      );
+      strategy.deployment = reachTool.updateDeployedTouchPoint(rangeInput.name, rangeInput.value);
+      reachTool.setStrategy(strategy);
     }
   }
   function inputValue() {
     if (rangeInput.name && typeof rangeInput.value == 'number') {
-      $strategy.deployment = reachTool.updateDeployedTouchPoint(
-        rangeInput.name,
-        rangeInput.value,
-        $strategy.deployment
-      );
+      strategy.deployment = reachTool.updateDeployedTouchPoint(rangeInput.name, rangeInput.value);
     }
     getResults();
+    reachTool.setStrategy(strategy);
   }
 
   function getResults(): void {
-    const results = reachTool.calculateResults($strategy.deployment);
-    [$strategy.totalReach, $strategy.overlap] = results;
+    const results = reachTool.calculateResults();
+    [strategy.totalReach, strategy.overlap] = results;
   }
 </script>
 

@@ -2,15 +2,14 @@
   // imports
   import {language} from '../../../stores/utils';
   import type {Input} from '../../../../both/typings/types';
-  import createReachTool from '../../../functions/reach';
-  import {strategy} from '../../../stores/tools';
+  import reachTool from '../../../functions/reach';
   // exports
   export let numberInput: Input;
   export let displayName: string = 'touchpoint_name';
   export let displayManualInput = 'flex';
 
   // variables
-  const reachTool = createReachTool();
+  let strategy = reachTool.getStrategy();
   $: disabled = isValid(numberInput) ? false : true;
 
   // functions
@@ -28,12 +27,9 @@
   }
   function submitValue() {
     if (numberInput.name && typeof numberInput.value == 'number') {
-      $strategy.deployment = reachTool.updateDeployedTouchPoint(
-        numberInput.name,
-        numberInput.value,
-        $strategy.deployment
-      );
+      strategy.deployment = reachTool.updateDeployedTouchPoint(numberInput.name, numberInput.value);
       getResults();
+      reachTool.setStrategy(strategy);
     }
   }
 
@@ -42,8 +38,8 @@
   }
 
   function getResults(): void {
-    const results = reachTool.calculateResults($strategy.deployment);
-    [$strategy.totalReach, $strategy.overlap] = results;
+    const results = reachTool.calculateResults();
+    [strategy.totalReach, strategy.overlap] = results;
   }
 </script>
 
