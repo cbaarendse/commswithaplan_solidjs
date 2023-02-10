@@ -13,11 +13,14 @@
     if (rangeInput.name && typeof rangeInput.value == 'number') {
       strategy.deployment = reachTool.updateDeployedTouchPoint(rangeInput.name, rangeInput.value);
       reachTool.setStrategy(strategy);
+      strategy = reachTool.getStrategy();
     }
   }
   function inputValue() {
     if (rangeInput.name && typeof rangeInput.value == 'number') {
       strategy.deployment = reachTool.updateDeployedTouchPoint(rangeInput.name, rangeInput.value);
+      reachTool.setStrategy(strategy);
+      strategy = reachTool.getStrategy();
     }
     getResults();
     reachTool.setStrategy(strategy);

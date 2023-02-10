@@ -12,10 +12,7 @@ import type {
 
 // main function (IIFE closure)
 const reachTool = (function createReachTool() {
-  const markets = setMarkets();
-  const genders = setGenders();
   let strategy: Strategy & StrategyExtension;
-  const touchPointsBasics = setTouchPointsBasics();
 
   const defaultStrategyWithFormula: Strategy = {
     userId: '',
@@ -55,11 +52,11 @@ const reachTool = (function createReachTool() {
     productName: undefined
   };
 
-  function setNewStrategyWithFormula(marketName: Market['name']): void {
-    defaultStrategyWithFormula.marketName = marketName;
-    defaultStrategyWithFormula.marketData = false;
-    defaultStrategyWithFormula.deployment = deployTouchPointsForFormula();
-    [defaultStrategyWithFormula.totalReach, defaultStrategyWithFormula.overlap] = [0, 0];
+  function setNewStrategyWithFormula(marketName: Market['name'], defaultStrategy: Strategy): void {
+    defaultStrategy.marketName = marketName;
+    defaultStrategy.marketData = false;
+    defaultStrategy.deployment = deployTouchPointsForFormula();
+    [defaultStrategy.totalReach, defaultStrategyWithFormula.overlap] = [0, 0];
     strategy = defaultStrategyWithFormula;
   }
 
@@ -76,34 +73,39 @@ const reachTool = (function createReachTool() {
     strategy = defaultStrategyWithData;
   }
 
-  function deployTouchPointsForFormula(): DeployedTouchPoint[] {
-    const deployedTouchPoints: DeployedTouchPoint[] = [];
-    touchPointsBasics.forEach(
-      (item, index) =>
-        (deployedTouchPoints[index] = {
-          name: item.name,
-          basics: item.basics,
-          value: 0.0,
-          show: true,
-          inputType: 'reach'
-        })
-    );
-    return deployedTouchPoints;
+  function deployTouchPointsForFormula(): void {
+    strategy.deployment.map((touchPoint) => ({
+      name: touchPoint.name,
+      basics: touchPoint.basics,
+      value: 0.0,
+      show: true,
+      inputType: 'reach'
+    }));
   }
 
-  function deployTouchPointsForData(): DeployedTouchPoint[] {
-    const deployedTouchPoints: DeployedTouchPoint[] = [];
-    touchPointsBasics.forEach(
-      (item, index) =>
-        (deployedTouchPoints[index] = {
-          name: item.name,
-          basics: item.basics,
-          value: 0.0,
-          show: true,
-          inputType: setDefaultInputType(item.name)
-        })
-    );
-    return deployedTouchPoints;
+  function setDefaultInputType(touchPoint: DeployedTouchPoint, touchPointsInputTypes: {[key: string]: string[]}) {
+    if (touchPointsInputTypes['contacts'].includes(touchPoint.name)) {
+      return 'contacts';
+    }
+    if (touchPointsInputTypes['grps'].includes(touchPoint.name)) {
+      return 'grps';
+    }
+    if (touchPointsInputTypes['impressions'].includes(touchPoint.name)) {
+      return 'impressions';
+    }
+    if (touchPointsInputTypes['reach'].includes(touchPoint.name)) {
+      return 'reach';
+    }
+  }
+
+  function deployTouchPointsForData(touchPointsWithInputTypes: {[key: string]: string[]}): void {
+    strategy.deployment.map((touchPoint) => ({
+      name: touchPoint.name,
+      basics: touchPoint.basics,
+      value: 0.0,
+      show: true,
+      inputType: setDefaultInputType(touchPoint, touchPointsWithInputTypes)
+    }));
   }
 
   function setRespondentsCount<T extends number | undefined>(input: T) {
@@ -229,54 +231,6 @@ const reachTool = (function createReachTool() {
   }
 
   // Reach with data
-  function setDefaultInputType(touchPointName: string): 'contacts' | 'grps' | 'impressions' | 'reach' {
-    if (
-      ['asset', 'cinema', 'outdoor', 'pr', 'promotion', 'television', 'radio', 'sponsorship'].indexOf(
-        touchPointName
-      ) !== -1
-    ) {
-      return 'contacts'; // This defaultinputtype could be "grps" as well
-    }
-    if (
-      [
-        'advocacy',
-        'app',
-        'console_game',
-        'display',
-        'e_mail',
-        'mobile',
-        'social',
-        'video_on_demand',
-        'viral',
-        'website',
-        'sem',
-        'seo'
-      ].indexOf(touchPointName) !== -1
-    ) {
-      return 'impressions';
-    }
-    if (
-      [
-        'ambassador',
-        'direct_mail',
-        'door_drop',
-        'event',
-        'experiential',
-        'internal_employee',
-        'loyalty_crm',
-        'magazines',
-        'newspapers',
-        'trade_fair',
-        'packaging',
-        'shopper',
-        'word_of_mouth'
-      ].indexOf(touchPointName) !== -1
-    ) {
-      return 'contacts';
-    }
-    return 'contacts';
-  }
-
   function findObjectAndProject(
     input: number | string,
     searchKey: string,
@@ -298,589 +252,12 @@ const reachTool = (function createReachTool() {
     return strategy;
   }
 
-  function setMarkets(): Market[] {
-    return [
-      {
-        name: 'be',
-        flag: '🇧🇪',
-        displayNames: [
-          {language: 'english', displayName: 'Belgium'},
-          {language: 'dutch', displayName: 'België'}
-        ],
-        ageGroups: [
-          [9, 11],
-          [12, 19],
-          [20, 34],
-          [35, 49],
-          [50, 64],
-          [65, 107]
-        ]
-      },
-      {
-        name: 'nl',
-        flag: '🇳🇱',
-        displayNames: [
-          {language: 'english', displayName: 'The Netherlands'},
-          {language: 'dutch', displayName: 'Nederland'}
-        ],
-        ageGroups: [
-          [9, 11],
-          [12, 19],
-          [20, 34],
-          [35, 49],
-          [50, 64],
-          [65, 107]
-        ]
-      },
-      {
-        name: 'uk',
-        flag: '🇬🇧',
-        displayNames: [
-          {language: 'english', displayName: 'United Kingdom'},
-          {language: 'dutch', displayName: 'Verenigd Koninkrijk'}
-        ],
-        ageGroups: [
-          [9, 11],
-          [12, 19],
-          [20, 34],
-          [35, 49],
-          [50, 64],
-          [65, 107]
-        ]
-      }
-    ];
-  }
-
-  function setGenders(): Genders {
-    return new Set(['f', 'm', 'x']);
-  }
-
-  function setAgeGroupsForMarket(marketName: Market['name']) {
-    const ageGroups = markets.find((item) => item.name == marketName)?.ageGroups || [
-      [9, 11],
-      [12, 19],
-      [20, 34],
-      [35, 49],
-      [50, 64],
-      [65, 107]
-    ];
-    return ageGroups;
-  }
-
-  function setTouchPointsBasics(): TouchPointBasics[] {
-    return [
-      {
-        name: 'advocacy',
-        basics: [
-          {
-            language: 'english',
-            displayName: 'Advocacy',
-            description: 'Consumers spread information about your brand.'
-          },
-          {
-            language: 'dutch',
-            displayName: 'Advocacy',
-            description: 'Consumenten verspreiden informatie over je merk.'
-          }
-        ]
-      },
-      {
-        name: 'ambassador',
-        basics: [
-          {
-            language: 'english',
-            displayName: 'Ambassador',
-            description: 'A (known) person acts as spokesperson for your brand.'
-          },
-          {
-            language: 'dutch',
-            displayName: 'Ambassador',
-            description: 'Een (bekend) persoon treedt op als woordvoerder voor je merk.'
-          }
-        ]
-      },
-      {
-        name: 'app',
-        basics: [
-          {
-            language: 'english',
-            displayName: 'App',
-            description: 'A branded software program that can be used on smartphones.'
-          },
-          {
-            language: 'dutch',
-            displayName: 'App',
-            description: 'Een branded software programma dat werkt op smartphones.'
-          }
-        ]
-      },
-      {
-        name: 'asset',
-        basics: [
-          {
-            language: 'english',
-            displayName: 'Asset',
-            description: 'A proprietary tool or platform that a brand owns and that can be used to further build it.'
-          },
-          {
-            language: 'dutch',
-            displayName: 'Asset',
-            description:
-              'Een hulpmiddel of programma dat eigendom is van een merk en dat gebruikt kan worden om het verder te bouwen.'
-          }
-        ]
-      },
-      {
-        name: 'cinema',
-        basics: [
-          {
-            language: 'english',
-            displayName: 'Cinema',
-            description: 'Screen advertising in cinemas.'
-          },
-          {
-            language: 'dutch',
-            displayName: 'Cinema',
-            description: 'Adverteren op het doek in bioscopen.'
-          }
-        ]
-      },
-      {
-        name: 'console_game',
-        basics: [
-          {
-            language: 'english',
-            displayName: 'Console / Game',
-            description: 'Advertising in a game (online, console, PC) or on a console.'
-          },
-          {
-            language: 'dutch',
-            displayName: 'Console / Game',
-            description: 'Adverteren in een game (online, console, PC) of via een console.'
-          }
-        ]
-      },
-      {
-        name: 'direct_mail',
-        basics: [
-          {
-            language: 'english',
-            displayName: 'Direct Mail',
-            description: 'Physical mail, delivered to mail boxes, targeted and untargeted.'
-          },
-          {
-            language: 'dutch',
-            displayName: 'Direct Mail',
-            description: 'Fysieke post, geleverd in de brievenbus, gericht of ongericht.'
-          }
-        ]
-      },
-      {
-        name: 'display',
-        basics: [
-          {
-            language: 'english',
-            displayName: 'Display',
-            description: 'Advertising on websites, through all possible formats.'
-          },
-          {
-            language: 'dutch',
-            displayName: 'Display',
-            description: 'Adverteren op websites, in alle mogelijke vormen.'
-          }
-        ]
-      },
-      {
-        name: 'door_drop',
-        basics: [
-          {
-            language: 'english',
-            displayName: 'Door Drop',
-            description: 'Unadressed mailings and leaflets'
-          },
-          {
-            language: 'dutch',
-            displayName: 'Folder',
-            description: 'Ongeadresseerde mailings en folders.'
-          }
-        ]
-      },
-      {
-        name: 'e-mail',
-        basics: [
-          {
-            language: 'english',
-            displayName: 'E-Mail',
-            description: 'Electronic mail, delivered to the inbox, targeted and untargeted.'
-          },
-          {
-            language: 'dutch',
-            displayName: 'E-Mail',
-            description: 'Electronische mail, geleverd in de inbox, gericht of ongericht.'
-          }
-        ]
-      },
-      {
-        name: 'event',
-        basics: [
-          {
-            language: 'english',
-            displayName: 'Event',
-            description: 'A branded gathering of people at an arranged place and time.'
-          },
-          {
-            language: 'dutch',
-            displayName: 'Event',
-            description: 'Een branded samenkomst van mensen op een afgesproken plaats en tijd.'
-          }
-        ]
-      },
-      {
-        name: 'experiential',
-        basics: [
-          {
-            language: 'english',
-            displayName: 'Experiential',
-            description: 'Engaging consumers in an experience that involves the product and/or brand values.'
-          },
-          {
-            language: 'dutch',
-            displayName: 'Experiential',
-            description: 'Betrekken van consumenten in een ervaring die het product en/of merkwaarden bevat.'
-          }
-        ]
-      },
-      {
-        name: 'internal_employee',
-        basics: [
-          {
-            language: 'english',
-            displayName: 'Internal / Employee',
-            description: 'Personnel spreads information about your brand.'
-          },
-          {
-            language: 'dutch',
-            displayName: 'Internal / Employee',
-            description:
-              'Het merk verspreidt informatie naar personeelsleden. Zij delen deze informatie eventueel verder.'
-          }
-        ]
-      },
-      {
-        name: 'loyalty_crm',
-        basics: [
-          {
-            language: 'english',
-            displayName: 'Loyalty / CRM',
-            description: 'IT supported relationship with consumers.'
-          },
-          {
-            language: 'dutch',
-            displayName: 'Loyalty / CRM',
-            description: 'IT ondersteunde relatie met consumenten.'
-          }
-        ]
-      },
-      {
-        name: 'magazines',
-        basics: [
-          {
-            language: 'english',
-            displayName: 'Magazines',
-            description: 'Advertising in magazines.'
-          },
-          {
-            language: 'dutch',
-            displayName: 'Magazines',
-            description: 'Adverteren in magazines.'
-          }
-        ]
-      },
-      {
-        name: 'mobile',
-        basics: [
-          {
-            language: 'english',
-            displayName: 'Mobile',
-            description: 'Branded messaging on mobile phones.'
-          },
-          {
-            language: 'dutch',
-            displayName: 'Mobiel',
-            description: 'Branded boodschappen verspreiden door middel van mobiele telefoons.'
-          }
-        ]
-      },
-      {
-        name: 'newspapers',
-        basics: [
-          {
-            language: 'english',
-            displayName: 'Newspapers',
-            description: 'Advertising in newspapers.'
-          },
-          {
-            language: 'dutch',
-            displayName: 'Dagbladen',
-            description: 'Adverteren in kranten.'
-          }
-        ]
-      },
-      {
-        name: 'outdoor',
-        basics: [
-          {
-            language: 'english',
-            displayName: 'Outdoor',
-            description: 'Advertising at physical places that are outside the consumers’ home.'
-          },
-          {
-            language: 'dutch',
-            displayName: 'Buitenreclame',
-            description: 'Adverteren op fysieke punten waarmee de consument alleen buitenshuis in aanraking kan komen.'
-          }
-        ]
-      },
-      {
-        name: 'packaging',
-        basics: [
-          {
-            language: 'english',
-            displayName: 'Packaging',
-            description: 'Messaging on a product’s package.'
-          },
-          {
-            language: 'dutch',
-            displayName: 'Verpakking',
-            description: 'Boodschappen op de verpakking van het product.'
-          }
-        ]
-      },
-      {
-        name: 'pr',
-        basics: [
-          {
-            language: 'english',
-            displayName: 'PR',
-            description: 'Communication that focuses on a mutual benefit for brand and consumers.'
-          },
-          {
-            language: 'dutch',
-            displayName: 'PR',
-            description: 'Communicatie die zich concentreert op het wederzijds belang voor merk en consumenten.'
-          }
-        ]
-      },
-      {
-        name: 'promotion',
-        basics: [
-          {
-            language: 'english',
-            displayName: 'Promotion',
-            description: 'Communication that focuses on a temporary change in price / value ratio.'
-          },
-          {
-            language: 'dutch',
-            displayName: 'Promotie',
-            description:
-              'Communicatie die zich concentreert op een tijdelijke verandering in de prijs / waarde verhouding.'
-          }
-        ]
-      },
-      {
-        name: 'radio',
-        basics: [
-          {
-            language: 'english',
-            displayName: 'Radio',
-            description: 'Advertising on radio stations, in commercial airtime and in-program.'
-          },
-          {
-            language: 'dutch',
-            displayName: 'Radio',
-            description: 'Adverteren in zendtijd van radiostations, reclamezendtijd en in-program.'
-          }
-        ]
-      },
-      {
-        name: 'sem',
-        basics: [
-          {
-            language: 'english',
-            displayName: 'SEM',
-            description: 'Search engine marketing - Paid optimization and advertising on search engine results pages.'
-          },
-          {
-            language: 'dutch',
-            displayName: 'SEM',
-            description:
-              'Search engine marketing - Betaalde optimalisatie en advertenties op resultaatpagina’s van zoekmachines.'
-          }
-        ]
-      },
-      {
-        name: 'seo',
-        basics: [
-          {
-            language: 'english',
-            displayName: 'SEO',
-            description: 'Search engine optimization - Free optimization on search engine results pages.'
-          },
-          {
-            language: 'dutch',
-            displayName: 'SEO',
-            description: 'Search engine optimization -  Gratis optimalisatie op resultaatpagina’s van zoekmachines.'
-          }
-        ]
-      },
-      {
-        name: 'shopper',
-        basics: [
-          {
-            language: 'english',
-            displayName: 'Shopper',
-            description: 'Communication in retail channels.'
-          },
-          {
-            language: 'dutch',
-            displayName: 'Shopper',
-            description: 'Communicatie in retail-kanalen.'
-          }
-        ]
-      },
-      {
-        name: 'social',
-        basics: [
-          {
-            language: 'english',
-            displayName: 'Social',
-            description: 'Branded appearance on social networks, paid and unpaid.'
-          },
-          {
-            language: 'dutch',
-            displayName: 'Social',
-            description: 'Branded vertoning op sociale netwerken, betaald en onbetaald.'
-          }
-        ]
-      },
-      {
-        name: 'sponsorship',
-        basics: [
-          {
-            language: 'english',
-            displayName: 'Sponsorship',
-            description:
-              'A branding opportunity in exchange for financial support of a person, activity or organization.'
-          },
-          {
-            language: 'dutch',
-            displayName: 'Sponsorship',
-            description:
-              'De mogelijkheid om je merk te tonen in ruil voor financiële steun van een persoon, activiteit of organisatie.'
-          }
-        ]
-      },
-      {
-        name: 'television',
-        basics: [
-          {
-            language: 'english',
-            displayName: 'Television',
-            description: 'Advertising on television, in commercial airtime and in-program.'
-          },
-          {
-            language: 'dutch',
-            displayName: 'Televisie',
-            description: 'Adverteren in zendtijd van een televisiestation, reclamezendtijd en in-program.'
-          }
-        ]
-      },
-      {
-        name: 'trade_fair',
-        basics: [
-          {
-            language: 'english',
-            displayName: 'Trade Fair',
-            description: 'Appearing at an exhibition for a specific industry or purpose.'
-          },
-          {
-            language: 'dutch',
-            displayName: 'Trade Fair',
-            description: 'Vertonen van een merk op een beurs voor een specifieke industrie of doel.'
-          }
-        ]
-      },
-      {
-        name: 'video_on_demand',
-        basics: [
-          {
-            language: 'english',
-            displayName: 'Video On Demand',
-            description: 'Advertising in an environment that provides audio visual content to users at request.'
-          },
-          {
-            language: 'dutch',
-            displayName: 'Video On Demand',
-            description: 'Adverteren in een omgeving die op verzoek audiovisuele content biedt aan gebruikers.'
-          }
-        ]
-      },
-      {
-        name: 'viral',
-        basics: [
-          {
-            language: 'english',
-            displayName: 'Viral',
-            description: 'Communication in a way that optimizes the probability that people will forward your message.'
-          },
-          {
-            language: 'dutch',
-            displayName: 'Viral',
-            description:
-              'Communicatie op een manier die de kans maximaliseert dat mensen je boodschap zullen doorsturen aan andere mensen. '
-          }
-        ]
-      },
-      {
-        name: 'website',
-        basics: [
-          {
-            language: 'english',
-            displayName: 'Website',
-            description: 'Electronic information, that is stored on a server and is accessible through a browser.'
-          },
-          {
-            language: 'dutch',
-            displayName: 'Website',
-            description:
-              'Elektronische informatie, die opgeslagen is op een server en toegankelijk door middel van een browser.'
-          }
-        ]
-      },
-      {
-        name: 'word_of_mouth',
-        basics: [
-          {
-            language: 'english',
-            displayName: 'Word Of Mouth',
-            description: 'People pass opinions on a brand to other people.'
-          },
-          {
-            language: 'dutch',
-            displayName: 'Word Of Mouth',
-            description: 'Mensen geven meningen door over je merk aan andere mensen.'
-          }
-        ]
-      }
-    ];
+  function setAgeGroupsForMarket(marketName: Market['name'], markets: Market[]) {
+    return markets.find((item: Market) => item.name == marketName)?.ageGroups;
   }
 
   return {
     getStrategy,
-    markets,
-    genders,
-    setMarkets,
-    setGenders,
     setAgeGroupsForMarket,
     setNewStrategyWithFormula,
     setNewStrategyWithData,
