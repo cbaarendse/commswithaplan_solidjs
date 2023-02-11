@@ -7,8 +7,8 @@
   import MarketSelect from './MarketSelect.svelte';
   import reachTool from '../../../functions/reach';
   import {language} from '../../../stores/utils';
-  import {marketName} from '../../../stores/tools';
-  import {AgeGroup, CWAPUser, Genders} from '../../../../both/typings/types';
+  import {markets, marketName} from '../../../stores/tools';
+  import {CWAPUser} from '../../../../both/typings/types';
   import Fa from 'svelte-fa/src/fa.svelte';
   import {
     faArrowRotateLeft,
@@ -29,14 +29,16 @@
     currentUser = Meteor.user();
   }
   let indexStart: number;
-  const ageGroupsForMarket = reachTool.setAgeGroupsForMarket($marketName);
+  let indexEnd: number;
+  const ageGroupsForMarket = reachTool.setAgeGroupsForMarket($marketName, $markets);
   $: ageGroupsStart = ageGroupsForMarket;
-  $: ageGroupsEnd = ageGroupsForMarket.slice(indexStart ? indexStart : 1);
-  export let genders: Genders;
-  export let ageGroupStart: AgeGroup;
-  export let ageGroupEnd: AgeGroup;
+  $: ageGroupsEnd = ageGroupsForMarket ? ageGroupsForMarket.slice(indexStart ? indexStart : 1) : ageGroupsForMarket;
 
   // functions
+  function reset() {
+    if (reachTool.areAllTouchPointsValueZero()) {
+    }
+  }
 </script>
 
 <div class="container">
@@ -50,27 +52,27 @@
       </fieldset>
       {#if strategy.marketData && strategy.useMarketData}
         <fieldset class="gender">
-          <GenderButton {genders} />
+          <GenderButton />
         </fieldset>
         <fieldset class="age">
           <AgeGroupSelect
-            groups={ageGroupsStart}
+            groups={ageGroupsStart ? ageGroupsStart : ageGroupsForMarket}
             name="ageGroupStart"
             id="age-start__select"
-            bind:value={strategy.ageGroupStart}
+            value={indexStart}
           />
           <AgeGroupSelect
-            groups={ageGroupsEnd}
+            groups={ageGroupsEnd ? ageGroupsEnd : ageGroupsForMarket}
             name="ageGroupEnd"
             id="age-end__select"
-            bind:value={strategy.ageGroupEnd}
+            value={indexEnd}
           />
         </fieldset>
       {/if}
     </form>
   {/if}
   <menu class="operations">
-    <button type="button" on:click|stopPropagation|preventDefault={() => reachTool.reset($language)}>
+    <button type="button" on:click|stopPropagation|preventDefault={reset}>
       {#if reachTool.areAllTouchPointsValueZero()}<Fa icon={faArrowRotateLeft} />{:else}<Fa icon={fa0} />{/if}
     </button>
     <button type="button" on:click|stopPropagation|preventDefault={() => reachTool.sort($language)}>

@@ -12,17 +12,27 @@
   export let groups: AgeGroup[];
   export let name: string;
   export let id: string;
-  export let value: AgeGroup;
+  export let value: number;
   let strategy = reachTool.getStrategy();
   let thisSelect: HTMLSelectElement;
+  function handleChange() {
+    let ageGroup = groups[value];
+    if (thisSelect.id == 'ageSelectStart') {
+      strategy.ageGroupStart = ageGroup;
+    }
+    if (thisSelect.id == 'ageSelectEnd') {
+      strategy.ageGroupStart = ageGroup;
+    }
+    reachTool.setStrategy(strategy);
+  }
 
   // functions
 </script>
 
 {#if groups}
-  <select class="age__select" {id} {name} bind:this={thisSelect} bind:value>
+  <select class="age__select" {id} {name} bind:this={thisSelect} bind:value on:change={handleChange}>
     {#each groups as ageGroup, index}
-      <option value={ageGroup}>
+      <option value={index}>
         {ageGroup[0]} - {ageGroup[1]}
         {converter.translate('year', $translations, $language)}
       </option>

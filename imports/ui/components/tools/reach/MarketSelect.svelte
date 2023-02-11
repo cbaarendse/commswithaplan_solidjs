@@ -3,12 +3,9 @@
   import Fa from 'svelte-fa/src/fa.svelte';
 
   // imports
-  import {Market} from '../../../../both/typings/types';
-  import reachTool from '/imports/ui/functions/reach';
-  import {marketName} from '../../../stores/tools';
+  import {markets, marketName} from '../../../stores/tools';
 
   //variables
-  let markets: Market[] = reachTool.markets;
 
   // functions
 
@@ -16,7 +13,7 @@
 </script>
 
 <select class="market" name="market" id="market__select" bind:value={$marketName}>
-  {#each markets as thisMarket}
+  {#each $markets as thisMarket}
     <option value={thisMarket.name}>{thisMarket.flag || thisMarket.name}</option>
   {/each}
 </select>

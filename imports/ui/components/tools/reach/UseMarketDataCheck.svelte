@@ -2,23 +2,30 @@
   // imports
   import createConverter from '../../../functions/convert';
   import {translations, language} from '../../../stores/utils';
-  import {marketData, useMarketData} from '../../../stores/tools';
+  import reachTool from '/imports/ui/functions/reach';
 
   // variables
   const converter = createConverter();
-  $: disabled = !$marketData;
+  let strategy = reachTool.getStrategy();
+  let useMarketData: boolean;
+  $: disabled = !strategy.marketData;
 
   $: message =
-    $marketData && $useMarketData
+    strategy.marketData && strategy.useMarketData
       ? converter.translate('using_data', $translations, $language)
-      : $marketData && !$useMarketData
+      : strategy.marketData && !strategy.useMarketData
       ? converter.translate('using_formula', $translations, $language)
       : converter.translate('no_data', $translations, $language);
+
+  $: {
+    strategy.useMarketData = useMarketData;
+    reachTool.setStrategy(strategy);
+  }
 
   // functions
 </script>
 
-<input class="marketdata__checkbox" name="marketdata" type="checkbox" {disabled} bind:checked={$useMarketData} />
+<input class="marketdata__checkbox" name="marketdata" type="checkbox" {disabled} bind:checked={useMarketData} />
 <label for="market-data">{message}</label>
 
 <style>

@@ -2,39 +2,36 @@
   // imports
   import Fa from 'svelte-fa/src/fa.svelte';
   import {faPerson, faPersonDress} from '@fortawesome/free-solid-svg-icons';
-  import {Genders} from '/imports/both/typings/types';
-  import {marketData} from '../../../stores/tools';
+  import reachTool from '/imports/ui/functions/reach';
 
   // variables
-  export let genders: Genders;
-
-  let disabled = false; //$marketData && $useMarketData;
-  $: {
-    console.log('$: genders in genderButton: ', genders);
-  }
+  let strategy = reachTool.getStrategy();
+  $: disabled = (strategy.marketData && strategy.useMarketData) || false;
+  $: console.log('$: strategy.genders in genderButton: ', strategy.genders);
 
   // exports
 
   // functions
   function toggleGenders() {
-    console.log('genders in/ before togglegenders: ', genders);
-    if ($marketData && genders) {
-      if (genders.has('f') && genders.has('m') && genders.has('x')) {
-        genders.clear();
-      } else if (!genders.has('f') && !genders.has('m') && !genders.has('x')) {
-        genders.add('f');
-      } else if (genders.has('f') && !genders.has('m') && !genders.has('x')) {
-        genders.delete('f');
-        genders.add('m');
-      } else if (!genders.has('f') && genders.has('m') && !genders.has('x')) {
-        genders.add('f');
-      } else if (genders.has('f') && genders.has('m') && !genders.has('x')) {
-        genders.add('x');
+    console.log('genders in/ before togglegenders: ', strategy.genders);
+    if (strategy.marketData && strategy.genders) {
+      if (strategy.genders.has('f') && strategy.genders.has('m') && strategy.genders.has('x')) {
+        strategy.genders.clear();
+      } else if (!strategy.genders.has('f') && !strategy.genders.has('m') && !strategy.genders.has('x')) {
+        strategy.genders.add('f');
+      } else if (strategy.genders.has('f') && !strategy.genders.has('m') && !strategy.genders.has('x')) {
+        strategy.genders.delete('f');
+        strategy.genders.add('m');
+      } else if (!strategy.genders.has('f') && strategy.genders.has('m') && !strategy.genders.has('x')) {
+        strategy.genders.add('f');
+      } else if (strategy.genders.has('f') && strategy.genders.has('m') && !strategy.genders.has('x')) {
+        strategy.genders.add('x');
       }
     }
+    reachTool.setStrategy(strategy);
   }
 
-  console.log('genders in genderButton: end', genders);
+  console.log('strategy.genders in genderButton: end', strategy.genders);
 </script>
 
 <button
@@ -44,8 +41,8 @@
   {disabled}
   on:click|preventDefault|stopPropagation={toggleGenders}
 >
-  <Fa icon={faPersonDress} color={genders?.has('f') ? 'var(--ra-red)' : 'var(--ra-grey-light'} />
-  <Fa icon={faPerson} color={genders?.has('m') ? 'var(--ra-red)' : 'var(--ra-grey-light'} />
+  <Fa icon={faPersonDress} color={strategy.genders?.has('f') ? 'var(--ra-red)' : 'var(--ra-grey-light'} />
+  <Fa icon={faPerson} color={strategy.genders?.has('m') ? 'var(--ra-red)' : 'var(--ra-grey-light'} />
 </button>
 
 <style>

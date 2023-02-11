@@ -84,7 +84,6 @@ export type Strategy = {
   createdAt: Date;
   lastChanged: Date;
   deployment: DeployedTouchPoint[];
-  sortedByName: boolean;
   overlap: number;
   totalReach: number;
 };

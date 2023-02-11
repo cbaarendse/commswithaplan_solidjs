@@ -6,8 +6,11 @@ import type {
   Strategy,
   StrategyExtension,
   Market,
-  Language
+  Language,
+  Genders,
+  AgeGroup
 } from '../../both/typings/types';
+import {touchPointsPerInputType} from '../stores/tools';
 
 // main function (IIFE closure)
 const reachTool = (function createReachTool() {
@@ -23,14 +26,17 @@ const reachTool = (function createReachTool() {
     defaultStrategy: Strategy,
     marketName: Market['name'],
     touchPoints: TouchPointDefinition[],
-    touchPointsInInputTypes: {[key: string]: string[]}
+    touchPointsInInputTypes: {[key: string]: string[]},
+    genders: Genders,
+    ageGroupStart: AgeGroup,
+    ageGroupEnd: AgeGroup
   ) {
     strategy = defaultStrategy;
     strategy.marketName = marketName;
     strategy.deployment = deployTouchPointsForData(touchPoints, touchPointsInInputTypes);
-    // strategy.genders =
-    // strategy.ageGroupStart =
-    // strategy.ageGroupEnd =
+    strategy.genders = genders;
+    strategy.ageGroupStart = ageGroupStart;
+    strategy.ageGroupEnd = ageGroupEnd;
   }
 
   function deployTouchPointsForFormula(touchPoints: TouchPointDefinition[]): DeployedTouchPoint[] {
@@ -91,8 +97,10 @@ const reachTool = (function createReachTool() {
   function isShowAll(): boolean {
     return strategy.deployment.every((touchPoint) => touchPoint.show === true);
   }
+  let sortedByName = true;
+
   function isSortedByName(): boolean {
-    return strategy.sortedByName;
+    return sortedByName;
   }
   // input
 
@@ -102,15 +110,31 @@ const reachTool = (function createReachTool() {
     return touchPoints;
   }
 
-  function reset(language: Language) {
+  function reset(
+    defaultStrategy: Strategy,
+    touchPoints: TouchPointDefinition[],
+    language: Language,
+    touchPointsPerInputType,
+    genders,
+    ageGroupStart,
+    ageGroupEnd
+  ) {
     if (!areAllTouchPointsValueZero()) {
       strategy.deployment = setAllTouchPointsToZero(strategy.deployment);
     } else {
       strategy.marketData
-        ? setNewStrategyWithData(strategy.marketName || 'nl')
-        : setNewStrategyWithFormula(strategy.marketName || 'nl');
+        ? initWithData(
+            defaultStrategy,
+            strategy.marketName,
+            touchPoints,
+            touchPointsPerInputType,
+            genders,
+            ageGroupStart,
+            ageGroupEnd
+          )
+        : init(defaultStrategy, strategy.marketName, touchPoints);
       strategy.deployment = sortByName(strategy.deployment, language);
-      strategy.sortedByName = true;
+      sortedByName = true;
     }
     const results = [0, 0];
     [strategy.totalReach, strategy.overlap] = results;
@@ -118,14 +142,14 @@ const reachTool = (function createReachTool() {
 
   // sort
   function sortByName(touchPoints: DeployedTouchPoint[], language: Language) {
-    return touchPoints.sort((a: TouchPointBasics, b: TouchPointBasics) => {
-      const basicsOfTouchPointA = a.basics.find((item) => item.language == language);
-      const basicsOfTouchPointB = b.basics.find((item) => item.language == language);
-      if (basicsOfTouchPointA && basicsOfTouchPointB) {
-        if (basicsOfTouchPointA.displayName > basicsOfTouchPointB.displayName) {
+    return touchPoints.sort((a: TouchPointDefinition, b: TouchPointDefinition) => {
+      const definitionOfTouchPointA = a.definitions.find((definition) => definition.language == language);
+      const definitionOfTouchPointB = b.definitions.find((definition) => definition.language == language);
+      if (definitionOfTouchPointA && definitionOfTouchPointB) {
+        if (definitionOfTouchPointA.displayName > definitionOfTouchPointB.displayName) {
           return 1;
         }
-        if (basicsOfTouchPointA.displayName < basicsOfTouchPointB.displayName) {
+        if (definitionOfTouchPointA.displayName < definitionOfTouchPointB.displayName) {
           return -1;
         }
       }
@@ -138,10 +162,8 @@ const reachTool = (function createReachTool() {
   }
 
   function sort(language: Language): void {
-    strategy.deployment = strategy.sortedByName
-      ? sortByValue(strategy.deployment)
-      : sortByName(strategy.deployment, language);
-    strategy.sortedByName = isShowAll() && areAllTouchPointsValueZero() ? true : !strategy.sortedByName;
+    strategy.deployment = sortedByName ? sortByValue(strategy.deployment) : sortByName(strategy.deployment, language);
+    sortedByName = isShowAll() && areAllTouchPointsValueZero() ? true : !sortedByName;
   }
 
   // hide - show

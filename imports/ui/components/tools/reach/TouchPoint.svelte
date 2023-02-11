@@ -13,7 +13,7 @@
   export let touchPoint: DeployedTouchPoint;
 
   // variables
-  $: basics = touchPoint.basics.find((item) => item.language == $language);
+  $: definition = touchPoint.definitions.filter((definition) => definition.language == $language)[0];
   const formatter = createFormatter();
   const converter = createConverter();
   let hovered: boolean = false;
@@ -38,7 +38,7 @@
   </div>
   <div class="center">
     <RangeInput
-      displayName={basics?.displayName}
+      displayName={definition.displayName}
       rangeInput={{
         name: touchPoint.name,
         id: touchPoint.name,
@@ -61,23 +61,23 @@
     </button>
   </div>
   <Modal
-    title={basics?.displayName}
+    title={definition.displayName}
     display={displayTouchPointDescription}
     on:destroyModal={() => {
       displayTouchPointDescription = 'none';
     }}
   >
-    {basics?.description}
+    {definition.description}
   </Modal>
   <Modal
-    title={basics?.displayName}
+    title={definition.displayName}
     display={displayManualInput}
     on:destroyModal={() => {
       displayManualInput = 'none';
     }}
   >
     <NumberInput
-      displayName={basics?.displayName}
+      displayName={definition.displayName}
       {displayManualInput}
       numberInput={{
         name: touchPoint.name,
