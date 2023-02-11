@@ -1,12 +1,11 @@
 // Reach
 // imports
 import type {
-  TouchPointBasics,
+  TouchPointDefinition,
   DeployedTouchPoint,
   Strategy,
   StrategyExtension,
   Market,
-  Genders,
   Language
 } from '../../both/typings/types';
 
@@ -14,97 +13,64 @@ import type {
 const reachTool = (function createReachTool() {
   let strategy: Strategy & StrategyExtension;
 
-  const defaultStrategyWithFormula: Strategy = {
-    userId: '',
-    title: 'New Strategy',
-    marketName: 'nl',
-    marketData: false,
-    createdAt: new Date(),
-    lastChanged: new Date(),
-    deployment: deployTouchPointsForFormula(),
-    sortedByName: true,
-    overlap: 0,
-    totalReach: 0
-  };
-  const defaultStrategyWithData: Strategy & StrategyExtension = {
-    userId: '',
-    title: 'New Strategy',
-    marketName: 'nl',
-    marketData: true,
-    useMarketData: false,
-    createdAt: new Date(),
-    lastChanged: new Date(),
-    deployment: deployTouchPointsForData(),
-    sortedByName: true,
-    overlap: 0,
-    totalReach: 0,
-    genders: setGenders(),
-    ageStart: undefined,
-    ageEnd: undefined,
-    ageGroupStart: setAgeGroupsForMarket('nl')[0],
-    ageGroupEnd: setAgeGroupsForMarket('nl')[0],
-    peopleInRange: undefined,
-    respondentsCount: undefined,
-    reachedNonUnique: undefined,
-    reachedUnique: undefined,
-    companyId: undefined,
-    brandName: undefined,
-    productName: undefined
-  };
-
-  function setNewStrategyWithFormula(marketName: Market['name'], defaultStrategy: Strategy): void {
-    defaultStrategy.marketName = marketName;
-    defaultStrategy.marketData = false;
-    defaultStrategy.deployment = deployTouchPointsForFormula();
-    [defaultStrategy.totalReach, defaultStrategyWithFormula.overlap] = [0, 0];
-    strategy = defaultStrategyWithFormula;
+  function init(defaultStrategy: Strategy, marketName: Market['name'], touchPoints: TouchPointDefinition[]) {
+    strategy = defaultStrategy;
+    strategy.marketName = marketName;
+    strategy.deployment = deployTouchPointsForFormula(touchPoints);
   }
 
-  function setNewStrategyWithData(marketName: Market['name']): void {
-    const ageGroupsForMarket = setAgeGroupsForMarket(marketName);
-    defaultStrategyWithData.marketName = marketName;
-    defaultStrategyWithData.marketData = true;
-    defaultStrategyWithData.useMarketData = false;
-    defaultStrategyWithData.deployment = deployTouchPointsForData();
-    [defaultStrategyWithData.totalReach, defaultStrategyWithData.overlap] = [0, 0];
-    defaultStrategyWithData.genders = genders;
-    defaultStrategyWithData.ageGroupStart = ageGroupsForMarket[0];
-    defaultStrategyWithData.ageGroupStart = ageGroupsForMarket[0];
-    strategy = defaultStrategyWithData;
+  function initWithData(
+    defaultStrategy: Strategy,
+    marketName: Market['name'],
+    touchPoints: TouchPointDefinition[],
+    touchPointsInInputTypes: {[key: string]: string[]}
+  ) {
+    strategy = defaultStrategy;
+    strategy.marketName = marketName;
+    strategy.deployment = deployTouchPointsForData(touchPoints, touchPointsInInputTypes);
+    // strategy.genders =
+    // strategy.ageGroupStart =
+    // strategy.ageGroupEnd =
   }
 
-  function deployTouchPointsForFormula(): void {
-    strategy.deployment.map((touchPoint) => ({
+  function deployTouchPointsForFormula(touchPoints: TouchPointDefinition[]): DeployedTouchPoint[] {
+    return touchPoints.map((touchPoint) => ({
       name: touchPoint.name,
-      basics: touchPoint.basics,
+      definitions: touchPoint.definitions,
       value: 0.0,
       show: true,
       inputType: 'reach'
     }));
   }
 
-  function setDefaultInputType(touchPoint: DeployedTouchPoint, touchPointsInputTypes: {[key: string]: string[]}) {
-    if (touchPointsInputTypes['contacts'].includes(touchPoint.name)) {
+  function setDefaultInputType(
+    touchPointName: DeployedTouchPoint['name'],
+    touchPointsInputTypes: {[key: string]: string[]}
+  ) {
+    if (touchPointsInputTypes['contacts'].includes(touchPointName)) {
       return 'contacts';
     }
-    if (touchPointsInputTypes['grps'].includes(touchPoint.name)) {
+    if (touchPointsInputTypes['grps'].includes(touchPointName)) {
       return 'grps';
     }
-    if (touchPointsInputTypes['impressions'].includes(touchPoint.name)) {
+    if (touchPointsInputTypes['impressions'].includes(touchPointName)) {
       return 'impressions';
     }
-    if (touchPointsInputTypes['reach'].includes(touchPoint.name)) {
+    if (touchPointsInputTypes['reach'].includes(touchPointName)) {
       return 'reach';
     }
   }
 
-  function deployTouchPointsForData(touchPointsWithInputTypes: {[key: string]: string[]}): void {
-    strategy.deployment.map((touchPoint) => ({
+  function deployTouchPointsForData(
+    touchPoints: TouchPointDefinition[],
+    touchPointsInInputTypes: {[key: string]: string[]}
+  ): DeployedTouchPoint[] {
+    return touchPoints.map((touchPoint) => ({
       name: touchPoint.name,
-      basics: touchPoint.basics,
+      definitions: touchPoint.definitions,
       value: 0.0,
       show: true,
-      inputType: setDefaultInputType(touchPoint, touchPointsWithInputTypes)
+      inputType: setDefaultInputType(touchPoint.name, touchPointsInInputTypes)
     }));
   }
 
@@ -259,8 +225,8 @@ const reachTool = (function createReachTool() {
   return {
     getStrategy,
     setAgeGroupsForMarket,
-    setNewStrategyWithFormula,
-    setNewStrategyWithData,
+    init,
+    initWithData,
     setRespondentsCount,
     setStrategy,
     calculateResults,

@@ -7,7 +7,7 @@
   import MarketSelect from './MarketSelect.svelte';
   import reachTool from '../../../functions/reach';
   import {language} from '../../../stores/utils';
-  import {marketName, marketData, useMarketData} from '../../../stores/tools';
+  import {marketName} from '../../../stores/tools';
   import {AgeGroup, CWAPUser, Genders} from '../../../../both/typings/types';
   import Fa from 'svelte-fa/src/fa.svelte';
   import {
@@ -18,10 +18,12 @@
     faBars,
     faMinus,
     faFolderOpen,
-    faDownload
+    faDownload,
+    faPlus
   } from '@fortawesome/free-solid-svg-icons';
   // variables
   let currentUser: CWAPUser | null;
+  let strategy = reachTool.getStrategy();
 
   $m: {
     currentUser = Meteor.user();
@@ -46,13 +48,23 @@
       <fieldset class="data">
         <UseMarketDataCheck />
       </fieldset>
-      {#if $marketData && $useMarketData}
+      {#if strategy.marketData && strategy.useMarketData}
         <fieldset class="gender">
           <GenderButton {genders} />
         </fieldset>
         <fieldset class="age">
-          <AgeGroupSelect groups={ageGroupsStart} name="ageGroupStart" id="age-start__select" value={ageGroupStart} />
-          <AgeGroupSelect groups={ageGroupsEnd} name="ageGroupEnd" id="age-end__select" value={ageGroupEnd} />
+          <AgeGroupSelect
+            groups={ageGroupsStart}
+            name="ageGroupStart"
+            id="age-start__select"
+            bind:value={strategy.ageGroupStart}
+          />
+          <AgeGroupSelect
+            groups={ageGroupsEnd}
+            name="ageGroupEnd"
+            id="age-end__select"
+            bind:value={strategy.ageGroupEnd}
+          />
         </fieldset>
       {/if}
     </form>
@@ -78,6 +90,9 @@
     <a href={'/tools/reach/strategies'} data-tinro-ignore>
       <Fa icon={faFolderOpen} />
     </a>
+    <a href={'/tools/reach/'} data-tinro-ignore>
+      <Fa icon={faPlus} />
+    </a>
   </nav>
   <menu class="memory">
     <button class="save" type="button" on:click|stopPropagation|preventDefault={() => reachTool.reset($language)}>
@@ -96,16 +111,7 @@
     border-radius: 0.2em;
     background-color: var(--ra-teal-off-white);
   }
-  /* form {
-    display: grid;
-    grid-template-columns: 1fr 3rem;
-    grid-template-areas: 'select label';
-    padding: 0;
-    align-items: center;
-    border: solid 1px var(--ra-teal-light);
-    background-color: transparent;
-    border-radius: 3px;
-  } */
+
   form {
     grid-column: span 3;
     display: grid;

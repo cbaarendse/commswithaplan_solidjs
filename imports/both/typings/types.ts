@@ -13,6 +13,7 @@ declare global {
 export type Language = 'english' | 'dutch';
 export type Definition = {language: Language; displayName: string; description: string};
 export type Content = {name: string; definitions: Definition[]};
+export type TouchPointDefinition = Content;
 export type Translation = {name: string; definitions: Omit<Definition, 'description'>[]};
 export type Action = {action: string};
 export type Link = {link: string};
@@ -28,8 +29,7 @@ export type Chapter = Omit<Definition, 'description'> &
   };
 export type Article = Omit<Definition, 'description'> & Omit<Content, 'definitions'> & {paragraphs: Paragraph[]};
 
-export type TouchPointBasics = {name: string; basics: {language: Language; displayName: string; description: string}[]};
-export type DeployedTouchPoint = TouchPointBasics & {
+export type DeployedTouchPoint = TouchPointDefinition & {
   value: number;
   show: boolean;
   inputType?: 'contacts' | 'grps' | 'impressions' | 'reach';

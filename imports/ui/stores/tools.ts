@@ -11,16 +11,10 @@ import {
   Strategy,
   StrategyExtension,
   Genders,
-  TouchPointBasics
+  TouchPointDefinition
 } from '../../both/typings/types';
 
 export const marketName: Writable<Market['name']> = writable('nl');
-
-export const marketData: Writable<boolean> = writable(false);
-
-export const useMarketData: Writable<boolean> = writable(false);
-
-export const strategy: Writable<Strategy & StrategyExtension> = writable();
 
 export const defaultStrategyWithFormula: Readable<Strategy> = readable({
   userId: '',
@@ -29,7 +23,7 @@ export const defaultStrategyWithFormula: Readable<Strategy> = readable({
   marketData: false,
   createdAt: new Date(),
   lastChanged: new Date(),
-  deployment: undefined,
+  deployment: [],
   sortedByName: true,
   overlap: 0,
   totalReach: 0
@@ -153,11 +147,11 @@ export const touchPointsPerInputType: Readable<{[key: string]: string[]}> = read
     };
   }
 );
-export const touchPointsBasics: Readable<TouchPointBasics[]> = readable(
+export const touchPointsDefinitions: Readable<TouchPointDefinition[]> = readable(
   [
     {
       name: 'advocacy',
-      basics: [
+      definitions: [
         {
           language: 'english',
           displayName: 'Advocacy',
@@ -172,7 +166,7 @@ export const touchPointsBasics: Readable<TouchPointBasics[]> = readable(
     },
     {
       name: 'ambassador',
-      basics: [
+      definitions: [
         {
           language: 'english',
           displayName: 'Ambassador',
@@ -187,7 +181,7 @@ export const touchPointsBasics: Readable<TouchPointBasics[]> = readable(
     },
     {
       name: 'app',
-      basics: [
+      definitions: [
         {
           language: 'english',
           displayName: 'App',
@@ -202,7 +196,7 @@ export const touchPointsBasics: Readable<TouchPointBasics[]> = readable(
     },
     {
       name: 'asset',
-      basics: [
+      definitions: [
         {
           language: 'english',
           displayName: 'Asset',
@@ -218,7 +212,7 @@ export const touchPointsBasics: Readable<TouchPointBasics[]> = readable(
     },
     {
       name: 'cinema',
-      basics: [
+      definitions: [
         {
           language: 'english',
           displayName: 'Cinema',
@@ -233,7 +227,7 @@ export const touchPointsBasics: Readable<TouchPointBasics[]> = readable(
     },
     {
       name: 'console_game',
-      basics: [
+      definitions: [
         {
           language: 'english',
           displayName: 'Console / Game',
@@ -248,7 +242,7 @@ export const touchPointsBasics: Readable<TouchPointBasics[]> = readable(
     },
     {
       name: 'direct_mail',
-      basics: [
+      definitions: [
         {
           language: 'english',
           displayName: 'Direct Mail',
@@ -263,7 +257,7 @@ export const touchPointsBasics: Readable<TouchPointBasics[]> = readable(
     },
     {
       name: 'display',
-      basics: [
+      definitions: [
         {
           language: 'english',
           displayName: 'Display',
@@ -278,7 +272,7 @@ export const touchPointsBasics: Readable<TouchPointBasics[]> = readable(
     },
     {
       name: 'door_drop',
-      basics: [
+      definitions: [
         {
           language: 'english',
           displayName: 'Door Drop',
@@ -293,7 +287,7 @@ export const touchPointsBasics: Readable<TouchPointBasics[]> = readable(
     },
     {
       name: 'e-mail',
-      basics: [
+      definitions: [
         {
           language: 'english',
           displayName: 'E-Mail',
@@ -308,7 +302,7 @@ export const touchPointsBasics: Readable<TouchPointBasics[]> = readable(
     },
     {
       name: 'event',
-      basics: [
+      definitions: [
         {
           language: 'english',
           displayName: 'Event',
@@ -323,7 +317,7 @@ export const touchPointsBasics: Readable<TouchPointBasics[]> = readable(
     },
     {
       name: 'experiential',
-      basics: [
+      definitions: [
         {
           language: 'english',
           displayName: 'Experiential',
@@ -338,7 +332,7 @@ export const touchPointsBasics: Readable<TouchPointBasics[]> = readable(
     },
     {
       name: 'internal_employee',
-      basics: [
+      definitions: [
         {
           language: 'english',
           displayName: 'Internal / Employee',
@@ -354,7 +348,7 @@ export const touchPointsBasics: Readable<TouchPointBasics[]> = readable(
     },
     {
       name: 'loyalty_crm',
-      basics: [
+      definitions: [
         {
           language: 'english',
           displayName: 'Loyalty / CRM',
@@ -369,7 +363,7 @@ export const touchPointsBasics: Readable<TouchPointBasics[]> = readable(
     },
     {
       name: 'magazines',
-      basics: [
+      definitions: [
         {
           language: 'english',
           displayName: 'Magazines',
@@ -384,7 +378,7 @@ export const touchPointsBasics: Readable<TouchPointBasics[]> = readable(
     },
     {
       name: 'mobile',
-      basics: [
+      definitions: [
         {
           language: 'english',
           displayName: 'Mobile',
@@ -399,7 +393,7 @@ export const touchPointsBasics: Readable<TouchPointBasics[]> = readable(
     },
     {
       name: 'newspapers',
-      basics: [
+      definitions: [
         {
           language: 'english',
           displayName: 'Newspapers',
@@ -414,7 +408,7 @@ export const touchPointsBasics: Readable<TouchPointBasics[]> = readable(
     },
     {
       name: 'outdoor',
-      basics: [
+      definitions: [
         {
           language: 'english',
           displayName: 'Outdoor',
@@ -429,7 +423,7 @@ export const touchPointsBasics: Readable<TouchPointBasics[]> = readable(
     },
     {
       name: 'packaging',
-      basics: [
+      definitions: [
         {
           language: 'english',
           displayName: 'Packaging',
@@ -444,7 +438,7 @@ export const touchPointsBasics: Readable<TouchPointBasics[]> = readable(
     },
     {
       name: 'pr',
-      basics: [
+      definitions: [
         {
           language: 'english',
           displayName: 'PR',
@@ -459,7 +453,7 @@ export const touchPointsBasics: Readable<TouchPointBasics[]> = readable(
     },
     {
       name: 'promotion',
-      basics: [
+      definitions: [
         {
           language: 'english',
           displayName: 'Promotion',
@@ -475,7 +469,7 @@ export const touchPointsBasics: Readable<TouchPointBasics[]> = readable(
     },
     {
       name: 'radio',
-      basics: [
+      definitions: [
         {
           language: 'english',
           displayName: 'Radio',
@@ -490,7 +484,7 @@ export const touchPointsBasics: Readable<TouchPointBasics[]> = readable(
     },
     {
       name: 'sem',
-      basics: [
+      definitions: [
         {
           language: 'english',
           displayName: 'SEM',
@@ -506,7 +500,7 @@ export const touchPointsBasics: Readable<TouchPointBasics[]> = readable(
     },
     {
       name: 'seo',
-      basics: [
+      definitions: [
         {
           language: 'english',
           displayName: 'SEO',
@@ -521,7 +515,7 @@ export const touchPointsBasics: Readable<TouchPointBasics[]> = readable(
     },
     {
       name: 'shopper',
-      basics: [
+      definitions: [
         {
           language: 'english',
           displayName: 'Shopper',
@@ -536,7 +530,7 @@ export const touchPointsBasics: Readable<TouchPointBasics[]> = readable(
     },
     {
       name: 'social',
-      basics: [
+      definitions: [
         {
           language: 'english',
           displayName: 'Social',
@@ -551,7 +545,7 @@ export const touchPointsBasics: Readable<TouchPointBasics[]> = readable(
     },
     {
       name: 'sponsorship',
-      basics: [
+      definitions: [
         {
           language: 'english',
           displayName: 'Sponsorship',
@@ -567,7 +561,7 @@ export const touchPointsBasics: Readable<TouchPointBasics[]> = readable(
     },
     {
       name: 'television',
-      basics: [
+      definitions: [
         {
           language: 'english',
           displayName: 'Television',
@@ -582,7 +576,7 @@ export const touchPointsBasics: Readable<TouchPointBasics[]> = readable(
     },
     {
       name: 'trade_fair',
-      basics: [
+      definitions: [
         {
           language: 'english',
           displayName: 'Trade Fair',
@@ -597,7 +591,7 @@ export const touchPointsBasics: Readable<TouchPointBasics[]> = readable(
     },
     {
       name: 'video_on_demand',
-      basics: [
+      definitions: [
         {
           language: 'english',
           displayName: 'Video On Demand',
@@ -612,7 +606,7 @@ export const touchPointsBasics: Readable<TouchPointBasics[]> = readable(
     },
     {
       name: 'viral',
-      basics: [
+      definitions: [
         {
           language: 'english',
           displayName: 'Viral',
@@ -628,7 +622,7 @@ export const touchPointsBasics: Readable<TouchPointBasics[]> = readable(
     },
     {
       name: 'website',
-      basics: [
+      definitions: [
         {
           language: 'english',
           displayName: 'Website',
@@ -644,7 +638,7 @@ export const touchPointsBasics: Readable<TouchPointBasics[]> = readable(
     },
     {
       name: 'word_of_mouth',
-      basics: [
+      definitions: [
         {
           language: 'english',
           displayName: 'Word Of Mouth',

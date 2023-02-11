@@ -2,6 +2,7 @@
   // imports
   import type {AgeGroup} from '../../../../both/typings/types';
   import {translations, language} from '../../../stores/utils';
+  import reachTool from '/imports/ui/functions/reach';
   import createConverter from '../../../functions/convert';
   import Fa from 'svelte-fa/src/fa.svelte';
   import {faSort} from '@fortawesome/free-solid-svg-icons';
@@ -12,6 +13,7 @@
   export let name: string;
   export let id: string;
   export let value: AgeGroup;
+  let strategy = reachTool.getStrategy();
   let thisSelect: HTMLSelectElement;
 
   // functions
