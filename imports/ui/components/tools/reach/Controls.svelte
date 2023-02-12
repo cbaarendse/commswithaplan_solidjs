@@ -2,12 +2,12 @@
   // imports
   import {Meteor} from 'meteor/meteor';
   import GenderButton from './GenderButton.svelte';
-  import AgeGroupSelect from './AgeGroupSelect.svelte';
+  import AgeGroupsSelect from './AgeGroupsSelect.svelte';
   import UseMarketDataCheck from './UseMarketDataCheck.svelte';
   import MarketSelect from './MarketSelect.svelte';
   import reachTool from '../../../functions/reach';
   import {language} from '../../../stores/utils';
-  import {markets, marketName} from '../../../stores/tools';
+  import {marketData, useMarketData} from '../../../stores/tools';
   import {CWAPUser} from '../../../../both/typings/types';
   import Fa from 'svelte-fa/src/fa.svelte';
   import {
@@ -23,20 +23,14 @@
   } from '@fortawesome/free-solid-svg-icons';
   // variables
   let currentUser: CWAPUser | null;
-  let strategy = reachTool.getStrategy();
 
   $m: {
     currentUser = Meteor.user();
   }
-  let indexStart: number;
-  let indexEnd: number;
-  const ageGroupsForMarket = reachTool.setAgeGroupsForMarket($marketName, $markets);
-  $: ageGroupsStart = ageGroupsForMarket;
-  $: ageGroupsEnd = ageGroupsForMarket ? ageGroupsForMarket.slice(indexStart ? indexStart : 1) : ageGroupsForMarket;
 
   // functions
   function reset() {
-    if (reachTool.areAllTouchPointsValueZero()) {
+    if ($strategy.areAllTouchPointsValueZero()) {
     }
   }
 </script>
@@ -44,30 +38,11 @@
 <div class="container">
   {#if currentUser}
     <form>
-      <fieldset class="market">
-        <MarketSelect />
-      </fieldset>
-      <fieldset class="data">
-        <UseMarketDataCheck />
-      </fieldset>
-      {#if strategy.marketData && strategy.useMarketData}
-        <fieldset class="gender">
-          <GenderButton />
-        </fieldset>
-        <fieldset class="age">
-          <AgeGroupSelect
-            groups={ageGroupsStart ? ageGroupsStart : ageGroupsForMarket}
-            name="ageGroupStart"
-            id="age-start__select"
-            value={indexStart}
-          />
-          <AgeGroupSelect
-            groups={ageGroupsEnd ? ageGroupsEnd : ageGroupsForMarket}
-            name="ageGroupEnd"
-            id="age-end__select"
-            value={indexEnd}
-          />
-        </fieldset>
+      <MarketSelect />
+      <UseMarketDataCheck />
+      {#if $marketData && $useMarketData}
+        <GenderButton />
+        <AgeGroupsSelect />
       {/if}
     </form>
   {/if}
@@ -123,33 +98,7 @@
     justify-content: center;
     align-items: center;
   }
-  fieldset {
-    height: 100%;
-    padding: 0.4remrem 0.6rem;
-    align-items: center;
-    border: solid 1px var(--ra-teal-light);
-    background-color: transparent;
-    border-radius: 3px;
-  }
-  fieldset.market {
-    display: grid;
-    grid-template-columns: 3fr 1fr;
-  }
-  fieldset.data {
-    display: grid;
-    gap: 0.8rem;
-    grid-template-columns: 1.4rem 1fr;
-  }
-  fieldset.gender {
-    display: grid;
-    grid-template-columns: auto;
-    justify-content: center;
-    align-items: center;
-  }
-  fieldset.age {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-  }
+
   menu {
     flex: 100%;
     display: flex;

@@ -2,33 +2,41 @@
   // imports
   import createConverter from '../../../functions/convert';
   import {translations, language} from '../../../stores/utils';
-  import reachTool from '/imports/ui/functions/reach';
+  import {marketData, useMarketData} from '../../../stores/tools';
 
   // variables
   const converter = createConverter();
-  let strategy = reachTool.getStrategy();
-  let useMarketData: boolean;
-  $: disabled = !strategy.marketData;
+  let value = $useMarketData;
+  $: disabled = !$marketData;
+  marketData.set(value);
 
   $: message =
-    strategy.marketData && strategy.useMarketData
+    $marketData && $useMarketData
       ? converter.translate('using_data', $translations, $language)
-      : strategy.marketData && !strategy.useMarketData
+      : $marketData && !$useMarketData
       ? converter.translate('using_formula', $translations, $language)
       : converter.translate('no_data', $translations, $language);
-
-  $: {
-    strategy.useMarketData = useMarketData;
-    reachTool.setStrategy(strategy);
-  }
 
   // functions
 </script>
 
-<input class="marketdata__checkbox" name="marketdata" type="checkbox" {disabled} bind:checked={useMarketData} />
-<label for="market-data">{message}</label>
+<fieldset>
+  <input class="checkbox" id="marketdata__checkbox" name="marketdata" type="checkbox" {disabled} bind:checked={value} />
+  <label for="marketdata__checkbox">{message}</label>
+</fieldset>
 
 <style>
+  fieldset {
+    height: 100%;
+    padding: 0.4remrem 0.6rem;
+    align-items: center;
+    border: solid 1px var(--ra-teal-light);
+    background-color: transparent;
+    border-radius: 3px;
+    display: grid;
+    gap: 0.8rem;
+    grid-template-columns: 1.4rem 1fr;
+  }
   label {
     background-color: none;
     padding: 0.2em 0.4em;

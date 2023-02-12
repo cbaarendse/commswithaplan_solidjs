@@ -13,9 +13,7 @@ import type {
 import {touchPointsPerInputType} from '../stores/tools';
 
 // main function (IIFE closure)
-const reachTool = (function createReachTool() {
-  let strategy: Strategy & StrategyExtension;
-
+export default function createReachTool() {
   function init(defaultStrategy: Strategy, marketName: Market['name'], touchPoints: TouchPointDefinition[]) {
     strategy = defaultStrategy;
     strategy.marketName = marketName;
@@ -240,13 +238,13 @@ const reachTool = (function createReachTool() {
     return strategy;
   }
 
-  function setAgeGroupsForMarket(marketName: Market['name'], markets: Market[]) {
-    return markets.find((item: Market) => item.name == marketName)?.ageGroups;
+  function getAgeGroupsForMarket(marketName: Market['name'], markets: Market[]) {
+    return markets.filter((item: Market) => item.name == marketName)[0].ageGroups;
   }
 
   return {
     getStrategy,
-    setAgeGroupsForMarket,
+    getAgeGroupsForMarket,
     init,
     initWithData,
     setRespondentsCount,
@@ -260,6 +258,4 @@ const reachTool = (function createReachTool() {
     isSortedByName,
     updateDeployedTouchPoint
   };
-})();
-
-export default reachTool;
+}

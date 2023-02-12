@@ -1,10 +1,11 @@
 <script lang="ts">
   // imports
   import type {Input} from '../../../../both/typings/types';
-  import reachTool from '../../../functions/reach';
+  import createReachTool from '../../../functions/reach';
+  import {overlap, totalReach, strategy}
 
   //variables
-  let strategy = reachTool.getStrategy();
+  const reachTool = createReachTool();
   export let rangeInput: Input;
   export let displayName: string = 'touchpoint_name';
 

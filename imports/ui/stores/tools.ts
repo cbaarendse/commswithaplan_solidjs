@@ -14,7 +14,58 @@ import {
   TouchPointDefinition
 } from '../../both/typings/types';
 
-export const marketName: Writable<Market['name']> = writable('nl');
+export const marketName: Writable<Strategy['marketName']> = writable('nl', () => {
+  () => {
+    console.log('marketName closed');
+  };
+});
+export const marketData: Writable<Strategy['marketData']> = writable(false, () => {
+  () => {
+    console.log('markerData closed');
+  };
+});
+export const overlap: Writable<Strategy['overlap']> = writable(0, () => {
+  () => {
+    console.log('overlap closed');
+  };
+});
+export const totalReach: Writable<Strategy['totalReach']> = writable(0, () => {
+  () => {
+    console.log('totalReach closed');
+  };
+});
+export const useMarketData: Writable<StrategyExtension['useMarketData']> = writable(false, () => {
+  () => {
+    console.log('useMarketData closed');
+  };
+});
+export const genders: Writable<Genders> = writable(new Set(['f', 'm', 'x']), () => {
+  () => {
+    console.log('genders closed');
+  };
+});
+export const ageGroupStart: Writable<StrategyExtension['ageGroupStart']> = writable();
+export const ageGroupEnd: Writable<StrategyExtension['ageGroupEnd']> = writable();
+export const respondentsCount: Writable<number> = writable(0, () => {
+  () => {
+    console.log('respondentsCount closed');
+  };
+});
+export const peopleInRange: Writable<number> = writable(0, () => {
+  () => {
+    console.log('peopleInRange closed');
+  };
+});
+export const reachedNonUnique: Writable<number> = writable(0, () => {
+  () => {
+    console.log('reachedNonUnique closed');
+  };
+});
+export const reachedUnique: Writable<number> = writable(0, () => {
+  () => {
+    console.log('reachedUnique closed');
+  };
+});
 
 export const defaultStrategyWithFormula: Readable<Strategy> = readable({
   userId: '',
@@ -30,16 +81,10 @@ export const defaultStrategyWithFormula: Readable<Strategy> = readable({
 });
 
 export const defaultStrategyExtensionForData: Readable<StrategyExtension> = readable({
-  userId: '',
+  useMarketData: false,
   genders: undefined,
-  ageStart: undefined,
-  ageEnd: undefined,
   ageGroupStart: undefined,
   ageGroupEnd: undefined,
-  peopleInRange: undefined,
-  respondentsCount: undefined,
-  reachedNonUnique: undefined,
-  reachedUnique: undefined,
   companyId: undefined,
   brandName: undefined,
   productName: undefined
@@ -102,11 +147,7 @@ export const markets: Readable<Market[]> = readable(
     };
   }
 );
-export const genders: Readable<Genders> = readable(new Set(['f', 'm', 'x']), () => {
-  () => {
-    console.log('Genders closed');
-  };
-});
+
 export const touchPointsPerInputType: Readable<{[key: string]: string[]}> = readable(
   {
     contacts: [

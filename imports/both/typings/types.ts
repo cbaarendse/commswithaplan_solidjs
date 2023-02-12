@@ -72,15 +72,14 @@ export type Market = {
   ageGroups: AgeGroup[];
 };
 export type AgeGroup = [number, number];
-// export type Genders = {f: boolean; m: boolean; x: boolean};
 export type Genders = Set<'f' | 'm' | 'x' | undefined | null>;
 
 export type Strategy = {
   _id?: string | Mongo.ObjectID;
   userId: string | Mongo.ObjectID;
   title: string;
-  marketData: boolean;
   marketName: Market['name'];
+  marketData: boolean;
   createdAt: Date;
   lastChanged: Date;
   deployment: DeployedTouchPoint[];
@@ -88,16 +87,10 @@ export type Strategy = {
   totalReach: number;
 };
 export type StrategyExtension = {
-  useMarketData?: boolean;
+  useMarketData: boolean;
   ageGroupStart?: AgeGroup;
   ageGroupEnd?: AgeGroup;
   genders?: Genders;
-  ageStart?: number;
-  ageEnd?: number;
-  respondentsCount?: number;
-  peopleInRange?: number;
-  reachedNonUnique?: number;
-  reachedUnique?: number;
   companyId?: string | Mongo.ObjectID;
   brandName?: string;
   productName?: string;
