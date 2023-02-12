@@ -67,6 +67,12 @@ export const reachedUnique: Writable<number> = writable(0, () => {
   };
 });
 
+export const sortedByName: Writable<boolean> = writable(true, () => {
+  () => {
+    console.log('sortedByName closed');
+  };
+});
+
 export const defaultStrategyWithFormula: Readable<Strategy> = readable({
   userId: '',
   title: 'New Strategy',
@@ -75,7 +81,6 @@ export const defaultStrategyWithFormula: Readable<Strategy> = readable({
   createdAt: new Date(),
   lastChanged: new Date(),
   deployment: [],
-  sortedByName: true,
   overlap: 0,
   totalReach: 0
 });
