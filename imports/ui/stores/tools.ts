@@ -10,7 +10,6 @@ import {
   Market,
   Strategy,
   StrategyExtension,
-  Genders,
   TouchPointDefinition
 } from '../../both/typings/types';
 
@@ -22,6 +21,11 @@ export const marketName: Writable<Strategy['marketName']> = writable('nl', () =>
 export const marketData: Writable<Strategy['marketData']> = writable(false, () => {
   () => {
     console.log('markerData closed');
+  };
+});
+export const deployedTouchPoints: Writable<Strategy['deployment']> = writable([], () => {
+  () => {
+    console.log('deployedTouchPoints closed');
   };
 });
 export const overlap: Writable<Strategy['overlap']> = writable(0, () => {
@@ -39,7 +43,7 @@ export const useMarketData: Writable<StrategyExtension['useMarketData']> = writa
     console.log('useMarketData closed');
   };
 });
-export const genders: Writable<Genders> = writable(new Set(['f', 'm', 'x']), () => {
+export const genders: Writable<StrategyExtension['genders']> = writable(new Set(['f', 'm', 'x']), () => {
   () => {
     console.log('genders closed');
   };

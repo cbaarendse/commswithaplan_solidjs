@@ -46,14 +46,14 @@
 
 <style>
   fieldset {
-    height: 100%;
-    padding: 0.4remrem 0.6rem;
+    display: grid;
+    grid-template-columns: 1fr auto;
     align-items: center;
+    height: 100%;
+    padding: 0.4rem 0.6rem;
     border: solid 1px var(--ra-teal-light);
     background-color: transparent;
     border-radius: 3px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
   }
   select {
     appearance: none;

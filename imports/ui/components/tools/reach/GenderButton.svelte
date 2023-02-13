@@ -44,16 +44,16 @@
 
 <style>
   fieldset {
-    height: 100%;
-    padding: 0.4remrem 0.6rem;
-    align-items: center;
-    border: solid 1px var(--ra-teal-light);
-    background-color: transparent;
-    border-radius: 3px;
     display: grid;
     grid-template-columns: auto;
     justify-content: center;
     align-items: center;
+    height: 100%;
+    padding: 0.4rem 0.6rem;
+    align-items: center;
+    border: solid 1px var(--ra-teal-light);
+    background-color: transparent;
+    border-radius: 3px;
   }
   button {
     display: flex;

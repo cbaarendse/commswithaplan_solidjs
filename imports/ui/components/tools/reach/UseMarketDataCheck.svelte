@@ -27,15 +27,15 @@
 
 <style>
   fieldset {
+    display: grid;
+    gap: 0.8rem;
+    grid-template-columns: auto 1fr;
     height: 100%;
-    padding: 0.4remrem 0.6rem;
+    padding: 0.4rem 0.6rem;
     align-items: center;
     border: solid 1px var(--ra-teal-light);
     background-color: transparent;
     border-radius: 3px;
-    display: grid;
-    gap: 0.8rem;
-    grid-template-columns: 1.4rem 1fr;
   }
   label {
     background-color: none;

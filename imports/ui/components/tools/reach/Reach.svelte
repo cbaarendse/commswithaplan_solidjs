@@ -7,25 +7,27 @@
   import ReachTouchPoint from './TouchPoint.svelte';
   import {onDestroy, onMount} from 'svelte';
   import {Unsubscriber} from 'svelte/store';
-  import reachTool from '../../../functions/reach';
+  import createReachTool from '../../../functions/reach';
   import {language} from '../../../stores/utils';
   import {
     marketName,
     defaultStrategyWithFormula,
     defaultStrategyExtensionForData,
-    touchPointsDefinitions
+    touchPointsDefinitions,
+    deployedTouchPoints
   } from '../../../stores/tools';
   import {Strategy, StrategyExtension} from '/imports/both/typings/types';
 
   // variables
+  const reachTool = createReachTool();
   let strategy: Strategy & StrategyExtension;
 
   // start off with a basic strategy, as if the market has no data
-  reachTool.init($defaultStrategyWithFormula, $marketName, $touchPointsDefinitions);
-  strategy = reachTool.getStrategy();
+  strategy = reachTool.init($defaultStrategyWithFormula);
+  deployedTouchPoints.set(strategy.deployment);
+
   // first sort, based on selected language
   reachTool.sort($language);
-  strategy = reachTool.getStrategy();
 
   // if market changes, strategy changes, based on availability marketData
   $: if ($marketName) {

@@ -5,9 +5,16 @@
   import AgeGroupsSelect from './AgeGroupsSelect.svelte';
   import UseMarketDataCheck from './UseMarketDataCheck.svelte';
   import MarketSelect from './MarketSelect.svelte';
-  import reachTool from '../../../functions/reach';
+  import createReachTool from '../../../functions/reach';
   import {language} from '../../../stores/utils';
-  import {marketData, useMarketData} from '../../../stores/tools';
+  import {
+    marketData,
+    useMarketData,
+    defaultStrategyWithFormula,
+    defaultStrategyExtensionForData,
+    deployedTouchPoints,
+    sortedByName
+  } from '../../../stores/tools';
   import {CWAPUser} from '../../../../both/typings/types';
   import Fa from 'svelte-fa/src/fa.svelte';
   import {
@@ -23,6 +30,7 @@
   } from '@fortawesome/free-solid-svg-icons';
   // variables
   let currentUser: CWAPUser | null;
+  const reachTool = createReachTool();
 
   $m: {
     currentUser = Meteor.user();
@@ -30,8 +38,30 @@
 
   // functions
   function reset() {
-    if ($strategy.areAllTouchPointsValueZero()) {
+    if (!reachTool.areAllTouchPointsValueZero($deployedTouchPoints)) {
+      //TODO: circular reference?
+      deployedTouchPoints.set(reachTool.setAllTouchPointsToZero($deployedTouchPoints));
+    } else {
+      $marketData
+        ? reachTool.initWithData($defaultStrategyWithFormula, $defaultStrategyExtensionForData)
+        : reachTool.init($defaultStrategyWithFormula);
     }
+  }
+
+  function hide() {
+    deployedTouchPoints.update(($deployedTouchPoints) => {
+      return reachTool.hide($deployedTouchPoints);
+    });
+  }
+
+  function sort() {
+    const [sortedDeployedTouchPoints, updatedSortedByName] = reachTool.sort(
+      $deployedTouchPoints,
+      $sortedByName,
+      $language
+    );
+    deployedTouchPoints.set(sortedDeployedTouchPoints);
+    sortedByName.set(updatedSortedByName);
   }
 </script>
 
@@ -48,18 +78,20 @@
   {/if}
   <menu class="operations">
     <button type="button" on:click|stopPropagation|preventDefault={reset}>
-      {#if reachTool.areAllTouchPointsValueZero()}<Fa icon={faArrowRotateLeft} />{:else}<Fa icon={fa0} />{/if}
+      {#if reachTool.areAllTouchPointsValueZero($deployedTouchPoints)}<Fa icon={faArrowRotateLeft} />{:else}<Fa
+          icon={fa0}
+        />{/if}
     </button>
-    <button type="button" on:click|stopPropagation|preventDefault={() => reachTool.sort($language)}>
-      {#if reachTool.isSortedByName()}<Fa
+    <button type="button" on:click|stopPropagation|preventDefault={sort}>
+      {#if $sortedByName}<Fa
           icon={faArrowDownWideShort}
-        />{:else if !reachTool.isSortedByName && reachTool.areAllTouchPointsValueZero() && reachTool.isShowAll()}<Fa
+        />{:else if !$sortedByName && reachTool.areAllTouchPointsValueZero($deployedTouchPoints) && reachTool.isShowAll($deployedTouchPoints)}<Fa
           icon={faArrowDownAZ}
         />{:else}<Fa icon={faArrowDownAZ} />
       {/if}
     </button>
-    <button type="button" on:click|stopPropagation|preventDefault={() => reachTool.hide()}>
-      {#if reachTool.isShowAll()}<Fa icon={faMinus} />{:else}<Fa icon={faBars} />{/if}
+    <button type="button" on:click|stopPropagation|preventDefault={hide}>
+      {#if reachTool.isShowAll($deployedTouchPoints)}<Fa icon={faMinus} />{:else}<Fa icon={faBars} />{/if}
     </button>
   </menu>
 
@@ -72,7 +104,7 @@
     </a>
   </nav>
   <menu class="memory">
-    <button class="save" type="button" on:click|stopPropagation|preventDefault={() => reachTool.reset($language)}>
+    <button class="save" type="button" on:click|stopPropagation|preventDefault={reset}>
       <Fa icon={faDownload} />
     </button>
   </menu>

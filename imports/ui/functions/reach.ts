@@ -80,13 +80,6 @@ export default function createReachTool() {
     defaultStrategyWithFormula: Strategy,
     defaultStrategyExtensionForData: StrategyExtension
   ): TouchPointDefinition[] | DeployedTouchPoint[] {
-    if (!areAllTouchPointsValueZero(touchPoints)) {
-      return setAllTouchPointsToZero(touchPoints);
-    } else {
-      marketData
-        ? initWithData(defaultStrategyWithFormula, defaultStrategyExtensionForData)
-        : init(defaultStrategyWithFormula);
-    }
     return touchPoints;
   }
 
@@ -209,11 +202,10 @@ export default function createReachTool() {
     initWithData,
     calculateResults,
     areAllTouchPointsValueZero,
-    reset,
+    setAllTouchPointsToZero,
     sort,
     hide,
     isShowAll,
-    isSortedByName,
     updateDeployedTouchPoint
   };
 }
