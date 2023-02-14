@@ -83,9 +83,7 @@ export type Strategy = {
   createdAt: Date;
   lastChanged: Date;
   deployment: DeployedTouchPoint[];
-};
-export type StrategyExtension = {
-  useMarketData: boolean;
+  useMarketData?: boolean;
   ageGroupIndexStart?: number;
   ageGroupIndexEnd?: number;
   genders?: Genders;

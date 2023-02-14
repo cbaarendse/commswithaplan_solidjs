@@ -7,7 +7,7 @@
   import {translations, language} from '../../../stores/utils';
   import Fa from 'svelte-fa/src/fa.svelte';
   import {faEdit, faIndent, faXmark, faTableList, faEllipsisVertical} from '@fortawesome/free-solid-svg-icons';
-  import {CWAPUser, Strategy, StrategyExtension} from '/imports/both/typings/types';
+  import {CWAPUser, Strategy} from '/imports/both/typings/types';
   import {DateTime} from 'luxon';
 
   // collections

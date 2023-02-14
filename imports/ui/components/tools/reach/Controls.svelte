@@ -1,21 +1,15 @@
 <script lang="ts">
   // imports
   import {Meteor} from 'meteor/meteor';
+  import {onDestroy} from 'svelte';
   import GenderButton from './GenderButton.svelte';
   import AgeGroupsSelect from './AgeGroupsSelect.svelte';
   import UseMarketDataCheck from './UseMarketDataCheck.svelte';
   import MarketSelect from './MarketSelect.svelte';
   import createReachTool from '../../../functions/reach';
   import {language} from '../../../stores/utils';
-  import {
-    marketData,
-    useMarketData,
-    defaultStrategyWithFormula,
-    defaultStrategyExtensionForData,
-    deployedTouchPoints,
-    sortedByName
-  } from '../../../stores/tools';
-  import {CWAPUser} from '../../../../both/typings/types';
+  import {strategy, defaultStrategyWithFormula, defaultStrategyWithData, sortedByName} from '../../../stores/tools';
+  import {CWAPUser, Strategy} from '../../../../both/typings/types';
   import Fa from 'svelte-fa/src/fa.svelte';
   import {
     faArrowRotateLeft,
@@ -28,9 +22,21 @@
     faDownload,
     faPlus
   } from '@fortawesome/free-solid-svg-icons';
+
   // variables
   let currentUser: CWAPUser | null;
   const reachTool = createReachTool();
+  let marketData: Strategy['marketData'];
+  let useMarketData: Strategy['useMarketData'];
+  let deployedTouchPoints: Strategy['deployment'];
+
+  const unsubscribeStrategy = strategy.subscribe((value) => {
+    marketData = value.marketData;
+    useMarketData = value.useMarketData;
+    deployedTouchPoints = value.deployment;
+  });
+
+  const unsubscribeSortedByName = sortedByName.subscribe((value) => {});
 
   $m: {
     currentUser = Meteor.user();
@@ -38,31 +44,40 @@
 
   // functions
   function reset() {
-    if (!reachTool.areAllTouchPointsValueZero($deployedTouchPoints)) {
-      //TODO: circular reference?
-      deployedTouchPoints.set(reachTool.setAllTouchPointsToZero($deployedTouchPoints));
+    if (!reachTool.areAllTouchPointsValueZero(deployedTouchPoints)) {
+      strategy.update((value) => {
+        value.deployment = reachTool.setAllTouchPointsToZero(deployedTouchPoints);
+        return value;
+      });
     } else {
-      $marketData
-        ? reachTool.initWithData($defaultStrategyWithFormula, $defaultStrategyExtensionForData)
-        : reachTool.init($defaultStrategyWithFormula);
+      marketData ? strategy.set({...$defaultStrategyWithData}) : strategy.set({...$defaultStrategyWithFormula});
     }
   }
 
   function hide() {
-    deployedTouchPoints.update(($deployedTouchPoints) => {
-      return reachTool.hide($deployedTouchPoints);
+    strategy.update((value) => {
+      value.deployment = reachTool.hide(deployedTouchPoints);
+      return value;
     });
   }
 
   function sort() {
     const [sortedDeployedTouchPoints, updatedSortedByName] = reachTool.sort(
-      $deployedTouchPoints,
+      deployedTouchPoints,
       $sortedByName,
       $language
     );
-    deployedTouchPoints.set(sortedDeployedTouchPoints);
+    strategy.update((value) => {
+      value.deployment = sortedDeployedTouchPoints;
+      return value;
+    });
     sortedByName.set(updatedSortedByName);
   }
+
+  onDestroy(() => {
+    unsubscribeStrategy();
+    unsubscribeSortedByName();
+  });
 </script>
 
 <div class="container">
@@ -70,7 +85,7 @@
     <form>
       <MarketSelect />
       <UseMarketDataCheck />
-      {#if $marketData && $useMarketData}
+      {#if marketData && useMarketData}
         <GenderButton />
         <AgeGroupsSelect />
       {/if}

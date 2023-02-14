@@ -1,13 +1,6 @@
 // Reach
 // imports
-import type {
-  TouchPointDefinition,
-  DeployedTouchPoint,
-  Strategy,
-  StrategyExtension,
-  Market,
-  Language
-} from '../../both/typings/types';
+import type {TouchPointDefinition, DeployedTouchPoint, Strategy, Market, Language} from '../../both/typings/types';
 
 // main function (IIFE closure)
 export default function createReachTool() {
@@ -63,15 +56,6 @@ export default function createReachTool() {
   // reset
   function setAllTouchPointsToZero(touchPoints: DeployedTouchPoint[]): DeployedTouchPoint[] {
     touchPoints.forEach((touchPoint) => (touchPoint.value = 0.0));
-    return touchPoints;
-  }
-
-  function reset(
-    touchPoints: DeployedTouchPoint[],
-    marketData: boolean,
-    defaultStrategyWithFormula: Strategy,
-    defaultStrategyExtensionForData: StrategyExtension
-  ): TouchPointDefinition[] | DeployedTouchPoint[] {
     return touchPoints;
   }
 
@@ -196,6 +180,9 @@ export default function createReachTool() {
     sort,
     hide,
     isShowAll,
+    deployTouchPointsForData,
+    deployTouchPointsForFormula,
+    setDefaultInputType,
     updateDeployedTouchPoint
   };
 }

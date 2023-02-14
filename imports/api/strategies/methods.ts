@@ -5,17 +5,17 @@ import {ValidatedMethod} from 'meteor/mdg:validated-method';
 
 import Strategies from './strategies';
 
-import {Strategy, StrategyExtension} from '/imports/both/typings/types.js';
+import {Strategy} from '/imports/both/typings/types.js';
 import {Mongo} from 'meteor/mongo';
 
 export const strategiesInsert = new ValidatedMethod({
   name: 'strategies.insert',
-  validate(args: {[key: string]: Strategy & StrategyExtension}) {
+  validate(args: {[key: string]: Strategy}) {
     if (!Match.test(args.strategy, Object)) {
       throw new Meteor.Error('general.invalid.input', 'Invalid input', '[{ "name": "invalidInput" }]');
     }
   },
-  async run(args: {[key: string]: Strategy & StrategyExtension}): Promise<string | Mongo.ObjectIDStatic> {
+  async run(args: {[key: string]: Strategy}): Promise<string | Mongo.ObjectIDStatic> {
     console.log('strategies insert runs with: ', args.strategy);
     if (!this.userId) {
       throw new Meteor.Error(

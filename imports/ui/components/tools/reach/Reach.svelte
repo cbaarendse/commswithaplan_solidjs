@@ -12,9 +12,9 @@
   import {
     strategy,
     defaultStrategyWithFormula,
-    defaultStrategyExtensionForData,
-    touchPointsDefinitions,
-    deployedTouchPoints,
+    defaultStrategyWithData,
+    deployedTouchPointsForFormula,
+    deployedTouchPointsForData,
     sortedByName,
     respondentsCount
   } from '../../../stores/tools';
@@ -24,7 +24,10 @@
 
   // start off with a basic strategy, as if the market has no data
   strategy.set($defaultStrategyWithFormula);
-  deployedTouchPoints.set($strategy.deployment);
+  strategy.update((value) => {
+    value.deployment = $deployedTouchPointsForFormula;
+    return value;
+  });
 
   // first sort, based on selected language
   const [sortedDeployedTouchPoints, updatedSortedByName] = reachTool.sort(

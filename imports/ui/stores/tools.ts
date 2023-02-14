@@ -1,5 +1,5 @@
 // packages
-import {writable, Writable, readable, Readable} from 'svelte/store';
+import {writable, Writable, readable, Readable, derived} from 'svelte/store';
 
 // interfaces
 import {
@@ -9,17 +9,15 @@ import {
   Chapter,
   Market,
   Strategy,
-  StrategyExtension,
-  TouchPointDefinition
+  TouchPointDefinition,
+  DeployedTouchPoint
 } from '../../both/typings/types';
+import createReachTool from '../functions/reach';
 
-export const strategy: Writable<Strategy & StrategyExtension> = writable();
+// variable
+const reachTool = createReachTool();
 
-export const deployedTouchPoints: Writable<Strategy['deployment']> = writable([], () => {
-  () => {
-    console.log('deployedTouchPoints closed');
-  };
-});
+export const strategy: Writable<Strategy> = writable();
 
 export const respondentsCount: Writable<number> = writable(0, () => {
   () => {
@@ -73,7 +71,14 @@ export const defaultStrategyWithFormula: Readable<Strategy> = readable({
   deployment: []
 });
 
-export const defaultStrategyExtensionForData: Readable<StrategyExtension> = readable({
+export const defaultStrategyWithData: Readable<Strategy> = readable({
+  userId: '',
+  title: 'New Strategy',
+  marketName: 'nl',
+  marketData: false,
+  createdAt: new Date(),
+  lastChanged: new Date(),
+  deployment: [],
   useMarketData: false,
   genders: undefined,
   ageGroupIndexStart: undefined,
@@ -141,7 +146,7 @@ export const markets: Readable<Market[]> = readable(
   }
 );
 
-export const touchPointsPerInputType: Readable<{[key: string]: string[]}> = readable(
+export const touchPointsPerInputType: Writable<{[key: string]: string[]}> = writable(
   {
     contacts: [
       'ambassador',
@@ -181,7 +186,7 @@ export const touchPointsPerInputType: Readable<{[key: string]: string[]}> = read
     };
   }
 );
-export const touchPointsDefinitions: Readable<TouchPointDefinition[]> = readable(
+export const touchPointsDefinitions: Writable<TouchPointDefinition[]> = writable(
   [
     {
       name: 'advocacy',
@@ -692,6 +697,17 @@ export const touchPointsDefinitions: Readable<TouchPointDefinition[]> = readable
     };
   }
 );
+export const deployedTouchPointsForFormula: Writable<DeployedTouchPoint[]> = derived<Writable<TouchPointDefinition[]>>(
+  touchPointsDefinitions,
+  ($touchPointsDefinitions) => reachTool.deployTouchPointsForFormula($touchPointsDefinitions)
+);
+
+export const deployedTouchPointsForData: Writable<DeployedTouchPoint[]> = derived(
+  [touchPointsDefinitions, touchPointsPerInputType],
+  ([$touchPointsDefinitions, $touchPointsPerInputType]) =>
+    reachTool.deployTouchPointsForData($touchPointsDefinitions, $touchPointsPerInputType)
+);
+
 export const toolsHomeItems: Readable<(Actionable & Color)[]> = readable(
   [
     {

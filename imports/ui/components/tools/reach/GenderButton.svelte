@@ -3,13 +3,13 @@
   import Fa from 'svelte-fa/src/fa.svelte';
   import {faPerson, faPersonDress} from '@fortawesome/free-solid-svg-icons';
   import {strategy} from '../../../stores/tools';
-  import {Strategy, StrategyExtension} from '/imports/both/typings/types';
+  import {Strategy} from '/imports/both/typings/types';
   import {onDestroy} from 'svelte';
 
   // variables
-  let marketData: (Strategy & StrategyExtension)['marketData'];
-  let useMarketData: (Strategy & StrategyExtension)['useMarketData'];
-  let genders: (Strategy & StrategyExtension)['genders'];
+  let marketData: Strategy['marketData'];
+  let useMarketData: Strategy['useMarketData'];
+  let genders: Strategy['genders'];
   const unsubscribe = strategy.subscribe((value) => {
     marketData = value.marketData;
     useMarketData = value.useMarketData;

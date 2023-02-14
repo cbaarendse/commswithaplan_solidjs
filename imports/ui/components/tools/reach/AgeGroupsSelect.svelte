@@ -1,6 +1,6 @@
 <script lang="ts">
   // imports
-  import type {AgeGroup, Market, Strategy, StrategyExtension} from '../../../../both/typings/types';
+  import type {AgeGroup, Market, Strategy} from '../../../../both/typings/types';
   import {translations, language} from '../../../stores/utils';
   import {strategy} from '../../../stores/tools';
   import createReachTool from '/imports/ui/functions/reach';
@@ -12,10 +12,10 @@
   //variables
   const reachTool = createReachTool();
   const converter = createConverter();
-  let marketName: (Strategy & StrategyExtension)['marketName'];
+  let marketName: Strategy['marketName'];
   let markets: Market[];
-  let ageGroupIndexStart: (Strategy & StrategyExtension)['ageGroupIndexStart'];
-  let ageGroupIndexEnd: (Strategy & StrategyExtension)['ageGroupIndexEnd'];
+  let ageGroupIndexStart: Strategy['ageGroupIndexStart'];
+  let ageGroupIndexEnd: Strategy['ageGroupIndexEnd'];
   const unsubscribe = strategy.subscribe((value) => {
     marketName = value.marketName;
     ageGroupIndexStart = value.ageGroupIndexStart;

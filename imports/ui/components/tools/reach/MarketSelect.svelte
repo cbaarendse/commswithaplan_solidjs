@@ -2,14 +2,13 @@
   import {faSort} from '@fortawesome/free-solid-svg-icons';
   import {onDestroy} from 'svelte';
   import Fa from 'svelte-fa/src/fa.svelte';
-  import {validate_each_argument} from 'svelte/internal';
 
   // imports
   import {strategy, markets} from '../../../stores/tools';
-  import {Strategy, StrategyExtension} from '/imports/both/typings/types';
+  import {Strategy} from '/imports/both/typings/types';
 
   //variables
-  let marketName: (Strategy & StrategyExtension)['marketName'];
+  let marketName: Strategy['marketName'];
   const unsubscribe = strategy.subscribe((value) => (marketName = value.marketName));
   $: strategy.update((value) => {
     value.marketName = marketName;
