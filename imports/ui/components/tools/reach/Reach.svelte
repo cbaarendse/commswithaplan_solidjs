@@ -10,59 +10,54 @@
   import createReachTool from '../../../functions/reach';
   import {language} from '../../../stores/utils';
   import {
-    marketName,
+    strategy,
     defaultStrategyWithFormula,
     defaultStrategyExtensionForData,
     touchPointsDefinitions,
-    deployedTouchPoints
+    deployedTouchPoints,
+    sortedByName,
+    respondentsCount
   } from '../../../stores/tools';
-  import {Strategy, StrategyExtension} from '/imports/both/typings/types';
 
   // variables
   const reachTool = createReachTool();
-  let strategy: Strategy & StrategyExtension;
 
   // start off with a basic strategy, as if the market has no data
-  strategy = reachTool.init($defaultStrategyWithFormula);
-  deployedTouchPoints.set(strategy.deployment);
+  strategy.set($defaultStrategyWithFormula);
+  deployedTouchPoints.set($strategy.deployment);
 
   // first sort, based on selected language
-  reachTool.sort($language);
+  const [sortedDeployedTouchPoints, updatedSortedByName] = reachTool.sort(
+    $deployedTouchPoints,
+    $sortedByName,
+    $language
+  );
+  deployedTouchPoints.set(sortedDeployedTouchPoints);
+  sortedByName.set(updatedSortedByName);
 
   // if market changes, strategy changes, based on availability marketData
-  $: if ($marketName) {
-    Meteor.callAsync('probabilities.checkForMarket', {marketName: $marketName})
-      .then((result) => {
-        if (result === true) {
-          reachTool.init(
-            {...$defaultStrategyWithFormula, ...$defaultStrategyExtensionForData},
-            $marketName,
-            $touchPointsDefinitions
-          );
-          strategy = reachTool.getStrategy();
-        }
-        if (result === false) {
-          reachTool.init($defaultStrategyWithFormula, $marketName, $touchPointsDefinitions);
-          strategy = reachTool.getStrategy();
-        }
-      })
-      .catch((error) => console.log('error in check for market', error));
-  }
+  $: Meteor.callAsync('probabilities.checkForMarket', {marketName: $marketName})
+    .then((result) => {
+      if (result === true) {
+        strategy = reachTool.initWithData($defaultStrategyWithFormula, $defaultStrategyExtensionForData);
+      }
+      if (result === false) {
+        reachTool.init($defaultStrategyWithFormula);
+      }
+    })
+    .catch((error) => console.log('error in check for market', error));
 
-  $: if (strategy.marketData && strategy.useMarketData) {
+  $: if ($marketData && $useMarketData) {
     Meteor.callAsync('probabilities.countRespondentsForMarket', {marketName: $marketName})
       .then((result) => {
         if (result > 0) {
-          let strategy = reachTool.getStrategy();
-          strategy.respondentsCount = result;
-          reachTool.setStrategy(strategy);
+          respondentsCount.set(result);
         }
       })
       .catch((error) => console.log('error in count', error));
   }
 
   $: console.log('marketName: in $: ', $marketName);
-  $: console.log('reachTool.getStrategy() in $: ', reachTool.getStrategy());
   $: console.log('strategy in $: ', strategy);
   $: console.log('strategy.marketData: in $: ', strategy.marketData);
 

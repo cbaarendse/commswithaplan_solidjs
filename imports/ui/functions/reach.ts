@@ -11,14 +11,6 @@ import type {
 
 // main function (IIFE closure)
 export default function createReachTool() {
-  function init(defaultStrategyWithFormula: Strategy) {
-    return {...defaultStrategyWithFormula};
-  }
-
-  function initWithData(defaultStrategyWithFormula: Strategy, defaultStrategyExtensionForData: StrategyExtension) {
-    return {...defaultStrategyWithFormula, ...defaultStrategyExtensionForData};
-  }
-
   function deployTouchPointsForFormula(touchPoints: TouchPointDefinition[]): DeployedTouchPoint[] {
     return touchPoints.map((touchPoint) => ({
       name: touchPoint.name,
@@ -198,8 +190,6 @@ export default function createReachTool() {
 
   return {
     getAgeGroupsForMarket,
-    init,
-    initWithData,
     calculateResults,
     areAllTouchPointsValueZero,
     setAllTouchPointsToZero,

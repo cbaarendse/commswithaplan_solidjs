@@ -13,58 +13,32 @@ import {
   TouchPointDefinition
 } from '../../both/typings/types';
 
-export const marketName: Writable<Strategy['marketName']> = writable('nl', () => {
-  () => {
-    console.log('marketName closed');
-  };
-});
-export const marketData: Writable<Strategy['marketData']> = writable(false, () => {
-  () => {
-    console.log('markerData closed');
-  };
-});
+export const strategy: Writable<Strategy & StrategyExtension> = writable();
+
 export const deployedTouchPoints: Writable<Strategy['deployment']> = writable([], () => {
   () => {
     console.log('deployedTouchPoints closed');
   };
 });
-export const overlap: Writable<Strategy['overlap']> = writable(0, () => {
-  () => {
-    console.log('overlap closed');
-  };
-});
-export const totalReach: Writable<Strategy['totalReach']> = writable(0, () => {
-  () => {
-    console.log('totalReach closed');
-  };
-});
-export const useMarketData: Writable<StrategyExtension['useMarketData']> = writable(false, () => {
-  () => {
-    console.log('useMarketData closed');
-  };
-});
-export const genders: Writable<StrategyExtension['genders']> = writable(new Set(['f', 'm', 'x']), () => {
-  () => {
-    console.log('genders closed');
-  };
-});
-export const ageGroupStart: Writable<StrategyExtension['ageGroupStart']> = writable();
-export const ageGroupEnd: Writable<StrategyExtension['ageGroupEnd']> = writable();
+
 export const respondentsCount: Writable<number> = writable(0, () => {
   () => {
     console.log('respondentsCount closed');
   };
 });
+
 export const peopleInRange: Writable<number> = writable(0, () => {
   () => {
     console.log('peopleInRange closed');
   };
 });
+
 export const reachedNonUnique: Writable<number> = writable(0, () => {
   () => {
     console.log('reachedNonUnique closed');
   };
 });
+
 export const reachedUnique: Writable<number> = writable(0, () => {
   () => {
     console.log('reachedUnique closed');
@@ -77,6 +51,18 @@ export const sortedByName: Writable<boolean> = writable(true, () => {
   };
 });
 
+export const overlap: Writable<number> = writable(0, () => {
+  () => {
+    console.log('overlap closed');
+  };
+});
+
+export const totalReach: Writable<number> = writable(0, () => {
+  () => {
+    console.log('totalReach closed');
+  };
+});
+
 export const defaultStrategyWithFormula: Readable<Strategy> = readable({
   userId: '',
   title: 'New Strategy',
@@ -84,16 +70,14 @@ export const defaultStrategyWithFormula: Readable<Strategy> = readable({
   marketData: false,
   createdAt: new Date(),
   lastChanged: new Date(),
-  deployment: [],
-  overlap: 0,
-  totalReach: 0
+  deployment: []
 });
 
 export const defaultStrategyExtensionForData: Readable<StrategyExtension> = readable({
   useMarketData: false,
   genders: undefined,
-  ageGroupStart: undefined,
-  ageGroupEnd: undefined,
+  ageGroupIndexStart: undefined,
+  ageGroupIndexEnd: undefined,
   companyId: undefined,
   brandName: undefined,
   productName: undefined

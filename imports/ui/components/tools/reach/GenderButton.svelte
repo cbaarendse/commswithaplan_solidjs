@@ -2,31 +2,58 @@
   // imports
   import Fa from 'svelte-fa/src/fa.svelte';
   import {faPerson, faPersonDress} from '@fortawesome/free-solid-svg-icons';
-  import {marketData, useMarketData, genders} from '../../../stores/tools';
+  import {strategy} from '../../../stores/tools';
+  import {Strategy, StrategyExtension} from '/imports/both/typings/types';
+  import {onDestroy} from 'svelte';
 
   // variables
-  $: disabled = !$marketData || !$useMarketData;
-  $: console.log('$: $genders in genderButton: ', $genders);
+  let marketData: (Strategy & StrategyExtension)['marketData'];
+  let useMarketData: (Strategy & StrategyExtension)['useMarketData'];
+  let genders: (Strategy & StrategyExtension)['genders'];
+  const unsubscribe = strategy.subscribe((value) => {
+    marketData = value.marketData;
+    useMarketData = value.useMarketData;
+    genders = value.genders;
+  });
+  $: disabled = !marketData || !useMarketData;
+  $: console.log('$: $genders in genderButton: ', genders);
 
   // functions
   function toggleGenders() {
-    console.log('$genders in/ before togglegenders: ', $genders);
-    if ($marketData && $genders) {
-      if ($genders.has('f') && $genders.has('m') && $genders.has('x')) {
-        genders.set(new Set([]));
-      } else if (!$genders.has('f') && !$genders.has('m') && !$genders.has('x')) {
-        genders.set(new Set(['f']));
-      } else if ($genders.has('f') && !$genders.has('m') && !$genders.has('x')) {
-        genders.set(new Set(['m']));
-      } else if (!$genders.has('f') && $genders.has('m') && !$genders.has('x')) {
-        genders.set(new Set(['f', 'm']));
-      } else if ($genders.has('f') && $genders.has('m') && !$genders.has('x')) {
-        genders.set(new Set(['f', 'm', 'x']));
+    console.log('genders in/ before togglegenders: ', genders);
+    if (marketData && genders) {
+      if (genders.has('f') && genders.has('m') && genders.has('x')) {
+        strategy.update((value) => {
+          value.genders = new Set([]);
+          return value;
+        });
+      } else if (!genders.has('f') && !genders.has('m') && !genders.has('x')) {
+        strategy.update((value) => {
+          value.genders?.add('f');
+          return value;
+        });
+      } else if (genders.has('f') && !genders.has('m') && !genders.has('x')) {
+        strategy.update((value) => {
+          value.genders?.delete('f');
+          value.genders?.add('m');
+          return value;
+        });
+      } else if (!genders.has('f') && genders.has('m') && !genders.has('x')) {
+        strategy.update((value) => {
+          value.genders?.add('f');
+          return value;
+        });
+      } else if (genders.has('f') && genders.has('m') && !genders.has('x')) {
+        strategy.update((value) => {
+          value.genders?.add('x');
+          return value;
+        });
       }
     }
   }
 
-  console.log('$genders in genderButton: end', $genders);
+  console.log('$genders in genderButton: end', genders);
+  onDestroy(() => unsubscribe());
 </script>
 
 <fieldset>
@@ -37,8 +64,8 @@
     {disabled}
     on:click|preventDefault|stopPropagation={toggleGenders}
   >
-    <Fa icon={faPersonDress} color={$genders?.has('f') ? 'var(--ra-red)' : 'var(--ra-grey-light'} />
-    <Fa icon={faPerson} color={$genders?.has('m') ? 'var(--ra-red)' : 'var(--ra-grey-light'} />
+    <Fa icon={faPersonDress} color={genders?.has('f') ? 'var(--ra-red)' : 'var(--ra-grey-light'} />
+    <Fa icon={faPerson} color={genders?.has('m') ? 'var(--ra-red)' : 'var(--ra-grey-light'} />
   </button>
 </fieldset>
 

@@ -1,20 +1,27 @@
 <script lang="ts">
   import {faSort} from '@fortawesome/free-solid-svg-icons';
+  import {onDestroy} from 'svelte';
   import Fa from 'svelte-fa/src/fa.svelte';
+  import {validate_each_argument} from 'svelte/internal';
 
   // imports
-  import {markets, marketName} from '../../../stores/tools';
-  import {Market} from '/imports/both/typings/types';
+  import {strategy, markets} from '../../../stores/tools';
+  import {Strategy, StrategyExtension} from '/imports/both/typings/types';
 
   //variables
-  let value: Market['name'] = $marketName;
-  marketName.set(value);
-
+  let marketName: (Strategy & StrategyExtension)['marketName'];
+  const unsubscribe = strategy.subscribe((value) => (marketName = value.marketName));
+  $: strategy.update((value) => {
+    value.marketName = marketName;
+    return value;
+  });
   // functions
+
+  onDestroy(() => unsubscribe());
 </script>
 
 <fieldset>
-  <select class="market" name="market" id="market__select" bind:value>
+  <select class="market" name="market" id="market__select" bind:value={marketName}>
     {#each $markets as thisMarket}
       <option value={thisMarket.name}>{thisMarket.flag || thisMarket.name}</option>
     {/each}

@@ -1,29 +1,42 @@
 <script lang="ts">
   // imports
-  import type {AgeGroup} from '../../../../both/typings/types';
+  import type {AgeGroup, Market, Strategy, StrategyExtension} from '../../../../both/typings/types';
   import {translations, language} from '../../../stores/utils';
-  import {marketName, markets, ageGroupStart, ageGroupEnd} from '../../../stores/tools';
+  import {strategy} from '../../../stores/tools';
   import createReachTool from '/imports/ui/functions/reach';
   import createConverter from '../../../functions/convert';
   import Fa from 'svelte-fa/src/fa.svelte';
   import {faSort} from '@fortawesome/free-solid-svg-icons';
+  import {onDestroy} from 'svelte';
 
   //variables
   const reachTool = createReachTool();
   const converter = createConverter();
-  let groups: AgeGroup[] = reachTool.getAgeGroupsForMarket($marketName, $markets);
-  let valueStart: number = 0;
-  $: groupsEnd = groups.slice(valueStart + 1);
-  let valueEnd: number = 0;
-  ageGroupStart.set(groups[valueStart]);
-  ageGroupEnd.set(groupsEnd[valueEnd]);
+  let marketName: (Strategy & StrategyExtension)['marketName'];
+  let markets: Market[];
+  let ageGroupIndexStart: (Strategy & StrategyExtension)['ageGroupIndexStart'];
+  let ageGroupIndexEnd: (Strategy & StrategyExtension)['ageGroupIndexEnd'];
+  const unsubscribe = strategy.subscribe((value) => {
+    marketName = value.marketName;
+    ageGroupIndexStart = value.ageGroupIndexStart;
+    ageGroupIndexEnd = value.ageGroupIndexEnd;
+  });
+  $: groups = reachTool.getAgeGroupsForMarket(marketName, markets);
+  $: groupsEnd = groups.slice(ageGroupIndexStart ? ageGroupIndexStart : 0 + 1);
+  $: strategy.update((value) => {
+    value.ageGroupIndexStart = ageGroupIndexStart;
+    value.ageGroupIndexEnd = ageGroupIndexEnd;
+    return value;
+  });
 
   // functions
+
+  onDestroy(() => unsubscribe());
 </script>
 
 <fieldset>
   {#if groups}
-    <select class="agegroup__select" id="agegroup__select_start" bind:value={valueStart}>
+    <select class="agegroup__select" id="agegroup__select_start" bind:value={ageGroupIndexStart}>
       {#each groups as ageGroup, index}
         <option value={index}>
           {ageGroup[0]} - {ageGroup[1]}
@@ -32,7 +45,7 @@
       {/each}
     </select>
     <label for="agegroup__select_start"><Fa icon={faSort} color={'var(--ra-teal'} /></label>
-    <select class="agegroup__select" id="agegroup__select_end" bind:value={valueEnd}>
+    <select class="agegroup__select" id="agegroup__select_end" bind:value={ageGroupIndexEnd}>
       {#each groupsEnd as ageGroup, index}
         <option value={index}>
           {ageGroup[0]} - {ageGroup[1]}

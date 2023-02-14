@@ -2,26 +2,44 @@
   // imports
   import createConverter from '../../../functions/convert';
   import {translations, language} from '../../../stores/utils';
-  import {marketData, useMarketData} from '../../../stores/tools';
+  import {strategy} from '../../../stores/tools';
+  import {onDestroy} from 'svelte';
 
   // variables
   const converter = createConverter();
-  let value = $useMarketData;
-  $: disabled = !$marketData;
-  marketData.set(value);
+  let marketData: boolean;
+  let useMarketData: boolean;
+  const unsubscribe = strategy.subscribe((value) => {
+    marketData = value.marketData;
+    useMarketData = value.useMarketData;
+  });
+  $: disabled = !marketData;
+  $: strategy.update((value) => {
+    value.useMarketData = useMarketData;
+    return value;
+  });
 
   $: message =
-    $marketData && $useMarketData
+    marketData && useMarketData
       ? converter.translate('using_data', $translations, $language)
-      : $marketData && !$useMarketData
+      : marketData && !useMarketData
       ? converter.translate('using_formula', $translations, $language)
       : converter.translate('no_data', $translations, $language);
 
   // functions
+
+  onDestroy(() => unsubscribe());
 </script>
 
 <fieldset>
-  <input class="checkbox" id="marketdata__checkbox" name="marketdata" type="checkbox" {disabled} bind:checked={value} />
+  <input
+    class="checkbox"
+    id="marketdata__checkbox"
+    name="marketdata"
+    type="checkbox"
+    {disabled}
+    bind:checked={useMarketData}
+  />
   <label for="marketdata__checkbox">{message}</label>
 </fieldset>
 
@@ -56,7 +74,7 @@
     background-color: var(--ra-red);
   }
 
-  .marketdata__checkbox:disabled {
+  input.checkbox:disabled {
     background-color: var(--ra-grey-light);
   }
 </style>

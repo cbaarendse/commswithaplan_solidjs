@@ -33,8 +33,8 @@ export default function createDataTool() {
     const strategy = strategies.filter((item) => item._id == strategyId)[0];
 
     const marketName = strategy.marketName;
-    const ageGroupStart = strategy.ageGroupStart;
-    const ageGroupEnd = strategy.ageGroupEnd;
+    const ageGroupStart = groups[strategy.ageGroupIndexStart];
+    const ageGroupEnd = groups[strategy.ageGroupIndexEnd];
     const genders = strategy.genders;
 
     const fields = {respondentId: 1, market: 1, age: 1, gender: 1};

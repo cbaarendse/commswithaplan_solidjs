@@ -83,13 +83,11 @@ export type Strategy = {
   createdAt: Date;
   lastChanged: Date;
   deployment: DeployedTouchPoint[];
-  overlap: number;
-  totalReach: number;
 };
 export type StrategyExtension = {
   useMarketData: boolean;
-  ageGroupStart?: AgeGroup;
-  ageGroupEnd?: AgeGroup;
+  ageGroupIndexStart?: number;
+  ageGroupIndexEnd?: number;
   genders?: Genders;
   companyId?: string | Mongo.ObjectID;
   brandName?: string;
