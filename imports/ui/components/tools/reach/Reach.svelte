@@ -1,6 +1,7 @@
 <script lang="ts">
   // imports
   import {Meteor} from 'meteor/meteor';
+  import {derived, get} from 'svelte/store';
   import BreadCrumbs from '../../reusable/BreadCrumbs.svelte';
   import Controls from './Controls.svelte';
   import Output from './Output.svelte';
@@ -9,33 +10,18 @@
   import {Unsubscriber} from 'svelte/store';
   import createReachTool from '../../../functions/reach';
   import {language} from '../../../stores/utils';
-  import {
-    strategy,
-    defaultStrategyWithFormula,
-    defaultStrategyWithData,
-    deployedTouchPointsForFormula,
-    deployedTouchPointsForData,
-    sortedByName,
-    respondentsCount
-  } from '../../../stores/reach';
+  import {defaultFormulaStrategy, defaultDataStrategy, sortedByName, respondentsCount} from '../../../stores/reach';
   import {DeployedTouchPoint} from '/imports/both/typings/types';
 
   // variables
   const reachTool = createReachTool();
 
   // start off with a basic strategy, as if the market has no data
-  strategy.set($defaultStrategyWithFormula);
-  strategy.update((value) => {
-    value.deployment = $deployedTouchPointsForFormula;
-    return value;
-  });
-  const io: DeployedTouchPoint = $deployedTouchPointsForFormula[0].value.set(89);
+  export let strategy = derived(defaultFormulaStrategy, ($defaultFormulaStrategy) => $defaultFormulaStrategy);
+  let deployment = get($strategy.deployment);
+
   // first sort, based on selected language
-  const [sortedDeployedTouchPoints, updatedSortedByName] = reachTool.sort(
-    $deployedTouchPoints,
-    $sortedByName,
-    $language
-  );
+  const [sortedDeployedTouchPoints, updatedSortedByName] = reachTool.sort(deployment, $sortedByName, $language);
   deployedTouchPoints.set(sortedDeployedTouchPoints);
   sortedByName.set(updatedSortedByName);
 
@@ -70,7 +56,7 @@
     reachTool.sort($language);
   });
 
-  onDestroy(languageUnsubscribe);
+  onDestroy(() => unsibscribe());
 </script>
 
 <BreadCrumbs />

@@ -70,11 +70,7 @@ export default function createReachTool() {
     return touchPoints.sort((a: DeployedTouchPoint, b: DeployedTouchPoint) => b.value - a.value);
   }
 
-  function sort(
-    touchPoints: DeployedTouchPoint[],
-    sortedByName: boolean,
-    language: Language
-  ): [DeployedTouchPoint[], boolean] {
+  function sort<T>(touchPoints: T, sortedByName: boolean, language: Language): [T, boolean] {
     sortedByName ? sortByValue(touchPoints) : sortByName(touchPoints, language);
     sortedByName = isShowAll(touchPoints) && areAllTouchPointsValueZero(touchPoints) ? true : !sortedByName;
     return [touchPoints, sortedByName];
