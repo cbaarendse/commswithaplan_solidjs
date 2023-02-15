@@ -1,19 +1,9 @@
 // Reach
 // imports
-import type {TouchPointDefinition, DeployedTouchPoint, Strategy, Market, Language} from '../../both/typings/types';
+import type {TouchPointDefinition, DeployedTouchPoint, Market, Language} from '../../both/typings/types';
 
 // main function (IIFE closure)
 export default function createReachTool() {
-  function deployTouchPointsForFormula(touchPoints: TouchPointDefinition[]): DeployedTouchPoint[] {
-    return touchPoints.map((touchPoint) => ({
-      name: touchPoint.name,
-      definitions: touchPoint.definitions,
-      value: 0.0,
-      show: true,
-      inputType: 'reach'
-    }));
-  }
-
   function setDefaultInputType(
     touchPointName: DeployedTouchPoint['name'],
     touchPointsInputTypes: {[key: string]: string[]}
@@ -30,18 +20,18 @@ export default function createReachTool() {
     if (touchPointsInputTypes['reach'].includes(touchPointName)) {
       return 'reach';
     }
+    return 'contacts';
   }
 
   function deployTouchPointsForData(
     touchPoints: TouchPointDefinition[],
-    touchPointsInInputTypes: {[key: string]: string[]}
+    touchPointsForInputTypes: {[key: string]: string[]}
   ): DeployedTouchPoint[] {
     return touchPoints.map((touchPoint) => ({
-      name: touchPoint.name,
-      definitions: touchPoint.definitions,
+      ...touchPoint,
       value: 0.0,
       show: true,
-      inputType: setDefaultInputType(touchPoint.name, touchPointsInInputTypes)
+      inputType: setDefaultInputType(touchPoint.name, touchPointsForInputTypes)
     }));
   }
 

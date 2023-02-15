@@ -28,11 +28,11 @@ export type Chapter = Omit<Definition, 'description'> &
     paragraphs: Paragraph[];
   };
 export type Article = Omit<Definition, 'description'> & Omit<Content, 'definitions'> & {paragraphs: Paragraph[]};
-
+export type InputType = 'contacts' | 'grps' | 'impressions' | 'reach';
 export type DeployedTouchPoint = TouchPointDefinition & {
   value: number;
   show: boolean;
-  inputType?: 'contacts' | 'grps' | 'impressions' | 'reach';
+  inputType: InputType;
 };
 
 export type UserProfile = {

@@ -17,7 +17,8 @@
     deployedTouchPointsForData,
     sortedByName,
     respondentsCount
-  } from '../../../stores/tools';
+  } from '../../../stores/reach';
+  import {DeployedTouchPoint} from '/imports/both/typings/types';
 
   // variables
   const reachTool = createReachTool();
@@ -28,7 +29,7 @@
     value.deployment = $deployedTouchPointsForFormula;
     return value;
   });
-
+  const io: DeployedTouchPoint = $deployedTouchPointsForFormula[0].value.set(89);
   // first sort, based on selected language
   const [sortedDeployedTouchPoints, updatedSortedByName] = reachTool.sort(
     $deployedTouchPoints,
