@@ -1,19 +1,22 @@
-// packages
+// imports
 import {writable, Writable, readable, Readable, derived} from 'svelte/store';
 import {Meteor} from 'meteor/meteor';
-
-// interfaces
-import {Market, Strategy, TouchPointDefinition, DeployedTouchPoint, InputType} from '../../both/typings/types';
+import {Market, Strategy, TouchPointDefinition, DeployedTouchPoint} from '../../both/typings/types';
 import createReachTool from '../functions/reach';
 
-// variable
+// variables
 const reachTool = createReachTool();
 
-export const marketData: Writable<Strategy['marketData']> = writable(false);
-
+// strategy
+export const markets: Readable<Market[]> = readable(allMarkets());
+export const briefing: Writable<Omit<Strategy, 'deployment'>> = writable(briefingForFormula());
+export const deployment: Writable<Strategy['deployment']> = writable();
+export const derivedStrategy = derived([briefing, deployment], ([$briefing, $deployment]) => {
+  return {...$briefing, deployment: $deployment};
+});
 export const strategy: Writable<Strategy> = writable();
 
-// turn into derived stores, with automatic callAsync
+// results
 export const respondentsCount = derived(strategy, ($strategy) => {
   let count: number;
   if ($strategy.marketData && $strategy.useMarketData) {
@@ -64,104 +67,45 @@ export const totalReach: Writable<number> = writable(0, () => {
   };
 });
 
-export const markets: Readable<Market[]> = readable(
-  [
-    {
-      name: 'be',
-      flag: '🇧🇪',
-      displayNames: [
-        {language: 'english', displayName: 'Belgium'},
-        {language: 'dutch', displayName: 'België'}
-      ],
-      ageGroups: [
-        [9, 11],
-        [12, 19],
-        [20, 34],
-        [35, 49],
-        [50, 64],
-        [65, 107]
-      ]
-    },
-    {
-      name: 'nl',
-      flag: '🇳🇱',
-      displayNames: [
-        {language: 'english', displayName: 'The Netherlands'},
-        {language: 'dutch', displayName: 'Nederland'}
-      ],
-      ageGroups: [
-        [9, 11],
-        [12, 19],
-        [20, 34],
-        [35, 49],
-        [50, 64],
-        [65, 107]
-      ]
-    },
-    {
-      name: 'uk',
-      flag: '🇬🇧',
-      displayNames: [
-        {language: 'english', displayName: 'United Kingdom'},
-        {language: 'dutch', displayName: 'Verenigd Koninkrijk'}
-      ],
-      ageGroups: [
-        [9, 11],
-        [12, 19],
-        [20, 34],
-        [35, 49],
-        [50, 64],
-        [65, 107]
-      ]
-    }
-  ],
-  () => {
-    () => {
-      console.log('Markets closed');
-    };
-  }
-);
-
-export const deployedTouchPointsForFormula: Writable<DeployedTouchPoint[]> = writable(
-  touchPointsDefinitions().map((touchPointDefinition) => {
+export const deployedTouchPointsForFormula: DeployedTouchPoint[] = touchPointsDefinitions().map(
+  (touchPointDefinition) => {
     return {
       ...touchPointDefinition,
       value: 0.0,
       show: true,
       inputType: 'reach'
     };
-  })
+  }
 );
 
-export const deployedTouchPointsForData: Writable<DeployedTouchPoint[]> = writable(
-  touchPointsDefinitions().map((touchPointDefinition) => {
-    return {
-      ...touchPointDefinition,
-      value: 0.0,
-      show: true,
-      inputType: reachTool.setDefaultInputType(touchPointDefinition.name, touchPointsPerInputType())
-    };
-  })
-);
+export const deployedTouchPointsForData: DeployedTouchPoint[] = touchPointsDefinitions().map((touchPointDefinition) => {
+  return {
+    ...touchPointDefinition,
+    value: 0.0,
+    show: true,
+    inputType: reachTool.setDefaultInputType(touchPointDefinition.name, touchPointsPerInputType())
+  };
+});
 
-export const strategyWithFormula: Strategy = {
-  marketName: 'nl',
-  marketData: false,
-  useMarketData: undefined,
-  userId: '',
-  title: 'New Strategy',
-  createdAt: new Date(),
-  lastChanged: new Date(),
-  deployment: deployedTouchPointsForFormula,
-  genders: undefined,
-  ageGroupIndexStart: undefined,
-  ageGroupIndexEnd: undefined,
-  companyId: undefined,
-  brandName: undefined,
-  productName: undefined
-};
+export function briefingForFormula(): Omit<Strategy, 'deployment'> {
+  return {
+    marketName: 'nl',
+    marketData: false,
+    useMarketData: undefined,
+    userId: '',
+    title: 'New Strategy',
+    createdAt: new Date(),
+    lastChanged: new Date(),
+    genders: undefined,
+    ageGroupIndexStart: undefined,
+    ageGroupIndexEnd: undefined,
+    companyId: undefined,
+    brandName: undefined,
+    productName: undefined
+  };
+}
 
-export const strategyWithData: Strategy = {
+export const briefingForData: Omit<Strategy, 'deployment'> = {
   marketName: 'nl',
   marketData: false,
   useMarketData: false,
@@ -169,7 +113,6 @@ export const strategyWithData: Strategy = {
   title: 'New Strategy',
   createdAt: new Date(),
   lastChanged: new Date(),
-  deployment: deployedTouchPointsForData,
   genders: new Set(['f', 'm', 'x']),
   ageGroupIndexStart: 0,
   ageGroupIndexEnd: 0,
@@ -719,4 +662,57 @@ export function touchPointsPerInputType(): {[key: string]: string[]} {
     ],
     reach: []
   };
+}
+
+export function allMarkets(): Market[] {
+  return [
+    {
+      name: 'be',
+      flag: '🇧🇪',
+      displayNames: [
+        {language: 'english', displayName: 'Belgium'},
+        {language: 'dutch', displayName: 'België'}
+      ],
+      ageGroups: [
+        [9, 11],
+        [12, 19],
+        [20, 34],
+        [35, 49],
+        [50, 64],
+        [65, 107]
+      ]
+    },
+    {
+      name: 'nl',
+      flag: '🇳🇱',
+      displayNames: [
+        {language: 'english', displayName: 'The Netherlands'},
+        {language: 'dutch', displayName: 'Nederland'}
+      ],
+      ageGroups: [
+        [9, 11],
+        [12, 19],
+        [20, 34],
+        [35, 49],
+        [50, 64],
+        [65, 107]
+      ]
+    },
+    {
+      name: 'uk',
+      flag: '🇬🇧',
+      displayNames: [
+        {language: 'english', displayName: 'United Kingdom'},
+        {language: 'dutch', displayName: 'Verenigd Koninkrijk'}
+      ],
+      ageGroups: [
+        [9, 11],
+        [12, 19],
+        [20, 34],
+        [35, 49],
+        [50, 64],
+        [65, 107]
+      ]
+    }
+  ];
 }

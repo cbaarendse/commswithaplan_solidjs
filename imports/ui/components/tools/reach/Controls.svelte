@@ -8,7 +8,13 @@
   import MarketSelect from './MarketSelect.svelte';
   import createReachTool from '../../../functions/reach';
   import {language} from '../../../stores/utils';
-  import {strategy, defaultStrategyWithFormula, defaultStrategyWithData, sortedByName} from '../../../stores/tools';
+  import {
+    briefing,
+    deployment,
+    sortedByName,
+    deployedTouchPointsForData,
+    deployedTouchPointsForFormula
+  } from '../../../stores/reach';
   import {CWAPUser, Strategy} from '../../../../both/typings/types';
   import Fa from 'svelte-fa/src/fa.svelte';
   import {
@@ -30,12 +36,14 @@
   let useMarketData: Strategy['useMarketData'];
   let deployedTouchPoints: Strategy['deployment'];
 
-  const unsubscribeStrategy = strategy.subscribe((value) => {
+  const unsubscribeBriefing = briefing.subscribe((value) => {
     marketData = value.marketData;
     useMarketData = value.useMarketData;
-    deployedTouchPoints = value.deployment;
   });
 
+  const unsubscribeDeployment = deployment.subscribe((value) => {
+    deployedTouchPoints = value;
+  });
   const unsubscribeSortedByName = sortedByName.subscribe((value) => {});
 
   $m: {
@@ -45,20 +53,16 @@
   // functions
   function reset() {
     if (!reachTool.areAllTouchPointsValueZero(deployedTouchPoints)) {
-      strategy.update((value) => {
-        value.deployment = reachTool.setAllTouchPointsToZero(deployedTouchPoints);
-        return value;
+      deployment.update((value) => {
+        return value.map((touchPoint) => Object.assign(touchPoint, {value: 0.0}));
       });
     } else {
-      marketData ? strategy.set({...$defaultStrategyWithData}) : strategy.set({...$defaultStrategyWithFormula});
+      marketData ? deployment.set(deployedTouchPointsForData) : deployment.set(deployedTouchPointsForFormula);
     }
   }
 
   function hide() {
-    strategy.update((value) => {
-      value.deployment = reachTool.hide(deployedTouchPoints);
-      return value;
-    });
+    deployment.set(reachTool.hide(deployedTouchPoints));
   }
 
   function sort() {
@@ -67,15 +71,13 @@
       $sortedByName,
       $language
     );
-    strategy.update((value) => {
-      value.deployment = sortedDeployedTouchPoints;
-      return value;
-    });
+    deployment.set(sortedDeployedTouchPoints);
     sortedByName.set(updatedSortedByName);
   }
 
   onDestroy(() => {
-    unsubscribeStrategy();
+    unsubscribeBriefing();
+    unsubscribeDeployment();
     unsubscribeSortedByName();
   });
 </script>

@@ -84,7 +84,7 @@ export type Strategy = {
   marketData: boolean;
   createdAt: Date;
   lastChanged: Date;
-  deployment: Writable<DeployedTouchPoint[]>;
+  deployment: DeployedTouchPoint[];
   useMarketData?: boolean;
   ageGroupIndexStart?: number;
   ageGroupIndexEnd?: number;

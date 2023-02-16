@@ -2,7 +2,7 @@
   // imports
   import Fa from 'svelte-fa/src/fa.svelte';
   import {faPerson, faPersonDress} from '@fortawesome/free-solid-svg-icons';
-  import {strategy} from '../../../stores/tools';
+  import {briefing} from '../../../stores/reach';
   import {Strategy} from '/imports/both/typings/types';
   import {onDestroy} from 'svelte';
 
@@ -10,7 +10,7 @@
   let marketData: Strategy['marketData'];
   let useMarketData: Strategy['useMarketData'];
   let genders: Strategy['genders'];
-  const unsubscribe = strategy.subscribe((value) => {
+  const unsubscribe = briefing.subscribe((value) => {
     marketData = value.marketData;
     useMarketData = value.useMarketData;
     genders = value.genders;
@@ -23,28 +23,28 @@
     console.log('genders in/ before togglegenders: ', genders);
     if (marketData && genders) {
       if (genders.has('f') && genders.has('m') && genders.has('x')) {
-        strategy.update((value) => {
+        briefing.update((value) => {
           value.genders = new Set([]);
           return value;
         });
       } else if (!genders.has('f') && !genders.has('m') && !genders.has('x')) {
-        strategy.update((value) => {
+        briefing.update((value) => {
           value.genders?.add('f');
           return value;
         });
       } else if (genders.has('f') && !genders.has('m') && !genders.has('x')) {
-        strategy.update((value) => {
+        briefing.update((value) => {
           value.genders?.delete('f');
           value.genders?.add('m');
           return value;
         });
       } else if (!genders.has('f') && genders.has('m') && !genders.has('x')) {
-        strategy.update((value) => {
+        briefing.update((value) => {
           value.genders?.add('f');
           return value;
         });
       } else if (genders.has('f') && genders.has('m') && !genders.has('x')) {
-        strategy.update((value) => {
+        briefing.update((value) => {
           value.genders?.add('x');
           return value;
         });

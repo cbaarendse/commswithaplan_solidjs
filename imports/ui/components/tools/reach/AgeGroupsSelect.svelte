@@ -1,8 +1,8 @@
 <script lang="ts">
   // imports
-  import type {AgeGroup, Market, Strategy} from '../../../../both/typings/types';
+  import type {Market, Strategy} from '../../../../both/typings/types';
   import {translations, language} from '../../../stores/utils';
-  import {strategy} from '../../../stores/tools';
+  import {briefing} from '../../../stores/reach';
   import createReachTool from '/imports/ui/functions/reach';
   import createConverter from '../../../functions/convert';
   import Fa from 'svelte-fa/src/fa.svelte';
@@ -16,14 +16,14 @@
   let markets: Market[];
   let ageGroupIndexStart: Strategy['ageGroupIndexStart'];
   let ageGroupIndexEnd: Strategy['ageGroupIndexEnd'];
-  const unsubscribe = strategy.subscribe((value) => {
+  const unsubscribe = briefing.subscribe((value) => {
     marketName = value.marketName;
     ageGroupIndexStart = value.ageGroupIndexStart;
     ageGroupIndexEnd = value.ageGroupIndexEnd;
   });
   $: groups = reachTool.getAgeGroupsForMarket(marketName, markets);
   $: groupsEnd = groups.slice(ageGroupIndexStart ? ageGroupIndexStart : 0 + 1);
-  $: strategy.update((value) => {
+  $: briefing.update((value) => {
     value.ageGroupIndexStart = ageGroupIndexStart;
     value.ageGroupIndexEnd = ageGroupIndexEnd;
     return value;

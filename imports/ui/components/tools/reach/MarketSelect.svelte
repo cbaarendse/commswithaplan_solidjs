@@ -4,13 +4,13 @@
   import Fa from 'svelte-fa/src/fa.svelte';
 
   // imports
-  import {strategy, markets} from '../../../stores/tools';
+  import {briefing, markets} from '../../../stores/reach';
   import {Strategy} from '/imports/both/typings/types';
 
   //variables
   let marketName: Strategy['marketName'];
-  const unsubscribe = strategy.subscribe((value) => (marketName = value.marketName));
-  $: strategy.update((value) => {
+  const unsubscribe = briefing.subscribe((value) => (marketName = value.marketName));
+  $: briefing.update((value) => {
     value.marketName = marketName;
     return value;
   });
