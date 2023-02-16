@@ -1,62 +1,55 @@
 <script lang="ts">
   // imports
   import {Meteor} from 'meteor/meteor';
-  import {derived, get} from 'svelte/store';
+  import {derived, get, writable} from 'svelte/store';
   import BreadCrumbs from '../../reusable/BreadCrumbs.svelte';
   import Controls from './Controls.svelte';
   import Output from './Output.svelte';
-  import ReachTouchPoint from './TouchPoint.svelte';
+  import TouchPoint from './TouchPoint.svelte';
   import {onDestroy, onMount} from 'svelte';
-  import {Unsubscriber} from 'svelte/store';
   import createReachTool from '../../../functions/reach';
   import {language} from '../../../stores/utils';
-  import {defaultFormulaStrategy, defaultDataStrategy, sortedByName, respondentsCount} from '../../../stores/reach';
-  import {DeployedTouchPoint} from '/imports/both/typings/types';
+  import {strategy, strategyWithData, strategyWithFormula, sortedByName, respondentsCount} from '../../../stores/reach';
+  import {DeployedTouchPoint, Strategy} from '/imports/both/typings/types';
 
   // variables
   const reachTool = createReachTool();
+  let marketData: Strategy['marketData'];
+  let marketName: Strategy['marketName'];
+  let deployment: Strategy['deployment'];
 
-  // start off with a basic strategy, as if the market has no data
-  export let strategy = derived(defaultFormulaStrategy, ($defaultFormulaStrategy) => $defaultFormulaStrategy);
-  let deployment = get($strategy.deployment);
+  // subscriptions
+  let unsubscribe = strategy.subscribe((value) => {
+    marketData = value.marketData;
+    marketName = value.marketName;
+    deployment = value.deployment; // is a writable store
+  });
+
+  // base new strategy on availability of marketData
+  $: marketData ? strategy.set(strategyWithData) : strategy.set(strategyWithFormula);
 
   // first sort, based on selected language
-  const [sortedDeployedTouchPoints, updatedSortedByName] = reachTool.sort(deployment, $sortedByName, $language);
-  deployedTouchPoints.set(sortedDeployedTouchPoints);
+  const [sortedDeployedTouchPoints, updatedSortedByName] = reachTool.sort($deployment, $sortedByName, $language);
+  strategy.update((value) => {
+    value.deployment = writable(sortedDeployedTouchPoints);
+    return value;
+  });
   sortedByName.set(updatedSortedByName);
 
   // if market changes, strategy changes, based on availability marketData
-  $: Meteor.callAsync('probabilities.checkForMarket', {marketName: $marketName})
+  $: Meteor.callAsync('probabilities.checkForMarket', {marketName: marketName})
     .then((result) => {
-      if (result === true) {
-        strategy = reachTool.initWithData($defaultStrategyWithFormula, $defaultStrategyExtensionForData);
-      }
-      if (result === false) {
-        reachTool.init($defaultStrategyWithFormula);
-      }
+      marketData = result;
     })
     .catch((error) => console.log('error in check for market', error));
 
-  $: if ($marketData && $useMarketData) {
-    Meteor.callAsync('probabilities.countRespondentsForMarket', {marketName: $marketName})
-      .then((result) => {
-        if (result > 0) {
-          respondentsCount.set(result);
-        }
-      })
-      .catch((error) => console.log('error in count', error));
-  }
-
-  $: console.log('marketName: in $: ', $marketName);
+  $: console.log('marketName: in $: ', marketName);
   $: console.log('strategy in $: ', strategy);
-  $: console.log('strategy.marketData: in $: ', strategy.marketData);
+  $: console.log('strategy.marketData: in $: ', $strategy.marketData);
 
   // functions
-  let languageUnsubscribe: Unsubscriber = language.subscribe(() => {
-    reachTool.sort($language);
-  });
 
-  onDestroy(() => unsibscribe());
+  onDestroy(() => unsubscribe());
 </script>
 
 <BreadCrumbs />
@@ -64,8 +57,8 @@
   <div class="container">
     <Controls />
     <Output />
-    {#each strategy.deployment as touchPoint}
-      <ReachTouchPoint {touchPoint} />
+    {#each $deployment as touchPoint, index}
+      <TouchPoint {touchPoint} {index} />
     {/each}
   </div>
 </section>

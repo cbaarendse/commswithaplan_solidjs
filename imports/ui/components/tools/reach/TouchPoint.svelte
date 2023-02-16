@@ -1,18 +1,23 @@
 <script lang="ts">
   // imports
   import type {DeployedTouchPoint} from '../../../../both/typings/types';
+  import {Writable} from 'svelte/store';
   import RangeInput from './RangeInput.svelte';
   import Modal from '../../reusable/Modal.svelte';
   import NumberInput from './NumberInput.svelte';
   import {language, translations} from '../../../stores/utils';
+  import {strategy} from '../../../stores/reach';
   import createFormatter from '../../../functions/format';
   import createConverter from '../../../functions/convert';
   //import {notify} from '../../notifications/NotificationsFunctions';
 
   // exports
   export let touchPoint: DeployedTouchPoint;
+  export let index: number;
 
   // variables
+  let deployment: Writable<DeployedTouchPoint[]>;
+  const unsubscribe = strategy.subscribe((value) => (deployment = value.deployment));
   $: definition = touchPoint.definitions.filter((definition) => definition.language == $language)[0];
   const formatter = createFormatter();
   const converter = createConverter();
@@ -43,6 +48,7 @@
         name: touchPoint.name,
         id: touchPoint.name,
         value: touchPoint.value.toString(),
+        index: index,
         min: '0',
         max: '100',
         step: '1'

@@ -24,7 +24,7 @@
         "luxon": "^3.2.1",
         "meteor-node-stubs": "^1.2.5",
         "stripe": "^11.5.0",
-        "svelte": "^3.46.4",
+        "svelte": "^3.55.1",
         "svelte-fa": "^3.0.3"
     },
     "meteor": {

@@ -1,6 +1,8 @@
 // imports
 import {Meteor} from 'meteor/meteor';
 import {Mongo} from 'meteor/mongo';
+import {Writable} from 'svelte/store';
+import {HTMLInputAttributes} from 'svelte/elements';
 
 // global
 declare global {
@@ -82,7 +84,7 @@ export type Strategy = {
   marketData: boolean;
   createdAt: Date;
   lastChanged: Date;
-  deployment: DeployedTouchPoint[];
+  deployment: Writable<DeployedTouchPoint[]>;
   useMarketData?: boolean;
   ageGroupIndexStart?: number;
   ageGroupIndexEnd?: number;
@@ -119,15 +121,9 @@ export type Brand = Partial<svelteHTML.IntrinsicElements['span']> & Partial<HTML
 export type Card = Partial<Illustrated & Action & Link> &
   svelteHTML.IntrinsicElements['article'] &
   Partial<HTMLElement['style']>;
-export type Checkbox = svelteHTML.IntrinsicElements['input'] & Partial<HTMLElement['style']>;
+export type Checkbox = HTMLInputAttributes;
 export type Logo = svelteHTML.IntrinsicElements['div'] & Partial<HTMLElement['style']> & Colored;
-export type SelectItem = {name: string; index: string};
-export type Input = Omit<Partial<svelte.JSX.HTMLAttributes<HTMLElementTagNameMap['input']>>, 'value'> & {
-  value: number | string | undefined | null;
-} & Partial<HTMLElement['style']>;
-export type Select = Omit<Partial<svelte.JSX.HTMLAttributes<HTMLElementTagNameMap['select']>>, 'value'> & {
-  value: number | string | undefined | null;
-} & Partial<HTMLElement['style']>;
+export type Input = HTMLInputAttributes & {index?: number};
 
 // export type RangeInput = Omit<Input, 'step'> & {step: number | string | undefined | null};
 export type Label = svelteHTML.IntrinsicElements['label'] & Partial<HTMLElement['style']>;

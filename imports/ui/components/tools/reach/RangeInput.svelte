@@ -1,34 +1,46 @@
 <script lang="ts">
   // imports
-  import type {Input} from '../../../../both/typings/types';
+  import type {DeployedTouchPoint, Input} from '../../../../both/typings/types';
   import createReachTool from '../../../functions/reach';
-  import {overlap, totalReach, strategy} from '../../../stores/tools';
+  import {Writable} from 'svelte/store';
+  import {overlap, totalReach, strategy} from '../../../stores/reach';
+  import {onDestroy} from 'svelte';
 
   //variables
   const reachTool = createReachTool();
   export let rangeInput: Input;
   export let displayName: string = 'touchpoint_name';
+  let index = rangeInput.index;
+  let deployment: Writable<DeployedTouchPoint[]>;
+  const unsubscribe = strategy.subscribe((value) => {
+    deployment = value.deployment;
+  });
 
   // functions
   function changeValue() {
     if (rangeInput.name && typeof rangeInput.value == 'number') {
-      strategy.deployment = reachTool.updateDeployedTouchPoint(rangeInput.name, rangeInput.value);
-      reachTool.setStrategy(strategy);
+      deployment.update((value) => {
+        let touchPoint = value[0];
+        return reachTool.updateDeployedTouchPoint(touchPoint.name, touchPoint.value);
+        };
+      });
     }
   }
   function inputValue() {
     if (rangeInput.name && typeof rangeInput.value == 'number') {
-      strategy.deployment = reachTool.updateDeployedTouchPoint(rangeInput.name, rangeInput.value);
-      reachTool.setStrategy(strategy);
+      $deployment = reachTool.updateDeployedTouchPoint(rangeInput.name, rangeInput.value);
     }
     getResults();
-    reachTool.setStrategy(strategy);
   }
 
   function getResults(): void {
-    const results = reachTool.calculateResults();
-    [strategy.totalReach, strategy.overlap] = results;
+    const results = reachTool.calculateResults($deployment);
+    [$totalReach, $overlap] = results;
   }
+
+  onDestroy(() => {
+    unsubscribe();
+  });
 </script>
 
 <!-- TODO: select field for inputtype between label and input -->

@@ -167,7 +167,6 @@ export default function createReachTool() {
     hide,
     isShowAll,
     deployTouchPointsForData,
-    deployTouchPointsForFormula,
     setDefaultInputType,
     updateDeployedTouchPoint
   };
