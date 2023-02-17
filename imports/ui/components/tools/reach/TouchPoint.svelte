@@ -9,7 +9,7 @@
   import {deployment} from '../../../stores/reach';
   import createFormatter from '../../../functions/format';
   import createConverter from '../../../functions/convert';
-  import {onDestroy} from 'svelte/types/runtime/internal/lifecycle';
+  import {onDestroy} from 'svelte';
   //import {notify} from '../../notifications/NotificationsFunctions';
 
   // variables

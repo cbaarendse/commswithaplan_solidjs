@@ -24,7 +24,8 @@
     if (subReady && currentUser) {
       router.goto(`/user/${currentUser.username}`);
     }
-    console.log('currentUser in loginsignin', currentUser);
+    console.log('subReady in LoginSignin', subReady);
+    console.log('currentUser in LoginSignin', currentUser);
   }
 
   // variables
@@ -92,7 +93,7 @@
           <a
             href={'javascript:void(0)'}
             role="button"
-            style="color:{signin ? 'var(--ra-red)' : ''}"
+            style="color:{$signin ? 'var(--ra-red)' : ''}"
             on:click={() => {
               $signin = true;
             }}

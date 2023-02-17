@@ -10,6 +10,44 @@ const reachTool = createReachTool();
 // strategy
 export const markets: Readable<Market[]> = readable(allMarkets());
 export const briefing: Writable<Omit<Strategy, 'deployment'>> = writable(briefingForFormula());
+export const marketData = writable(false, (set) => {
+  Meteor.callAsync('probabilities.checkForMarket', {marketName: 'nl'})
+    .then((result) => {
+      console.log('result check in stores ', result);
+      set(result);
+    })
+    .catch((error) => console.log('error in check for market - in stores', error));
+});
+export const briefingWithMarketData = derived(
+  marketData,
+  ($marketData) => {
+    const briefing = briefingForFormula();
+    briefing.marketData = $marketData;
+    return briefing;
+  },
+  briefingForFormula()
+);
+
+function createBriefing() {
+  const {subscribe, set, update} = writable(briefingForFormula());
+  let checkForData: boolean;
+  Meteor.callAsync('probabilities.checkForMarket', {marketName: briefingForFormula().marketName})
+    .then((result) => {
+      console.log('result check in createBriefing ', result);
+      checkForData = result;
+    })
+    .catch((error) => console.log('error in check for market - in createBriefing', error));
+
+  return {
+    subscribe,
+    updateMarketData: update((data) => {
+      data.marketData = checkForData;
+      return data;
+    })
+  };
+}
+export const createdBriefing = createBriefing();
+
 export const deployment: Writable<Strategy['deployment']> = writable(touchPointsForFormula());
 export const derivedStrategy = derived([briefing, deployment], ([$briefing, $deployment]) => {
   return {...$briefing, deployment: $deployment};
@@ -632,40 +670,44 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
   ];
 }
 
-export function touchPointsPerInputType(): {[key: string]: string[]} {
-  return {
-    contacts: [
-      'ambassador',
-      'direct_mail',
-      'door_drop',
-      'event',
-      'experiential',
-      'internal_employee',
-      'loyalty_crm',
-      'magazines',
-      'newspapers',
-      'trade_fair',
-      'packaging',
-      'shopper',
-      'word_of_mouth'
-    ],
-    grps: ['asset', 'cinema', 'outdoor', 'pr', 'promotion', 'television', 'radio', 'sponsorship'],
-    impressions: [
-      'advocacy',
-      'app',
-      'console_game',
-      'display',
-      'e_mail',
-      'mobile',
-      'social',
-      'video_on_demand',
-      'viral',
-      'website',
-      'sem',
-      'seo'
-    ],
-    reach: []
-  };
+export function touchPointsPerInputType(): Map<string, Set<string>> {
+  const contacts = new Set([
+    'ambassador',
+    'direct_mail',
+    'door_drop',
+    'event',
+    'experiential',
+    'internal_employee',
+    'loyalty_crm',
+    'magazines',
+    'newspapers',
+    'trade_fair',
+    'packaging',
+    'shopper',
+    'word_of_mouth'
+  ]);
+  const grps = new Set(['asset', 'cinema', 'outdoor', 'pr', 'promotion', 'television', 'radio', 'sponsorship']);
+  const impressions = new Set([
+    'advocacy',
+    'app',
+    'console_game',
+    'display',
+    'e_mail',
+    'mobile',
+    'social',
+    'video_on_demand',
+    'viral',
+    'website',
+    'sem',
+    'seo'
+  ]);
+  const reach = new Set([]);
+  return new Map([
+    ['contacts', contacts],
+    ['grps', grps],
+    ['impressions', impressions],
+    ['reach', reach]
+  ]);
 }
 
 export function allMarkets(): Market[] {

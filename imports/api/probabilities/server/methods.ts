@@ -27,7 +27,11 @@ Meteor.methods({
         Match.Where((arg) => MARKETS.includes(arg))
       )
     ) {
-      throw new Meteor.Error('general.invalid.input', 'Invalid input', '[{ "name": "invalidInput" }]');
+      throw new Meteor.Error(
+        'general.invalid.input',
+        `Invalid input: ${args.marketName}`,
+        '[{ "name": "invalidInput" }]'
+      );
     }
 
     let probabilityForMarket: Probability | undefined;

@@ -16,9 +16,9 @@
   }
 
   $: {
-    console.log('subReady in client', subReady);
-    console.log('Meteor.settings in client', Meteor.settings);
-    console.log('currentUser in client', currentUser);
+    console.log('subReady in User', subReady);
+    console.log('Meteor.settings in User', Meteor.settings);
+    console.log('currentUser in User', currentUser);
   }
 
   // functions

@@ -1,7 +1,6 @@
 <script lang="ts">
   // imports
   import {Meteor} from 'meteor/meteor';
-  import {writable} from 'svelte/store';
   import BreadCrumbs from '../../reusable/BreadCrumbs.svelte';
   import Controls from './Controls.svelte';
   import Output from './Output.svelte';
@@ -12,6 +11,9 @@
   import {
     deployment,
     briefing,
+    briefingWithMarketData,
+    createdBriefing,
+    marketData,
     derivedStrategy,
     sortedByName,
     briefingForData,
@@ -24,16 +26,22 @@
   // variables
   const reachTool = createReachTool();
   let marketName: Strategy['marketName'];
-  let marketData: Strategy['marketData'];
+  // let marketData: Strategy['marketData'];
   let useMarketData: Strategy['useMarketData'];
   let deployedTouchPoints: DeployedTouchPoint[];
+  let briefingWithMarketDataStore;
+  let createdBriefingStore;
 
   // subscriptions
   let unsubscribeBriefing = briefing.subscribe((data) => {
     marketName = data.marketName;
-    marketData = data.marketData;
+    //marketData = data.marketData;
     useMarketData = data.useMarketData;
   });
+
+  let unsubscribe_1 = briefingWithMarketData.subscribe((data) => (briefingWithMarketDataStore = data));
+
+  let unsubscribe_2 = createdBriefing.subscribe((data) => (createdBriefingStore = data));
 
   let unsubscribeDeployment = deployment.subscribe((data) => {
     deployedTouchPoints = data;
@@ -60,18 +68,22 @@
         return data;
       });
     })
-    .catch((error) => console.log('error in check for market', error));
+    .catch((error) => console.log('error in check for market - in Reach', error));
 
   $: console.log('derivedStrategy ', $derivedStrategy);
   $: console.log('marketName: in $: ', marketName);
   $: console.log('deployment: in $: ', $deployment);
   $: console.log('briefing.marketData: in $: ', $briefing.marketData);
+  $: console.log('briefingWithMarketDataStore in $: ', $briefingWithMarketData);
+  $: console.log('createdBriefingStore in $: ', $createdBriefing);
 
   // functions
 
   onDestroy(() => {
     unsubscribeBriefing();
     unsubscribeDeployment();
+    unsubscribe_1();
+    unsubscribe_2();
   });
 </script>
 

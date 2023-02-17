@@ -40,7 +40,6 @@
     border-radius: 3px;
   }
   select {
-    grid-area: select;
     appearance: none;
     border: none;
     background-color: transparent;
@@ -50,7 +49,6 @@
     outline: solid 1px var(--ra-green);
   }
   label {
-    grid-area: label;
     background-color: transparent;
     padding: 0.2em 0.4em;
   }

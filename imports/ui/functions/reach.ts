@@ -1,38 +1,21 @@
 // Reach
 // imports
-import type {TouchPointDefinition, DeployedTouchPoint, Market, Language} from '../../both/typings/types';
+import type {TouchPointDefinition, DeployedTouchPoint, Market, Language, InputType} from '../../both/typings/types';
 
 // main function (IIFE closure)
 export default function createReachTool() {
   function setDefaultInputType(
     touchPointName: DeployedTouchPoint['name'],
-    touchPointsInputTypes: {[key: string]: string[]}
-  ) {
-    if (touchPointsInputTypes['contacts'].includes(touchPointName)) {
-      return 'contacts';
+    touchPointsPerInputType: Map<string, Set<string>>
+  ): InputType {
+    const inputTypes: Set<InputType> = new Set(['contacts', 'grps', 'impressions', 'reach']);
+    let inputType: InputType = 'contacts';
+    for (const type of inputTypes) {
+      if (touchPointsPerInputType.has(type) && touchPointsPerInputType.get(type)?.has(touchPointName)) {
+        inputType = type;
+      }
     }
-    if (touchPointsInputTypes['grps'].includes(touchPointName)) {
-      return 'grps';
-    }
-    if (touchPointsInputTypes['impressions'].includes(touchPointName)) {
-      return 'impressions';
-    }
-    if (touchPointsInputTypes['reach'].includes(touchPointName)) {
-      return 'reach';
-    }
-    return 'contacts';
-  }
-
-  function deployTouchPointsForData(
-    touchPoints: TouchPointDefinition[],
-    touchPointsForInputTypes: {[key: string]: string[]}
-  ): DeployedTouchPoint[] {
-    return touchPoints.map((touchPoint) => ({
-      ...touchPoint,
-      value: 0.0,
-      show: true,
-      inputType: setDefaultInputType(touchPoint.name, touchPointsForInputTypes)
-    }));
+    return inputType;
   }
 
   function areAllTouchPointsValueZero(touchPoints: DeployedTouchPoint[]): boolean {
@@ -170,7 +153,6 @@ export default function createReachTool() {
     sort,
     hide,
     isShowAll,
-    deployTouchPointsForData,
     setDefaultInputType,
     updateDeployedTouchPoint
   };
