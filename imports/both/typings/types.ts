@@ -123,7 +123,7 @@ export type Card = Partial<Illustrated & Action & Link> &
   Partial<HTMLElement['style']>;
 export type Checkbox = HTMLInputAttributes;
 export type Logo = svelteHTML.IntrinsicElements['div'] & Partial<HTMLElement['style']> & Colored;
-export type Input = HTMLInputAttributes & {index?: number};
+export type Input = HTMLInputAttributes;
 
 // export type RangeInput = Omit<Input, 'step'> & {step: number | string | undefined | null};
 export type Label = svelteHTML.IntrinsicElements['label'] & Partial<HTMLElement['style']>;

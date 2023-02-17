@@ -9,10 +9,10 @@
 
   //variables
   let marketName: Strategy['marketName'];
-  const unsubscribe = briefing.subscribe((value) => (marketName = value.marketName));
-  $: briefing.update((value) => {
-    value.marketName = marketName;
-    return value;
+  const unsubscribe = briefing.subscribe((data) => (marketName = data.marketName));
+  $: briefing.update((data) => {
+    data.marketName = marketName;
+    return data;
   });
   // functions
 

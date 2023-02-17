@@ -9,26 +9,27 @@
   const reachTool = createReachTool();
   export let rangeInput: Input;
   export let displayName: string = 'touchpoint_name';
+  export let index;
   let deployedTouchPoints: DeployedTouchPoint[];
-  const unsubscribe = deployment.subscribe((value) => {
-    deployedTouchPoints = value;
+  const unsubscribe = deployment.subscribe((data) => {
+    deployedTouchPoints = data;
   });
 
   // functions
   function changeValue() {
     if (rangeInput.name && typeof rangeInput.value == 'number') {
-      deployment.update((value) => {
-        let updatedTouchPoint = Object.assign(value[rangeInput.index], {value: rangeInput.value});
-        return value.splice(rangeInput.index, 1, updatedTouchPoint);
+      deployment.update((data) => {
+        let updatedTouchPoint = Object.assign(data[rangeInput.index], {value: rangeInput.value});
+        return data.splice(rangeInput.index, 1, updatedTouchPoint);
       });
     }
   }
 
   function inputValue() {
     if (rangeInput.name && typeof rangeInput.value == 'number') {
-      deployment.update((value) => {
-        let updatedTouchPoint = Object.assign(value[rangeInput.index], {value: rangeInput.value});
-        return value.splice(rangeInput.index, 1, updatedTouchPoint);
+      deployment.update((data) => {
+        let updatedTouchPoint = Object.assign(data[rangeInput.index], {value: rangeInput.value});
+        return data.splice(rangeInput.index, 1, updatedTouchPoint);
       });
       getResults();
     }

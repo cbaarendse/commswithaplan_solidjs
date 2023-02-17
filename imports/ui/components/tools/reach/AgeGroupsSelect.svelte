@@ -16,17 +16,17 @@
   let markets: Market[];
   let ageGroupIndexStart: Strategy['ageGroupIndexStart'];
   let ageGroupIndexEnd: Strategy['ageGroupIndexEnd'];
-  const unsubscribe = briefing.subscribe((value) => {
-    marketName = value.marketName;
-    ageGroupIndexStart = value.ageGroupIndexStart;
-    ageGroupIndexEnd = value.ageGroupIndexEnd;
+  const unsubscribe = briefing.subscribe((data) => {
+    marketName = data.marketName;
+    ageGroupIndexStart = data.ageGroupIndexStart;
+    ageGroupIndexEnd = data.ageGroupIndexEnd;
   });
   $: groups = reachTool.getAgeGroupsForMarket(marketName, markets);
   $: groupsEnd = groups.slice(ageGroupIndexStart ? ageGroupIndexStart : 0 + 1);
-  $: briefing.update((value) => {
-    value.ageGroupIndexStart = ageGroupIndexStart;
-    value.ageGroupIndexEnd = ageGroupIndexEnd;
-    return value;
+  $: briefing.update((data) => {
+    data.ageGroupIndexStart = ageGroupIndexStart;
+    data.ageGroupIndexEnd = ageGroupIndexEnd;
+    return data;
   });
 
   // functions

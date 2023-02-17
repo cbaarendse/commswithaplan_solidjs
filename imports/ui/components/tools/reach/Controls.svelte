@@ -8,13 +8,7 @@
   import MarketSelect from './MarketSelect.svelte';
   import createReachTool from '../../../functions/reach';
   import {language} from '../../../stores/utils';
-  import {
-    briefing,
-    deployment,
-    sortedByName,
-    deployedTouchPointsForData,
-    deployedTouchPointsForFormula
-  } from '../../../stores/reach';
+  import {briefing, deployment, sortedByName, touchPointsForData, touchPointsForFormula} from '../../../stores/reach';
   import {CWAPUser, Strategy} from '../../../../both/typings/types';
   import Fa from 'svelte-fa/src/fa.svelte';
   import {
@@ -36,15 +30,15 @@
   let useMarketData: Strategy['useMarketData'];
   let deployedTouchPoints: Strategy['deployment'];
 
-  const unsubscribeBriefing = briefing.subscribe((value) => {
-    marketData = value.marketData;
-    useMarketData = value.useMarketData;
+  const unsubscribeBriefing = briefing.subscribe((data) => {
+    marketData = data.marketData;
+    useMarketData = data.useMarketData;
   });
 
-  const unsubscribeDeployment = deployment.subscribe((value) => {
-    deployedTouchPoints = value;
+  const unsubscribeDeployment = deployment.subscribe((data) => {
+    deployedTouchPoints = data;
   });
-  const unsubscribeSortedByName = sortedByName.subscribe((value) => {});
+  const unsubscribeSortedByName = sortedByName.subscribe((data) => {});
 
   $m: {
     currentUser = Meteor.user();
@@ -53,11 +47,11 @@
   // functions
   function reset() {
     if (!reachTool.areAllTouchPointsValueZero(deployedTouchPoints)) {
-      deployment.update((value) => {
-        return value.map((touchPoint) => Object.assign(touchPoint, {value: 0.0}));
+      deployment.update((data) => {
+        return data.map((touchPoint) => Object.assign(touchPoint, {data: 0.0}));
       });
     } else {
-      marketData ? deployment.set(deployedTouchPointsForData) : deployment.set(deployedTouchPointsForFormula);
+      marketData ? deployment.set(touchPointsForData()) : deployment.set(touchPointsForFormula());
     }
   }
 
@@ -76,9 +70,9 @@
   }
 
   onDestroy(() => {
-    unsubscribeBriefing();
-    unsubscribeDeployment();
-    unsubscribeSortedByName();
+    unsubscribeBriefing;
+    unsubscribeDeployment;
+    unsubscribeSortedByName;
   });
 </script>
 
@@ -95,20 +89,20 @@
   {/if}
   <menu class="operations">
     <button type="button" on:click|stopPropagation|preventDefault={reset}>
-      {#if reachTool.areAllTouchPointsValueZero($deployedTouchPoints)}<Fa icon={faArrowRotateLeft} />{:else}<Fa
+      {#if reachTool.areAllTouchPointsValueZero(deployedTouchPoints)}<Fa icon={faArrowRotateLeft} />{:else}<Fa
           icon={fa0}
         />{/if}
     </button>
     <button type="button" on:click|stopPropagation|preventDefault={sort}>
       {#if $sortedByName}<Fa
           icon={faArrowDownWideShort}
-        />{:else if !$sortedByName && reachTool.areAllTouchPointsValueZero($deployedTouchPoints) && reachTool.isShowAll($deployedTouchPoints)}<Fa
+        />{:else if !$sortedByName && reachTool.areAllTouchPointsValueZero(deployedTouchPoints) && reachTool.isShowAll(deployedTouchPoints)}<Fa
           icon={faArrowDownAZ}
         />{:else}<Fa icon={faArrowDownAZ} />
       {/if}
     </button>
     <button type="button" on:click|stopPropagation|preventDefault={hide}>
-      {#if reachTool.isShowAll($deployedTouchPoints)}<Fa icon={faMinus} />{:else}<Fa icon={faBars} />{/if}
+      {#if reachTool.isShowAll(deployedTouchPoints)}<Fa icon={faMinus} />{:else}<Fa icon={faBars} />{/if}
     </button>
   </menu>
 

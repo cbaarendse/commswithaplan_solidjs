@@ -6,18 +6,17 @@
   import Modal from '../../reusable/Modal.svelte';
   import NumberInput from './NumberInput.svelte';
   import {language, translations} from '../../../stores/utils';
-  import {strategy} from '../../../stores/reach';
+  import {deployment} from '../../../stores/reach';
   import createFormatter from '../../../functions/format';
   import createConverter from '../../../functions/convert';
+  import {onDestroy} from 'svelte/types/runtime/internal/lifecycle';
   //import {notify} from '../../notifications/NotificationsFunctions';
 
-  // exports
+  // variables
   export let touchPoint: DeployedTouchPoint;
   export let index: number;
-
-  // variables
-  let deployment: Writable<DeployedTouchPoint[]>;
-  const unsubscribe = strategy.subscribe((value) => (deployment = value.deployment));
+  let deployedTouchPoints: DeployedTouchPoint[];
+  const unsubscribe = deployment.subscribe((data) => (deployedTouchPoints = data));
   $: definition = touchPoint.definitions.filter((definition) => definition.language == $language)[0];
   const formatter = createFormatter();
   const converter = createConverter();
@@ -26,6 +25,8 @@
   let displayTouchPointDescription: 'none' | 'flex' = 'none';
 
   // functions
+
+  onDestroy(() => unsubscribe());
 </script>
 
 <div class="container" style="display:{touchPoint.show ? 'flex' : 'none'};">
@@ -43,12 +44,12 @@
   </div>
   <div class="center">
     <RangeInput
+      {index}
       displayName={definition.displayName}
       rangeInput={{
         name: touchPoint.name,
         id: touchPoint.name,
         value: touchPoint.value.toString(),
-        index: index,
         min: '0',
         max: '100',
         step: '1'
@@ -92,7 +93,6 @@
         min: 0,
         max: 100,
         step: 1,
-        fontSize: '1em',
         placeholder: `${converter.translate('input', $translations, $language) + ' 0 - 100'}`,
         readonly: false
       }}

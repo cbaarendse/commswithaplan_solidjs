@@ -10,7 +10,7 @@ const reachTool = createReachTool();
 // strategy
 export const markets: Readable<Market[]> = readable(allMarkets());
 export const briefing: Writable<Omit<Strategy, 'deployment'>> = writable(briefingForFormula());
-export const deployment: Writable<Strategy['deployment']> = writable();
+export const deployment: Writable<Strategy['deployment']> = writable(touchPointsForFormula());
 export const derivedStrategy = derived([briefing, deployment], ([$briefing, $deployment]) => {
   return {...$briefing, deployment: $deployment};
 });
@@ -67,25 +67,27 @@ export const totalReach: Writable<number> = writable(0, () => {
   };
 });
 
-export const deployedTouchPointsForFormula: DeployedTouchPoint[] = touchPointsDefinitions().map(
-  (touchPointDefinition) => {
+export function touchPointsForFormula(): DeployedTouchPoint[] {
+  return touchPointsDefinitions().map((touchPointDefinition) => {
     return {
       ...touchPointDefinition,
       value: 0.0,
       show: true,
       inputType: 'reach'
     };
-  }
-);
+  });
+}
 
-export const deployedTouchPointsForData: DeployedTouchPoint[] = touchPointsDefinitions().map((touchPointDefinition) => {
-  return {
-    ...touchPointDefinition,
-    value: 0.0,
-    show: true,
-    inputType: reachTool.setDefaultInputType(touchPointDefinition.name, touchPointsPerInputType())
-  };
-});
+export function touchPointsForData(): DeployedTouchPoint[] {
+  return touchPointsDefinitions().map((touchPointDefinition) => {
+    return {
+      ...touchPointDefinition,
+      value: 0.0,
+      show: true,
+      inputType: reachTool.setDefaultInputType(touchPointDefinition.name, touchPointsPerInputType())
+    };
+  });
+}
 
 export function briefingForFormula(): Omit<Strategy, 'deployment'> {
   return {
@@ -105,21 +107,23 @@ export function briefingForFormula(): Omit<Strategy, 'deployment'> {
   };
 }
 
-export const briefingForData: Omit<Strategy, 'deployment'> = {
-  marketName: 'nl',
-  marketData: false,
-  useMarketData: false,
-  userId: '',
-  title: 'New Strategy',
-  createdAt: new Date(),
-  lastChanged: new Date(),
-  genders: new Set(['f', 'm', 'x']),
-  ageGroupIndexStart: 0,
-  ageGroupIndexEnd: 0,
-  companyId: undefined,
-  brandName: undefined,
-  productName: undefined
-};
+export function briefingForData(): Omit<Strategy, 'deployment'> {
+  return {
+    marketName: 'nl',
+    marketData: false,
+    useMarketData: false,
+    userId: '',
+    title: 'New Strategy',
+    createdAt: new Date(),
+    lastChanged: new Date(),
+    genders: new Set(['f', 'm', 'x']),
+    ageGroupIndexStart: 0,
+    ageGroupIndexEnd: 0,
+    companyId: undefined,
+    brandName: undefined,
+    productName: undefined
+  };
+}
 
 export function touchPointsDefinitions(): TouchPointDefinition[] {
   return [

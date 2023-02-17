@@ -16,49 +16,55 @@
     sortedByName,
     briefingForData,
     briefingForFormula,
-    deployedTouchPointsForData,
-    deployedTouchPointsForFormula
+    touchPointsForData,
+    touchPointsForFormula
   } from '../../../stores/reach';
-  import {Strategy} from '/imports/both/typings/types';
+  import {DeployedTouchPoint, Strategy} from '/imports/both/typings/types';
 
   // variables
   const reachTool = createReachTool();
   let marketName: Strategy['marketName'];
   let marketData: Strategy['marketData'];
   let useMarketData: Strategy['useMarketData'];
+  let deployedTouchPoints: DeployedTouchPoint[];
 
   // subscriptions
-  let unsubscribeBriefing = briefing.subscribe((value) => {
-    marketName = value.marketName;
-    marketData = value.marketData;
-    useMarketData = value.useMarketData;
+  let unsubscribeBriefing = briefing.subscribe((data) => {
+    marketName = data.marketName;
+    marketData = data.marketData;
+    useMarketData = data.useMarketData;
   });
 
-  let unsubscribeDeployment = deployment.subscribe((value) => {});
+  let unsubscribeDeployment = deployment.subscribe((data) => {
+    deployedTouchPoints = data;
+  });
 
   // base new strategy on availability of marketData
-  $: marketData ? briefing.set(briefingForData) : briefing.set(briefingForFormula);
-  $: marketData && useMarketData
-    ? deployment.set(deployedTouchPointsForData)
-    : deployment.set(deployedTouchPointsForFormula);
+  $: marketData ? briefing.set(briefingForData()) : briefing.set(briefingForFormula());
+  $: marketData && useMarketData ? deployment.set(touchPointsForData()) : deployment.set(touchPointsForFormula());
 
   // first sort, based on selected language
-  const [sortedDeployedTouchPoints, updatedSortedByName] = reachTool.sort($deployment, $sortedByName, $language);
+  const [sortedDeployedTouchPoints, updatedSortedByName] = reachTool.sort(
+    deployedTouchPoints,
+    $sortedByName,
+    $language
+  );
   deployment.set(sortedDeployedTouchPoints);
   sortedByName.set(updatedSortedByName);
 
   // if market changes, strategy changes, based on availability marketData
   $: Meteor.callAsync('probabilities.checkForMarket', {marketName: marketName})
     .then((result) => {
-      briefing.update((value) => {
-        value.marketData = result;
-        return value;
+      briefing.update((data) => {
+        data.marketData = result;
+        return data;
       });
     })
     .catch((error) => console.log('error in check for market', error));
 
   $: console.log('derivedStrategy ', $derivedStrategy);
   $: console.log('marketName: in $: ', marketName);
+  $: console.log('deployment: in $: ', $deployment);
   $: console.log('briefing.marketData: in $: ', $briefing.marketData);
 
   // functions

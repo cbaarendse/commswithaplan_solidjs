@@ -10,10 +10,10 @@
   let marketData: Strategy['marketData'];
   let useMarketData: Strategy['useMarketData'];
   let genders: Strategy['genders'];
-  const unsubscribe = briefing.subscribe((value) => {
-    marketData = value.marketData;
-    useMarketData = value.useMarketData;
-    genders = value.genders;
+  const unsubscribe = briefing.subscribe((data) => {
+    marketData = data.marketData;
+    useMarketData = data.useMarketData;
+    genders = data.genders;
   });
   $: disabled = !marketData || !useMarketData;
   $: console.log('$: $genders in genderButton: ', genders);
@@ -23,30 +23,30 @@
     console.log('genders in/ before togglegenders: ', genders);
     if (marketData && genders) {
       if (genders.has('f') && genders.has('m') && genders.has('x')) {
-        briefing.update((value) => {
-          value.genders = new Set([]);
-          return value;
+        briefing.update((data) => {
+          data.genders = new Set([]);
+          return data;
         });
       } else if (!genders.has('f') && !genders.has('m') && !genders.has('x')) {
-        briefing.update((value) => {
-          value.genders?.add('f');
-          return value;
+        briefing.update((data) => {
+          data.genders?.add('f');
+          return data;
         });
       } else if (genders.has('f') && !genders.has('m') && !genders.has('x')) {
-        briefing.update((value) => {
-          value.genders?.delete('f');
-          value.genders?.add('m');
-          return value;
+        briefing.update((data) => {
+          data.genders?.delete('f');
+          data.genders?.add('m');
+          return data;
         });
       } else if (!genders.has('f') && genders.has('m') && !genders.has('x')) {
-        briefing.update((value) => {
-          value.genders?.add('f');
-          return value;
+        briefing.update((data) => {
+          data.genders?.add('f');
+          return data;
         });
       } else if (genders.has('f') && genders.has('m') && !genders.has('x')) {
-        briefing.update((value) => {
-          value.genders?.add('x');
-          return value;
+        briefing.update((data) => {
+          data.genders?.add('x');
+          return data;
         });
       }
     }

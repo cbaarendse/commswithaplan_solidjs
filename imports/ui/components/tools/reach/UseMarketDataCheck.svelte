@@ -10,14 +10,14 @@
   const converter = createConverter();
   let marketData: Strategy['marketData'];
   let useMarketData: Strategy['useMarketData'];
-  const unsubscribe = briefing.subscribe((value) => {
-    marketData = value.marketData;
-    useMarketData = value.useMarketData;
+  const unsubscribe = briefing.subscribe((data) => {
+    marketData = data.marketData;
+    useMarketData = data.useMarketData;
   });
   $: disabled = !marketData;
-  $: briefing.update((value) => {
-    value.useMarketData = useMarketData;
-    return value;
+  $: briefing.update((data) => {
+    data.useMarketData = useMarketData;
+    return data;
   });
 
   $: message =

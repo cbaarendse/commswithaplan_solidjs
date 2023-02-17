@@ -4,9 +4,9 @@
   import Modal from '../../reusable/Modal.svelte';
   import createConverter from '../../../functions/convert';
   import createFormatter from '../../../functions/format';
-  import reachTool from '/imports/ui/functions/reach';
   import {language, translations} from '../../../stores/utils';
   import {definitions} from '../../../stores/tools';
+  import {totalReach, overlap, briefing, deployment} from '../../../stores/reach';
   // import Spinner from '../../reusable/Spinner.svelte';
 
   // variables
@@ -14,7 +14,6 @@
   const formatter = createFormatter();
   let displayOutputDescription: 'none' | 'flex' = 'none';
   let outputName: 'total_reach' | 'overlap' = 'total_reach';
-  let strategy = reachTool.getStrategy();
   $: title = converter.displayContent(outputName, $definitions, $language);
   $: description = converter.describeContent(outputName, $definitions, $language);
 
@@ -29,6 +28,9 @@
       displayOutputDescription = 'flex';
       outputName = 'total_reach';
     }}
+    on:keydown
+    on:keyup
+    on:keypress
   >
     <span>
       {converter.translate('total', $translations, $language)}&nbsp;{converter.translate(
@@ -37,12 +39,12 @@
         $language
       )}:&nbsp;
     </span>
-    <output>{formatter.toNumberFormat(strategy.totalReach, 0)}&nbsp;%</output>
+    <output>{formatter.toNumberFormat($totalReach, 0)}&nbsp;%</output>
   </label>
   <OutputMeter
     outputMeter={{
       id: 'reach',
-      value: strategy.totalReach,
+      value: $totalReach,
       min: 0,
       max: 100
     }}
@@ -53,14 +55,17 @@
       displayOutputDescription = 'flex';
       outputName = 'overlap';
     }}
+    on:keydown
+    on:keyup
+    on:keypress
   >
     <span>{converter.translate('overlap', $translations, $language)}:&nbsp;</span>
-    <output>{formatter.toNumberFormat(strategy.overlap, 0)}&nbsp;%</output>
+    <output>{formatter.toNumberFormat($overlap, 0)}&nbsp;%</output>
   </label>
   <OutputMeter
     outputMeter={{
       id: 'overlap',
-      value: strategy.overlap,
+      value: $overlap,
       min: 0,
       max: 100
     }}
@@ -79,16 +84,14 @@
 
 <style>
   div.container {
-    display: flex;
-    flex-flow: row wrap;
+    display: grid;
+    grid-template-columns: 1fr;
     gap: 1.4em;
-    justify-content: flex-start;
     padding: 1em;
     border-radius: 0.2em;
     background-color: var(--ra-teal-off-white);
   }
   label {
-    flex: 0 1 30rem;
     display: flex;
     gap: 1em;
     font-size: 1.1em;
@@ -97,19 +100,15 @@
   label:hover {
     opacity: 0.7;
   }
-  span {
-    flex: 2;
-  }
 
-  output {
-    flex: 1;
+  @media screen and (min-width: 768px) {
+    div.container {
+      grid-template-columns: auto 1fr;
+    }
   }
-
-  :global(meter) {
-    flex: 1 1 60%;
-  }
-
-  :global(div.meter) {
-    flex: 1 1 60%;
+  @media screen and (min-width: 1024px) {
+    div.container {
+      grid-template-columns: auto 1fr;
+    }
   }
 </style>
