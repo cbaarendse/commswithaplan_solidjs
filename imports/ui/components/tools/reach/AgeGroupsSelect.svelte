@@ -2,7 +2,7 @@
   // imports
   import type {Market, Strategy} from '../../../../both/typings/types';
   import {translations, language} from '../../../stores/utils';
-  import {briefing} from '../../../stores/reach';
+  import {briefing, markets} from '../../../stores/reach';
   import createReachTool from '/imports/ui/functions/reach';
   import createConverter from '../../../functions/convert';
   import Fa from 'svelte-fa/src/fa.svelte';
@@ -13,7 +13,6 @@
   const reachTool = createReachTool();
   const converter = createConverter();
   let marketName: Strategy['marketName'];
-  let markets: Market[];
   let ageGroupIndexStart: Strategy['ageGroupIndexStart'];
   let ageGroupIndexEnd: Strategy['ageGroupIndexEnd'];
   const unsubscribe = briefing.subscribe((data) => {
@@ -21,7 +20,7 @@
     ageGroupIndexStart = data.ageGroupIndexStart;
     ageGroupIndexEnd = data.ageGroupIndexEnd;
   });
-  $: groups = reachTool.getAgeGroupsForMarket(marketName, markets);
+  $: groups = reachTool.getAgeGroupsForMarket(marketName, $markets);
   $: groupsEnd = groups.slice(ageGroupIndexStart ? ageGroupIndexStart : 0 + 1);
   $: briefing.update((data) => {
     data.ageGroupIndexStart = ageGroupIndexStart;

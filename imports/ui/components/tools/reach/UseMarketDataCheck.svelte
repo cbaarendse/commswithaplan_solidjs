@@ -2,28 +2,26 @@
   // imports
   import createConverter from '../../../functions/convert';
   import {translations, language} from '../../../stores/utils';
-  import {briefing} from '../../../stores/reach';
+  import {marketData, briefing} from '../../../stores/reach';
   import {onDestroy} from 'svelte';
   import {Strategy} from '/imports/both/typings/types';
 
   // variables
   const converter = createConverter();
-  let marketData: Strategy['marketData'];
   let useMarketData: Strategy['useMarketData'];
   const unsubscribe = briefing.subscribe((data) => {
-    marketData = data.marketData;
     useMarketData = data.useMarketData;
   });
-  $: disabled = !marketData;
+  $: disabled = !$marketData;
   $: briefing.update((data) => {
     data.useMarketData = useMarketData;
     return data;
   });
 
   $: message =
-    marketData && useMarketData
+    $marketData && useMarketData
       ? converter.translate('using_data', $translations, $language)
-      : marketData && !useMarketData
+      : $marketData && !useMarketData
       ? converter.translate('using_formula', $translations, $language)
       : converter.translate('no_data', $translations, $language);
 

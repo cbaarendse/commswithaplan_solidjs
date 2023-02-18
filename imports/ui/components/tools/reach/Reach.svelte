@@ -1,6 +1,5 @@
 <script lang="ts">
   // imports
-  import {Meteor} from 'meteor/meteor';
   import BreadCrumbs from '../../reusable/BreadCrumbs.svelte';
   import Controls from './Controls.svelte';
   import Output from './Output.svelte';
@@ -11,10 +10,9 @@
   import {
     deployment,
     briefing,
-    briefingWithMarketData,
-    createdBriefing,
+    marketData_1,
     marketData,
-    derivedStrategy,
+    strategy,
     sortedByName,
     briefingForData,
     briefingForFormula,
@@ -26,22 +24,14 @@
   // variables
   const reachTool = createReachTool();
   let marketName: Strategy['marketName'];
-  // let marketData: Strategy['marketData'];
   let useMarketData: Strategy['useMarketData'];
   let deployedTouchPoints: DeployedTouchPoint[];
-  let briefingWithMarketDataStore;
-  let createdBriefingStore;
 
   // subscriptions
   let unsubscribeBriefing = briefing.subscribe((data) => {
     marketName = data.marketName;
-    //marketData = data.marketData;
     useMarketData = data.useMarketData;
   });
-
-  let unsubscribe_1 = briefingWithMarketData.subscribe((data) => (briefingWithMarketDataStore = data));
-
-  let unsubscribe_2 = createdBriefing.subscribe((data) => (createdBriefingStore = data));
 
   let unsubscribeDeployment = deployment.subscribe((data) => {
     deployedTouchPoints = data;
@@ -49,7 +39,7 @@
 
   // base new strategy on availability of marketData
   $: marketData ? briefing.set(briefingForData()) : briefing.set(briefingForFormula());
-  $: marketData && useMarketData ? deployment.set(touchPointsForData()) : deployment.set(touchPointsForFormula());
+  $: $marketData && useMarketData ? deployment.set(touchPointsForData()) : deployment.set(touchPointsForFormula());
 
   // first sort, based on selected language
   const [sortedDeployedTouchPoints, updatedSortedByName] = reachTool.sort(
@@ -60,30 +50,17 @@
   deployment.set(sortedDeployedTouchPoints);
   sortedByName.set(updatedSortedByName);
 
-  // if market changes, strategy changes, based on availability marketData
-  $: Meteor.callAsync('probabilities.checkForMarket', {marketName: marketName})
-    .then((result) => {
-      briefing.update((data) => {
-        data.marketData = result;
-        return data;
-      });
-    })
-    .catch((error) => console.log('error in check for market - in Reach', error));
-
-  $: console.log('derivedStrategy ', $derivedStrategy);
+  $: console.log('$strategy in $: ', $strategy);
   $: console.log('marketName: in $: ', marketName);
-  $: console.log('deployment: in $: ', $deployment);
-  $: console.log('briefing.marketData: in $: ', $briefing.marketData);
-  $: console.log('briefingWithMarketDataStore in $: ', $briefingWithMarketData);
-  $: console.log('createdBriefingStore in $: ', $createdBriefing);
+  $: console.log('$deployment: in $: ', $deployment);
+  $: console.log('$marketData: in $: ', $marketData);
+  $: console.log('$marketData_1: in $: ', $marketData_1);
 
   // functions
 
   onDestroy(() => {
     unsubscribeBriefing();
     unsubscribeDeployment();
-    unsubscribe_1();
-    unsubscribe_2();
   });
 </script>
 

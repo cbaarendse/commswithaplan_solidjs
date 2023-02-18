@@ -2,27 +2,24 @@
   // imports
   import Fa from 'svelte-fa/src/fa.svelte';
   import {faPerson, faPersonDress} from '@fortawesome/free-solid-svg-icons';
-  import {briefing} from '../../../stores/reach';
+  import {marketData, briefing} from '../../../stores/reach';
   import {Strategy} from '/imports/both/typings/types';
   import {onDestroy} from 'svelte';
 
   // variables
-  let marketData: Strategy['marketData'];
   let useMarketData: Strategy['useMarketData'];
   let genders: Strategy['genders'];
   const unsubscribe = briefing.subscribe((data) => {
-    marketData = data.marketData;
     useMarketData = data.useMarketData;
     genders = data.genders;
   });
-  $: disabled = !marketData || !useMarketData;
+  $: disabled = !$marketData || !useMarketData;
   $: console.log('$: $genders in genderButton: ', genders);
 
   // functions
   function toggleGenders() {
-    console.log('genders in/ before togglegenders: ', genders);
-    if (marketData && genders) {
-      if (genders.has('f') && genders.has('m') && genders.has('x')) {
+    if ($marketData && genders) {
+      if (genders.has('f') && genders.has('m') && !genders.has('x')) {
         briefing.update((data) => {
           data.genders = new Set([]);
           return data;
@@ -41,11 +38,6 @@
       } else if (!genders.has('f') && genders.has('m') && !genders.has('x')) {
         briefing.update((data) => {
           data.genders?.add('f');
-          return data;
-        });
-      } else if (genders.has('f') && genders.has('m') && !genders.has('x')) {
-        briefing.update((data) => {
-          data.genders?.add('x');
           return data;
         });
       }

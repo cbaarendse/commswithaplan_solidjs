@@ -8,7 +8,14 @@
   import MarketSelect from './MarketSelect.svelte';
   import createReachTool from '../../../functions/reach';
   import {language} from '../../../stores/utils';
-  import {briefing, deployment, sortedByName, touchPointsForData, touchPointsForFormula} from '../../../stores/reach';
+  import {
+    marketData,
+    briefing,
+    deployment,
+    sortedByName,
+    touchPointsForData,
+    touchPointsForFormula
+  } from '../../../stores/reach';
   import {CWAPUser, Strategy} from '../../../../both/typings/types';
   import Fa from 'svelte-fa/src/fa.svelte';
   import {
@@ -26,12 +33,10 @@
   // variables
   let currentUser: CWAPUser | null;
   const reachTool = createReachTool();
-  let marketData: Strategy['marketData'];
   let useMarketData: Strategy['useMarketData'];
   let deployedTouchPoints: Strategy['deployment'];
 
   const unsubscribeBriefing = briefing.subscribe((data) => {
-    marketData = data.marketData;
     useMarketData = data.useMarketData;
   });
 
@@ -51,7 +56,7 @@
         return data.map((touchPoint) => Object.assign(touchPoint, {data: 0.0}));
       });
     } else {
-      marketData ? deployment.set(touchPointsForData()) : deployment.set(touchPointsForFormula());
+      $marketData ? deployment.set(touchPointsForData()) : deployment.set(touchPointsForFormula());
     }
   }
 
@@ -81,50 +86,50 @@
     <form>
       <MarketSelect />
       <UseMarketDataCheck />
-      {#if marketData && useMarketData}
+      {#if $marketData && useMarketData}
         <GenderButton />
         <AgeGroupsSelect />
       {/if}
     </form>
   {/if}
-  <menu class="operations">
-    <button type="button" on:click|stopPropagation|preventDefault={reset}>
-      {#if reachTool.areAllTouchPointsValueZero(deployedTouchPoints)}<Fa icon={faArrowRotateLeft} />{:else}<Fa
-          icon={fa0}
-        />{/if}
-    </button>
-    <button type="button" on:click|stopPropagation|preventDefault={sort}>
-      {#if $sortedByName}<Fa
-          icon={faArrowDownWideShort}
-        />{:else if !$sortedByName && reachTool.areAllTouchPointsValueZero(deployedTouchPoints) && reachTool.isShowAll(deployedTouchPoints)}<Fa
-          icon={faArrowDownAZ}
-        />{:else}<Fa icon={faArrowDownAZ} />
-      {/if}
-    </button>
-    <button type="button" on:click|stopPropagation|preventDefault={hide}>
-      {#if reachTool.isShowAll(deployedTouchPoints)}<Fa icon={faMinus} />{:else}<Fa icon={faBars} />{/if}
-    </button>
-  </menu>
+  <div class="operations__container">
+    <menu>
+      <button type="button" on:click|stopPropagation|preventDefault={reset}>
+        {#if reachTool.areAllTouchPointsValueZero(deployedTouchPoints)}<Fa icon={faArrowRotateLeft} />{:else}<Fa
+            icon={fa0}
+          />{/if}
+      </button>
+      <button type="button" on:click|stopPropagation|preventDefault={sort}>
+        {#if $sortedByName}<Fa
+            icon={faArrowDownWideShort}
+          />{:else if !$sortedByName && reachTool.areAllTouchPointsValueZero(deployedTouchPoints) && reachTool.isShowAll(deployedTouchPoints)}<Fa
+            icon={faArrowDownAZ}
+          />{:else}<Fa icon={faArrowDownAZ} />
+        {/if}
+      </button>
+      <button type="button" on:click|stopPropagation|preventDefault={hide}>
+        {#if reachTool.isShowAll(deployedTouchPoints)}<Fa icon={faMinus} />{:else}<Fa icon={faBars} />{/if}
+      </button>
+      <button class="save" type="button" on:click|stopPropagation|preventDefault={reset}>
+        <Fa icon={faDownload} />
+      </button>
+    </menu>
 
-  <nav class="files">
-    <a href={'/tools/reach/strategies'} data-tinro-ignore>
-      <Fa icon={faFolderOpen} />
-    </a>
-    <a href={'/tools/reach/'} data-tinro-ignore>
-      <Fa icon={faPlus} />
-    </a>
-  </nav>
-  <menu class="memory">
-    <button class="save" type="button" on:click|stopPropagation|preventDefault={reset}>
-      <Fa icon={faDownload} />
-    </button>
-  </menu>
+    <nav class="files">
+      <a href={'/tools/reach/strategies'} data-tinro-ignore>
+        <Fa icon={faFolderOpen} />
+      </a>
+      <a href={'/tools/reach/'} data-tinro-ignore>
+        <Fa icon={faPlus} />
+      </a>
+    </nav>
+  </div>
 </div>
 
 <style>
   div.container {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr;
     grid-template-rows: auto;
     gap: 1.4em;
     padding: 1em;
@@ -133,7 +138,6 @@
   }
 
   form {
-    grid-column: span 3;
     display: grid;
     gap: 0.8rem;
     grid-template-columns: 2fr 3fr;
@@ -141,12 +145,21 @@
     justify-content: center;
     align-items: center;
   }
+  div.operations__container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 0.7em;
+  }
 
   menu {
-    flex: 100%;
     display: flex;
-    gap: 7%;
+    gap: 2rem;
     justify-content: flex-start;
+  }
+  nav {
+    display: flex;
+    gap: 2rem;
+    justify-content: flex-end;
   }
 
   button {
@@ -158,18 +171,21 @@
   button:hover {
     opacity: 0.7;
   }
-  menu.operations button {
+  menu button {
     color: var(--ra-red);
   }
-  nav.files a {
-    color: var(--ra-green);
-  }
-  menu.memory button {
+  menu button:last-of-type {
     color: var(--ra-blue);
   }
-
   menu button:hover {
     color: var(--ra-green);
+  }
+  nav.files a {
+    font-size: 2.1rem;
+    color: var(--ra-green);
+  }
+  nav.files a:hover {
+    opacity: 0.7;
   }
 
   @media screen and (min-width: 768px) {

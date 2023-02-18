@@ -1,6 +1,13 @@
 // Reach
 // imports
-import type {TouchPointDefinition, DeployedTouchPoint, Market, Language, InputType} from '../../both/typings/types';
+import type {
+  TouchPointDefinition,
+  DeployedTouchPoint,
+  Market,
+  Language,
+  InputType,
+  Results
+} from '../../both/typings/types';
 
 // main function (IIFE closure)
 export default function createReachTool() {
@@ -116,7 +123,7 @@ export default function createReachTool() {
     }
     return 100 * duplicateReachPortion;
   }
-  function calculateResults(touchPoints: DeployedTouchPoint[]): [number, number] {
+  function calculateResults(touchPoints: DeployedTouchPoint[]): Results {
     const totalReach = calculateTotalReach(touchPoints);
     const overlap = calculateOverlap(touchPoints);
     return [totalReach, overlap];

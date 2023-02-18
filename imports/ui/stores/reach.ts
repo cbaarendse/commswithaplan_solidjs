@@ -1,7 +1,14 @@
 // imports
 import {writable, Writable, readable, Readable, derived} from 'svelte/store';
 import {Meteor} from 'meteor/meteor';
-import {Market, Strategy, TouchPointDefinition, DeployedTouchPoint} from '../../both/typings/types';
+import {
+  Market,
+  Strategy,
+  TouchPointDefinition,
+  DeployedTouchPoint,
+  Results,
+  SortedByName
+} from '../../both/typings/types';
 import createReachTool from '../functions/reach';
 
 // variables
@@ -10,68 +17,59 @@ const reachTool = createReachTool();
 // strategy
 export const markets: Readable<Market[]> = readable(allMarkets());
 export const briefing: Writable<Omit<Strategy, 'deployment'>> = writable(briefingForFormula());
-export const marketData = writable(false, (set) => {
+export const marketData_1 = writable(false, (set) => {
   Meteor.callAsync('probabilities.checkForMarket', {marketName: 'nl'})
     .then((result) => {
-      console.log('result check in stores ', result);
+      console.log('result check in writable marketData ', result);
       set(result);
     })
     .catch((error) => console.log('error in check for market - in stores', error));
 });
-export const briefingWithMarketData = derived(
-  marketData,
-  ($marketData) => {
-    const briefing = briefingForFormula();
-    briefing.marketData = $marketData;
-    return briefing;
+export const marketData = derived(
+  briefing,
+  ($briefing, set) => {
+    Meteor.callAsync('probabilities.checkForMarket', {marketName: $briefing.marketName})
+      .then((result) => {
+        console.log('result check in derived marketData ', result);
+        set(result);
+      })
+      .catch((error) => console.log('error in check for market - in stores', error));
   },
-  briefingForFormula()
+  false
 );
-
-function createBriefing() {
-  const {subscribe, set, update} = writable(briefingForFormula());
-  let checkForData: boolean;
-  Meteor.callAsync('probabilities.checkForMarket', {marketName: briefingForFormula().marketName})
-    .then((result) => {
-      console.log('result check in createBriefing ', result);
-      checkForData = result;
-    })
-    .catch((error) => console.log('error in check for market - in createBriefing', error));
-
-  return {
-    subscribe,
-    updateMarketData: update((data) => {
-      data.marketData = checkForData;
-      return data;
-    })
-  };
-}
-export const createdBriefing = createBriefing();
-
 export const deployment: Writable<Strategy['deployment']> = writable(touchPointsForFormula());
-export const derivedStrategy = derived([briefing, deployment], ([$briefing, $deployment]) => {
+export const strategy = derived([briefing, deployment], ([$briefing, $deployment]) => {
   return {...$briefing, deployment: $deployment};
 });
-export const strategy: Writable<Strategy> = writable();
+
+export const sortedByName: Writable<SortedByName> = writable(true, () => {
+  () => {
+    console.log('sortedByName closed');
+  };
+});
 
 // results
-export const respondentsCount = derived(strategy, ($strategy) => {
-  let count: number;
-  if ($strategy.marketData && $strategy.useMarketData) {
-    Meteor.callAsync('probabilities.countRespondentsForMarket', {marketName: $strategy.marketName})
+export const respondentsCount = derived([briefing, marketData], ([$briefing, $marketData], set) => {
+  if ($marketData && $briefing.useMarketData) {
+    Meteor.callAsync('probabilities.countRespondentsForMarket', {marketName: $briefing.marketName})
       .then((result: number) => {
         if (result > 0) {
-          count = result;
+          set(result);
         }
       })
       .catch((error) => console.log('error in count', error));
   }
-  return count;
 });
 
 export const peopleInRange: Writable<number> = writable(0, () => {
   () => {
     console.log('peopleInRange closed');
+  };
+});
+
+export const population: Writable<number> = writable(0, () => {
+  () => {
+    console.log('population closed');
   };
 });
 
@@ -87,23 +85,18 @@ export const reachedUnique: Writable<number> = writable(0, () => {
   };
 });
 
-export const sortedByName: Writable<boolean> = writable(true, () => {
-  () => {
-    console.log('sortedByName closed');
-  };
+export const results = derived([marketData, briefing, deployment], ([$marketData, $briefing, $deployment]) => {
+  if ($marketData && $briefing.useMarketData) {
+    console.log('fetch results');
+    return [0, 0];
+  } else {
+    return reachTool.calculateResults($deployment);
+  }
 });
 
-export const overlap: Writable<number> = writable(0, () => {
-  () => {
-    console.log('overlap closed');
-  };
-});
+export const overlap = derived(results, ($results) => $results[0]);
 
-export const totalReach: Writable<number> = writable(0, () => {
-  () => {
-    console.log('totalReach closed');
-  };
-});
+export const totalReach = derived(results, ($results) => $results[1]);
 
 export function touchPointsForFormula(): DeployedTouchPoint[] {
   return touchPointsDefinitions().map((touchPointDefinition) => {
@@ -130,7 +123,6 @@ export function touchPointsForData(): DeployedTouchPoint[] {
 export function briefingForFormula(): Omit<Strategy, 'deployment'> {
   return {
     marketName: 'nl',
-    marketData: false,
     useMarketData: undefined,
     userId: '',
     title: 'New Strategy',
@@ -148,7 +140,6 @@ export function briefingForFormula(): Omit<Strategy, 'deployment'> {
 export function briefingForData(): Omit<Strategy, 'deployment'> {
   return {
     marketName: 'nl',
-    marketData: false,
     useMarketData: false,
     userId: '',
     title: 'New Strategy',

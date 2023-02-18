@@ -75,13 +75,21 @@ export type Market = {
 };
 export type AgeGroup = [number, number];
 export type Genders = Set<'f' | 'm' | 'x' | undefined | null>;
+export type MarketData = boolean;
+export type RespondentsCount = number;
+export type peopleInRange = number;
+export type ReachedNonUnique = number;
+export type ReachedUnique = number;
+export type SortedByName = boolean;
+export type Overlap = number;
+export type TotalReach = number;
+export type Results = [Overlap, TotalReach];
 
 export type Strategy = {
   _id?: string | Mongo.ObjectID;
   userId: string | Mongo.ObjectID;
   title: string;
   marketName: Market['name'];
-  marketData: boolean;
   createdAt: Date;
   lastChanged: Date;
   deployment: DeployedTouchPoint[];
@@ -124,26 +132,9 @@ export type Card = Partial<Illustrated & Action & Link> &
 export type Checkbox = HTMLInputAttributes;
 export type Logo = svelteHTML.IntrinsicElements['div'] & Partial<HTMLElement['style']> & Colored;
 export type Input = HTMLInputAttributes;
-
-// export type RangeInput = Omit<Input, 'step'> & {step: number | string | undefined | null};
 export type Label = svelteHTML.IntrinsicElements['label'] & Partial<HTMLElement['style']>;
 export type Meter = svelteHTML.IntrinsicElements['meter'] & Partial<HTMLElement['style']>;
 
 // building blocks
 // type CWAPColor = {color: 'blue' | 'green' | 'red' | 'teal' | 'grey' | 'transparent' | 'transparentnoborder'};
 // type Display = 'none' | 'block' | 'grid' | 'flex';
-// type Appa = svelte.JSX.AriaAttributes['aria-roledescription'];
-
-// export type Slider = Omit<
-//   Partial<svelte.JSX.HTMLAttributes<HTMLElementTagNameMap['input']>>,
-//   'value' | 'min' | 'max' | 'step'
-// > & {
-//   value: string | undefined | null;
-//   min: string | undefined | null;
-//   max: string | undefined | null;
-//   step: string | undefined | null;
-// } & Partial<HTMLElement['style']>;
-
-// declare module 'meteor/didericis:callpromise-mixin' {
-//   export function CallPromiseMixinType(methodOptions: any): any;
-// }
