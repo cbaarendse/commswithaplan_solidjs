@@ -1,65 +1,31 @@
 <script lang="ts">
   // imports
-  import type {DeployedTouchPoint, Input} from '../../../../both/typings/types';
-  import createReachTool from '../../../functions/reach';
-  import {overlap, totalReach, deployment} from '../../../stores/reach';
-  import {onDestroy} from 'svelte';
+  import type {Input} from '../../../../both/typings/types';
+  import {deployment} from '../../../stores/reach';
 
   //variables
-  const reachTool = createReachTool();
   export let rangeInput: Input;
   export let displayName: string = 'touchpoint_name';
   export let index: number;
-  let deployedTouchPoints: DeployedTouchPoint[];
-  const unsubscribe = deployment.subscribe((data) => {
-    deployedTouchPoints = data;
-  });
+  const {id, name, min, max, step} = rangeInput;
+  let {value} = rangeInput;
 
   // functions
-  function changeValue() {
-    if (rangeInput.name && typeof rangeInput.value == 'number') {
-      deployment.update((data) => {
-        let updatedTouchPoint = Object.assign(data[index], {value: rangeInput.value});
-        return data.splice(index, 1, updatedTouchPoint);
-      });
-    }
+  $: if (name && typeof value == 'number') {
+    deployment.update((data) => {
+      let updatedTouchPoint = Object.assign(data[index], {value: value});
+      console.log('updated TouchPoint, index', updatedTouchPoint, index);
+      data.splice(index, 1, updatedTouchPoint);
+      return data;
+    });
   }
-
-  function inputValue() {
-    if (rangeInput.name && typeof rangeInput.value == 'number') {
-      deployment.update((data) => {
-        let updatedTouchPoint = Object.assign(data[index], {value: rangeInput.value});
-        return data.splice(index, 1, updatedTouchPoint);
-      });
-      getResults();
-    }
-  }
-
-  function getResults(): void {
-    const results = reachTool.calculateResults(deployedTouchPoints);
-    [$totalReach, $overlap] = results;
-  }
-
-  onDestroy(() => {
-    unsubscribe();
-  });
 </script>
 
 <!-- TODO: select field for inputtype between label and input -->
 <form>
   <fieldset>
     <label for={rangeInput.name}>{displayName}</label>
-    <input
-      id={rangeInput.id}
-      name={rangeInput.name}
-      type="range"
-      min={rangeInput.min}
-      max={rangeInput.max}
-      step={rangeInput.step}
-      bind:value={rangeInput.value}
-      on:change={changeValue}
-      on:input={inputValue}
-    />
+    <input type="range" {id} {name} {min} {max} {step} bind:value />
   </fieldset>
 </form>
 

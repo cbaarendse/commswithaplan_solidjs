@@ -53,6 +53,7 @@ Meteor.methods({
       } = require('../touchpoints/server/functions');
 
       // Set up probabilities
+      // TODO: propose to first convert objects in collection to Map = new Map(Object.entries(probability)), for each array element
       const probabilitiesForStrategy: Probability[] | undefined = dataTool.filterProbabilitiesForStrategy(
         probabilities,
         strategy,

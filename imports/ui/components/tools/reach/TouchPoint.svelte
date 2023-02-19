@@ -1,32 +1,25 @@
 <script lang="ts">
   // imports
   import type {DeployedTouchPoint} from '../../../../both/typings/types';
-  import {Writable} from 'svelte/store';
   import RangeInput from './RangeInput.svelte';
   import Modal from '../../reusable/Modal.svelte';
   import NumberInput from './NumberInput.svelte';
   import {language, translations} from '../../../stores/utils';
-  import {deployment} from '../../../stores/reach';
   import createFormatter from '../../../functions/format';
   import createConverter from '../../../functions/convert';
-  import {onDestroy} from 'svelte';
   //import {notify} from '../../notifications/NotificationsFunctions';
 
   // variables
   export let touchPoint: DeployedTouchPoint;
   export let index: number;
-  let deployedTouchPoints: DeployedTouchPoint[];
-  const unsubscribe = deployment.subscribe((data) => (deployedTouchPoints = data));
   $: definition = touchPoint.definitions.filter((definition) => definition.language == $language)[0];
   const formatter = createFormatter();
   const converter = createConverter();
   let hovered: boolean = false;
-  let displayManualInput: string;
+  let displayManualInput: 'none' | 'flex' = 'none';
   let displayTouchPointDescription: 'none' | 'flex' = 'none';
 
   // functions
-
-  onDestroy(() => unsubscribe());
 </script>
 
 <div class="container" style="display:{touchPoint.show ? 'flex' : 'none'};">

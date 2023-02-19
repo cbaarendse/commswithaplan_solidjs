@@ -83,7 +83,7 @@ export type ReachedUnique = number;
 export type SortedByName = boolean;
 export type Overlap = number;
 export type TotalReach = number;
-export type Results = [Overlap, TotalReach];
+export type Results = [TotalReach, Overlap];
 
 export type Strategy = {
   _id?: string | Mongo.ObjectID;

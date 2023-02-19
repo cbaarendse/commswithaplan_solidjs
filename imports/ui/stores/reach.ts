@@ -86,17 +86,17 @@ export const reachedUnique: Writable<number> = writable(0, () => {
 });
 
 export const results = derived([marketData, briefing, deployment], ([$marketData, $briefing, $deployment]) => {
+  console.log('fetch results');
   if ($marketData && $briefing.useMarketData) {
-    console.log('fetch results');
     return [0, 0];
   } else {
     return reachTool.calculateResults($deployment);
   }
 });
 
-export const overlap = derived(results, ($results) => $results[0]);
+export const totalReach = derived(results, ($results) => $results[0]);
 
-export const totalReach = derived(results, ($results) => $results[1]);
+export const overlap = derived(results, ($results) => $results[1]);
 
 export function touchPointsForFormula(): DeployedTouchPoint[] {
   return touchPointsDefinitions().map((touchPointDefinition) => {

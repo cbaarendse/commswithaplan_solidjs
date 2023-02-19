@@ -7,6 +7,12 @@
   export let numberInput: Input;
   export let displayName: string = 'touchpoint_name';
   export let displayManualInput = 'flex';
+  // from rangeInput
+  export let rangeInput: Input;
+  export let displayName: string = 'touchpoint_name';
+  export let index: number;
+  const {id, name, min, max, step} = rangeInput;
+  let {value} = rangeInput;
 
   // variables
   let strategy = reachTool.getStrategy();
