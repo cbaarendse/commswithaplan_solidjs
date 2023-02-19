@@ -18,7 +18,7 @@
       event instanceof CustomEvent ||
       event instanceof MouseEvent
     ) {
-      display = 'none';
+      // display = 'none';
       // 'destroyModal' gives opportunity to be specific if there are multiple modals
       dispatch('destroyModal');
     }
@@ -32,6 +32,9 @@
     style="display:{display}"
     transition:fade={{delay: 0, duration: 400}}
     on:click|preventDefault|stopPropagation|self={dismiss}
+    on:keydown
+    on:keyup
+    on:keypress
   >
     <div class="modal">
       <menu>
@@ -71,8 +74,8 @@
   }
   .modal {
     flex: 0 1 40rem;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr;
     justify-content: space-evenly;
     align-items: center;
     margin: 1.4em;

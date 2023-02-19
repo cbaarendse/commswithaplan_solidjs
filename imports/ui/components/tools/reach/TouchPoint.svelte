@@ -42,10 +42,10 @@
       rangeInput={{
         name: touchPoint.name,
         id: touchPoint.name,
-        value: touchPoint.value.toString(),
-        min: '0',
-        max: '100',
-        step: '1'
+        value: touchPoint.value,
+        min: 0,
+        max: 100,
+        step: 1
       }}
     />
   </div>
@@ -77,6 +77,7 @@
     }}
   >
     <NumberInput
+      {index}
       displayName={definition.displayName}
       {displayManualInput}
       numberInput={{
@@ -88,6 +89,9 @@
         step: 1,
         placeholder: `${converter.translate('input', $translations, $language) + ' 0 - 100'}`,
         readonly: false
+      }}
+      on:destroyModal={() => {
+        displayManualInput = 'none';
       }}
     />
   </Modal>

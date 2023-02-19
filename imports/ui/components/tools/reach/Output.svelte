@@ -114,6 +114,7 @@
   }
   label {
     display: flex;
+    justify-content: space-between;
     gap: 1em;
     font-size: 1.1em;
     cursor: pointer;
@@ -127,7 +128,7 @@
       grid-template-columns: repeat(3, auto auto);
     }
     div.meter__container {
-      grid-template-columns: auto 1fr;
+      grid-template-columns: auto auto 1fr;
     }
   }
   @media screen and (min-width: 1024px) {

@@ -38,29 +38,33 @@
 
 <h3>{converter.translate('strategies', $translations, $language)}</h3>
 
-{#if subReady}
-  <ul>
-    {#each strategies as strategy}
-      <li>
-        <time class="date" datetime={strategy.lastChanged}>
-          {DateTime.fromJSDate(strategy.lastChanged).toLocaleString(DateTime.DATETIME_MED)}
-        </time>
-        <h4>{strategy.title}</h4>
-        <span>{currentUser?.profile?.firstname}&nbsp;{currentUser?.profile?.surname}</span>
-        <nav>
-          <a class="list" href={'/tools/reach/'} data-tinro-ignore>
-            <Fa icon={faTableList} />
-          </a>
-        </nav>
-        <menu>
-          <button class="edit"><Fa icon={faEdit} /></button>
-          <button class="delete"><Fa icon={faXmark} /></button>
-        </menu>
-      </li>
-    {/each}
-  </ul>
+{#if currentUser}
+  {#if subReady}
+    <ul>
+      {#each strategies as strategy}
+        <li>
+          <time class="date" datetime={strategy.lastChanged}>
+            {DateTime.fromJSDate(strategy.lastChanged).toLocaleString(DateTime.DATETIME_MED)}
+          </time>
+          <h4>{strategy.title}</h4>
+          <span>{currentUser?.profile?.firstname}&nbsp;{currentUser?.profile?.surname}</span>
+          <nav>
+            <a class="list" href={'/tools/reach/'} data-tinro-ignore>
+              <Fa icon={faTableList} />
+            </a>
+          </nav>
+          <menu>
+            <button class="edit"><Fa icon={faEdit} /></button>
+            <button class="delete"><Fa icon={faXmark} /></button>
+          </menu>
+        </li>
+      {/each}
+    </ul>
+  {:else}
+    <div class="wait">Loading...</div>
+  {/if}
 {:else}
-  <div class="wait">Loading...</div>
+  <div class="wait">Log in to work with saved strategies.</div>
 {/if}
 
 <style>

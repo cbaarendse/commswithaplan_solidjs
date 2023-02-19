@@ -4,7 +4,7 @@
   import Controls from './Controls.svelte';
   import Output from './Output.svelte';
   import TouchPoint from './TouchPoint.svelte';
-  import {onDestroy, onMount} from 'svelte';
+  import {onDestroy} from 'svelte';
   import createReachTool from '../../../functions/reach';
   import {language} from '../../../stores/utils';
   import {

@@ -86,7 +86,7 @@ export const reachedUnique: Writable<number> = writable(0, () => {
 });
 
 export const results = derived([marketData, briefing, deployment], ([$marketData, $briefing, $deployment]) => {
-  console.log('fetch results');
+  console.log('produce results');
   if ($marketData && $briefing.useMarketData) {
     return [0, 0];
   } else {

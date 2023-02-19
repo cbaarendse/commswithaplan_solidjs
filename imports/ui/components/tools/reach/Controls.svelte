@@ -53,7 +53,7 @@
   function reset() {
     if (!reachTool.areAllTouchPointsValueZero(deployedTouchPoints)) {
       deployment.update((data) => {
-        return data.map((touchPoint) => Object.assign(touchPoint, {data: 0.0}));
+        return data.map((touchPoint) => Object.assign(touchPoint, {value: 0.0}));
       });
     } else {
       $marketData ? deployment.set(touchPointsForData()) : deployment.set(touchPointsForFormula());

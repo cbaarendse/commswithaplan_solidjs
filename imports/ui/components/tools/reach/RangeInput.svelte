@@ -1,7 +1,7 @@
 <script lang="ts">
   // imports
   import type {Input} from '../../../../both/typings/types';
-  import {deployment} from '../../../stores/reach';
+  import {deployment, briefing} from '../../../stores/reach';
 
   //variables
   export let rangeInput: Input;
@@ -11,7 +11,7 @@
   let {value} = rangeInput;
 
   // functions
-  $: if (name && typeof value == 'number') {
+  $: if (!$briefing.useMarketData && name && typeof value == 'number') {
     deployment.update((data) => {
       let updatedTouchPoint = Object.assign(data[index], {value: value});
       console.log('updated TouchPoint, index', updatedTouchPoint, index);
@@ -19,13 +19,24 @@
       return data;
     });
   }
+
+  function onChange() {
+    if ($briefing.useMarketData && name && typeof value == 'number') {
+      deployment.update((data) => {
+        let updatedTouchPoint = Object.assign(data[index], {value: value});
+        console.log('updated TouchPoint, index, in change', updatedTouchPoint, index);
+        data.splice(index, 1, updatedTouchPoint);
+        return data;
+      });
+    }
+  }
 </script>
 
 <!-- TODO: select field for inputtype between label and input -->
 <form>
   <fieldset>
-    <label for={rangeInput.name}>{displayName}</label>
-    <input type="range" {id} {name} {min} {max} {step} bind:value />
+    <label for={name}>{displayName}</label>
+    <input type="range" {id} {name} {min} {max} {step} bind:value on:change={onChange} />
   </fieldset>
 </form>
 

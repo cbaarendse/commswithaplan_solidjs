@@ -31,11 +31,6 @@ export type Chapter = Omit<Definition, 'description'> &
   };
 export type Article = Omit<Definition, 'description'> & Omit<Content, 'definitions'> & {paragraphs: Paragraph[]};
 export type InputType = 'contacts' | 'grps' | 'impressions' | 'reach';
-export type DeployedTouchPoint = TouchPointDefinition & {
-  value: number;
-  show: boolean;
-  inputType: InputType;
-};
 
 export type UserProfile = {
   firstname?: string;
@@ -84,6 +79,11 @@ export type SortedByName = boolean;
 export type Overlap = number;
 export type TotalReach = number;
 export type Results = [TotalReach, Overlap];
+export type DeployedTouchPoint = TouchPointDefinition & {
+  value: number;
+  show: boolean;
+  inputType: InputType;
+};
 
 export type Strategy = {
   _id?: string | Mongo.ObjectID;
