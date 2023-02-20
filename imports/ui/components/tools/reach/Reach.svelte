@@ -4,7 +4,7 @@
   import Controls from './Controls.svelte';
   import Output from './Output.svelte';
   import TouchPoint from './TouchPoint.svelte';
-  import {setContext, onDestroy} from 'svelte';
+  import {onDestroy} from 'svelte';
   import createReachTool from '../../../functions/reach';
   import {language} from '../../../stores/utils';
   import {
@@ -25,7 +25,6 @@
   let marketName: Strategy['marketName'];
   let useMarketData: Strategy['useMarketData'];
   let deployedTouchPoints: DeployedTouchPoint[];
-  setContext('deployedTouchPoints', $deployment);
 
   // subscriptions
   let unsubscribeBriefing = briefing.subscribe((data) => {

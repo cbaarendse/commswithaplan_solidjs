@@ -1,15 +1,23 @@
 <script lang="ts">
   // imports
-  import {getContext} from 'svelte';
-  import type {DeployedTouchPoint} from '../../../../both/typings/types';
   import {deployment, briefing} from '../../../stores/reach';
   import {language} from '../../../stores/utils';
+  import createConverter from '/imports/ui/functions/convert';
+  import Fa from 'svelte-fa/src/fa.svelte';
+  import {faSort} from '@fortawesome/free-solid-svg-icons';
+  import {INPUT_TYPES} from '../../../../both/constants/constants';
 
   //variables
+  const converter = createConverter();
   export let index: number;
-  let touchPoints: DeployedTouchPoint[] = getContext('deployedTouchPoints');
-  const {name, value, definitions} = touchPoints[index];
+  const min = 0;
+  const max = 100;
+  const step = 1;
+  const {name, definitions} = $deployment[index];
+  $: value = $deployment[index].value;
   $: definition = definitions.filter((definition) => definition.language == $language)[0];
+  console.log('value in range input ', value);
+  $: console.log('$: value in range input ', value);
 
   // functions
   // $: if (!$briefing.useMarketData && name && typeof value == 'number') {
@@ -37,11 +45,19 @@
 <form>
   <fieldset>
     <label for={name}>{definition.displayName}</label>
+    {#if $briefing.useMarketData}
+      <select id={`${name}_inputtype__select`}>
+        {#each [...INPUT_TYPES] as [key, value]}<option value={key}>
+            {converter.displayName(value, $language)}
+          </option>{/each}
+      </select>
+      <label for={`${name}_inputtype__select`}><Fa icon={faSort} color={'var(--ra-teal)'} /></label>
+    {/if}
     <input
       type="range"
-      min="0"
-      max="100"
-      step="1"
+      {min}
+      {max}
+      {step}
       id={name}
       {name}
       on:change={onChange}
@@ -62,7 +78,10 @@
     --track-height-desktop: 0.84rem;
   }
   fieldset {
-    display: block;
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    align-items: center;
+    gap: 0.7rem;
     border: none;
     padding: 0rem;
     margin: 0rem;
@@ -70,6 +89,25 @@
   label {
     font-size: 1.4rem;
     display: inline-block;
+  }
+  select {
+    appearance: none;
+    font-size: 1.4rem;
+    color: var(--ra-teal);
+    border: none;
+    background-color: transparent;
+    padding: 0.4em 0.6em 0.4em 0.4em;
+  }
+  select:focus {
+    outline: solid 1px var(--ra-green);
+  }
+  label {
+    background-color: none;
+    padding: 0.2em 0.4em;
+  }
+
+  input {
+    grid-column: span 3;
   }
 
   input[type='range']:focus {

@@ -1,4 +1,4 @@
-import {Content, Translation, Language} from '../../both/typings/types';
+import {Content, Translation, Language, Definition} from '../../both/typings/types';
 
 // Convert
 export default function createConverter() {
@@ -48,6 +48,14 @@ export default function createConverter() {
     return result;
   }
 
+  function displayName(definitions: Omit<Definition, 'description'>[], language: Language) {
+    return definitions.filter((item) => {
+      if (typeof item === 'object' && item) {
+        return item.language == language;
+      }
+    })[0].displayName;
+  }
+
   function contentDefinition<D>(definitions: D[], language: Language) {
     return definitions.filter((item) => {
       if (typeof item === 'object' && item && 'language' in item) {
@@ -61,6 +69,7 @@ export default function createConverter() {
     displayContent,
     describeContent,
     contentItem,
-    expandItems
+    expandItems,
+    displayName
   };
 }

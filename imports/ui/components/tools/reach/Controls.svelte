@@ -61,7 +61,7 @@
   }
 
   function hide() {
-    deployment.set(reachTool.hide(deployedTouchPoints));
+    deployment.set(reachTool.hide($deployment));
   }
 
   function sort() {

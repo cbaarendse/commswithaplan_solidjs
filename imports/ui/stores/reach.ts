@@ -646,6 +646,7 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
   ];
 }
 
+// TODO: use INPUT-TYPES constant (Map) for this
 export function touchPointsPerInputType(): Map<string, Set<string>> {
   const contacts = new Set([
     'ambassador',

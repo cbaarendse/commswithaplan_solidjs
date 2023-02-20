@@ -1,6 +1,5 @@
 <script lang="ts">
   // imports
-  import {getContext} from 'svelte';
   import type {DeployedTouchPoint, Input} from '../../../../both/typings/types';
   import {translations, language} from '../../../stores/utils';
   import {deployment} from '../../../stores/reach';
@@ -10,27 +9,22 @@
   // variables
   export let index: number;
   let dispatch = createEventDispatcher();
-  const touchPoints: DeployedTouchPoint[] = getContext('deployedTouchPoints');
-  const {name, definitions} = touchPoints[index];
-  let {value} = touchPoints[index];
+  const min = 0;
+  const max = 100;
+  const step = 1;
+  const {name, definitions} = $deployment[index];
+  let value: DeployedTouchPoint['value'];
   $: definition = definitions.filter((definition) => definition.language == $language)[0];
   const converter = createConverter();
-  let numberInput: Input;
 
-  $: disabled = isValid(numberInput) ? false : true;
+  $: disabled = isValid(value, min, max) ? false : true;
 
   // functions
-  function isValid(i: Input): boolean {
-    if (typeof i.value != 'number') {
+  function isValid(v: DeployedTouchPoint['value'], m: number, mx: number): boolean {
+    if (typeof v != 'number') {
       return false;
     }
-    if (typeof i.min != 'number') {
-      i.min = 0;
-    }
-    if (typeof i.max != 'number') {
-      i.max = 100;
-    }
-    return i.value >= i.min && i.value <= i.max;
+    return v >= m && v <= mx;
   }
 
   function submitValue() {
@@ -59,13 +53,12 @@
     {name}
     id={name}
     type="number"
-    min="0,"
-    max="100,"
-    step="1,"
+    {min}
+    {max}
+    {step}
     placeholder="{`${converter.translate('input', $translations, $language) + ' 0 - 100'}`},"
     readonly={false}
-    bind:value
-    bind:this={numberInput}
+    bind:value={$deployment[index].value}
   />
   <input
     class="submit__button"

@@ -12,7 +12,7 @@
   // variables
   const converter = createConverter();
   const formatter = createFormatter();
-  let displayOutputDescription: 'none' | 'flex' = 'none';
+  let displayOutputDescription: boolean = false;
   let outputName: 'total_reach' | 'overlap' = 'total_reach';
   $: title = converter.displayContent(outputName, $definitions, $language);
   $: description = converter.describeContent(outputName, $definitions, $language);
@@ -35,7 +35,7 @@
     <!-- <Spinner /> -->
     <label
       on:click|preventDefault|stopPropagation={() => {
-        displayOutputDescription = 'flex';
+        displayOutputDescription = true;
         outputName = 'total_reach';
       }}
       on:keydown
@@ -62,7 +62,7 @@
 
     <label
       on:click|preventDefault|stopPropagation={() => {
-        displayOutputDescription = 'flex';
+        displayOutputDescription = true;
         outputName = 'overlap';
       }}
       on:keydown
@@ -87,7 +87,7 @@
   {title}
   display={displayOutputDescription}
   on:destroyModal={() => {
-    displayOutputDescription = 'none';
+    displayOutputDescription = false;
   }}
 >
   {description}

@@ -1,23 +1,22 @@
 <script lang="ts">
   // imports
-  import {getContext} from 'svelte';
   import RangeInput from './RangeInput.svelte';
   import Modal from '../../reusable/Modal.svelte';
   import NumberInput from './NumberInput.svelte';
+  import {deployment} from '../../../stores/reach';
   import {language} from '../../../stores/utils';
   import createFormatter from '../../../functions/format';
-  import {DeployedTouchPoint} from '/imports/both/typings/types';
   //import {notify} from '../../notifications/NotificationsFunctions';
 
   // variables
   export let index: number;
-  let touchPoints: DeployedTouchPoint[] = getContext('deployedTouchPoints');
-  const {name, value, show, definitions} = touchPoints[index];
+  const {name, show, definitions} = $deployment[index];
+  $: value = $deployment[index].value;
   $: definition = definitions.filter((definition) => definition.language == $language)[0];
   const formatter = createFormatter();
   let hovered: boolean = false;
-  let displayManualInput: 'none' | 'flex' = 'none';
-  let displayTouchPointDescription: 'none' | 'flex' = 'none';
+  let displayManualInput: boolean;
+  let displayTouchPointDescription: boolean;
 
   // functions
 </script>
@@ -27,8 +26,8 @@
     <button
       class="touchpoint"
       on:click|preventDefault|stopPropagation={() => {
-        displayTouchPointDescription = 'flex';
-        displayManualInput = 'none';
+        displayTouchPointDescription = true;
+        displayManualInput = false;
       }}
       on:mouseenter={() => (hovered = true)}
       on:mouseleave={() => (hovered = false)}
@@ -41,9 +40,9 @@
   <div class="right">
     <button
       class="input"
-      on:click={() => {
-        displayManualInput = 'flex';
-        displayTouchPointDescription = 'none';
+      on:click|preventDefault|stopPropagation={() => {
+        displayManualInput = true;
+        displayTouchPointDescription = false;
       }}
     >
       <span>{formatter.toStringFormat(value)}&nbsp;%</span>
@@ -53,7 +52,7 @@
     title={definition.displayName}
     display={displayTouchPointDescription}
     on:destroyModal={() => {
-      displayTouchPointDescription = 'none';
+      displayTouchPointDescription = false;
     }}
   >
     {definition.description}
@@ -62,13 +61,13 @@
     title={definition.displayName}
     display={displayManualInput}
     on:destroyModal={() => {
-      displayManualInput = 'none';
+      displayManualInput = false;
     }}
   >
     <NumberInput
       {index}
       on:destroyModal={() => {
-        displayManualInput = 'none';
+        displayManualInput = false;
       }}
     />
   </Modal>

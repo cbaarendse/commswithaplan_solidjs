@@ -7,7 +7,7 @@
 
   // variables
   export let title: string = 'modal_title';
-  export let display: string = 'none';
+  export let display: boolean = false;
   let dispatch = createEventDispatcher();
   let disabled = false;
 
@@ -18,18 +18,16 @@
       event instanceof CustomEvent ||
       event instanceof MouseEvent
     ) {
-      // display = 'none';
-      // 'destroyModal' gives opportunity to be specific if there are multiple modals
       dispatch('destroyModal');
     }
   }
 </script>
 
 <svelte:window on:keyup={dismiss} />
-{#if display == 'flex'}
+{#if display}
   <div
     class="backdrop"
-    style="display:{display}"
+    style="display:{display ? 'flex' : 'none'}"
     transition:fade={{delay: 0, duration: 400}}
     on:click|preventDefault|stopPropagation|self={dismiss}
     on:keydown

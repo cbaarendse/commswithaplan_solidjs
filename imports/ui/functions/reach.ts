@@ -8,6 +8,7 @@ import type {
   InputType,
   Results
 } from '../../both/typings/types';
+import {INPUT_TYPES} from '/imports/both/constants/constants';
 
 // main function (IIFE closure)
 export default function createReachTool() {
@@ -15,11 +16,10 @@ export default function createReachTool() {
     touchPointName: DeployedTouchPoint['name'],
     touchPointsPerInputType: Map<string, Set<string>>
   ): InputType {
-    const inputTypes: Set<InputType> = new Set(['contacts', 'grps', 'impressions', 'reach']);
     let inputType: InputType = 'contacts';
-    for (const type of inputTypes) {
-      if (touchPointsPerInputType.has(type) && touchPointsPerInputType.get(type)?.has(touchPointName)) {
-        inputType = type;
+    for (const key of INPUT_TYPES.keys()) {
+      if (touchPointsPerInputType.has(key) && touchPointsPerInputType.get(key)?.has(touchPointName)) {
+        inputType = key;
       }
     }
     return inputType;
@@ -31,12 +31,6 @@ export default function createReachTool() {
 
   function isShowAll(touchPoints: DeployedTouchPoint[]): boolean {
     return touchPoints.every((touchPoint) => touchPoint.show === true);
-  }
-
-  // reset
-  function setAllTouchPointsToZero(touchPoints: DeployedTouchPoint[]): DeployedTouchPoint[] {
-    touchPoints.forEach((touchPoint) => (touchPoint.value = 0.0));
-    return touchPoints;
   }
 
   // sort
@@ -156,7 +150,6 @@ export default function createReachTool() {
     getAgeGroupsForMarket,
     calculateResults,
     areAllTouchPointsValueZero,
-    setAllTouchPointsToZero,
     sort,
     hide,
     isShowAll,
