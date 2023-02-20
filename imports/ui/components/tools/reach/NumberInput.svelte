@@ -1,17 +1,21 @@
 <script lang="ts">
   // imports
-  import type {Input} from '../../../../both/typings/types';
-  import {language} from '../../../stores/utils';
+  import {getContext} from 'svelte';
+  import type {DeployedTouchPoint, Input} from '../../../../both/typings/types';
+  import {translations, language} from '../../../stores/utils';
   import {deployment} from '../../../stores/reach';
+  import createConverter from '/imports/ui/functions/convert';
   import {createEventDispatcher} from 'svelte';
 
   // variables
-  export let numberInput: Input;
-  export let displayName: string = 'touchpoint_name';
   export let index: number;
   let dispatch = createEventDispatcher();
-  const {id, name, min, max, step, readonly, placeholder} = numberInput;
-  let {value} = numberInput;
+  const touchPoints: DeployedTouchPoint[] = getContext('deployedTouchPoints');
+  const {name, definitions} = touchPoints[index];
+  let {value} = touchPoints[index];
+  $: definition = definitions.filter((definition) => definition.language == $language)[0];
+  const converter = createConverter();
+  let numberInput: Input;
 
   $: disabled = isValid(numberInput) ? false : true;
 
@@ -49,8 +53,20 @@
 </script>
 
 <form autocomplete="off">
-  <label for={name}>{$language === 'dutch' ? 'Invoer voor ' : 'Input for '}{displayName}</label>
-  <input class="input__field" {name} {id} type="number" {placeholder} {min} {max} {step} {readonly} bind:value />
+  <label for={name}>{$language === 'dutch' ? 'Invoer voor ' : 'Input for '}{definition.displayName}</label>
+  <input
+    class="input__field"
+    {name}
+    id={name}
+    type="number"
+    min="0,"
+    max="100,"
+    step="1,"
+    placeholder="{`${converter.translate('input', $translations, $language) + ' 0 - 100'}`},"
+    readonly={false}
+    bind:value
+    bind:this={numberInput}
+  />
   <input
     class="submit__button"
     type="submit"

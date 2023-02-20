@@ -1,14 +1,7 @@
 // imports
 import {writable, Writable, readable, Readable, derived} from 'svelte/store';
 import {Meteor} from 'meteor/meteor';
-import {
-  Market,
-  Strategy,
-  TouchPointDefinition,
-  DeployedTouchPoint,
-  Results,
-  SortedByName
-} from '../../both/typings/types';
+import {Market, Strategy, TouchPointDefinition, DeployedTouchPoint, SortedByName} from '../../both/typings/types';
 import createReachTool from '../functions/reach';
 
 // variables
@@ -17,14 +10,6 @@ const reachTool = createReachTool();
 // strategy
 export const markets: Readable<Market[]> = readable(allMarkets());
 export const briefing: Writable<Omit<Strategy, 'deployment'>> = writable(briefingForFormula());
-export const marketData_1 = writable(false, (set) => {
-  Meteor.callAsync('probabilities.checkForMarket', {marketName: 'nl'})
-    .then((result) => {
-      console.log('result check in writable marketData ', result);
-      set(result);
-    })
-    .catch((error) => console.log('error in check for market - in stores', error));
-});
 export const marketData = derived(
   briefing,
   ($briefing, set) => {

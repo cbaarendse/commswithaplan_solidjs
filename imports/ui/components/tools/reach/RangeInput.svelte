@@ -1,24 +1,25 @@
 <script lang="ts">
   // imports
-  import type {Input} from '../../../../both/typings/types';
+  import {getContext} from 'svelte';
+  import type {DeployedTouchPoint} from '../../../../both/typings/types';
   import {deployment, briefing} from '../../../stores/reach';
+  import {language} from '../../../stores/utils';
 
   //variables
-  export let rangeInput: Input;
-  export let displayName: string = 'touchpoint_name';
   export let index: number;
-  const {id, name, min, max, step} = rangeInput;
-  let {value} = rangeInput;
+  let touchPoints: DeployedTouchPoint[] = getContext('deployedTouchPoints');
+  const {name, value, definitions} = touchPoints[index];
+  $: definition = definitions.filter((definition) => definition.language == $language)[0];
 
   // functions
-  $: if (!$briefing.useMarketData && name && typeof value == 'number') {
-    deployment.update((data) => {
-      let updatedTouchPoint = Object.assign(data[index], {value: value});
-      console.log('updated TouchPoint, index', updatedTouchPoint, index);
-      data.splice(index, 1, updatedTouchPoint);
-      return data;
-    });
-  }
+  // $: if (!$briefing.useMarketData && name && typeof value == 'number') {
+  //   deployment.update((data) => {
+  //     let updatedTouchPoint = Object.assign(data[index], {value: value});
+  //     console.log('updated TouchPoint, index', updatedTouchPoint, index);
+  //     data.splice(index, 1, updatedTouchPoint);
+  //     return data;
+  //   });
+  // }
 
   function onChange() {
     if ($briefing.useMarketData && name && typeof value == 'number') {
@@ -35,8 +36,17 @@
 <!-- TODO: select field for inputtype between label and input -->
 <form>
   <fieldset>
-    <label for={name}>{displayName}</label>
-    <input type="range" {id} {name} {min} {max} {step} bind:value on:change={onChange} />
+    <label for={name}>{definition.displayName}</label>
+    <input
+      type="range"
+      min="0"
+      max="100"
+      step="1"
+      id={name}
+      {name}
+      on:change={onChange}
+      bind:value={$deployment[index].value}
+    />
   </fieldset>
 </form>
 

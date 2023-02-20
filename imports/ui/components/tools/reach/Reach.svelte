@@ -4,13 +4,12 @@
   import Controls from './Controls.svelte';
   import Output from './Output.svelte';
   import TouchPoint from './TouchPoint.svelte';
-  import {onDestroy} from 'svelte';
+  import {setContext, onDestroy} from 'svelte';
   import createReachTool from '../../../functions/reach';
   import {language} from '../../../stores/utils';
   import {
     deployment,
     briefing,
-    marketData_1,
     marketData,
     strategy,
     sortedByName,
@@ -26,6 +25,7 @@
   let marketName: Strategy['marketName'];
   let useMarketData: Strategy['useMarketData'];
   let deployedTouchPoints: DeployedTouchPoint[];
+  setContext('deployedTouchPoints', $deployment);
 
   // subscriptions
   let unsubscribeBriefing = briefing.subscribe((data) => {
@@ -54,7 +54,6 @@
   $: console.log('marketName: in $: ', marketName);
   $: console.log('$deployment: in $: ', $deployment);
   $: console.log('$marketData: in $: ', $marketData);
-  $: console.log('$marketData_1: in $: ', $marketData_1);
 
   // functions
 
@@ -69,17 +68,18 @@
   <div class="container">
     <Controls />
     <Output />
-    {#each $deployment as touchPoint, index}
-      <TouchPoint {touchPoint} {index} />
+    {#each $deployment as _, index}
+      <TouchPoint {index} />
     {/each}
   </div>
 </section>
 
 <style>
   .container {
-    /* TODO: no flex column */
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    grid-auto-rows: auto;
     gap: 1em;
     margin: 0em auto;
   }

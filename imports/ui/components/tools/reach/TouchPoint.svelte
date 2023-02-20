@@ -1,20 +1,20 @@
 <script lang="ts">
   // imports
-  import type {DeployedTouchPoint} from '../../../../both/typings/types';
+  import {getContext} from 'svelte';
   import RangeInput from './RangeInput.svelte';
   import Modal from '../../reusable/Modal.svelte';
   import NumberInput from './NumberInput.svelte';
-  import {language, translations} from '../../../stores/utils';
+  import {language} from '../../../stores/utils';
   import createFormatter from '../../../functions/format';
-  import createConverter from '../../../functions/convert';
+  import {DeployedTouchPoint} from '/imports/both/typings/types';
   //import {notify} from '../../notifications/NotificationsFunctions';
 
   // variables
-  export let touchPoint: DeployedTouchPoint;
   export let index: number;
-  $: definition = touchPoint.definitions.filter((definition) => definition.language == $language)[0];
+  let touchPoints: DeployedTouchPoint[] = getContext('deployedTouchPoints');
+  const {name, value, show, definitions} = touchPoints[index];
+  $: definition = definitions.filter((definition) => definition.language == $language)[0];
   const formatter = createFormatter();
-  const converter = createConverter();
   let hovered: boolean = false;
   let displayManualInput: 'none' | 'flex' = 'none';
   let displayTouchPointDescription: 'none' | 'flex' = 'none';
@@ -22,7 +22,7 @@
   // functions
 </script>
 
-<div class="container" style="display:{touchPoint.show ? 'flex' : 'none'};">
+<div class="container" style="display:{show ? 'grid' : 'none'};">
   <div class="left">
     <button
       class="touchpoint"
@@ -32,22 +32,11 @@
       }}
       on:mouseenter={() => (hovered = true)}
       on:mouseleave={() => (hovered = false)}
-      style="background-image:url(/reach/{touchPoint.name}.png); opacity:{hovered || touchPoint.value > 0 ? 1 : 0.7};"
+      style="background-image:url(/reach/{name}.png); opacity:{hovered || value > 0 ? 1 : 0.7};"
     />
   </div>
   <div class="center">
-    <RangeInput
-      {index}
-      displayName={definition.displayName}
-      rangeInput={{
-        name: touchPoint.name,
-        id: touchPoint.name,
-        value: touchPoint.value,
-        min: 0,
-        max: 100,
-        step: 1
-      }}
-    />
+    <RangeInput {index} />
   </div>
   <div class="right">
     <button
@@ -57,7 +46,7 @@
         displayTouchPointDescription = 'none';
       }}
     >
-      <span>{formatter.toStringFormat(touchPoint.value)}&nbsp;%</span>
+      <span>{formatter.toStringFormat(value)}&nbsp;%</span>
     </button>
   </div>
   <Modal
@@ -78,18 +67,6 @@
   >
     <NumberInput
       {index}
-      displayName={definition.displayName}
-      {displayManualInput}
-      numberInput={{
-        name: touchPoint.name,
-        id: touchPoint.name,
-        value: touchPoint.value,
-        min: 0,
-        max: 100,
-        step: 1,
-        placeholder: `${converter.translate('input', $translations, $language) + ' 0 - 100'}`,
-        readonly: false
-      }}
       on:destroyModal={() => {
         displayManualInput = 'none';
       }}
@@ -99,8 +76,8 @@
 
 <style>
   .container {
-    display: flex;
-    flex-flow: row nowrap;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
     gap: 2em;
     align-items: center;
     background-color: var(--ra-teal-off-white);
