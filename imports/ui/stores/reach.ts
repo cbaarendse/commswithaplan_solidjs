@@ -100,7 +100,7 @@ export function touchPointsForData(): DeployedTouchPoint[] {
       ...touchPointDefinition,
       value: 0.0,
       show: true,
-      inputType: reachTool.setDefaultInputType(touchPointDefinition.name, touchPointsPerInputType())
+      inputType: touchPointDefinition.defaultInputType
     };
   });
 }
@@ -143,6 +143,8 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
   return [
     {
       name: 'advocacy',
+      defaultInputType: 'impressions',
+
       definitions: [
         {
           language: 'english',
@@ -158,6 +160,7 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
     },
     {
       name: 'ambassador',
+      defaultInputType: 'contacts',
       definitions: [
         {
           language: 'english',
@@ -173,6 +176,7 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
     },
     {
       name: 'app',
+      defaultInputType: 'impressions',
       definitions: [
         {
           language: 'english',
@@ -188,6 +192,7 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
     },
     {
       name: 'asset',
+      defaultInputType: 'grps',
       definitions: [
         {
           language: 'english',
@@ -204,6 +209,7 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
     },
     {
       name: 'cinema',
+      defaultInputType: 'grps',
       definitions: [
         {
           language: 'english',
@@ -219,6 +225,7 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
     },
     {
       name: 'console_game',
+      defaultInputType: 'impressions',
       definitions: [
         {
           language: 'english',
@@ -234,6 +241,7 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
     },
     {
       name: 'direct_mail',
+      defaultInputType: 'contacts',
       definitions: [
         {
           language: 'english',
@@ -249,6 +257,7 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
     },
     {
       name: 'display',
+      defaultInputType: 'impressions',
       definitions: [
         {
           language: 'english',
@@ -264,6 +273,7 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
     },
     {
       name: 'door_drop',
+      defaultInputType: 'contacts',
       definitions: [
         {
           language: 'english',
@@ -279,6 +289,7 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
     },
     {
       name: 'e-mail',
+      defaultInputType: 'impressions',
       definitions: [
         {
           language: 'english',
@@ -294,6 +305,7 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
     },
     {
       name: 'event',
+      defaultInputType: 'contacts',
       definitions: [
         {
           language: 'english',
@@ -309,6 +321,7 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
     },
     {
       name: 'experiential',
+      defaultInputType: 'contacts',
       definitions: [
         {
           language: 'english',
@@ -324,6 +337,7 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
     },
     {
       name: 'internal_employee',
+      defaultInputType: 'contacts',
       definitions: [
         {
           language: 'english',
@@ -340,6 +354,7 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
     },
     {
       name: 'loyalty_crm',
+      defaultInputType: 'contacts',
       definitions: [
         {
           language: 'english',
@@ -355,6 +370,7 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
     },
     {
       name: 'magazines',
+      defaultInputType: 'contacts',
       definitions: [
         {
           language: 'english',
@@ -370,6 +386,7 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
     },
     {
       name: 'mobile',
+      defaultInputType: 'impressions',
       definitions: [
         {
           language: 'english',
@@ -385,6 +402,7 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
     },
     {
       name: 'newspapers',
+      defaultInputType: 'contacts',
       definitions: [
         {
           language: 'english',
@@ -400,6 +418,7 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
     },
     {
       name: 'outdoor',
+      defaultInputType: 'grps',
       definitions: [
         {
           language: 'english',
@@ -415,6 +434,7 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
     },
     {
       name: 'packaging',
+      defaultInputType: 'contacts',
       definitions: [
         {
           language: 'english',
@@ -430,6 +450,7 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
     },
     {
       name: 'pr',
+      defaultInputType: 'grps',
       definitions: [
         {
           language: 'english',
@@ -445,6 +466,7 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
     },
     {
       name: 'promotion',
+      defaultInputType: 'grps',
       definitions: [
         {
           language: 'english',
@@ -461,6 +483,7 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
     },
     {
       name: 'radio',
+      defaultInputType: 'grps',
       definitions: [
         {
           language: 'english',
@@ -476,6 +499,7 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
     },
     {
       name: 'sem',
+      defaultInputType: 'impressions',
       definitions: [
         {
           language: 'english',
@@ -492,6 +516,7 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
     },
     {
       name: 'seo',
+      defaultInputType: 'impressions',
       definitions: [
         {
           language: 'english',
@@ -507,6 +532,7 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
     },
     {
       name: 'shopper',
+      defaultInputType: 'contacts',
       definitions: [
         {
           language: 'english',
@@ -522,6 +548,7 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
     },
     {
       name: 'social',
+      defaultInputType: 'impressions',
       definitions: [
         {
           language: 'english',
@@ -537,6 +564,7 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
     },
     {
       name: 'sponsorship',
+      defaultInputType: 'grps',
       definitions: [
         {
           language: 'english',
@@ -553,6 +581,7 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
     },
     {
       name: 'television',
+      defaultInputType: 'grps',
       definitions: [
         {
           language: 'english',
@@ -568,6 +597,7 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
     },
     {
       name: 'trade_fair',
+      defaultInputType: 'contacts',
       definitions: [
         {
           language: 'english',
@@ -583,6 +613,7 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
     },
     {
       name: 'video_on_demand',
+      defaultInputType: 'impressions',
       definitions: [
         {
           language: 'english',
@@ -598,6 +629,7 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
     },
     {
       name: 'viral',
+      defaultInputType: 'impressions',
       definitions: [
         {
           language: 'english',
@@ -614,6 +646,7 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
     },
     {
       name: 'website',
+      defaultInputType: 'impressions',
       definitions: [
         {
           language: 'english',
@@ -630,6 +663,7 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
     },
     {
       name: 'word_of_mouth',
+      defaultInputType: 'contacts',
       definitions: [
         {
           language: 'english',
@@ -644,47 +678,6 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
       ]
     }
   ];
-}
-
-// TODO: use INPUT-TYPES constant (Map) for this
-export function touchPointsPerInputType(): Map<string, Set<string>> {
-  const contacts = new Set([
-    'ambassador',
-    'direct_mail',
-    'door_drop',
-    'event',
-    'experiential',
-    'internal_employee',
-    'loyalty_crm',
-    'magazines',
-    'newspapers',
-    'trade_fair',
-    'packaging',
-    'shopper',
-    'word_of_mouth'
-  ]);
-  const grps = new Set(['asset', 'cinema', 'outdoor', 'pr', 'promotion', 'television', 'radio', 'sponsorship']);
-  const impressions = new Set([
-    'advocacy',
-    'app',
-    'console_game',
-    'display',
-    'e_mail',
-    'mobile',
-    'social',
-    'video_on_demand',
-    'viral',
-    'website',
-    'sem',
-    'seo'
-  ]);
-  const reach = new Set([]);
-  return new Map([
-    ['contacts', contacts],
-    ['grps', grps],
-    ['impressions', impressions],
-    ['reach', reach]
-  ]);
 }
 
 export function allMarkets(): Market[] {
