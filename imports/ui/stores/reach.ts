@@ -1,7 +1,14 @@
 // imports
 import {writable, Writable, readable, Readable, derived} from 'svelte/store';
 import {Meteor} from 'meteor/meteor';
-import {Market, Strategy, TouchPointDefinition, DeployedTouchPoint, SortedByName} from '../../both/typings/types';
+import {
+  Market,
+  Strategy,
+  TouchPointDefinition,
+  DeployedTouchPoint,
+  SortedByName,
+  Translation
+} from '../../both/typings/types';
 import createReachTool from '../functions/reach';
 
 // variables
@@ -23,6 +30,7 @@ export const marketData = derived(
   false
 );
 export const deployment: Writable<Strategy['deployment']> = writable(touchPointsForFormula());
+export const inputTypes: Readable<Translation[]> = readable(allInputTypes());
 export const strategy = derived([briefing, deployment], ([$briefing, $deployment]) => {
   return {...$briefing, deployment: $deployment};
 });
@@ -137,6 +145,39 @@ export function briefingForData(): Omit<Strategy, 'deployment'> {
     brandName: undefined,
     productName: undefined
   };
+}
+
+export function allInputTypes(): Translation[] {
+  return [
+    {
+      name: 'contacts',
+      definitions: [
+        {language: 'english', displayName: 'contacts'},
+        {language: 'dutch', displayName: 'contacten'}
+      ]
+    },
+    {
+      name: 'grps',
+      definitions: [
+        {language: 'english', displayName: 'GRPs'},
+        {language: 'dutch', displayName: 'GRPs'}
+      ]
+    },
+    {
+      name: 'impressions',
+      definitions: [
+        {language: 'english', displayName: 'impressions'},
+        {language: 'dutch', displayName: 'impressies'}
+      ]
+    },
+    {
+      name: 'reach',
+      definitions: [
+        {language: 'english', displayName: 'reach'},
+        {language: 'dutch', displayName: 'bereik'}
+      ]
+    }
+  ];
 }
 
 export function touchPointsDefinitions(): TouchPointDefinition[] {

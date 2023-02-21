@@ -1,11 +1,10 @@
 <script lang="ts">
   // imports
-  import {deployment, briefing} from '../../../stores/reach';
+  import {deployment, briefing, inputTypes} from '../../../stores/reach';
   import {language} from '../../../stores/utils';
   import createConverter from '/imports/ui/functions/convert';
   import Fa from 'svelte-fa/src/fa.svelte';
   import {faSort} from '@fortawesome/free-solid-svg-icons';
-  import {INPUT_TYPES} from '../../../../both/constants/constants';
 
   //variables
   const converter = createConverter();
@@ -14,20 +13,26 @@
   const max = 100;
   const step = 1;
   const {name, definitions} = $deployment[index];
-  $: value = $deployment[index].value;
-  $: definition = definitions.filter((definition) => definition.language == $language)[0];
-  console.log('value in range input ', value);
+  let inputTypeName = $deployment[index].inputType;
+  let value = $deployment[index].value;
+  let definition = definitions.filter((definition) => definition.language == $language)[0];
+  $: console.log('value in range input ', value);
   $: console.log('$: value in range input ', value);
 
   // functions
-  // $: if (!$briefing.useMarketData && name && typeof value == 'number') {
-  //   deployment.update((data) => {
-  //     let updatedTouchPoint = Object.assign(data[index], {value: value});
-  //     console.log('updated TouchPoint, index', updatedTouchPoint, index);
-  //     data.splice(index, 1, updatedTouchPoint);
-  //     return data;
-  //   });
-  // }
+  $: if (!$briefing.useMarketData && name && typeof value == 'number') {
+    deployment.update((data) => {
+      data[index].value = value;
+      return data;
+    });
+  }
+
+  $: if ($briefing.useMarketData && inputTypeName) {
+    deployment.update((data) => {
+      data[index].inputType = inputTypeName;
+      return data;
+    });
+  }
 
   function onChange() {
     if ($briefing.useMarketData && name && typeof value == 'number') {
@@ -41,28 +46,20 @@
   }
 </script>
 
-<!-- TODO: select field for inputtype between label and input -->
 <form>
   <fieldset>
     <label for={name}>{definition.displayName}</label>
     {#if $briefing.useMarketData}
-      <select id={`${name}_inputtype__select`}>
-        {#each [...INPUT_TYPES] as [key, value]}<option value={key}>
-            {converter.displayName(value, $language)}
+      <select id={`${name}_inputtype__select`} bind:value={inputTypeName}>
+        {#each [...$inputTypes] as inputType}<option value={inputType.name}>
+            {converter.translate(inputType.name, $inputTypes, $language)}
           </option>{/each}
       </select>
       <label for={`${name}_inputtype__select`}><Fa icon={faSort} color={'var(--ra-teal)'} /></label>
+    {:else}
+      <span>{$deployment[index].inputType}</span>
     {/if}
-    <input
-      type="range"
-      {min}
-      {max}
-      {step}
-      id={name}
-      {name}
-      on:change={onChange}
-      bind:value={$deployment[index].value}
-    />
+    <input type="range" {min} {max} {step} id={name} {name} on:change={onChange} bind:value />
   </fieldset>
 </form>
 
@@ -81,7 +78,7 @@
     display: grid;
     grid-template-columns: 1fr auto auto;
     align-items: center;
-    gap: 0.7rem;
+    row-gap: 0.7rem;
     border: none;
     padding: 0rem;
     margin: 0rem;
@@ -105,7 +102,11 @@
     background-color: none;
     padding: 0.2em 0.4em;
   }
-
+  span {
+    grid-column: span 2;
+    font-size: 1.4rem;
+    color: var(--ra-teal);
+  }
   input {
     grid-column: span 3;
   }

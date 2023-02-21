@@ -36,8 +36,9 @@
     deployedTouchPoints = data;
   });
 
-  // base new strategy on availability of marketData
+  // base new briefing on availability of marketData
   $: marketData ? briefing.set(briefingForData()) : briefing.set(briefingForFormula());
+  // base new deployment on availability and usage of marketData
   $: $marketData && useMarketData ? deployment.set(touchPointsForData()) : deployment.set(touchPointsForFormula());
 
   // first sort, based on selected language

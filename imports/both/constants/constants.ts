@@ -1,6 +1,5 @@
 // packages
 import {DateTime} from 'luxon';
-import {Definition, InputType} from '../typings/types';
 
 // Consts
 export const PROBABILITIES_CODING = {
@@ -98,47 +97,6 @@ export const AGE_MIN = 12;
 export const AGE_MAX = 99;
 export const MIN_AGE_RANGE = 5;
 
-export const INPUT_TYPES_ALT = [
-  {name: 'contacts'},
-  {
-    definitions: [
-      {language: 'english', displayName: 'contacts'},
-      {language: 'dutch', displayName: 'contacten'}
-    ]
-  },
-  {defaultTouchPoints: ['app', 'ambassador']}
-];
-
-export const INPUT_TYPES: Map<InputType, Omit<Definition, 'description'>[]> = new Map([
-  [
-    'contacts',
-    [
-      {language: 'english', displayName: 'contacts'},
-      {language: 'dutch', displayName: 'contacten'}
-    ]
-  ],
-  [
-    'grps',
-    [
-      {language: 'english', displayName: 'GRPs'},
-      {language: 'dutch', displayName: 'GRPs'}
-    ]
-  ],
-  [
-    'impressions',
-    [
-      {language: 'english', displayName: 'impressions'},
-      {language: 'dutch', displayName: 'impressies'}
-    ]
-  ],
-  [
-    'reach',
-    [
-      {language: 'english', displayName: 'reach'},
-      {language: 'dutch', displayName: 'bereik'}
-    ]
-  ]
-]);
 export const CURRENCIES: string[] = ['EUR', 'GBP', 'USD'];
 export const LANGUAGES: string[] = ['dutch', 'english', 'german', 'french', 'spanish', 'malay', 'chinese'];
 export const CAMPAIGN_DATATYPES: string[] = ['dates', 'title', 'input', 'reach', 'costs'];

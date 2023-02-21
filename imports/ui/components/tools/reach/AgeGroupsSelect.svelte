@@ -1,6 +1,6 @@
 <script lang="ts">
   // imports
-  import type {Market, Strategy} from '../../../../both/typings/types';
+  import type {Strategy} from '../../../../both/typings/types';
   import {translations, language} from '../../../stores/utils';
   import {briefing, markets} from '../../../stores/reach';
   import createReachTool from '/imports/ui/functions/reach';

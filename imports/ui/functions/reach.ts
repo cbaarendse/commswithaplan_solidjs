@@ -1,30 +1,9 @@
 // Reach
 // imports
-import type {
-  TouchPointDefinition,
-  DeployedTouchPoint,
-  Market,
-  Language,
-  InputType,
-  Results
-} from '../../both/typings/types';
-import {INPUT_TYPES} from '/imports/both/constants/constants';
+import type {TouchPointDefinition, DeployedTouchPoint, Market, Language, Results} from '../../both/typings/types';
 
 // main function (IIFE closure)
 export default function createReachTool() {
-  function setDefaultInputType(
-    touchPointName: DeployedTouchPoint['name'],
-    touchPointsPerInputType: Map<string, Set<string>>
-  ): InputType {
-    let inputType: InputType = 'contacts';
-    for (const key of INPUT_TYPES.keys()) {
-      if (touchPointsPerInputType.has(key) && touchPointsPerInputType.get(key)?.has(touchPointName)) {
-        inputType = key;
-      }
-    }
-    return inputType;
-  }
-
   function areAllTouchPointsValueZero(touchPoints: DeployedTouchPoint[]): boolean {
     return touchPoints.every((touchPoint) => touchPoint.value === 0);
   }
@@ -81,20 +60,6 @@ export default function createReachTool() {
   }
 
   // results
-  function updateDeployedTouchPoint(
-    touchPoints: DeployedTouchPoint[],
-    touchPointName: string,
-    value: number
-  ): DeployedTouchPoint[] {
-    const index: number = touchPoints.findIndex((touchPoint: DeployedTouchPoint): boolean => {
-      return touchPoint.name === touchPointName;
-    });
-    const touchPointToUpdate: DeployedTouchPoint = touchPoints[index];
-    touchPointToUpdate.value = value;
-    touchPoints.splice(index, 1, touchPointToUpdate);
-    return touchPoints;
-  }
-
   function calculateTotalReach(touchPoints: DeployedTouchPoint[]): number {
     let totalReachPortion = 0.0;
     for (const touchPoint of touchPoints) {
@@ -152,8 +117,6 @@ export default function createReachTool() {
     areAllTouchPointsValueZero,
     sort,
     hide,
-    isShowAll,
-    setDefaultInputType,
-    updateDeployedTouchPoint
+    isShowAll
   };
 }

@@ -16,7 +16,7 @@
   let value: DeployedTouchPoint['value'];
   $: definition = definitions.filter((definition) => definition.language == $language)[0];
   const converter = createConverter();
-
+  // TODO: disabled
   $: disabled = isValid(value, min, max) ? false : true;
 
   // functions

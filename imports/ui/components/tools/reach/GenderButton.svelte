@@ -8,40 +8,38 @@
 
   // variables
   let useMarketData: Strategy['useMarketData'];
-  let genders: Strategy['genders'];
+  let genders: Strategy['genders'] = $briefing.genders;
   const unsubscribe = briefing.subscribe((data) => {
     useMarketData = data.useMarketData;
     genders = data.genders;
   });
   $: disabled = !$marketData || !useMarketData;
-  $: console.log('$: $genders in genderButton: ', genders);
+
+  $: briefing.update((data) => {
+    data.genders = genders;
+    return data;
+  });
+
+  onDestroy(() => unsubscribe());
 
   // functions
   function toggleGenders() {
-    if ($marketData && genders) {
+    console.log('genders in toggleGenders start: ', genders);
+    if (genders) {
       if (genders.has('f') && genders.has('m') && !genders.has('x')) {
-        briefing.update((data) => {
-          data.genders = new Set([]);
-          return data;
-        });
+        genders = new Set([]);
       } else if (!genders.has('f') && !genders.has('m') && !genders.has('x')) {
-        briefing.update((data) => {
-          data.genders?.add('f');
-          return data;
-        });
+        genders.add('f');
       } else if (genders.has('f') && !genders.has('m') && !genders.has('x')) {
-        briefing.update((data) => {
-          data.genders?.delete('f');
-          data.genders?.add('m');
-          return data;
-        });
+        genders.delete('f');
+        genders.add('m');
       } else if (!genders.has('f') && genders.has('m') && !genders.has('x')) {
-        briefing.update((data) => {
-          data.genders?.add('f');
-          return data;
-        });
+        genders.add('f');
+      } else if (genders.has('f') && genders.has('m') && genders.has('x')) {
+        genders.add('f');
       }
     }
+    console.log('genders in toggleGenders end: ', genders);
   }
 
   console.log('$genders in genderButton: end', genders);
@@ -80,7 +78,7 @@
     align-items: center;
     width: 3.6rem;
     height: 3.6rem;
-    font-size: 1em;
+    font-size: 3.5rem;
     margin: 0 0.4em;
     cursor: pointer;
     background-color: transparent;

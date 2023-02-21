@@ -29,8 +29,8 @@ export type Chapter = Omit<Definition, 'description'> &
     paragraphs: Paragraph[];
   };
 export type Article = Omit<Definition, 'description'> & Omit<Content, 'definitions'> & {paragraphs: Paragraph[]};
-export type InputType = 'contacts' | 'grps' | 'impressions' | 'reach';
-export type TouchPointDefinition = Content & {defaultInputType: InputType};
+export type InputType = Omit<Translation, 'name'> & {name: 'contacts' | 'grps' | 'impressions' | 'reach'};
+export type TouchPointDefinition = Content & {defaultInputType: InputType['name']};
 
 export type UserProfile = {
   firstname?: string;
@@ -82,7 +82,7 @@ export type Results = [TotalReach, Overlap];
 export type DeployedTouchPoint = TouchPointDefinition & {
   value: number;
   show: boolean;
-  inputType: InputType;
+  inputType: InputType['name'];
 };
 
 export type Strategy = {
