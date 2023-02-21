@@ -84,6 +84,16 @@ export type DeployedTouchPoint = TouchPointDefinition & {
   show: boolean;
   inputType: InputType['name'];
 };
+export type ProbabilityTouchPoint = DeployedTouchPoint & {
+  selected: boolean;
+  grps: number;
+  maxReachedRespondents: number;
+  sumOfProbabilities: number;
+  minValue: number;
+  maxValue: number;
+  averageProbability: number;
+  reach: number;
+};
 
 export type Strategy = {
   _id?: string | Mongo.ObjectID;

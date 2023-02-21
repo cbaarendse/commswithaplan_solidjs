@@ -81,7 +81,13 @@ export const reachedUnique: Writable<number> = writable(0, () => {
 export const results = derived([marketData, briefing, deployment], ([$marketData, $briefing, $deployment]) => {
   console.log('produce results');
   if ($marketData && $briefing.useMarketData) {
-    return [0, 0];
+    Meteor.callAsync('probabilities.countRespondentsForMarket', {marketName: $briefing.marketName})
+      .then((result: number) => {
+        if (result > 0) {
+          set(result);
+        }
+      })
+      .catch((error) => console.log('error in count', error));
   } else {
     return reachTool.calculateResults($deployment);
   }

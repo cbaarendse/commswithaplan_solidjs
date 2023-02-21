@@ -1,7 +1,7 @@
 // imports
 import {Meteor} from 'meteor/meteor';
 import {Match} from 'meteor/check';
-import createDataTool from '../datatool';
+import createDataTool from '../../strategies/server/reachdata';
 import {MARKETS} from '../../../both/constants/constants';
 import {Probability} from '../../../both/typings/types';
 import Probabilities from './probabilities';

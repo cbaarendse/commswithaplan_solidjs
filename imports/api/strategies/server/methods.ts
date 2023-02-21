@@ -3,11 +3,18 @@ import {Meteor} from 'meteor/meteor';
 import {emailRegExp} from '../../users/users.js';
 import {Match} from 'meteor/check';
 import Strategies from '../strategies';
-import createDataTool from '../../probabilities/datatool';
+import createDataTool from './reachdata';
 import Probabilities from '../../probabilities/server/probabilities';
-import {DeployedTouchPoint, Probability, Strategy, StrategyExtended} from '/imports/both/typings/types';
+import {
+  DeployedTouchPoint,
+  Probability,
+  Strategy,
+  Briefing,
+  DeployedTouchPoint,
+  RespondentsCount
+} from '/imports/both/typings/types';
 import {Mongo} from 'meteor/mongo';
-import {totalReachWithAlgorithmForStrategy, overlapWithAlgorithmForStrategy} from './functions';
+import {totalReachWithAlgorithmForStrategy, overlapWithAlgorithmForStrategy} from './reachwithdata';
 
 // variables
 const dataTool = createDataTool();
@@ -15,16 +22,15 @@ const dataTool = createDataTool();
 // functions
 
 Meteor.methods({
-  'strategies.processResultsWithProbabilities': function (args: {[key: string]: string}) {
-    if (!Match.test(args.email, String) || !emailRegExp.test(args.email)) {
+  'strategies.calculateResultsWithData': function (args: {strategy: Strategy; respondentsCount: RespondentsCount}) {
+    if (!Match.test(args.strategy, Object)) {
       throw new Meteor.Error('users.signup.email', 'Invalid email address', '[{ "name": "invalidEmail" }]');
     }
 
-    const strategy: StrategyExtended = Strategies.findOne({_id: args.strategyId});
-    const {_id, userId, marketName, respondentsCount} = strategy;
+    const {_id, userId, marketName} = args.strategy;
     const probabilities = Probabilities.find({market: marketName}).fetch();
-    const touchPointsDeployed: DeployedTouchPoint[] = strategy.deployment;
-    let reachedNonUniqueRespondentsForStrategy: any[] = [];
+    const touchPointsDeployed: DeployedTouchPoint[] = args.strategy.deployment;
+    let reachedNonUniqueRespondentsForStrategy: Probability[] = [];
     const reachedRespondentsPerTouchPointDeployed: {[key: string]: number} = {};
     const reachedRespondentsByAllTouchPointsForStrategy = [];
 
