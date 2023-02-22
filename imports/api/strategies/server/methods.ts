@@ -3,7 +3,7 @@ import {Meteor} from 'meteor/meteor';
 import {emailRegExp} from '../../users/users.js';
 import {Match} from 'meteor/check';
 import Strategies from '../strategies';
-import createDataTool from './reachdata';
+import createReachDataTool from './reachdata';
 import Probabilities from '../../probabilities/server/probabilities';
 import {
   DeployedTouchPoint,
@@ -14,23 +14,26 @@ import {
   RespondentsCount
 } from '/imports/both/typings/types';
 import {Mongo} from 'meteor/mongo';
-import {totalReachWithAlgorithmForStrategy, overlapWithAlgorithmForStrategy} from './reachwithdata';
 
 // variables
-const dataTool = createDataTool();
+const reachDataTool = createReachDataTool();
 
 // functions
 
 Meteor.methods({
-  'strategies.calculateResultsWithData': function (args: {strategy: Strategy; respondentsCount: RespondentsCount}) {
-    if (!Match.test(args.strategy, Object)) {
-      throw new Meteor.Error('users.signup.email', 'Invalid email address', '[{ "name": "invalidEmail" }]');
+  'strategies.calculateResultsWithData': function (args: {
+    strategyId: Strategy['_id'];
+    respondentsCount: RespondentsCount;
+  }) {
+    if (!Match.test(args.strategyId, Number) || !Match.test(args.respondentsCount, Number)) {
+      throw new Meteor.Error('general.invalid.input', 'Invalid input', '[{ "name": "invalidInput" }]');
     }
-
-    const {_id, userId, marketName} = args.strategy;
+    const strategy = Strategies.findOne({_id: args.strategyId});
+    const {_id, userId, marketName} = strategy;
+    // filter probabilities for market
     const probabilities = Probabilities.find({market: marketName}).fetch();
-    const touchPointsDeployed: DeployedTouchPoint[] = args.strategy.deployment;
-    let reachedNonUniqueRespondentsForStrategy: Probability[] = [];
+    const touchPointsDeployed: DeployedTouchPoint[] = strategy.deployment;
+    let reachedNonUniqueRespondentsForStrategy: any = [];
     const reachedRespondentsPerTouchPointDeployed: {[key: string]: number} = {};
     const reachedRespondentsByAllTouchPointsForStrategy = [];
 
@@ -53,33 +56,33 @@ Meteor.methods({
     if (this.isSimulation) {
       console.log('simulation');
     } else {
-      const {
-        touchPointAdaptToNewProbabilities,
-        collectReachedRespondentsForTouchPoint
-      } = require('../touchpoints/server/functions');
-
       // Set up probabilities
       // TODO: propose to first convert objects in collection to Map = new Map(Object.entries(probability)), for each array element
-      const probabilitiesForStrategy: Probability[] | undefined = dataTool.filterProbabilitiesForStrategy(
+      const probabilitiesForStrategy: Probability[] | undefined = reachDataTool.filterProbabilitiesForStrategy(
         probabilities,
         strategy,
-        _id
+        groups
       ); // OK
-      const probabilitiesForTouchPoints = dataTool.arrangeProbabilitiesForTouchPoints(
+      const arrangedProbabilitiesForTouchPoints = reachDataTool.arrangeProbabilitiesForTouchPoints(
         _id,
         probabilitiesForStrategy,
         touchPointsDeployed
       ); //OK
       touchPointsDeployed.forEach((touchPoint) => {
         // Adjust touchPoint
-        touchPoint = touchPointAdaptToNewProbabilities(touchPoint, strategy, probabilitiesForTouchPoints);
+        touchPoint = reachDataTool.touchPointAdaptToNewProbabilities(
+          touchPoint,
+          peopleInRange,
+          respondentsCount,
+          arrangedProbabilitiesForTouchPoints
+        );
         console.log('touchPoint in adapt to new probabilities :', touchPoint);
         // Build non-unique respondents
 
         // Collect respondents
         const reachedRespondentsForTouchPoint = collectReachedRespondentsForTouchPoint(
           touchPoint,
-          probabilitiesForTouchPoints
+          arrangedProbabilitiesForTouchPoints
         );
         // For reach calculation
         reachedNonUniqueRespondentsForStrategy = reachedNonUniqueRespondentsForStrategy.concat(
@@ -113,6 +116,7 @@ Meteor.methods({
       Strategies.update({_id}, modifier);
     }
   },
+
   'strategies.processResultsWithAlgorithm': function (args: {strategyId: string | Mongo.ObjectIDStatic}) {
     if (!Match.test(args.strategyId, Match.OneOf(String, Object))) {
       throw new Meteor.Error('users.signup.email', 'Invalid email address', '[{ "name": "invalidEmail" }]');

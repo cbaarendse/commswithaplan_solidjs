@@ -30,7 +30,6 @@ export type Chapter = Omit<Definition, 'description'> &
   };
 export type Article = Omit<Definition, 'description'> & Omit<Content, 'definitions'> & {paragraphs: Paragraph[]};
 export type InputType = Omit<Translation, 'name'> & {name: 'contacts' | 'grps' | 'impressions' | 'reach'};
-export type TouchPointDefinition = Content & {defaultInputType: InputType['name']};
 
 export type UserProfile = {
   firstname?: string;
@@ -79,21 +78,49 @@ export type SortedByName = boolean;
 export type Overlap = number;
 export type TotalReach = number;
 export type Results = [TotalReach, Overlap];
+export type TouchPointName =
+  | 'advocacy'
+  | 'ambassador'
+  | 'app'
+  | 'asset'
+  | 'cinema'
+  | 'console_game'
+  | 'direct_mail'
+  | 'display'
+  | 'door_drop'
+  | 'internal_employee'
+  | 'event'
+  | 'experiential'
+  | 'e_mail'
+  | 'loyalty_crm'
+  | 'magazines'
+  | 'mobile'
+  | 'newspapers'
+  | 'outdoor'
+  | 'packaging'
+  | 'pr'
+  | 'promotion'
+  | 'shopper'
+  | 'radio'
+  | 'sem'
+  | 'seo'
+  | 'social'
+  | 'sponsorship'
+  | 'trade_fair'
+  | 'television'
+  | 'video_on_demand'
+  | 'viral'
+  | 'website'
+  | 'word_of_mouth';
+export type TouchPointDefinition = Omit<Content, 'name'> & {name: TouchPointName} & {
+  defaultInputType: InputType['name'];
+};
 export type DeployedTouchPoint = TouchPointDefinition & {
   value: number;
   show: boolean;
   inputType: InputType['name'];
 };
-export type ProbabilityTouchPoint = DeployedTouchPoint & {
-  selected: boolean;
-  grps: number;
-  maxReachedRespondents: number;
-  sumOfProbabilities: number;
-  minValue: number;
-  maxValue: number;
-  averageProbability: number;
-  reach: number;
-};
+export type ProbabilityTouchPoint = Map<string, any>;
 
 export type Strategy = {
   _id?: string | Mongo.ObjectID;
