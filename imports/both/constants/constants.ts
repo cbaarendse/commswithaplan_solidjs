@@ -2,38 +2,8 @@
 import {DateTime} from 'luxon';
 
 // Consts
-export const PROBABILITIES_CODING = {
-  // Coding variable in data is equal to index
-  nl: {
-    genders: [
-      {gender: 'male', category: 0},
-      {gender: 'female', category: 1}
-    ],
-    ages: [
-      {start: 9, end: 11, category: 0},
-      {start: 12, end: 19, category: 1},
-      {start: 20, end: 34, category: 2},
-      {start: 35, end: 49, category: 3},
-      {start: 50, end: 64, category: 4},
-      {start: 65, end: 99, category: 5}
-    ]
-  },
-  uk: {
-    genders: [
-      {gender: 'male', category: 0},
-      {gender: 'female', category: 1}
-    ],
-    ages: [
-      {start: 9, end: 11, category: 0},
-      {start: 12, end: 19, category: 1},
-      {start: 20, end: 34, category: 2},
-      {start: 35, end: 49, category: 3},
-      {start: 50, end: 64, category: 4},
-      {start: 65, end: 99, category: 5}
-    ]
-  }
-};
-export const MARKETS = ['be', 'nl', 'uk'];
+
+export const MARKETNAMES = ['be', 'nl', 'uk'];
 // TODO: rename to subscriptions or tiers
 export const PLANS = ['oneByOne', 'oneForMore', 'oneForAll'];
 

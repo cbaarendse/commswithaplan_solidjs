@@ -26,17 +26,18 @@
   function toggleGenders() {
     console.log('genders in toggleGenders start: ', genders);
     if (genders) {
-      if (genders.has('f') && genders.has('m') && !genders.has('x')) {
-        genders = new Set([]);
-      } else if (!genders.has('f') && !genders.has('m') && !genders.has('x')) {
-        genders.add('f');
+      if (genders.has('f') && genders.has('m') && genders.has('x')) {
+        genders.delete('m');
+        genders.delete('x');
       } else if (genders.has('f') && !genders.has('m') && !genders.has('x')) {
         genders.delete('f');
         genders.add('m');
       } else if (!genders.has('f') && genders.has('m') && !genders.has('x')) {
         genders.add('f');
-      } else if (genders.has('f') && genders.has('m') && genders.has('x')) {
-        genders.add('f');
+      } else if (genders.has('f') && genders.has('m') && !genders.has('x')) {
+        genders = new Set(['f', 'm', 'x']);
+      } else if (!genders.has('f') && !genders.has('m') && !genders.has('x')) {
+        genders = new Set(['f', 'm', 'x']);
       }
     }
     console.log('genders in toggleGenders end: ', genders);

@@ -1,14 +1,15 @@
 // imports
 import {Meteor} from 'meteor/meteor';
 import {Match} from 'meteor/check';
-import createDataTool from '../../strategies/server/reachdata';
-import {MARKETS} from '../../../both/constants/constants';
-import {Probability} from '../../../both/typings/types';
+import createReachDataTool from '../../strategies/server/reachdata';
+import {MARKETNAMES} from '../../../both/constants/constants';
+import {Market, Probability, Strategy} from '../../../both/typings/types';
 import Probabilities from './probabilities';
 import Strategies from '../../strategies/strategies';
+import {markets} from '/imports/ui/stores/reach';
 
 // variables
-const dataTool = createDataTool();
+const reachDataTool = createReachDataTool();
 const probabilities = Probabilities.find({}).fetch();
 const strategies = Strategies.find({}).fetch();
 
@@ -17,14 +18,14 @@ Meteor.methods({
   test: function (param: string): string {
     return 'Test hallo ' + param;
   },
-  'probabilities.checkForMarket': function (args: {[key: string]: string}) {
+  'probabilities.checkForMarket': function (args: {marketName: Strategy['marketName']}) {
     console.log('probabilities.checkProbabilitiesForMarket runs with: ', args.marketName);
 
     if (
       !Match.test(args.marketName, String) ||
       !Match.test(
-        args.marketName,
-        Match.Where((arg) => MARKETS.includes(arg))
+        args,
+        Match.Where((args) => MARKETNAMES.includes(args.marketName))
       )
     ) {
       throw new Meteor.Error(
@@ -52,8 +53,8 @@ Meteor.methods({
     if (
       !Match.test(args.marketName, String) ||
       !Match.test(
-        args.marketName,
-        Match.Where((arg) => MARKETS.includes(arg))
+        args,
+        Match.Where((args) => MARKETNAMES.includes(args.marketName))
       )
     ) {
       throw new Meteor.Error('general.invalid.input', 'Invalid input', '[{ "name": "invalidInput" }]');
@@ -108,7 +109,7 @@ Meteor.methods({
       // TODO:
       console.log('this is simulation');
     } else {
-      probabilitiesForStrategy = dataTool.filterProbabilitiesForStrategy(probabilities, strategies, _id);
+      probabilitiesForStrategy = reachDataTool.filterProbabilitiesForStrategy(probabilities, strategy, _id);
       console.log(
         'probabilitiesForRespondents in server count for strategy:',
         typeof probabilitiesForStrategy,

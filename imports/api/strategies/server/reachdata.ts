@@ -7,10 +7,9 @@ import type {
   Market,
   AgeGroup,
   DeployedTouchPoint,
-  peopleInRange,
+  PeopleInRange,
   ProbabilityTouchPoint,
-  RespondentsCount,
-  TouchPointName
+  RespondentsCount
 } from '/imports/both/typings/types';
 
 export default function createReachDataTool() {
@@ -29,7 +28,11 @@ export default function createReachDataTool() {
     }
   }
 
-  function filterProbabilitiesForStrategy(probabilities: Probability[], strategy: Strategy, groups: AgeGroup[]) {
+  function filterProbabilitiesForStrategy(
+    probabilities: Probability[],
+    strategy: Omit<Strategy, 'deployment'>,
+    groups: AgeGroup[]
+  ) {
     console.log('filterProbabilitiesForStrategy server function runs with  :', strategy.title);
 
     const groupsEnd = groups.slice(strategy.ageGroupIndexStart ? strategy.ageGroupIndexStart : 0 + 1);
@@ -67,7 +70,7 @@ export default function createReachDataTool() {
 
   function touchPointAdaptToNewProbabilities(
     touchPoint: DeployedTouchPoint,
-    peopleInRange: peopleInRange,
+    peopleInRange: PeopleInRange,
     respondentsCount: RespondentsCount,
     respondentsForTouchPoints: {[key: string]: Map<Probability['respondentId'], number>}
   ): ProbabilityTouchPoint {
@@ -103,13 +106,16 @@ export default function createReachDataTool() {
     return adaptedTouchPoint;
   }
 
-  function collectReachedRespondentsForTouchPoint(touchPoint, probabilities) {
+  function collectReachedRespondentsForTouchPoint(
+    touchPoint: ProbabilityTouchPoint,
+    arrangedRespondents: {[key: string]: Map<Probability['respondentId'], number>}
+  ) {
     const reachForRespondentsForTouchPoint = new Map();
-    const reachedRespondentsForTouchPoint: ProbabilityTouchPoint[] = [];
+    const reachedRespondentsForTouchPoint: Probability['respondentId'][] = [];
 
-    probabilities[touchPoint.name].forEach(
+    arrangedRespondents[touchPoint.get('name')].forEach(
       (probability, respondentId: number | Mongo.ObjectIDStatic, probabilities) => {
-        const exponent = -probability * (touchPoint.grps / probabilities.size);
+        const exponent = -probability * (touchPoint.get('grps') / probabilities.size);
         const reach = 1 * (1 - Math.pow(Math.E, exponent)) * 100;
         reachForRespondentsForTouchPoint.set(respondentId, reach);
       }
@@ -131,7 +137,9 @@ export default function createReachDataTool() {
   }
 
   function calculateOtsForTouchPoint(touchPoint: ProbabilityTouchPoint) {
-    return Number.isNaN(touchPoint.grps / touchPoint.reach) ? 0 : touchPoint.grps / touchPoint.reach;
+    return Number.isNaN(touchPoint.get('grps') / touchPoint.get('reach'))
+      ? 0
+      : touchPoint.get('grps') / touchPoint.get('reach');
   }
 
   function totalReachWithAlgorithmForStrategy(rV: number[]) {
@@ -171,8 +179,9 @@ export default function createReachDataTool() {
   return {
     filterProbabilitiesForMarket,
     filterProbabilitiesForStrategy,
-    arrangeProbabilitiesForTouchPoints,
+    arrangeRespondentsForTouchPoints,
     touchPointAdaptToNewProbabilities,
+    collectReachedRespondentsForTouchPoint,
     calculateReachForTouchPoint,
     calculateOtsForTouchPoint
   };

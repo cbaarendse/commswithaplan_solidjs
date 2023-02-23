@@ -71,7 +71,7 @@ export type AgeGroup = [number, number];
 export type Genders = Set<'f' | 'm' | 'x' | undefined | null>;
 export type MarketData = boolean;
 export type RespondentsCount = number;
-export type peopleInRange = number;
+export type PeopleInRange = number;
 export type ReachedNonUnique = number;
 export type ReachedUnique = number;
 export type SortedByName = boolean;
@@ -123,7 +123,6 @@ export type DeployedTouchPoint = TouchPointDefinition & {
 export type ProbabilityTouchPoint = Map<string, any>;
 
 export type Strategy = {
-  _id?: string | Mongo.ObjectID;
   userId: string | Mongo.ObjectID;
   title: string;
   marketName: Market['name'];

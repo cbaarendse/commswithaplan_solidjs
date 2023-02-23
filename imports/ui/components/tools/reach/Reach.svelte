@@ -50,9 +50,10 @@
   deployment.set(sortedDeployedTouchPoints);
   sortedByName.set(updatedSortedByName);
 
+  $: console.log('$briefing in $: ', $briefing);
+  $: console.log('$deployment: in $: ', $deployment);
   $: console.log('$strategy in $: ', $strategy);
   $: console.log('marketName: in $: ', marketName);
-  $: console.log('$deployment: in $: ', $deployment);
   $: console.log('$marketData: in $: ', $marketData);
 
   // functions

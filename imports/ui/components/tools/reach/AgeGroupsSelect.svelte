@@ -18,10 +18,9 @@
   const unsubscribe = briefing.subscribe((data) => {
     marketName = data.marketName;
     ageGroupIndexStart = data.ageGroupIndexStart;
-    ageGroupIndexEnd = data.ageGroupIndexEnd;
+    ageGroupIndexEnd = data.ageGroupIndexEnd <= ageGroupIndexStart ? ageGroupIndexStart + 1 : data.ageGroupIndexEnd;
   });
   $: groups = reachTool.getAgeGroupsForMarket(marketName, $markets);
-  $: groupsEnd = groups.slice(ageGroupIndexStart ? ageGroupIndexStart : 0 + 1);
   $: briefing.update((data) => {
     data.ageGroupIndexStart = ageGroupIndexStart;
     data.ageGroupIndexEnd = ageGroupIndexEnd;
@@ -37,7 +36,7 @@
   {#if groups}
     <select class="agegroup__select" id="agegroup__select_start" bind:value={ageGroupIndexStart}>
       {#each groups as ageGroup, index}
-        <option value={index}>
+        <option value={index} disabled={false}>
           {ageGroup[0]} - {ageGroup[1]}
           {converter.translate('year', $translations, $language)}
         </option>
@@ -45,8 +44,8 @@
     </select>
     <label for="agegroup__select_start"><Fa icon={faSort} color={'var(--ra-teal'} /></label>
     <select class="agegroup__select" id="agegroup__select_end" bind:value={ageGroupIndexEnd}>
-      {#each groupsEnd as ageGroup, index}
-        <option value={index}>
+      {#each groups as ageGroup, index}
+        <option value={index} disabled={index < (ageGroupIndexStart ? ageGroupIndexStart : 0)}>
           {ageGroup[0]} - {ageGroup[1]}
           {converter.translate('year', $translations, $language)}
         </option>

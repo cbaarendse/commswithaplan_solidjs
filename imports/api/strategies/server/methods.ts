@@ -1,17 +1,18 @@
 // imports
 import {Meteor} from 'meteor/meteor';
-import {emailRegExp} from '../../users/users.js';
 import {Match} from 'meteor/check';
 import Strategies from '../strategies';
 import createReachDataTool from './reachdata';
 import Probabilities from '../../probabilities/server/probabilities';
 import {
-  DeployedTouchPoint,
   Probability,
   Strategy,
-  Briefing,
   DeployedTouchPoint,
-  RespondentsCount
+  RespondentsCount,
+  ProbabilityTouchPoint,
+  PeopleInRange,
+  Results,
+  AgeGroup
 } from '/imports/both/typings/types';
 import {Mongo} from 'meteor/mongo';
 
@@ -22,20 +23,29 @@ const reachDataTool = createReachDataTool();
 
 Meteor.methods({
   'strategies.calculateResultsWithData': function (args: {
-    strategyId: Strategy['_id'];
+    briefing: Omit<Strategy, 'deployment'>;
+    deployment: Strategy['deployment'];
+    ageGroups: AgeGroup[];
     respondentsCount: RespondentsCount;
-  }) {
-    if (!Match.test(args.strategyId, Number) || !Match.test(args.respondentsCount, Number)) {
+    peopleInRange: PeopleInRange;
+  }): Results {
+    if (
+      !Match.test(args.briefing, Object) ||
+      !Match.test(args.deployment, Array) ||
+      !Match.test(args.respondentsCount, Number) ||
+      !Match.test(args.peopleInRange, Number)
+    ) {
       throw new Meteor.Error('general.invalid.input', 'Invalid input', '[{ "name": "invalidInput" }]');
     }
-    const strategy = Strategies.findOne({_id: args.strategyId});
-    const {_id, userId, marketName} = strategy;
+    const {userId, marketName} = args.briefing;
+    let totalReachForResult: Results[0];
+    let overlapForResult: Results[1];
     // filter probabilities for market
     const probabilities = Probabilities.find({market: marketName}).fetch();
-    const touchPointsDeployed: DeployedTouchPoint[] = strategy.deployment;
-    let reachedNonUniqueRespondentsForStrategy: any = [];
-    const reachedRespondentsPerTouchPointDeployed: {[key: string]: number} = {};
-    const reachedRespondentsByAllTouchPointsForStrategy = [];
+    const touchPointsDeployed: DeployedTouchPoint[] = args.deployment;
+    let reachedNonUniqueRespondentsForStrategy: number[] = [];
+    const reachedRespondentsPerTouchPointDeployed: {[key: string]: number[]} = {};
+    const reachedRespondentsByAllTouchPointsForStrategy: number[] = [];
 
     // Checks for login and strategy ownership
     if (!this.userId) {
@@ -55,34 +65,33 @@ Meteor.methods({
 
     if (this.isSimulation) {
       console.log('simulation');
+      totalReachForResult = 0;
+      overlapForResult = 0;
     } else {
       // Set up probabilities
-      // TODO: propose to first convert objects in collection to Map = new Map(Object.entries(probability)), for each array element
       const probabilitiesForStrategy: Probability[] | undefined = reachDataTool.filterProbabilitiesForStrategy(
         probabilities,
-        strategy,
-        groups
+        args.briefing,
+        args.ageGroups
       ); // OK
-      const arrangedProbabilitiesForTouchPoints = reachDataTool.arrangeProbabilitiesForTouchPoints(
-        _id,
-        probabilitiesForStrategy,
-        touchPointsDeployed
-      ); //OK
+      // for each deployed touchpoint only select
+      const arrangedRespondentsForTouchPoints: {[key: string]: Map<Probability['respondentId'], number>} =
+        reachDataTool.arrangeRespondentsForTouchPoints(touchPointsDeployed, probabilitiesForStrategy); //OK
       touchPointsDeployed.forEach((touchPoint) => {
         // Adjust touchPoint
-        touchPoint = reachDataTool.touchPointAdaptToNewProbabilities(
+        const adaptedTouchPoint: ProbabilityTouchPoint = reachDataTool.touchPointAdaptToNewProbabilities(
           touchPoint,
-          peopleInRange,
-          respondentsCount,
-          arrangedProbabilitiesForTouchPoints
+          args.respondentsCount,
+          args.peopleInRange,
+          arrangedRespondentsForTouchPoints
         );
         console.log('touchPoint in adapt to new probabilities :', touchPoint);
         // Build non-unique respondents
 
         // Collect respondents
-        const reachedRespondentsForTouchPoint = collectReachedRespondentsForTouchPoint(
-          touchPoint,
-          arrangedProbabilitiesForTouchPoints
+        const reachedRespondentsForTouchPoint = reachDataTool.collectReachedRespondentsForTouchPoint(
+          adaptedTouchPoint,
+          arrangedRespondentsForTouchPoints
         );
         // For reach calculation
         reachedNonUniqueRespondentsForStrategy = reachedNonUniqueRespondentsForStrategy.concat(
@@ -92,10 +101,10 @@ Meteor.methods({
         reachedRespondentsPerTouchPointDeployed[touchPoint.name] = reachedRespondentsForTouchPoint;
       });
       // Unique respondents
-      const reachedUniqueRespondentsForStrategy: Set<string> = new Set(reachedNonUniqueRespondentsForStrategy); // OK
-      console.log('reachedRespondentsPerTouchPointEmployed :', reachedRespondentsPerTouchPointDeployed);
+      const reachedUniqueRespondentsForStrategy: Set<number> = new Set(reachedNonUniqueRespondentsForStrategy); // OK
+      console.log('reachedRespondentsPerTouchPointDeployed :', reachedRespondentsPerTouchPointDeployed);
       // strategy.reach
-      strategy.totalReach = (reachedUniqueRespondentsForStrategy.size / respondentsCount) * 100;
+      totalReachForResult = (reachedUniqueRespondentsForStrategy.size / args.respondentsCount) * 100;
       // Unique respondents for all touchpoints
       reachedUniqueRespondentsForStrategy.forEach((respondentId) => {
         const thisRespondentReachedByAllTouchPoints = touchPointsDeployed.reduce((result, touchPoint, index, list) => {
@@ -109,12 +118,10 @@ Meteor.methods({
         }
       });
       // strategy.overlap
-      strategy.overlap = parseFloat((reachedRespondentsByAllTouchPointsForStrategy.length / respondentsCount) * 100);
+      overlapForResult = (reachedRespondentsByAllTouchPointsForStrategy.length / args.respondentsCount) * 100;
       // update strategy
-      console.log('strategy in process with probabilities :', strategy);
-      const modifier = {$set: {...strategy}};
-      Strategies.update({_id}, modifier);
     }
+    return [totalReachForResult, overlapForResult];
   },
 
   'strategies.processResultsWithAlgorithm': function (args: {strategyId: string | Mongo.ObjectIDStatic}) {
@@ -123,7 +130,7 @@ Meteor.methods({
     }
 
     const strategy: Strategy = Strategies.findOne({_id: args.strategyId});
-    const {_id, userId} = strategy;
+    const {userId} = strategy;
     const reachValues = strategy.deployment.reduce((values: number[], touchPoint: DeployedTouchPoint): number[] => {
       if (touchPoint.inputType == 'reach' && touchPoint.value > 0) {
         values.push(touchPoint.value);
@@ -150,8 +157,8 @@ Meteor.methods({
     if (this.isSimulation) {
       console.log('simulation');
     } else {
-      strategy.totalReach = totalReachWithAlgorithmForStrategy(reachValues);
-      strategy.overlap = overlapWithAlgorithmForStrategy(reachValues);
+      totalReachForResult = reachDataTool.totalReachWithAlgorithmForStrategy(reachValues);
+      overlapForResult = overlapWithAlgorithmForStrategy(reachValues);
     }
 
     strategy.lastChanged = new Date();

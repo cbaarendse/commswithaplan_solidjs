@@ -7,7 +7,9 @@ import {
   TouchPointDefinition,
   DeployedTouchPoint,
   SortedByName,
-  Translation
+  Translation,
+  PeopleInRange,
+  Results
 } from '../../both/typings/types';
 import createReachTool from '../functions/reach';
 
@@ -46,7 +48,7 @@ export const respondentsCount = derived([briefing, marketData], ([$briefing, $ma
   if ($marketData && $briefing.useMarketData) {
     Meteor.callAsync('probabilities.countRespondentsForMarket', {marketName: $briefing.marketName})
       .then((result: number) => {
-        if (result > 0) {
+        if (result >= 0) {
           set(result);
         }
       })
@@ -54,10 +56,19 @@ export const respondentsCount = derived([briefing, marketData], ([$briefing, $ma
   }
 });
 
-export const peopleInRange: Writable<number> = writable(0, () => {
-  () => {
-    console.log('peopleInRange closed');
-  };
+export const peopleInRange = derived([briefing, marketData], ([$briefing, $marketData], set) => {
+  if ($marketData && $briefing.useMarketData) {
+    Meteor.callAsync('populations.countPeopleForStrategy', {
+      briefing: $briefing,
+      ageGroups: reachTool.getAgeGroupsForMarket
+    })
+      .then((result: PeopleInRange) => {
+        if (result >= 0) {
+          set(result);
+        }
+      })
+      .catch((error) => console.log('error in peopleInRange ', error));
+  }
 });
 
 export const population: Writable<number> = writable(0, () => {
@@ -78,24 +89,42 @@ export const reachedUnique: Writable<number> = writable(0, () => {
   };
 });
 
-export const results = derived([marketData, briefing, deployment], ([$marketData, $briefing, $deployment]) => {
-  console.log('produce results');
-  if ($marketData && $briefing.useMarketData) {
-    Meteor.callAsync('probabilities.countRespondentsForMarket', {marketName: $briefing.marketName})
-      .then((result: number) => {
-        if (result > 0) {
-          set(result);
-        }
+export const results: Readable<Results> = derived(
+  [marketData, briefing, deployment, respondentsCount, peopleInRange],
+  ([$marketData, $briefing, $deployment, $respondentsCount, $peopleInRange], set) => {
+    console.log('produce results');
+    if ($marketData && $briefing.useMarketData) {
+      Meteor.callAsync('strategies.calculateResultsWithData', {
+        briefing: $briefing,
+        deployment: $deployment,
+        respondentsCount: $respondentsCount,
+        peopleInRange: $peopleInRange
       })
-      .catch((error) => console.log('error in count', error));
-  } else {
-    return reachTool.calculateResults($deployment);
+        .then((result) => {
+          if (result > 0) {
+            set(result);
+          }
+        })
+        .catch((error) => console.log('error in count', error));
+    } else {
+      set(reachTool.calculateResults($deployment));
+    }
   }
+);
+
+export const totalReach = derived(results, ($results) => {
+  if (!$results) {
+    return 0;
+  }
+  return $results[0];
 });
 
-export const totalReach = derived(results, ($results) => $results[0]);
-
-export const overlap = derived(results, ($results) => $results[1]);
+export const overlap = derived(results, ($results) => {
+  if (!$results) {
+    return 0;
+  }
+  return $results[1];
+});
 
 export function touchPointsForFormula(): DeployedTouchPoint[] {
   return touchPointsDefinitions().map((touchPointDefinition) => {
@@ -136,7 +165,7 @@ export function briefingForFormula(): Omit<Strategy, 'deployment'> {
   };
 }
 
-export function briefingForData(): Omit<Strategy, 'deployment'> {
+export function briefingForData(): Omit<Required<Strategy>, 'deployment'> {
   return {
     marketName: 'nl',
     useMarketData: false,
@@ -147,9 +176,9 @@ export function briefingForData(): Omit<Strategy, 'deployment'> {
     genders: new Set(['f', 'm', 'x']),
     ageGroupIndexStart: 0,
     ageGroupIndexEnd: 0,
-    companyId: undefined,
-    brandName: undefined,
-    productName: undefined
+    companyId: '',
+    brandName: '',
+    productName: ''
   };
 }
 
@@ -335,7 +364,7 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
       ]
     },
     {
-      name: 'e-mail',
+      name: 'e_mail',
       defaultInputType: 'impressions',
       definitions: [
         {
