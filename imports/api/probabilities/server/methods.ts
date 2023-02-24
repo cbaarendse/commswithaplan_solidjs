@@ -3,7 +3,7 @@ import {Meteor} from 'meteor/meteor';
 import {Match} from 'meteor/check';
 import createReachDataTool from '../../strategies/server/reachdata';
 import {MARKETNAMES} from '../../../both/constants/constants';
-import {Market, Probability, Strategy} from '../../../both/typings/types';
+import {AgeGroup, Market, Probability, Strategy} from '../../../both/typings/types';
 import Probabilities from './probabilities';
 import Strategies from '../../strategies/strategies';
 import {markets} from '/imports/ui/stores/reach';
@@ -49,7 +49,7 @@ Meteor.methods({
     return probabilityForMarket ? true : false;
   },
 
-  'probabilities.countRespondentsForMarket': function (args: {[key: string]: string}): number | undefined {
+  'probabilities.countRespondentsForMarket': function (args: {marketName: Strategy['marketName']}): number {
     if (
       !Match.test(args.marketName, String) ||
       !Match.test(
@@ -70,23 +70,29 @@ Meteor.methods({
     }
     let count: number | undefined;
     if (this.isSimulation) {
-      // TODO:
       console.log('this is simulation');
+      count = Probabilities.find({market: args.marketName}).count();
+      return count;
     } else {
       count = Probabilities.find({market: args.marketName}).count();
-
       return count;
     }
   },
 
-  'probabilities.countForStrategy': function (args: {[key: string]: string}): number | undefined {
-    if (!Match.test(args.strategyId, String)) {
-      throw new Meteor.Error('general.invalid.input', 'Invalid input', '[{ "name": "invalidInput" }]');
+  'probabilities.countRespondentsForStrategy': function (args: {
+    briefing: Omit<Strategy, 'deployment'>;
+    ageGroups: AgeGroup[];
+  }): number {
+    if (!Match.test(args.briefing, Object)) {
+      throw new Meteor.Error(
+        'general.invalid.input',
+        `Invalid input: ${args.briefing}`,
+        '[{ "name": "invalidInput" }]'
+      );
     }
-    console.log('probabilities.countForStrategy runs with: ', args.strategyId);
+    console.log('probabilities.countRespondentsForStrategy runs with: ', args.briefing);
 
-    const strategy = Strategies.findOne({_id: args.strategyId});
-    const {_id, userId} = strategy;
+    const {userId} = args.briefing;
 
     if (!this.userId) {
       throw new Meteor.Error(
@@ -96,26 +102,34 @@ Meteor.methods({
       );
     }
     // Check if strategy is from user
-    // if (userId !== this.userId) {
-    //   throw new Meteor.Error(
-    //     'Not authorized',
-    //     'You are not authorized to calculate for this strategy',
-    //     '[{ "name": "notAuthorized" }]'
-    //   );
-    // }
+    if (userId !== this.userId) {
+      throw new Meteor.Error(
+        'Not authorized',
+        'You are not authorized to calculate for this strategy',
+        '[{ "name": "notAuthorized" }]'
+      );
+    }
 
     let probabilitiesForStrategy: Probability[] | undefined;
     if (this.isSimulation) {
-      // TODO:
       console.log('this is simulation');
+      probabilitiesForStrategy = reachDataTool.filterProbabilitiesForStrategy(
+        probabilities,
+        args.briefing,
+        args.ageGroups
+      );
+      return probabilitiesForStrategy.length;
     } else {
-      probabilitiesForStrategy = reachDataTool.filterProbabilitiesForStrategy(probabilities, strategy, _id);
+      probabilitiesForStrategy = reachDataTool.filterProbabilitiesForStrategy(
+        probabilities,
+        args.briefing,
+        args.ageGroups
+      );
       console.log(
         'probabilitiesForRespondents in server count for strategy:',
         typeof probabilitiesForStrategy,
         probabilitiesForStrategy
       );
-
       return probabilitiesForStrategy.length;
     }
   }

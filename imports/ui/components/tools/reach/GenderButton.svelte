@@ -11,14 +11,16 @@
   let genders: Strategy['genders'] = $briefing.genders;
   const unsubscribe = briefing.subscribe((data) => {
     useMarketData = data.useMarketData;
-    genders = data.genders;
+    genders = new Set(data.genders);
+    console.log('genders in briefing subscribe: ', genders);
   });
   $: disabled = !$marketData || !useMarketData;
 
-  $: briefing.update((data) => {
-    data.genders = genders;
-    return data;
-  });
+  // $: briefing.update((data) => {
+  //   data.genders = genders;
+  //   console.log('genders & data.genders in $: briefing.update: ', genders, data.genders);
+  //   return data;
+  // });
 
   onDestroy(() => unsubscribe());
 
@@ -39,6 +41,11 @@
       } else if (!genders.has('f') && !genders.has('m') && !genders.has('x')) {
         genders = new Set(['f', 'm', 'x']);
       }
+      briefing.update((data) => {
+        data.genders = Array.from(genders);
+        console.log('genders & data.genders in toggleGenders: ', genders, data.genders);
+        return data;
+      });
     }
     console.log('genders in toggleGenders end: ', genders);
   }

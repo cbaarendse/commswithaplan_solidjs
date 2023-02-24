@@ -9,7 +9,8 @@ import {
   SortedByName,
   Translation,
   PeopleInRange,
-  Results
+  Results,
+  RespondentsCount
 } from '../../both/typings/types';
 import createReachTool from '../functions/reach';
 
@@ -32,6 +33,9 @@ export const marketData = derived(
   false
 );
 export const deployment: Writable<Strategy['deployment']> = writable(touchPointsForFormula());
+export const ageGroups = derived(briefing, ($briefing) => {
+  return reachTool.getAgeGroupsForMarket($briefing.marketName, allMarkets());
+});
 export const inputTypes: Readable<Translation[]> = readable(allInputTypes());
 export const strategy = derived([briefing, deployment], ([$briefing, $deployment]) => {
   return {...$briefing, deployment: $deployment};
@@ -44,32 +48,40 @@ export const sortedByName: Writable<SortedByName> = writable(true, () => {
 });
 
 // results
-export const respondentsCount = derived([briefing, marketData], ([$briefing, $marketData], set) => {
-  if ($marketData && $briefing.useMarketData) {
-    Meteor.callAsync('probabilities.countRespondentsForMarket', {marketName: $briefing.marketName})
-      .then((result: number) => {
-        if (result >= 0) {
-          set(result);
-        }
-      })
-      .catch((error) => console.log('error in count', error));
+export const respondentsCountForMarket: Readable<RespondentsCount> = derived(
+  [briefing, marketData],
+  ([$briefing, $marketData], set) => {
+    if ($marketData && $briefing.useMarketData) {
+      Meteor.callAsync('probabilities.countRespondentsForMarket', {marketName: $briefing.marketName})
+        .then((result: number) => {
+          if (result >= 0) {
+            set(result);
+          }
+        })
+        .catch((error) => console.log('error in count', error));
+    }
   }
-});
+);
 
-export const peopleInRange = derived([briefing, marketData], ([$briefing, $marketData], set) => {
-  if ($marketData && $briefing.useMarketData) {
-    Meteor.callAsync('populations.countPeopleForStrategy', {
-      briefing: $briefing,
-      ageGroups: reachTool.getAgeGroupsForMarket
-    })
-      .then((result: PeopleInRange) => {
-        if (result >= 0) {
-          set(result);
-        }
+export const peopleInRange: Readable<PeopleInRange> = derived(
+  [marketData, briefing, ageGroups],
+  ([$marketData, $briefing, $ageGroups], set) => {
+    if ($marketData && $briefing.useMarketData) {
+      console.log('briefing ', $briefing, ' and ageGroups ', $ageGroups, 'in peopleInRange');
+
+      Meteor.callAsync('populations.countPeopleInRange', {
+        briefing: $briefing,
+        ageGroups: $ageGroups
       })
-      .catch((error) => console.log('error in peopleInRange ', error));
+        .then((result: PeopleInRange) => {
+          if (result >= 0) {
+            set(result);
+          }
+        })
+        .catch((error) => console.log('error in peopleInRange ', error));
+    }
   }
-});
+);
 
 export const population: Writable<number> = writable(0, () => {
   () => {
@@ -90,14 +102,15 @@ export const reachedUnique: Writable<number> = writable(0, () => {
 });
 
 export const results: Readable<Results> = derived(
-  [marketData, briefing, deployment, respondentsCount, peopleInRange],
-  ([$marketData, $briefing, $deployment, $respondentsCount, $peopleInRange], set) => {
+  [marketData, briefing, deployment, ageGroups, respondentsCountForMarket, peopleInRange],
+  ([$marketData, $briefing, $deployment, $ageGroups, $respondentsCountForMarket, $peopleInRange], set) => {
     console.log('produce results');
     if ($marketData && $briefing.useMarketData) {
       Meteor.callAsync('strategies.calculateResultsWithData', {
         briefing: $briefing,
         deployment: $deployment,
-        respondentsCount: $respondentsCount,
+        ageGroups: $ageGroups,
+        respondentsCountForMarket: $respondentsCountForMarket,
         peopleInRange: $peopleInRange
       })
         .then((result) => {

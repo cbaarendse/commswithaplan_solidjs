@@ -1,31 +1,21 @@
 <script lang="ts">
   // imports
-  import type {Meter} from '../../../../both/typings/types';
 
   // variables
-  export let outputMeter: Meter;
+  export let id: string;
+  export let value: number;
+  export let min: number;
+  export let max: number;
 
   // functions
 </script>
 
-<meter
-  id={outputMeter.id}
-  value={outputMeter.value}
-  min={outputMeter.min}
-  max={outputMeter.max}
-  high={outputMeter.high}
-  low={outputMeter.low}
-  optimum={outputMeter.optimum}
-  form={outputMeter.form}
->
+<meter {id} {value} {min} {max}>
   <div class="meter">
     <span
       class="meter-value"
-      style="width:{typeof outputMeter.value == 'number' &&
-      outputMeter.value > 0 &&
-      typeof outputMeter.max == 'number' &&
-      outputMeter.max > 0
-        ? (outputMeter.value / outputMeter.max) * 100
+      style="width:{typeof value == 'number' && value > 0 && typeof max == 'number' && max > 0
+        ? (value / max) * 100
         : 0}%"
     />
   </div>

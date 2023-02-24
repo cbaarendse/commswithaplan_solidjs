@@ -2,12 +2,10 @@
 import {Meteor} from 'meteor/meteor';
 
 import Populations from '../populations/populations';
-import Strategies from '../strategies/strategies';
 
 import {MARKETNAMES} from '../../both/constants/constants';
 import {AgeGroup, PeopleInRange, Strategy} from '../../both/typings/types';
 import {Match} from 'meteor/check';
-import {Mongo} from 'meteor/mongo';
 
 Meteor.methods({
   'populations.countPeopleForMarket': function (args: {marketName: Strategy['marketName']}): number {
@@ -43,7 +41,7 @@ Meteor.methods({
     return sum;
   },
 
-  'populations.countPeopleForStrategy': function (args: {
+  'populations.countPeopleInRange': function (args: {
     briefing: Omit<Required<Strategy>, 'deployment'>;
     ageGroups: AgeGroup[];
   }): PeopleInRange {
@@ -65,7 +63,7 @@ Meteor.methods({
         '[{ "name": "invalidInput" }]'
       );
     }
-    if (!Match.test(args.ageGroups, Object)) {
+    if (!Match.test(args.ageGroups, Array)) {
       throw new Meteor.Error(
         'general.invalid.input',
         `Invalid input: ${args.ageGroups}`,
@@ -74,20 +72,20 @@ Meteor.methods({
     }
 
     // check if strategy is from user
-    if (userId !== this.userId) {
-      throw new Meteor.Error(
-        'Not authorized',
-        'You are not authorized to calculate for this strategy',
-        '[{ "name": "notAuthorized" }]'
-      );
-    }
+    // if (userId !== this.userId) {
+    //   throw new Meteor.Error(
+    //     'Not authorized',
+    //     'You are not authorized to calculate for this strategy',
+    //     '[{ "name": "notAuthorized" }]'
+    //   );
+    // }
 
     const startAge = args.ageGroups[ageGroupIndexStart][0];
     const endAge = args.ageGroups[ageGroupIndexEnd][1];
     const query: {[key: string]: any} = {
       market: marketName,
       gender: {
-        $in: Array.of(genders.values())
+        $in: genders
       },
       age: {
         $gte: startAge,

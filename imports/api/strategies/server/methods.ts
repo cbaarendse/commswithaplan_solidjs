@@ -26,13 +26,13 @@ Meteor.methods({
     briefing: Omit<Strategy, 'deployment'>;
     deployment: Strategy['deployment'];
     ageGroups: AgeGroup[];
-    respondentsCount: RespondentsCount;
+    respondentsCountForMarket: RespondentsCount;
     peopleInRange: PeopleInRange;
   }): Results {
     if (
       !Match.test(args.briefing, Object) ||
       !Match.test(args.deployment, Array) ||
-      !Match.test(args.respondentsCount, Number) ||
+      !Match.test(args.respondentsCountForMarket, Number) ||
       !Match.test(args.peopleInRange, Number)
     ) {
       throw new Meteor.Error('general.invalid.input', 'Invalid input', '[{ "name": "invalidInput" }]');
@@ -81,7 +81,7 @@ Meteor.methods({
         // Adjust touchPoint
         const adaptedTouchPoint: ProbabilityTouchPoint = reachDataTool.touchPointAdaptToNewProbabilities(
           touchPoint,
-          args.respondentsCount,
+          args.respondentsCountForMarket,
           args.peopleInRange,
           arrangedRespondentsForTouchPoints
         );
@@ -104,7 +104,7 @@ Meteor.methods({
       const reachedUniqueRespondentsForStrategy: Set<number> = new Set(reachedNonUniqueRespondentsForStrategy); // OK
       console.log('reachedRespondentsPerTouchPointDeployed :', reachedRespondentsPerTouchPointDeployed);
       // strategy.reach
-      totalReachForResult = (reachedUniqueRespondentsForStrategy.size / args.respondentsCount) * 100;
+      totalReachForResult = (reachedUniqueRespondentsForStrategy.size / args.respondentsCountForMarket) * 100;
       // Unique respondents for all touchpoints
       reachedUniqueRespondentsForStrategy.forEach((respondentId) => {
         const thisRespondentReachedByAllTouchPoints = touchPointsDeployed.reduce((result, touchPoint, index, list) => {
@@ -118,7 +118,7 @@ Meteor.methods({
         }
       });
       // strategy.overlap
-      overlapForResult = (reachedRespondentsByAllTouchPointsForStrategy.length / args.respondentsCount) * 100;
+      overlapForResult = (reachedRespondentsByAllTouchPointsForStrategy.length / args.respondentsCountForMarket) * 100;
       // update strategy
     }
     return [totalReachForResult, overlapForResult];

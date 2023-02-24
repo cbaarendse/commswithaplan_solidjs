@@ -6,7 +6,14 @@
   import createFormatter from '../../../functions/format';
   import {language, translations} from '../../../stores/utils';
   import {definitions} from '../../../stores/tools';
-  import {totalReach, overlap, respondentsCount, peopleInRange, population, briefing} from '../../../stores/reach';
+  import {
+    totalReach,
+    overlap,
+    respondentsCountForMarket,
+    peopleInRange,
+    population,
+    briefing
+  } from '../../../stores/reach';
   // import Spinner from '../../reusable/Spinner.svelte';
 
   // variables
@@ -21,10 +28,10 @@
 </script>
 
 <div class="container">
-  {#if $respondentsCount && $briefing.useMarketData}
+  {#if $respondentsCountForMarket && $briefing.useMarketData}
     <div class="amounts__container">
       <span>respondents:</span>
-      <output>{$respondentsCount}</output>
+      <output>{$respondentsCountForMarket}</output>
       <span>people in range:</span>
       <output>{$peopleInRange}</output>
       <span>population for {$briefing.marketName}:</span>
@@ -34,6 +41,7 @@
     <!-- svelte-ignore missing-declaration -->
     <!-- <Spinner /> -->
     <label
+      for="reach"
       on:click|preventDefault|stopPropagation={() => {
         displayOutputDescription = true;
         outputName = 'total_reach';
@@ -51,16 +59,10 @@
       </span>
       <output>{formatter.toNumberFormat($totalReach, 0)}&nbsp;%</output>
     </label>
-    <OutputMeter
-      outputMeter={{
-        id: 'reach',
-        value: $totalReach,
-        min: 0,
-        max: 100
-      }}
-    />
+    <OutputMeter id={'reach'} value={$totalReach} min={0} max={100} }} />
 
     <label
+      for="overlap"
       on:click|preventDefault|stopPropagation={() => {
         displayOutputDescription = true;
         outputName = 'overlap';
@@ -72,14 +74,7 @@
       <span>{converter.translate('overlap', $translations, $language)}:&nbsp;</span>
       <output>{formatter.toNumberFormat($overlap, 0)}&nbsp;%</output>
     </label>
-    <OutputMeter
-      outputMeter={{
-        id: 'overlap',
-        value: $overlap,
-        min: 0,
-        max: 100
-      }}
-    />
+    <OutputMeter id={'overlap'} value={$overlap} min={0} max={100} />
   </div>
 </div>
 

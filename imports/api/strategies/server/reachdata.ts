@@ -71,7 +71,7 @@ export default function createReachDataTool() {
   function touchPointAdaptToNewProbabilities(
     touchPoint: DeployedTouchPoint,
     peopleInRange: PeopleInRange,
-    respondentsCount: RespondentsCount,
+    respondentsCountForMarket: RespondentsCount,
     respondentsForTouchPoints: {[key: string]: Map<Probability['respondentId'], number>}
   ): ProbabilityTouchPoint {
     const {name, value, inputType} = touchPoint;
@@ -101,7 +101,7 @@ export default function createReachDataTool() {
           ? (value / peopleInRange) * 100
           : value
       )
-      .set('maxValue', (adaptedTouchPoint.get('maxReachedRespondents') / respondentsCount) * peopleInRange * 5)
+      .set('maxValue', (adaptedTouchPoint.get('maxReachedRespondents') / respondentsCountForMarket) * peopleInRange * 5)
       .set('averageProbability', adaptedTouchPoint.get('sumOfProbabilities') / respondentsForTouchPoints[name].size);
     return adaptedTouchPoint;
   }
@@ -130,10 +130,10 @@ export default function createReachDataTool() {
     return reachedRespondentsForTouchPoint;
   }
 
-  function calculateReachForTouchPoint(reachedRespondents: number[], respondentsCount: RespondentsCount) {
-    return Number.isNaN((reachedRespondents.length / respondentsCount) * 100)
+  function calculateReachForTouchPoint(reachedRespondents: number[], respondentsCountForMarket: RespondentsCount) {
+    return Number.isNaN((reachedRespondents.length / respondentsCountForMarket) * 100)
       ? 0
-      : (reachedRespondents.length / respondentsCount) * 100;
+      : (reachedRespondents.length / respondentsCountForMarket) * 100;
   }
 
   function calculateOtsForTouchPoint(touchPoint: ProbabilityTouchPoint) {

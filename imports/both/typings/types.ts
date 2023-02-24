@@ -1,8 +1,7 @@
 // imports
 import {Meteor} from 'meteor/meteor';
 import {Mongo} from 'meteor/mongo';
-import {Writable} from 'svelte/store';
-import {HTMLInputAttributes} from 'svelte/elements';
+import {HTMLInputAttributes, HTMLAttributes} from 'svelte/elements';
 
 // global
 declare global {
@@ -68,7 +67,7 @@ export type Market = {
   ageGroups: AgeGroup[];
 };
 export type AgeGroup = [number, number];
-export type Genders = Set<'f' | 'm' | 'x' | undefined | null>;
+export type Genders = 'f' | 'm' | 'x'[];
 export type MarketData = boolean;
 export type RespondentsCount = number;
 export type PeopleInRange = number;
@@ -161,15 +160,13 @@ export type Year = {name: string; days: number};
 
 // components
 export type Accordion = {visible: boolean};
-export type Brand = Partial<svelteHTML.IntrinsicElements['span']> & Partial<HTMLElement['style']>;
-export type Card = Partial<Illustrated & Action & Link> &
-  svelteHTML.IntrinsicElements['article'] &
-  Partial<HTMLElement['style']>;
+export type Brand = Partial<HTMLAttributes<HTMLSpanElement>> & Partial<HTMLElement['style']>;
+export type Card = Partial<Illustrated & Action & Link> & ['article'] & Partial<HTMLElement['style']>;
 export type Checkbox = HTMLInputAttributes;
-export type Logo = svelteHTML.IntrinsicElements['div'] & Partial<HTMLElement['style']> & Colored;
+export type Logo = HTMLAttributes<HTMLDivElement> & Partial<HTMLElement['style']> & Colored;
 export type Input = HTMLInputAttributes;
-export type Label = svelteHTML.IntrinsicElements['label'] & Partial<HTMLElement['style']>;
-export type Meter = svelteHTML.IntrinsicElements['meter'] & Partial<HTMLElement['style']>;
+export type Label = HTMLAttributes<HTMLLabelElement> & Partial<HTMLElement['style']>;
+export type Meter = HTMLAttributes<HTMLMeterElement> & Partial<HTMLElement['style']>;
 
 // building blocks
 // type CWAPColor = {color: 'blue' | 'green' | 'red' | 'teal' | 'grey' | 'transparent' | 'transparentnoborder'};
