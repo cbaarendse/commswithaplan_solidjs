@@ -8,7 +8,7 @@
 
   // variables
   let useMarketData: Strategy['useMarketData'];
-  let genders: Strategy['genders'] = $briefing.genders;
+  let genders: Set<'f' | 'm' | 'x'>;
   const unsubscribe = briefing.subscribe((data) => {
     useMarketData = data.useMarketData;
     genders = new Set(data.genders);
@@ -26,7 +26,6 @@
 
   // functions
   function toggleGenders() {
-    console.log('genders in toggleGenders start: ', genders);
     if (genders) {
       if (genders.has('f') && genders.has('m') && genders.has('x')) {
         genders.delete('m');
@@ -43,14 +42,12 @@
       }
       briefing.update((data) => {
         data.genders = Array.from(genders);
-        console.log('genders & data.genders in toggleGenders: ', genders, data.genders);
+        console.log('genders ', genders, '& data.genders', data.genders, ' in toggleGenders ');
         return data;
       });
     }
-    console.log('genders in toggleGenders end: ', genders);
   }
 
-  console.log('$genders in genderButton: end', genders);
   onDestroy(() => unsubscribe());
 </script>
 

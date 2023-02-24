@@ -31,11 +31,11 @@
   {#if $respondentsCountForMarket && $briefing.useMarketData}
     <div class="amounts__container">
       <span>respondents:</span>
-      <output>{$respondentsCountForMarket}</output>
+      <output>{formatter.toNumberFormat($respondentsCountForMarket, 0)}</output>
       <span>people in range:</span>
-      <output>{$peopleInRange}</output>
+      <output>{formatter.toMillionsFormat($peopleInRange, 2)}</output>
       <span>population for {$briefing.marketName}:</span>
-      <output>{$population}</output>
+      <output>{formatter.toMillionsFormat($population, 1)}</output>
     </div>{/if}
   <div class="meter__container">
     <!-- svelte-ignore missing-declaration -->

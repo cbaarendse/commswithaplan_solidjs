@@ -27,7 +27,11 @@ export default function createFormatter() {
     return DateTime.fromJSDate(date).toLocaleString(DateTime.DATETIME_MED);
   }
   function toNumberFormat(value: number, digits: number): string {
-    return `${value.toLocaleString(undefined, {maximumFractionDigits: digits})}`;
+    return new Intl.NumberFormat('nl-NL', {style: 'decimal', maximumFractionDigits: digits}).format(value);
+  }
+  function toMillionsFormat(value: number, digits: number): string {
+    value = value / 1_000_000;
+    return new Intl.NumberFormat('nl-NL', {style: 'decimal', maximumFractionDigits: digits}).format(value) + ' M';
   }
 
   function toCurrencySymbol(currency: string): string {
@@ -41,6 +45,7 @@ export default function createFormatter() {
     percentFixed,
     toDateFormat,
     toNumberFormat,
+    toMillionsFormat,
     toCurrencySymbol
   };
 }

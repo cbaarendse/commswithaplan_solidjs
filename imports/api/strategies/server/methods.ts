@@ -35,7 +35,7 @@ Meteor.methods({
       !Match.test(args.respondentsCountForMarket, Number) ||
       !Match.test(args.peopleInRange, Number)
     ) {
-      throw new Meteor.Error('general.invalid.input', 'Invalid input', '[{ "name": "invalidInput" }]');
+      throw new Meteor.Error('general.invalid.input', `Invalid input: ${args}`, '[{ "name": "invalidInput" }]');
     }
     const {userId, marketName} = args.briefing;
     let totalReachForResult: Results[0];
@@ -55,13 +55,13 @@ Meteor.methods({
         '[{ "name": "notLoggedIn" }]'
       );
     }
-    if (this.userId !== userId) {
-      throw new Meteor.Error(
-        'Not authorized',
-        'You are not authorized to calculate this strategy',
-        '[{ "name": "notAuthorized" }]'
-      );
-    }
+    // if (this.userId !== userId) {
+    //   throw new Meteor.Error(
+    //     'Not authorized',
+    //     'You are not authorized to calculate this strategy',
+    //     '[{ "name": "notAuthorized" }]'
+    //   );
+    // }
 
     if (this.isSimulation) {
       console.log('simulation');

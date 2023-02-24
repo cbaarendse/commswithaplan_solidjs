@@ -46,7 +46,7 @@ export default function createReachDataTool() {
 
     return probabilities.filter((probability) => {
       probability.marketName == marketName,
-        genders?.has(probability.gender),
+        genders?.includes(probability.gender),
         probability.age >= ageGroupStart[0] && probability.age <= ageGroupEnd[1];
     });
   }

@@ -58,7 +58,7 @@ export const respondentsCountForMarket: Readable<RespondentsCount> = derived(
             set(result);
           }
         })
-        .catch((error) => console.log('error in count', error));
+        .catch((error) => console.log('error in respondents for market', error));
     }
   }
 );
@@ -83,10 +83,20 @@ export const peopleInRange: Readable<PeopleInRange> = derived(
   }
 );
 
-export const population: Writable<number> = writable(0, () => {
-  () => {
-    console.log('population closed');
-  };
+export const population: Readable<number> = derived([marketData, briefing], ([$marketData, $briefing], set) => {
+  if ($marketData && $briefing.useMarketData) {
+    console.log('briefing ', $briefing, 'in peopleInRange');
+
+    Meteor.callAsync('populations.countPeopleForMarket', {
+      marketName: $briefing.marketName
+    })
+      .then((result: PeopleInRange) => {
+        if (result >= 0) {
+          set(result);
+        }
+      })
+      .catch((error) => console.log('error in population ', error));
+  }
 });
 
 export const reachedNonUnique: Writable<number> = writable(0, () => {
@@ -118,7 +128,7 @@ export const results: Readable<Results> = derived(
             set(result);
           }
         })
-        .catch((error) => console.log('error in count', error));
+        .catch((error) => console.log('error in calculate results with data', error));
     } else {
       set(reachTool.calculateResults($deployment));
     }
@@ -186,7 +196,7 @@ export function briefingForData(): Omit<Required<Strategy>, 'deployment'> {
     title: 'New Strategy',
     createdAt: new Date(),
     lastChanged: new Date(),
-    genders: new Set(['f', 'm', 'x']),
+    genders: ['f', 'm', 'x'],
     ageGroupIndexStart: 0,
     ageGroupIndexEnd: 0,
     companyId: '',

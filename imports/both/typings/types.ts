@@ -67,7 +67,7 @@ export type Market = {
   ageGroups: AgeGroup[];
 };
 export type AgeGroup = [number, number];
-export type Genders = 'f' | 'm' | 'x'[];
+export type Genders = Array<'f' | 'm' | 'x'>;
 export type MarketData = boolean;
 export type RespondentsCount = number;
 export type PeopleInRange = number;
