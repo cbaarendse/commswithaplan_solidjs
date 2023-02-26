@@ -4,11 +4,11 @@ import {Meteor} from 'meteor/meteor';
 import Populations from '../populations/populations';
 
 import {MARKETNAMES} from '../../both/constants/constants';
-import {AgeGroup, PeopleInRange, Strategy} from '../../both/typings/types';
+import {AgeGroup, PopulationInRange, Strategy} from '../../both/typings/types';
 import {Match} from 'meteor/check';
 
 Meteor.methods({
-  'populations.countPeopleForMarket': function (args: {marketName: Strategy['marketName']}): number {
+  'populations.countPopulationForMarket': function (args: {marketName: Strategy['marketName']}): number {
     if (!this.userId) {
       throw new Meteor.Error(
         'users.general.notLoggedIn',
@@ -41,12 +41,12 @@ Meteor.methods({
     return sum;
   },
 
-  'populations.countPeopleInRange': function (args: {
+  'populations.countPopulationInRange': function (args: {
     briefing: Omit<Required<Strategy>, 'deployment'>;
     ageGroups: AgeGroup[];
-  }): PeopleInRange {
+  }): PopulationInRange {
     const {marketName, genders, ageGroupIndexStart, ageGroupIndexEnd, userId} = args.briefing;
-    console.log('populations.countPeopleForStrategy runs with: ', args.briefing, this.userId, args.ageGroups);
+    console.log('populations.countPopulationForStrategy runs with: ', args.briefing, this.userId, args.ageGroups);
 
     if (!this.userId) {
       throw new Meteor.Error(

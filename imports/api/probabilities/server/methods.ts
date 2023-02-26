@@ -39,12 +39,7 @@ Meteor.methods({
     if (this.isSimulation) {
       console.log('this is simulation');
     } else {
-      probabilityForMarket = Probabilities.findOne({market: args.marketName});
-      console.log(
-        'type of probabilityForMarket in server check for probability:',
-        typeof probabilityForMarket,
-        probabilityForMarket
-      );
+      probabilityForMarket = Probabilities.findOne({marketName: args.marketName});
     }
     return probabilityForMarket ? true : false;
   },

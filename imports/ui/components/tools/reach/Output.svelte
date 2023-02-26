@@ -10,7 +10,7 @@
     totalReach,
     overlap,
     respondentsCountForMarket,
-    peopleInRange,
+    populationInRange,
     population,
     briefing
   } from '../../../stores/reach';
@@ -32,8 +32,8 @@
     <div class="amounts__container">
       <span>respondents:</span>
       <output>{formatter.toNumberFormat($respondentsCountForMarket, 0)}</output>
-      <span>people in range:</span>
-      <output>{formatter.toMillionsFormat($peopleInRange, 2)}</output>
+      <span>population in range:</span>
+      <output>{formatter.toMillionsFormat($populationInRange, 2)}</output>
       <span>population for {$briefing.marketName}:</span>
       <output>{formatter.toMillionsFormat($population, 1)}</output>
     </div>{/if}

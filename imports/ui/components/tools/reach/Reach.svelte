@@ -11,10 +11,12 @@
     deployment,
     briefing,
     marketData,
+    overlap,
     strategy,
     sortedByName,
     briefingForData,
     briefingForFormula,
+    totalReach,
     touchPointsForData,
     touchPointsForFormula
   } from '../../../stores/reach';
@@ -24,7 +26,7 @@
   const reachTool = createReachTool();
   let marketName: Strategy['marketName'];
   let useMarketData: Strategy['useMarketData'];
-  let deployedTouchPoints: DeployedTouchPoint[];
+  let deployedTouchPoints: DeployedTouchPoint[] = [];
 
   // subscriptions
   let unsubscribeBriefing = briefing.subscribe((data) => {
@@ -42,19 +44,17 @@
   $: $marketData && useMarketData ? deployment.set(touchPointsForData()) : deployment.set(touchPointsForFormula());
 
   // first sort, based on selected language
-  const [sortedDeployedTouchPoints, updatedSortedByName] = reachTool.sort(
-    deployedTouchPoints,
-    $sortedByName,
-    $language
-  );
-  deployment.set(sortedDeployedTouchPoints);
-  sortedByName.set(updatedSortedByName);
+  let [sortedDeployedTouchPoints, updatedSortedByName] = reachTool.sort(deployedTouchPoints, $sortedByName, $language);
+  $: deployment.set(sortedDeployedTouchPoints);
+  $: sortedByName.set(updatedSortedByName);
 
   $: console.log('$briefing in $: ', $briefing);
   $: console.log('$deployment: in $: ', $deployment);
   $: console.log('$strategy in $: ', $strategy);
   $: console.log('marketName: in $: ', marketName);
   $: console.log('$marketData: in $: ', $marketData);
+  $: console.log('$totalReach: in $: ', $totalReach);
+  $: console.log('$overlap: in $: ', $overlap);
 
   // functions
 

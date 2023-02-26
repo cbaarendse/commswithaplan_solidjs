@@ -1,109 +1,82 @@
 import {Mongo} from 'meteor/mongo';
 import type {
-  TouchPointDefinition,
   Probability,
-  Genders,
-  Strategy,
-  Market,
-  AgeGroup,
   DeployedTouchPoint,
-  PeopleInRange,
+  PopulationInRange,
   ProbabilityTouchPoint,
-  RespondentsCount
+  RespondentsCount,
+  TouchPointName
 } from '/imports/both/typings/types';
 
 export default function createReachDataTool() {
-  function filterProbabilitiesForMarket(probabilities: Probability[], marketName: string): Probability[] {
-    console.log('filterProbabilitiesForMarket server function runs with  :', probabilities, marketName);
-
-    const fields = {respondentId: 1, market: 1, age: 1, gender: 1};
-    console.log('fields in filterProbabilitiesForMarket:', fields);
-
-    if (!Array.isArray(probabilities) || !probabilities.length) {
-      throw new Error('Empty argument(s) for filterProbabilitiesForMarket');
-    } else {
-      return probabilities.filter((probability) => {
-        probability.marketName == marketName;
-      });
-    }
-  }
-
-  function filterProbabilitiesForStrategy(
-    probabilities: Probability[],
-    strategy: Omit<Strategy, 'deployment'>,
-    groups: AgeGroup[]
-  ) {
-    console.log('filterProbabilitiesForStrategy server function runs with  :', strategy.title);
-
-    const groupsEnd = groups.slice(strategy.ageGroupIndexStart ? strategy.ageGroupIndexStart : 0 + 1);
-    const marketName = strategy.marketName;
-    const ageGroupStart = strategy.ageGroupIndexStart ? groups[strategy.ageGroupIndexStart] : groups[0];
-    const ageGroupEnd = strategy.ageGroupIndexEnd ? groupsEnd[strategy.ageGroupIndexEnd] : groupsEnd[0];
-    const genders = strategy.genders;
-
-    const fields = {respondentId: 1, market: 1, age: 1, gender: 1};
-    console.log('fields in filterProbabilitiesForStrategy:', fields);
-
-    return probabilities.filter((probability) => {
-      probability.marketName == marketName,
-        genders?.includes(probability.gender),
-        probability.age >= ageGroupStart[0] && probability.age <= ageGroupEnd[1];
-    });
-  }
-
-  function arrangeRespondentsForTouchPoints(
-    touchPoints: TouchPointDefinition[],
+  // arrange respondents for touchpoint
+  function arrangeProbabilitiesForTouchPoints(
+    touchPoints: DeployedTouchPoint[],
     probabilities: Probability[]
-  ): {[key: string]: Map<Probability['respondentId'], number>} {
+  ): {[key in TouchPointName]: Map<Probability['respondentId'], number>} {
     const deployedTouchPoints = touchPoints;
-    const arrangedRespondents: {[key: string]: Map<Probability['respondentId'], number>} = {};
+    let arrangedProbabilities: {[key in TouchPointName]: Map<Probability['respondentId'], number>};
     deployedTouchPoints.forEach((touchPoint) => {
-      arrangedRespondents[touchPoint.name] = new Map();
-      for (const p of probabilities) {
-        if (arrangedRespondents[touchPoint.name] && p[touchPoint.name] > 0) {
-          arrangedRespondents[touchPoint.name].set(p.respondentId, p[touchPoint.name]);
+      arrangedProbabilities[touchPoint.name] = new Map();
+      for (const probability of probabilities) {
+        if (arrangedProbabilities[touchPoint.name] && probability[touchPoint.name] > 0) {
+          arrangedProbabilities[touchPoint.name]?.set(probability.respondentId, probability[touchPoint.name]);
         }
       }
     });
-    return arrangedRespondents;
+    return arrangedProbabilities;
   }
 
-  function touchPointAdaptToNewProbabilities(
-    touchPoint: DeployedTouchPoint,
-    peopleInRange: PeopleInRange,
+  function addPropertiesToTouchPoints(
+    touchPoints: DeployedTouchPoint[],
+    populationInRange: PopulationInRange,
     respondentsCountForMarket: RespondentsCount,
-    respondentsForTouchPoints: {[key: string]: Map<Probability['respondentId'], number>}
-  ): ProbabilityTouchPoint {
-    const {name, value, inputType} = touchPoint;
-    const probabilitiesForTouchPoint = [];
-    if (respondentsForTouchPoints[name]) {
-      for (const [key, value] of respondentsForTouchPoints[name]) {
-        probabilitiesForTouchPoint.push(value);
+    probabilitiesForTouchPoints: {[key in TouchPointName]: Map<Probability['respondentId'], number>}
+  ): ProbabilityTouchPoint[] {
+    const adaptedTouchPoints = touchPoints.map((touchPoint) => {
+      const {name, value, inputType} = touchPoint;
+      const allProbabilitiesForTouchPoint = [];
+      if (probabilitiesForTouchPoints[name]) {
+        for (const [key, value] of probabilitiesForTouchPoints[name]) {
+          allProbabilitiesForTouchPoint.push(value);
+        }
       }
-    }
-    const adaptedTouchPoint = new Map()
-      .set('name', name)
-      .set('value', value)
-      .set('inputType', inputType)
-      .set('selected', value === 0 ? false : true)
-      .set('maxReachedRespondents', respondentsForTouchPoints[name].size)
-      .set(
-        'sumOfProbabilities',
-        probabilitiesForTouchPoint.reduce((sum, probability) => {
-          return sum + probability;
-        }, 0)
-      )
-      .set('minValue', 0);
-    adaptedTouchPoint
-      .set(
-        'grps',
-        adaptedTouchPoint.get('inputType') == 'contacts' || adaptedTouchPoint.get('inputType') == 'impressions'
-          ? (value / peopleInRange) * 100
-          : value
-      )
-      .set('maxValue', (adaptedTouchPoint.get('maxReachedRespondents') / respondentsCountForMarket) * peopleInRange * 5)
-      .set('averageProbability', adaptedTouchPoint.get('sumOfProbabilities') / respondentsForTouchPoints[name].size);
-    return adaptedTouchPoint;
+      const adaptedTouchPoint = new Map()
+        .set('name', name)
+        .set('value', value)
+        .set('inputType', inputType)
+        .set('selected', value === 0 ? false : true)
+        .set(
+          'maxReachedRespondents',
+          probabilitiesForTouchPoints[name].size ? probabilitiesForTouchPoints[name].size : 0
+        )
+        .set(
+          'sumOfProbabilities',
+          allProbabilitiesForTouchPoint.reduce((sum, probability) => {
+            return sum + probability;
+          }, 0)
+        )
+        .set('minValue', 0);
+      adaptedTouchPoint
+        .set(
+          'grps',
+          adaptedTouchPoint.get('inputType') == 'contacts' || adaptedTouchPoint.get('inputType') == 'impressions'
+            ? (value / populationInRange) * 100
+            : value
+        )
+        .set(
+          'maxValue',
+          (adaptedTouchPoint.get('maxReachedRespondents') / respondentsCountForMarket) * populationInRange * 5
+        )
+        .set(
+          'averageProbability',
+          adaptedTouchPoint.get('sumOfProbabilities') / probabilitiesForTouchPoints[name].size
+        );
+      return adaptedTouchPoint;
+    });
+    console.log('all adapted touchpoints in add properties to touchpoints: ', adaptedTouchPoints);
+
+    return adaptedTouchPoints;
   }
 
   function collectReachedRespondentsForTouchPoint(
@@ -177,10 +150,8 @@ export default function createReachDataTool() {
   }
 
   return {
-    filterProbabilitiesForMarket,
-    filterProbabilitiesForStrategy,
-    arrangeRespondentsForTouchPoints,
-    touchPointAdaptToNewProbabilities,
+    arrangeProbabilitiesForTouchPoints,
+    addPropertiesToTouchPoints,
     collectReachedRespondentsForTouchPoint,
     calculateReachForTouchPoint,
     calculateOtsForTouchPoint

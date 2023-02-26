@@ -8,7 +8,7 @@ import {
   DeployedTouchPoint,
   SortedByName,
   Translation,
-  PeopleInRange,
+  PopulationInRange,
   Results,
   RespondentsCount
 } from '../../both/typings/types';
@@ -63,34 +63,34 @@ export const respondentsCountForMarket: Readable<RespondentsCount> = derived(
   }
 );
 
-export const peopleInRange: Readable<PeopleInRange> = derived(
+export const populationInRange: Readable<PopulationInRange> = derived(
   [marketData, briefing, ageGroups],
   ([$marketData, $briefing, $ageGroups], set) => {
     if ($marketData && $briefing.useMarketData) {
-      console.log('briefing ', $briefing, ' and ageGroups ', $ageGroups, 'in peopleInRange');
+      console.log('briefing ', $briefing, ' and ageGroups ', $ageGroups, 'in populationInRange');
 
-      Meteor.callAsync('populations.countPeopleInRange', {
+      Meteor.callAsync('populations.countPopulationInRange', {
         briefing: $briefing,
         ageGroups: $ageGroups
       })
-        .then((result: PeopleInRange) => {
+        .then((result: PopulationInRange) => {
           if (result >= 0) {
             set(result);
           }
         })
-        .catch((error) => console.log('error in peopleInRange ', error));
+        .catch((error) => console.log('error in populationInRange ', error));
     }
   }
 );
 
 export const population: Readable<number> = derived([marketData, briefing], ([$marketData, $briefing], set) => {
   if ($marketData && $briefing.useMarketData) {
-    console.log('briefing ', $briefing, 'in peopleInRange');
+    console.log('briefing ', $briefing, 'in populationInRange');
 
-    Meteor.callAsync('populations.countPeopleForMarket', {
+    Meteor.callAsync('populations.countPopulationForMarket', {
       marketName: $briefing.marketName
     })
-      .then((result: PeopleInRange) => {
+      .then((result: PopulationInRange) => {
         if (result >= 0) {
           set(result);
         }
@@ -112,8 +112,8 @@ export const reachedUnique: Writable<number> = writable(0, () => {
 });
 
 export const results: Readable<Results> = derived(
-  [marketData, briefing, deployment, ageGroups, respondentsCountForMarket, peopleInRange],
-  ([$marketData, $briefing, $deployment, $ageGroups, $respondentsCountForMarket, $peopleInRange], set) => {
+  [marketData, briefing, deployment, ageGroups, respondentsCountForMarket, populationInRange],
+  ([$marketData, $briefing, $deployment, $ageGroups, $respondentsCountForMarket, $populationInRange], set) => {
     console.log('produce results');
     if ($marketData && $briefing.useMarketData) {
       Meteor.callAsync('strategies.calculateResultsWithData', {
@@ -121,7 +121,7 @@ export const results: Readable<Results> = derived(
         deployment: $deployment,
         ageGroups: $ageGroups,
         respondentsCountForMarket: $respondentsCountForMarket,
-        peopleInRange: $peopleInRange
+        populationInRange: $populationInRange
       })
         .then((result) => {
           if (result > 0) {
@@ -767,7 +767,7 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
         {
           language: 'english',
           displayName: 'Word Of Mouth',
-          description: 'People pass opinions on a brand to other people.'
+          description: 'Population pass opinions on a brand to other people.'
         },
         {
           language: 'dutch',

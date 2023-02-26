@@ -70,7 +70,7 @@ export type AgeGroup = [number, number];
 export type Genders = Array<'f' | 'm' | 'x'>;
 export type MarketData = boolean;
 export type RespondentsCount = number;
-export type PeopleInRange = number;
+export type PopulationInRange = number;
 export type ReachedNonUnique = number;
 export type ReachedUnique = number;
 export type SortedByName = boolean;
@@ -146,12 +146,11 @@ export type Population = {
 export type Probability = {
   _id: Mongo.ObjectID;
   respondentId: number;
-  age_group: number;
   age: number;
   gender: 'm' | 'f' | 'x';
   marketName: string;
 } & {
-  [key: string]: number;
+  [key in TouchPointName]: number;
 };
 
 export type Week = {name: string; days: number; monday: string};
