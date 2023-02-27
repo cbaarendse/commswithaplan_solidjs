@@ -74,26 +74,26 @@ Meteor.methods({
       [key in TouchPointName]: Map<Probability['respondentId'], number>;
     } = reachDataTool.arrangeProbabilitiesForTouchPoints(touchPointsDeployed, probabilities); //OK
     // add properties to touchpoints
-      const adaptedTouchPoints: ProbabilityTouchPoint[] = reachDataTool.addPropertiesToTouchPoints(
-        touchPointsDeployed,
-        args.respondentsCountForMarket,
-        args.populationInRange,
-        arrangedProbabilitiesForTouchPoints
-      );
-      // Build non-unique respondents
+    const adaptedTouchPoints: ProbabilityTouchPoint[] = reachDataTool.addPropertiesToTouchPoints(
+      touchPointsDeployed,
+      args.respondentsCountForMarket,
+      args.populationInRange,
+      arrangedProbabilitiesForTouchPoints
+    );
 
-      // Collect respondents TODO:
-      const reachedRespondentsForTouchPoint = reachDataTool.collectReachedRespondentsForTouchPoint(
-        adaptedTouchPoint,
-        arrangedProbabilitiesForTouchPoints
-      );
-      // For reach calculation
-      reachedNonUniqueRespondentsForStrategy = reachedNonUniqueRespondentsForStrategy.concat(
-        reachedRespondentsForTouchPoint
-      ); // OK (concat is quicker than unshift)
-      // For locus calculation
-      reachedRespondentsPerTouchPointDeployed[touchPoint.name] = reachedRespondentsForTouchPoint;
-    });
+    // Build non-unique respondents
+    // Collect respondents TODO: make ready for intake of adaptedTouchPoints, not adaptedTouchPoint
+    const reachedRespondentsForTouchPoint = reachDataTool.collectReachedRespondentsForTouchPoint(
+      adaptedTouchPoint,
+      arrangedProbabilitiesForTouchPoints
+    );
+    // For reach calculation
+    reachedNonUniqueRespondentsForStrategy = reachedNonUniqueRespondentsForStrategy.concat(
+      reachedRespondentsForTouchPoint
+    ); // OK (concat is quicker than unshift)
+    // For locus calculation
+    reachedRespondentsPerTouchPointDeployed[touchPoint.name] = reachedRespondentsForTouchPoint;
+
     // Unique respondents
     const reachedUniqueRespondentsForStrategy: Set<number> = new Set(reachedNonUniqueRespondentsForStrategy); // OK
     console.log('reachedRespondentsPerTouchPointDeployed :', reachedRespondentsPerTouchPointDeployed);
@@ -119,6 +119,7 @@ Meteor.methods({
     return [totalReachForResult, overlapForResult];
   }
 });
+
 // Results with formula - done on the client, formula is hidden in closure
 //   'strategies.processResultsWithFormula': function (args: {strategyId: string | Mongo.ObjectIDStatic}) {
 //     if (!Match.test(args.strategyId, Match.OneOf(String, Object))) {

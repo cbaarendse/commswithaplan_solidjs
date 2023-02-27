@@ -11,19 +11,21 @@ import type {
 export default function createReachDataTool() {
   // arrange respondents for touchpoint
   function arrangeProbabilitiesForTouchPoints(
-    touchPoints: DeployedTouchPoint[],
+    deployedTouchPoints: DeployedTouchPoint[],
     probabilities: Probability[]
   ): {[key in TouchPointName]: Map<Probability['respondentId'], number>} {
-    const deployedTouchPoints = touchPoints;
-    let arrangedProbabilities: {[key in TouchPointName]: Map<Probability['respondentId'], number>};
-    deployedTouchPoints.forEach((touchPoint) => {
-      arrangedProbabilities[touchPoint.name] = new Map();
-      for (const probability of probabilities) {
-        if (arrangedProbabilities[touchPoint.name] && probability[touchPoint.name] > 0) {
-          arrangedProbabilities[touchPoint.name]?.set(probability.respondentId, probability[touchPoint.name]);
+    const arrangedProbabilities: {[key in TouchPointName]: Map<Probability['respondentId'], number>} =
+      deployedTouchPoints.reduce((result: any, touchPoint) => {
+        const thisTouchPointProbabilities: Map<Probability['respondentId'], number> = new Map();
+        for (const probability of probabilities) {
+          if (probability[touchPoint.name] > 0) {
+            thisTouchPointProbabilities.set(probability.respondentId, probability[touchPoint.name]);
+          }
+          result[touchPoint.name] = thisTouchPointProbabilities;
         }
-      }
-    });
+
+        return result;
+      }, {});
     return arrangedProbabilities;
   }
 
