@@ -3,9 +3,10 @@ import type {
   Probability,
   DeployedTouchPoint,
   PopulationInRange,
-  ProbabilityTouchPoint,
+  ComplementedTouchPoint,
   RespondentsCount,
-  TouchPointName
+  TouchPointName,
+  InputType
 } from '/imports/both/typings/types';
 
 export default function createReachDataTool() {
@@ -29,13 +30,13 @@ export default function createReachDataTool() {
     return arrangedProbabilities;
   }
 
-  function addPropertiesToTouchPoints(
+  function complementTouchPoints(
     touchPoints: DeployedTouchPoint[],
     populationInRange: PopulationInRange,
     respondentsCountForMarket: RespondentsCount,
     probabilitiesForTouchPoints: {[key in TouchPointName]: Map<Probability['respondentId'], number>}
-  ): ProbabilityTouchPoint[] {
-    const adaptedTouchPoints = touchPoints.map((touchPoint) => {
+  ): Partial<ComplementedTouchPoint>[] {
+    const complementedTouchPoints = touchPoints.map((touchPoint) => {
       const {name, value, inputType} = touchPoint;
       const allProbabilitiesForTouchPoint = [];
       if (probabilitiesForTouchPoints[name]) {
@@ -43,58 +44,60 @@ export default function createReachDataTool() {
           allProbabilitiesForTouchPoint.push(value);
         }
       }
-      const adaptedTouchPoint = new Map()
-        .set('name', name)
-        .set('value', value)
-        .set('inputType', inputType)
-        .set('selected', value === 0 ? false : true)
-        .set(
-          'maxReachedRespondents',
-          probabilitiesForTouchPoints[name].size ? probabilitiesForTouchPoints[name].size : 0
-        )
-        .set(
-          'sumOfProbabilities',
-          allProbabilitiesForTouchPoint.reduce((sum, probability) => {
-            return sum + probability;
-          }, 0)
-        )
-        .set('minValue', 0);
-      adaptedTouchPoint
-        .set(
-          'grps',
-          adaptedTouchPoint.get('inputType') == 'contacts' || adaptedTouchPoint.get('inputType') == 'impressions'
-            ? (value / populationInRange) * 100
-            : value
-        )
-        .set(
-          'maxValue',
-          (adaptedTouchPoint.get('maxReachedRespondents') / respondentsCountForMarket) * populationInRange * 5
-        )
-        .set(
-          'averageProbability',
-          adaptedTouchPoint.get('sumOfProbabilities') / probabilitiesForTouchPoints[name].size
-        );
-      return adaptedTouchPoint;
+      // set basis of object
+      const complementedTouchPoint: Partial<ComplementedTouchPoint> = {
+        name: name,
+        value: value,
+        inputType: inputType,
+        selected: value === 0 ? false : true,
+        maxReachedRespondents: probabilitiesForTouchPoints[name].size ? probabilitiesForTouchPoints[name].size : 0,
+        sumOfProbabilities: allProbabilitiesForTouchPoint.reduce((sum, probability) => {
+          return sum + probability;
+        }, 0),
+        minValue: 0
+      };
+      // calculate remaining properties using entries from basis
+      complementedTouchPoint.grps =
+        complementedTouchPoint.inputType == 'contacts' || complementedTouchPoint.inputType == 'impressions'
+          ? (value / populationInRange) * 100
+          : value;
+      complementedTouchPoint.maxValue = complementedTouchPoint.maxReachedRespondents
+        ? (complementedTouchPoint.maxReachedRespondents / respondentsCountForMarket) * populationInRange * 5
+        : 0;
+      complementedTouchPoint.averageProbability = complementedTouchPoint.sumOfProbabilities
+        ? complementedTouchPoint.sumOfProbabilities / probabilitiesForTouchPoints[name].size
+        : 0;
+      console.log('all adapted touchpoints in add properties to touchpoints: ', complementedTouchPoints);
+      return complementedTouchPoint;
     });
-    console.log('all adapted touchpoints in add properties to touchpoints: ', adaptedTouchPoints);
-
-    return adaptedTouchPoints;
+    return complementedTouchPoints;
   }
 
-  function collectReachedRespondentsForTouchPoint(
-    touchPoint: ProbabilityTouchPoint,
-    arrangedRespondents: {[key: string]: Map<Probability['respondentId'], number>}
+  function collectReachedRespondentsForTouchPoints(
+    complementedTouchPoints: ComplementedTouchPoint[],
+    arrangedProbabilitiesForTouchPoints: {[key in TouchPointName]: Map<Probability['respondentId'], number>}
   ) {
-    const reachForRespondentsForTouchPoint = new Map();
-    const reachedRespondentsForTouchPoint: Probability['respondentId'][] = [];
+    complementedTouchPoints.reduce((result: any, touchPoint: ComplementedTouchPoint) => {
+      const reachForRespondentsForTouchPoint = new Map();
+      const reachedRespondentsForTouchPoint: Probability['respondentId'][] = [];
+      const touchPointName: TouchPointName = touchPoint['name'];
 
-    arrangedRespondents[touchPoint.get('name')].forEach(
-      (probability, respondentId: number | Mongo.ObjectIDStatic, probabilities) => {
-        const exponent = -probability * (touchPoint.get('grps') / probabilities.size);
-        const reach = 1 * (1 - Math.pow(Math.E, exponent)) * 100;
-        reachForRespondentsForTouchPoint.set(respondentId, reach);
-      }
-    );
+      arrangedProbabilitiesForTouchPoints[
+        touchPointName as keyof {[key in TouchPointName]: Map<Probability['respondentId'], number>}
+      ].forEach(
+        (
+          probability: Map<number, number>,
+          respondentId: number | Mongo.ObjectIDStatic,
+          arrangedProbabilitiesForTouchPoints: Map<Probability['respondentId'], number>
+        ) => {
+          const exponent =
+            -probability * (touchPoint.grps) / Object.keys(arrangedProbabilitiesForTouchPoints).length);
+          const reach = 1 * (1 - Math.pow(Math.E, exponent)) * 100;
+          reachForRespondentsForTouchPoint.set(respondentId, reach);
+        }
+      );
+      return result;
+    }, {});
 
     reachForRespondentsForTouchPoint.forEach((reach, respondentId) => {
       if (reach >= 1) {
@@ -102,7 +105,7 @@ export default function createReachDataTool() {
         reachedRespondentsForTouchPoint.push(respondentId);
       }
     });
-    return reachedRespondentsForTouchPoint;
+    return reachedRespondentsForTouchPoints;
   }
 
   function calculateReachForTouchPoint(reachedRespondents: number[], respondentsCountForMarket: RespondentsCount) {
@@ -111,7 +114,7 @@ export default function createReachDataTool() {
       : (reachedRespondents.length / respondentsCountForMarket) * 100;
   }
 
-  function calculateOtsForTouchPoint(touchPoint: ProbabilityTouchPoint) {
+  function calculateOtsForTouchPoint(touchPoint: ComplementedTouchPoint) {
     return Number.isNaN(touchPoint.get('grps') / touchPoint.get('reach'))
       ? 0
       : touchPoint.get('grps') / touchPoint.get('reach');
@@ -153,8 +156,8 @@ export default function createReachDataTool() {
 
   return {
     arrangeProbabilitiesForTouchPoints,
-    addPropertiesToTouchPoints,
-    collectReachedRespondentsForTouchPoint,
+    complementTouchPoints,
+    collectReachedRespondentsForTouchPoints,
     calculateReachForTouchPoint,
     calculateOtsForTouchPoint
   };

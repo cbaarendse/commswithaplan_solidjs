@@ -9,7 +9,7 @@ import {
   Strategy,
   DeployedTouchPoint,
   RespondentsCount,
-  ProbabilityTouchPoint,
+  ComplementedTouchPoint,
   PopulationInRange,
   Results,
   AgeGroup,
@@ -74,7 +74,7 @@ Meteor.methods({
       [key in TouchPointName]: Map<Probability['respondentId'], number>;
     } = reachDataTool.arrangeProbabilitiesForTouchPoints(touchPointsDeployed, probabilities); //OK
     // add properties to touchpoints
-    const adaptedTouchPoints: ProbabilityTouchPoint[] = reachDataTool.addPropertiesToTouchPoints(
+    const complementedTouchPoints: ComplementedTouchPoint[] = reachDataTool.complementTouchPoints(
       touchPointsDeployed,
       args.respondentsCountForMarket,
       args.populationInRange,
@@ -83,8 +83,8 @@ Meteor.methods({
 
     // Build non-unique respondents
     // Collect respondents TODO: make ready for intake of adaptedTouchPoints, not adaptedTouchPoint
-    const reachedRespondentsForTouchPoint = reachDataTool.collectReachedRespondentsForTouchPoint(
-      adaptedTouchPoint,
+    const reachedRespondentsForTouchPoint: [] = reachDataTool.collectReachedRespondentsForTouchPoint(
+      complementedTouchPoints,
       arrangedProbabilitiesForTouchPoints
     );
     // For reach calculation
