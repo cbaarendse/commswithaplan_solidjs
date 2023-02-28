@@ -41,9 +41,8 @@ Meteor.methods({
     const {userId, marketName, ageGroupIndexStart, ageGroupIndexEnd, genders} = args.briefing;
     // filter probabilities for market
     const touchPointsDeployed: DeployedTouchPoint[] = args.deployment;
-    let reachedNonUniqueRespondentsForStrategy: number[] = [];
-    const reachedRespondentsPerTouchPointDeployed: {[key: string]: number[]} = {};
-    const reachedRespondentsByAllTouchPointsForStrategy: number[] = [];
+    const reachedNonUniqueRespondentsForStrategy: number[] = [];
+    const respondentsCountedForOverlap: number[] = [];
 
     // Checks for login and strategy ownership
     if (!this.userId) {
@@ -73,6 +72,7 @@ Meteor.methods({
     const arrangedProbabilitiesForTouchPoints: {
       [key in TouchPointName]: Map<Probability['respondentId'], number>;
     } = reachDataTool.arrangeProbabilitiesForTouchPoints(touchPointsDeployed, probabilities); //OK
+
     // add properties to touchpoints
     const complementedTouchPoints: ComplementedTouchPoint[] = reachDataTool.complementTouchPoints(
       touchPointsDeployed,
@@ -82,38 +82,34 @@ Meteor.methods({
     );
 
     // Build non-unique respondents
-    // Collect respondents TODO: make ready for intake of adaptedTouchPoints, not adaptedTouchPoint
-    const reachedRespondentsForTouchPoint: [] = reachDataTool.collectReachedRespondentsForTouchPoint(
-      complementedTouchPoints,
-      arrangedProbabilitiesForTouchPoints
-    );
-    // For reach calculation
-    reachedNonUniqueRespondentsForStrategy = reachedNonUniqueRespondentsForStrategy.concat(
-      reachedRespondentsForTouchPoint
-    ); // OK (concat is quicker than unshift)
-    // For locus calculation
-    reachedRespondentsPerTouchPointDeployed[touchPoint.name] = reachedRespondentsForTouchPoint;
+    // Collect respondents
+    const reachedRespondentsForTouchPoints: Partial<{[key in TouchPointName]: Probability['respondentId'][]}> =
+      reachDataTool.collectReachedRespondentsForTouchPoints(
+        complementedTouchPoints,
+        arrangedProbabilitiesForTouchPoints
+      );
+    // For reach calculation: Gather all reached respondents for strategy per touch point, so non-unique
+    for (const reachedRespondentsForTouchPoint of Object.values(reachedRespondentsForTouchPoints)) {
+      reachedNonUniqueRespondentsForStrategy.concat(reachedRespondentsForTouchPoint);
+    } // OK (concat is quicker than unshift)
 
     // Unique respondents
     const reachedUniqueRespondentsForStrategy: Set<number> = new Set(reachedNonUniqueRespondentsForStrategy); // OK
-    console.log('reachedRespondentsPerTouchPointDeployed :', reachedRespondentsPerTouchPointDeployed);
-    // strategy.reach
+
+    // total reach
     const totalReachForResult = (reachedUniqueRespondentsForStrategy.size / args.respondentsCountForMarket) * 100;
-    // Unique respondents for all touchpoints
+
+    // Count respondents for overlap
     reachedUniqueRespondentsForStrategy.forEach((respondentId) => {
-      const thisRespondentReachedByAllTouchPoints = touchPointsDeployed.reduce((result, touchPoint, index, list) => {
-        if (!reachedRespondentsPerTouchPointDeployed[touchPoint.name].includes(respondentId)) {
-          result = false;
+      for (const touchPoint of touchPointsDeployed) {
+        if (!reachedRespondentsForTouchPoints[touchPoint.name]?.includes(respondentId)) {
+          break;
         }
-        return result;
-      }, true);
-      if (thisRespondentReachedByAllTouchPoints) {
-        reachedRespondentsByAllTouchPointsForStrategy.push(respondentId);
+        respondentsCountedForOverlap.push(respondentId);
       }
     });
     // strategy.overlap
-    const overlapForResult =
-      (reachedRespondentsByAllTouchPointsForStrategy.length / args.respondentsCountForMarket) * 100;
+    const overlapForResult = (respondentsCountedForOverlap.length / args.respondentsCountForMarket) * 100;
     // update strategy
 
     return [totalReachForResult, overlapForResult];
