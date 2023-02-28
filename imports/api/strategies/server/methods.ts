@@ -39,6 +39,7 @@ Meteor.methods({
       throw new Meteor.Error('general.invalid.input', `Invalid input: ${args}`, '[{ "name": "invalidInput" }]');
     }
     const {userId, marketName, ageGroupIndexStart, ageGroupIndexEnd, genders} = args.briefing;
+
     // filter probabilities for market
     const touchPointsDeployed: DeployedTouchPoint[] = args.deployment;
     const reachedNonUniqueRespondentsForStrategy: number[] = [];
@@ -95,10 +96,11 @@ Meteor.methods({
 
     // Unique respondents
     const reachedUniqueRespondentsForStrategy: Set<number> = new Set(reachedNonUniqueRespondentsForStrategy); // OK
+    console.log('reachedUniqueRespondentsForStrategy', reachedUniqueRespondentsForStrategy);
 
     // total reach
     const totalReachForResult = (reachedUniqueRespondentsForStrategy.size / args.respondentsCountForMarket) * 100;
-
+    console.log('totalReachForResult', totalReachForResult);
     // Count respondents for overlap
     reachedUniqueRespondentsForStrategy.forEach((respondentId) => {
       for (const touchPoint of touchPointsDeployed) {

@@ -10,7 +10,10 @@ import {
   Translation,
   PopulationInRange,
   Results,
-  RespondentsCount
+  RespondentsCount,
+  InputType,
+  TouchPointName,
+  Probability
 } from '../../both/typings/types';
 import createReachTool from '../functions/reach';
 
@@ -155,18 +158,50 @@ export function touchPointsForFormula(): DeployedTouchPoint[] {
       ...touchPointDefinition,
       value: 0.0,
       show: true,
-      inputType: 'reach'
+      inputType: 'reach',
+      minValue: 0,
+      maxValue: 100
     };
   });
 }
-
-export function touchPointsForData(): DeployedTouchPoint[] {
-  return touchPointsDefinitions().map((touchPointDefinition) => {
+function setMaxValue(
+  inputType: InputType['name'],
+  touchPointName: TouchPointName,
+  probabilitiesForTouchPoints: {[key in TouchPointName]: Map<Probability['respondentId'], number>},
+  respondentsCountForMarket: RespondentsCount,
+  populationInRange: PopulationInRange
+): number {
+  if (inputType == 'contacts' || inputType == 'impressions') {
+    return (probabilitiesForTouchPoints[touchPointName].size / respondentsCountForMarket) * populationInRange * 5;
+  }
+  if (inputType == 'grps') {
+    return ((probabilitiesForTouchPoints[touchPointName].size / respondentsCountForMarket) * 5) / 100;
+  }
+  if (inputType == 'reach') {
+    return 100;
+  }
+  return 100;
+}
+export function touchPointsForData(
+  probabilitiesForTouchPoints: {[key in TouchPointName]: Map<Probability['respondentId'], number>},
+  respondentsCountForMarket: RespondentsCount,
+  populationInRange: PopulationInRange
+): DeployedTouchPoint[] {
+  const min = 100;
+  return touchPointsDefinitions().map(function (this: DeployedTouchPoint, touchPointDefinition) {
     return {
       ...touchPointDefinition,
       value: 0.0,
       show: true,
-      inputType: touchPointDefinition.defaultInputType
+      inputType: touchPointDefinition.defaultInputType,
+      minValue: min,
+      maxValue: setMaxValue(
+        this.inputType,
+        touchPointDefinition.name,
+        probabilitiesForTouchPoints,
+        respondentsCountForMarket,
+        populationInRange
+      )
     };
   });
 }

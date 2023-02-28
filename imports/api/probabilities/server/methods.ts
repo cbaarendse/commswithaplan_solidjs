@@ -3,15 +3,10 @@ import {Meteor} from 'meteor/meteor';
 import {Match} from 'meteor/check';
 import createReachDataTool from '../../strategies/server/reachdata';
 import {MARKETNAMES} from '../../../both/constants/constants';
-import {AgeGroup, Market, Probability, Strategy} from '../../../both/typings/types';
+import {AgeGroup, Probability, Strategy} from '../../../both/typings/types';
 import Probabilities from './probabilities';
-import Strategies from '../../strategies/strategies';
-import {markets} from '/imports/ui/stores/reach';
-
 // variables
 const reachDataTool = createReachDataTool();
-const probabilities = Probabilities.find({}).fetch();
-const strategies = Strategies.find({}).fetch();
 
 // methods
 Meteor.methods({
@@ -87,7 +82,7 @@ Meteor.methods({
     }
     console.log('probabilities.countRespondentsForStrategy runs with: ', args.briefing);
 
-    const {userId} = args.briefing;
+    const {userId, marketName, genders, ageGroupIndexStart, ageGroupIndexEnd} = args.briefing;
 
     if (!this.userId) {
       throw new Meteor.Error(
@@ -97,35 +92,24 @@ Meteor.methods({
       );
     }
     // Check if strategy is from user
-    if (userId !== this.userId) {
-      throw new Meteor.Error(
-        'Not authorized',
-        'You are not authorized to calculate for this strategy',
-        '[{ "name": "notAuthorized" }]'
-      );
-    }
-
-    let probabilitiesForStrategy: Probability[] | undefined;
-    if (this.isSimulation) {
-      console.log('this is simulation');
-      probabilitiesForStrategy = reachDataTool.filterProbabilitiesForStrategy(
-        probabilities,
-        args.briefing,
-        args.ageGroups
-      );
-      return probabilitiesForStrategy.length;
-    } else {
-      probabilitiesForStrategy = reachDataTool.filterProbabilitiesForStrategy(
-        probabilities,
-        args.briefing,
-        args.ageGroups
-      );
-      console.log(
-        'probabilitiesForRespondents in server count for strategy:',
-        typeof probabilitiesForStrategy,
-        probabilitiesForStrategy
-      );
-      return probabilitiesForStrategy.length;
-    }
+    // if (userId !== this.userId) {
+    //   throw new Meteor.Error(
+    //     'Not authorized',
+    //     'You are not authorized to calculate for this strategy',
+    //     '[{ "name": "notAuthorized" }]'
+    //   );
+    // }
+    const ageGroupStart = ageGroupIndexStart ? args.ageGroups[ageGroupIndexStart] : args.ageGroups[0];
+    const ageGroupEnd = ageGroupIndexEnd ? args.ageGroups[ageGroupIndexEnd] : args.ageGroups[1];
+    const probabilitiesForStrategy = Probabilities.find(
+      {marketName: marketName, age: {$gte: ageGroupStart[0], $lte: ageGroupEnd[1]}, gender: {$in: genders}},
+      {fields: {respondentId: 1, market: 1, age: 1, gender: 1}}
+    ).fetch();
+    console.log(
+      'probabilitiesForRespondents in server count for strategy:',
+      typeof probabilitiesForStrategy,
+      probabilitiesForStrategy
+    );
+    return probabilitiesForStrategy.length;
   }
 });

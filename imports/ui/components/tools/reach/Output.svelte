@@ -28,7 +28,7 @@
 </script>
 
 <div class="container">
-  {#if $respondentsCountForMarket && $briefing.useMarketData}
+  {#if $briefing.useMarketData}
     <div class="amounts__container">
       <span>respondents:</span>
       <output>{formatter.toNumberFormat($respondentsCountForMarket, 0)}</output>

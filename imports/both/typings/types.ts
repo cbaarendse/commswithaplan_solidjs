@@ -115,6 +115,8 @@ export type TouchPointDefinition = Omit<Content, 'name'> & {name: TouchPointName
   defaultInputType: InputType['name'];
 };
 export type DeployedTouchPoint = TouchPointDefinition & {
+  minValue: number;
+  maxValue: number;
   value: number;
   show: boolean;
   inputType: InputType['name'];
@@ -130,6 +132,7 @@ export type ComplementedTouchPoint = {
   grps?: number;
   maxValue?: number;
   averageProbability?: number;
+  reach?: number;
 };
 
 export type Strategy = {
