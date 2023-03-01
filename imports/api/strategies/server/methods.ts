@@ -13,7 +13,8 @@ import {
   PopulationInRange,
   Results,
   AgeGroup,
-  TouchPointName
+  TouchPointName,
+  InputType
 } from '/imports/both/typings/types';
 import {Mongo} from 'meteor/mongo';
 
@@ -70,9 +71,9 @@ Meteor.methods({
     ).fetch();
 
     // for each deployed touchpoint only select respondents with a contact probability > 0
-    const arrangedProbabilitiesForTouchPoints: {
+    const probabilitiesForTouchPoints: {
       [key in TouchPointName]: Map<Probability['respondentId'], number>;
-    } = reachDataTool.arrangeProbabilitiesForTouchPoints(touchPointsDeployed, probabilities); //OK
+    } = reachDataTool.getProbabilitiesForTouchPoints(touchPointsDeployed, probabilities); //OK
 
     // add properties to touchpoints
     const complementedTouchPoints: ComplementedTouchPoint[] = reachDataTool.complementTouchPoints(
@@ -115,6 +116,40 @@ Meteor.methods({
     // update strategy
 
     return [totalReachForResult, overlapForResult];
+  },
+
+  'strategies.maxValueForTouchPoints': function (args: {
+    briefing: Omit<Strategy, 'deployment'>;
+    deployment: Strategy['deployment'];
+    ageGroups: AgeGroup[];
+    respondentsCountForMarket: RespondentsCount;
+    populationInRange: PopulationInRange;
+    inputType: InputType['name'];
+    touchPointName: TouchPointName;
+  }): Map<TouchPointName, number> {
+    const probabilities: Probability[] = Probabilities.find(
+      {marketName: marketName, age: {$gte: ageGroupStart[0], $lte: ageGroupEnd[1]}, gender: {$in: genders}},
+      {fields: {respondentId: 1, market: 1, age: 1, gender: 1}}
+    ).fetch();
+
+    // for each deployed touchpoint only select respondents with a contact probability > 0
+    const probabilitiesForTouchPoints: {
+      [key in TouchPointName]: Map<Probability['respondentId'], number>;
+    } = reachDataTool.getProbabilitiesForTouchPoints(touchPointsDeployed, probabilities); //OK
+    if (args.inputType == 'contacts' || args.inputType == 'impressions') {
+      return (
+        (probabilitiesForTouchPoints[args.touchPointName].size / args.respondentsCountForMarket) *
+        args.populationInRange *
+        5
+      );
+    }
+    if (args.inputType == 'grps') {
+      return ((probabilitiesForTouchPoints[args.touchPointName].size / args.respondentsCountForMarket) * 5) / 100;
+    }
+    if (args.inputType == 'reach') {
+      return 100;
+    }
+    return 100;
   }
 });
 

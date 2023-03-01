@@ -102,18 +102,6 @@ export const population: Readable<number> = derived([marketData, briefing], ([$m
   }
 });
 
-export const reachedNonUnique: Writable<number> = writable(0, () => {
-  () => {
-    console.log('reachedNonUnique closed');
-  };
-});
-
-export const reachedUnique: Writable<number> = writable(0, () => {
-  () => {
-    console.log('reachedUnique closed');
-  };
-});
-
 export const results: Readable<Results> = derived(
   [marketData, briefing, deployment, ageGroups, respondentsCountForMarket, populationInRange],
   ([$marketData, $briefing, $deployment, $ageGroups, $respondentsCountForMarket, $populationInRange], set) => {
@@ -164,26 +152,27 @@ export function touchPointsForFormula(): DeployedTouchPoint[] {
     };
   });
 }
-function setMaxValue(
-  inputType: InputType['name'],
-  touchPointName: TouchPointName,
-  probabilitiesForTouchPoints: {[key in TouchPointName]: Map<Probability['respondentId'], number>},
-  respondentsCountForMarket: RespondentsCount,
-  populationInRange: PopulationInRange
-): number {
-  if (inputType == 'contacts' || inputType == 'impressions') {
-    return (probabilitiesForTouchPoints[touchPointName].size / respondentsCountForMarket) * populationInRange * 5;
+export const maxValues: Readable<Map<TouchPointName, number>> = derived(
+  [briefing, deployment, ageGroups, respondentsCountForMarket, populationInRange],
+  ([$briefing, $deployment, $ageGroups, $respondentsCountForMarket, $populationInRange], set) => {
+    // TODO: make this one on server side
+    Meteor.callAsync('strategies.maxValuesForTouchPoints', {
+      briefing: $briefing,
+      deployment: $deployment,
+      ageGroups: $ageGroups,
+      respondentsCountForMarket: $respondentsCountForMarket,
+      populationInRange: $populationInRange
+    })
+      .then((result) => {
+        if (result.size > 0) {
+          set(result);
+        }
+      })
+      .catch((error) => console.log('error in max value fr touch point', error));
   }
-  if (inputType == 'grps') {
-    return ((probabilitiesForTouchPoints[touchPointName].size / respondentsCountForMarket) * 5) / 100;
-  }
-  if (inputType == 'reach') {
-    return 100;
-  }
-  return 100;
-}
+);
+
 export function touchPointsForData(
-  probabilitiesForTouchPoints: {[key in TouchPointName]: Map<Probability['respondentId'], number>},
   respondentsCountForMarket: RespondentsCount,
   populationInRange: PopulationInRange
 ): DeployedTouchPoint[] {
@@ -195,13 +184,7 @@ export function touchPointsForData(
       show: true,
       inputType: touchPointDefinition.defaultInputType,
       minValue: min,
-      maxValue: setMaxValue(
-        this.inputType,
-        touchPointDefinition.name,
-        probabilitiesForTouchPoints,
-        respondentsCountForMarket,
-        populationInRange
-      )
+      maxValue: setMaxValue(this.inputType, touchPointDefinition.name, respondentsCountForMarket, populationInRange)
     };
   });
 }

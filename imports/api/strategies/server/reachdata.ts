@@ -11,7 +11,7 @@ import type {
 export default function createReachDataTool() {
   // arrange respondents for touchpoint
   // results in an object with strings as keys and Maps as values; because keys are numbers
-  function arrangeProbabilitiesForTouchPoints(
+  function getProbabilitiesForTouchPoints(
     deployedTouchPoints: DeployedTouchPoint[],
     probabilities: Probability[]
   ): {[key in TouchPointName]: Map<Probability['respondentId'], number>} {
@@ -168,7 +168,7 @@ export default function createReachDataTool() {
   // }
 
   return {
-    arrangeProbabilitiesForTouchPoints,
+    getProbabilitiesForTouchPoints,
     complementTouchPoints,
     collectReachedRespondentsForTouchPoints,
     calculateReachForTouchPoint,
