@@ -125,12 +125,12 @@ export type ComplementedTouchPoint = {
   name: TouchPointName;
   value: number;
   inputType: InputType['name'];
+  minValue: number;
+  maxValue: number;
   selected?: boolean;
   maxReachedRespondents?: number;
   sumOfProbabilities?: number;
-  minValue?: number;
   grps?: number;
-  maxValue?: number;
   averageProbability?: number;
   reach?: number;
 };

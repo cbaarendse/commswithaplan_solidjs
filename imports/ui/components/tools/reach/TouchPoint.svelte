@@ -45,7 +45,12 @@
         displayTouchPointDescription = false;
       }}
     >
-      <span>{formatter.toStringFormat(value)}&nbsp;%</span>
+      <span>
+        {#if $deployment[index].inputType == 'grps' || $deployment[index].inputType == 'reach'}{formatter.toNumberFormat(
+            value,
+            0
+          )}{:else}{formatter.toMillionsFormat(value, 2)}{/if}{#if $deployment[index].inputType == 'reach'}&nbsp;%{/if}
+      </span>
     </button>
   </div>
   <Modal

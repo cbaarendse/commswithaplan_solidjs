@@ -13,8 +13,7 @@ import {
   PopulationInRange,
   Results,
   AgeGroup,
-  TouchPointName,
-  InputType
+  TouchPointName
 } from '/imports/both/typings/types';
 import {Mongo} from 'meteor/mongo';
 
@@ -80,16 +79,13 @@ Meteor.methods({
       touchPointsDeployed,
       args.respondentsCountForMarket,
       args.populationInRange,
-      arrangedProbabilitiesForTouchPoints
+      probabilitiesForTouchPoints
     );
 
     // Build non-unique respondents
     // Collect respondents
     const reachedRespondentsForTouchPoints: Partial<{[key in TouchPointName]: Probability['respondentId'][]}> =
-      reachDataTool.collectReachedRespondentsForTouchPoints(
-        complementedTouchPoints,
-        arrangedProbabilitiesForTouchPoints
-      );
+      reachDataTool.collectReachedRespondentsForTouchPoints(complementedTouchPoints, probabilitiesForTouchPoints);
     // For reach calculation: Gather all reached respondents for strategy per touch point, so non-unique
     for (const reachedRespondentsForTouchPoint of Object.values(reachedRespondentsForTouchPoints)) {
       reachedNonUniqueRespondentsForStrategy.concat(reachedRespondentsForTouchPoint);
@@ -117,39 +113,49 @@ Meteor.methods({
 
     return [totalReachForResult, overlapForResult];
   },
-
-  'strategies.maxValueForTouchPoints': function (args: {
+  'strategies.maxValuesForTouchPoints': function (args: {
     briefing: Omit<Strategy, 'deployment'>;
     deployment: Strategy['deployment'];
     ageGroups: AgeGroup[];
     respondentsCountForMarket: RespondentsCount;
     populationInRange: PopulationInRange;
-    inputType: InputType['name'];
-    touchPointName: TouchPointName;
   }): Map<TouchPointName, number> {
+    // Filter probabilities for this briefing / strategy
+    const {marketName, ageGroupIndexStart, ageGroupIndexEnd, genders} = args.briefing;
+    const touchPointsDeployed: DeployedTouchPoint[] = args.deployment;
+    const ageGroupStart = ageGroupIndexStart ? args.ageGroups[ageGroupIndexStart] : args.ageGroups[0];
+    const ageGroupEnd = ageGroupIndexEnd ? args.ageGroups[ageGroupIndexEnd] : args.ageGroups[1];
     const probabilities: Probability[] = Probabilities.find(
       {marketName: marketName, age: {$gte: ageGroupStart[0], $lte: ageGroupEnd[1]}, gender: {$in: genders}},
       {fields: {respondentId: 1, market: 1, age: 1, gender: 1}}
     ).fetch();
-
+    const maxValues: Map<TouchPointName, number> = new Map();
     // for each deployed touchpoint only select respondents with a contact probability > 0
     const probabilitiesForTouchPoints: {
       [key in TouchPointName]: Map<Probability['respondentId'], number>;
     } = reachDataTool.getProbabilitiesForTouchPoints(touchPointsDeployed, probabilities); //OK
-    if (args.inputType == 'contacts' || args.inputType == 'impressions') {
-      return (
-        (probabilitiesForTouchPoints[args.touchPointName].size / args.respondentsCountForMarket) *
-        args.populationInRange *
-        5
-      );
+    for (const touchPoint of touchPointsDeployed) {
+      if (touchPoint.inputType == 'contacts' || touchPoint.inputType == 'impressions') {
+        maxValues.set(
+          touchPoint.name,
+          (probabilitiesForTouchPoints[touchPoint.name].size / args.respondentsCountForMarket) *
+            args.populationInRange *
+            5
+        );
+      }
+      if (touchPoint.inputType == 'grps') {
+        maxValues.set(
+          touchPoint.name,
+          ((probabilitiesForTouchPoints[touchPoint.name].size / args.respondentsCountForMarket) * 5) / 100
+        );
+      }
+      if (touchPoint.inputType == 'reach') {
+        maxValues.set(touchPoint.name, 100);
+      } else {
+        maxValues.set(touchPoint.name, 100);
+      }
     }
-    if (args.inputType == 'grps') {
-      return ((probabilitiesForTouchPoints[args.touchPointName].size / args.respondentsCountForMarket) * 5) / 100;
-    }
-    if (args.inputType == 'reach') {
-      return 100;
-    }
-    return 100;
+    return maxValues;
   }
 });
 

@@ -9,9 +9,9 @@
   //variables
   const converter = createConverter();
   export let index: number;
-  const min = 0;
-  const max = 100;
-  const step = 1;
+  const min = $deployment[index].minValue;
+  const max = $deployment[index].maxValue;
+  const step = ($deployment[index].maxValue - $deployment[index].minValue) / 100;
   const {name, definitions} = $deployment[index];
   let inputTypeName = $deployment[index].inputType;
   let value = $deployment[index].value;

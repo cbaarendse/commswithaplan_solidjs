@@ -155,7 +155,6 @@ export function touchPointsForFormula(): DeployedTouchPoint[] {
 export const maxValues: Readable<Map<TouchPointName, number>> = derived(
   [briefing, deployment, ageGroups, respondentsCountForMarket, populationInRange],
   ([$briefing, $deployment, $ageGroups, $respondentsCountForMarket, $populationInRange], set) => {
-    // TODO: make this one on server side
     Meteor.callAsync('strategies.maxValuesForTouchPoints', {
       briefing: $briefing,
       deployment: $deployment,
@@ -172,19 +171,17 @@ export const maxValues: Readable<Map<TouchPointName, number>> = derived(
   }
 );
 
-export function touchPointsForData(
-  respondentsCountForMarket: RespondentsCount,
-  populationInRange: PopulationInRange
-): DeployedTouchPoint[] {
-  const min = 100;
-  return touchPointsDefinitions().map(function (this: DeployedTouchPoint, touchPointDefinition) {
+export function touchPointsForData(maxValues: Map<TouchPointName, number>): DeployedTouchPoint[] {
+  return touchPointsDefinitions().map(function (touchPointDefinition) {
+    const min = 100;
+    const max = maxValues.get(touchPointDefinition.name) ? maxValues.get(touchPointDefinition.name) : 100;
     return {
       ...touchPointDefinition,
       value: 0.0,
       show: true,
       inputType: touchPointDefinition.defaultInputType,
       minValue: min,
-      maxValue: setMaxValue(this.inputType, touchPointDefinition.name, respondentsCountForMarket, populationInRange)
+      maxValue: max
     };
   });
 }
