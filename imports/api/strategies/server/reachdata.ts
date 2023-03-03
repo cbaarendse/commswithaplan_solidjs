@@ -53,17 +53,13 @@ export default function createReachDataTool() {
         maxReachedRespondents: probabilitiesForTouchPoints[name] ? probabilitiesForTouchPoints[name].size : 0,
         sumOfProbabilities: allProbabilitiesForTouchPoint.reduce((sum, probability) => {
           return sum + probability;
-        }, 0),
-        minValue: 0
+        }, 0)
       };
       // calculate remaining properties using entries from basis
       complementedTouchPoint.grps =
         complementedTouchPoint.inputType == 'contacts' || complementedTouchPoint.inputType == 'impressions'
           ? (value / populationInRange) * 100
           : value;
-      complementedTouchPoint.maxValue = complementedTouchPoint.maxReachedRespondents
-        ? (complementedTouchPoint.maxReachedRespondents / respondentsCountForMarket) * populationInRange * 5
-        : 0;
       complementedTouchPoint.averageProbability = complementedTouchPoint.sumOfProbabilities
         ? complementedTouchPoint.sumOfProbabilities / probabilitiesForTouchPoints[name].size
         : 0;

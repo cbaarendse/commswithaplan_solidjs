@@ -11,7 +11,6 @@
     deployment,
     briefing,
     marketData,
-    maxValues,
     overlap,
     strategy,
     sortedByName,
@@ -42,14 +41,12 @@
   // base new briefing on availability of marketData
   $: marketData ? briefing.set(briefingForData()) : briefing.set(briefingForFormula());
   // base new deployment on availability and usage of marketData
-  $: $marketData && useMarketData
-    ? deployment.set(touchPointsForData($maxValues))
-    : deployment.set(touchPointsForFormula());
+  $: $marketData && useMarketData ? deployment.set(touchPointsForData()) : deployment.set(touchPointsForFormula());
 
   // first sort, based on selected language
-  let [sortedDeployedTouchPoints, updatedSortedByName] = reachTool.sort(deployedTouchPoints, $sortedByName, $language);
-  $: deployment.set(sortedDeployedTouchPoints);
-  $: sortedByName.set(updatedSortedByName);
+  // let [sortedDeployedTouchPoints, updatedSortedByName] = reachTool.sort(deployedTouchPoints, $sortedByName, $language);
+  // $: deployment.set(sortedDeployedTouchPoints);
+  // $: sortedByName.set(updatedSortedByName);
 
   $: console.log('$briefing in $: ', $briefing);
   $: console.log('$deployment: in $: ', $deployment);

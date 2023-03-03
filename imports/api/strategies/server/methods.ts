@@ -134,6 +134,8 @@ Meteor.methods({
     const probabilitiesForTouchPoints: {
       [key in TouchPointName]: Map<Probability['respondentId'], number>;
     } = reachDataTool.getProbabilitiesForTouchPoints(touchPointsDeployed, probabilities); //OK
+    console.log('probabilitiesForTouchPoints in maxValues ', probabilitiesForTouchPoints);
+
     for (const touchPoint of touchPointsDeployed) {
       if (touchPoint.inputType == 'contacts' || touchPoint.inputType == 'impressions') {
         maxValues.set(

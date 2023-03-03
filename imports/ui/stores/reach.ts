@@ -55,6 +55,8 @@ export const respondentsCountForMarket: Readable<RespondentsCount> = derived(
   [briefing, marketData],
   ([$briefing, $marketData], set) => {
     if ($marketData && $briefing.useMarketData) {
+      console.log('respondentsCountForMarket client, args sent: ', $briefing, $marketData);
+
       Meteor.callAsync('probabilities.countRespondentsForMarket', {marketName: $briefing.marketName})
         .then((result: number) => {
           if (result >= 0) {
@@ -146,9 +148,7 @@ export function touchPointsForFormula(): DeployedTouchPoint[] {
       ...touchPointDefinition,
       value: 0.0,
       show: true,
-      inputType: 'reach',
-      minValue: 0,
-      maxValue: 100
+      inputType: 'reach'
     };
   });
 }
@@ -171,17 +171,13 @@ export const maxValues: Readable<Map<TouchPointName, number>> = derived(
   }
 );
 
-export function touchPointsForData(maxValues: Map<TouchPointName, number>): DeployedTouchPoint[] {
+export function touchPointsForData(): DeployedTouchPoint[] {
   return touchPointsDefinitions().map(function (touchPointDefinition) {
-    const min = 100;
-    const max = maxValues.get(touchPointDefinition.name) ? maxValues.get(touchPointDefinition.name) : 100;
     return {
       ...touchPointDefinition,
       value: 0.0,
       show: true,
-      inputType: touchPointDefinition.defaultInputType,
-      minValue: min,
-      maxValue: max
+      inputType: touchPointDefinition.defaultInputType
     };
   });
 }

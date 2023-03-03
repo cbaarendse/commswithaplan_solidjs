@@ -1,6 +1,6 @@
 <script lang="ts">
   // imports
-  import {deployment, briefing, inputTypes} from '../../../stores/reach';
+  import {deployment, briefing, inputTypes, maxValues} from '../../../stores/reach';
   import {language} from '../../../stores/utils';
   import createConverter from '/imports/ui/functions/convert';
   import Fa from 'svelte-fa/src/fa.svelte';
@@ -9,10 +9,10 @@
   //variables
   const converter = createConverter();
   export let index: number;
-  const min = $deployment[index].minValue;
-  const max = $deployment[index].maxValue;
-  const step = ($deployment[index].maxValue - $deployment[index].minValue) / 100;
   const {name, definitions} = $deployment[index];
+  const min = 0;
+  const max = $maxValues ? $maxValues.get(name) : 100;
+  const step = max ? (max - min) / 100 : 1;
   let inputTypeName = $deployment[index].inputType;
   let value = $deployment[index].value;
   let definition = definitions.filter((definition) => definition.language == $language)[0];

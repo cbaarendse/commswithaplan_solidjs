@@ -115,8 +115,6 @@ export type TouchPointDefinition = Omit<Content, 'name'> & {name: TouchPointName
   defaultInputType: InputType['name'];
 };
 export type DeployedTouchPoint = TouchPointDefinition & {
-  minValue: number;
-  maxValue: number;
   value: number;
   show: boolean;
   inputType: InputType['name'];
@@ -125,8 +123,6 @@ export type ComplementedTouchPoint = {
   name: TouchPointName;
   value: number;
   inputType: InputType['name'];
-  minValue: number;
-  maxValue: number;
   selected?: boolean;
   maxReachedRespondents?: number;
   sumOfProbabilities?: number;

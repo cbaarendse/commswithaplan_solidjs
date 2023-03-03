@@ -59,7 +59,7 @@
       </span>
       <output>{formatter.toNumberFormat($totalReach, 0)}&nbsp;%</output>
     </label>
-    <OutputMeter id={'reach'} value={$totalReach} min={0} max={100} }} />
+    <OutputMeter id={'reach'} value={$totalReach} min={0} max={100} />
 
     <label
       for="overlap"
