@@ -77,7 +77,6 @@ Meteor.methods({
     // add properties to touchpoints
     const complementedTouchPoints: ComplementedTouchPoint[] = reachDataTool.complementTouchPoints(
       touchPointsDeployed,
-      args.respondentsCountForMarket,
       args.populationInRange,
       probabilitiesForTouchPoints
     );
@@ -125,10 +124,15 @@ Meteor.methods({
     const touchPointsDeployed: DeployedTouchPoint[] = args.deployment;
     const ageGroupStart = ageGroupIndexStart ? args.ageGroups[ageGroupIndexStart] : args.ageGroups[0];
     const ageGroupEnd = ageGroupIndexEnd ? args.ageGroups[ageGroupIndexEnd] : args.ageGroups[1];
-    const probabilities: Probability[] = Probabilities.find(
-      {marketName: marketName, age: {$gte: ageGroupStart[0], $lte: ageGroupEnd[1]}, gender: {$in: genders}},
-      {fields: {respondentId: 1, market: 1, age: 1, gender: 1}}
-    ).fetch();
+    const probabilities: Probability[] = Probabilities.find({
+      marketName: marketName,
+      gender: {$in: genders}
+    }).fetch();
+    console.log('probabilities in maxValues: ', probabilities);
+
+    // age: {$gte: ageGroupStart[0], $lte: ageGroupEnd[1]},
+    // {fields: {respondentId: 1, market: 1, age: 1, gender: 1}}
+
     const maxValues: Map<TouchPointName, number> = new Map();
     // for each deployed touchpoint only select respondents with a contact probability > 0
     const probabilitiesForTouchPoints: {

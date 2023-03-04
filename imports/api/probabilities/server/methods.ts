@@ -40,6 +40,7 @@ Meteor.methods({
   },
 
   'probabilities.countRespondentsForMarket': function (args: {marketName: Strategy['marketName']}): number {
+    console.log('probabilities.countRespondentsForMarket runs with: ', args.marketName);
     if (
       !Match.test(args.marketName, String) ||
       !Match.test(
@@ -49,7 +50,6 @@ Meteor.methods({
     ) {
       throw new Meteor.Error('general.invalid.input', 'Invalid input', '[{ "name": "invalidInput" }]');
     }
-    console.log('probabilities.countRespondentsForMarket runs with: ', args.marketName);
 
     if (!this.userId) {
       throw new Meteor.Error(

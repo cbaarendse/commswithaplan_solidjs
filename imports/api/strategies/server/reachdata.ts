@@ -22,6 +22,7 @@ export default function createReachDataTool() {
           if (probability[touchPoint.name] > 0) {
             thisTouchPointProbabilities.set(probability.respondentId, probability[touchPoint.name]);
           }
+
           result[touchPoint.name] = thisTouchPointProbabilities;
         }
 
@@ -33,7 +34,6 @@ export default function createReachDataTool() {
   function complementTouchPoints(
     touchPoints: DeployedTouchPoint[],
     populationInRange: PopulationInRange,
-    respondentsCountForMarket: RespondentsCount,
     probabilitiesForTouchPoints: {[key in TouchPointName]: Map<Probability['respondentId'], number>}
   ): ComplementedTouchPoint[] {
     const complementedTouchPoints = touchPoints.map((touchPoint) => {
