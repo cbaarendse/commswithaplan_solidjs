@@ -33,13 +33,14 @@ export default function createReachDataTool() {
   function complementTouchPoints(
     touchPoints: DeployedTouchPoint[],
     populationInRange: PopulationInRange,
-    probabilitiesForTouchPoints: {[key in TouchPointName]: Map<Probability['respondentId'], number>}
+    probabilitiesForTouchPoints: Map<TouchPointName, Map<Probability['respondentId'], number>>
   ): ComplementedTouchPoint[] {
     const complementedTouchPoints = touchPoints.map((touchPoint) => {
       const {name, value, inputType} = touchPoint;
+      const respondentsProbabilitiesForTouchPoint = probabilitiesForTouchPoints.get(name);
       const allProbabilitiesForTouchPoint = [];
-      if (probabilitiesForTouchPoints[name]) {
-        for (const [key, value] of probabilitiesForTouchPoints[name]) {
+      if (respondentsProbabilitiesForTouchPoint) {
+        for (const [key, value] of respondentsProbabilitiesForTouchPoint) {
           allProbabilitiesForTouchPoint.push(value);
         }
       }
@@ -49,7 +50,7 @@ export default function createReachDataTool() {
         value: value,
         inputType: inputType,
         selected: value === 0 ? false : true,
-        maxReachedRespondents: probabilitiesForTouchPoints[name] ? probabilitiesForTouchPoints[name].size : 0,
+        maxReachedRespondents: respondentsProbabilitiesForTouchPoint ? respondentsProbabilitiesForTouchPoint.size : 0,
         sumOfProbabilities: allProbabilitiesForTouchPoint.reduce((sum, probability) => {
           return sum + probability;
         }, 0)
@@ -59,9 +60,10 @@ export default function createReachDataTool() {
         complementedTouchPoint.inputType == 'contacts' || complementedTouchPoint.inputType == 'impressions'
           ? (value / populationInRange) * 100
           : value;
-      complementedTouchPoint.averageProbability = complementedTouchPoint.sumOfProbabilities
-        ? complementedTouchPoint.sumOfProbabilities / probabilitiesForTouchPoints[name].size
-        : 0;
+      complementedTouchPoint.averageProbability =
+        complementedTouchPoint.sumOfProbabilities && respondentsProbabilitiesForTouchPoint
+          ? complementedTouchPoint.sumOfProbabilities / respondentsProbabilitiesForTouchPoint.size
+          : 0;
 
       return complementedTouchPoint;
     });
