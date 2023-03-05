@@ -10,24 +10,23 @@ import type {
 
 export default function createReachDataTool() {
   // arrange respondents for touchpoint
-  // results in an object with strings as keys and Maps as values; because keys are numbers
+  // results in an object with strings as keys and Maps as values;
   function getProbabilitiesForTouchPoints(
     deployedTouchPoints: DeployedTouchPoint[],
     probabilities: Probability[]
-  ): {[key in TouchPointName]: Map<Probability['respondentId'], number>} {
-    const probabilitiesForTouchPoints: {[key in TouchPointName]: Map<Probability['respondentId'], number>} =
-      deployedTouchPoints.reduce((result: any, touchPoint) => {
-        const thisTouchPointProbabilities: Map<Probability['respondentId'], number> = new Map();
-        for (const probability of probabilities) {
-          if (probability[touchPoint.name] > 0) {
-            thisTouchPointProbabilities.set(probability.respondentId, probability[touchPoint.name]);
-          }
-
-          result[touchPoint.name] = thisTouchPointProbabilities;
+  ): Map<TouchPointName, Map<Probability['respondentId'], number>> {
+    const probabilitiesForTouchPoints: Map<TouchPointName, Map<Probability['respondentId'], number>> = new Map();
+    for (let touchPointIndex = 0; touchPointIndex < deployedTouchPoints.length; touchPointIndex++) {
+      const thisTouchPointProbabilities: Map<Probability['respondentId'], number> = new Map();
+      for (let probabilityIndex = 0; probabilityIndex < probabilities.length; probabilityIndex++) {
+        const touchPointName = deployedTouchPoints[touchPointIndex].name;
+        const probability = probabilities[probabilityIndex];
+        if (probability[touchPointName] > 0) {
+          thisTouchPointProbabilities.set(probability.respondentId, probability[touchPointName]);
         }
-
-        return result;
-      }, {});
+        probabilitiesForTouchPoints.set(touchPointName, thisTouchPointProbabilities);
+      }
+    }
     return probabilitiesForTouchPoints;
   }
 
