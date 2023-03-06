@@ -32,6 +32,7 @@ Meteor.methods({
     console.log(
       'calculateResultsWithData runs with args: ',
       args.briefing,
+      args.deployment.length,
       args.respondentsCountForMarket,
       args.populationInRange
     );
@@ -95,9 +96,10 @@ Meteor.methods({
         respondentsProbabilitiesForTouchPoints
       );
     // For reach calculation: Gather all reached respondents for strategy per touch point, so non-unique
-    for (const reachedRespondentsForTouchPoint of Object.values(reachedRespondentsForTouchPoints)) {
+    reachedRespondentsForTouchPoints.forEach((reachedRespondentsForTouchPoint) => {
       reachedNonUniqueRespondentsForStrategy.concat(reachedRespondentsForTouchPoint);
-    } // OK (concat is quicker than unshift)
+    });
+    // OK (concat is quicker than unshift)
 
     // Unique respondents
     const reachedUniqueRespondentsForStrategy: Set<number> = new Set(reachedNonUniqueRespondentsForStrategy); // OK

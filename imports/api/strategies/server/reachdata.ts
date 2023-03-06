@@ -63,6 +63,7 @@ export default function createReachDataTool() {
         complementedTouchPoint.inputType == 'contacts' || complementedTouchPoint.inputType == 'impressions'
           ? (value / populationInRange) * 100
           : value;
+
       complementedTouchPoint.averageProbability =
         complementedTouchPoint.sumOfProbabilities && respondentsProbabilitiesForTouchPoint
           ? complementedTouchPoint.sumOfProbabilities / respondentsProbabilitiesForTouchPoint.size
@@ -92,7 +93,7 @@ export default function createReachDataTool() {
             respondentId: number,
             respondentsProbabilitiesForTouchPoint: Map<Probability['respondentId'], number>
           ) => {
-            // check which probabilities
+            // TODO: only touchpoints with grps > 0 also earlier filter out touchpoints with value == 0
             const exponent = touchPoint.grps
               ? (-probability * touchPoint.grps) / respondentsProbabilitiesForTouchPoint.size
               : 0;
@@ -110,6 +111,7 @@ export default function createReachDataTool() {
         reachedRespondentsForTouchPoints.set(touchPoint.name, reachedRespondentsForTouchPoint);
       }
     }
+
     return reachedRespondentsForTouchPoints;
   }
 
