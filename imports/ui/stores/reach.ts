@@ -55,7 +55,7 @@ export const respondentsCountForMarket: Readable<RespondentsCount> = derived(
   [briefing, marketData],
   ([$briefing, $marketData], set) => {
     if ($marketData && $briefing.useMarketData) {
-      console.log('respondentsCountForMarket client, args sent: ', $briefing, $marketData);
+      console.log('respondentsCountForMarket client, args sent: ', $briefing.marketName);
 
       Meteor.callAsync('probabilities.countRespondentsForMarket', {marketName: $briefing.marketName})
         .then((result: number) => {
@@ -105,14 +105,13 @@ export const population: Readable<number> = derived([marketData, briefing], ([$m
 });
 
 export const results: Readable<Results> = derived(
-  [marketData, briefing, deployment, ageGroups, respondentsCountForMarket, populationInRange],
-  ([$marketData, $briefing, $deployment, $ageGroups, $respondentsCountForMarket, $populationInRange], set) => {
+  [marketData, briefing, deployment, respondentsCountForMarket, populationInRange],
+  ([$marketData, $briefing, $deployment, $respondentsCountForMarket, $populationInRange], set) => {
     console.log('produce results');
     if ($marketData && $briefing.useMarketData) {
       Meteor.callAsync('strategies.calculateResultsWithData', {
         briefing: $briefing,
         deployment: $deployment,
-        ageGroups: $ageGroups,
         respondentsCountForMarket: $respondentsCountForMarket,
         populationInRange: $populationInRange
       })
@@ -153,12 +152,11 @@ export function touchPointsForFormula(): DeployedTouchPoint[] {
   });
 }
 export const maxValues: Readable<Map<TouchPointName, number>> = derived(
-  [briefing, deployment, ageGroups, respondentsCountForMarket, populationInRange],
-  ([$briefing, $deployment, $ageGroups, $respondentsCountForMarket, $populationInRange], set) => {
+  [briefing, deployment, respondentsCountForMarket, populationInRange],
+  ([$briefing, $deployment, $respondentsCountForMarket, $populationInRange], set) => {
     Meteor.callAsync('strategies.maxValuesForTouchPoints', {
       briefing: $briefing,
       deployment: $deployment,
-      ageGroups: $ageGroups,
       respondentsCountForMarket: $respondentsCountForMarket,
       populationInRange: $populationInRange
     })

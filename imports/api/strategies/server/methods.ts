@@ -26,10 +26,16 @@ Meteor.methods({
   'strategies.calculateResultsWithData': function (args: {
     briefing: Omit<Strategy, 'deployment'>;
     deployment: Strategy['deployment'];
-    ageGroups: AgeGroup[];
     respondentsCountForMarket: RespondentsCount;
     populationInRange: PopulationInRange;
   }): Results {
+    console.log(
+      'calculateResultsWithData runs with args: ',
+      args.briefing,
+      args.respondentsCountForMarket,
+      args.populationInRange
+    );
+
     if (
       !Match.test(args.briefing, Object) ||
       !Match.test(args.deployment, Array) ||
@@ -62,32 +68,32 @@ Meteor.methods({
     // }
 
     // Filter probabilities for this briefing / strategy
-    const probabilities: Probability[] = Probabilities.find(
-      {
-        marketName: marketName,
-        gender: {$in: genders},
-        age_group: {$gte: ageGroupIndexStart, $lte: ageGroupIndexEnd}
-      },
-      {fields: {respondentId: 1, market: 1, age: 1, gender: 1}}
-    ).fetch();
+    const respondentsProbabilities: Probability[] = Probabilities.find({
+      marketName: marketName,
+      gender: {$in: genders},
+      age_group: {$gte: ageGroupIndexStart, $lte: ageGroupIndexEnd}
+    }).fetch();
 
     // for each deployed touchpoint only select respondents with a contact probability > 0
-    const probabilitiesForTouchPoints: Map<
+    const respondentsProbabilitiesForTouchPoints: Map<
       TouchPointName,
       Map<Probability['respondentId'], number>
-    > = reachDataTool.getProbabilitiesForTouchPoints(touchPointsDeployed, probabilities);
+    > = reachDataTool.getProbabilitiesForTouchPoints(touchPointsDeployed, respondentsProbabilities);
     //TODO: adapt, like maxValues (below)
     // add properties to touchpoints
     const complementedTouchPoints: ComplementedTouchPoint[] = reachDataTool.complementTouchPoints(
       touchPointsDeployed,
       args.populationInRange,
-      probabilitiesForTouchPoints
+      respondentsProbabilitiesForTouchPoints
     );
 
     // Build non-unique respondents
     // Collect respondents
-    const reachedRespondentsForTouchPoints: Partial<{[key in TouchPointName]: Probability['respondentId'][]}> =
-      reachDataTool.collectReachedRespondentsForTouchPoints(complementedTouchPoints, probabilitiesForTouchPoints);
+    const reachedRespondentsForTouchPoints: Map<TouchPointName, Probability['respondentId'][]> =
+      reachDataTool.collectReachedRespondentsForTouchPoints(
+        complementedTouchPoints,
+        respondentsProbabilitiesForTouchPoints
+      );
     // For reach calculation: Gather all reached respondents for strategy per touch point, so non-unique
     for (const reachedRespondentsForTouchPoint of Object.values(reachedRespondentsForTouchPoints)) {
       reachedNonUniqueRespondentsForStrategy.concat(reachedRespondentsForTouchPoint);
@@ -95,15 +101,21 @@ Meteor.methods({
 
     // Unique respondents
     const reachedUniqueRespondentsForStrategy: Set<number> = new Set(reachedNonUniqueRespondentsForStrategy); // OK
-    console.log('reachedUniqueRespondentsForStrategy', reachedUniqueRespondentsForStrategy);
 
     // total reach
     const totalReachForResult = (reachedUniqueRespondentsForStrategy.size / args.respondentsCountForMarket) * 100;
-    console.log('totalReachForResult', totalReachForResult);
+    console.log(
+      'totalReachForResult',
+      reachedUniqueRespondentsForStrategy.size,
+      ' / ',
+      args.respondentsCountForMarket,
+      ' = ',
+      totalReachForResult
+    );
     // Count respondents for overlap
     reachedUniqueRespondentsForStrategy.forEach((respondentId) => {
       for (const touchPoint of touchPointsDeployed) {
-        if (!reachedRespondentsForTouchPoints[touchPoint.name]?.includes(respondentId)) {
+        if (!reachedRespondentsForTouchPoints.get(touchPoint.name)?.includes(respondentId)) {
           break;
         }
         respondentsCountedForOverlap.push(respondentId);
@@ -118,40 +130,40 @@ Meteor.methods({
   'strategies.maxValuesForTouchPoints': function (args: {
     briefing: Omit<Strategy, 'deployment'>;
     deployment: Strategy['deployment'];
-    ageGroups: AgeGroup[];
     respondentsCountForMarket: RespondentsCount;
     populationInRange: PopulationInRange;
   }): Map<TouchPointName, number> {
     // Filter probabilities for this briefing / strategy
     const {marketName, ageGroupIndexStart, ageGroupIndexEnd, genders} = args.briefing;
     const touchPointsDeployed: DeployedTouchPoint[] = args.deployment;
-    const probabilities: Probability[] = Probabilities.find(
-      {
-        marketName: marketName,
-        gender: {$in: genders},
-        age_group: {$gte: ageGroupIndexStart, $lte: ageGroupIndexEnd}
-      },
-      {fields: {respondentId: 1, market: 1, age: 1, gender: 1}}
-    ).fetch();
-    console.log('probabilities in maxValues: ', probabilities);
+    const respondentsProbabilities: Probability[] = Probabilities.find({
+      marketName: marketName,
+      gender: {$in: genders},
+      age_group: {$gte: ageGroupIndexStart, $lte: ageGroupIndexEnd}
+    }).fetch();
 
     const maxValues: Map<TouchPointName, number> = new Map();
     // for each deployed touchpoint only select respondents with a contact probability > 0
-    const probabilitiesForTouchPoints: Map<
+    const respondentsProbabilitiesForTouchPoints: Map<
       TouchPointName,
       Map<Probability['respondentId'], number>
-    > = reachDataTool.getProbabilitiesForTouchPoints(touchPointsDeployed, probabilities); //OK
-    console.log('probabilitiesForTouchPoints in maxValues ', probabilitiesForTouchPoints);
+    > = reachDataTool.getProbabilitiesForTouchPoints(touchPointsDeployed, respondentsProbabilities); //OK
 
     touchPointsDeployed.forEach((touchPoint) => {
-      const probabilitiesForTouchPoint = probabilitiesForTouchPoints.get(touchPoint.name);
-      if ((touchPoint.inputType == 'contacts' || touchPoint.inputType == 'impressions') && probabilitiesForTouchPoint) {
+      const respondentsProbabilitiesForTouchPoint = respondentsProbabilitiesForTouchPoints.get(touchPoint.name);
+      if (
+        (touchPoint.inputType == 'contacts' || touchPoint.inputType == 'impressions') &&
+        respondentsProbabilitiesForTouchPoint
+      ) {
         maxValues.set(
           touchPoint.name,
-          (probabilitiesForTouchPoint.size / args.respondentsCountForMarket) * args.populationInRange * 5
+          (respondentsProbabilitiesForTouchPoint.size / args.respondentsCountForMarket) * args.populationInRange * 5
         );
-      } else if (touchPoint.inputType == 'grps' && probabilitiesForTouchPoint) {
-        maxValues.set(touchPoint.name, ((probabilitiesForTouchPoint.size / args.respondentsCountForMarket) * 5) / 100);
+      } else if (touchPoint.inputType == 'grps' && respondentsProbabilitiesForTouchPoint) {
+        maxValues.set(
+          touchPoint.name,
+          ((respondentsProbabilitiesForTouchPoint.size / args.respondentsCountForMarket) * 5) / 100
+        );
       }
       if (touchPoint.inputType == 'reach') {
         maxValues.set(touchPoint.name, 100);

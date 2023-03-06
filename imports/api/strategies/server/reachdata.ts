@@ -15,7 +15,10 @@ export default function createReachDataTool() {
     deployedTouchPoints: DeployedTouchPoint[],
     probabilities: Probability[]
   ): Map<TouchPointName, Map<Probability['respondentId'], number>> {
-    const probabilitiesForTouchPoints: Map<TouchPointName, Map<Probability['respondentId'], number>> = new Map();
+    const respondentsProbabilitiesForTouchPoints: Map<
+      TouchPointName,
+      Map<Probability['respondentId'], number>
+    > = new Map();
     for (let touchPointIndex = 0; touchPointIndex < deployedTouchPoints.length; touchPointIndex++) {
       const thisTouchPointProbabilities: Map<Probability['respondentId'], number> = new Map();
       for (let probabilityIndex = 0; probabilityIndex < probabilities.length; probabilityIndex++) {
@@ -24,24 +27,24 @@ export default function createReachDataTool() {
         if (probability[touchPointName] > 0) {
           thisTouchPointProbabilities.set(probability.respondentId, probability[touchPointName]);
         }
-        probabilitiesForTouchPoints.set(touchPointName, thisTouchPointProbabilities);
+        respondentsProbabilitiesForTouchPoints.set(touchPointName, thisTouchPointProbabilities);
       }
     }
-    return probabilitiesForTouchPoints;
+    return respondentsProbabilitiesForTouchPoints;
   }
 
   function complementTouchPoints(
     touchPoints: DeployedTouchPoint[],
     populationInRange: PopulationInRange,
-    probabilitiesForTouchPoints: Map<TouchPointName, Map<Probability['respondentId'], number>>
+    respondentsProbabilitiesForTouchPoints: Map<TouchPointName, Map<Probability['respondentId'], number>>
   ): ComplementedTouchPoint[] {
     const complementedTouchPoints = touchPoints.map((touchPoint) => {
       const {name, value, inputType} = touchPoint;
-      const respondentsProbabilitiesForTouchPoint = probabilitiesForTouchPoints.get(name);
-      const allProbabilitiesForTouchPoint = [];
+      const respondentsProbabilitiesForTouchPoint = respondentsProbabilitiesForTouchPoints.get(name);
+      const probabilitiesForTouchPoint = [];
       if (respondentsProbabilitiesForTouchPoint) {
         for (const [key, value] of respondentsProbabilitiesForTouchPoint) {
-          allProbabilitiesForTouchPoint.push(value);
+          probabilitiesForTouchPoint.push(value);
         }
       }
       // set basis of object
@@ -51,7 +54,7 @@ export default function createReachDataTool() {
         inputType: inputType,
         selected: value === 0 ? false : true,
         maxReachedRespondents: respondentsProbabilitiesForTouchPoint ? respondentsProbabilitiesForTouchPoint.size : 0,
-        sumOfProbabilities: allProbabilitiesForTouchPoint.reduce((sum, probability) => {
+        sumOfProbabilities: probabilitiesForTouchPoint.reduce((sum, probability) => {
           return sum + probability;
         }, 0)
       };
@@ -72,47 +75,41 @@ export default function createReachDataTool() {
 
   function collectReachedRespondentsForTouchPoints(
     complementedTouchPoints: ComplementedTouchPoint[],
-    probabilitiesForTouchPoints: {[key in TouchPointName]: Map<Probability['respondentId'], number>}
-  ): Partial<{[key in TouchPointName]: Probability['respondentId'][]}> {
-    const reachedRespondentsForTouchPoints = complementedTouchPoints.reduce(
-      (
-        result: Partial<{[key in TouchPointName]: Probability['respondentId'][]}>,
-        touchPoint: ComplementedTouchPoint
-      ) => {
-        const reachForRespondentsForTouchPoint: Map<Probability['respondentId'], number> = new Map();
-        const reachedRespondentsForTouchPoint: Probability['respondentId'][] = [];
-        const touchPointName: TouchPointName = touchPoint['name'];
-        const probabilitiesForTouchPoint =
-          probabilitiesForTouchPoints[
-            touchPointName as keyof {[key in TouchPointName]: Map<Probability['respondentId'], number>}
-          ];
-        if (probabilitiesForTouchPoint) {
-          probabilitiesForTouchPoint.forEach(
-            (
-              probability: number,
-              respondentId: number,
-              probabilitiesForTouchPoint: Map<Probability['respondentId'], number>
-            ) => {
-              // check which probabilities
-              const exponent = touchPoint.grps ? (-probability * touchPoint.grps) / probabilitiesForTouchPoint.size : 0;
-              // Math.pow(Math.E, 0) = 1, so if exponent == 0, reach = 0
-              const reach = 1 * (1 - Math.pow(Math.E, exponent)) * 100;
-              reachForRespondentsForTouchPoint.set(respondentId, reach);
-            }
-          );
-        }
+    respondentsProbabilitiesForTouchPoints: Map<TouchPointName, Map<Probability['respondentId'], number>>
+  ): Map<TouchPointName, Probability['respondentId'][]> {
+    const reachedRespondentsForTouchPoints: Map<TouchPointName, Probability['respondentId'][]> = new Map();
 
+    for (let touchPointIndex = 0; touchPointIndex < complementedTouchPoints.length; touchPointIndex++) {
+      const reachForRespondentsForTouchPoint: Map<Probability['respondentId'], number> = new Map();
+      const reachedRespondentsForTouchPoint: Probability['respondentId'][] = [];
+      const touchPoint: ComplementedTouchPoint = complementedTouchPoints[touchPointIndex];
+      const respondentsProbabilitiesForTouchPoint = respondentsProbabilitiesForTouchPoints.get(touchPoint.name);
+
+      if (respondentsProbabilitiesForTouchPoint) {
+        respondentsProbabilitiesForTouchPoint.forEach(
+          (
+            probability: number,
+            respondentId: number,
+            respondentsProbabilitiesForTouchPoint: Map<Probability['respondentId'], number>
+          ) => {
+            // check which probabilities
+            const exponent = touchPoint.grps
+              ? (-probability * touchPoint.grps) / respondentsProbabilitiesForTouchPoint.size
+              : 0;
+            // Math.pow(Math.E, 0) = 1, so if exponent == 0, reach = 0
+            const reach = 1 * (1 - Math.pow(Math.E, exponent)) * 100;
+            reachForRespondentsForTouchPoint.set(respondentId, reach);
+          }
+        );
         reachForRespondentsForTouchPoint.forEach((reach, respondentId) => {
           if (reach >= 1) {
             // Add respondent to array with reached respondents for this touchpoint
             reachedRespondentsForTouchPoint.push(respondentId);
           }
         });
-        result[touchPointName] = reachedRespondentsForTouchPoint || [];
-        return result;
-      },
-      {}
-    );
+        reachedRespondentsForTouchPoints.set(touchPoint.name, reachedRespondentsForTouchPoint);
+      }
+    }
     return reachedRespondentsForTouchPoints;
   }
 

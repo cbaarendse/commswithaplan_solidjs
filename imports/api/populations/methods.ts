@@ -46,7 +46,7 @@ Meteor.methods({
     ageGroups: AgeGroup[];
   }): PopulationInRange {
     const {marketName, genders, ageGroupIndexStart, ageGroupIndexEnd, userId} = args.briefing;
-    console.log('populations.countPopulationInRange runs with: ', args.briefing, this.userId, args.ageGroups);
+    console.log('populations.countPopulationInRange runs with: ', args.briefing, this.userId);
 
     if (!this.userId) {
       throw new Meteor.Error(

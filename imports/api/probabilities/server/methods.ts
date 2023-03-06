@@ -3,7 +3,7 @@ import {Meteor} from 'meteor/meteor';
 import {Match} from 'meteor/check';
 import createReachDataTool from '../../strategies/server/reachdata';
 import {MARKETNAMES} from '../../../both/constants/constants';
-import {AgeGroup, Probability, Strategy} from '../../../both/typings/types';
+import {Strategy} from '../../../both/typings/types';
 import Probabilities from './probabilities';
 // variables
 const reachDataTool = createReachDataTool();
@@ -30,12 +30,8 @@ Meteor.methods({
       );
     }
 
-    let probabilityForMarket: Probability | undefined;
-    if (this.isSimulation) {
-      console.log('this is simulation');
-    } else {
-      probabilityForMarket = Probabilities.findOne({marketName: args.marketName});
-    }
+    const probabilityForMarket = Probabilities.findOne({marketName: args.marketName});
+
     return probabilityForMarket ? true : false;
   },
 
@@ -58,21 +54,13 @@ Meteor.methods({
         '[{ "name": "notLoggedIn" }]'
       );
     }
-    let count: number | undefined;
-    if (this.isSimulation) {
-      console.log('this is simulation');
-      count = Probabilities.find({market: args.marketName}).count();
-      return count;
-    } else {
-      count = Probabilities.find({market: args.marketName}).count();
-      return count;
-    }
+
+    const respondentsCount = Probabilities.find({marketName: args.marketName}).count();
+    console.log('respondentsCount in server count for market:', typeof respondentsCount, respondentsCount);
+    return respondentsCount;
   },
 
-  'probabilities.countRespondentsForStrategy': function (args: {
-    briefing: Omit<Strategy, 'deployment'>;
-    ageGroups: AgeGroup[];
-  }): number {
+  'probabilities.countRespondentsForStrategy': function (args: {briefing: Omit<Strategy, 'deployment'>}): number {
     if (!Match.test(args.briefing, Object)) {
       throw new Meteor.Error(
         'general.invalid.input',
@@ -99,17 +87,11 @@ Meteor.methods({
     //     '[{ "name": "notAuthorized" }]'
     //   );
     // }
-    const ageGroupStart = ageGroupIndexStart ? args.ageGroups[ageGroupIndexStart] : args.ageGroups[0];
-    const ageGroupEnd = ageGroupIndexEnd ? args.ageGroups[ageGroupIndexEnd] : args.ageGroups[1];
-    const probabilitiesForStrategy = Probabilities.find(
-      {marketName: marketName, age: {$gte: ageGroupStart[0], $lte: ageGroupEnd[1]}, gender: {$in: genders}},
+    const respondentsCount = Probabilities.find(
+      {marketName: marketName, age_group: {$gte: ageGroupIndexStart, $lte: ageGroupIndexEnd}, gender: {$in: genders}},
       {fields: {respondentId: 1, market: 1, age: 1, gender: 1}}
-    ).fetch();
-    console.log(
-      'probabilitiesForRespondents in server count for strategy:',
-      typeof probabilitiesForStrategy,
-      probabilitiesForStrategy
-    );
-    return probabilitiesForStrategy.length;
+    ).count();
+    console.log('respondentsCount in server count for strategy:', typeof respondentsCount, respondentsCount);
+    return respondentsCount;
   }
 });
