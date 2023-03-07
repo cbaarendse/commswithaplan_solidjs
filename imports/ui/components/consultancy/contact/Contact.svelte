@@ -43,7 +43,7 @@
     />
   </div>
   <h5>
-    {#if $language == 'dutch'}
+    {#if $language == 'nl_NL'}
       E-mail, bel, schrijf of stuur een bericht via LinkedIn.
     {:else}
       E-mail, call, write or send a message through LinkedIn.

@@ -9,13 +9,13 @@
 
   function policy(path: string, lang: string): string {
     if (path.startsWith('/legal/termsandconditions')) {
-      return lang === 'dutch' ? 'Algemene Voorwaarden' : 'Terms and Conditions';
+      return lang === 'nl_NL' ? 'Algemene Voorwaarden' : 'Terms and Conditions';
     }
     if (path.startsWith('/legal/privacypolicy')) {
-      return lang === 'dutch' ? 'Privacybeleid' : 'Privacy Policy';
+      return lang === 'nl_NL' ? 'Privacybeleid' : 'Privacy Policy';
     }
     if (path.startsWith('/legal/cookiepolicy')) {
-      return lang === 'dutch' ? 'Cookiebeleid' : 'Cookie Policy';
+      return lang === 'nl_NL' ? 'Cookiebeleid' : 'Cookie Policy';
     }
     return 'Policy';
   }

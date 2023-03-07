@@ -64,16 +64,16 @@
 {#if $consentFooterVisible}
   <section transition:slide={{delay: 200, duration: 1000}}>
     <span>
-      {$language == 'dutch' ? 'Akkoord opslag cookies' : 'Agree storage of cookies'}&nbsp;(
+      {$language == 'nl_NL' ? 'Akkoord opslag cookies' : 'Agree storage of cookies'}&nbsp;(
       <nav>
         <a href="/legal/cookiepolicy">
-          {#if $language == 'dutch'}cookiebeleid{:else}cookie policy{/if}
+          {#if $language == 'nl_NL'}cookiebeleid{:else}cookie policy{/if}
         </a>
       </nav>
       )
     </span>
     <Checkbox
-      displayName={$language == 'dutch' ? 'Advertenties / Analyse / Persoonlijk' : 'Ads / Analysis / Personal'}
+      displayName={$language == 'nl_NL' ? 'Advertenties / Analyse / Persoonlijk' : 'Ads / Analysis / Personal'}
       cbx={{
         class: 'consent__checkbox',
         id: 'dynamic_cookies__checkbox',
@@ -86,7 +86,7 @@
     />
 
     <Checkbox
-      displayName={$language == 'dutch' ? 'Functioneel / Veiligheid' : 'Functional / Security'}
+      displayName={$language == 'nl_NL' ? 'Functioneel / Veiligheid' : 'Functional / Security'}
       cbx={{
         class: 'consent__checkbox',
         id: 'persistent_cookies__checkbox',
@@ -106,7 +106,7 @@
         on:click|stopPropagation|preventDefault={() => (dynamic_cookies_checked = false)}
         on:click|stopPropagation|preventDefault={() => closeConsentSection()}
       >
-        {#if $language == 'dutch'}Wijs af{:else}Reject{/if}
+        {#if $language == 'nl_NL'}Wijs af{:else}Reject{/if}
       </button>
       <button
         class="grant"
@@ -116,7 +116,7 @@
         on:click|stopPropagation|preventDefault={() => (dynamic_cookies_checked = true)}
         on:click|stopPropagation|preventDefault={() => closeConsentSection()}
       >
-        {#if $language == 'dutch'}Accepteer{:else}Accept{/if}
+        {#if $language == 'nl_NL'}Accepteer{:else}Accept{/if}
       </button>
     </menu>
   </section>

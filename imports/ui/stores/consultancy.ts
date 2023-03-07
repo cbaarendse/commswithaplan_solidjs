@@ -10,14 +10,14 @@ export const consultancyHomeItems: Readable<(Content & Color & Actionable)[]> = 
       link: '/consultancy/contact',
       definitions: [
         {
-          language: 'english',
+          language: 'en_GB',
           displayName: 'Comms With A Plan',
           description:
             'Comms With A Plan is a <mark>Media Management consultancy</mark> for advertisers. At your service I initiate, maintain and evaluate your media strategy, I manage your agencies and your budget.',
           action: 'Call, contact me ...'
         },
         {
-          language: 'dutch',
+          language: 'nl_NL',
           displayName: 'Comms With A Plan',
           description:
             'Comms With A Plan is een <mark>Media Management consultancy</mark> voor adverteerders. Ik initieer, onderhoud en evalueer je media strategie, ik manage je bureaus en budget.',
@@ -31,14 +31,14 @@ export const consultancyHomeItems: Readable<(Content & Color & Actionable)[]> = 
       link: '/consultancy/contact',
       definitions: [
         {
-          language: 'english',
+          language: 'en_GB',
           displayName: 'Consultancy',
           description:
             'Comms With A Plan is a flexible unit in the sense that work can be project based, or continuous, based on demand. (Give me a call to explain.)',
           action: 'Call, contact me ...'
         },
         {
-          language: 'dutch',
+          language: 'nl_NL',
           displayName: 'Consultancy',
           description:
             'Comms With A Plan is een flexibele partner in die zin dat het werk per project kan zijn, maar ook continu. Gebaseerd op vraag. (Bel me zodat ik het kan uitleggen.)',
@@ -61,12 +61,12 @@ export const workItems: Readable<(Content & Color)[]> = readable(
       color: 'blue',
       definitions: [
         {
-          language: 'english',
+          language: 'en_GB',
           displayName: 'Reporting',
           description: 'Interpret, set up, manage dashboards or other kinds of reports.'
         },
         {
-          language: 'dutch',
+          language: 'nl_NL',
           displayName: 'Rapportage',
           description: 'Inpreteren, opzetten, managen van dashboards of andersoortige rapporten.'
         }
@@ -77,12 +77,12 @@ export const workItems: Readable<(Content & Color)[]> = readable(
       color: 'blue',
       definitions: [
         {
-          language: 'english',
+          language: 'en_GB',
           displayName: 'Research and analysis',
           description: 'Interpretation of past campaigns / years etc.'
         },
         {
-          language: 'dutch',
+          language: 'nl_NL',
           displayName: 'Onderzoek en analyse',
           description: ' Interpretatie van afgelopen campagnes / jaren etc.'
         }
@@ -93,13 +93,13 @@ export const workItems: Readable<(Content & Color)[]> = readable(
       color: 'blue',
       definitions: [
         {
-          language: 'english',
+          language: 'en_GB',
           displayName: 'Briefing',
           description:
             'Instruct the agencies to develop (media) campaigns. With the input of former results, all marketing functions, objectives etc. In principle I follow the steps (1) strategy (2) planning (3) execution (4) evaluation & adjustment.'
         },
         {
-          language: 'dutch',
+          language: 'nl_NL',
           displayName: 'Briefing',
           description:
             'Opdracht geven aan de bureaus om (media)campagnes te ontwikkelen. Met input van eerdere resultaten, alle marketing functies, doelstellingen etcetera. In principe volg ik de stappen (1) strategie (2) planning (3) uitvoering (4) evaluatie & bijstelling.'
@@ -111,13 +111,13 @@ export const workItems: Readable<(Content & Color)[]> = readable(
       color: 'green',
       definitions: [
         {
-          language: 'english',
+          language: 'en_GB',
           displayName: 'Coördination',
           description:
             'I make sure the strategies are integrated. Possibly in a joint development effort by the agencies.'
         },
         {
-          language: 'dutch',
+          language: 'nl_NL',
 
           displayName: 'Coördinatie',
           description:
@@ -130,12 +130,12 @@ export const workItems: Readable<(Content & Color)[]> = readable(
       color: 'green',
       definitions: [
         {
-          language: 'english',
+          language: 'en_GB',
           displayName: 'Planning',
           description: 'Precise elaboration of the strategy by the agencies.'
         },
         {
-          language: 'dutch',
+          language: 'nl_NL',
 
           displayName: 'Planning',
           description: 'Precieze uitwerking van de strategie door de bureaus.'
@@ -147,12 +147,12 @@ export const workItems: Readable<(Content & Color)[]> = readable(
       color: 'green',
       definitions: [
         {
-          language: 'english',
+          language: 'en_GB',
           displayName: 'Tools',
           description: 'Tools that support your marketing-communications work.'
         },
         {
-          language: 'dutch',
+          language: 'nl_NL',
           displayName: 'Tools',
           description: 'Tools die je marketing-communicatie werkzaamheden ondersteunen.'
         }
@@ -163,12 +163,12 @@ export const workItems: Readable<(Content & Color)[]> = readable(
       color: 'red',
       definitions: [
         {
-          language: 'english',
+          language: 'en_GB',
           displayName: 'Execution',
           description: 'Buying, negotiation, implementation, placement by the agencies.'
         },
         {
-          language: 'dutch',
+          language: 'nl_NL',
           displayName: 'Executie',
           description: 'Inkoop, onderhandeling, implementatie, plaatsing door de bureaus.'
         }
@@ -179,12 +179,12 @@ export const workItems: Readable<(Content & Color)[]> = readable(
       color: 'red',
       definitions: [
         {
-          language: 'english',
+          language: 'en_GB',
           displayName: 'Evaluation and adjustment',
           description: 'Undertake action based on interim results.'
         },
         {
-          language: 'dutch',
+          language: 'nl_NL',
           displayName: 'Evaluatie en aanpassingen',
           description: 'Actie ondernemen op basis van tussenresultaten.'
         }
@@ -196,13 +196,13 @@ export const workItems: Readable<(Content & Color)[]> = readable(
       color: 'red',
       definitions: [
         {
-          language: 'english',
+          language: 'en_GB',
           displayName: 'Budget management',
           description:
             'Make sure that no one spends more than needed to reach the objectives. Or that he/she turns out to have at the end of the year.'
         },
         {
-          language: 'dutch',
+          language: 'nl_NL',
           displayName: 'Budget management',
           description:
             'Ervoor zorgen dat niemand meer uitgeeft dan nodig is voor de doelstellingen. Of wat hij/zij op het einde van het jaar blijkt te hebben.'
@@ -214,13 +214,13 @@ export const workItems: Readable<(Content & Color)[]> = readable(
       color: 'red',
       definitions: [
         {
-          language: 'english',
+          language: 'en_GB',
           displayName: 'Creation',
           description:
             'Do I know the difference between indigo, azure, navy or cobalt? No. But I do know whether a proposal is on or off strategy.'
         },
         {
-          language: 'dutch',
+          language: 'nl_NL',
           displayName: 'Creatie',
           description:
             'Weet ik het verschil tussen indigo, azuur, navy en kobalt? Nee. Maar ik weet wel of een voorstel op of naast strategie is.'
@@ -232,12 +232,12 @@ export const workItems: Readable<(Content & Color)[]> = readable(
       color: 'grey',
       definitions: [
         {
-          language: 'english',
+          language: 'en_GB',
           displayName: 'Contracts',
           description: 'Arrange yearly agreements with important media parties.'
         },
         {
-          language: 'dutch',
+          language: 'nl_NL',
           displayName: 'Contracten',
           description: 'Regelen van jaarafspraken met belangrijke mediapartijen.'
         }
@@ -248,12 +248,12 @@ export const workItems: Readable<(Content & Color)[]> = readable(
       color: 'grey',
       definitions: [
         {
-          language: 'english',
+          language: 'en_GB',
           displayName: 'Agency management',
           description: 'Team composition, cost, performance rewarding etc.'
         },
         {
-          language: 'dutch',
+          language: 'nl_NL',
           displayName: 'Bureau management',
           description: 'Team samenstelling, kosten, prestatiebeloning etcetera.'
         }
@@ -264,13 +264,13 @@ export const workItems: Readable<(Content & Color)[]> = readable(
       color: 'grey',
       definitions: [
         {
-          language: 'english',
+          language: 'en_GB',
           displayName: 'Auditing',
           description:
             'As an independent party I check spending, prices, timings, results against previous agreed benchmarks, like pitch documents, contracts, plans, previous years etcetera.'
         },
         {
-          language: 'dutch',
+          language: 'nl_NL',
           displayName: 'Audit',
           description:
             'Als een onafhankelijke partij vergelijk ik uitgaven, prijzen, timings, resultaten met vooraf overeengekomen ijkpunten, zoals pitch documenten, contracten, plannen, voorgaande jaren etcetera.'
@@ -292,13 +292,13 @@ export const aboutItems: Readable<(Content & Color)[]> = readable(
       color: 'blue',
       definitions: [
         {
-          language: 'english',
+          language: 'en_GB',
           displayName: 'About',
           description:
             "I'm Constantijn Baarendse. I've worked on different continents, for blue chip advertisers, media- and advertising agencies."
         },
         {
-          language: 'dutch',
+          language: 'nl_NL',
           displayName: 'Over',
           description:
             "Ik ben Constantijn Baarendse. Ik heb gewerkt op verschillende continenten, voor 'blue chip' adverteerders, media- en reclamebureaus."
@@ -320,12 +320,12 @@ export const contactItems: Readable<(Content & Color)[]> = readable(
       color: 'blue',
       definitions: [
         {
-          language: 'english',
+          language: 'en_GB',
           displayName: 'E-Mail',
           description: 'cbaarendse[at]commswithaplan.com'
         },
         {
-          language: 'dutch',
+          language: 'nl_NL',
           displayName: 'E-Mail',
           description: 'cbaarendse[at]commswithaplan.com'
         }
@@ -336,12 +336,12 @@ export const contactItems: Readable<(Content & Color)[]> = readable(
       color: 'blue',
       definitions: [
         {
-          language: 'english',
+          language: 'en_GB',
           displayName: 'Telephone',
           description: 'Telephone: plus three one six, one two three nine eight seven three four'
         },
         {
-          language: 'dutch',
+          language: 'nl_NL',
           displayName: 'Telefoon',
           description: 'Telefoon: nul zes, een twee drie negen acht zeven drie vier'
         }
@@ -352,12 +352,12 @@ export const contactItems: Readable<(Content & Color)[]> = readable(
       color: 'blue',
       definitions: [
         {
-          language: 'english',
+          language: 'en_GB',
           displayName: 'Address',
           description: 'Erich Salomonstraat 507, 1087 GT Amsterdam, The Netherlands'
         },
         {
-          language: 'dutch',
+          language: 'nl_NL',
           displayName: 'Adres',
           description: 'Erich Salomonstraat 507, 1087 GT Amsterdam, The Netherlands'
         }

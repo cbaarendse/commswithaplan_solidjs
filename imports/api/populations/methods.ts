@@ -98,12 +98,12 @@ Meteor.methods({
     projection.count = 1;
 
     // Filter right counts for selected age range / gender
-    const countsForAgeRange = Populations.find(query, {
+    const populationForRange = Populations.find(query, {
       fields: projection
     }).fetch();
 
     // Summarize all filtered counts per age range / gender to one number
-    const sum = countsForAgeRange.reduce((subTotal, current) => subTotal + current.count, 0);
+    const sum = populationForRange.reduce((subTotal, current) => subTotal + current.count, 0);
     return sum;
   }
 });

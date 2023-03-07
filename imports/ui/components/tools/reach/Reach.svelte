@@ -13,6 +13,7 @@
     briefingForFormula,
     deployment,
     marketData,
+    maxValues,
     overlap,
     results,
     sortedByName,
@@ -57,6 +58,7 @@
   $: console.log('$results: in $: ', $results);
   $: console.log('$totalReach: in $: ', $totalReach);
   $: console.log('$overlap: in $: ', $overlap);
+  $: console.log('$maxValues: in $: ', $maxValues);
 
   // functions
 

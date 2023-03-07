@@ -39,7 +39,7 @@
 <section>
   <div class="container">
     <form autocomplete="off">
-      <label for={numberInput.name}>{$language === 'dutch' ? 'Invoer voor ' : 'Input for '}{displayName}</label>
+      <label for={numberInput.name}>{$language === 'nl_NL' ? 'Invoer voor ' : 'Input for '}{displayName}</label>
       <input
         class="input__field"
         name={numberInput.name}
@@ -55,14 +55,14 @@
       <input
         class="submit__button"
         type="submit"
-        value={$language === 'dutch' ? 'Verstuur' : 'Submit'}
+        value={$language === 'nl_NL' ? 'Verstuur' : 'Submit'}
         {disabled}
         on:click|preventDefault|stopPropagation={submitLogin}
       />
       <input
         class="cancel__button"
         type="submit"
-        value={$language === 'dutch' ? 'Annuleer' : 'Cancel'}
+        value={$language === 'nl_NL' ? 'Annuleer' : 'Cancel'}
         on:click|preventDefault|stopPropagation={submitCancel}
       />
     </form>

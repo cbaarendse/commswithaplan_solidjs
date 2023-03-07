@@ -26,26 +26,24 @@ Meteor.methods({
   'strategies.calculateResultsWithData': function (args: {
     briefing: Omit<Strategy, 'deployment'>;
     deployment: Strategy['deployment'];
-    respondentsCountForMarket: RespondentsCount;
     populationInRange: PopulationInRange;
   }): Results {
     console.log(
       'calculateResultsWithData runs with args: ',
       args.briefing,
       args.deployment.length,
-      args.respondentsCountForMarket,
       args.populationInRange
     );
 
     if (
       !Match.test(args.briefing, Object) ||
       !Match.test(args.deployment, Array) ||
-      !Match.test(args.respondentsCountForMarket, Number) ||
       !Match.test(args.populationInRange, Number)
     ) {
       throw new Meteor.Error('general.invalid.input', `Invalid input: ${args}`, '[{ "name": "invalidInput" }]');
     }
     const {userId, marketName, ageGroupIndexStart, ageGroupIndexEnd, genders} = args.briefing;
+    const respondentsCountForMarket = Probabilities.find({marketName: marketName}).count();
 
     // filter probabilities for market
     const touchPointsDeployed: DeployedTouchPoint[] = args.deployment;
@@ -131,12 +129,12 @@ Meteor.methods({
   'strategies.maxValuesForTouchPoints': function (args: {
     briefing: Omit<Strategy, 'deployment'>;
     deployment: Strategy['deployment'];
-    respondentsCountForMarket: RespondentsCount;
     populationInRange: PopulationInRange;
   }): Map<TouchPointName, number> {
     // Filter probabilities for this briefing / strategy
     const {marketName, ageGroupIndexStart, ageGroupIndexEnd, genders} = args.briefing;
     const touchPointsDeployed: DeployedTouchPoint[] = args.deployment;
+    const respondentsCountForMarket = Probabilities.find({marketName: marketName}).count();
     const respondentsProbabilities: Probability[] = Probabilities.find({
       marketName: marketName,
       gender: {$in: genders},
@@ -149,7 +147,7 @@ Meteor.methods({
       TouchPointName,
       Map<Probability['respondentId'], number>
     > = reachDataTool.getProbabilitiesForTouchPoints(touchPointsDeployed, respondentsProbabilities); //OK
-    // TODO: check all the 'if's log args.respondentsCountForMarket & populationInRange, maube not get thisin arguments, but get from db
+
     touchPointsDeployed.forEach((touchPoint) => {
       const respondentsProbabilitiesForTouchPoint = respondentsProbabilitiesForTouchPoints.get(touchPoint.name);
       maxValues.set(touchPoint.name, 100);
@@ -159,18 +157,19 @@ Meteor.methods({
       ) {
         maxValues.set(
           touchPoint.name,
-          (respondentsProbabilitiesForTouchPoint.size / args.respondentsCountForMarket) * args.populationInRange * 5
+          (respondentsProbabilitiesForTouchPoint.size / respondentsCountForMarket) * args.populationInRange * 5
         );
       } else if (touchPoint.inputType == 'grps' && respondentsProbabilitiesForTouchPoint) {
         maxValues.set(
           touchPoint.name,
-          ((respondentsProbabilitiesForTouchPoint.size / args.respondentsCountForMarket) * 5) / 100
+          ((respondentsProbabilitiesForTouchPoint.size / respondentsCountForMarket) * 5) / 100
         );
       } else if (touchPoint.inputType == 'reach') {
         maxValues.set(touchPoint.name, 100);
       }
-      console.log('maxValue for: ', touchPoint.name, ': ', maxValues.get(touchPoint.name));
     });
+    console.log('maxValues on server: ', maxValues);
+    // TODO: maxValues allright here, doesn't end on client, in derived.
     return maxValues;
   }
 });

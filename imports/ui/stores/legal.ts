@@ -8,7 +8,7 @@ export const termsAndConditions: Readable<Article[]> = readable(
   [
     {
       displayName: 'Article 1. General',
-      language: 'english',
+      language: 'en_GB',
       name: 'article_01',
       paragraphs: [
         {
@@ -54,7 +54,7 @@ export const termsAndConditions: Readable<Article[]> = readable(
     },
     {
       displayName: 'Article 2 Quotations and offers',
-      language: 'english',
+      language: 'en_GB',
       name: 'article_02',
       paragraphs: [
         {
@@ -87,7 +87,7 @@ export const termsAndConditions: Readable<Article[]> = readable(
     {
       displayName:
         'Article 3 Contract duration; execution terms, transfer of risk, execution and amendment of the agreement; price increase',
-      language: 'english',
+      language: 'en_GB',
       name: 'article_03',
       paragraphs: [
         {
@@ -169,7 +169,7 @@ export const termsAndConditions: Readable<Article[]> = readable(
     },
     {
       displayName: 'Article 4 Suspension, dissolution and early termination of the agreement',
-      language: 'english',
+      language: 'en_GB',
       name: 'article_04',
       paragraphs: [
         {
@@ -221,7 +221,7 @@ export const termsAndConditions: Readable<Article[]> = readable(
     },
     {
       displayName: 'Article 5 Force majeure',
-      language: 'english',
+      language: 'en_GB',
       name: 'article_05',
       paragraphs: [
         {
@@ -248,7 +248,7 @@ export const termsAndConditions: Readable<Article[]> = readable(
     },
     {
       displayName: 'Article 6 Payment and collection costs',
-      language: 'english',
+      language: 'en_GB',
       name: 'article_06',
       paragraphs: [
         {
@@ -275,7 +275,7 @@ export const termsAndConditions: Readable<Article[]> = readable(
     },
     {
       displayName: 'Article 7 Retention of title',
-      language: 'english',
+      language: 'en_GB',
       name: 'article_07',
       paragraphs: [
         {
@@ -302,7 +302,7 @@ export const termsAndConditions: Readable<Article[]> = readable(
     },
     {
       displayName: 'Article 8 Warranties, research and complaints, limitation period',
-      language: 'english',
+      language: 'en_GB',
       name: 'article_08',
       paragraphs: [
         {
@@ -359,7 +359,7 @@ export const termsAndConditions: Readable<Article[]> = readable(
     },
     {
       displayName: 'Article 9 Liability',
-      language: 'english',
+      language: 'en_GB',
       name: 'article_09',
       paragraphs: [
         {
@@ -396,7 +396,7 @@ export const termsAndConditions: Readable<Article[]> = readable(
     },
     {
       displayName: 'Article 10 Indemnification',
-      language: 'english',
+      language: 'en_GB',
       name: 'article_10',
       paragraphs: [
         {
@@ -408,7 +408,7 @@ export const termsAndConditions: Readable<Article[]> = readable(
     },
     {
       displayName: 'Article 11 Intellectual property',
-      language: 'english',
+      language: 'en_GB',
       name: 'article_11',
       paragraphs: [
         {
@@ -420,7 +420,7 @@ export const termsAndConditions: Readable<Article[]> = readable(
     },
     {
       displayName: 'Article 12 Applicable law and disputes',
-      language: 'english',
+      language: 'en_GB',
       name: 'article_12',
       paragraphs: [
         {
@@ -432,7 +432,7 @@ export const termsAndConditions: Readable<Article[]> = readable(
     },
     {
       displayName: 'Article 13 Location and change of conditions',
-      language: 'english',
+      language: 'en_GB',
       name: 'article_13',
       paragraphs: [
         {
@@ -454,7 +454,7 @@ export const termsAndConditions: Readable<Article[]> = readable(
 
     {
       displayName: 'Artikel 1 Algemeen',
-      language: 'dutch',
+      language: 'nl_NL',
       name: 'article_01',
       paragraphs: [
         {
@@ -501,7 +501,7 @@ export const termsAndConditions: Readable<Article[]> = readable(
     },
     {
       displayName: 'Artikel 2 Offertes en aanbiedingen',
-      language: 'dutch',
+      language: 'nl_NL',
       name: 'article_02',
       paragraphs: [
         {
@@ -534,7 +534,7 @@ export const termsAndConditions: Readable<Article[]> = readable(
     {
       displayName:
         'Artikel 3 	Contractsduur; uitvoeringstermijnen, risico-overgang, uitvoering en wijziging overeenkomst; prijsverhoging',
-      language: 'dutch',
+      language: 'nl_NL',
       name: 'article_03',
       paragraphs: [
         {
@@ -616,7 +616,7 @@ export const termsAndConditions: Readable<Article[]> = readable(
     },
     {
       displayName: 'Artikel 4  Opschorting, ontbinding en tussentijdse opzegging van de overeenkomst',
-      language: 'dutch',
+      language: 'nl_NL',
       name: 'article_04',
       paragraphs: [
         {
@@ -668,7 +668,7 @@ export const termsAndConditions: Readable<Article[]> = readable(
     },
     {
       displayName: 'Artikel 5 Overmacht',
-      language: 'dutch',
+      language: 'nl_NL',
       name: 'article_05',
       paragraphs: [
         {
@@ -695,7 +695,7 @@ export const termsAndConditions: Readable<Article[]> = readable(
     },
     {
       displayName: 'Artikel 6	Betaling en incassokosten',
-      language: 'dutch',
+      language: 'nl_NL',
       name: 'article_06',
       paragraphs: [
         {
@@ -727,7 +727,7 @@ export const termsAndConditions: Readable<Article[]> = readable(
     },
     {
       displayName: 'Artikel 7  Eigendomsvoorbehoud',
-      language: 'dutch',
+      language: 'nl_NL',
       name: 'article_07',
       paragraphs: [
         {
@@ -754,7 +754,7 @@ export const termsAndConditions: Readable<Article[]> = readable(
     },
     {
       displayName: 'Artikel 8  Garanties, onderzoek en reclames, verjaringstermijn',
-      language: 'dutch',
+      language: 'nl_NL',
       name: 'article_08',
       paragraphs: [
         {
@@ -811,7 +811,7 @@ export const termsAndConditions: Readable<Article[]> = readable(
     },
     {
       displayName: 'Artikel 9  Aansprakelijkheid',
-      language: 'dutch',
+      language: 'nl_NL',
       name: 'article_09',
       paragraphs: [
         {
@@ -849,7 +849,7 @@ export const termsAndConditions: Readable<Article[]> = readable(
     },
     {
       displayName: 'Artikel 10 Vrijwaring',
-      language: 'dutch',
+      language: 'nl_NL',
       name: 'article_10',
       paragraphs: [
         {
@@ -861,7 +861,7 @@ export const termsAndConditions: Readable<Article[]> = readable(
     },
     {
       displayName: 'Artikel 11	Intellectuele eigendom',
-      language: 'dutch',
+      language: 'nl_NL',
       name: 'article_11',
       paragraphs: [
         {
@@ -873,7 +873,7 @@ export const termsAndConditions: Readable<Article[]> = readable(
     },
     {
       displayName: 'Artikel 12 Toepasselijk recht en geschillen',
-      language: 'dutch',
+      language: 'nl_NL',
       name: 'article_12',
       paragraphs: [
         {
@@ -890,7 +890,7 @@ export const termsAndConditions: Readable<Article[]> = readable(
     },
     {
       displayName: 'Artikel 13 Vindplaats en wijziging voorwaarden',
-      language: 'dutch',
+      language: 'nl_NL',
       name: 'article_13',
       paragraphs: [
         {
@@ -920,7 +920,7 @@ export const privacyPolicy: Readable<Article[]> = readable(
   [
     {
       name: 'data_protection',
-      language: 'english',
+      language: 'en_GB',
       displayName: 'Personal data protection',
       paragraphs: [
         {
@@ -932,7 +932,7 @@ export const privacyPolicy: Readable<Article[]> = readable(
     },
     {
       name: 'e_services',
-      language: 'english',
+      language: 'en_GB',
       displayName: 'Regulation on the protection of personal data e-services',
       paragraphs: [
         {
@@ -944,7 +944,7 @@ export const privacyPolicy: Readable<Article[]> = readable(
     },
     {
       name: 'privacy_statement',
-      language: 'english',
+      language: 'en_GB',
       displayName: 'Information contained in a specific privacy statement',
       paragraphs: [
         {
@@ -957,7 +957,7 @@ export const privacyPolicy: Readable<Article[]> = readable(
     },
     {
       name: 'analytics',
-      language: 'english',
+      language: 'en_GB',
       displayName: 'Analytics',
       paragraphs: [
         {
@@ -969,7 +969,7 @@ export const privacyPolicy: Readable<Article[]> = readable(
     },
     {
       name: 'contact',
-      language: 'english',
+      language: 'en_GB',
       displayName: 'Contacting Comms With A Plan site',
       paragraphs: [
         {
@@ -981,7 +981,7 @@ export const privacyPolicy: Readable<Article[]> = readable(
     },
     {
       name: 'safe_guarding',
-      language: 'english',
+      language: 'en_GB',
       displayName: 'Safeguarding information',
       paragraphs: [
         {
@@ -993,7 +993,7 @@ export const privacyPolicy: Readable<Article[]> = readable(
     },
     {
       name: 'data_protection',
-      language: 'dutch',
+      language: 'nl_NL',
       displayName: 'Bescherming van persoonsgegevens',
       paragraphs: [
         {
@@ -1005,7 +1005,7 @@ export const privacyPolicy: Readable<Article[]> = readable(
     },
     {
       name: 'e_services',
-      language: 'dutch',
+      language: 'nl_NL',
       displayName: 'Regulering bescherming persoonlijke data E-diensten',
       paragraphs: [
         {
@@ -1017,7 +1017,7 @@ export const privacyPolicy: Readable<Article[]> = readable(
     },
     {
       name: 'privacy_statement',
-      language: 'dutch',
+      language: 'nl_NL',
       displayName: 'Wat houdt een specifieke privacyverklaring in?',
       paragraphs: [
         {
@@ -1029,7 +1029,7 @@ export const privacyPolicy: Readable<Article[]> = readable(
     },
     {
       name: 'analytics',
-      language: 'dutch',
+      language: 'nl_NL',
       displayName: 'Analytics',
       paragraphs: [
         {
@@ -1041,7 +1041,7 @@ export const privacyPolicy: Readable<Article[]> = readable(
     },
     {
       name: 'contact',
-      language: 'dutch',
+      language: 'nl_NL',
       displayName: 'Contact opnemen met Comms With A Plan-website',
       paragraphs: [
         {
@@ -1053,7 +1053,7 @@ export const privacyPolicy: Readable<Article[]> = readable(
     },
     {
       name: 'safe_guarding',
-      language: 'dutch',
+      language: 'nl_NL',
       displayName: 'Gegevens beveiligen',
       paragraphs: [
         {
@@ -1075,7 +1075,7 @@ export const cookiePolicy: Readable<Article[]> = readable(
   [
     {
       name: 'about_cookies',
-      language: 'english',
+      language: 'en_GB',
       displayName: 'About cookies',
       paragraphs: [
         {
@@ -1087,7 +1087,7 @@ export const cookiePolicy: Readable<Article[]> = readable(
     },
     {
       name: 'about_cookies',
-      language: 'dutch',
+      language: 'nl_NL',
       displayName: 'Over Cookies',
       paragraphs: [
         {
@@ -1099,7 +1099,7 @@ export const cookiePolicy: Readable<Article[]> = readable(
     },
     {
       name: 'ads_cookies',
-      language: 'english',
+      language: 'en_GB',
       displayName: 'Ads',
       paragraphs: [
         {
@@ -1111,7 +1111,7 @@ export const cookiePolicy: Readable<Article[]> = readable(
     },
     {
       name: 'ads_cookies',
-      language: 'dutch',
+      language: 'nl_NL',
       displayName: 'Advertenties',
       paragraphs: [
         {
@@ -1123,7 +1123,7 @@ export const cookiePolicy: Readable<Article[]> = readable(
     },
     {
       name: 'analytics_cookies',
-      language: 'english',
+      language: 'en_GB',
       displayName: 'Analytics cookies',
       paragraphs: [
         {
@@ -1135,7 +1135,7 @@ export const cookiePolicy: Readable<Article[]> = readable(
     },
     {
       name: 'analytics_cookies',
-      language: 'dutch',
+      language: 'nl_NL',
       displayName: 'Analyse Cookies',
 
       paragraphs: [
@@ -1153,7 +1153,7 @@ export const cookiePolicy: Readable<Article[]> = readable(
     },
     {
       name: 'functional_cookies',
-      language: 'english',
+      language: 'en_GB',
       displayName: 'Functional cookies',
       paragraphs: [
         {
@@ -1165,7 +1165,7 @@ export const cookiePolicy: Readable<Article[]> = readable(
     },
     {
       name: 'functional_cookies',
-      language: 'dutch',
+      language: 'nl_NL',
       displayName: 'Functionele Cookies',
       paragraphs: [
         {
@@ -1177,7 +1177,7 @@ export const cookiePolicy: Readable<Article[]> = readable(
     },
     {
       name: 'personal_cookies',
-      language: 'english',
+      language: 'en_GB',
       displayName: 'Personal cookies',
       paragraphs: [
         {
@@ -1189,7 +1189,7 @@ export const cookiePolicy: Readable<Article[]> = readable(
     },
     {
       name: 'personal_cookies',
-      language: 'dutch',
+      language: 'nl_NL',
       displayName: 'Persoonlijke Cookies',
       paragraphs: [
         {
@@ -1201,7 +1201,7 @@ export const cookiePolicy: Readable<Article[]> = readable(
     },
     {
       name: 'security_cookies',
-      language: 'english',
+      language: 'en_GB',
       displayName: 'Security cookies',
       paragraphs: [
         {
@@ -1213,7 +1213,7 @@ export const cookiePolicy: Readable<Article[]> = readable(
     },
     {
       name: 'security_cookies',
-      language: 'dutch',
+      language: 'nl_NL',
       displayName: 'VeiligheidsCookies',
       paragraphs: [
         {

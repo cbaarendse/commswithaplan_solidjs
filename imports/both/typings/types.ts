@@ -11,7 +11,7 @@ declare global {
 }
 
 // content
-export type Language = 'english' | 'dutch';
+export type Language = 'en_GB' | 'nl_NL';
 export type Definition = {language: Language; displayName: string; description: string};
 export type Content = {name: string; definitions: Definition[]};
 export type Translation = {name: string; definitions: Omit<Definition, 'description'>[]};

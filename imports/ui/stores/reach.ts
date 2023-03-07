@@ -105,14 +105,13 @@ export const population: Readable<number> = derived([marketData, briefing], ([$m
 });
 
 export const results: Readable<Results> = derived(
-  [marketData, briefing, deployment, respondentsCountForMarket, populationInRange],
-  ([$marketData, $briefing, $deployment, $respondentsCountForMarket, $populationInRange], set) => {
+  [marketData, briefing, deployment, populationInRange],
+  ([$marketData, $briefing, $deployment, $populationInRange], set) => {
     console.log('produce results');
     if ($marketData && $briefing.useMarketData) {
       Meteor.callAsync('strategies.calculateResultsWithData', {
         briefing: $briefing,
         deployment: $deployment,
-        respondentsCountForMarket: $respondentsCountForMarket,
         populationInRange: $populationInRange
       })
         .then((result) => {
@@ -150,16 +149,15 @@ export function touchPointsForFormula(): DeployedTouchPoint[] {
   });
 }
 export const maxValues: Readable<Map<TouchPointName, number>> = derived(
-  [briefing, deployment, respondentsCountForMarket, populationInRange],
-  ([$briefing, $deployment, $respondentsCountForMarket, $populationInRange], set) => {
+  [briefing, deployment, populationInRange],
+  ([$briefing, $deployment, $populationInRange], set) => {
     Meteor.callAsync('strategies.maxValuesForTouchPoints', {
       briefing: $briefing,
       deployment: $deployment,
-      respondentsCountForMarket: $respondentsCountForMarket,
       populationInRange: $populationInRange
     })
       .then((result) => {
-        if (result.size > 0) {
+        if (result) {
           set(result);
         }
       })
@@ -217,29 +215,29 @@ export function allInputTypes(): Translation[] {
     {
       name: 'contacts',
       definitions: [
-        {language: 'english', displayName: 'contacts'},
-        {language: 'dutch', displayName: 'contacten'}
+        {language: 'en_GB', displayName: 'contacts'},
+        {language: 'nl_NL', displayName: 'contacten'}
       ]
     },
     {
       name: 'grps',
       definitions: [
-        {language: 'english', displayName: 'GRPs'},
-        {language: 'dutch', displayName: 'GRPs'}
+        {language: 'en_GB', displayName: 'GRPs'},
+        {language: 'nl_NL', displayName: 'GRPs'}
       ]
     },
     {
       name: 'impressions',
       definitions: [
-        {language: 'english', displayName: 'impressions'},
-        {language: 'dutch', displayName: 'impressies'}
+        {language: 'en_GB', displayName: 'impressions'},
+        {language: 'nl_NL', displayName: 'impressies'}
       ]
     },
     {
       name: 'reach',
       definitions: [
-        {language: 'english', displayName: 'reach'},
-        {language: 'dutch', displayName: 'bereik'}
+        {language: 'en_GB', displayName: 'reach'},
+        {language: 'nl_NL', displayName: 'bereik'}
       ]
     }
   ];
@@ -253,12 +251,12 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
 
       definitions: [
         {
-          language: 'english',
+          language: 'en_GB',
           displayName: 'Advocacy',
           description: 'Consumers spread information about your brand.'
         },
         {
-          language: 'dutch',
+          language: 'nl_NL',
           displayName: 'Advocacy',
           description: 'Consumenten verspreiden informatie over je merk.'
         }
@@ -269,12 +267,12 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
       defaultInputType: 'contacts',
       definitions: [
         {
-          language: 'english',
+          language: 'en_GB',
           displayName: 'Ambassador',
           description: 'A (known) person acts as spokesperson for your brand.'
         },
         {
-          language: 'dutch',
+          language: 'nl_NL',
           displayName: 'Ambassador',
           description: 'Een (bekend) persoon treedt op als woordvoerder voor je merk.'
         }
@@ -285,12 +283,12 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
       defaultInputType: 'impressions',
       definitions: [
         {
-          language: 'english',
+          language: 'en_GB',
           displayName: 'App',
           description: 'A branded software program that can be used on smartphones.'
         },
         {
-          language: 'dutch',
+          language: 'nl_NL',
           displayName: 'App',
           description: 'Een branded software programma dat werkt op smartphones.'
         }
@@ -301,12 +299,12 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
       defaultInputType: 'grps',
       definitions: [
         {
-          language: 'english',
+          language: 'en_GB',
           displayName: 'Asset',
           description: 'A proprietary tool or platform that a brand owns and that can be used to further build it.'
         },
         {
-          language: 'dutch',
+          language: 'nl_NL',
           displayName: 'Asset',
           description:
             'Een hulpmiddel of programma dat eigendom is van een merk en dat gebruikt kan worden om het verder te bouwen.'
@@ -318,12 +316,12 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
       defaultInputType: 'grps',
       definitions: [
         {
-          language: 'english',
+          language: 'en_GB',
           displayName: 'Cinema',
           description: 'Screen advertising in cinemas.'
         },
         {
-          language: 'dutch',
+          language: 'nl_NL',
           displayName: 'Cinema',
           description: 'Adverteren op het doek in bioscopen.'
         }
@@ -334,12 +332,12 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
       defaultInputType: 'impressions',
       definitions: [
         {
-          language: 'english',
+          language: 'en_GB',
           displayName: 'Console / Game',
           description: 'Advertising in a game (online, console, PC) or on a console.'
         },
         {
-          language: 'dutch',
+          language: 'nl_NL',
           displayName: 'Console / Game',
           description: 'Adverteren in een game (online, console, PC) of via een console.'
         }
@@ -350,12 +348,12 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
       defaultInputType: 'contacts',
       definitions: [
         {
-          language: 'english',
+          language: 'en_GB',
           displayName: 'Direct Mail',
           description: 'Physical mail, delivered to mail boxes, targeted and untargeted.'
         },
         {
-          language: 'dutch',
+          language: 'nl_NL',
           displayName: 'Direct Mail',
           description: 'Fysieke post, geleverd in de brievenbus, gericht of ongericht.'
         }
@@ -366,12 +364,12 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
       defaultInputType: 'impressions',
       definitions: [
         {
-          language: 'english',
+          language: 'en_GB',
           displayName: 'Display',
           description: 'Advertising on websites, through all possible formats.'
         },
         {
-          language: 'dutch',
+          language: 'nl_NL',
           displayName: 'Display',
           description: 'Adverteren op websites, in alle mogelijke vormen.'
         }
@@ -382,12 +380,12 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
       defaultInputType: 'contacts',
       definitions: [
         {
-          language: 'english',
+          language: 'en_GB',
           displayName: 'Door Drop',
           description: 'Unadressed mailings and leaflets'
         },
         {
-          language: 'dutch',
+          language: 'nl_NL',
           displayName: 'Folder',
           description: 'Ongeadresseerde mailings en folders.'
         }
@@ -398,12 +396,12 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
       defaultInputType: 'impressions',
       definitions: [
         {
-          language: 'english',
+          language: 'en_GB',
           displayName: 'E-Mail',
           description: 'Electronic mail, delivered to the inbox, targeted and untargeted.'
         },
         {
-          language: 'dutch',
+          language: 'nl_NL',
           displayName: 'E-Mail',
           description: 'Electronische mail, geleverd in de inbox, gericht of ongericht.'
         }
@@ -414,12 +412,12 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
       defaultInputType: 'contacts',
       definitions: [
         {
-          language: 'english',
+          language: 'en_GB',
           displayName: 'Event',
           description: 'A branded gathering of people at an arranged place and time.'
         },
         {
-          language: 'dutch',
+          language: 'nl_NL',
           displayName: 'Event',
           description: 'Een branded samenkomst van mensen op een afgesproken plaats en tijd.'
         }
@@ -430,12 +428,12 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
       defaultInputType: 'contacts',
       definitions: [
         {
-          language: 'english',
+          language: 'en_GB',
           displayName: 'Experiential',
           description: 'Engaging consumers in an experience that involves the product and/or brand values.'
         },
         {
-          language: 'dutch',
+          language: 'nl_NL',
           displayName: 'Experiential',
           description: 'Betrekken van consumenten in een ervaring die het product en/of merkwaarden bevat.'
         }
@@ -446,12 +444,12 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
       defaultInputType: 'contacts',
       definitions: [
         {
-          language: 'english',
+          language: 'en_GB',
           displayName: 'Internal / Employee',
           description: 'Personnel spreads information about your brand.'
         },
         {
-          language: 'dutch',
+          language: 'nl_NL',
           displayName: 'Internal / Employee',
           description:
             'Het merk verspreidt informatie naar personeelsleden. Zij delen deze informatie eventueel verder.'
@@ -463,12 +461,12 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
       defaultInputType: 'contacts',
       definitions: [
         {
-          language: 'english',
+          language: 'en_GB',
           displayName: 'Loyalty / CRM',
           description: 'IT supported relationship with consumers.'
         },
         {
-          language: 'dutch',
+          language: 'nl_NL',
           displayName: 'Loyalty / CRM',
           description: 'IT ondersteunde relatie met consumenten.'
         }
@@ -479,12 +477,12 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
       defaultInputType: 'contacts',
       definitions: [
         {
-          language: 'english',
+          language: 'en_GB',
           displayName: 'Magazines',
           description: 'Advertising in magazines.'
         },
         {
-          language: 'dutch',
+          language: 'nl_NL',
           displayName: 'Magazines',
           description: 'Adverteren in magazines.'
         }
@@ -495,12 +493,12 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
       defaultInputType: 'impressions',
       definitions: [
         {
-          language: 'english',
+          language: 'en_GB',
           displayName: 'Mobile',
           description: 'Branded messaging on mobile phones.'
         },
         {
-          language: 'dutch',
+          language: 'nl_NL',
           displayName: 'Mobiel',
           description: 'Branded boodschappen verspreiden door middel van mobiele telefoons.'
         }
@@ -511,12 +509,12 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
       defaultInputType: 'contacts',
       definitions: [
         {
-          language: 'english',
+          language: 'en_GB',
           displayName: 'Newspapers',
           description: 'Advertising in newspapers.'
         },
         {
-          language: 'dutch',
+          language: 'nl_NL',
           displayName: 'Dagbladen',
           description: 'Adverteren in kranten.'
         }
@@ -527,12 +525,12 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
       defaultInputType: 'grps',
       definitions: [
         {
-          language: 'english',
+          language: 'en_GB',
           displayName: 'Outdoor',
           description: 'Advertising at physical places that are outside the consumers’ home.'
         },
         {
-          language: 'dutch',
+          language: 'nl_NL',
           displayName: 'Buitenreclame',
           description: 'Adverteren op fysieke punten waarmee de consument alleen buitenshuis in aanraking kan komen.'
         }
@@ -543,12 +541,12 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
       defaultInputType: 'contacts',
       definitions: [
         {
-          language: 'english',
+          language: 'en_GB',
           displayName: 'Packaging',
           description: 'Messaging on a product’s package.'
         },
         {
-          language: 'dutch',
+          language: 'nl_NL',
           displayName: 'Verpakking',
           description: 'Boodschappen op de verpakking van het product.'
         }
@@ -559,12 +557,12 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
       defaultInputType: 'grps',
       definitions: [
         {
-          language: 'english',
+          language: 'en_GB',
           displayName: 'PR',
           description: 'Communication that focuses on a mutual benefit for brand and consumers.'
         },
         {
-          language: 'dutch',
+          language: 'nl_NL',
           displayName: 'PR',
           description: 'Communicatie die zich concentreert op het wederzijds belang voor merk en consumenten.'
         }
@@ -575,12 +573,12 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
       defaultInputType: 'grps',
       definitions: [
         {
-          language: 'english',
+          language: 'en_GB',
           displayName: 'Promotion',
           description: 'Communication that focuses on a temporary change in price / value ratio.'
         },
         {
-          language: 'dutch',
+          language: 'nl_NL',
           displayName: 'Promotie',
           description:
             'Communicatie die zich concentreert op een tijdelijke verandering in de prijs / waarde verhouding.'
@@ -592,12 +590,12 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
       defaultInputType: 'grps',
       definitions: [
         {
-          language: 'english',
+          language: 'en_GB',
           displayName: 'Radio',
           description: 'Advertising on radio stations, in commercial airtime and in-program.'
         },
         {
-          language: 'dutch',
+          language: 'nl_NL',
           displayName: 'Radio',
           description: 'Adverteren in zendtijd van radiostations, reclamezendtijd en in-program.'
         }
@@ -608,12 +606,12 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
       defaultInputType: 'impressions',
       definitions: [
         {
-          language: 'english',
+          language: 'en_GB',
           displayName: 'SEM',
           description: 'Search engine marketing - Paid optimization and advertising on search engine results pages.'
         },
         {
-          language: 'dutch',
+          language: 'nl_NL',
           displayName: 'SEM',
           description:
             'Search engine marketing - Betaalde optimalisatie en advertenties op resultaatpagina’s van zoekmachines.'
@@ -625,12 +623,12 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
       defaultInputType: 'impressions',
       definitions: [
         {
-          language: 'english',
+          language: 'en_GB',
           displayName: 'SEO',
           description: 'Search engine optimization - Free optimization on search engine results pages.'
         },
         {
-          language: 'dutch',
+          language: 'nl_NL',
           displayName: 'SEO',
           description: 'Search engine optimization -  Gratis optimalisatie op resultaatpagina’s van zoekmachines.'
         }
@@ -641,12 +639,12 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
       defaultInputType: 'contacts',
       definitions: [
         {
-          language: 'english',
+          language: 'en_GB',
           displayName: 'Shopper',
           description: 'Communication in retail channels.'
         },
         {
-          language: 'dutch',
+          language: 'nl_NL',
           displayName: 'Shopper',
           description: 'Communicatie in retail-kanalen.'
         }
@@ -657,12 +655,12 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
       defaultInputType: 'impressions',
       definitions: [
         {
-          language: 'english',
+          language: 'en_GB',
           displayName: 'Social',
           description: 'Branded appearance on social networks, paid and unpaid.'
         },
         {
-          language: 'dutch',
+          language: 'nl_NL',
           displayName: 'Social',
           description: 'Branded vertoning op sociale netwerken, betaald en onbetaald.'
         }
@@ -673,12 +671,12 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
       defaultInputType: 'grps',
       definitions: [
         {
-          language: 'english',
+          language: 'en_GB',
           displayName: 'Sponsorship',
           description: 'A branding opportunity in exchange for financial support of a person, activity or organization.'
         },
         {
-          language: 'dutch',
+          language: 'nl_NL',
           displayName: 'Sponsorship',
           description:
             'De mogelijkheid om je merk te tonen in ruil voor financiële steun van een persoon, activiteit of organisatie.'
@@ -690,12 +688,12 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
       defaultInputType: 'grps',
       definitions: [
         {
-          language: 'english',
+          language: 'en_GB',
           displayName: 'Television',
           description: 'Advertising on television, in commercial airtime and in-program.'
         },
         {
-          language: 'dutch',
+          language: 'nl_NL',
           displayName: 'Televisie',
           description: 'Adverteren in zendtijd van een televisiestation, reclamezendtijd en in-program.'
         }
@@ -706,12 +704,12 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
       defaultInputType: 'contacts',
       definitions: [
         {
-          language: 'english',
+          language: 'en_GB',
           displayName: 'Trade Fair',
           description: 'Appearing at an exhibition for a specific industry or purpose.'
         },
         {
-          language: 'dutch',
+          language: 'nl_NL',
           displayName: 'Trade Fair',
           description: 'Vertonen van een merk op een beurs voor een specifieke industrie of doel.'
         }
@@ -722,12 +720,12 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
       defaultInputType: 'impressions',
       definitions: [
         {
-          language: 'english',
+          language: 'en_GB',
           displayName: 'Video On Demand',
           description: 'Advertising in an environment that provides audio visual content to users at request.'
         },
         {
-          language: 'dutch',
+          language: 'nl_NL',
           displayName: 'Video On Demand',
           description: 'Adverteren in een omgeving die op verzoek audiovisuele content biedt aan gebruikers.'
         }
@@ -738,12 +736,12 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
       defaultInputType: 'impressions',
       definitions: [
         {
-          language: 'english',
+          language: 'en_GB',
           displayName: 'Viral',
           description: 'Communication in a way that optimizes the probability that people will forward your message.'
         },
         {
-          language: 'dutch',
+          language: 'nl_NL',
           displayName: 'Viral',
           description:
             'Communicatie op een manier die de kans maximaliseert dat mensen je boodschap zullen doorsturen aan andere mensen. '
@@ -755,12 +753,12 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
       defaultInputType: 'impressions',
       definitions: [
         {
-          language: 'english',
+          language: 'en_GB',
           displayName: 'Website',
           description: 'Electronic information, that is stored on a server and is accessible through a browser.'
         },
         {
-          language: 'dutch',
+          language: 'nl_NL',
           displayName: 'Website',
           description:
             'Elektronische informatie, die opgeslagen is op een server en toegankelijk door middel van een browser.'
@@ -772,12 +770,12 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
       defaultInputType: 'contacts',
       definitions: [
         {
-          language: 'english',
+          language: 'en_GB',
           displayName: 'Word Of Mouth',
           description: 'Population pass opinions on a brand to other people.'
         },
         {
-          language: 'dutch',
+          language: 'nl_NL',
           displayName: 'Word Of Mouth',
           description: 'Mensen geven meningen door over je merk aan andere mensen.'
         }
@@ -792,8 +790,8 @@ export function allMarkets(): Market[] {
       name: 'be',
       flag: '🇧🇪',
       displayNames: [
-        {language: 'english', displayName: 'Belgium'},
-        {language: 'dutch', displayName: 'België'}
+        {language: 'en_GB', displayName: 'Belgium'},
+        {language: 'nl_NL', displayName: 'België'}
       ],
       ageGroups: [
         [9, 11],
@@ -808,8 +806,8 @@ export function allMarkets(): Market[] {
       name: 'nl',
       flag: '🇳🇱',
       displayNames: [
-        {language: 'english', displayName: 'The Netherlands'},
-        {language: 'dutch', displayName: 'Nederland'}
+        {language: 'en_GB', displayName: 'The Netherlands'},
+        {language: 'nl_NL', displayName: 'Nederland'}
       ],
       ageGroups: [
         [9, 11],
@@ -824,8 +822,8 @@ export function allMarkets(): Market[] {
       name: 'uk',
       flag: '🇬🇧',
       displayNames: [
-        {language: 'english', displayName: 'United Kingdom'},
-        {language: 'dutch', displayName: 'Verenigd Koninkrijk'}
+        {language: 'en_GB', displayName: 'United Kingdom'},
+        {language: 'nl_NL', displayName: 'Verenigd Koninkrijk'}
       ],
       ageGroups: [
         [9, 11],

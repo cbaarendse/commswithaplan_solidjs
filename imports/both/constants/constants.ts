@@ -68,7 +68,7 @@ export const AGE_MAX = 99;
 export const MIN_AGE_RANGE = 5;
 
 export const CURRENCIES: string[] = ['EUR', 'GBP', 'USD'];
-export const LANGUAGES: string[] = ['dutch', 'english', 'german', 'french', 'spanish', 'malay', 'chinese'];
+export const LANGUAGES: string[] = ['nl_NL', 'en_GB', 'nl_BE', 'fr_BE', 'de_DE', 'fr_FR', 'es_ES', 'ms', 'zh_CN'];
 export const CAMPAIGN_DATATYPES: string[] = ['dates', 'title', 'input', 'reach', 'costs'];
 
 export const COMPANY_OWNER_ROLES: string[] = ['owner', 'companyAdmin'];

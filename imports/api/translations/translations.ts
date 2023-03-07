@@ -23,8 +23,8 @@ const languageItemPattern = {displayName: String, description: Match.Maybe(Strin
 export const translationPattern = {
   name: String,
   route: Match.Maybe(String),
-  english: languageItemPattern,
-  dutch: languageItemPattern
+  'en-EN': languageItemPattern,
+  'nl-NL': languageItemPattern
 };
 
 // exports
