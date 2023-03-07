@@ -49,7 +49,7 @@ Meteor.methods({
 
     // filter probabilities for market
     const touchPointsDeployed: DeployedTouchPoint[] = args.deployment;
-    const reachedNonUniqueRespondentsForStrategy: number[] = [];
+    let reachedNonUniqueRespondentsForStrategy: number[] = [];
     const respondentsCountedForOverlap: number[] = [];
 
     // Checks for login and strategy ownership
@@ -88,16 +88,22 @@ Meteor.methods({
       respondentsProbabilitiesForTouchPoints
     );
 
+    const moreThanZeroComplementedTouchPoints: ComplementedTouchPoint[] = complementedTouchPoints.filter(
+      (touchPoint) => touchPoint.value > 0
+    );
+
     // Build non-unique respondents
     // Collect respondents
     const reachedRespondentsForTouchPoints: Map<TouchPointName, Probability['respondentId'][]> =
       reachDataTool.collectReachedRespondentsForTouchPoints(
-        complementedTouchPoints,
+        moreThanZeroComplementedTouchPoints,
         respondentsProbabilitiesForTouchPoints
       );
     // For reach calculation: Gather all reached respondents for strategy per touch point, so non-unique
     reachedRespondentsForTouchPoints.forEach((reachedRespondentsForTouchPoint) => {
-      reachedNonUniqueRespondentsForStrategy.concat(reachedRespondentsForTouchPoint);
+      reachedNonUniqueRespondentsForStrategy = reachedNonUniqueRespondentsForStrategy.concat(
+        reachedRespondentsForTouchPoint
+      );
     });
     // OK (concat is quicker than unshift)
 
@@ -106,14 +112,6 @@ Meteor.methods({
 
     // total reach
     const totalReachForResult = (reachedUniqueRespondentsForStrategy.size / args.respondentsCountForMarket) * 100;
-    console.log(
-      'totalReachForResult',
-      reachedUniqueRespondentsForStrategy.size,
-      ' / ',
-      args.respondentsCountForMarket,
-      ' = ',
-      totalReachForResult
-    );
     // Count respondents for overlap
     reachedUniqueRespondentsForStrategy.forEach((respondentId) => {
       for (const touchPoint of touchPointsDeployed) {
@@ -125,10 +123,11 @@ Meteor.methods({
     });
     // strategy.overlap
     const overlapForResult = (respondentsCountedForOverlap.length / args.respondentsCountForMarket) * 100;
-    // update strategy
+    console.log('totalReachForResult: ', totalReachForResult, 'overlapForResult: ', overlapForResult);
 
     return [totalReachForResult, overlapForResult];
   },
+  // maxValues
   'strategies.maxValuesForTouchPoints': function (args: {
     briefing: Omit<Strategy, 'deployment'>;
     deployment: Strategy['deployment'];
@@ -150,9 +149,10 @@ Meteor.methods({
       TouchPointName,
       Map<Probability['respondentId'], number>
     > = reachDataTool.getProbabilitiesForTouchPoints(touchPointsDeployed, respondentsProbabilities); //OK
-
+    // TODO: check all the 'if's log args.respondentsCountForMarket & populationInRange, maube not get thisin arguments, but get from db
     touchPointsDeployed.forEach((touchPoint) => {
       const respondentsProbabilitiesForTouchPoint = respondentsProbabilitiesForTouchPoints.get(touchPoint.name);
+      maxValues.set(touchPoint.name, 100);
       if (
         (touchPoint.inputType == 'contacts' || touchPoint.inputType == 'impressions') &&
         respondentsProbabilitiesForTouchPoint
@@ -166,12 +166,10 @@ Meteor.methods({
           touchPoint.name,
           ((respondentsProbabilitiesForTouchPoint.size / args.respondentsCountForMarket) * 5) / 100
         );
-      }
-      if (touchPoint.inputType == 'reach') {
-        maxValues.set(touchPoint.name, 100);
-      } else {
+      } else if (touchPoint.inputType == 'reach') {
         maxValues.set(touchPoint.name, 100);
       }
+      console.log('maxValue for: ', touchPoint.name, ': ', maxValues.get(touchPoint.name));
     });
     return maxValues;
   }

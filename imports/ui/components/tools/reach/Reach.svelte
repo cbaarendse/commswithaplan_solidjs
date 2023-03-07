@@ -8,14 +8,15 @@
   import createReachTool from '../../../functions/reach';
   import {language} from '../../../stores/utils';
   import {
-    deployment,
     briefing,
-    marketData,
-    overlap,
-    strategy,
-    sortedByName,
     briefingForData,
     briefingForFormula,
+    deployment,
+    marketData,
+    overlap,
+    results,
+    sortedByName,
+    strategy,
     totalReach,
     touchPointsForData,
     touchPointsForFormula
@@ -53,6 +54,7 @@
   $: console.log('$strategy in $: ', $strategy);
   $: console.log('marketName: in $: ', marketName);
   $: console.log('$marketData: in $: ', $marketData);
+  $: console.log('$results: in $: ', $results);
   $: console.log('$totalReach: in $: ', $totalReach);
   $: console.log('$overlap: in $: ', $overlap);
 

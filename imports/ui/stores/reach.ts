@@ -116,9 +116,7 @@ export const results: Readable<Results> = derived(
         populationInRange: $populationInRange
       })
         .then((result) => {
-          if (result > 0) {
-            set(result);
-          }
+          set(result);
         })
         .catch((error) => console.log('error in calculate results with data', error));
     } else {
