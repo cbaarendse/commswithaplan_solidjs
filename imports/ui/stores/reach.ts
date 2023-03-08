@@ -7,7 +7,6 @@ import {
   TouchPointDefinition,
   DeployedTouchPoint,
   SortedByName,
-  Translation,
   PopulationForStrategy,
   Results,
   RespondentsCount,
@@ -39,7 +38,7 @@ export const deployment: Writable<Strategy['deployment']> = writable(touchPoints
 export const ageGroups = derived(briefing, ($briefing) => {
   return reachTool.getAgeGroupsForMarket($briefing.marketName, allMarkets());
 });
-export const inputTypes: Readable<Translation[]> = readable(allInputTypes());
+export const inputTypes: Readable<InputType[]> = readable(allInputTypes());
 export const strategy = derived([briefing, deployment], ([$briefing, $deployment]) => {
   return {...$briefing, deployment: $deployment};
 });
@@ -149,7 +148,7 @@ export function touchPointsForFormula(): DeployedTouchPoint[] {
     };
   });
 }
-export const maxValues: Readable<Map<TouchPointName, number>> = derived(
+export const maxValues: Readable<{[key: string]: number}> = derived(
   [briefing, deployment, populationForStrategy],
   ([$briefing, $deployment, $populationForStrategy], set) => {
     Meteor.callAsync('strategies.maxValuesForTouchPoints', {
@@ -163,7 +162,7 @@ export const maxValues: Readable<Map<TouchPointName, number>> = derived(
           set(result);
         }
       })
-      .catch((error) => console.log('error in max value fr touch point', error));
+      .catch((error) => console.log('error in max value for touch point', error));
   }
 );
 
@@ -213,7 +212,7 @@ export function briefingForData(): Omit<Required<Strategy>, 'deployment'> {
   };
 }
 
-export function allInputTypes(): Translation[] {
+export function allInputTypes(): InputType[] {
   return [
     {
       name: 'contacts',

@@ -129,7 +129,7 @@ Meteor.methods({
     briefing: Omit<Strategy, 'deployment'>;
     deployment: Strategy['deployment'];
     populationForStrategy: PopulationForStrategy;
-  }): Map<TouchPointName, number> {
+  }): {[key: string]: number} {
     // Filter probabilities for this briefing / strategy
     const {marketName, ageGroupIndexStart, ageGroupIndexEnd, genders} = args.briefing;
     const touchPointsDeployed: DeployedTouchPoint[] = args.deployment;
@@ -169,7 +169,7 @@ Meteor.methods({
     });
     console.log('maxValues on server: ', maxValues);
     // TODO: maxValues allright here, doesn't end on client, in derived.
-    return maxValues;
+    return Object.fromEntries(maxValues);
   }
 });
 

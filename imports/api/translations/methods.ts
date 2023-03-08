@@ -5,8 +5,8 @@ import {Roles} from 'meteor/alanning:roles';
 import {Match} from 'meteor/check';
 
 import Translations from './translations';
-import {Translation} from '/imports/ui/types/types';
 import {translationPattern} from './translations';
+import {Translation} from '/imports/both/typings/types';
 
 export const translationsInsert = new ValidatedMethod({
   name: 'translations.insert',

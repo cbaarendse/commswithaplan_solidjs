@@ -5,13 +5,14 @@
   import createConverter from '/imports/ui/functions/convert';
   import Fa from 'svelte-fa/src/fa.svelte';
   import {faSort} from '@fortawesome/free-solid-svg-icons';
+  import {TouchPointName} from '/imports/both/typings/types';
 
   //variables
   const converter = createConverter();
   export let index: number;
   const {name, definitions} = $deployment[index];
   const min = 0;
-  $: max = $maxValues ? $maxValues.get(name) : 100;
+  $: max = $maxValues[name] ?? 100;
   $: step = max ? (max - min) / 100 : 1;
   let inputTypeName = $deployment[index].inputType;
   let value = $deployment[index].value;
