@@ -8,7 +8,7 @@ import {
   DeployedTouchPoint,
   SortedByName,
   Translation,
-  PopulationInRange,
+  PopulationForStrategy,
   Results,
   RespondentsCount,
   InputType,
@@ -26,7 +26,7 @@ export const briefing: Writable<Omit<Strategy, 'deployment'>> = writable(briefin
 export const marketData = derived(
   briefing,
   ($briefing, set) => {
-    Meteor.callAsync('probabilities.checkForMarket', {marketName: $briefing.marketName})
+    Meteor.callAsync('probabilities.checkForMarketData', {marketName: $briefing.marketName})
       .then((result) => {
         console.log('result check in derived marketData ', result);
         set(result);
@@ -68,34 +68,34 @@ export const respondentsCountForMarket: Readable<RespondentsCount> = derived(
   }
 );
 
-export const populationInRange: Readable<PopulationInRange> = derived(
+export const populationForStrategy: Readable<PopulationForStrategy> = derived(
   [marketData, briefing, ageGroups],
   ([$marketData, $briefing, $ageGroups], set) => {
     if ($marketData && $briefing.useMarketData) {
-      console.log('briefing ', $briefing, ' and ageGroups ', $ageGroups, 'in populationInRange');
+      console.log('briefing ', $briefing, ' and ageGroups ', $ageGroups, 'in populationForStrategy');
 
-      Meteor.callAsync('populations.countPopulationInRange', {
+      Meteor.callAsync('populations.countPopulationForStrategy', {
         briefing: $briefing,
         ageGroups: $ageGroups
       })
-        .then((result: PopulationInRange) => {
+        .then((result: PopulationForStrategy) => {
           if (result >= 0) {
             set(result);
           }
         })
-        .catch((error) => console.log('error in populationInRange ', error));
+        .catch((error) => console.log('error in populationForStrategy ', error));
     }
   }
 );
 
 export const population: Readable<number> = derived([marketData, briefing], ([$marketData, $briefing], set) => {
   if ($marketData && $briefing.useMarketData) {
-    console.log('briefing ', $briefing, 'in populationInRange');
+    console.log('briefing ', $briefing, 'in populationForStrategy');
 
     Meteor.callAsync('populations.countPopulationForMarket', {
       marketName: $briefing.marketName
     })
-      .then((result: PopulationInRange) => {
+      .then((result: PopulationForStrategy) => {
         if (result >= 0) {
           set(result);
         }
@@ -105,14 +105,14 @@ export const population: Readable<number> = derived([marketData, briefing], ([$m
 });
 
 export const results: Readable<Results> = derived(
-  [marketData, briefing, deployment, populationInRange],
-  ([$marketData, $briefing, $deployment, $populationInRange], set) => {
+  [marketData, briefing, deployment, populationForStrategy],
+  ([$marketData, $briefing, $deployment, $populationForStrategy], set) => {
     console.log('produce results');
     if ($marketData && $briefing.useMarketData) {
       Meteor.callAsync('strategies.calculateResultsWithData', {
         briefing: $briefing,
         deployment: $deployment,
-        populationInRange: $populationInRange
+        populationForStrategy: $populationForStrategy
       })
         .then((result) => {
           set(result);
@@ -139,6 +139,7 @@ export const overlap = derived(results, ($results) => {
 });
 
 export function touchPointsForFormula(): DeployedTouchPoint[] {
+  console.log('touchPointsForFormula called');
   return touchPointsDefinitions().map((touchPointDefinition) => {
     return {
       ...touchPointDefinition,
@@ -149,15 +150,16 @@ export function touchPointsForFormula(): DeployedTouchPoint[] {
   });
 }
 export const maxValues: Readable<Map<TouchPointName, number>> = derived(
-  [briefing, deployment, populationInRange],
-  ([$briefing, $deployment, $populationInRange], set) => {
+  [briefing, deployment, populationForStrategy],
+  ([$briefing, $deployment, $populationForStrategy], set) => {
     Meteor.callAsync('strategies.maxValuesForTouchPoints', {
       briefing: $briefing,
       deployment: $deployment,
-      populationInRange: $populationInRange
+      populationForStrategy: $populationForStrategy
     })
       .then((result) => {
         if (result) {
+          console.log('if result true in maxValues: ', result);
           set(result);
         }
       })
@@ -166,6 +168,7 @@ export const maxValues: Readable<Map<TouchPointName, number>> = derived(
 );
 
 export function touchPointsForData(): DeployedTouchPoint[] {
+  console.log('touchPointsForData called');
   return touchPointsDefinitions().map(function (touchPointDefinition) {
     return {
       ...touchPointDefinition,

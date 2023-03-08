@@ -2,7 +2,7 @@ import {Mongo} from 'meteor/mongo';
 import type {
   Probability,
   DeployedTouchPoint,
-  PopulationInRange,
+  PopulationForStrategy,
   ComplementedTouchPoint,
   RespondentsCount,
   TouchPointName
@@ -35,7 +35,7 @@ export default function createReachDataTool() {
 
   function complementTouchPoints(
     touchPoints: DeployedTouchPoint[],
-    populationInRange: PopulationInRange,
+    populationForStrategy: PopulationForStrategy,
     respondentsProbabilitiesForTouchPoints: Map<TouchPointName, Map<Probability['respondentId'], number>>
   ): ComplementedTouchPoint[] {
     const complementedTouchPoints = touchPoints.map((touchPoint) => {
@@ -61,7 +61,7 @@ export default function createReachDataTool() {
       // calculate remaining properties using entries from basis
       complementedTouchPoint.grps =
         complementedTouchPoint.inputType == 'contacts' || complementedTouchPoint.inputType == 'impressions'
-          ? (value / populationInRange) * 100
+          ? (value / populationForStrategy) * 100
           : value;
 
       complementedTouchPoint.averageProbability =

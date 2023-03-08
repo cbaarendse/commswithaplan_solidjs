@@ -4,7 +4,7 @@ import {Meteor} from 'meteor/meteor';
 import Populations from '../populations/populations';
 
 import {MARKETNAMES} from '../../both/constants/constants';
-import {AgeGroup, PopulationInRange, Strategy} from '../../both/typings/types';
+import {AgeGroup, Genders, PopulationForStrategy, Strategy} from '../../both/typings/types';
 import {Match} from 'meteor/check';
 
 Meteor.methods({
@@ -41,12 +41,12 @@ Meteor.methods({
     return sum;
   },
 
-  'populations.countPopulationInRange': function (args: {
+  'populations.countPopulationForStrategy': function (args: {
     briefing: Omit<Required<Strategy>, 'deployment'>;
     ageGroups: AgeGroup[];
-  }): PopulationInRange {
+  }): PopulationForStrategy {
     const {marketName, genders, ageGroupIndexStart, ageGroupIndexEnd, userId} = args.briefing;
-    console.log('populations.countPopulationInRange runs with: ', args.briefing, this.userId);
+    console.log('populations.countPopulationForStrategy runs with: ', args.briefing, this.userId);
 
     if (!this.userId) {
       throw new Meteor.Error(
@@ -82,7 +82,7 @@ Meteor.methods({
 
     const startAge = args.ageGroups[ageGroupIndexStart][0];
     const endAge = args.ageGroups[ageGroupIndexEnd][1];
-    const query: {[key: string]: any} = {
+    const query: {[key: string]: string | {[key: string]: Genders | number}} = {
       market: marketName,
       gender: {
         $in: genders

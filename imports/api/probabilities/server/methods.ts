@@ -13,7 +13,7 @@ Meteor.methods({
   test: function (param: string): string {
     return 'Test hallo ' + param;
   },
-  'probabilities.checkForMarket': function (args: {marketName: Strategy['marketName']}) {
+  'probabilities.checkForMarketData': function (args: {marketName: Strategy['marketName']}) {
     console.log('probabilities.checkProbabilitiesForMarket runs with: ', args.marketName);
 
     if (

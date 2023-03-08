@@ -11,8 +11,8 @@
   export let index: number;
   const {name, definitions} = $deployment[index];
   const min = 0;
-  const max = $maxValues ? $maxValues.get(name) : 100;
-  const step = max ? (max - min) / 100 : 1;
+  $: max = $maxValues ? $maxValues.get(name) : 100;
+  $: step = max ? (max - min) / 100 : 1;
   let inputTypeName = $deployment[index].inputType;
   let value = $deployment[index].value;
   let definition = definitions.filter((definition) => definition.language == $language)[0];
