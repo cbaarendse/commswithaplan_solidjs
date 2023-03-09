@@ -5,20 +5,23 @@
   import createConverter from '/imports/ui/functions/convert';
   import Fa from 'svelte-fa/src/fa.svelte';
   import {faSort} from '@fortawesome/free-solid-svg-icons';
-  import {TouchPointName} from '/imports/both/typings/types';
+  import {InputType} from '/imports/both/typings/types';
 
   //variables
   const converter = createConverter();
   export let index: number;
   const {name, definitions} = $deployment[index];
-  const min = 0;
-  $: max = $maxValues[name] ?? 100;
-  $: step = max ? (max - min) / 100 : 1;
-  let inputTypeName = $deployment[index].inputType;
+  let inputTypeIndex = $deployment[index].inputTypeIndex;
+  let inputTypeName = $inputTypes[$deployment[index].inputTypeIndex].name;
   let value = $deployment[index].value;
+  const min = 0;
+  const max = $maxValues[name] ?? 100;
+  const step = (max - min) / 100 ?? 1;
   let definition = definitions.filter((definition) => definition.language == $language)[0];
   $: console.log('value in range input ', value);
   $: console.log('$: value in range input ', value);
+
+  $: console.log('$maxValues: in RangeInput $: ', $maxValues);
 
   // functions
   $: if (!$briefing.useMarketData && name && typeof value == 'number') {
@@ -28,18 +31,29 @@
     });
   }
 
-  $: if ($briefing.useMarketData && inputTypeName) {
+  $: if ($briefing.useMarketData && inputTypeIndex) {
     deployment.update((data) => {
-      data[index].inputType = inputTypeName;
+      data[index].inputTypeIndex = inputTypeIndex;
       return data;
     });
   }
 
-  function onChange() {
+  function onSelect(e) {
+    if ($briefing.useMarketData) {
+      deployment.update((data) => {
+        let updatedTouchPoint = Object.assign(data[index], {inputTypeIndex: parseInt(e.target.value)});
+        console.log('updated TouchPoint in onSelect', updatedTouchPoint, 'selected value: ', e.target.value);
+        data.splice(index, 1, updatedTouchPoint);
+        return data;
+      });
+    }
+  }
+
+  function onInput() {
     if ($briefing.useMarketData && name && typeof value == 'number') {
       deployment.update((data) => {
         let updatedTouchPoint = Object.assign(data[index], {value: value});
-        console.log('updated TouchPoint, index, in change', updatedTouchPoint, index);
+        console.log('updated TouchPoint, index, in onInput', updatedTouchPoint, index);
         data.splice(index, 1, updatedTouchPoint);
         return data;
       });
@@ -51,16 +65,16 @@
   <fieldset>
     <label for={name}>{definition.displayName}</label>
     {#if $briefing.useMarketData}
-      <select id={`${name}_inputtype__select`} bind:value={inputTypeName}>
-        {#each [...$inputTypes] as inputType}<option value={inputType.name}>
+      <select id={`${name}_inputtype__select`} bind:value={inputTypeIndex} on:change={onSelect}>
+        {#each $inputTypes as inputType, inputIndex}<option value={inputIndex}>
             {converter.translate(inputType.name, $inputTypes, $language)}
           </option>{/each}
       </select>
       <label for={`${name}_inputtype__select`}><Fa icon={faSort} color={'var(--ra-teal)'} /></label>
     {:else}
-      <span>{$deployment[index].inputType}</span>
+      <span>{converter.translate(inputTypeName, $inputTypes, $language)}</span>
     {/if}
-    <input type="range" {min} {max} {step} id={name} {name} on:change={onChange} bind:value />
+    <input type="range" {min} {max} {step} id={name} {name} bind:value on:change={onInput} />
   </fieldset>
 </form>
 

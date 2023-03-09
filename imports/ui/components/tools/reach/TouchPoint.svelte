@@ -6,6 +6,7 @@
   import {deployment} from '../../../stores/reach';
   import {language} from '../../../stores/utils';
   import createFormatter from '../../../functions/format';
+  import {InputType} from '/imports/both/typings/types';
   //import {notify} from '../../notifications/NotificationsFunctions';
 
   // variables
@@ -46,10 +47,13 @@
       }}
     >
       <span>
-        {#if $deployment[index].inputType == 'grps' || $deployment[index].inputType == 'reach'}{formatter.toNumberFormat(
+        {#if $deployment[index].inputTypeIndex == InputType.Grps || $deployment[index].inputTypeIndex == InputType.Reach}{formatter.toNumberFormat(
             value,
             0
-          )}{:else}{formatter.toMillionsFormat(value, 2)}{/if}{#if $deployment[index].inputType == 'reach'}&nbsp;%{/if}
+          )}{:else}{formatter.toMillionsFormat(
+            value,
+            2
+          )}{/if}{#if $deployment[index].inputTypeIndex == InputType.Reach}&nbsp;%{/if}
       </span>
     </button>
   </div>

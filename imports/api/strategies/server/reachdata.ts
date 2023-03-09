@@ -1,11 +1,12 @@
 import {Mongo} from 'meteor/mongo';
-import type {
+import {
   Probability,
   DeployedTouchPoint,
   PopulationForStrategy,
   ComplementedTouchPoint,
   RespondentsCount,
-  TouchPointName
+  TouchPointName,
+  InputType
 } from '/imports/both/typings/types';
 
 export default function createReachDataTool() {
@@ -39,7 +40,7 @@ export default function createReachDataTool() {
     respondentsProbabilitiesForTouchPoints: Map<TouchPointName, Map<Probability['respondentId'], number>>
   ): ComplementedTouchPoint[] {
     const complementedTouchPoints = touchPoints.map((touchPoint) => {
-      const {name, value, inputType} = touchPoint;
+      const {name, value, inputTypeIndex} = touchPoint;
       const respondentsProbabilitiesForTouchPoint = respondentsProbabilitiesForTouchPoints.get(name);
       const probabilitiesForTouchPoint = [];
       if (respondentsProbabilitiesForTouchPoint) {
@@ -51,7 +52,7 @@ export default function createReachDataTool() {
       const complementedTouchPoint: ComplementedTouchPoint = {
         name: name,
         value: value,
-        inputType: inputType,
+        inputTypeIndex: inputTypeIndex,
         selected: value === 0 ? false : true,
         maxReachedRespondents: respondentsProbabilitiesForTouchPoint ? respondentsProbabilitiesForTouchPoint.size : 0,
         sumOfProbabilities: probabilitiesForTouchPoint.reduce((sum, probability) => {
@@ -60,7 +61,8 @@ export default function createReachDataTool() {
       };
       // calculate remaining properties using entries from basis
       complementedTouchPoint.grps =
-        complementedTouchPoint.inputType == 'contacts' || complementedTouchPoint.inputType == 'impressions'
+        complementedTouchPoint.inputTypeIndex == InputType.Contacts ||
+        complementedTouchPoint.inputTypeIndex == InputType.Impressions
           ? (value / populationForStrategy) * 100
           : value;
 

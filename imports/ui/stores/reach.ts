@@ -11,8 +11,7 @@ import {
   Results,
   RespondentsCount,
   InputType,
-  TouchPointName,
-  Probability
+  Translation
 } from '../../both/typings/types';
 import createReachTool from '../functions/reach';
 
@@ -38,7 +37,7 @@ export const deployment: Writable<Strategy['deployment']> = writable(touchPoints
 export const ageGroups = derived(briefing, ($briefing) => {
   return reachTool.getAgeGroupsForMarket($briefing.marketName, allMarkets());
 });
-export const inputTypes: Readable<InputType[]> = readable(allInputTypes());
+export const inputTypes: Readable<ReturnType<typeof allInputTypes>> = readable(allInputTypes());
 export const strategy = derived([briefing, deployment], ([$briefing, $deployment]) => {
   return {...$briefing, deployment: $deployment};
 });
@@ -144,36 +143,22 @@ export function touchPointsForFormula(): DeployedTouchPoint[] {
       ...touchPointDefinition,
       value: 0.0,
       show: true,
-      inputType: 'reach'
+      inputTypeIndex: InputType.Reach
     };
   });
 }
-export const maxValues: Readable<{[key: string]: number}> = derived(
-  [briefing, deployment, populationForStrategy],
-  ([$briefing, $deployment, $populationForStrategy], set) => {
-    Meteor.callAsync('strategies.maxValuesForTouchPoints', {
-      briefing: $briefing,
-      deployment: $deployment,
-      populationForStrategy: $populationForStrategy
-    })
-      .then((result) => {
-        if (result) {
-          console.log('if result true in maxValues: ', result);
-          set(result);
-        }
-      })
-      .catch((error) => console.log('error in max value for touch point', error));
-  }
-);
+export const maxValues: Writable<Partial<{[key: string]: number}>> = writable({});
 
 export function touchPointsForData(): DeployedTouchPoint[] {
   console.log('touchPointsForData called');
   return touchPointsDefinitions().map(function (touchPointDefinition) {
+    console.log('touchPointDefinition called for: ', touchPointDefinition);
+    //TODO: default not in inputType
     return {
       ...touchPointDefinition,
       value: 0.0,
       show: true,
-      inputType: touchPointDefinition.defaultInputType
+      inputTypeIndex: touchPointDefinition.defaultInputTypeIndex
     };
   });
 }
@@ -212,7 +197,7 @@ export function briefingForData(): Omit<Required<Strategy>, 'deployment'> {
   };
 }
 
-export function allInputTypes(): InputType[] {
+export function allInputTypes(): Translation[] {
   return [
     {
       name: 'contacts',
@@ -249,7 +234,7 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
   return [
     {
       name: 'advocacy',
-      defaultInputType: 'impressions',
+      defaultInputTypeIndex: InputType.Impressions,
 
       definitions: [
         {
@@ -266,7 +251,7 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
     },
     {
       name: 'ambassador',
-      defaultInputType: 'contacts',
+      defaultInputTypeIndex: InputType.Contacts,
       definitions: [
         {
           language: 'en_GB',
@@ -282,7 +267,7 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
     },
     {
       name: 'app',
-      defaultInputType: 'impressions',
+      defaultInputTypeIndex: InputType.Impressions,
       definitions: [
         {
           language: 'en_GB',
@@ -298,7 +283,7 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
     },
     {
       name: 'asset',
-      defaultInputType: 'grps',
+      defaultInputTypeIndex: InputType.Grps,
       definitions: [
         {
           language: 'en_GB',
@@ -315,7 +300,7 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
     },
     {
       name: 'cinema',
-      defaultInputType: 'grps',
+      defaultInputTypeIndex: InputType.Grps,
       definitions: [
         {
           language: 'en_GB',
@@ -331,7 +316,7 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
     },
     {
       name: 'console_game',
-      defaultInputType: 'impressions',
+      defaultInputTypeIndex: InputType.Impressions,
       definitions: [
         {
           language: 'en_GB',
@@ -347,7 +332,7 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
     },
     {
       name: 'direct_mail',
-      defaultInputType: 'contacts',
+      defaultInputTypeIndex: InputType.Contacts,
       definitions: [
         {
           language: 'en_GB',
@@ -363,7 +348,7 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
     },
     {
       name: 'display',
-      defaultInputType: 'impressions',
+      defaultInputTypeIndex: InputType.Impressions,
       definitions: [
         {
           language: 'en_GB',
@@ -379,7 +364,7 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
     },
     {
       name: 'door_drop',
-      defaultInputType: 'contacts',
+      defaultInputTypeIndex: InputType.Contacts,
       definitions: [
         {
           language: 'en_GB',
@@ -395,7 +380,7 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
     },
     {
       name: 'e_mail',
-      defaultInputType: 'impressions',
+      defaultInputTypeIndex: InputType.Impressions,
       definitions: [
         {
           language: 'en_GB',
@@ -411,7 +396,7 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
     },
     {
       name: 'event',
-      defaultInputType: 'contacts',
+      defaultInputTypeIndex: InputType.Contacts,
       definitions: [
         {
           language: 'en_GB',
@@ -427,7 +412,7 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
     },
     {
       name: 'experiential',
-      defaultInputType: 'contacts',
+      defaultInputTypeIndex: InputType.Contacts,
       definitions: [
         {
           language: 'en_GB',
@@ -443,7 +428,7 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
     },
     {
       name: 'internal_employee',
-      defaultInputType: 'contacts',
+      defaultInputTypeIndex: InputType.Contacts,
       definitions: [
         {
           language: 'en_GB',
@@ -460,7 +445,7 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
     },
     {
       name: 'loyalty_crm',
-      defaultInputType: 'contacts',
+      defaultInputTypeIndex: InputType.Contacts,
       definitions: [
         {
           language: 'en_GB',
@@ -476,7 +461,7 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
     },
     {
       name: 'magazines',
-      defaultInputType: 'contacts',
+      defaultInputTypeIndex: InputType.Contacts,
       definitions: [
         {
           language: 'en_GB',
@@ -492,7 +477,7 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
     },
     {
       name: 'mobile',
-      defaultInputType: 'impressions',
+      defaultInputTypeIndex: InputType.Impressions,
       definitions: [
         {
           language: 'en_GB',
@@ -508,7 +493,7 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
     },
     {
       name: 'newspapers',
-      defaultInputType: 'contacts',
+      defaultInputTypeIndex: InputType.Contacts,
       definitions: [
         {
           language: 'en_GB',
@@ -524,7 +509,7 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
     },
     {
       name: 'outdoor',
-      defaultInputType: 'grps',
+      defaultInputTypeIndex: InputType.Grps,
       definitions: [
         {
           language: 'en_GB',
@@ -540,7 +525,7 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
     },
     {
       name: 'packaging',
-      defaultInputType: 'contacts',
+      defaultInputTypeIndex: InputType.Contacts,
       definitions: [
         {
           language: 'en_GB',
@@ -556,7 +541,7 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
     },
     {
       name: 'pr',
-      defaultInputType: 'grps',
+      defaultInputTypeIndex: InputType.Grps,
       definitions: [
         {
           language: 'en_GB',
@@ -572,7 +557,7 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
     },
     {
       name: 'promotion',
-      defaultInputType: 'grps',
+      defaultInputTypeIndex: InputType.Grps,
       definitions: [
         {
           language: 'en_GB',
@@ -589,7 +574,7 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
     },
     {
       name: 'radio',
-      defaultInputType: 'grps',
+      defaultInputTypeIndex: InputType.Grps,
       definitions: [
         {
           language: 'en_GB',
@@ -605,7 +590,7 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
     },
     {
       name: 'sem',
-      defaultInputType: 'impressions',
+      defaultInputTypeIndex: InputType.Impressions,
       definitions: [
         {
           language: 'en_GB',
@@ -622,7 +607,7 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
     },
     {
       name: 'seo',
-      defaultInputType: 'impressions',
+      defaultInputTypeIndex: InputType.Impressions,
       definitions: [
         {
           language: 'en_GB',
@@ -638,7 +623,7 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
     },
     {
       name: 'shopper',
-      defaultInputType: 'contacts',
+      defaultInputTypeIndex: InputType.Contacts,
       definitions: [
         {
           language: 'en_GB',
@@ -654,7 +639,7 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
     },
     {
       name: 'social',
-      defaultInputType: 'impressions',
+      defaultInputTypeIndex: InputType.Impressions,
       definitions: [
         {
           language: 'en_GB',
@@ -670,7 +655,7 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
     },
     {
       name: 'sponsorship',
-      defaultInputType: 'grps',
+      defaultInputTypeIndex: InputType.Grps,
       definitions: [
         {
           language: 'en_GB',
@@ -687,7 +672,7 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
     },
     {
       name: 'television',
-      defaultInputType: 'grps',
+      defaultInputTypeIndex: InputType.Grps,
       definitions: [
         {
           language: 'en_GB',
@@ -703,7 +688,7 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
     },
     {
       name: 'trade_fair',
-      defaultInputType: 'contacts',
+      defaultInputTypeIndex: InputType.Contacts,
       definitions: [
         {
           language: 'en_GB',
@@ -719,7 +704,7 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
     },
     {
       name: 'video_on_demand',
-      defaultInputType: 'impressions',
+      defaultInputTypeIndex: InputType.Impressions,
       definitions: [
         {
           language: 'en_GB',
@@ -735,7 +720,7 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
     },
     {
       name: 'viral',
-      defaultInputType: 'impressions',
+      defaultInputTypeIndex: InputType.Impressions,
       definitions: [
         {
           language: 'en_GB',
@@ -752,7 +737,7 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
     },
     {
       name: 'website',
-      defaultInputType: 'impressions',
+      defaultInputTypeIndex: InputType.Impressions,
       definitions: [
         {
           language: 'en_GB',
@@ -769,7 +754,7 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
     },
     {
       name: 'word_of_mouth',
-      defaultInputType: 'contacts',
+      defaultInputTypeIndex: InputType.Contacts,
       definitions: [
         {
           language: 'en_GB',

@@ -13,7 +13,8 @@ import {
   PopulationForStrategy,
   Results,
   AgeGroup,
-  TouchPointName
+  TouchPointName,
+  InputType
 } from '/imports/both/typings/types';
 import {Mongo} from 'meteor/mongo';
 
@@ -151,19 +152,19 @@ Meteor.methods({
       const respondentsProbabilitiesForTouchPoint = respondentsProbabilitiesForTouchPoints.get(touchPoint.name);
       maxValues.set(touchPoint.name, 100);
       if (
-        (touchPoint.inputType == 'contacts' || touchPoint.inputType == 'impressions') &&
+        (touchPoint.inputTypeIndex == InputType.Contacts || touchPoint.inputTypeIndex == InputType.Impressions) &&
         respondentsProbabilitiesForTouchPoint
       ) {
         maxValues.set(
           touchPoint.name,
           (respondentsProbabilitiesForTouchPoint.size / respondentsCountForMarket) * args.populationForStrategy * 5
         );
-      } else if (touchPoint.inputType == 'grps' && respondentsProbabilitiesForTouchPoint) {
+      } else if (touchPoint.inputTypeIndex == InputType.Grps && respondentsProbabilitiesForTouchPoint) {
         maxValues.set(
           touchPoint.name,
           ((respondentsProbabilitiesForTouchPoint.size / respondentsCountForMarket) * 5) / 100
         );
-      } else if (touchPoint.inputType == 'reach') {
+      } else if (touchPoint.inputTypeIndex == InputType.Reach) {
         maxValues.set(touchPoint.name, 100);
       }
     });
@@ -182,7 +183,7 @@ Meteor.methods({
 //     const strategy: Strategy = Strategies.findOne({_id: args.strategyId});
 //     const {userId} = strategy;
 //     const reachValues = strategy.deployment.reduce((values: number[], touchPoint: DeployedTouchPoint): number[] => {
-//       if (touchPoint.inputType == 'reach' && touchPoint.value > 0) {
+//       if (touchPoint.inputTypeIndex == InputType.Reach && touchPoint.value > 0) {
 //         values.push(touchPoint.value);
 //       }
 //       return values;

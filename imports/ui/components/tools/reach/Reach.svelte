@@ -15,6 +15,7 @@
     marketData,
     maxValues,
     overlap,
+    populationForStrategy,
     results,
     sortedByName,
     strategy,
@@ -23,6 +24,7 @@
     touchPointsForFormula
   } from '../../../stores/reach';
   import {DeployedTouchPoint, Strategy} from '/imports/both/typings/types';
+  import {Meteor} from 'meteor/meteor';
 
   // variables
   const reachTool = createReachTool();
@@ -43,6 +45,22 @@
   // base new briefing on availability of marketData
   $: $marketData ? briefing.set(briefingForData()) : briefing.set(briefingForFormula());
   // base new deployment on availability and usage of marketData
+  $: Meteor.callAsync('strategies.maxValuesForTouchPoints', {
+    briefing: $briefing,
+    deployment: $deployment,
+    populationForStrategy: $populationForStrategy
+  })
+    .then((result) => {
+      if (result) {
+        $maxValues = result;
+      }
+    })
+    .catch((error) => {
+      if (error) {
+        console.log('error in max values: ', error);
+      }
+    });
+
   $: $marketData && useMarketData ? deployment.set(touchPointsForData()) : deployment.set(touchPointsForFormula());
 
   // first sort, based on selected language
@@ -52,13 +70,11 @@
 
   $: console.log('$briefing in $: ', $briefing);
   $: console.log('$deployment: in $: ', $deployment);
-  $: console.log('$strategy in $: ', $strategy);
-  $: console.log('marketName: in $: ', marketName);
   $: console.log('$marketData: in $: ', $marketData);
+  $: console.log('useMarketData: in $: ', useMarketData);
   $: console.log('$results: in $: ', $results);
   $: console.log('$totalReach: in $: ', $totalReach);
   $: console.log('$overlap: in $: ', $overlap);
-  $: console.log('$maxValues: in $: ', $maxValues);
 
   // functions
 
@@ -73,6 +89,7 @@
   <div class="container">
     <Controls />
     <Output />
+
     {#each $deployment as _, index}
       <TouchPoint {index} />
     {/each}

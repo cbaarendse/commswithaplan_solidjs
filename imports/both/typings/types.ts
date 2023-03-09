@@ -28,7 +28,6 @@ export type Chapter = Omit<Definition, 'description'> &
     paragraphs: Paragraph[];
   };
 export type Article = Omit<Definition, 'description'> & Omit<Content, 'definitions'> & {paragraphs: Paragraph[]};
-export type InputType = Omit<Translation, 'name'> & {name: 'contacts' | 'grps' | 'impressions' | 'reach'};
 
 export type UserProfile = {
   firstname?: string;
@@ -111,18 +110,25 @@ export type TouchPointName =
   | 'viral'
   | 'website'
   | 'word_of_mouth';
+
+export enum InputType {
+  Contacts,
+  Grps,
+  Impressions,
+  Reach
+}
 export type TouchPointDefinition = Omit<Content, 'name'> & {name: TouchPointName} & {
-  defaultInputType: InputType['name'];
+  defaultInputTypeIndex: InputType;
 };
 export type DeployedTouchPoint = TouchPointDefinition & {
   value: number;
   show: boolean;
-  inputType: InputType['name'];
+  inputTypeIndex: InputType;
 };
 export type ComplementedTouchPoint = {
   name: TouchPointName;
   value: number;
-  inputType: InputType['name'];
+  inputTypeIndex: InputType;
   selected?: boolean;
   maxReachedRespondents?: number;
   sumOfProbabilities?: number;
