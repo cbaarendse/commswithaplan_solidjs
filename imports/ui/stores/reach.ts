@@ -104,25 +104,7 @@ export const population: Readable<number> = derived([marketData, briefing], ([$m
   }
 });
 
-export const results: Readable<Results> = derived(
-  [marketData, briefing, deployment, populationForStrategy],
-  ([$marketData, $briefing, $deployment, $populationForStrategy], set) => {
-    console.log('produce results');
-    if ($marketData && $briefing.useMarketData) {
-      Meteor.callAsync('strategies.calculateResultsWithData', {
-        briefing: $briefing,
-        deployment: $deployment,
-        populationForStrategy: $populationForStrategy
-      })
-        .then((result) => {
-          set(result);
-        })
-        .catch((error) => console.log('error in calculate results with data', error));
-    } else {
-      set(reachTool.calculateResults($deployment));
-    }
-  }
-);
+export const results: Writable<Results> = writable([0, 0]);
 
 export const totalReach = derived(results, ($results) => {
   if (!$results) {
@@ -143,13 +125,14 @@ export function touchPointsForDeployment(touchPointsDefinitions: TouchPointDefin
   const touchPointsForDeployment: DeployedTouchPoint[] = [];
   for (let index = 0; index < touchPointsDefinitions.length; index++) {
     const touchPointDefinition = touchPointsDefinitions[index];
-    const touchPointForDeployment: any = {};
-    touchPointForDeployment.name = touchPointDefinition.name;
-    touchPointForDeployment.definitions = touchPointDefinition.definitions;
-    touchPointForDeployment.defaultInputTypeIndex = touchPointDefinition.defaultInputTypeIndex;
-    touchPointForDeployment.value = 2;
-    touchPointForDeployment.show = true;
-    touchPointForDeployment.inputTypeIndex = InputType.Reach;
+    const touchPointForDeployment: DeployedTouchPoint = {
+      name: touchPointDefinition.name,
+      definitions: touchPointDefinition.definitions,
+      defaultInputTypeIndex: touchPointDefinition.defaultInputTypeIndex,
+      value: 0.0,
+      show: true,
+      inputTypeIndex: InputType.Reach
+    };
     touchPointsForDeployment.push(touchPointForDeployment);
   }
   console.log('deployedTouchPoints constructed for formula: ', touchPointsForDeployment);

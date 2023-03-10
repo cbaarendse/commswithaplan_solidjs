@@ -1,8 +1,8 @@
 <script lang="ts">
   // imports
-  import type {DeployedTouchPoint, Input} from '../../../../both/typings/types';
+  import type {DeployedTouchPoint} from '../../../../both/typings/types';
   import {translations, language} from '../../../stores/utils';
-  import {deployment} from '../../../stores/reach';
+  import {deployment, maxValues} from '../../../stores/reach';
   import createConverter from '/imports/ui/functions/convert';
   import {createEventDispatcher} from 'svelte';
 
@@ -10,8 +10,8 @@
   export let index: number;
   let dispatch = createEventDispatcher();
   const min = 0;
-  const max = 100;
-  const step = 1;
+  $: max = $maxValues[name] ?? 100;
+  $: step = (max - min) / 100 ?? 1;
   const {name, definitions} = $deployment[index];
   let value: DeployedTouchPoint['value'];
   $: definition = definitions.filter((definition) => definition.language == $language)[0];
@@ -27,26 +27,13 @@
     return v >= m && v <= mx;
   }
 
-  function submitValue() {
-    console.log('submit');
-    if (name && typeof value == 'number') {
-      deployment.update((data) => {
-        let updatedTouchPoint = Object.assign(data[index], {value: value});
-        console.log('updated TouchPoint, index, in submitValue (numberInput)', updatedTouchPoint, index);
-        data.splice(index, 1, updatedTouchPoint);
-        return data;
-      });
-    }
-    dispatch('destroyModal');
-  }
-
   function submitCancel() {
     console.log('cancel');
     dispatch('destroyModal');
   }
 </script>
 
-<form autocomplete="off">
+<form autocomplete="off" on:submit>
   <label for={name}>{$language === 'nl_NL' ? 'Invoer voor ' : 'Input for '}{definition.displayName}</label>
   <input
     class="input__field"
@@ -60,16 +47,10 @@
     readonly={false}
     bind:value={$deployment[index].value}
   />
-  <input
-    class="submit__button"
-    type="submit"
-    value={$language === 'nl_NL' ? 'Verstuur' : 'Submit'}
-    {disabled}
-    on:click|preventDefault|stopPropagation={submitValue}
-  />
+  <input class="submit__button" type="submit" value={$language === 'nl_NL' ? 'Verstuur' : 'Submit'} {disabled} />
   <input
     class="cancel__button"
-    type="submit"
+    type="button"
     value={$language === 'nl_NL' ? 'Annuleer' : 'Cancel'}
     on:click|preventDefault|stopPropagation={submitCancel}
   />

@@ -162,7 +162,8 @@ Meteor.methods({
       } else if (touchPoint.inputTypeIndex == InputType.Grps && respondentsProbabilitiesForTouchPoint) {
         maxValues.set(
           touchPoint.name,
-          ((respondentsProbabilitiesForTouchPoint.size / respondentsCountForMarket) * 5) / 100
+          ((respondentsProbabilitiesForTouchPoint.size / respondentsCountForMarket) * args.populationForStrategy * 5) /
+            10000
         );
       } else if (touchPoint.inputTypeIndex == InputType.Reach) {
         maxValues.set(touchPoint.name, 100);

@@ -1,5 +1,6 @@
 <script lang="ts">
   // imports
+
   import {deployment, briefing, inputTypes, maxValues} from '../../../stores/reach';
   import {language} from '../../../stores/utils';
   import createConverter from '/imports/ui/functions/convert';
@@ -11,12 +12,11 @@
   const converter = createConverter();
   export let index: number;
   const {name, definitions} = $deployment[index];
-  let inputTypeIndex = $deployment[index].inputTypeIndex;
   let inputTypeName = $inputTypes[$deployment[index].inputTypeIndex].name;
   let value = $deployment[index].value;
   const min = 0;
-  const max = $maxValues[name] ?? 100;
-  const step = (max - min) / 100 ?? 1;
+  $: max = $maxValues[name] ?? 100;
+  $: step = (max - min) / 100 ?? 1;
   let definition = definitions.filter((definition) => definition.language == $language)[0];
   $: console.log('value in range input ', value);
   $: console.log('$: value in range input ', value);
@@ -24,48 +24,13 @@
   $: console.log('$maxValues: in RangeInput $: ', $maxValues);
 
   // functions
-  $: if (!$briefing.useMarketData && name && typeof value == 'number') {
-    deployment.update((data) => {
-      data[index].value = value;
-      return data;
-    });
-  }
-
-  $: if ($briefing.useMarketData && inputTypeIndex) {
-    deployment.update((data) => {
-      data[index].inputTypeIndex = inputTypeIndex;
-      return data;
-    });
-  }
-
-  function onSelect(e) {
-    if ($briefing.useMarketData) {
-      deployment.update((data) => {
-        let updatedTouchPoint = Object.assign(data[index], {inputTypeIndex: parseInt(e.target.value)});
-        console.log('updated TouchPoint in onSelect', updatedTouchPoint, 'selected value: ', e.target.value);
-        data.splice(index, 1, updatedTouchPoint);
-        return data;
-      });
-    }
-  }
-
-  function onInput() {
-    if ($briefing.useMarketData && name && typeof value == 'number') {
-      deployment.update((data) => {
-        let updatedTouchPoint = Object.assign(data[index], {value: value});
-        console.log('updated TouchPoint, index, in onInput', updatedTouchPoint, index);
-        data.splice(index, 1, updatedTouchPoint);
-        return data;
-      });
-    }
-  }
 </script>
 
 <form>
   <fieldset>
     <label for={name}>{definition.displayName}</label>
     {#if $briefing.useMarketData}
-      <select id={`${name}_inputtype__select`} bind:value={inputTypeIndex} on:change={onSelect}>
+      <select id={`${name}_inputtype__select`} bind:value={$deployment[index].inputTypeIndex}>
         {#each $inputTypes as inputType, inputIndex}<option value={inputIndex}>
             {converter.translate(inputType.name, $inputTypes, $language)}
           </option>{/each}
@@ -74,7 +39,7 @@
     {:else}
       <span>{converter.translate(inputTypeName, $inputTypes, $language)}</span>
     {/if}
-    <input type="range" {min} {max} {step} id={name} {name} bind:value on:change={onInput} />
+    <input type="range" {min} {max} {step} id={name} {name} bind:value={$deployment[index].value} on:change />
   </fieldset>
 </form>
 

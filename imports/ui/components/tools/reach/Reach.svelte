@@ -20,11 +20,9 @@
     sortedByName,
     strategy,
     totalReach,
-    touchPointsDefinitions,
-    touchPointsForData,
-    touchPointsForFormula
+    touchPointsDefinitions
   } from '../../../stores/reach';
-  import {DeployedTouchPoint, Strategy} from '/imports/both/typings/types';
+  import {DeployedTouchPoint, InputType, Strategy} from '/imports/both/typings/types';
   import {Meteor} from 'meteor/meteor';
 
   // variables
@@ -60,13 +58,15 @@
   $: $marketData && useMarketData
     ? deployment.update((data) => {
         return data.map((touchPoint) => {
-          const defaultInputType = touchPointsDefinitions().filter(
+          const defaultInputTypeIndexForThisTouchPoint = touchPointsDefinitions().filter(
             (definition) => definition.name == touchPoint.name
           )[0].defaultInputTypeIndex;
-          touchPoint.inputTypeIndex = defaultInputType;
+          return {...touchPoint, inputTypeIndex: defaultInputTypeIndexForThisTouchPoint};
         });
       })
-    : deployment.update((data) => return data.map((touchPoint)=> return Object.assign(touchPoint, inputType: InputType.Reach)));
+    : deployment.update((data) => {
+        return data.map((touchPoint) => Object.assign(touchPoint, {inputTypeIndex: InputType.Reach}));
+      });
 
   // first sort, based on selected language
   // let [sortedDeployedTouchPoints, updatedSortedByName] = reachTool.sort(deployedTouchPoints, $sortedByName, $language);

@@ -1,10 +1,12 @@
 <script lang="ts">
   // imports
+  import {Meteor} from 'meteor/meteor';
   import RangeInput from './RangeInput.svelte';
   import Modal from '../../reusable/Modal.svelte';
   import NumberInput from './NumberInput.svelte';
-  import {deployment} from '../../../stores/reach';
+  import {marketData, briefing, deployment, populationForStrategy, results} from '../../../stores/reach';
   import {language} from '../../../stores/utils';
+  import createReachTool from '/imports/ui/functions/reach';
   import createFormatter from '../../../functions/format';
   import {InputType} from '/imports/both/typings/types';
   //import {notify} from '../../notifications/NotificationsFunctions';
@@ -14,12 +16,28 @@
   const {name, show, definitions} = $deployment[index];
   $: value = $deployment[index].value;
   $: definition = definitions.filter((definition) => definition.language == $language)[0];
+  const reachTool = createReachTool();
   const formatter = createFormatter();
   let hovered: boolean = false;
   let displayManualInput: boolean;
   let displayTouchPointDescription: boolean;
 
   // functions
+  function onInput() {
+    if ($marketData && $briefing.useMarketData && name && typeof value == 'number') {
+      Meteor.callAsync('strategies.calculateResultsWithData', {
+        briefing: $briefing,
+        deployment: $deployment,
+        populationForStrategy: $populationForStrategy
+      })
+        .then((result) => {
+          $results = result;
+        })
+        .catch((error) => console.log('error in calculate results with data', error));
+    } else {
+      $results = reachTool.calculateResults($deployment);
+    }
+  }
 </script>
 
 <div class="container" style="display:{show ? 'grid' : 'none'};">
@@ -36,7 +54,7 @@
     />
   </div>
   <div class="center">
-    <RangeInput {index} />
+    <RangeInput {index} on:change={onInput} />
   </div>
   <div class="right">
     <button
@@ -76,6 +94,7 @@
   >
     <NumberInput
       {index}
+      on:submit={onInput}
       on:destroyModal={() => {
         displayManualInput = false;
       }}
@@ -111,7 +130,7 @@
     width: var(--button-size-phone);
     height: var(--button-size-phone);
     padding: 0.7em;
-    font-size: var(--font-size-phone);
+    font-size: 1rem;
     border-radius: 50%;
     border: none;
     background-repeat: no-repeat;
@@ -129,7 +148,7 @@
     button.input {
       width: var(--button-size-tablet);
       height: var(--button-size-tablet);
-      font-size: var(--font-size-tablet);
+      font-size: 1.2rem;
     }
   }
 
@@ -141,7 +160,7 @@
     button.input {
       width: var(--button-size-desktop);
       height: var(--button-size-desktop);
-      font-size: var(--font-size-desktop);
+      font-size: 1.4rem;
     }
   }
 

@@ -14,8 +14,7 @@
     deployment,
     sortedByName,
     touchPointsDefinitions,
-    touchPointsForData,
-    touchPointsForFormula
+    touchPointsForDeployment
   } from '../../../stores/reach';
   import {CWAPUser, Strategy} from '../../../../both/typings/types';
   import Fa from 'svelte-fa/src/fa.svelte';
@@ -58,8 +57,8 @@
       });
     } else {
       $marketData
-        ? deployment.set(touchPointsForData(touchPointsDefinitions()))
-        : deployment.set(touchPointsForFormula(touchPointsDefinitions()));
+        ? deployment.set(touchPointsForDeployment(touchPointsDefinitions()))
+        : deployment.set(touchPointsForDeployment(touchPointsDefinitions()));
     }
   }
 
