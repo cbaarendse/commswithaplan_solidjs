@@ -47,13 +47,14 @@
       }}
     >
       <span>
-        {#if $deployment[index].inputTypeIndex == InputType.Grps || $deployment[index].inputTypeIndex == InputType.Reach}{formatter.toNumberFormat(
+        {#if $deployment[index].inputTypeIndex == InputType.Grps}{formatter.toNumberFormat(value, 0)}
+        {:else if $deployment[index].inputTypeIndex == InputType.Reach}{formatter.toPercentFormat(
             value,
             0
-          )}{:else}{formatter.toMillionsFormat(
+          )}{:else if $deployment[index].inputTypeIndex == InputType.Contacts || $deployment[index].inputTypeIndex == InputType.Impressions}{formatter.toMillionsFormat(
             value,
             2
-          )}{/if}{#if $deployment[index].inputTypeIndex == InputType.Reach}&nbsp;%{/if}
+          )}{/if}
       </span>
     </button>
   </div>

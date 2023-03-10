@@ -20,6 +20,7 @@
     sortedByName,
     strategy,
     totalReach,
+    touchPointsDefinitions,
     touchPointsForData,
     touchPointsForFormula
   } from '../../../stores/reach';
@@ -30,16 +31,11 @@
   const reachTool = createReachTool();
   let marketName: Strategy['marketName'];
   let useMarketData: Strategy['useMarketData'];
-  let deployedTouchPoints: DeployedTouchPoint[] = [];
 
   // subscriptions
-  let unsubscribeBriefing = briefing.subscribe((data) => {
+  let unsubscribe = briefing.subscribe((data) => {
     marketName = data.marketName;
     useMarketData = data.useMarketData;
-  });
-
-  let unsubscribeDeployment = deployment.subscribe((data) => {
-    deployedTouchPoints = data;
   });
 
   // base new briefing on availability of marketData
@@ -61,7 +57,16 @@
       }
     });
 
-  $: $marketData && useMarketData ? deployment.set(touchPointsForData()) : deployment.set(touchPointsForFormula());
+  $: $marketData && useMarketData
+    ? deployment.update((data) => {
+        return data.map((touchPoint) => {
+          const defaultInputType = touchPointsDefinitions().filter(
+            (definition) => definition.name == touchPoint.name
+          )[0].defaultInputTypeIndex;
+          touchPoint.inputTypeIndex = defaultInputType;
+        });
+      })
+    : deployment.update((data) => return data.map((touchPoint)=> return Object.assign(touchPoint, inputType: InputType.Reach)));
 
   // first sort, based on selected language
   // let [sortedDeployedTouchPoints, updatedSortedByName] = reachTool.sort(deployedTouchPoints, $sortedByName, $language);
@@ -79,8 +84,7 @@
   // functions
 
   onDestroy(() => {
-    unsubscribeBriefing();
-    unsubscribeDeployment();
+    unsubscribe();
   });
 </script>
 

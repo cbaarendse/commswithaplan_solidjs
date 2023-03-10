@@ -29,6 +29,9 @@ export default function createFormatter() {
   function toNumberFormat(value: number, digits: number): string {
     return new Intl.NumberFormat('nl-NL', {style: 'decimal', maximumFractionDigits: digits}).format(value);
   }
+  function toPercentFormat(value: number, digits: number): string {
+    return new Intl.NumberFormat('nl-NL', {style: 'decimal', maximumFractionDigits: digits}).format(value) + ' %';
+  }
   function toMillionsFormat(value: number, digits: number): string {
     value = value / 1_000_000;
     return new Intl.NumberFormat('nl-NL', {style: 'decimal', maximumFractionDigits: digits}).format(value) + ' M';
@@ -45,6 +48,7 @@ export default function createFormatter() {
     percentFixed,
     toDateFormat,
     toNumberFormat,
+    toPercentFormat,
     toMillionsFormat,
     toCurrencySymbol
   };

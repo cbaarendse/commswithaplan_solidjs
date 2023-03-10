@@ -33,7 +33,9 @@ export const marketData = derived(
   },
   false
 );
-export const deployment: Writable<Strategy['deployment']> = writable(touchPointsForFormula());
+export const deployment: Writable<Strategy['deployment']> = writable(
+  touchPointsForDeployment(touchPointsDefinitions())
+);
 export const ageGroups = derived(briefing, ($briefing) => {
   return reachTool.getAgeGroupsForMarket($briefing.marketName, allMarkets());
 });
@@ -136,32 +138,24 @@ export const overlap = derived(results, ($results) => {
   return $results[1];
 });
 
-export function touchPointsForFormula(): DeployedTouchPoint[] {
+export function touchPointsForDeployment(touchPointsDefinitions: TouchPointDefinition[]): DeployedTouchPoint[] {
   console.log('touchPointsForFormula called');
-  return touchPointsDefinitions().map((touchPointDefinition) => {
-    return {
-      ...touchPointDefinition,
-      value: 0.0,
-      show: true,
-      inputTypeIndex: InputType.Reach
-    };
-  });
+  const touchPointsForDeployment: DeployedTouchPoint[] = [];
+  for (let index = 0; index < touchPointsDefinitions.length; index++) {
+    const touchPointDefinition = touchPointsDefinitions[index];
+    const touchPointForDeployment: any = {};
+    touchPointForDeployment.name = touchPointDefinition.name;
+    touchPointForDeployment.definitions = touchPointDefinition.definitions;
+    touchPointForDeployment.defaultInputTypeIndex = touchPointDefinition.defaultInputTypeIndex;
+    touchPointForDeployment.value = 2;
+    touchPointForDeployment.show = true;
+    touchPointForDeployment.inputTypeIndex = InputType.Reach;
+    touchPointsForDeployment.push(touchPointForDeployment);
+  }
+  console.log('deployedTouchPoints constructed for formula: ', touchPointsForDeployment);
+  return touchPointsForDeployment;
 }
 export const maxValues: Writable<Partial<{[key: string]: number}>> = writable({});
-
-export function touchPointsForData(): DeployedTouchPoint[] {
-  console.log('touchPointsForData called');
-  return touchPointsDefinitions().map(function (touchPointDefinition) {
-    console.log('touchPointDefinition called for: ', touchPointDefinition);
-    //TODO: default not in inputType
-    return {
-      ...touchPointDefinition,
-      value: 0.0,
-      show: true,
-      inputTypeIndex: touchPointDefinition.defaultInputTypeIndex
-    };
-  });
-}
 
 export function briefingForFormula(): Omit<Strategy, 'deployment'> {
   return {

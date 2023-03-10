@@ -13,6 +13,7 @@
     briefing,
     deployment,
     sortedByName,
+    touchPointsDefinitions,
     touchPointsForData,
     touchPointsForFormula
   } from '../../../stores/reach';
@@ -56,7 +57,9 @@
         return data.map((touchPoint) => Object.assign(touchPoint, {value: 0.0}));
       });
     } else {
-      $marketData ? deployment.set(touchPointsForData()) : deployment.set(touchPointsForFormula());
+      $marketData
+        ? deployment.set(touchPointsForData(touchPointsDefinitions()))
+        : deployment.set(touchPointsForFormula(touchPointsDefinitions()));
     }
   }
 
