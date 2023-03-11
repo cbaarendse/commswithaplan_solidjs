@@ -82,11 +82,10 @@ Meteor.methods({
     // add properties to touchpoints
     const complementedTouchPoints: ComplementedTouchPoint[] = reachDataTool.complementTouchPoints(
       touchPointsDeployed,
-      args.populationForStrategy,
       respondentsProbabilitiesForTouchPoints
     );
 
-    const moreThanZeroComplementedTouchPoints: ComplementedTouchPoint[] = complementedTouchPoints.filter(
+    const deployedComplementedTouchPoints: ComplementedTouchPoint[] = complementedTouchPoints.filter(
       (touchPoint) => touchPoint.value > 0
     );
 
@@ -94,7 +93,8 @@ Meteor.methods({
     // Collect respondents
     const reachedRespondentsForTouchPoints: Map<TouchPointName, Probability['respondentId'][]> =
       reachDataTool.collectReachedRespondentsForTouchPoints(
-        moreThanZeroComplementedTouchPoints,
+        deployedComplementedTouchPoints,
+        args.populationForStrategy,
         respondentsProbabilitiesForTouchPoints
       );
     // For reach calculation: Gather all reached respondents for strategy per touch point, so non-unique

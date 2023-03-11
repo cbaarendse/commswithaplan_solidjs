@@ -36,7 +36,6 @@ export default function createReachDataTool() {
 
   function complementTouchPoints(
     touchPoints: DeployedTouchPoint[],
-    populationForStrategy: PopulationForStrategy,
     respondentsProbabilitiesForTouchPoints: Map<TouchPointName, Map<Probability['respondentId'], number>>
   ): ComplementedTouchPoint[] {
     const complementedTouchPoints = touchPoints.map((touchPoint) => {
@@ -59,17 +58,6 @@ export default function createReachDataTool() {
           return sum + probability;
         }, 0)
       };
-      // calculate remaining properties using entries from basis
-      complementedTouchPoint.grps =
-        complementedTouchPoint.inputTypeIndex == InputType.Contacts ||
-        complementedTouchPoint.inputTypeIndex == InputType.Impressions
-          ? (value / populationForStrategy) * 100
-          : value;
-
-      complementedTouchPoint.averageProbability =
-        complementedTouchPoint.sumOfProbabilities && respondentsProbabilitiesForTouchPoint
-          ? complementedTouchPoint.sumOfProbabilities / respondentsProbabilitiesForTouchPoint.size
-          : 0;
 
       return complementedTouchPoint;
     });
@@ -78,6 +66,7 @@ export default function createReachDataTool() {
 
   function collectReachedRespondentsForTouchPoints(
     complementedTouchPoints: ComplementedTouchPoint[],
+    populationForStrategy: PopulationForStrategy,
     respondentsProbabilitiesForTouchPoints: Map<TouchPointName, Map<Probability['respondentId'], number>>
   ): Map<TouchPointName, Probability['respondentId'][]> {
     const reachedRespondentsForTouchPoints: Map<TouchPointName, Probability['respondentId'][]> = new Map();
@@ -87,7 +76,18 @@ export default function createReachDataTool() {
       const reachedRespondentsForTouchPoint: Probability['respondentId'][] = [];
       const touchPoint: ComplementedTouchPoint = complementedTouchPoints[touchPointIndex];
       const respondentsProbabilitiesForTouchPoint = respondentsProbabilitiesForTouchPoints.get(touchPoint.name);
+      // calculate remaining properties using entries from basis
+      touchPoint.grps =
+        touchPoint.inputTypeIndex == InputType.Contacts || touchPoint.inputTypeIndex == InputType.Impressions
+          ? (touchPoint.value / populationForStrategy) * 100
+          : touchPoint.inputTypeIndex == InputType.Grps
+          ? touchPoint.value
+          : touchPoint.value;
 
+      touchPoint.averageProbability =
+        touchPoint.sumOfProbabilities && respondentsProbabilitiesForTouchPoint
+          ? touchPoint.sumOfProbabilities / respondentsProbabilitiesForTouchPoint.size
+          : 0;
       if (respondentsProbabilitiesForTouchPoint) {
         respondentsProbabilitiesForTouchPoint.forEach(
           (
@@ -95,7 +95,7 @@ export default function createReachDataTool() {
             respondentId: number,
             respondentsProbabilitiesForTouchPoint: Map<Probability['respondentId'], number>
           ) => {
-            // TODO: only touchpoints with grps > 0 also earlier filter out touchpoints with value == 0
+            // TODO: implement do-while for inputType == InputType.Reach, until value is reached
             const exponent = touchPoint.grps
               ? (-probability * touchPoint.grps) / respondentsProbabilitiesForTouchPoint.size
               : 0;
