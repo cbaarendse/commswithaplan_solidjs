@@ -1,12 +1,10 @@
 <script lang="ts">
   // imports
-  import {Meteor} from 'meteor/meteor';
   import RangeInput from './RangeInput.svelte';
   import Modal from '../../reusable/Modal.svelte';
   import NumberInput from './NumberInput.svelte';
-  import {marketData, briefing, deployment, populationForStrategy, results} from '../../../stores/reach';
+  import {deployment} from '../../../stores/reach';
   import {language} from '../../../stores/utils';
-  import createReachTool from '/imports/ui/functions/reach';
   import createFormatter from '../../../functions/format';
   import {InputType} from '/imports/both/typings/types';
   //import {notify} from '../../notifications/NotificationsFunctions';
@@ -16,30 +14,25 @@
   const {name, show, definitions} = $deployment[index];
   $: value = $deployment[index].value;
   $: definition = definitions.filter((definition) => definition.language == $language)[0];
-  const reachTool = createReachTool();
   const formatter = createFormatter();
   let hovered: boolean = false;
   let displayManualInput: boolean;
   let displayTouchPointDescription: boolean;
 
   // functions
-  function onInput() {
-    if ($marketData && $briefing.useMarketData && name && typeof value == 'number') {
-      Meteor.callAsync('strategies.calculateResultsWithData', {
-        briefing: $briefing,
-        deployment: $deployment,
-        populationForStrategy: $populationForStrategy
-      })
-        .then((result) => {
-          $results = result;
-        })
-        .catch((error) => console.log('error in calculate results with data', error));
-    } else {
-      $results = reachTool.calculateResults($deployment);
+  function dismiss(event: MouseEvent | CustomEvent | KeyboardEvent): void {
+    if (
+      (event instanceof KeyboardEvent && event.key === 'Escape') ||
+      event instanceof CustomEvent ||
+      event instanceof MouseEvent
+    ) {
+      displayTouchPointDescription = false;
+      displayManualInput = false;
     }
   }
 </script>
 
+<svelte:window on:keyup={dismiss} />
 <div class="container" style="display:{show ? 'grid' : 'none'};">
   <div class="left">
     <button
@@ -54,7 +47,7 @@
     />
   </div>
   <div class="center">
-    <RangeInput {index} on:change={onInput} />
+    <RangeInput {index} on:change />
   </div>
   <div class="right">
     <button
@@ -76,29 +69,11 @@
       </span>
     </button>
   </div>
-  <Modal
-    title={definition.displayName}
-    display={displayTouchPointDescription}
-    on:destroyModal={() => {
-      displayTouchPointDescription = false;
-    }}
-  >
+  <Modal title={definition.displayName} display={displayTouchPointDescription} on:click={dismiss}>
     {definition.description}
   </Modal>
-  <Modal
-    title={definition.displayName}
-    display={displayManualInput}
-    on:destroyModal={() => {
-      displayManualInput = false;
-    }}
-  >
-    <NumberInput
-      {index}
-      on:submit={onInput}
-      on:destroyModal={() => {
-        displayManualInput = false;
-      }}
-    />
+  <Modal title={definition.displayName} display={displayManualInput} on:click={dismiss}>
+    <NumberInput {index} on:submit on:click={dismiss} />
   </Modal>
 </div>
 

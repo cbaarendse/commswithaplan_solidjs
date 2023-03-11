@@ -82,7 +82,21 @@
   $: console.log('$overlap: in $: ', $overlap);
 
   // functions
-
+  function calculateResults() {
+    if ($marketData && $briefing.useMarketData) {
+      Meteor.callAsync('strategies.calculateResultsWithData', {
+        briefing: $briefing,
+        deployment: $deployment,
+        populationForStrategy: $populationForStrategy
+      })
+        .then((result) => {
+          $results = result;
+        })
+        .catch((error) => console.log('error in calculate results with data', error));
+    } else {
+      $results = reachTool.calculateResults($deployment);
+    }
+  }
   onDestroy(() => {
     unsubscribe();
   });
@@ -93,9 +107,8 @@
   <div class="container">
     <Controls />
     <Output />
-
     {#each $deployment as _, index}
-      <TouchPoint {index} />
+      <TouchPoint {index} on:change={calculateResults} on:submit={calculateResults} />
     {/each}
   </div>
 </section>

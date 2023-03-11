@@ -7,12 +7,12 @@
   import {language, translations} from '../../../stores/utils';
   import {definitions} from '../../../stores/tools';
   import {
-    totalReach,
+    briefing,
     overlap,
-    respondentsCountForMarket,
-    populationForStrategy,
     population,
-    briefing
+    populationForStrategy,
+    respondentsCountForMarket,
+    totalReach
   } from '../../../stores/reach';
   // import Spinner from '../../reusable/Spinner.svelte';
 
@@ -25,6 +25,15 @@
   $: description = converter.describeContent(outputName, $definitions, $language);
 
   // functions
+  function dismiss(event: MouseEvent | CustomEvent | KeyboardEvent): void {
+    if (
+      (event instanceof KeyboardEvent && event.key === 'Escape') ||
+      event instanceof CustomEvent ||
+      event instanceof MouseEvent
+    ) {
+      displayOutputDescription = false;
+    }
+  }
 </script>
 
 <div class="container">
@@ -78,13 +87,7 @@
   </div>
 </div>
 
-<Modal
-  {title}
-  display={displayOutputDescription}
-  on:destroyModal={() => {
-    displayOutputDescription = false;
-  }}
->
+<Modal {title} display={displayOutputDescription} on:click={dismiss}>
   {description}
 </Modal>
 

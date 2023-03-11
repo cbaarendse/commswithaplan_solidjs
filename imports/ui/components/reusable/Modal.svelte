@@ -1,47 +1,30 @@
 <script lang="ts">
   // imports
   import {fade} from 'svelte/transition';
-  import {createEventDispatcher} from 'svelte';
   import Fa from 'svelte-fa/src/fa.svelte';
   import {faXmark} from '@fortawesome/free-solid-svg-icons';
 
   // variables
   export let title: string = 'modal_title';
   export let display: boolean = false;
-  let dispatch = createEventDispatcher();
   let disabled = false;
 
   // functions
-  function dismiss(event: MouseEvent | CustomEvent | KeyboardEvent): void {
-    if (
-      (event instanceof KeyboardEvent && event.key === 'Escape') ||
-      event instanceof CustomEvent ||
-      event instanceof MouseEvent
-    ) {
-      dispatch('destroyModal');
-    }
-  }
 </script>
 
-<svelte:window on:keyup={dismiss} />
 {#if display}
   <div
     class="backdrop"
     style="display:{display ? 'flex' : 'none'}"
     transition:fade={{delay: 0, duration: 400}}
-    on:click|preventDefault|stopPropagation|self={dismiss}
+    on:click|preventDefault|stopPropagation
     on:keydown
     on:keyup
     on:keypress
   >
     <div class="modal">
       <menu>
-        <button
-          type="button"
-          aria-roledescription="button"
-          {disabled}
-          on:click|stopPropagation|preventDefault={dismiss}
-        >
+        <button type="button" aria-roledescription="button" {disabled} on:click|preventDefault|stopPropagation>
           <Fa icon={faXmark} />
         </button>
       </menu>

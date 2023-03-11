@@ -4,11 +4,9 @@
   import {translations, language} from '../../../stores/utils';
   import {deployment, maxValues} from '../../../stores/reach';
   import createConverter from '/imports/ui/functions/convert';
-  import {createEventDispatcher} from 'svelte';
 
   // variables
   export let index: number;
-  let dispatch = createEventDispatcher();
   const min = 0;
   $: max = $maxValues[name] ?? 100;
   $: step = (max - min) / 100 ?? 1;
@@ -25,11 +23,6 @@
       return false;
     }
     return v >= m && v <= mx;
-  }
-
-  function submitCancel() {
-    console.log('cancel');
-    dispatch('destroyModal');
   }
 </script>
 
@@ -52,7 +45,7 @@
     class="cancel__button"
     type="button"
     value={$language === 'nl_NL' ? 'Annuleer' : 'Cancel'}
-    on:click|preventDefault|stopPropagation={submitCancel}
+    on:click|preventDefault|stopPropagation
   />
 </form>
 

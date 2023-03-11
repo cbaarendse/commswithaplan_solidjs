@@ -119,6 +119,8 @@ Meteor.methods({
         respondentsCountedForOverlap.push(respondentId);
       }
     });
+    console.log('respondentsCountedForOverlap in calculate result: ', respondentsCountedForOverlap);
+
     // strategy.overlap
     const overlapForResult = (respondentsCountedForOverlap.length / respondentsCountForMarket) * 100;
     console.log('totalReachForResult: ', totalReachForResult, 'overlapForResult: ', overlapForResult);

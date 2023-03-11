@@ -422,7 +422,7 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
     },
     {
       name: 'loyalty_crm',
-      defaultInputTypeIndex: InputType.Contacts,
+      defaultInputTypeIndex: InputType.Impressions,
       definitions: [
         {
           language: 'en_GB',
@@ -438,7 +438,7 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
     },
     {
       name: 'magazines',
-      defaultInputTypeIndex: InputType.Contacts,
+      defaultInputTypeIndex: InputType.Reach,
       definitions: [
         {
           language: 'en_GB',
@@ -470,7 +470,7 @@ export function touchPointsDefinitions(): TouchPointDefinition[] {
     },
     {
       name: 'newspapers',
-      defaultInputTypeIndex: InputType.Contacts,
+      defaultInputTypeIndex: InputType.Reach,
       definitions: [
         {
           language: 'en_GB',

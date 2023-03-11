@@ -6,20 +6,18 @@
   import createConverter from '/imports/ui/functions/convert';
   import Fa from 'svelte-fa/src/fa.svelte';
   import {faSort} from '@fortawesome/free-solid-svg-icons';
-  import {InputType} from '/imports/both/typings/types';
 
   //variables
   const converter = createConverter();
   export let index: number;
   const {name, definitions} = $deployment[index];
   let inputTypeName = $inputTypes[$deployment[index].inputTypeIndex].name;
-  let value = $deployment[index].value;
   const min = 0;
   $: max = $maxValues[name] ?? 100;
   $: step = (max - min) / 100 ?? 1;
-  let definition = definitions.filter((definition) => definition.language == $language)[0];
-  $: console.log('value in range input ', value);
-  $: console.log('$: value in range input ', value);
+  let touchPointDefinition = definitions.filter(
+    (touchPointDefinition) => touchPointDefinition.language == $language
+  )[0];
 
   $: console.log('$maxValues: in RangeInput $: ', $maxValues);
 
@@ -28,7 +26,7 @@
 
 <form>
   <fieldset>
-    <label for={name}>{definition.displayName}</label>
+    <label for={name}>{touchPointDefinition.displayName}</label>
     {#if $briefing.useMarketData}
       <select id={`${name}_inputtype__select`} bind:value={$deployment[index].inputTypeIndex}>
         {#each $inputTypes as inputType, inputIndex}<option value={inputIndex}>
