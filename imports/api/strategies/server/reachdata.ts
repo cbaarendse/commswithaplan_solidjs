@@ -77,6 +77,7 @@ export default function createReachDataTool() {
       const touchPoint: ComplementedTouchPoint = complementedTouchPoints[touchPointIndex];
       const respondentsProbabilitiesForTouchPoint = respondentsProbabilitiesForTouchPoints.get(touchPoint.name);
       // calculate remaining properties using entries from basis
+      // turn contacts and impressions into grps, cannot be done at this point for InputType.Reach
       touchPoint.grps =
         touchPoint.inputTypeIndex == InputType.Contacts || touchPoint.inputTypeIndex == InputType.Impressions
           ? (touchPoint.value / populationForStrategy) * 100
@@ -88,14 +89,16 @@ export default function createReachDataTool() {
         touchPoint.sumOfProbabilities && respondentsProbabilitiesForTouchPoint
           ? touchPoint.sumOfProbabilities / respondentsProbabilitiesForTouchPoint.size
           : 0;
-      if (respondentsProbabilitiesForTouchPoint) {
+
+      // For InputType.Reach:
+      // TODO: implement do-while for inputType == InputType.Reach, until value is reached
+      if (respondentsProbabilitiesForTouchPoint && touchPoint.inputTypeIndex == InputType.Reach) {
         respondentsProbabilitiesForTouchPoint.forEach(
           (
             probability: number,
             respondentId: number,
             respondentsProbabilitiesForTouchPoint: Map<Probability['respondentId'], number>
           ) => {
-            // TODO: implement do-while for inputType == InputType.Reach, until value is reached
             const exponent = touchPoint.grps
               ? (-probability * touchPoint.grps) / respondentsProbabilitiesForTouchPoint.size
               : 0;
@@ -110,8 +113,38 @@ export default function createReachDataTool() {
             reachedRespondentsForTouchPoint.push(respondentId);
           }
         });
-        reachedRespondentsForTouchPoints.set(touchPoint.name, reachedRespondentsForTouchPoint);
       }
+
+      // For InputType.Contacts, InputType.Grps, InputType.Impressions:
+      if (
+        respondentsProbabilitiesForTouchPoint &&
+        (touchPoint.inputTypeIndex == InputType.Contacts ||
+          touchPoint.inputTypeIndex == InputType.Grps ||
+          touchPoint.inputTypeIndex == InputType.Impressions)
+      ) {
+        respondentsProbabilitiesForTouchPoint.forEach(
+          (
+            probability: number,
+            respondentId: number,
+            respondentsProbabilitiesForTouchPoint: Map<Probability['respondentId'], number>
+          ) => {
+            const exponent = touchPoint.grps
+              ? (-probability * touchPoint.grps) / respondentsProbabilitiesForTouchPoint.size
+              : 0;
+            // Math.pow(Math.E, 0) = 1, so if exponent == 0, reach = 0
+            const reach = 1 * (1 - Math.pow(Math.E, exponent)) * 100;
+            reachForRespondentsForTouchPoint.set(respondentId, reach);
+          }
+        );
+        reachForRespondentsForTouchPoint.forEach((reach, respondentId) => {
+          if (reach >= 1) {
+            // Add respondent to array with reached respondents for this touchpoint
+            reachedRespondentsForTouchPoint.push(respondentId);
+          }
+        });
+      }
+
+      reachedRespondentsForTouchPoints.set(touchPoint.name, reachedRespondentsForTouchPoint);
     }
 
     return reachedRespondentsForTouchPoints;
