@@ -1,22 +1,18 @@
 // imports
 import {Meteor} from 'meteor/meteor';
 import {Match} from 'meteor/check';
-import Strategies from '../strategies';
 import createReachDataTool from './reachdata';
 import Probabilities from '../../probabilities/server/probabilities';
 import {
   Probability,
   Strategy,
   DeployedTouchPoint,
-  RespondentsCount,
   ComplementedTouchPoint,
   PopulationForStrategy,
   Results,
-  AgeGroup,
   TouchPointName,
   InputType
 } from '/imports/both/typings/types';
-import {Mongo} from 'meteor/mongo';
 
 // variables
 const reachDataTool = createReachDataTool();
@@ -138,19 +134,20 @@ Meteor.methods({
     // Filter probabilities for this briefing / strategy
     const {marketName, ageGroupIndexStart, ageGroupIndexEnd, genders} = args.briefing;
     const touchPointsDeployed: DeployedTouchPoint[] = args.deployment;
-    const respondentsCountForMarket = Probabilities.find({marketName: marketName}).count();
-    const respondentsProbabilities: Probability[] = Probabilities.find({
+    const respondentsProbabilities = Probabilities.find({
       marketName: marketName,
       gender: {$in: genders},
       age_group: {$gte: ageGroupIndexStart, $lte: ageGroupIndexEnd}
-    }).fetch();
+    });
+    const respondentsCountForStrategy = respondentsProbabilities.count();
+    const respondentsProbabilitiesForStrategy = respondentsProbabilities.fetch();
 
     const maxValues: Map<TouchPointName, number> = new Map();
     // for each deployed touchpoint only select respondents with a contact probability > 0
     const respondentsProbabilitiesForTouchPoints: Map<
       TouchPointName,
       Map<Probability['respondentId'], number>
-    > = reachDataTool.getProbabilitiesForTouchPoints(touchPointsDeployed, respondentsProbabilities); //OK
+    > = reachDataTool.getProbabilitiesForTouchPoints(touchPointsDeployed, respondentsProbabilitiesForStrategy); //OK
 
     touchPointsDeployed.forEach((touchPoint) => {
       const respondentsProbabilitiesForTouchPoint = respondentsProbabilitiesForTouchPoints.get(touchPoint.name);
@@ -161,19 +158,21 @@ Meteor.methods({
       ) {
         maxValues.set(
           touchPoint.name,
-          (respondentsProbabilitiesForTouchPoint.size / respondentsCountForMarket) * args.populationForStrategy * 5
+          (respondentsProbabilitiesForTouchPoint.size / respondentsCountForStrategy) * args.populationForStrategy * 5
         );
       } else if (touchPoint.inputTypeIndex == InputType.Grps && respondentsProbabilitiesForTouchPoint) {
         maxValues.set(
           touchPoint.name,
-          ((respondentsProbabilitiesForTouchPoint.size / respondentsCountForMarket) * args.populationForStrategy * 5) /
-            100
+          ((respondentsProbabilitiesForTouchPoint.size / respondentsCountForStrategy) *
+            args.populationForStrategy *
+            5) /
+            10000
         );
-      } else if (touchPoint.inputTypeIndex == InputType.Reach) {
-        maxValues.set(touchPoint.name, 100);
+      } else if (touchPoint.inputTypeIndex == InputType.Reach && respondentsProbabilitiesForTouchPoint) {
+        const maxReach = respondentsProbabilitiesForTouchPoint.size / respondentsCountForStrategy;
+        maxValues.set(touchPoint.name, Math.max(maxReach, 100));
       }
     });
-    console.log('maxValues on server: ', maxValues);
     return Object.fromEntries(maxValues);
   }
 });

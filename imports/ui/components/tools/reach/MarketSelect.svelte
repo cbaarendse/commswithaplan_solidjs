@@ -1,26 +1,25 @@
 <script lang="ts">
   import {faSort} from '@fortawesome/free-solid-svg-icons';
-  import {onDestroy} from 'svelte';
   import Fa from 'svelte-fa/src/fa.svelte';
 
   // imports
-  import {briefing, markets} from '../../../stores/reach';
-  import {Strategy} from '/imports/both/typings/types';
+  import {briefing, marketName, markets} from '../../../stores/reach';
 
   //variables
-  let marketName: Strategy['marketName'];
-  const unsubscribe = briefing.subscribe((data) => (marketName = data.marketName));
-  $: briefing.update((data) => {
-    data.marketName = marketName;
-    return data;
-  });
-  // functions
 
-  onDestroy(() => unsubscribe());
+  // functions
 </script>
 
 <fieldset>
-  <select class="market" name="market" id="market__select" bind:value={marketName}>
+  <select
+    class="market"
+    name="market"
+    id="market__select"
+    bind:value={$marketName}
+    on:change={() => {
+      $briefing.useMarketData = false;
+    }}
+  >
     {#each $markets as thisMarket}
       <option value={thisMarket.name}>{thisMarket.flag || thisMarket.name}</option>
     {/each}

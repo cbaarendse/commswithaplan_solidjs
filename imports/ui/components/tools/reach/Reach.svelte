@@ -9,10 +9,10 @@
   import {language} from '../../../stores/utils';
   import {
     briefing,
-    briefingForData,
-    briefingForFormula,
     deployment,
+    makeNewBriefing,
     marketData,
+    marketName,
     maxValues,
     overlap,
     populationForStrategy,
@@ -27,17 +27,18 @@
 
   // variables
   const reachTool = createReachTool();
-  let marketName: Strategy['marketName'];
   let useMarketData: Strategy['useMarketData'];
 
   // subscriptions
   let unsubscribe = briefing.subscribe((data) => {
-    marketName = data.marketName;
     useMarketData = data.useMarketData;
   });
 
   // base new briefing on availability of marketData
-  $: $marketData ? briefing.set(briefingForData()) : briefing.set(briefingForFormula());
+  $: if ($marketData && $marketName && $briefing.useMarketData) {
+    briefing.set(makeNewBriefing($marketName));
+    $results = [0, 0];
+  }
   // base new deployment on availability and usage of marketData
   $: Meteor.callAsync('strategies.maxValuesForTouchPoints', {
     briefing: $briefing,

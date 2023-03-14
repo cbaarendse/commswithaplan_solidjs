@@ -1,5 +1,5 @@
 // imports
-import {writable, Writable, readable, Readable, derived} from 'svelte/store';
+import {writable, Writable, readable, Readable, derived, get} from 'svelte/store';
 import {Meteor} from 'meteor/meteor';
 import {
   Market,
@@ -20,7 +20,8 @@ const reachTool = createReachTool();
 
 // strategy
 export const markets: Readable<Market[]> = readable(allMarkets());
-export const briefing: Writable<Omit<Strategy, 'deployment'>> = writable(briefingForFormula());
+export const marketName: Writable<Strategy['marketName']> = writable('nl');
+export const briefing: Writable<Omit<Strategy, 'deployment'>> = writable(makeNewBriefing(get(marketName)));
 export const marketData = derived(
   briefing,
   ($briefing, set) => {
@@ -140,9 +141,9 @@ export function touchPointsForDeployment(touchPointsDefinitions: TouchPointDefin
 }
 export const maxValues: Writable<Partial<{[key: string]: number}>> = writable({});
 
-export function briefingForFormula(): Omit<Strategy, 'deployment'> {
+export function makeNewBriefing(marketName: Strategy['marketName']): Omit<Strategy, 'deployment'> {
   return {
-    marketName: 'nl',
+    marketName: marketName,
     useMarketData: undefined,
     userId: '',
     title: 'New Strategy',
@@ -154,23 +155,6 @@ export function briefingForFormula(): Omit<Strategy, 'deployment'> {
     companyId: undefined,
     brandName: undefined,
     productName: undefined
-  };
-}
-
-export function briefingForData(): Omit<Required<Strategy>, 'deployment'> {
-  return {
-    marketName: 'nl',
-    useMarketData: false,
-    userId: '',
-    title: 'New Strategy',
-    createdAt: new Date(),
-    lastChanged: new Date(),
-    genders: ['f', 'm', 'x'],
-    ageGroupIndexStart: 0,
-    ageGroupIndexEnd: 0,
-    companyId: '',
-    brandName: '',
-    productName: ''
   };
 }
 

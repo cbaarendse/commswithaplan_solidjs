@@ -3,31 +3,18 @@
   import createConverter from '../../../functions/convert';
   import {translations, language} from '../../../stores/utils';
   import {marketData, briefing} from '../../../stores/reach';
-  import {onDestroy} from 'svelte';
-  import {Strategy} from '/imports/both/typings/types';
 
   // variables
   const converter = createConverter();
-  let useMarketData: Strategy['useMarketData'];
-  const unsubscribe = briefing.subscribe((data) => {
-    useMarketData = data.useMarketData;
-  });
   $: disabled = !$marketData;
-  $: briefing.update((data) => {
-    data.useMarketData = useMarketData;
-    return data;
-  });
-
   $: message =
-    $marketData && useMarketData
+    $marketData && $briefing.useMarketData
       ? converter.translate('using_data', $translations, $language)
-      : $marketData && !useMarketData
+      : $marketData && !$briefing.useMarketData
       ? converter.translate('using_formula', $translations, $language)
       : converter.translate('no_data', $translations, $language);
 
   // functions
-
-  onDestroy(() => unsubscribe());
 </script>
 
 <fieldset>
@@ -37,7 +24,7 @@
     name="marketdata"
     type="checkbox"
     {disabled}
-    bind:checked={useMarketData}
+    bind:checked={$briefing.useMarketData}
   />
   <label for="marketdata__checkbox">{message}</label>
 </fieldset>

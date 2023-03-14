@@ -12,6 +12,7 @@
     marketData,
     briefing,
     deployment,
+    results,
     sortedByName,
     touchPointsDefinitions,
     touchPointsForDeployment
@@ -60,6 +61,7 @@
         ? deployment.set(touchPointsForDeployment(touchPointsDefinitions()))
         : deployment.set(touchPointsForDeployment(touchPointsDefinitions()));
     }
+    $results = [0, 0];
   }
 
   function hide() {

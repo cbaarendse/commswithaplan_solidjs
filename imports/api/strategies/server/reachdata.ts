@@ -89,8 +89,21 @@ export default function createReachDataTool() {
       if (respondentsProbabilitiesForTouchPoint && touchPoint.inputTypeIndex == InputType.Reach) {
         // convert reach input to reached respondents
         const reachedRespondentsForTouchPointCount = (touchPoint.value / 100) * respondentsCountForStrategy;
+        console.log(
+          'reachedRespondentsForTouchPointCount in collect reachedRespondents: ',
+          reachedRespondentsForTouchPointCount
+        );
+        console.log(
+          'Array.from(respondentsProbabilitiesForTouchPoint.entries()) in collect reachedRespondents: ',
+          Array.from(respondentsProbabilitiesForTouchPoint.entries())
+        );
+
         let contacts = 0;
         for (let index = 0; index < reachedRespondentsForTouchPointCount; index++) {
+          console.log(
+            'Array.from(respondentsProbabilitiesForTouchPoint.entries())[index];  in collect reachedRespondents: ',
+            Array.from(respondentsProbabilitiesForTouchPoint.entries())[index]
+          );
           const respondentProbability = Array.from(respondentsProbabilitiesForTouchPoint.entries())[index]; //TODO: undefined
           const respondentId = respondentProbability[0];
           const probability = respondentProbability[1];
