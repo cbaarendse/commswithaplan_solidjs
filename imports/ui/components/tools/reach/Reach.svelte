@@ -8,6 +8,7 @@
   import {language} from '../../../stores/utils';
   import {
     briefing,
+    createdAt,
     deployment,
     marketData,
     marketName,
@@ -25,11 +26,17 @@
     useMarketData,
     userId
   } from '../../../stores/reach';
-  import {DeployedTouchPoint, InputType, Strategy, TouchPointDefinition} from '/imports/both/typings/types';
+  import {InputType, TouchPointDefinition} from '/imports/both/typings/types';
   import {Meteor} from 'meteor/meteor';
 
   // variables
   const reachTool = createReachTool();
+  if (!$createdAt) {
+    $createdAt = new Date();
+  }
+  if (!$deployment) {
+    $deployment = reachTool.touchPointsForDeployment(reachTool.touchPointsDefinitions());
+  }
 
   // subscriptions
 

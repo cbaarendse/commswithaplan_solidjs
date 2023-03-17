@@ -1,5 +1,5 @@
 // imports
-import {writable, Writable, readable, Readable, derived, get} from 'svelte/store';
+import {writable, Writable, Readable, derived} from 'svelte/store';
 import {Meteor} from 'meteor/meteor';
 import createReachTool from '../functions/reach';
 import {Strategy, SortedByName, Population, Results, RespondentsCount} from '../../both/typings/types';
@@ -13,13 +13,13 @@ export const title: Writable<Strategy['title']> = writable('New strategy');
 export const marketName: Writable<Strategy['marketName']> = writable('nl');
 export const createdAt: Writable<Strategy['createdAt']> = writable();
 export const lastChanged: Writable<Strategy['lastChanged']> = writable(new Date());
-export const useMarketData: Writable<Strategy['useMarketData']> = writable();
-export const ageGroupIndexStart: Writable<Strategy['ageGroupIndexStart']> = writable();
-export const ageGroupIndexEnd: Writable<Strategy['ageGroupIndexEnd']> = writable();
-export const genders: Writable<Strategy['genders']> = writable();
-export const companyId: Writable<Strategy['companyId']> = writable();
-export const brandName: Writable<Strategy['brandName']> = writable();
-export const productName: Writable<Strategy['productName']> = writable();
+export const useMarketData: Writable<Strategy['useMarketData']> = writable(false);
+export const ageGroupIndexStart: Writable<Strategy['ageGroupIndexStart']> = writable(0);
+export const ageGroupIndexEnd: Writable<Strategy['ageGroupIndexEnd']> = writable(1);
+export const genders: Writable<Strategy['genders']> = writable(['f', 'm', 'x']);
+export const companyId: Writable<Strategy['companyId']> = writable('c');
+export const brandName: Writable<Strategy['brandName']> = writable('b');
+export const productName: Writable<Strategy['productName']> = writable('p');
 export const deployment: Writable<Strategy['deployment']> = writable();
 export const briefing: Readable<Omit<Strategy, 'deployment'>> = derived(
   [
