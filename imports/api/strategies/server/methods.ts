@@ -8,7 +8,7 @@ import {
   Strategy,
   DeployedTouchPoint,
   ComplementedTouchPoint,
-  PopulationForStrategy,
+  Population,
   Results,
   TouchPointName,
   InputType
@@ -21,25 +21,29 @@ const reachDataTool = createReachDataTool();
 
 Meteor.methods({
   'strategies.calculateResultsWithData': function (args: {
-    briefing: Omit<Strategy, 'deployment'>;
+    userId: Strategy['userId'];
+    marketName: Strategy['marketName'];
+    genders: Strategy['genders'];
+    ageGroupIndexStart: Strategy['ageGroupIndexStart'];
+    ageGroupIndexEnd: Strategy['ageGroupIndexEnd'];
     deployment: Strategy['deployment'];
-    populationForStrategy: PopulationForStrategy;
+    populationForStrategy: Population;
   }): Results {
     console.log(
       'calculateResultsWithData runs with args: ',
-      args.briefing,
+      {...args},
       args.deployment.length,
       args.populationForStrategy
     );
 
     if (
-      !Match.test(args.briefing, Object) ||
+      !Match.test(args, Object) ||
       !Match.test(args.deployment, Array) ||
       !Match.test(args.populationForStrategy, Number)
     ) {
       throw new Meteor.Error('general.invalid.input', `Invalid input: ${args}`, '[{ "name": "invalidInput" }]');
     }
-    const {userId, marketName, ageGroupIndexStart, ageGroupIndexEnd, genders} = args.briefing;
+    const {userId, marketName, ageGroupIndexStart, ageGroupIndexEnd, genders} = args;
 
     // filter probabilities for market
     const touchPointsDeployed: DeployedTouchPoint[] = args.deployment;
@@ -127,12 +131,16 @@ Meteor.methods({
   },
   // maxValues
   'strategies.maxValuesForTouchPoints': function (args: {
-    briefing: Omit<Strategy, 'deployment'>;
+    userId: Strategy['userId'];
+    marketName: Strategy['marketName'];
+    genders: Strategy['genders'];
+    ageGroupIndexStart: Strategy['ageGroupIndexStart'];
+    ageGroupIndexEnd: Strategy['ageGroupIndexEnd'];
     deployment: Strategy['deployment'];
-    populationForStrategy: PopulationForStrategy;
+    populationForStrategy: Population;
   }): {[key: string]: number} {
     // Filter probabilities for this briefing / strategy
-    const {marketName, ageGroupIndexStart, ageGroupIndexEnd, genders} = args.briefing;
+    const {marketName, ageGroupIndexStart, ageGroupIndexEnd, genders} = args;
     const touchPointsDeployed: DeployedTouchPoint[] = args.deployment;
     const respondentsProbabilities = Probabilities.find({
       marketName: marketName,

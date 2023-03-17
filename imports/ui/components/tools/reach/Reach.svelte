@@ -4,44 +4,46 @@
   import Controls from './Controls.svelte';
   import Output from './Output.svelte';
   import TouchPoint from './TouchPoint.svelte';
-  import {onDestroy} from 'svelte';
   import createReachTool from '../../../functions/reach';
   import {language} from '../../../stores/utils';
   import {
     briefing,
     deployment,
-    makeNewBriefing,
     marketData,
     marketName,
     maxValues,
+    ageGroupIndexStart,
+    ageGroupIndexEnd,
+    genders,
     overlap,
     populationForStrategy,
     results,
     sortedByName,
     strategy,
     totalReach,
-    touchPointsDefinitions
+    touchPointsDefinitions,
+    useMarketData,
+    userId
   } from '../../../stores/reach';
-  import {DeployedTouchPoint, InputType, Strategy} from '/imports/both/typings/types';
+  import {DeployedTouchPoint, InputType, Strategy, TouchPointDefinition} from '/imports/both/typings/types';
   import {Meteor} from 'meteor/meteor';
 
   // variables
   const reachTool = createReachTool();
-  let useMarketData: Strategy['useMarketData'];
 
   // subscriptions
-  let unsubscribe = briefing.subscribe((data) => {
-    useMarketData = data.useMarketData;
-  });
 
   // base new briefing on availability of marketData
-  $: if ($marketData && $marketName && $briefing.useMarketData) {
-    briefing.set(makeNewBriefing($marketName));
+  $: if ($marketName && $marketData && $useMarketData) {
     $results = [0, 0];
   }
   // base new deployment on availability and usage of marketData
   $: Meteor.callAsync('strategies.maxValuesForTouchPoints', {
-    briefing: $briefing,
+    userId: $userId,
+    marketName: $marketName,
+    ageGroupIndexStart: $ageGroupIndexStart,
+    ageGroupIndexEnd: $ageGroupIndexEnd,
+    genders: $genders,
     deployment: $deployment,
     populationForStrategy: $populationForStrategy
   })
@@ -60,7 +62,7 @@
     ? deployment.update((data) => {
         return data.map((touchPoint) => {
           const defaultInputTypeIndexForThisTouchPoint = touchPointsDefinitions().filter(
-            (definition) => definition.name == touchPoint.name
+            (definition: TouchPointDefinition) => definition.name == touchPoint.name
           )[0].defaultInputTypeIndex;
           return {...touchPoint, inputTypeIndex: defaultInputTypeIndexForThisTouchPoint};
         });
@@ -86,7 +88,11 @@
   function calculateResults() {
     if ($marketData && $briefing.useMarketData) {
       Meteor.callAsync('strategies.calculateResultsWithData', {
-        briefing: $briefing,
+        userId: $userId,
+        marketName: $marketName,
+        ageGroupIndexStart: $ageGroupIndexStart,
+        ageGroupIndexEnd: $ageGroupIndexEnd,
+        genders: $genders,
         deployment: $deployment,
         populationForStrategy: $populationForStrategy
       })
@@ -98,9 +104,6 @@
       $results = reachTool.calculateResults($deployment);
     }
   }
-  onDestroy(() => {
-    unsubscribe();
-  });
 </script>
 
 <BreadCrumbs />

@@ -4,7 +4,7 @@ import {Meteor} from 'meteor/meteor';
 import Populations from '../populations/populations';
 
 import {MARKETNAMES} from '../../both/constants/constants';
-import {AgeGroup, Genders, PopulationForStrategy, Strategy} from '../../both/typings/types';
+import {AgeGroup, Genders, Population, Strategy} from '../../both/typings/types';
 import {Match} from 'meteor/check';
 
 Meteor.methods({
@@ -42,11 +42,15 @@ Meteor.methods({
   },
 
   'populations.countPopulationForStrategy': function (args: {
-    briefing: Omit<Required<Strategy>, 'deployment'>;
+    marketName: Strategy['marketName'];
+    genders: Strategy['genders'];
+    ageGroupIndexStart: Strategy['ageGroupIndexStart'];
+    ageGroupIndexEnd: Strategy['ageGroupIndexEnd'];
+    userId: Strategy['userId'];
     ageGroups: AgeGroup[];
-  }): PopulationForStrategy {
-    const {marketName, genders, ageGroupIndexStart, ageGroupIndexEnd, userId} = args.briefing;
-    console.log('populations.countPopulationForStrategy runs with: ', args.briefing, this.userId);
+  }): Population {
+    const {userId, marketName, genders, ageGroupIndexStart, ageGroupIndexEnd, ageGroups} = args;
+    console.log('populations.countPopulationForStrategy runs with: ', {...args}, this.userId);
 
     if (!this.userId) {
       throw new Meteor.Error(
@@ -56,12 +60,8 @@ Meteor.methods({
       );
     }
 
-    if (!Match.test(args.briefing, Object)) {
-      throw new Meteor.Error(
-        'general.invalid.input',
-        `Invalid input: ${args.briefing}`,
-        '[{ "name": "invalidInput" }]'
-      );
+    if (!Match.test(args, Object)) {
+      throw new Meteor.Error('general.invalid.input', `Invalid input: ${[...args]}`, '[{ "name": "invalidInput" }]');
     }
     if (!Match.test(args.ageGroups, Array)) {
       throw new Meteor.Error(
@@ -80,12 +80,12 @@ Meteor.methods({
     //   );
     // }
 
-    const startAge = args.ageGroups[ageGroupIndexStart][0];
-    const endAge = args.ageGroups[ageGroupIndexEnd][1];
+    const startAge = ageGroupIndexStart ? ageGroups[ageGroupIndexStart][0] : ageGroups[0][0];
+    const endAge = ageGroupIndexEnd ? ageGroups[ageGroupIndexEnd][1] : ageGroups[1][1];
     const query: {[key: string]: string | {[key: string]: Genders | number}} = {
       market: marketName,
       gender: {
-        $in: genders
+        $in: genders || ['f', 'm', 'x']
       },
       age: {
         $gte: startAge,

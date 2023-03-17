@@ -1,17 +1,20 @@
 <script lang="ts">
   // imports
 
-  import {deployment, briefing, inputTypes, maxValues} from '../../../stores/reach';
+  import {deployment, briefing, maxValues} from '../../../stores/reach';
   import {language} from '../../../stores/utils';
+  import createReachTool from '/imports/ui/functions/reach';
   import createConverter from '/imports/ui/functions/convert';
   import Fa from 'svelte-fa/src/fa.svelte';
   import {faSort} from '@fortawesome/free-solid-svg-icons';
 
   //variables
+  const reachTool = createReachTool();
   const converter = createConverter();
   export let index: number;
   const {name, definitions} = $deployment[index];
-  let inputTypeName = $inputTypes[$deployment[index].inputTypeIndex].name;
+  const inputTypes = reachTool.allInputTypes();
+  let inputTypeName = inputTypes[$deployment[index].inputTypeIndex].name;
   const min = 0;
   $: max = $maxValues[name] ?? 100;
   $: step = (max - min) / 100 ?? 1;
@@ -29,13 +32,13 @@
     <label for={name}>{touchPointDefinition.displayName}</label>
     {#if $briefing.useMarketData}
       <select id={`${name}_inputtype__select`} bind:value={$deployment[index].inputTypeIndex}>
-        {#each $inputTypes as inputType, inputIndex}<option value={inputIndex}>
-            {converter.translate(inputType.name, $inputTypes, $language)}
+        {#each inputTypes as inputType, inputIndex}<option value={inputIndex}>
+            {converter.translate(inputType.name, inputTypes, $language)}
           </option>{/each}
       </select>
       <label for={`${name}_inputtype__select`}><Fa icon={faSort} color={'var(--ra-teal)'} /></label>
     {:else}
-      <span>{converter.translate(inputTypeName, $inputTypes, $language)}</span>
+      <span>{converter.translate(inputTypeName, inputTypes, $language)}</span>
     {/if}
     <input type="range" {min} {max} {step} id={name} {name} bind:value={$deployment[index].value} on:change />
   </fieldset>

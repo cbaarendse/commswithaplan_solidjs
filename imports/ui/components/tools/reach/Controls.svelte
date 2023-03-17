@@ -1,23 +1,14 @@
 <script lang="ts">
   // imports
   import {Meteor} from 'meteor/meteor';
-  import {onDestroy} from 'svelte';
   import GenderButton from './GenderButton.svelte';
   import AgeGroupsSelect from './AgeGroupsSelect.svelte';
   import UseMarketDataCheck from './UseMarketDataCheck.svelte';
   import MarketSelect from './MarketSelect.svelte';
   import createReachTool from '../../../functions/reach';
   import {language} from '../../../stores/utils';
-  import {
-    marketData,
-    briefing,
-    deployment,
-    results,
-    sortedByName,
-    touchPointsDefinitions,
-    touchPointsForDeployment
-  } from '../../../stores/reach';
-  import {CWAPUser, Strategy} from '../../../../both/typings/types';
+  import {marketData, deployment, results, sortedByName, useMarketData} from '../../../stores/reach';
+  import {CWAPUser} from '../../../../both/typings/types';
   import Fa from 'svelte-fa/src/fa.svelte';
   import {
     faArrowRotateLeft,
@@ -34,17 +25,6 @@
   // variables
   let currentUser: CWAPUser | null;
   const reachTool = createReachTool();
-  let useMarketData: Strategy['useMarketData'];
-  let deployedTouchPoints: Strategy['deployment'];
-
-  const unsubscribeBriefing = briefing.subscribe((data) => {
-    useMarketData = data.useMarketData;
-  });
-
-  const unsubscribeDeployment = deployment.subscribe((data) => {
-    deployedTouchPoints = data;
-  });
-  const unsubscribeSortedByName = sortedByName.subscribe((data) => {});
 
   $m: {
     currentUser = Meteor.user();
@@ -52,14 +32,14 @@
 
   // functions
   function reset() {
-    if (!reachTool.areAllTouchPointsValueZero(deployedTouchPoints)) {
+    if (!reachTool.areAllTouchPointsValueZero($deployment)) {
       deployment.update((data) => {
         return data.map((touchPoint) => Object.assign(touchPoint, {value: 0.0}));
       });
     } else {
       $marketData
-        ? deployment.set(touchPointsForDeployment(touchPointsDefinitions()))
-        : deployment.set(touchPointsForDeployment(touchPointsDefinitions()));
+        ? deployment.set(reachTool.touchPointsForDeployment(reachTool.touchPointsDefinitions()))
+        : deployment.set(reachTool.touchPointsForDeployment(reachTool.touchPointsDefinitions()));
     }
     $results = [0, 0];
   }
@@ -69,20 +49,10 @@
   }
 
   function sort() {
-    const [sortedDeployedTouchPoints, updatedSortedByName] = reachTool.sort(
-      deployedTouchPoints,
-      $sortedByName,
-      $language
-    );
+    const [sortedDeployedTouchPoints, updatedSortedByName] = reachTool.sort($deployment, $sortedByName, $language);
     deployment.set(sortedDeployedTouchPoints);
     sortedByName.set(updatedSortedByName);
   }
-
-  onDestroy(() => {
-    unsubscribeBriefing;
-    unsubscribeDeployment;
-    unsubscribeSortedByName;
-  });
 </script>
 
 <div class="container">
@@ -90,7 +60,7 @@
     <form>
       <MarketSelect />
       <UseMarketDataCheck />
-      {#if $marketData && useMarketData}
+      {#if $marketData && $useMarketData}
         <GenderButton />
         <AgeGroupsSelect />
       {/if}
@@ -99,20 +69,20 @@
   <div class="operations__container">
     <menu>
       <button type="button" on:click|stopPropagation|preventDefault={reset}>
-        {#if reachTool.areAllTouchPointsValueZero(deployedTouchPoints)}<Fa icon={faArrowRotateLeft} />{:else}<Fa
+        {#if reachTool.areAllTouchPointsValueZero($deployment)}<Fa icon={faArrowRotateLeft} />{:else}<Fa
             icon={fa0}
           />{/if}
       </button>
       <button type="button" on:click|stopPropagation|preventDefault={sort}>
         {#if $sortedByName}<Fa
             icon={faArrowDownWideShort}
-          />{:else if !$sortedByName && reachTool.areAllTouchPointsValueZero(deployedTouchPoints) && reachTool.isShowAll(deployedTouchPoints)}<Fa
+          />{:else if !$sortedByName && reachTool.areAllTouchPointsValueZero($deployment) && reachTool.isShowAll($deployment)}<Fa
             icon={faArrowDownAZ}
           />{:else}<Fa icon={faArrowDownAZ} />
         {/if}
       </button>
       <button type="button" on:click|stopPropagation|preventDefault={hide}>
-        {#if reachTool.isShowAll(deployedTouchPoints)}<Fa icon={faMinus} />{:else}<Fa icon={faBars} />{/if}
+        {#if reachTool.isShowAll($deployment)}<Fa icon={faMinus} />{:else}<Fa icon={faBars} />{/if}
       </button>
       <button class="save" type="button" on:click|stopPropagation|preventDefault={reset}>
         <Fa icon={faDownload} />

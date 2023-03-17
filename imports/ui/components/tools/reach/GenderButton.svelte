@@ -2,18 +2,13 @@
   // imports
   import Fa from 'svelte-fa/src/fa.svelte';
   import {faPerson, faPersonDress} from '@fortawesome/free-solid-svg-icons';
-  import {marketData, briefing} from '../../../stores/reach';
+  import {genders, marketData} from '../../../stores/reach';
   import {Strategy} from '/imports/both/typings/types';
-  import {onDestroy} from 'svelte';
 
   // variables
   let useMarketData: Strategy['useMarketData'];
-  let genders: Set<'f' | 'm' | 'x'>;
-  const unsubscribe = briefing.subscribe((data) => {
-    useMarketData = data.useMarketData;
-    genders = new Set(data.genders);
-    console.log('genders in briefing subscribe: ', genders);
-  });
+  let gendersToWorkWith: Set<'f' | 'm' | 'x'> = new Set($genders) ?? new Set(['f', 'm', 'x']);
+
   $: disabled = !$marketData || !useMarketData;
 
   // $: briefing.update((data) => {
@@ -22,33 +17,25 @@
   //   return data;
   // });
 
-  onDestroy(() => unsubscribe());
-
-  // functions
   function toggleGenders() {
-    if (genders) {
-      if (genders.has('f') && genders.has('m') && genders.has('x')) {
-        genders.delete('m');
-        genders.delete('x');
-      } else if (genders.has('f') && !genders.has('m') && !genders.has('x')) {
-        genders.delete('f');
-        genders.add('m');
-      } else if (!genders.has('f') && genders.has('m') && !genders.has('x')) {
-        genders.add('f');
-      } else if (genders.has('f') && genders.has('m') && !genders.has('x')) {
-        genders = new Set(['f', 'm', 'x']);
-      } else if (!genders.has('f') && !genders.has('m') && !genders.has('x')) {
-        genders = new Set(['f', 'm', 'x']);
+    if (gendersToWorkWith) {
+      if (gendersToWorkWith.has('f') && gendersToWorkWith.has('m') && gendersToWorkWith.has('x')) {
+        gendersToWorkWith.delete('m');
+        gendersToWorkWith.delete('x');
+      } else if (gendersToWorkWith.has('f') && !gendersToWorkWith.has('m') && !gendersToWorkWith.has('x')) {
+        gendersToWorkWith.delete('f');
+        gendersToWorkWith.add('m');
+      } else if (!gendersToWorkWith.has('f') && gendersToWorkWith.has('m') && !gendersToWorkWith.has('x')) {
+        gendersToWorkWith.add('f');
+      } else if (gendersToWorkWith.has('f') && gendersToWorkWith.has('m') && !gendersToWorkWith.has('x')) {
+        gendersToWorkWith = new Set(['f', 'm', 'x']);
+      } else if (!gendersToWorkWith.has('f') && !gendersToWorkWith.has('m') && !gendersToWorkWith.has('x')) {
+        gendersToWorkWith = new Set(['f', 'm', 'x']);
       }
-      briefing.update((data) => {
-        data.genders = Array.from(genders);
-        console.log('genders ', genders, '& data.genders', data.genders, ' in toggleGenders ');
-        return data;
-      });
+      $genders = Array.from(gendersToWorkWith);
+      console.log('gendersToWorkWith ', gendersToWorkWith, '& $genders', $genders, ' in toggleGenders ');
     }
   }
-
-  onDestroy(() => unsubscribe());
 </script>
 
 <fieldset>
@@ -59,8 +46,8 @@
     {disabled}
     on:click|preventDefault|stopPropagation={toggleGenders}
   >
-    <Fa icon={faPersonDress} color={genders?.has('f') ? 'var(--ra-red)' : 'var(--ra-grey-light'} />
-    <Fa icon={faPerson} color={genders?.has('m') ? 'var(--ra-red)' : 'var(--ra-grey-light'} />
+    <Fa icon={faPersonDress} color={gendersToWorkWith.has('f') ? 'var(--ra-red)' : 'var(--ra-grey-light'} />
+    <Fa icon={faPerson} color={gendersToWorkWith.has('m') ? 'var(--ra-red)' : 'var(--ra-grey-light'} />
   </button>
 </fieldset>
 

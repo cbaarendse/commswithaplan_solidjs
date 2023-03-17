@@ -3,9 +3,11 @@
   import Fa from 'svelte-fa/src/fa.svelte';
 
   // imports
-  import {briefing, marketName, markets} from '../../../stores/reach';
+  import {marketName, useMarketData} from '../../../stores/reach';
+  import createReachTool from '/imports/ui/functions/reach';
 
   //variables
+  const reachTool = createReachTool();
 
   // functions
 </script>
@@ -17,10 +19,10 @@
     id="market__select"
     bind:value={$marketName}
     on:change={() => {
-      $briefing.useMarketData = false;
+      $useMarketData = false;
     }}
   >
-    {#each $markets as thisMarket}
+    {#each reachTool.allMarkets() as thisMarket}
       <option value={thisMarket.name}>{thisMarket.flag || thisMarket.name}</option>
     {/each}
   </select>

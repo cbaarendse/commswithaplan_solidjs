@@ -10,9 +10,6 @@ const reachDataTool = createReachDataTool();
 
 // methods
 Meteor.methods({
-  test: function (param: string): string {
-    return 'Test hallo ' + param;
-  },
   'probabilities.checkForMarketData': function (args: {marketName: Strategy['marketName']}) {
     console.log('probabilities.checkProbabilitiesForMarket runs with: ', args.marketName);
 
@@ -60,17 +57,19 @@ Meteor.methods({
     return respondentsCount;
   },
 
-  'probabilities.countRespondentsForStrategy': function (args: {briefing: Omit<Strategy, 'deployment'>}): number {
-    if (!Match.test(args.briefing, Object)) {
-      throw new Meteor.Error(
-        'general.invalid.input',
-        `Invalid input: ${args.briefing}`,
-        '[{ "name": "invalidInput" }]'
-      );
+  'probabilities.countRespondentsForStrategy': function (args: {
+    userId: Strategy['userId'];
+    marketName: Strategy['marketName'];
+    genders: Strategy['genders'];
+    ageGroupIndexStart: Strategy['ageGroupIndexStart'];
+    ageGroupIndexEnd: Strategy['ageGroupIndexEnd'];
+  }): number {
+    if (!Match.test(args, Object)) {
+      throw new Meteor.Error('general.invalid.input', `Invalid input: ${[...args]}`, '[{ "name": "invalidInput" }]');
     }
-    console.log('probabilities.countRespondentsForStrategy runs with: ', args.briefing);
+    console.log('probabilities.countRespondentsForStrategy runs with: ', args);
 
-    const {userId, marketName, genders, ageGroupIndexStart, ageGroupIndexEnd} = args.briefing;
+    const {userId, marketName, genders, ageGroupIndexStart, ageGroupIndexEnd} = args;
 
     if (!this.userId) {
       throw new Meteor.Error(
