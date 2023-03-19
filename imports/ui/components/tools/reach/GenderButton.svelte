@@ -8,7 +8,7 @@
   // variables
   let useMarketData: Strategy['useMarketData'];
   let gendersToWorkWith: Set<'f' | 'm' | 'x'> = new Set($genders) ?? new Set(['f', 'm', 'x']);
-
+  //TODO: change
   $: disabled = !$marketData || !useMarketData;
 
   // $: briefing.update((data) => {

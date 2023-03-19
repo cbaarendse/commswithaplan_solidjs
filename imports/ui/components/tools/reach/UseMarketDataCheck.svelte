@@ -1,20 +1,75 @@
 <script lang="ts">
   // imports
+  import {Meteor} from 'meteor/meteor';
   import createConverter from '../../../functions/convert';
   import {translations, language} from '../../../stores/utils';
-  import {marketData, briefing} from '../../../stores/reach';
+  import {
+    ageGroupIndexStart,
+    ageGroupIndexEnd,
+    deployment,
+    genders,
+    marketData,
+    marketName,
+    maxValues,
+    populationForStrategy,
+    useMarketData,
+    results,
+    userId
+  } from '../../../stores/reach';
+  import createReachTool from '/imports/ui/functions/reach';
+  import {InputType, TouchPointDefinition} from '/imports/both/typings/types';
 
   // variables
+  const reachTool = createReachTool();
   const converter = createConverter();
   $: disabled = !$marketData;
   $: message =
-    $marketData && $briefing.useMarketData
+    $marketData && $useMarketData
       ? converter.translate('using_data', $translations, $language)
-      : $marketData && !$briefing.useMarketData
+      : $marketData && !$useMarketData
       ? converter.translate('using_formula', $translations, $language)
       : converter.translate('no_data', $translations, $language);
 
   // functions
+  function reset() {
+    deployment.set(reachTool.touchPointsForDeployment(reachTool.touchPointsDefinitions()));
+    $marketData && $useMarketData
+      ? deployment.update((data) => {
+          return data.map((touchPoint) => {
+            const defaultInputTypeIndexForThisTouchPoint = reachTool
+              .touchPointsDefinitions()
+              .filter(
+                (definition: TouchPointDefinition) => definition.name == touchPoint.name
+              )[0].defaultInputTypeIndex;
+            return {...touchPoint, inputTypeIndex: defaultInputTypeIndexForThisTouchPoint};
+          });
+        })
+      : deployment.update((data) => {
+          return data.map((touchPoint) => Object.assign(touchPoint, {inputTypeIndex: InputType.Reach}));
+        });
+    $results = [0, 0];
+  }
+  function adaptMaxValues() {
+    Meteor.callAsync('strategies.maxValuesForTouchPoints', {
+      userId: $userId,
+      marketName: $marketName,
+      ageGroupIndexStart: $ageGroupIndexStart,
+      ageGroupIndexEnd: $ageGroupIndexEnd,
+      genders: $genders,
+      deployment: $deployment,
+      populationForStrategy: $populationForStrategy
+    })
+      .then((result) => {
+        if (result) {
+          $maxValues = result;
+        }
+      })
+      .catch((error) => {
+        if (error) {
+          console.log('error in max values: ', error);
+        }
+      });
+  }
 </script>
 
 <fieldset>
@@ -24,7 +79,9 @@
     name="marketdata"
     type="checkbox"
     {disabled}
-    bind:checked={$briefing.useMarketData}
+    bind:checked={$useMarketData}
+    on:change={reset}
+    on:change={adaptMaxValues}
   />
   <label for="marketdata__checkbox">{message}</label>
 </fieldset>

@@ -1,7 +1,17 @@
 <script lang="ts">
   // imports
-
-  import {deployment, briefing, maxValues} from '../../../stores/reach';
+  import {Meteor} from 'meteor/meteor';
+  import {
+    ageGroupIndexStart,
+    ageGroupIndexEnd,
+    deployment,
+    genders,
+    marketName,
+    maxValues,
+    populationForStrategy,
+    useMarketData,
+    userId
+  } from '../../../stores/reach';
   import {language} from '../../../stores/utils';
   import createReachTool from '/imports/ui/functions/reach';
   import createConverter from '/imports/ui/functions/convert';
@@ -25,13 +35,38 @@
   $: console.log('$maxValues: in RangeInput $: ', $maxValues);
 
   // functions
+  function adaptMaxValues() {
+    Meteor.callAsync('strategies.maxValuesForTouchPoints', {
+      userId: $userId,
+      marketName: $marketName,
+      ageGroupIndexStart: $ageGroupIndexStart,
+      ageGroupIndexEnd: $ageGroupIndexEnd,
+      genders: $genders,
+      deployment: $deployment,
+      populationForStrategy: $populationForStrategy
+    })
+      .then((result) => {
+        if (result) {
+          $maxValues = result;
+        }
+      })
+      .catch((error) => {
+        if (error) {
+          console.log('error in max values: ', error);
+        }
+      });
+  }
 </script>
 
 <form>
   <fieldset>
     <label for={name}>{touchPointDefinition.displayName}</label>
-    {#if $briefing.useMarketData}
-      <select id={`${name}_inputtype__select`} bind:value={$deployment[index].inputTypeIndex}>
+    {#if $useMarketData}
+      <select
+        id={`${name}_inputtype__select`}
+        bind:value={$deployment[index].inputTypeIndex}
+        on:change={adaptMaxValues}
+      >
         {#each inputTypes as inputType, inputIndex}<option value={inputIndex}>
             {converter.translate(inputType.name, inputTypes, $language)}
           </option>{/each}

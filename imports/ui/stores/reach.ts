@@ -138,21 +138,24 @@ export const populationForStrategy: Readable<Population> = derived(
   }
 );
 
-export const population: Readable<number> = derived([marketData, briefing], ([$marketData, $briefing], set) => {
-  if ($marketData && $briefing.useMarketData) {
-    console.log('briefing ', $briefing, 'in populationForStrategy');
+export const population: Readable<number> = derived(
+  [marketData, marketName, useMarketData],
+  ([$marketData, $marketName, $useMarketData], set) => {
+    if ($marketData && $useMarketData) {
+      console.log('marketName, useMarketData', $marketName, ' and ', $useMarketData, 'in populationForStrategy');
 
-    Meteor.callAsync('populations.countPopulationForMarket', {
-      marketName: $briefing.marketName
-    })
-      .then((result: Population) => {
-        if (result >= 0) {
-          set(result);
-        }
+      Meteor.callAsync('populations.countPopulationForMarket', {
+        marketName: $marketName
       })
-      .catch((error) => console.log('error in population ', error));
+        .then((result: Population) => {
+          if (result >= 0) {
+            set(result);
+          }
+        })
+        .catch((error) => console.log('error in population ', error));
+    }
   }
-});
+);
 
 export const results: Writable<Results> = writable([0, 0]);
 

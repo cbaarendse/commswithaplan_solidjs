@@ -22,7 +22,6 @@
     sortedByName,
     strategy,
     totalReach,
-    touchPointsDefinitions,
     useMarketData,
     userId
   } from '../../../stores/reach';
@@ -38,39 +37,12 @@
     $deployment = reachTool.touchPointsForDeployment(reachTool.touchPointsDefinitions());
   }
 
-  // subscriptions
-
-  // base new briefing on availability of marketData
-  $: if ($marketName && $marketData && $useMarketData) {
-    $results = [0, 0];
-  }
-  // base new deployment on availability and usage of marketData
-  $: Meteor.callAsync('strategies.maxValuesForTouchPoints', {
-    userId: $userId,
-    marketName: $marketName,
-    ageGroupIndexStart: $ageGroupIndexStart,
-    ageGroupIndexEnd: $ageGroupIndexEnd,
-    genders: $genders,
-    deployment: $deployment,
-    populationForStrategy: $populationForStrategy
-  })
-    .then((result) => {
-      if (result) {
-        $maxValues = result;
-      }
-    })
-    .catch((error) => {
-      if (error) {
-        console.log('error in max values: ', error);
-      }
-    });
-
   $: $marketData && useMarketData
     ? deployment.update((data) => {
         return data.map((touchPoint) => {
-          const defaultInputTypeIndexForThisTouchPoint = touchPointsDefinitions().filter(
-            (definition: TouchPointDefinition) => definition.name == touchPoint.name
-          )[0].defaultInputTypeIndex;
+          const defaultInputTypeIndexForThisTouchPoint = reachTool
+            .touchPointsDefinitions()
+            .filter((definition: TouchPointDefinition) => definition.name == touchPoint.name)[0].defaultInputTypeIndex;
           return {...touchPoint, inputTypeIndex: defaultInputTypeIndexForThisTouchPoint};
         });
       })
@@ -83,17 +55,16 @@
   // $: deployment.set(sortedDeployedTouchPoints);
   // $: sortedByName.set(updatedSortedByName);
 
-  $: console.log('$briefing in $: ', $briefing);
-  $: console.log('$deployment: in $: ', $deployment);
+  $: console.log('$strategy in $: ', $strategy);
   $: console.log('$marketData: in $: ', $marketData);
-  $: console.log('useMarketData: in $: ', useMarketData);
+  $: console.log('useMarketData: in $: ', $useMarketData);
   $: console.log('$results: in $: ', $results);
   $: console.log('$totalReach: in $: ', $totalReach);
   $: console.log('$overlap: in $: ', $overlap);
 
   // functions
   function calculateResults() {
-    if ($marketData && $briefing.useMarketData) {
+    if ($marketData && $useMarketData) {
       Meteor.callAsync('strategies.calculateResultsWithData', {
         userId: $userId,
         marketName: $marketName,

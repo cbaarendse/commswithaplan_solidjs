@@ -7,12 +7,13 @@
   import {language, translations} from '../../../stores/utils';
   import {definitions} from '../../../stores/tools';
   import {
-    briefing,
+    marketName,
     overlap,
     population,
     populationForStrategy,
     respondentsCountForMarket,
-    totalReach
+    totalReach,
+    useMarketData
   } from '../../../stores/reach';
   // import Spinner from '../../reusable/Spinner.svelte';
 
@@ -37,13 +38,13 @@
 </script>
 
 <div class="container">
-  {#if $briefing.useMarketData}
+  {#if $useMarketData}
     <div class="amounts__container">
       <span>respondents:</span>
       <output>{formatter.toNumberFormat($respondentsCountForMarket, 0)}</output>
       <span>population in range:</span>
       <output>{formatter.toMillionsFormat($populationForStrategy, 2)}</output>
-      <span>population for {$briefing.marketName}:</span>
+      <span>population for {$marketName}:</span>
       <output>{formatter.toMillionsFormat($population, 1)}</output>
     </div>{/if}
   <div class="meter__container">
