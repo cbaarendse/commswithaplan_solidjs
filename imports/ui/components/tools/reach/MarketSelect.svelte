@@ -3,13 +3,31 @@
   import Fa from 'svelte-fa/src/fa.svelte';
 
   // imports
-  import {marketName, useMarketData} from '../../../stores/reach';
+  import {deployment, marketData, marketName, useMarketData, results} from '../../../stores/reach';
+  import {InputType, TouchPointDefinition} from '/imports/both/typings/types';
   import createReachTool from '/imports/ui/functions/reach';
 
   //variables
   const reachTool = createReachTool();
 
   // functions
+  function reset() {
+    deployment.set(reachTool.touchPointsForDeployment(reachTool.touchPointsDefinitions()));
+    $marketData && $useMarketData
+      ? deployment.update((data) => {
+          return data.map((touchPoint) => {
+            const defaultInputTypeIndexForThisTouchPoint = reachTool
+              .touchPointsDefinitions()
+              .filter(
+                (definition: TouchPointDefinition) => definition.name == touchPoint.name
+              )[0].defaultInputTypeIndex;
+            return {...touchPoint, inputTypeIndex: defaultInputTypeIndexForThisTouchPoint};
+          });
+        })
+      : deployment.update((data) => {
+          return data.map((touchPoint) => Object.assign(touchPoint, {inputTypeIndex: InputType.Reach}));
+        });
+  }
 </script>
 
 <fieldset>
@@ -21,6 +39,8 @@
     on:change={() => {
       $useMarketData = false;
     }}
+    on:change={reset}
+    on:change={() => ($results = [0, 0])}
   >
     {#each reachTool.allMarkets() as thisMarket}
       <option value={thisMarket.name}>{thisMarket.flag || thisMarket.name}</option>

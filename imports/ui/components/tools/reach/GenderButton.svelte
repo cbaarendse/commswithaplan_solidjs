@@ -2,20 +2,11 @@
   // imports
   import Fa from 'svelte-fa/src/fa.svelte';
   import {faPerson, faPersonDress} from '@fortawesome/free-solid-svg-icons';
-  import {genders, marketData} from '../../../stores/reach';
-  import {Strategy} from '/imports/both/typings/types';
+  import {genders, marketData, useMarketData} from '../../../stores/reach';
 
   // variables
-  let useMarketData: Strategy['useMarketData'];
-  let gendersToWorkWith: Set<'f' | 'm' | 'x'> = new Set($genders) ?? new Set(['f', 'm', 'x']);
-  //TODO: change
-  $: disabled = !$marketData || !useMarketData;
-
-  // $: briefing.update((data) => {
-  //   data.genders = genders;
-  //   console.log('genders & data.genders in $: briefing.update: ', genders, data.genders);
-  //   return data;
-  // });
+  $: gendersToWorkWith = new Set($genders) ?? new Set(['f', 'm', 'x']);
+  $: disabled = !$marketData || !$useMarketData;
 
   function toggleGenders() {
     if (gendersToWorkWith) {
@@ -33,7 +24,6 @@
         gendersToWorkWith = new Set(['f', 'm', 'x']);
       }
       $genders = Array.from(gendersToWorkWith);
-      console.log('gendersToWorkWith ', gendersToWorkWith, '& $genders', $genders, ' in toggleGenders ');
     }
   }
 </script>
@@ -46,8 +36,14 @@
     {disabled}
     on:click|preventDefault|stopPropagation={toggleGenders}
   >
-    <Fa icon={faPersonDress} color={gendersToWorkWith.has('f') ? 'var(--ra-red)' : 'var(--ra-grey-light'} />
-    <Fa icon={faPerson} color={gendersToWorkWith.has('m') ? 'var(--ra-red)' : 'var(--ra-grey-light'} />
+    <Fa
+      icon={faPersonDress}
+      color={gendersToWorkWith.has('f') && !gendersToWorkWith.has('x') ? 'var(--ra-red)' : 'var(--ra-grey-light'}
+    />
+    <Fa
+      icon={faPerson}
+      color={gendersToWorkWith.has('m') && !gendersToWorkWith.has('x') ? 'var(--ra-red)' : 'var(--ra-grey-light'}
+    />
   </button>
 </fieldset>
 

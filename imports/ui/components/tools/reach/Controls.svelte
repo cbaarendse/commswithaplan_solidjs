@@ -41,7 +41,6 @@
         ? deployment.set(reachTool.touchPointsForDeployment(reachTool.touchPointsDefinitions()))
         : deployment.set(reachTool.touchPointsForDeployment(reachTool.touchPointsDefinitions()));
     }
-    $results = [0, 0];
   }
 
   function hide() {
@@ -68,7 +67,13 @@
   {/if}
   <div class="operations__container">
     <menu>
-      <button type="button" on:click|stopPropagation|preventDefault={reset}>
+      <button
+        type="button"
+        on:click|stopPropagation|preventDefault={reset}
+        on:click|stopPropagation|preventDefault={() => {
+          $results = [0, 0];
+        }}
+      >
         {#if reachTool.areAllTouchPointsValueZero($deployment)}<Fa icon={faArrowRotateLeft} />{:else}<Fa
             icon={fa0}
           />{/if}
@@ -84,7 +89,14 @@
       <button type="button" on:click|stopPropagation|preventDefault={hide}>
         {#if reachTool.isShowAll($deployment)}<Fa icon={faMinus} />{:else}<Fa icon={faBars} />{/if}
       </button>
-      <button class="save" type="button" on:click|stopPropagation|preventDefault={reset}>
+      <button
+        class="save"
+        type="button"
+        on:click|stopPropagation|preventDefault={reset}
+        on:click|stopPropagation|preventDefault={() => {
+          $results = [0, 0];
+        }}
+      >
         <Fa icon={faDownload} />
       </button>
     </menu>

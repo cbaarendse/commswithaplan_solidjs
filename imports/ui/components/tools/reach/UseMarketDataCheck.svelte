@@ -16,11 +16,9 @@
     results,
     userId
   } from '../../../stores/reach';
-  import createReachTool from '/imports/ui/functions/reach';
-  import {InputType, TouchPointDefinition} from '/imports/both/typings/types';
+  import reset from '../../../functions/reset';
 
   // variables
-  const reachTool = createReachTool();
   const converter = createConverter();
   $: disabled = !$marketData;
   $: message =
@@ -31,24 +29,6 @@
       : converter.translate('no_data', $translations, $language);
 
   // functions
-  function reset() {
-    deployment.set(reachTool.touchPointsForDeployment(reachTool.touchPointsDefinitions()));
-    $marketData && $useMarketData
-      ? deployment.update((data) => {
-          return data.map((touchPoint) => {
-            const defaultInputTypeIndexForThisTouchPoint = reachTool
-              .touchPointsDefinitions()
-              .filter(
-                (definition: TouchPointDefinition) => definition.name == touchPoint.name
-              )[0].defaultInputTypeIndex;
-            return {...touchPoint, inputTypeIndex: defaultInputTypeIndexForThisTouchPoint};
-          });
-        })
-      : deployment.update((data) => {
-          return data.map((touchPoint) => Object.assign(touchPoint, {inputTypeIndex: InputType.Reach}));
-        });
-    $results = [0, 0];
-  }
   function adaptMaxValues() {
     Meteor.callAsync('strategies.maxValuesForTouchPoints', {
       userId: $userId,
@@ -81,6 +61,7 @@
     {disabled}
     bind:checked={$useMarketData}
     on:change={reset}
+    on:change={() => ($results = [0, 0])}
     on:change={adaptMaxValues}
   />
   <label for="marketdata__checkbox">{message}</label>
