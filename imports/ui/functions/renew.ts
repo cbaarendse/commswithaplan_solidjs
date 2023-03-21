@@ -1,5 +1,5 @@
 // imports
-import {deployment, marketData, useMarketData, results} from '../stores/reach';
+import {deployment, marketData, useMarketData} from '../stores/reach';
 import {get} from 'svelte/store';
 import {InputType, TouchPointDefinition} from '/imports/both/typings/types';
 import createReachTool from './reach';
@@ -7,7 +7,7 @@ import createReachTool from './reach';
 // variables
 const reachTool = createReachTool();
 
-export default function reset() {
+export default function renew() {
   deployment.set(reachTool.touchPointsForDeployment(reachTool.touchPointsDefinitions()));
   get(marketData) && get(useMarketData)
     ? deployment.update((data) => {
@@ -19,6 +19,6 @@ export default function reset() {
         });
       })
     : deployment.update((data) => {
-        return data.map((touchPoint) => Object.assign(touchPoint, {inputTypeIndex: InputType.Reach}));
+        return data.map((touchPoint) => Object.assign(touchPoint, {value: 0.0, inputTypeIndex: InputType.Reach}));
       });
 }

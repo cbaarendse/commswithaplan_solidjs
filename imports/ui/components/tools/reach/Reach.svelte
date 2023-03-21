@@ -50,10 +50,11 @@
         return data.map((touchPoint) => Object.assign(touchPoint, {inputTypeIndex: InputType.Reach}));
       });
 
-  // first sort, based on selected language
-  // let [sortedDeployedTouchPoints, updatedSortedByName] = reachTool.sort(deployedTouchPoints, $sortedByName, $language);
-  // $: deployment.set(sortedDeployedTouchPoints);
-  // $: sortedByName.set(updatedSortedByName);
+  //first sort, based on selected language
+  // TODO: check
+  let [sortedDeployedTouchPoints, updatedSortedByName] = reachTool.sort($deployment, $sortedByName, $language);
+  $: deployment.set(sortedDeployedTouchPoints);
+  $: sortedByName.set(updatedSortedByName);
 
   $: console.log('$strategy in $: ', $strategy);
   $: console.log('$marketData: in $: ', $marketData);

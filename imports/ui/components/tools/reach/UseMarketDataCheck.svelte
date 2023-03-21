@@ -16,7 +16,7 @@
     results,
     userId
   } from '../../../stores/reach';
-  import reset from '../../../functions/reset';
+  import renew from '../../../functions/renew';
 
   // variables
   const converter = createConverter();
@@ -29,6 +29,11 @@
       : converter.translate('no_data', $translations, $language);
 
   // functions
+  function reset() {
+    renew();
+    $results = [0, 0];
+  }
+
   function adaptMaxValues() {
     Meteor.callAsync('strategies.maxValuesForTouchPoints', {
       userId: $userId,
@@ -61,7 +66,6 @@
     {disabled}
     bind:checked={$useMarketData}
     on:change={reset}
-    on:change={() => ($results = [0, 0])}
     on:change={adaptMaxValues}
   />
   <label for="marketdata__checkbox">{message}</label>

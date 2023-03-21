@@ -6,6 +6,7 @@
   import UseMarketDataCheck from './UseMarketDataCheck.svelte';
   import MarketSelect from './MarketSelect.svelte';
   import createReachTool from '../../../functions/reach';
+  import renew from '../../../functions/renew';
   import {language} from '../../../stores/utils';
   import {marketData, deployment, results, sortedByName, useMarketData} from '../../../stores/reach';
   import {CWAPUser} from '../../../../both/typings/types';
@@ -32,17 +33,15 @@
 
   // functions
   function reset() {
-    if (!reachTool.areAllTouchPointsValueZero($deployment)) {
+    if (reachTool.areAllTouchPointsValueZero($deployment)) {
       deployment.update((data) => {
         return data.map((touchPoint) => Object.assign(touchPoint, {value: 0.0}));
       });
     } else {
-      $marketData
-        ? deployment.set(reachTool.touchPointsForDeployment(reachTool.touchPointsDefinitions()))
-        : deployment.set(reachTool.touchPointsForDeployment(reachTool.touchPointsDefinitions()));
+      renew();
     }
+    $results = [0, 0];
   }
-
   function hide() {
     deployment.set(reachTool.hide($deployment));
   }
@@ -67,13 +66,7 @@
   {/if}
   <div class="operations__container">
     <menu>
-      <button
-        type="button"
-        on:click|stopPropagation|preventDefault={reset}
-        on:click|stopPropagation|preventDefault={() => {
-          $results = [0, 0];
-        }}
-      >
+      <button type="button" on:click|stopPropagation|preventDefault={reset}>
         {#if reachTool.areAllTouchPointsValueZero($deployment)}<Fa icon={faArrowRotateLeft} />{:else}<Fa
             icon={fa0}
           />{/if}
