@@ -6,13 +6,15 @@
   import {deployment} from '../../../stores/reach';
   import {language} from '../../../stores/utils';
   import createFormatter from '../../../functions/format';
-  import {InputType} from '/imports/both/typings/types';
+  import {DeployedTouchPoint, InputType} from '/imports/both/typings/types';
   //import {notify} from '../../notifications/NotificationsFunctions';
 
   // variables
   export let index: number;
-  const {name, show, definitions} = $deployment[index];
-  $: value = $deployment[index].value;
+  export let name: DeployedTouchPoint['name'];
+  export let value: DeployedTouchPoint['value'];
+  export let show: DeployedTouchPoint['show'];
+  export let definitions: DeployedTouchPoint['definitions'];
   $: definition = definitions.filter((definition) => definition.language == $language)[0];
   const formatter = createFormatter();
   let hovered: boolean = false;
@@ -47,6 +49,7 @@
     />
   </div>
   <div class="center">
+    <!-- TODO: display name in RangeInput not reactive -->
     <RangeInput {index} on:change />
   </div>
   <div class="right">

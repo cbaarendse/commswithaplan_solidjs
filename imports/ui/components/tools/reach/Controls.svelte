@@ -7,6 +7,7 @@
   import MarketSelect from './MarketSelect.svelte';
   import createReachTool from '../../../functions/reach';
   import renew from '../../../functions/renew';
+  import sort from '../../../functions/sort';
   import {language} from '../../../stores/utils';
   import {marketData, deployment, results, sortedByName, useMarketData} from '../../../stores/reach';
   import {CWAPUser} from '../../../../both/typings/types';
@@ -46,8 +47,8 @@
     deployment.set(reachTool.hide($deployment));
   }
 
-  function sort() {
-    const [sortedDeployedTouchPoints, updatedSortedByName] = reachTool.sort($deployment, $sortedByName, $language);
+  function handleSort() {
+    const [sortedDeployedTouchPoints, updatedSortedByName] = sort($language);
     deployment.set(sortedDeployedTouchPoints);
     sortedByName.set(updatedSortedByName);
   }
@@ -71,7 +72,7 @@
             icon={fa0}
           />{/if}
       </button>
-      <button type="button" on:click|stopPropagation|preventDefault={sort}>
+      <button type="button" on:click|stopPropagation|preventDefault={handleSort}>
         {#if $sortedByName}<Fa
             icon={faArrowDownWideShort}
           />{:else if !$sortedByName && reachTool.areAllTouchPointsValueZero($deployment) && reachTool.isShowAll($deployment)}<Fa

@@ -4,6 +4,8 @@
   import Controls from './Controls.svelte';
   import Output from './Output.svelte';
   import TouchPoint from './TouchPoint.svelte';
+  import sort from '../../../functions/sort';
+  import {onMount} from 'svelte';
   import createReachTool from '../../../functions/reach';
   import {language} from '../../../stores/utils';
   import {
@@ -25,8 +27,8 @@
     useMarketData,
     userId
   } from '../../../stores/reach';
-  import {InputType, TouchPointDefinition} from '/imports/both/typings/types';
   import {Meteor} from 'meteor/meteor';
+  import renew from '/imports/ui/functions/renew';
 
   // variables
   const reachTool = createReachTool();
@@ -34,27 +36,15 @@
     $createdAt = new Date();
   }
   if (!$deployment) {
-    $deployment = reachTool.touchPointsForDeployment(reachTool.touchPointsDefinitions());
+    renew();
   }
 
-  $: $marketData && useMarketData
-    ? deployment.update((data) => {
-        return data.map((touchPoint) => {
-          const defaultInputTypeIndexForThisTouchPoint = reachTool
-            .touchPointsDefinitions()
-            .filter((definition: TouchPointDefinition) => definition.name == touchPoint.name)[0].defaultInputTypeIndex;
-          return {...touchPoint, inputTypeIndex: defaultInputTypeIndexForThisTouchPoint};
-        });
-      })
-    : deployment.update((data) => {
-        return data.map((touchPoint) => Object.assign(touchPoint, {inputTypeIndex: InputType.Reach}));
-      });
-
-  //first sort, based on selected language
-  // TODO: check
-  let [sortedDeployedTouchPoints, updatedSortedByName] = reachTool.sort($deployment, $sortedByName, $language);
-  $: deployment.set(sortedDeployedTouchPoints);
-  $: sortedByName.set(updatedSortedByName);
+  //sort, based on selected language
+  $: {
+    const [sortedDeployedTouchPoints, updatedSortedByName] = sort($language);
+    deployment.set(sortedDeployedTouchPoints);
+    sortedByName.set(updatedSortedByName);
+  }
 
   $: console.log('$strategy in $: ', $strategy);
   $: console.log('$marketData: in $: ', $marketData);
@@ -90,8 +80,16 @@
   <div class="container">
     <Controls />
     <Output />
-    {#each $deployment as _, index}
-      <TouchPoint {index} on:change={calculateResults} on:submit={calculateResults} />
+    {#each $deployment as { name, value, show, definitions }, index}
+      <TouchPoint
+        {name}
+        {value}
+        {show}
+        {definitions}
+        {index}
+        on:change={calculateResults}
+        on:submit={calculateResults}
+      />
     {/each}
   </div>
 </section>
