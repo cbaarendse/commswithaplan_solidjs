@@ -27,7 +27,7 @@
 </script>
 
 <form autocomplete="off" on:submit>
-  <label for={name}>{$language === 'nl_NL' ? 'Invoer voor ' : 'Input for '}{definition.displayName}</label>
+  <label for={name}>{$language === 'nl-NL' ? 'Invoer voor ' : 'Input for '}{definition.displayName}</label>
   <input
     class="input__field"
     {name}
@@ -40,11 +40,11 @@
     readonly={false}
     bind:value={$deployment[index].value}
   />
-  <input class="submit__button" type="submit" value={$language === 'nl_NL' ? 'Verstuur' : 'Submit'} {disabled} />
+  <input class="submit__button" type="submit" value={$language === 'nl-NL' ? 'Verstuur' : 'Submit'} {disabled} />
   <input
     class="cancel__button"
     type="button"
-    value={$language === 'nl_NL' ? 'Annuleer' : 'Cancel'}
+    value={$language === 'nl-NL' ? 'Annuleer' : 'Cancel'}
     on:click|preventDefault|stopPropagation
   />
 </form>

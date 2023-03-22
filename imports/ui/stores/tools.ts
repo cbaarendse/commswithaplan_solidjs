@@ -13,14 +13,14 @@ export const toolsHomeItems: Readable<(Actionable & Color)[]> = readable(
       link: '/tools/reach',
       definitions: [
         {
-          language: 'en_GB',
+          language: 'en-GB',
           displayName: 'Tools',
           description:
             'Comms With A Plan developes tools aimed to help advertisers who are not working with media agencies. For instance because they have inhouse capabilities, or because they currently do not have the proper size.',
           action: 'Try the reach tool...'
         },
         {
-          language: 'nl_NL',
+          language: 'nl-NL',
           displayName: 'Tools',
           description:
             'Comms With A Plan ontwikkelt tools voor adverteerders die niet met mediabureaus werken. Bijvoorbeeld omdat zij intern genoeg bekwaamheid bezitten, of omdat ze op het moment niet de juiste grootte hebben.',
@@ -34,14 +34,14 @@ export const toolsHomeItems: Readable<(Actionable & Color)[]> = readable(
       link: '/tools/docs',
       definitions: [
         {
-          language: 'en_GB',
+          language: 'en-GB',
           displayName: 'Reach',
           description:
             'Right now the Reach tool uses an algoritm to estimate the total reach of your campaign; If you input the reach of the individual medium types. Read the Docs for more information.',
           action: 'Read about the reach tool...'
         },
         {
-          language: 'nl_NL',
+          language: 'nl-NL',
           displayName: 'Bereik',
           description:
             'Op dit moment gebruikt de Bereik-tool een algoritme om het totaalbereik van je campagne in te schatten; Als je het bereik van elk individueel mediumtype invoert. Lees de Documentatie voor meer informatie.',
@@ -63,13 +63,13 @@ export const definitions: Readable<Content[]> = readable(
       name: 'total_reach',
       definitions: [
         {
-          language: 'en_GB',
+          language: 'en-GB',
           displayName: 'Total Reach',
           description:
             'The % of people that perceive your message(s), through one or more of the selected Medium Types/ Touch Points'
         },
         {
-          language: 'nl_NL',
+          language: 'nl-NL',
           displayName: 'Total Bereik',
           description:
             'Het % mensen dat je boodschap waarneemt, door middel van één of meer van de geselecteerde Mediumtypen/ Touch Points'
@@ -80,13 +80,13 @@ export const definitions: Readable<Content[]> = readable(
       name: 'overlap',
       definitions: [
         {
-          language: 'en_GB',
+          language: 'en-GB',
           displayName: 'Overlap',
           description:
             'Only the % of people that perceive your message(s), through áll of the selected Medium Types/ Touch Points'
         },
         {
-          language: 'nl_NL',
+          language: 'nl-NL',
           displayName: 'Overlap',
           description:
             'Alleen het % mensen dat je boodschap waarneemt door middel van álle geselecteerde Mediumtypen/ Touch Points'
@@ -106,7 +106,7 @@ export const toolsDocumentationChapters: Readable<Chapter[]> = readable(
     {
       name: 'chapter_1',
       imgFiles: ['/chapter_1_1.png'],
-      language: 'en_GB',
+      language: 'en-GB',
       displayName: 'Operation',
       paragraphs: [
         {
@@ -126,7 +126,7 @@ export const toolsDocumentationChapters: Readable<Chapter[]> = readable(
     {
       name: 'chapter_1',
       imgFiles: ['/chapter_1_1.png'],
-      language: 'nl_NL',
+      language: 'nl-NL',
       displayName: 'Bediening',
       paragraphs: [
         {
@@ -146,7 +146,7 @@ export const toolsDocumentationChapters: Readable<Chapter[]> = readable(
     {
       name: 'chapter_2',
       imgFiles: ['/chapter_2_1.png'],
-      language: 'en_GB',
+      language: 'en-GB',
       displayName: 'Reset',
       paragraphs: [
         {
@@ -166,7 +166,7 @@ export const toolsDocumentationChapters: Readable<Chapter[]> = readable(
     {
       name: 'chapter_2',
       imgFiles: ['/chapter_2_1.png'],
-      language: 'nl_NL',
+      language: 'nl-NL',
       displayName: 'Reset',
       paragraphs: [
         {
@@ -186,7 +186,7 @@ export const toolsDocumentationChapters: Readable<Chapter[]> = readable(
     {
       name: 'chapter_3',
       imgFiles: ['/chapter_3_1.png'],
-      language: 'en_GB',
+      language: 'en-GB',
       displayName: 'Sort',
       paragraphs: [
         {
@@ -205,7 +205,7 @@ export const toolsDocumentationChapters: Readable<Chapter[]> = readable(
     {
       name: 'chapter_3',
       imgFiles: ['/chapter_3_1.png'],
-      language: 'nl_NL',
+      language: 'nl-NL',
       displayName: 'Sorteer',
       paragraphs: [
         {
@@ -224,7 +224,7 @@ export const toolsDocumentationChapters: Readable<Chapter[]> = readable(
     {
       name: 'chapter_4',
       imgFiles: ['/chapter_4_1.png'],
-      language: 'en_GB',
+      language: 'en-GB',
       displayName: 'Hide',
       paragraphs: [
         {
@@ -242,7 +242,7 @@ export const toolsDocumentationChapters: Readable<Chapter[]> = readable(
     {
       name: 'chapter_4',
       imgFiles: ['/chapter_4_1.png'],
-      language: 'nl_NL',
+      language: 'nl-NL',
       displayName: 'Verberg',
       paragraphs: [
         {
@@ -260,7 +260,7 @@ export const toolsDocumentationChapters: Readable<Chapter[]> = readable(
     {
       name: 'chapter_5',
       imgFiles: ['/chapter_5_1.png'],
-      language: 'en_GB',
+      language: 'en-GB',
       displayName: 'Outcome',
       paragraphs: [
         {
@@ -274,7 +274,7 @@ export const toolsDocumentationChapters: Readable<Chapter[]> = readable(
     {
       name: 'chapter_5',
       imgFiles: ['/chapter_5_1.png'],
-      language: 'nl_NL',
+      language: 'nl-NL',
       displayName: 'Uitkomst',
       paragraphs: [
         {
@@ -288,7 +288,7 @@ export const toolsDocumentationChapters: Readable<Chapter[]> = readable(
     {
       name: 'chapter_6',
       imgFiles: ['/chapter_6_1.png'],
-      language: 'en_GB',
+      language: 'en-GB',
       displayName: 'Output',
       paragraphs: [
         {
@@ -302,7 +302,7 @@ export const toolsDocumentationChapters: Readable<Chapter[]> = readable(
     {
       name: 'chapter_6',
       imgFiles: ['/chapter_6_1.png'],
-      language: 'nl_NL',
+      language: 'nl-NL',
       displayName: 'Uitvoer',
       paragraphs: [
         {
@@ -316,7 +316,7 @@ export const toolsDocumentationChapters: Readable<Chapter[]> = readable(
     {
       name: 'chapter_7',
       imgFiles: ['/chapter_7_1.png', '/chapter_7_2.png'],
-      language: 'en_GB',
+      language: 'en-GB',
       displayName: 'Medium type',
       paragraphs: [
         {
@@ -329,7 +329,7 @@ export const toolsDocumentationChapters: Readable<Chapter[]> = readable(
     {
       name: 'chapter_7',
       imgFiles: ['/chapter_7_1.png', '/chapter_7_2.png'],
-      language: 'nl_NL',
+      language: 'nl-NL',
       displayName: 'Mediumtype',
       paragraphs: [
         {
@@ -342,7 +342,7 @@ export const toolsDocumentationChapters: Readable<Chapter[]> = readable(
     {
       name: 'chapter_8',
       imgFiles: ['/chapter_8_1.png', '/chapter_8_2.png'],
-      language: 'en_GB',
+      language: 'en-GB',
       displayName: 'Precision input',
       paragraphs: [
         {
@@ -361,7 +361,7 @@ export const toolsDocumentationChapters: Readable<Chapter[]> = readable(
     {
       name: 'chapter_8',
       imgFiles: ['/chapter_8_1.png', '/chapter_8_2.png'],
-      language: 'nl_NL',
+      language: 'nl-NL',
       displayName: 'Precieze invoer',
       paragraphs: [
         {

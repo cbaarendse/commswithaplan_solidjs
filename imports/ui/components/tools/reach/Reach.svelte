@@ -80,11 +80,12 @@
   <div class="container">
     <Controls />
     <Output />
-    {#each $deployment as { name, value, show, definitions }, index}
+    {#each $deployment as { name, value, show, inputTypeIndex, definitions }, index}
       <TouchPoint
         {name}
         {value}
         {show}
+        {inputTypeIndex}
         {definitions}
         {index}
         on:change={calculateResults}

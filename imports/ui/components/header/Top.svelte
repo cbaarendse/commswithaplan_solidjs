@@ -30,8 +30,8 @@
     <li>
       <a
         href={'javascript:void(0)'}
-        class:active={$language === 'nl_NL'}
-        on:click|stopPropagation|preventDefault={() => ($language = 'nl_NL')}
+        class:active={$language === 'nl-NL'}
+        on:click|stopPropagation|preventDefault={() => ($language = 'nl-NL')}
         data-tinro-ignore
       >
         <span>NL</span>
@@ -41,8 +41,8 @@
     <li>
       <a
         href={'javascript:void(0)'}
-        class:active={$language === 'en_GB'}
-        on:click|stopPropagation|preventDefault={() => ($language = 'en_GB')}
+        class:active={$language === 'en-GB'}
+        on:click|stopPropagation|preventDefault={() => ($language = 'en-GB')}
         data-tinro-ignore
       >
         <span>EN</span>

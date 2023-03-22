@@ -64,21 +64,20 @@
 {#if $consentFooterVisible}
   <section transition:slide={{delay: 200, duration: 1000}}>
     <span>
-      {$language == 'nl_NL' ? 'Akkoord opslag cookies' : 'Agree storage of cookies'}&nbsp;(
+      {$language == 'nl-NL' ? 'Akkoord opslag cookies' : 'Agree storage of cookies'}&nbsp;(
       <nav>
         <a href="/legal/cookiepolicy">
-          {#if $language == 'nl_NL'}cookiebeleid{:else}cookie policy{/if}
+          {#if $language == 'nl-NL'}cookiebeleid{:else}cookie policy{/if}
         </a>
       </nav>
       )
     </span>
     <Checkbox
-      displayName={$language == 'nl_NL' ? 'Advertenties / Analyse / Persoonlijk' : 'Ads / Analysis / Personal'}
+      displayName={$language == 'nl-NL' ? 'Advertenties / Analyse / Persoonlijk' : 'Ads / Analysis / Personal'}
       cbx={{
         class: 'consent__checkbox',
         id: 'dynamic_cookies__checkbox',
         name: 'dynamic_cookies_consent',
-        fontSize: '1em',
         readonly: false,
         disabled: false
       }}
@@ -86,12 +85,11 @@
     />
 
     <Checkbox
-      displayName={$language == 'nl_NL' ? 'Functioneel / Veiligheid' : 'Functional / Security'}
+      displayName={$language == 'nl-NL' ? 'Functioneel / Veiligheid' : 'Functional / Security'}
       cbx={{
         class: 'consent__checkbox',
         id: 'persistent_cookies__checkbox',
         name: 'persistent_cookies_consent',
-        fontSize: '1em',
         readonly: false,
         disabled: persistent_cookies_checked
       }}
@@ -106,7 +104,7 @@
         on:click|stopPropagation|preventDefault={() => (dynamic_cookies_checked = false)}
         on:click|stopPropagation|preventDefault={() => closeConsentSection()}
       >
-        {#if $language == 'nl_NL'}Wijs af{:else}Reject{/if}
+        {#if $language == 'nl-NL'}Wijs af{:else}Reject{/if}
       </button>
       <button
         class="grant"
@@ -116,7 +114,7 @@
         on:click|stopPropagation|preventDefault={() => (dynamic_cookies_checked = true)}
         on:click|stopPropagation|preventDefault={() => closeConsentSection()}
       >
-        {#if $language == 'nl_NL'}Accepteer{:else}Accept{/if}
+        {#if $language == 'nl-NL'}Accepteer{:else}Accept{/if}
       </button>
     </menu>
   </section>

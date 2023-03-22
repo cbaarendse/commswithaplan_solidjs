@@ -5,7 +5,7 @@ import {writable, Writable, readable, Readable} from 'svelte/store';
 import type {Translation, Language} from '../../both/typings/types';
 
 // stores
-export const language: Writable<Language> = writable('nl_NL');
+export const language: Writable<Language> = writable('nl-NL');
 
 export const consentFooterVisible: Writable<boolean | null> = writable(true);
 
@@ -43,204 +43,204 @@ export const translations: Readable<Translation[]> = readable(
     {
       name: '/',
       definitions: [
-        {language: 'en_GB', displayName: 'Home'},
-        {language: 'nl_NL', displayName: 'Home'}
+        {language: 'en-GB', displayName: 'Home'},
+        {language: 'nl-NL', displayName: 'Home'}
       ]
     },
     {
       name: 'about',
       definitions: [
-        {language: 'en_GB', displayName: 'About'},
-        {language: 'nl_NL', displayName: 'Over'}
+        {language: 'en-GB', displayName: 'About'},
+        {language: 'nl-NL', displayName: 'Over'}
       ]
     },
     {
       name: 'advertisement',
       definitions: [
-        {language: 'en_GB', displayName: 'Advertisement'},
-        {language: 'nl_NL', displayName: 'Advertentie'}
+        {language: 'en-GB', displayName: 'Advertisement'},
+        {language: 'nl-NL', displayName: 'Advertentie'}
       ]
     },
     {
       name: 'consultancy',
       definitions: [
-        {language: 'en_GB', displayName: 'Consultancy'},
-        {language: 'nl_NL', displayName: 'Consultancy'}
+        {language: 'en-GB', displayName: 'Consultancy'},
+        {language: 'nl-NL', displayName: 'Consultancy'}
       ]
     },
     {
       name: 'contact',
       definitions: [
-        {language: 'en_GB', displayName: 'Contact'},
-        {language: 'nl_NL', displayName: 'Contact'}
+        {language: 'en-GB', displayName: 'Contact'},
+        {language: 'nl-NL', displayName: 'Contact'}
       ]
     },
     {
       name: 'docs',
       definitions: [
-        {language: 'en_GB', displayName: 'Docs'},
-        {language: 'nl_NL', displayName: 'Documentatie'}
+        {language: 'en-GB', displayName: 'Docs'},
+        {language: 'nl-NL', displayName: 'Documentatie'}
       ]
     },
     {
-      name: 'nl_NL',
+      name: 'nl-NL',
       definitions: [
-        {language: 'en_GB', displayName: 'Dutch'},
-        {language: 'nl_NL', displayName: 'Nederlands'}
+        {language: 'en-GB', displayName: 'Dutch'},
+        {language: 'nl-NL', displayName: 'Nederlands'}
       ]
     },
     {
-      name: 'en_GB',
+      name: 'en-GB',
       definitions: [
-        {language: 'en_GB', displayName: 'English'},
-        {language: 'nl_NL', displayName: 'Engels'}
+        {language: 'en-GB', displayName: 'English'},
+        {language: 'nl-NL', displayName: 'Engels'}
       ]
     },
     {
       name: 'enter_reach',
       definitions: [
-        {language: 'en_GB', displayName: 'Enter Reach for'},
-        {language: 'nl_NL', displayName: 'Vul Bereik in voor'}
+        {language: 'en-GB', displayName: 'Enter Reach for'},
+        {language: 'nl-NL', displayName: 'Vul Bereik in voor'}
       ]
     },
     {
       name: 'hide',
       definitions: [
-        {language: 'en_GB', displayName: 'HIDE'},
-        {language: 'nl_NL', displayName: 'VERBERG'}
+        {language: 'en-GB', displayName: 'HIDE'},
+        {language: 'nl-NL', displayName: 'VERBERG'}
       ]
     },
     {
       name: 'home',
       definitions: [
-        {language: 'en_GB', displayName: 'Home'},
-        {language: 'nl_NL', displayName: 'Home'}
+        {language: 'en-GB', displayName: 'Home'},
+        {language: 'nl-NL', displayName: 'Home'}
       ]
     },
     {
       name: 'input',
       definitions: [
-        {language: 'en_GB', displayName: 'Input'},
-        {language: 'nl_NL', displayName: 'Input'}
+        {language: 'en-GB', displayName: 'Input'},
+        {language: 'nl-NL', displayName: 'Input'}
       ]
     },
     {
       name: 'legal',
       definitions: [
-        {language: 'en_GB', displayName: 'Legal'},
-        {language: 'nl_NL', displayName: 'Juridisch'}
+        {language: 'en-GB', displayName: 'Legal'},
+        {language: 'nl-NL', displayName: 'Juridisch'}
       ]
     },
     {
       name: 'no_data',
       definitions: [
-        {language: 'en_GB', displayName: 'no data for this market'},
-        {language: 'nl_NL', displayName: 'geen data voor deze markt'}
+        {language: 'en-GB', displayName: 'no data for this market'},
+        {language: 'nl-NL', displayName: 'geen data voor deze markt'}
       ]
     },
     {
       name: 'notfound',
       definitions: [
-        {language: 'en_GB', displayName: 'Not Found'},
-        {language: 'nl_NL', displayName: 'Niet Gevonden'}
+        {language: 'en-GB', displayName: 'Not Found'},
+        {language: 'nl-NL', displayName: 'Niet Gevonden'}
       ]
     },
     {
       name: 'overlap',
       definitions: [
-        {language: 'en_GB', displayName: 'Overlap'},
-        {language: 'nl_NL', displayName: 'Overlap'}
+        {language: 'en-GB', displayName: 'Overlap'},
+        {language: 'nl-NL', displayName: 'Overlap'}
       ]
     },
     {
       name: 'precisionInputFor',
       definitions: [
-        {language: 'nl_NL', displayName: 'Precisie invoer voor '},
-        {language: 'en_GB', displayName: 'Precision input for '}
+        {language: 'nl-NL', displayName: 'Precisie invoer voor '},
+        {language: 'en-GB', displayName: 'Precision input for '}
       ]
     },
     {
       name: 'reach',
       definitions: [
-        {language: 'en_GB', displayName: 'Reach'},
-        {language: 'nl_NL', displayName: 'Bereik'}
+        {language: 'en-GB', displayName: 'Reach'},
+        {language: 'nl-NL', displayName: 'Bereik'}
       ]
     },
     {
       name: 'reach_error',
       definitions: [
-        {language: 'en_GB', displayName: 'Reach can be maximum 100, minimum 0'},
-        {language: 'nl_NL', displayName: 'Bereik mag maximaal 100 zijn, minimaal 0'}
+        {language: 'en-GB', displayName: 'Reach can be maximum 100, minimum 0'},
+        {language: 'nl-NL', displayName: 'Bereik mag maximaal 100 zijn, minimaal 0'}
       ]
     },
     {
       name: 'read',
       definitions: [
-        {language: 'en_GB', displayName: 'Read'},
-        {language: 'nl_NL', displayName: 'Lees'}
+        {language: 'en-GB', displayName: 'Read'},
+        {language: 'nl-NL', displayName: 'Lees'}
       ]
     },
     {
       name: 'reset',
       definitions: [
-        {language: 'en_GB', displayName: 'RESET'},
-        {language: 'nl_NL', displayName: 'RESET'}
+        {language: 'en-GB', displayName: 'RESET'},
+        {language: 'nl-NL', displayName: 'RESET'}
       ]
     },
     {
       name: 'show',
       definitions: [
-        {language: 'en_GB', displayName: 'SHOW'},
-        {language: 'nl_NL', displayName: 'TOON'}
+        {language: 'en-GB', displayName: 'SHOW'},
+        {language: 'nl-NL', displayName: 'TOON'}
       ]
     },
     {
       name: 'strategies',
       definitions: [
-        {language: 'en_GB', displayName: 'Strategies'},
-        {language: 'nl_NL', displayName: 'Strategieën'}
+        {language: 'en-GB', displayName: 'Strategies'},
+        {language: 'nl-NL', displayName: 'Strategieën'}
       ]
     },
     {
       name: 'tools',
       definitions: [
-        {language: 'en_GB', displayName: 'Tools'},
-        {language: 'nl_NL', displayName: 'Tools'}
+        {language: 'en-GB', displayName: 'Tools'},
+        {language: 'nl-NL', displayName: 'Tools'}
       ]
     },
     {
       name: 'total',
       definitions: [
-        {language: 'en_GB', displayName: 'Total'},
-        {language: 'nl_NL', displayName: 'Totaal'}
+        {language: 'en-GB', displayName: 'Total'},
+        {language: 'nl-NL', displayName: 'Totaal'}
       ]
     },
     {
       name: 'using_data',
       definitions: [
-        {language: 'en_GB', displayName: 'uses data'},
-        {language: 'nl_NL', displayName: 'gebruikt data'}
+        {language: 'en-GB', displayName: 'uses data'},
+        {language: 'nl-NL', displayName: 'gebruikt data'}
       ]
     },
     {
       name: 'using_formula',
       definitions: [
-        {language: 'en_GB', displayName: 'uses formula'},
-        {language: 'nl_NL', displayName: 'gebruikt formule'}
+        {language: 'en-GB', displayName: 'uses formula'},
+        {language: 'nl-NL', displayName: 'gebruikt formule'}
       ]
     },
     {
       name: 'work',
       definitions: [
-        {language: 'en_GB', displayName: 'Work'},
-        {language: 'nl_NL', displayName: 'Werk'}
+        {language: 'en-GB', displayName: 'Work'},
+        {language: 'nl-NL', displayName: 'Werk'}
       ]
     },
     {
       name: 'year',
       definitions: [
-        {language: 'en_GB', displayName: 'Year'},
-        {language: 'nl_NL', displayName: 'Jaar'}
+        {language: 'en-GB', displayName: 'Year'},
+        {language: 'nl-NL', displayName: 'Jaar'}
       ]
     }
   ],

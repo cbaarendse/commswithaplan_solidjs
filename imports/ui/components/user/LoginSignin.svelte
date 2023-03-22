@@ -111,7 +111,7 @@
             type="text"
             name="username"
             class="input__field"
-            placeholder={$language == 'nl_NL' ? 'gebruikersnaam (1 woord)' : 'username (1 word)'}
+            placeholder={$language == 'nl-NL' ? 'gebruikersnaam (1 woord)' : 'username (1 word)'}
             bind:value={username}
           />
           <label for="email">E-mail</label>
@@ -119,7 +119,7 @@
             type="email"
             name="email"
             class="input__field"
-            placeholder={$language == 'nl_NL' ? 'e-mail adres' : 'e-mail address'}
+            placeholder={$language == 'nl-NL' ? 'e-mail adres' : 'e-mail address'}
             bind:value={email}
           />{/if}
         {#if !$signin}<label for="login">Login</label>
@@ -127,7 +127,7 @@
             type="text"
             name="login"
             class="input__field"
-            placeholder={$language == 'nl_NL' ? 'e-mail adres of gebruikersnaam' : 'e-mail address or username'}
+            placeholder={$language == 'nl-NL' ? 'e-mail adres of gebruikersnaam' : 'e-mail address or username'}
             bind:value={login}
           />{/if}
         <label for="password">Password</label>
@@ -135,7 +135,7 @@
           type="password"
           name="password"
           class="input__field"
-          placeholder={$language == 'nl_NL' ? 'wachtwoord' : 'password'}
+          placeholder={$language == 'nl-NL' ? 'wachtwoord' : 'password'}
           bind:value={password}
         />
       </fieldset>

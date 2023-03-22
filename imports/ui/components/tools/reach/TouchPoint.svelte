@@ -3,7 +3,6 @@
   import RangeInput from './RangeInput.svelte';
   import Modal from '../../reusable/Modal.svelte';
   import NumberInput from './NumberInput.svelte';
-  import {deployment} from '../../../stores/reach';
   import {language} from '../../../stores/utils';
   import createFormatter from '../../../functions/format';
   import {DeployedTouchPoint, InputType} from '/imports/both/typings/types';
@@ -14,6 +13,7 @@
   export let name: DeployedTouchPoint['name'];
   export let value: DeployedTouchPoint['value'];
   export let show: DeployedTouchPoint['show'];
+  export let inputTypeIndex: DeployedTouchPoint['inputTypeIndex'];
   export let definitions: DeployedTouchPoint['definitions'];
   $: definition = definitions.filter((definition) => definition.language == $language)[0];
   const formatter = createFormatter();
@@ -50,7 +50,7 @@
   </div>
   <div class="center">
     <!-- TODO: display name in RangeInput not reactive -->
-    <RangeInput {index} on:change />
+    <RangeInput {index} {value} {name} {inputTypeIndex} {definitions} on:change />
   </div>
   <div class="right">
     <button
@@ -61,11 +61,11 @@
       }}
     >
       <span>
-        {#if $deployment[index].inputTypeIndex == InputType.Grps}{formatter.toNumberFormat(value, 0)}
-        {:else if $deployment[index].inputTypeIndex == InputType.Reach}{formatter.toPercentFormat(
+        {#if inputTypeIndex == InputType.Grps}{formatter.toNumberFormat(value, 0)}
+        {:else if inputTypeIndex == InputType.Reach}{formatter.toPercentFormat(
             value,
             0
-          )}{:else if $deployment[index].inputTypeIndex == InputType.Contacts || $deployment[index].inputTypeIndex == InputType.Impressions}{formatter.toMillionsFormat(
+          )}{:else if inputTypeIndex == InputType.Contacts || inputTypeIndex == InputType.Impressions}{formatter.toMillionsFormat(
             value,
             2
           )}{/if}

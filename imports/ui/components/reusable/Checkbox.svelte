@@ -9,12 +9,12 @@
 </script>
 
 <form>
-  <label for={cbx.name} style="font-size: {cbx.fontSize}">{displayName}</label>
+  <label for={cbx.name} style="font-size: {cbx.size}">{displayName}</label>
   <input
     class="{`input__checkbox ${cbx.class}`};"
     name={cbx.name}
     id={cbx.id}
-    style="font-size: {cbx.fontSize}"
+    style="font-size: 1em"
     type="checkbox"
     placeholder={cbx.placeholder}
     min={cbx.min}

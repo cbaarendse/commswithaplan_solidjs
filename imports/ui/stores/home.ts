@@ -11,13 +11,13 @@ export const homeItems: Readable<(Actionable & Illustrated & Color)[]> = readabl
       color: 'blue',
       definitions: [
         {
-          language: 'en_GB',
+          language: 'en-GB',
           displayName: 'Consultancy',
           description: 'Comms With A Plan provides Media Management consultancy.',
           action: 'Read more'
         },
         {
-          language: 'nl_NL',
+          language: 'nl-NL',
           displayName: 'Consultancy',
           description: 'Comms With A Plan levert Media Management consultancy.',
           action: 'Lees meer'
@@ -31,13 +31,13 @@ export const homeItems: Readable<(Actionable & Illustrated & Color)[]> = readabl
       color: 'green',
       definitions: [
         {
-          language: 'en_GB',
+          language: 'en-GB',
           displayName: 'Tools',
           description: 'Handy tools for your media efforts.',
           action: 'Read more'
         },
         {
-          language: 'nl_NL',
+          language: 'nl-NL',
           displayName: 'Tools',
           description: 'Handige tools voor je media inzet.',
           action: 'Lees meer'

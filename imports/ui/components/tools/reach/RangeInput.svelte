@@ -17,20 +17,23 @@
   import createConverter from '/imports/ui/functions/convert';
   import Fa from 'svelte-fa/src/fa.svelte';
   import {faSort} from '@fortawesome/free-solid-svg-icons';
+  import {DeployedTouchPoint} from '/imports/both/typings/types';
 
   //variables
   const reachTool = createReachTool();
   const converter = createConverter();
   export let index: number;
-  const {name, definitions} = $deployment[index];
+  export let name: DeployedTouchPoint['name'];
+  export let value: DeployedTouchPoint['value'];
+  export let inputTypeIndex: DeployedTouchPoint['inputTypeIndex'];
+  export let definitions: DeployedTouchPoint['definitions'];
+
   const inputTypes = reachTool.allInputTypes();
-  let inputTypeName = inputTypes[$deployment[index].inputTypeIndex].name;
+  let inputTypeName = inputTypes[inputTypeIndex].name;
   const min = 0;
   $: max = $maxValues[name] ?? 100;
   $: step = (max - min) / 100 ?? 1;
-  let touchPointDefinition = definitions.filter(
-    (touchPointDefinition) => touchPointDefinition.language == $language
-  )[0];
+  let touchPointDefinition = definitions.filter((definition) => definition.language == $language)[0];
 
   $: console.log('$maxValues: in RangeInput $: ', $maxValues);
 
@@ -62,11 +65,7 @@
   <fieldset>
     <label for={name}>{touchPointDefinition.displayName}</label>
     {#if $useMarketData}
-      <select
-        id={`${name}_inputtype__select`}
-        bind:value={$deployment[index].inputTypeIndex}
-        on:change={adaptMaxValues}
-      >
+      <select id={`${name}_inputtype__select`} bind:value={inputTypeIndex} on:change={adaptMaxValues}>
         {#each inputTypes as inputType, inputIndex}<option value={inputIndex}>
             {converter.translate(inputType.name, inputTypes, $language)}
           </option>{/each}
@@ -75,7 +74,19 @@
     {:else}
       <span>{converter.translate(inputTypeName, inputTypes, $language)}</span>
     {/if}
-    <input type="range" {min} {max} {step} id={name} {name} bind:value={$deployment[index].value} on:change />
+    <input
+      type="range"
+      {min}
+      {max}
+      {step}
+      id={name}
+      {name}
+      bind:value
+      on:input={() => {
+        $deployment[index].value = value;
+      }}
+      on:change
+    />
   </fieldset>
 </form>
 

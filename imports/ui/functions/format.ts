@@ -1,5 +1,7 @@
 // imports
 import {DateTime} from 'luxon';
+import {language} from '../stores/utils';
+import {get} from 'svelte/store';
 
 // class
 export default function createFormatter() {
@@ -34,7 +36,11 @@ export default function createFormatter() {
   }
   function toMillionsFormat(value: number, digits: number): string {
     value = value / 1_000_000;
-    return new Intl.NumberFormat('nl-NL', {style: 'decimal', maximumFractionDigits: digits}).format(value) + ' M';
+    return new Intl.NumberFormat(get(language), {
+      style: 'decimal',
+      maximumFractionDigits: digits,
+      notation: 'compact'
+    }).format(value);
   }
 
   function toCurrencySymbol(currency: string): string {

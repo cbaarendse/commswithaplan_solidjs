@@ -17,7 +17,7 @@
 <BreadCrumbs />
 <section>
   <p>
-    {#if $language === 'nl_NL'}
+    {#if $language === 'nl-NL'}
       Zaken die ik manage gedurende het reclameproces (je kan kiezen en mixen):
     {:else}
       Things I'll manage along the advertising process (you can pick and mix):

@@ -22,7 +22,7 @@
 </script>
 
 <form>
-  <label for={select.name}>{$language === 'nl_NL' ? 'Kies ' : 'Choose '}{displayName}</label>
+  <label for={select.name}>{$language === 'nl-NL' ? 'Kies ' : 'Choose '}{displayName}</label>
   <select
     class={select.class}
     id={select.id}
