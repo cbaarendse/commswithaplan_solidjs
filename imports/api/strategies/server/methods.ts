@@ -111,7 +111,7 @@ Meteor.methods({
     const reachedUniqueRespondentsForStrategy: Set<number> = new Set(reachedNonUniqueRespondentsForStrategy); // OK
     //TODO respondentsForStrategy
     // total reach
-    const totalReachForResult = (reachedUniqueRespondentsForStrategy.size / respondentsCountForStrategy) * 100;
+    const totalReachForResult = reachedUniqueRespondentsForStrategy.size / respondentsCountForStrategy;
     // Count respondents for overlap
     reachedUniqueRespondentsForStrategy.forEach((respondentId) => {
       for (const touchPoint of touchPointsDeployed) {
@@ -124,7 +124,7 @@ Meteor.methods({
     console.log('respondentsCountedForOverlap in calculate result: ', respondentsCountedForOverlap);
 
     // strategy.overlap
-    const overlapForResult = (respondentsCountedForOverlap.length / respondentsCountForStrategy) * 100;
+    const overlapForResult = respondentsCountedForOverlap.length / respondentsCountForStrategy;
     console.log('totalReachForResult: ', totalReachForResult, 'overlapForResult: ', overlapForResult);
 
     return [totalReachForResult, overlapForResult];
@@ -177,8 +177,16 @@ Meteor.methods({
             10000
         );
       } else if (touchPoint.inputTypeIndex == InputType.Reach && respondentsProbabilitiesForTouchPoint) {
+        console.log(
+          'respondentsProbabilitiesForTouchPoint.size and respondentsCountForStrategy: ',
+          respondentsProbabilitiesForTouchPoint.size,
+          respondentsCountForStrategy,
+          'for: ',
+          touchPoint.name
+        );
+
         const maxReach = respondentsProbabilitiesForTouchPoint.size / respondentsCountForStrategy;
-        maxValues.set(touchPoint.name, Math.max(maxReach, 100));
+        maxValues.set(touchPoint.name, Math.max(maxReach, 1));
       }
     });
     return Object.fromEntries(maxValues);

@@ -38,7 +38,6 @@
   if (!$deployment) {
     renew();
   }
-
   //sort, based on selected language
   $: {
     const [sortedDeployedTouchPoints, updatedSortedByName] = sort($language);
@@ -54,6 +53,7 @@
   $: console.log('$overlap: in $: ', $overlap);
 
   // functions
+
   function calculateResults() {
     if ($marketData && $useMarketData) {
       Meteor.callAsync('strategies.calculateResultsWithData', {
@@ -80,14 +80,14 @@
   <div class="container">
     <Controls />
     <Output />
-    {#each $deployment as { name, value, show, inputTypeIndex, definitions }, index}
+    {#each $deployment as { name, show, inputTypeIndex, definitions }, index}
       <TouchPoint
         {name}
-        {value}
         {show}
         {inputTypeIndex}
         {definitions}
         {index}
+        bind:value={$deployment[index].value}
         on:change={calculateResults}
         on:submit={calculateResults}
       />

@@ -22,7 +22,6 @@
   //variables
   const reachTool = createReachTool();
   const converter = createConverter();
-  export let index: number;
   export let name: DeployedTouchPoint['name'];
   export let value: DeployedTouchPoint['value'];
   export let inputTypeIndex: DeployedTouchPoint['inputTypeIndex'];
@@ -31,9 +30,9 @@
   const inputTypes = reachTool.allInputTypes();
   let inputTypeName = inputTypes[inputTypeIndex].name;
   const min = 0;
-  $: max = $maxValues[name] ?? 100;
-  $: step = (max - min) / 100 ?? 1;
-  let touchPointDefinition = definitions.filter((definition) => definition.language == $language)[0];
+  $: max = $maxValues[name] ?? 1;
+  $: step = (max - min) / 100 ?? 0.01;
+  $: touchPointDefinition = definitions.filter((definition) => definition.language == $language)[0];
 
   $: console.log('$maxValues: in RangeInput $: ', $maxValues);
 
@@ -74,19 +73,7 @@
     {:else}
       <span>{converter.translate(inputTypeName, inputTypes, $language)}</span>
     {/if}
-    <input
-      type="range"
-      {min}
-      {max}
-      {step}
-      id={name}
-      {name}
-      bind:value
-      on:input={() => {
-        $deployment[index].value = value;
-      }}
-      on:change
-    />
+    <input type="range" {min} {max} {step} id={name} {name} bind:value on:input on:change />
   </fieldset>
 </form>
 

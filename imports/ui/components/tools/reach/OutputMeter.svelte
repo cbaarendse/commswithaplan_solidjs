@@ -14,9 +14,7 @@
   <div class="meter">
     <span
       class="meter-value"
-      style="width:{typeof value == 'number' && value > 0 && typeof max == 'number' && max > 0
-        ? (value / max) * 100
-        : 0}%"
+      style="width:{typeof value == 'number' && value > 0 && typeof max == 'number' && max > 0 ? value / max : 0}"
     />
   </div>
 </meter>

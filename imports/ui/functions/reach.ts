@@ -21,37 +21,6 @@ export default function createReachTool() {
     return touchPoints.every((touchPoint) => touchPoint.show === true);
   }
 
-  // sort
-  function sortByName(touchPoints: DeployedTouchPoint[], language: Language) {
-    return touchPoints.sort((a: TouchPointDefinition, b: TouchPointDefinition) => {
-      const definitionOfTouchPointA = a.definitions.find((definition) => definition.language == language);
-      const definitionOfTouchPointB = b.definitions.find((definition) => definition.language == language);
-      if (definitionOfTouchPointA && definitionOfTouchPointB) {
-        if (definitionOfTouchPointA.displayName > definitionOfTouchPointB.displayName) {
-          return 1;
-        }
-        if (definitionOfTouchPointA.displayName < definitionOfTouchPointB.displayName) {
-          return -1;
-        }
-      }
-      return 0;
-    });
-  }
-
-  function sortByValue(touchPoints: DeployedTouchPoint[]) {
-    return touchPoints.sort((a: DeployedTouchPoint, b: DeployedTouchPoint) => b.value - a.value);
-  }
-
-  function sort(
-    touchPoints: DeployedTouchPoint[],
-    sortedByName: boolean,
-    language: Language
-  ): [DeployedTouchPoint[], boolean] {
-    sortedByName ? sortByValue(touchPoints) : sortByName(touchPoints, language);
-    sortedByName = isShowAll(touchPoints) && areAllTouchPointsValueZero(touchPoints) ? true : !sortedByName;
-    return [touchPoints, sortedByName];
-  }
-
   // hide - show
   function hide(touchPoints: DeployedTouchPoint[]): DeployedTouchPoint[] {
     if (isShowAll(touchPoints) && !areAllTouchPointsValueZero(touchPoints)) {
@@ -75,7 +44,7 @@ export default function createReachTool() {
       const r = touchPoint.value / 100;
       totalReachPortion = totalReachPortion + (1 - totalReachPortion) * r;
     }
-    return 100 * totalReachPortion;
+    return totalReachPortion;
   }
 
   function calculateOverlap(touchPoints: DeployedTouchPoint[]): number {
@@ -89,7 +58,7 @@ export default function createReachTool() {
         duplicateReachPortion = touchPoint.value / 100;
       }
     }
-    return 100 * duplicateReachPortion;
+    return duplicateReachPortion;
   }
   function calculateResults(touchPoints: DeployedTouchPoint[]): Results {
     const totalReach = calculateTotalReach(touchPoints);
@@ -774,7 +743,6 @@ export default function createReachTool() {
     hide,
     isShowAll,
     makeNewBriefing,
-    sort,
     touchPointsDefinitions,
     touchPointsForDeployment
   };

@@ -67,9 +67,9 @@
           $language
         )}:&nbsp;
       </span>
-      <output>{formatter.toNumberFormat($totalReach, 0)}&nbsp;%</output>
+      <output>{formatter.toPercentFormat($totalReach, 1)}</output>
     </label>
-    <OutputMeter id={'reach'} value={$totalReach} min={0} max={100} />
+    <OutputMeter id={'reach'} value={$totalReach} min={0} max={1} />
 
     <label
       for="overlap"
@@ -82,9 +82,9 @@
       on:keypress
     >
       <span>{converter.translate('overlap', $translations, $language)}:&nbsp;</span>
-      <output>{formatter.toNumberFormat($overlap, 0)}&nbsp;%</output>
+      <output>{formatter.toPercentFormat($overlap, 1)}</output>
     </label>
-    <OutputMeter id={'overlap'} value={$overlap} min={0} max={100} />
+    <OutputMeter id={'overlap'} value={$overlap} min={0} max={1} />
   </div>
 </div>
 

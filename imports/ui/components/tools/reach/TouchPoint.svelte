@@ -49,8 +49,7 @@
     />
   </div>
   <div class="center">
-    <!-- TODO: display name in RangeInput not reactive -->
-    <RangeInput {index} {value} {name} {inputTypeIndex} {definitions} on:change />
+    <RangeInput {name} {inputTypeIndex} {definitions} bind:value on:input on:change />
   </div>
   <div class="right">
     <button
