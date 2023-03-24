@@ -3,6 +3,7 @@ import {writable, Writable, Readable, derived} from 'svelte/store';
 import {Meteor} from 'meteor/meteor';
 import createReachTool from '../functions/reach';
 import {Strategy, SortedByName, Population, Results, RespondentsCount} from '../../both/typings/types';
+import {allMarkets} from '../../both/constants/constants';
 
 // variables
 const reachTool = createReachTool();
@@ -81,7 +82,7 @@ export const marketData = derived(
 );
 
 export const ageGroups = derived(marketName, ($marketName) => {
-  return reachTool.getAgeGroupsForMarket($marketName, reachTool.allMarkets());
+  return reachTool.getAgeGroupsForMarket($marketName, allMarkets());
 });
 
 export const strategy = derived([briefing, deployment], ([$briefing, $deployment]) => {

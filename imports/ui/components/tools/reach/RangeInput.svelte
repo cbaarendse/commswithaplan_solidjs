@@ -13,21 +13,20 @@
     userId
   } from '../../../stores/reach';
   import {language} from '../../../stores/utils';
-  import createReachTool from '/imports/ui/functions/reach';
   import createConverter from '/imports/ui/functions/convert';
   import Fa from 'svelte-fa/src/fa.svelte';
   import {faSort} from '@fortawesome/free-solid-svg-icons';
   import {DeployedTouchPoint} from '/imports/both/typings/types';
+  import {allInputTypes} from '/imports/both/constants/constants';
 
   //variables
-  const reachTool = createReachTool();
   const converter = createConverter();
   export let name: DeployedTouchPoint['name'];
   export let value: DeployedTouchPoint['value'];
   export let inputTypeIndex: DeployedTouchPoint['inputTypeIndex'];
   export let definitions: DeployedTouchPoint['definitions'];
 
-  const inputTypes = reachTool.allInputTypes();
+  const inputTypes = allInputTypes();
   let inputTypeName = inputTypes[inputTypeIndex].name;
   const min = 0;
   $: max = $maxValues[name] ?? 1;

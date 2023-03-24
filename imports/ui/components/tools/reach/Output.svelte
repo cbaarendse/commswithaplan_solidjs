@@ -67,7 +67,7 @@
           $language
         )}:&nbsp;
       </span>
-      <output>{formatter.toPercentFormat($totalReach, 1)}</output>
+      <output>{formatter.toPercentFormat($totalReach, 0)}</output>
     </label>
     <OutputMeter id={'reach'} value={$totalReach} min={0} max={1} />
 

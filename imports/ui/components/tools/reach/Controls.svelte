@@ -6,8 +6,8 @@
   import UseMarketDataCheck from './UseMarketDataCheck.svelte';
   import MarketSelect from './MarketSelect.svelte';
   import createReachTool from '../../../functions/reach';
-  import renew from '../../../functions/renew';
-  import sort from '../../../functions/sort';
+  import renew from '../../../methods/renew';
+  import sort from '../../../methods/sort';
   import {language} from '../../../stores/utils';
   import {marketData, deployment, results, sortedByName, useMarketData} from '../../../stores/reach';
   import {CWAPUser} from '../../../../both/typings/types';

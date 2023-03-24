@@ -4,7 +4,7 @@
   import Controls from './Controls.svelte';
   import Output from './Output.svelte';
   import TouchPoint from './TouchPoint.svelte';
-  import sort from '../../../functions/sort';
+  import sort from '../../../methods/sort';
   import {onMount} from 'svelte';
   import createReachTool from '../../../functions/reach';
   import {language} from '../../../stores/utils';
@@ -28,7 +28,7 @@
     userId
   } from '../../../stores/reach';
   import {Meteor} from 'meteor/meteor';
-  import renew from '/imports/ui/functions/renew';
+  import renew from '../../../methods/renew';
 
   // variables
   const reachTool = createReachTool();

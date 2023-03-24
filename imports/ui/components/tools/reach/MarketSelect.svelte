@@ -4,11 +4,10 @@
 
   // imports
   import {marketName, useMarketData, results} from '../../../stores/reach';
-  import createReachTool from '/imports/ui/functions/reach';
-  import renew from '../../../functions/renew';
+  import renew from '../../../methods/renew';
+  import {allMarkets} from '../../../../both/constants/constants';
 
   //variables
-  const reachTool = createReachTool();
 
   // functions
   function reset() {
@@ -28,7 +27,7 @@
     }}
     on:change={reset}
   >
-    {#each reachTool.allMarkets() as thisMarket}
+    {#each allMarkets() as thisMarket}
       <option value={thisMarket.name}>{thisMarket.flag || thisMarket.name}</option>
     {/each}
   </select>

@@ -16,7 +16,7 @@
     results,
     userId
   } from '../../../stores/reach';
-  import renew from '../../../functions/renew';
+  import renew from '../../../methods/renew';
 
   // variables
   const converter = createConverter();
