@@ -28,35 +28,6 @@ export default function createReachTool() {
     return touchPoints;
   }
 
-  // results
-  function calculateTotalReach(touchPoints: DeployedTouchPoint[]): number {
-    let totalReachPortion = 0.0;
-    for (const touchPoint of touchPoints) {
-      const r = touchPoint.value;
-      totalReachPortion = totalReachPortion + (1 - totalReachPortion) * r;
-    }
-    return totalReachPortion;
-  }
-
-  function calculateOverlap(touchPoints: DeployedTouchPoint[]): number {
-    let duplicateReachPortion = 0.0;
-    for (const touchPoint of touchPoints) {
-      if (touchPoint.value != 0.0 && duplicateReachPortion != 0.0) {
-        const r = touchPoint.value;
-        duplicateReachPortion *= r;
-      }
-      if (touchPoint.value != 0.0 && duplicateReachPortion == 0.0) {
-        duplicateReachPortion = touchPoint.value;
-      }
-    }
-    return duplicateReachPortion;
-  }
-  function calculateResults(touchPoints: DeployedTouchPoint[]): Results {
-    const totalReach = calculateTotalReach(touchPoints);
-    const overlap = calculateOverlap(touchPoints);
-    return [totalReach, overlap];
-  }
-
   function getAgeGroupsForMarket(marketName: Market['name'], markets: Market[]) {
     return markets.filter((item: Market) => item.name == marketName)[0].ageGroups;
   }
@@ -80,30 +51,11 @@ export default function createReachTool() {
     return touchPointsForDeployment;
   }
 
-  function makeNewBriefing(marketName: Strategy['marketName']): Omit<Strategy, 'deployment'> {
-    return {
-      marketName: marketName,
-      useMarketData: undefined,
-      userId: '',
-      title: 'New Strategy',
-      createdAt: new Date(),
-      lastChanged: new Date(),
-      genders: undefined,
-      ageGroupIndexStart: undefined,
-      ageGroupIndexEnd: undefined,
-      companyId: undefined,
-      brandName: undefined,
-      productName: undefined
-    };
-  }
-
   return {
     areAllTouchPointsValueZero,
-    calculateResults,
     getAgeGroupsForMarket,
     hide,
     isShowAll,
-    makeNewBriefing,
     touchPointsForDeployment
   };
 }

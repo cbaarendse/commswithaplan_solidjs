@@ -1,23 +1,13 @@
 <script lang="ts">
   // imports
-  import {Meteor} from 'meteor/meteor';
-  import {
-    ageGroupIndexStart,
-    ageGroupIndexEnd,
-    deployment,
-    genders,
-    marketName,
-    maxValues,
-    populationForStrategy,
-    useMarketData,
-    userId
-  } from '../../../stores/reach';
+  import {maxValues, useMarketData} from '../../../stores/reach';
   import {language} from '../../../stores/utils';
   import createConverter from '/imports/ui/functions/convert';
   import Fa from 'svelte-fa/src/fa.svelte';
   import {faSort} from '@fortawesome/free-solid-svg-icons';
   import {DeployedTouchPoint} from '/imports/both/typings/types';
   import {allInputTypes} from '/imports/both/constants/constants';
+  import adaptMaxValues from '/imports/ui/methods/maxValues';
 
   //variables
   const converter = createConverter();
@@ -36,27 +26,6 @@
   $: console.log('$maxValues: in RangeInput $: ', $maxValues);
 
   // functions
-  function adaptMaxValues() {
-    Meteor.callAsync('strategies.maxValuesForTouchPoints', {
-      userId: $userId,
-      marketName: $marketName,
-      ageGroupIndexStart: $ageGroupIndexStart,
-      ageGroupIndexEnd: $ageGroupIndexEnd,
-      genders: $genders,
-      deployment: $deployment,
-      populationForStrategy: $populationForStrategy
-    })
-      .then((result) => {
-        if (result) {
-          $maxValues = result;
-        }
-      })
-      .catch((error) => {
-        if (error) {
-          console.log('error in max values: ', error);
-        }
-      });
-  }
 </script>
 
 <form>

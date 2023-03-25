@@ -6,32 +6,22 @@
   import TouchPoint from './TouchPoint.svelte';
   import sort from '../../../methods/sort';
   import {onMount} from 'svelte';
-  import createReachTool from '../../../functions/reach';
   import {language} from '../../../stores/utils';
   import {
-    briefing,
     createdAt,
     deployment,
     marketData,
-    marketName,
-    maxValues,
-    ageGroupIndexStart,
-    ageGroupIndexEnd,
-    genders,
     overlap,
-    populationForStrategy,
     results,
     sortedByName,
     strategy,
     totalReach,
-    useMarketData,
-    userId
+    useMarketData
   } from '../../../stores/reach';
-  import {Meteor} from 'meteor/meteor';
   import renew from '../../../methods/renew';
+  import getResults from '../../../methods/getResults';
 
   // variables
-  const reachTool = createReachTool();
   if (!$createdAt) {
     $createdAt = new Date();
   }
@@ -53,26 +43,6 @@
   $: console.log('$overlap: in $: ', $overlap);
 
   // functions
-
-  function calculateResults() {
-    if ($marketData && $useMarketData) {
-      Meteor.callAsync('strategies.calculateResultsWithData', {
-        userId: $userId,
-        marketName: $marketName,
-        ageGroupIndexStart: $ageGroupIndexStart,
-        ageGroupIndexEnd: $ageGroupIndexEnd,
-        genders: $genders,
-        deployment: $deployment,
-        populationForStrategy: $populationForStrategy
-      })
-        .then((result) => {
-          $results = result;
-        })
-        .catch((error) => console.log('error in calculate results with data', error));
-    } else {
-      $results = reachTool.calculateResults($deployment);
-    }
-  }
 </script>
 
 <BreadCrumbs />
@@ -88,8 +58,8 @@
         {definitions}
         {index}
         bind:value={$deployment[index].value}
-        on:change={calculateResults}
-        on:submit={calculateResults}
+        on:change={getResults}
+        on:submit={getResults}
       />
     {/each}
   </div>

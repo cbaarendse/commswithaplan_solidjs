@@ -1,22 +1,10 @@
 <script lang="ts">
   // imports
-  import {Meteor} from 'meteor/meteor';
   import createConverter from '../../../functions/convert';
   import {translations, language} from '../../../stores/utils';
-  import {
-    ageGroupIndexStart,
-    ageGroupIndexEnd,
-    deployment,
-    genders,
-    marketData,
-    marketName,
-    maxValues,
-    populationForStrategy,
-    useMarketData,
-    results,
-    userId
-  } from '../../../stores/reach';
+  import {marketData, useMarketData, results} from '../../../stores/reach';
   import renew from '../../../methods/renew';
+  import adaptMaxValues from '/imports/ui/methods/maxValues';
 
   // variables
   const converter = createConverter();
@@ -32,28 +20,6 @@
   function reset() {
     renew();
     $results = [0, 0];
-  }
-
-  function adaptMaxValues() {
-    Meteor.callAsync('strategies.maxValuesForTouchPoints', {
-      userId: $userId,
-      marketName: $marketName,
-      ageGroupIndexStart: $ageGroupIndexStart,
-      ageGroupIndexEnd: $ageGroupIndexEnd,
-      genders: $genders,
-      deployment: $deployment,
-      populationForStrategy: $populationForStrategy
-    })
-      .then((result) => {
-        if (result) {
-          $maxValues = result;
-        }
-      })
-      .catch((error) => {
-        if (error) {
-          console.log('error in max values: ', error);
-        }
-      });
   }
 </script>
 
