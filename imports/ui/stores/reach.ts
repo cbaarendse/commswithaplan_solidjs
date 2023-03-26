@@ -158,6 +158,8 @@ export const population: Readable<number> = derived(
   }
 );
 
+export const maxValues: Writable<Partial<{[key: string]: number}>> = writable({});
+
 export const results: Writable<Results> = writable([0, 0]);
 
 export const totalReach = derived(results, ($results) => {
@@ -173,5 +175,3 @@ export const overlap = derived(results, ($results) => {
   }
   return $results[1];
 });
-
-export const maxValues: Writable<Partial<{[key: string]: number}>> = writable({});
