@@ -10,7 +10,7 @@
     marketName,
     overlap,
     population,
-    populationForStrategy,
+    populationCountForStrategy,
     respondentsCountForMarket,
     totalReach,
     useMarketData
@@ -43,7 +43,7 @@
       <span>respondents:</span>
       <output>{formatter.toNumberFormat($respondentsCountForMarket, 0)}</output>
       <span>population in range:</span>
-      <output>{formatter.toMillionsFormat($populationForStrategy, 2)}</output>
+      <output>{formatter.toMillionsFormat($populationCountForStrategy, 2)}</output>
       <span>population for {$marketName}:</span>
       <output>{formatter.toMillionsFormat($population, 1)}</output>
     </div>{/if}

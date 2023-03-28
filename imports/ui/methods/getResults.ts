@@ -3,13 +3,13 @@ import {Meteor} from 'meteor/meteor';
 import createReachTool from '../functions/reach';
 import {get} from 'svelte/store';
 import {
+  ageGroups,
   ageGroupIndexEnd,
   ageGroupIndexStart,
   deployment,
   genders,
   marketData,
   marketName,
-  populationForStrategy,
   results,
   useMarketData,
   userId
@@ -27,7 +27,7 @@ export default function getResults() {
       ageGroupIndexEnd: get(ageGroupIndexEnd),
       genders: get(genders),
       deployment: get(deployment),
-      populationForStrategy: get(populationForStrategy)
+      ageGroups: get(ageGroups)
     })
       .then((result) => {
         results.set(result);

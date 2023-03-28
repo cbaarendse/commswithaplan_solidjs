@@ -9,7 +9,7 @@ import {allMarkets} from '../../both/constants/constants';
 const reachTool = createReachTool();
 
 // strategy
-export const userId: Writable<Strategy['userId']> = writable();
+export const userId: Writable<Strategy['userId']> = writable('user_01');
 export const title: Writable<Strategy['title']> = writable('New strategy');
 export const marketName: Writable<Strategy['marketName']> = writable('nl');
 export const createdAt: Writable<Strategy['createdAt']> = writable();
@@ -113,7 +113,7 @@ export const respondentsCountForMarket: Readable<RespondentsCount> = derived(
   }
 );
 
-export const populationForStrategy: Readable<Population> = derived(
+export const populationCountForStrategy: Readable<Population> = derived(
   [marketName, marketData, useMarketData, genders, ageGroupIndexStart, ageGroupIndexEnd, userId, ageGroups],
   (
     [$marketName, $marketData, $useMarketData, $genders, $ageGroupIndexStart, $ageGroupIndexEnd, $userId, $ageGroups],
@@ -134,7 +134,7 @@ export const populationForStrategy: Readable<Population> = derived(
             set(result);
           }
         })
-        .catch((error) => console.log('error in populationForStrategy ', error));
+        .catch((error) => console.log('error in populationCountForStrategy ', error));
     }
   }
 );
@@ -143,7 +143,7 @@ export const population: Readable<number> = derived(
   [marketData, marketName, useMarketData],
   ([$marketData, $marketName, $useMarketData], set) => {
     if ($marketData && $useMarketData) {
-      console.log('marketName, useMarketData', $marketName, ' and ', $useMarketData, 'in populationForStrategy');
+      console.log('marketName, useMarketData', $marketName, ' and ', $useMarketData, 'in countPopulationForStrategy');
 
       Meteor.callAsync('populations.countPopulationForMarket', {
         marketName: $marketName

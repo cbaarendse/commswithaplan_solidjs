@@ -5,6 +5,7 @@
   import createConverter from '../../../functions/convert';
   import Fa from 'svelte-fa/src/fa.svelte';
   import {faSort} from '@fortawesome/free-solid-svg-icons';
+  import getResults from '/imports/ui/methods/getResults';
 
   //variables
   const converter = createConverter();
@@ -14,7 +15,12 @@
 
 <fieldset>
   {#if $ageGroups}
-    <select class="agegroup__select" id="agegroup__select_start" bind:value={$ageGroupIndexStart}>
+    <select
+      class="agegroup__select"
+      id="agegroup__select_start"
+      bind:value={$ageGroupIndexStart}
+      on:change={getResults}
+    >
       {#each $ageGroups as ageGroup, index}
         <option value={index} disabled={false}>
           {ageGroup[0]} - {ageGroup[1]}
@@ -22,8 +28,8 @@
         </option>
       {/each}
     </select>
-    <label for="agegroup__select_start"><Fa icon={faSort} color={'var(--ra-teal'} /></label>
-    <select class="agegroup__select" id="agegroup__select_end" bind:value={$ageGroupIndexEnd}>
+    <label for="agegroup__select_start"><Fa icon={faSort} color={'var(--ra-teal)'} /></label>
+    <select class="agegroup__select" id="agegroup__select_end" bind:value={$ageGroupIndexEnd} on:change={getResults}>
       {#each $ageGroups as ageGroup, index}
         <option value={index} disabled={index < ($ageGroupIndexStart ? $ageGroupIndexStart : 0) + 1}>
           {ageGroup[0]} - {ageGroup[1]}

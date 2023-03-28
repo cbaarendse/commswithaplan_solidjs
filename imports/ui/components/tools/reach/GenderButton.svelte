@@ -3,6 +3,7 @@
   import Fa from 'svelte-fa/src/fa.svelte';
   import {faPerson, faPersonDress} from '@fortawesome/free-solid-svg-icons';
   import {genders, marketData, useMarketData} from '../../../stores/reach';
+  import getResults from '/imports/ui/methods/getResults';
 
   // variables
   $: gendersToWorkWith = new Set($genders) ?? new Set(['f', 'm', 'x']);
@@ -35,6 +36,7 @@
     aria-roledescription="button"
     {disabled}
     on:click|preventDefault|stopPropagation={toggleGenders}
+    on:click|preventDefault|stopPropagation={getResults}
   >
     <Fa
       icon={faPersonDress}

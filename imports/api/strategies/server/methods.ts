@@ -3,6 +3,7 @@ import {Meteor} from 'meteor/meteor';
 import {Match} from 'meteor/check';
 import createReachDataTool from './reachdata';
 import Probabilities from '../../probabilities/server/probabilities';
+import Populations from '../../populations/populations';
 import {
   Probability,
   Strategy,
@@ -11,7 +12,9 @@ import {
   Population,
   Results,
   TouchPointName,
-  InputType
+  InputType,
+  AgeGroup,
+  Genders
 } from '/imports/both/typings/types';
 
 // variables
@@ -27,23 +30,14 @@ Meteor.methods({
     ageGroupIndexStart: Strategy['ageGroupIndexStart'];
     ageGroupIndexEnd: Strategy['ageGroupIndexEnd'];
     deployment: Strategy['deployment'];
-    populationForStrategy: Population;
+    ageGroups: AgeGroup[];
   }): Results {
-    console.log(
-      'calculateResultsWithData runs with args: ',
-      {...args},
-      args.deployment.length,
-      args.populationForStrategy
-    );
+    console.log('calculateResultsWithData runs with args: ', {...args}, args.deployment.length);
 
-    if (
-      !Match.test(args, Object) ||
-      !Match.test(args.deployment, Array) ||
-      !Match.test(args.populationForStrategy, Number)
-    ) {
+    if (!Match.test(args, Object) || !Match.test(args.deployment, Array)) {
       throw new Meteor.Error('general.invalid.input', `Invalid input: ${args}`, '[{ "name": "invalidInput" }]');
     }
-    const {userId, marketName, ageGroupIndexStart, ageGroupIndexEnd, genders} = args;
+    const {userId, marketName, ageGroupIndexStart, ageGroupIndexEnd, genders, ageGroups} = args;
 
     // filter probabilities for market
     const touchPointsDeployed: DeployedTouchPoint[] = args.deployment;
@@ -74,6 +68,29 @@ Meteor.methods({
     });
     const respondentsCountForStrategy = probabilitiesForStrategy.count();
     const respondentsProbabilitiesForStrategy = probabilitiesForStrategy.fetch();
+    // population for this strategy
+    const startAge = ageGroupIndexStart ? ageGroups[ageGroupIndexStart][0] : ageGroups[0][0];
+    const endAge = ageGroupIndexEnd ? ageGroups[ageGroupIndexEnd][1] : ageGroups[1][1];
+    const query: {[key: string]: string | {[key: string]: Genders | number}} = {
+      market: marketName,
+      gender: {
+        $in: genders || ['f', 'm', 'x']
+      },
+      age: {
+        $gte: startAge,
+        $lte: endAge
+      }
+    };
+    // Make sure only the counts per age group / gender are being reported in query
+    const projection: {count: number} = {count: 0};
+    projection.count = 1;
+    // Filter right counts for selected age range / gender
+    const populationForStrategy = Populations.find(query, {
+      fields: projection
+    }).fetch();
+
+    // Summarize all filtered counts per age range / gender to one number
+    const populationCountForStrategy = populationForStrategy.reduce((subTotal, current) => subTotal + current.count, 0);
 
     // for each deployed touchpoint only select respondents with a contact probability > 0
     const respondentsProbabilitiesForTouchPoints: Map<
@@ -95,7 +112,7 @@ Meteor.methods({
     const reachedRespondentsForTouchPoints: Map<TouchPointName, Probability['respondentId'][]> =
       reachDataTool.collectReachedRespondentsForTouchPoints(
         deployedComplementedTouchPoints,
-        args.populationForStrategy,
+        populationCountForStrategy,
         respondentsProbabilitiesForTouchPoints,
         respondentsCountForStrategy
       );
@@ -137,18 +154,43 @@ Meteor.methods({
     ageGroupIndexStart: Strategy['ageGroupIndexStart'];
     ageGroupIndexEnd: Strategy['ageGroupIndexEnd'];
     deployment: Strategy['deployment'];
-    populationForStrategy: Population;
+    ageGroups: AgeGroup[];
   }): {[key: string]: number} {
     // Filter probabilities for this briefing / strategy
-    const {marketName, ageGroupIndexStart, ageGroupIndexEnd, genders} = args;
+    const {marketName, ageGroupIndexStart, ageGroupIndexEnd, genders, ageGroups} = args;
     const touchPointsDeployed: DeployedTouchPoint[] = args.deployment;
     const respondentsProbabilities = Probabilities.find({
       marketName: marketName,
       gender: {$in: genders},
       age_group: {$gte: ageGroupIndexStart, $lte: ageGroupIndexEnd}
     });
+
     const respondentsCountForStrategy = respondentsProbabilities.count();
     const respondentsProbabilitiesForStrategy = respondentsProbabilities.fetch();
+
+    // population for this strategy
+    const startAge = ageGroupIndexStart ? ageGroups[ageGroupIndexStart][0] : ageGroups[0][0];
+    const endAge = ageGroupIndexEnd ? ageGroups[ageGroupIndexEnd][1] : ageGroups[1][1];
+    const query: {[key: string]: string | {[key: string]: Genders | number}} = {
+      market: marketName,
+      gender: {
+        $in: genders || ['f', 'm', 'x']
+      },
+      age: {
+        $gte: startAge,
+        $lte: endAge
+      }
+    };
+    // Make sure only the counts per age group / gender are being reported in query
+    const projection: {count: number} = {count: 0};
+    projection.count = 1;
+    // Filter right counts for selected age range / gender
+    const populationForStrategy = Populations.find(query, {
+      fields: projection
+    }).fetch();
+
+    // Summarize all filtered counts per age range / gender to one number
+    const populationCountForStrategy = populationForStrategy.reduce((subTotal, current) => subTotal + current.count, 0);
 
     const maxValues: Map<TouchPointName, number> = new Map();
     // for each deployed touchpoint only select respondents with a contact probability > 0
@@ -166,13 +208,13 @@ Meteor.methods({
       ) {
         maxValues.set(
           touchPoint.name,
-          (respondentsProbabilitiesForTouchPoint.size / respondentsCountForStrategy) * args.populationForStrategy * 5
+          (respondentsProbabilitiesForTouchPoint.size / respondentsCountForStrategy) * populationCountForStrategy * 5
         );
       } else if (touchPoint.inputTypeIndex == InputType.Grps && respondentsProbabilitiesForTouchPoint) {
         maxValues.set(
           touchPoint.name,
           ((respondentsProbabilitiesForTouchPoint.size / respondentsCountForStrategy) *
-            args.populationForStrategy *
+            populationCountForStrategy *
             5) /
             10000
         );

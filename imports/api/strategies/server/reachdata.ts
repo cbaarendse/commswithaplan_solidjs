@@ -68,7 +68,7 @@ export default function createReachDataTool() {
 
   function collectReachedRespondentsForTouchPoints(
     complementedTouchPoints: ComplementedTouchPoint[],
-    populationForStrategy: PopulationForStrategy,
+    populationCountForStrategy: PopulationForStrategy,
     respondentsProbabilitiesForTouchPoints: Map<TouchPointName, Map<Probability['respondentId'], number>>,
     respondentsCountForStrategy: number
   ): Map<TouchPointName, Probability['respondentId'][]> {
@@ -107,11 +107,11 @@ export default function createReachDataTool() {
           const respondentProbability = Array.from(respondentsProbabilitiesForTouchPoint.entries())[index]; //TODO: undefined
           const respondentId = respondentProbability[0];
           const probability = respondentProbability[1];
-          contacts += probability * (populationForStrategy / respondentsCountForStrategy);
+          contacts += probability * (populationCountForStrategy / respondentsCountForStrategy);
           // Add respondent to array with reached respondents for this touchpoint
           reachedRespondentsForTouchPoint.push(respondentId);
         }
-        touchPoint.grps = (contacts / populationForStrategy) * 100;
+        touchPoint.grps = (contacts / populationCountForStrategy) * 100;
       }
 
       // For InputType.Contacts, InputType.Grps, InputType.Impressions:
@@ -124,7 +124,7 @@ export default function createReachDataTool() {
         touchPoint.grps =
           touchPoint.inputTypeIndex == InputType.Grps
             ? touchPoint.value
-            : (touchPoint.value / populationForStrategy) * 100;
+            : (touchPoint.value / populationCountForStrategy) * 100;
         respondentsProbabilitiesForTouchPoint.forEach(
           (
             probability: number,

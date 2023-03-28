@@ -8,18 +8,25 @@
   import {onMount} from 'svelte';
   import {language} from '../../../stores/utils';
   import {
+    ageGroupIndexEnd,
+    ageGroupIndexStart,
     createdAt,
     deployment,
+    genders,
     marketData,
+    marketName,
     overlap,
+    populationCountForStrategy,
     results,
     sortedByName,
     strategy,
     totalReach,
-    useMarketData
+    useMarketData,
+    userId
   } from '../../../stores/reach';
   import renew from '../../../methods/renew';
   import getResults from '../../../methods/getResults';
+  import adaptMaxValues from '/imports/ui/methods/maxValues';
 
   // variables
   if (!$createdAt) {
@@ -27,6 +34,9 @@
   }
   if (!$deployment) {
     renew();
+  }
+  if ($deployment) {
+    adaptMaxValues();
   }
   //sort, based on selected language
   $: {
