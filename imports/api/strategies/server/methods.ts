@@ -9,7 +9,6 @@ import {
   Strategy,
   DeployedTouchPoint,
   ComplementedTouchPoint,
-  Population,
   Results,
   TouchPointName,
   InputType,
@@ -32,8 +31,6 @@ Meteor.methods({
     deployment: Strategy['deployment'];
     ageGroups: AgeGroup[];
   }): Results {
-    console.log('calculateResultsWithData runs with args: ', {...args}, args.deployment.length);
-
     if (!Match.test(args, Object) || !Match.test(args.deployment, Array)) {
       throw new Meteor.Error('general.invalid.input', `Invalid input: ${args}`, '[{ "name": "invalidInput" }]');
     }
@@ -129,7 +126,9 @@ Meteor.methods({
     //TODO respondentsForStrategy
     // total reach
     const totalReachForResult = reachedUniqueRespondentsForStrategy.size / respondentsCountForStrategy;
-    // Count respondents for overlap
+    // Count respondents for overlap TODO:
+    console.log('reachedUniqueRespondentsForStrategy :', reachedUniqueRespondentsForStrategy);
+    // TODO: rewrite this for, wothout break, just to be clear
     reachedUniqueRespondentsForStrategy.forEach((respondentId) => {
       for (const touchPoint of touchPointsDeployed) {
         if (!reachedRespondentsForTouchPoints.get(touchPoint.name)?.includes(respondentId)) {

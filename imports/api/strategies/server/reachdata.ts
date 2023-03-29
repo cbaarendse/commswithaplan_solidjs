@@ -1,11 +1,11 @@
 import {
   Probability,
   DeployedTouchPoint,
-  PopulationForStrategy,
   ComplementedTouchPoint,
   RespondentsCount,
   TouchPointName,
-  InputType
+  InputType,
+  PopulationCountForStrategy
 } from '/imports/both/typings/types';
 
 export default function createReachDataTool() {
@@ -68,7 +68,7 @@ export default function createReachDataTool() {
 
   function collectReachedRespondentsForTouchPoints(
     complementedTouchPoints: ComplementedTouchPoint[],
-    populationCountForStrategy: PopulationForStrategy,
+    populationCountForStrategy: PopulationCountForStrategy,
     respondentsProbabilitiesForTouchPoints: Map<TouchPointName, Map<Probability['respondentId'], number>>,
     respondentsCountForStrategy: number
   ): Map<TouchPointName, Probability['respondentId'][]> {

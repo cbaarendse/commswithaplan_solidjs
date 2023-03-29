@@ -2,7 +2,14 @@
 import {writable, Writable, Readable, derived} from 'svelte/store';
 import {Meteor} from 'meteor/meteor';
 import createReachTool from '../functions/reach';
-import {Strategy, SortedByName, Population, Results, RespondentsCount} from '../../both/typings/types';
+import {
+  Strategy,
+  SortedByName,
+  Results,
+  RespondentsCount,
+  PopulationCountForStrategy,
+  PopulationCount
+} from '../../both/typings/types';
 import {allMarkets} from '../../both/constants/constants';
 
 // variables
@@ -113,7 +120,7 @@ export const respondentsCountForMarket: Readable<RespondentsCount> = derived(
   }
 );
 
-export const populationCountForStrategy: Readable<Population> = derived(
+export const populationCountForStrategy: Readable<PopulationCountForStrategy> = derived(
   [marketName, marketData, useMarketData, genders, ageGroupIndexStart, ageGroupIndexEnd, userId, ageGroups],
   (
     [$marketName, $marketData, $useMarketData, $genders, $ageGroupIndexStart, $ageGroupIndexEnd, $userId, $ageGroups],
@@ -129,7 +136,7 @@ export const populationCountForStrategy: Readable<Population> = derived(
         ageGroupIndexEnd: $ageGroupIndexEnd,
         ageGroups: $ageGroups
       })
-        .then((result: Population) => {
+        .then((result: PopulationCountForStrategy) => {
           if (result >= 0) {
             set(result);
           }
@@ -148,7 +155,7 @@ export const population: Readable<number> = derived(
       Meteor.callAsync('populations.countPopulationForMarket', {
         marketName: $marketName
       })
-        .then((result: Population) => {
+        .then((result: PopulationCount) => {
           if (result >= 0) {
             set(result);
           }
