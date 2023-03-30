@@ -124,23 +124,37 @@ Meteor.methods({
     // Unique respondents
     const reachedUniqueRespondentsForStrategy: Set<number> = new Set(reachedNonUniqueRespondentsForStrategy); // OK
     //TODO respondentsForStrategy
-    // total reach
+    // total reach TODO: check, because sometimes reach == 100%...
     const totalReachForResult = reachedUniqueRespondentsForStrategy.size / respondentsCountForStrategy;
-    // Count respondents for overlap TODO:
-    console.log('reachedUniqueRespondentsForStrategy :', reachedUniqueRespondentsForStrategy);
-    // TODO: rewrite this for, wothout break, just to be clear
+    // Count respondents for overlap
+    console.log('reachedUniqueRespondentsForStrategy.size :', reachedUniqueRespondentsForStrategy.size);
+    // TODO: check
     reachedUniqueRespondentsForStrategy.forEach((respondentId) => {
-      for (const touchPoint of touchPointsDeployed) {
-        if (!reachedRespondentsForTouchPoints.get(touchPoint.name)?.includes(respondentId)) {
-          break;
+      let countThisRespondent = true;
+      for (let i = 0; i < deployedComplementedTouchPoints.length; i++) {
+        if (
+          reachedRespondentsForTouchPoints.get(deployedComplementedTouchPoints[i].name)?.includes(respondentId) &&
+          countThisRespondent
+        ) {
+          countThisRespondent = true;
+        } else {
+          countThisRespondent = false;
         }
-        respondentsCountedForOverlap.push(respondentId);
+        if (countThisRespondent) {
+          respondentsCountedForOverlap.push(respondentId);
+        }
       }
     });
     console.log('respondentsCountedForOverlap in calculate result: ', respondentsCountedForOverlap);
 
     // strategy.overlap
     const overlapForResult = respondentsCountedForOverlap.length / respondentsCountForStrategy;
+    console.log(
+      'respondentsCountedForOverlap.length: ',
+      respondentsCountedForOverlap.length,
+      'respondentsCountForStrategy: ',
+      respondentsCountForStrategy
+    );
     console.log('totalReachForResult: ', totalReachForResult, 'overlapForResult: ', overlapForResult);
 
     return [totalReachForResult, overlapForResult];
