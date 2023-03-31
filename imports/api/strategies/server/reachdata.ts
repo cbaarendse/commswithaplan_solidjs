@@ -2,7 +2,6 @@ import {
   Probability,
   DeployedTouchPoint,
   ComplementedTouchPoint,
-  RespondentsCount,
   TouchPointName,
   InputType,
   PopulationCountForStrategy
@@ -12,26 +11,27 @@ export default function createReachDataTool() {
   // arrange respondents for touchpoint
   // results in an object with strings as keys and Maps as values;
   function getProbabilitiesForTouchPoints(
-    deployedTouchPoints: DeployedTouchPoint[],
+    touchPoints: DeployedTouchPoint[],
     probabilities: Probability[]
-  ): Map<TouchPointName, Map<Probability['respondentId'], number>> {
-    const respondentsProbabilitiesForTouchPoints: Map<
-      TouchPointName,
-      Map<Probability['respondentId'], number>
-    > = new Map();
-    for (let touchPointIndex = 0; touchPointIndex < deployedTouchPoints.length; touchPointIndex++) {
-      const touchPointProbabilities: Map<Probability['respondentId'], number> = new Map();
-
+  ): {name: TouchPointName; respondentId: string; probability: number}[] {
+    const respondentsProbabilitiesForTouchPoints: {name: TouchPointName; respondentId: string; probability: number}[] =
+      [];
+    for (let touchPointIndex = 0; touchPointIndex < touchPoints.length; touchPointIndex++) {
+      //TODO: from here
+      const thisTouchPointName = touchPoints[touchPointIndex].name;
       for (let probabilityIndex = 0; probabilityIndex < probabilities.length; probabilityIndex++) {
-        const touchPointName = deployedTouchPoints[touchPointIndex].name;
-        const probability = probabilities[probabilityIndex];
+        const thisProbability = probabilities[probabilityIndex];
+        respondentsProbabilitiesForTouchPoints.push({
+          touchPointName: thisTouchPointName,
+          respondentId: thisProbability.respondentId,
+          probability: thisProbability[thisTouchPointName]
+        });
         if (probability[touchPointName] > 0) {
           touchPointProbabilities.set(probability.respondentId, probability[touchPointName]);
         }
         const sortedTouchPointProbabilities = new Map(
           [...touchPointProbabilities.entries()].sort((a, b) => b[1] - a[1])
         );
-        respondentsProbabilitiesForTouchPoints.set(touchPointName, sortedTouchPointProbabilities);
       }
     }
     return respondentsProbabilitiesForTouchPoints;

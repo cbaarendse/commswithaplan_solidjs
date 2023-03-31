@@ -156,7 +156,7 @@ export type Strategy = {
 
 export type Probability = {
   _id: Mongo.ObjectID;
-  respondentId: number;
+  respondentId: string;
   age: number;
   gender: 'm' | 'f' | 'x';
   marketName: string;

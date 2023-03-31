@@ -38,6 +38,7 @@ Meteor.methods({
 
     // filter probabilities for market
     const touchPointsDeployed: DeployedTouchPoint[] = args.deployment;
+    const touchPointsCounted: DeployedTouchPoint[] = touchPointsDeployed.filter((touchPoint) => touchPoint.value > 0);
     let reachedNonUniqueRespondentsForStrategy: number[] = [];
     const respondentsCountedForOverlap: number[] = [];
 
@@ -70,7 +71,7 @@ Meteor.methods({
     const probabilitiesForStrategy = Probabilities.find(probabilityQuery, {
       fields: probabilityProjection
     });
-    ?? TODO: from here
+    // TODO: from here
     const respondentsCountForStrategy = probabilitiesForStrategy.count();
     const respondentsProbabilitiesForStrategy = probabilitiesForStrategy.fetch();
     const startAge = ageGroupIndexStart ? ageGroups[ageGroupIndexStart][0] : ageGroups[0][0];
@@ -97,13 +98,13 @@ Meteor.methods({
     const populationCountForStrategy = populationForStrategy.reduce((subTotal, current) => subTotal + current.count, 0);
 
     // for each deployed touchpoint only select respondents with a contact probability > 0
-    const respondentsProbabilitiesForTouchPoints: Map<
-      TouchPointName,
-      Map<Probability['respondentId'], number>
-    > = reachDataTool.getProbabilitiesForTouchPoints(touchPointsDeployed, respondentsProbabilitiesForStrategy);
+    const respondentsProbabilitiesForTouchPoints = reachDataTool.getProbabilitiesForTouchPoints(
+      touchPointsCounted,
+      respondentsProbabilitiesForStrategy
+    );
     // add properties to touchpoints
     const complementedTouchPoints: ComplementedTouchPoint[] = reachDataTool.complementTouchPoints(
-      touchPointsDeployed,
+      touchPointsCounted,
       respondentsProbabilitiesForTouchPoints
     );
 
