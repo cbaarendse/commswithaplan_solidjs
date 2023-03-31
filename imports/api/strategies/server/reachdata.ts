@@ -21,6 +21,7 @@ export default function createReachDataTool() {
     > = new Map();
     for (let touchPointIndex = 0; touchPointIndex < deployedTouchPoints.length; touchPointIndex++) {
       const touchPointProbabilities: Map<Probability['respondentId'], number> = new Map();
+
       for (let probabilityIndex = 0; probabilityIndex < probabilities.length; probabilityIndex++) {
         const touchPointName = deployedTouchPoints[touchPointIndex].name;
         const probability = probabilities[probabilityIndex];
@@ -60,7 +61,6 @@ export default function createReachDataTool() {
           return sum + probability;
         }, 0)
       };
-
       return complementedTouchPoint;
     });
     return complementedTouchPoints;
@@ -89,21 +89,9 @@ export default function createReachDataTool() {
       if (respondentsProbabilitiesForTouchPoint && touchPoint.inputTypeIndex == InputType.Reach) {
         // convert reach input to reached respondents
         const reachedRespondentsForTouchPointCount = (touchPoint.value / 100) * respondentsCountForStrategy;
-        console.log(
-          'reachedRespondentsForTouchPointCount in collect reachedRespondents: ',
-          reachedRespondentsForTouchPointCount
-        );
-        console.log(
-          'Array.from(respondentsProbabilitiesForTouchPoint.entries()) in collect reachedRespondents: ',
-          Array.from(respondentsProbabilitiesForTouchPoint.entries())
-        );
 
         let contacts = 0;
         for (let index = 0; index < reachedRespondentsForTouchPointCount; index++) {
-          console.log(
-            'Array.from(respondentsProbabilitiesForTouchPoint.entries())[index];  in collect reachedRespondents: ',
-            Array.from(respondentsProbabilitiesForTouchPoint.entries())[index]
-          );
           const respondentProbability = Array.from(respondentsProbabilitiesForTouchPoint.entries())[index]; //TODO: undefined
           const respondentId = respondentProbability[0];
           const probability = respondentProbability[1];
@@ -152,20 +140,6 @@ export default function createReachDataTool() {
     return reachedRespondentsForTouchPoints;
   }
 
-  function calculateReachForTouchPoint(reachedRespondents: number[], respondentsCountForMarket: RespondentsCount) {
-    return Number.isNaN((reachedRespondents.length / respondentsCountForMarket) * 100)
-      ? 0
-      : (reachedRespondents.length / respondentsCountForMarket) * 100;
-  }
-
-  function calculateOtsForTouchPoint(touchPoint: ComplementedTouchPoint) {
-    if (!touchPoint.grps || !touchPoint.reach) {
-      return 0;
-    } else {
-      return Number.isNaN(touchPoint.grps / touchPoint.reach) ? 0 : touchPoint.grps / touchPoint.reach;
-    }
-  }
-
   // function totalReachWithAlgorithmForStrategy(rV: number[]) {
   //   if (rV.length === 0) {
   //     return 0;
@@ -203,8 +177,6 @@ export default function createReachDataTool() {
   return {
     getProbabilitiesForTouchPoints,
     complementTouchPoints,
-    collectReachedRespondentsForTouchPoints,
-    calculateReachForTouchPoint,
-    calculateOtsForTouchPoint
+    collectReachedRespondentsForTouchPoints
   };
 }

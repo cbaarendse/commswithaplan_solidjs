@@ -57,18 +57,25 @@ Meteor.methods({
     //   );
     // }
 
-    // Filter probabilities for this briefing / strategy
-    const probabilitiesForStrategy = Probabilities.find({
+    // Filter probabilities and population
+    const probabilityQuery: {[key: string]: string | {[key: string]: Genders | number}} = {
       marketName: marketName,
-      gender: {$in: genders},
+      gender: {
+        $in: genders
+      },
       age_group: {$gte: ageGroupIndexStart, $lte: ageGroupIndexEnd}
+    };
+    const probabilityProjection: {count: number} = {count: 0};
+    probabilityProjection.count = 1;
+    const probabilitiesForStrategy = Probabilities.find(probabilityQuery, {
+      fields: probabilityProjection
     });
+    ?? TODO: from here
     const respondentsCountForStrategy = probabilitiesForStrategy.count();
     const respondentsProbabilitiesForStrategy = probabilitiesForStrategy.fetch();
-    // population for this strategy
     const startAge = ageGroupIndexStart ? ageGroups[ageGroupIndexStart][0] : ageGroups[0][0];
     const endAge = ageGroupIndexEnd ? ageGroups[ageGroupIndexEnd][1] : ageGroups[1][1];
-    const query: {[key: string]: string | {[key: string]: Genders | number}} = {
+    const populationQuery: {[key: string]: string | {[key: string]: Genders | number}} = {
       market: marketName,
       gender: {
         $in: genders || ['f', 'm', 'x']
@@ -79,11 +86,11 @@ Meteor.methods({
       }
     };
     // Make sure only the counts per age group / gender are being reported in query
-    const projection: {count: number} = {count: 0};
-    projection.count = 1;
+    const populationProjection: {count: number} = {count: 0};
+    populationProjection.count = 1;
     // Filter right counts for selected age range / gender
-    const populationForStrategy = Populations.find(query, {
-      fields: projection
+    const populationForStrategy = Populations.find(populationQuery, {
+      fields: populationProjection
     }).fetch();
 
     // Summarize all filtered counts per age range / gender to one number
@@ -114,6 +121,7 @@ Meteor.methods({
         respondentsCountForStrategy
       );
     // For reach calculation: Gather all reached respondents for strategy per touch point, so non-unique
+    // TODO: rename everything; check, because sometimes reach == 100%...
     reachedRespondentsForTouchPoints.forEach((reachedRespondentsForTouchPoint) => {
       reachedNonUniqueRespondentsForStrategy = reachedNonUniqueRespondentsForStrategy.concat(
         reachedRespondentsForTouchPoint
@@ -125,7 +133,9 @@ Meteor.methods({
     const reachedUniqueRespondentsForStrategy: Set<number> = new Set(reachedNonUniqueRespondentsForStrategy); // OK
     //TODO respondentsForStrategy
     // total reach TODO: check, because sometimes reach == 100%...
-    const totalReachForResult = reachedUniqueRespondentsForStrategy.size / respondentsCountForStrategy;
+    const totalReachForResult = Number.isNaN(reachedUniqueRespondentsForStrategy.size / respondentsCountForStrategy)
+      ? 0
+      : reachedUniqueRespondentsForStrategy.size / respondentsCountForStrategy;
     // Count respondents for overlap
     console.log('reachedUniqueRespondentsForStrategy.size :', reachedUniqueRespondentsForStrategy.size);
     // TODO: check
@@ -140,15 +150,17 @@ Meteor.methods({
         } else {
           countThisRespondent = false;
         }
-        if (countThisRespondent) {
-          respondentsCountedForOverlap.push(respondentId);
-        }
+      }
+      if (countThisRespondent) {
+        respondentsCountedForOverlap.push(respondentId);
       }
     });
     console.log('respondentsCountedForOverlap in calculate result: ', respondentsCountedForOverlap);
 
     // strategy.overlap
-    const overlapForResult = respondentsCountedForOverlap.length / respondentsCountForStrategy;
+    const overlapForResult = Number.isNaN(respondentsCountedForOverlap.length / respondentsCountForStrategy)
+      ? 0
+      : respondentsCountedForOverlap.length / respondentsCountForStrategy;
     console.log(
       'respondentsCountedForOverlap.length: ',
       respondentsCountedForOverlap.length,

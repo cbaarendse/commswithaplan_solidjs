@@ -35,11 +35,11 @@
   // functions
   function reset() {
     if (reachTool.areAllTouchPointsValueZero($deployment)) {
+      renew();
+    } else {
       deployment.update((data) => {
         return data.map((touchPoint) => Object.assign(touchPoint, {value: 0.0}));
       });
-    } else {
-      renew();
     }
     $results = [0, 0];
   }

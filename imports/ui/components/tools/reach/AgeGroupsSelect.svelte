@@ -11,6 +11,11 @@
   const converter = createConverter();
 
   // functions
+  function adaptAgeGroupIndexEnd() {
+    if ($ageGroupIndexEnd && $ageGroupIndexStart && $ageGroupIndexEnd - $ageGroupIndexStart < 1) {
+      $ageGroupIndexEnd = $ageGroupIndexStart ? $ageGroupIndexStart + 1 : 1;
+    }
+  }
 </script>
 
 <fieldset>
@@ -19,6 +24,7 @@
       class="agegroup__select"
       id="agegroup__select_start"
       bind:value={$ageGroupIndexStart}
+      on:change={adaptAgeGroupIndexEnd}
       on:change={getResults}
     >
       {#each $ageGroups as ageGroup, index}
