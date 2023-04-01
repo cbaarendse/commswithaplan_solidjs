@@ -8,73 +8,82 @@ import {
 } from '/imports/both/typings/types';
 
 export default function createReachDataTool() {
-  // arrange respondents for touchpoint
-  // results in an object with strings as keys and Maps as values;
-  function getProbabilitiesForTouchPoints(
+  function lineUpProbabilitiesForTouchPoints(
     touchPoints: DeployedTouchPoint[],
     probabilities: Probability[]
-  ): {name: TouchPointName; respondentId: string; probability: number}[] {
-    const respondentsProbabilitiesForTouchPoints: {name: TouchPointName; respondentId: string; probability: number}[] =
-      [];
+  ): {touchPointName: TouchPointName; respondentId: string; probability: number}[] {
+    const respondentsProbabilitiesForTouchPoints: {
+      touchPointName: TouchPointName;
+      respondentId: string;
+      probability: number;
+    }[] = [];
     for (let touchPointIndex = 0; touchPointIndex < touchPoints.length; touchPointIndex++) {
-      //TODO: from here
+      const respondentsProbabilitiesForThisTouchPoint: {
+        touchPointName: TouchPointName;
+        respondentId: string;
+        probability: number;
+      }[] = [];
       const thisTouchPointName = touchPoints[touchPointIndex].name;
       for (let probabilityIndex = 0; probabilityIndex < probabilities.length; probabilityIndex++) {
         const thisProbability = probabilities[probabilityIndex];
-        respondentsProbabilitiesForTouchPoints.push({
-          touchPointName: thisTouchPointName,
-          respondentId: thisProbability.respondentId,
-          probability: thisProbability[thisTouchPointName]
-        });
-        if (probability[touchPointName] > 0) {
-          touchPointProbabilities.set(probability.respondentId, probability[touchPointName]);
+        if (thisProbability[thisTouchPointName] > 0) {
+          respondentsProbabilitiesForThisTouchPoint.push({
+            touchPointName: thisTouchPointName,
+            respondentId: thisProbability.respondentId,
+            probability: thisProbability[thisTouchPointName]
+          });
         }
-        const sortedTouchPointProbabilities = new Map(
-          [...touchPointProbabilities.entries()].sort((a, b) => b[1] - a[1])
+        respondentsProbabilitiesForThisTouchPoint.sort(
+          (
+            a: {
+              touchPointName: TouchPointName;
+              respondentId: string;
+              probability: number;
+            },
+            b: {
+              touchPointName: TouchPointName;
+              respondentId: string;
+              probability: number;
+            }
+          ) => b.probability - a.probability
         );
       }
+      respondentsProbabilitiesForTouchPoints.push(...respondentsProbabilitiesForThisTouchPoint);
     }
     return respondentsProbabilitiesForTouchPoints;
   }
 
-  function complementTouchPoints(
+  function complementCountedTouchPoints(
     touchPoints: DeployedTouchPoint[],
-    respondentsProbabilitiesForTouchPoints: Map<TouchPointName, Map<Probability['respondentId'], number>>
+    respondentsProbabilitiesForTouchPoints: ReturnType<typeof lineUpProbabilitiesForTouchPoints>
   ): ComplementedTouchPoint[] {
     const complementedTouchPoints = touchPoints.map((touchPoint) => {
-      const {name, value, inputTypeIndex} = touchPoint;
-      const respondentsProbabilitiesForTouchPoint = respondentsProbabilitiesForTouchPoints.get(name);
-      const probabilitiesForTouchPoint = [];
-      if (respondentsProbabilitiesForTouchPoint) {
-        for (const [key, value] of respondentsProbabilitiesForTouchPoint) {
-          probabilitiesForTouchPoint.push(value);
-        }
-      }
-      // set basis of object
-      const complementedTouchPoint: ComplementedTouchPoint = {
-        name: name,
-        value: value,
-        inputTypeIndex: inputTypeIndex,
+      const {name, value} = touchPoint;
+      const respondentsProbabilitiesForTouchPoint = respondentsProbabilitiesForTouchPoints.filter(
+        (probability) => name === probability.touchPointName
+      );
+      // complement touchPoint object
+      Object.assign(touchPoint, {
         selected: value === 0 ? false : true,
-        maxReachedRespondents: respondentsProbabilitiesForTouchPoint ? respondentsProbabilitiesForTouchPoint.size : 0,
-        sumOfProbabilities: probabilitiesForTouchPoint.reduce((sum, probability) => {
-          return sum + probability;
+        maxReachedRespondents: respondentsProbabilitiesForTouchPoint ? respondentsProbabilitiesForTouchPoint.length : 0,
+        sumOfProbabilities: respondentsProbabilitiesForTouchPoint.reduce((sum, thisProbability) => {
+          return sum + thisProbability.probability;
         }, 0)
-      };
-      return complementedTouchPoint;
+      });
+      return touchPoint;
     });
     return complementedTouchPoints;
   }
 
-  function collectReachedRespondentsForTouchPoints(
-    complementedTouchPoints: ComplementedTouchPoint[],
+  function filterReachedRespondentsProbabilitiesForCountedTouchPoints(
+    touchPoints: ComplementedTouchPoint[],
     populationCountForStrategy: PopulationCountForStrategy,
-    respondentsProbabilitiesForTouchPoints: Map<TouchPointName, Map<Probability['respondentId'], number>>,
+    respondentsProbabilitiesForTouchPoints: ReturnType<typeof lineUpProbabilitiesForTouchPoints>,
     respondentsCountForStrategy: number
-  ): Map<TouchPointName, Probability['respondentId'][]> {
-    const reachedRespondentsForTouchPoints: Map<TouchPointName, Probability['respondentId'][]> = new Map();
+  ): ReturnType<typeof lineUpProbabilitiesForTouchPoints> {
+    const reachedRespondentsForTouchPoints: ReturnType<typeof lineUpProbabilitiesForTouchPoints> = [];
 
-    for (let touchPointIndex = 0; touchPointIndex < complementedTouchPoints.length; touchPointIndex++) {
+    for (let touchPointIndex = 0; touchPointIndex < touchPoints.length; touchPointIndex++) {
       const reachForRespondentsForTouchPoint: Map<Probability['respondentId'], number> = new Map();
       const reachedRespondentsForTouchPoint: Probability['respondentId'][] = [];
       const touchPoint: ComplementedTouchPoint = complementedTouchPoints[touchPointIndex];
@@ -140,43 +149,9 @@ export default function createReachDataTool() {
     return reachedRespondentsForTouchPoints;
   }
 
-  // function totalReachWithAlgorithmForStrategy(rV: number[]) {
-  //   if (rV.length === 0) {
-  //     return 0;
-  //   } else if (rV.length > 0) {
-  //     let reach1 = 100;
-  //     let reach2 = 1;
-  //     for (let i = 0; i < rV.length; i++) {
-  //       if (i === 0) {
-  //         reach1 = 100 - rV[i];
-  //       } else {
-  //         reach2 *= 1 - rV[i] / 100;
-  //       }
-  //     }
-  //     return 100 - reach1 * reach2;
-  //   } else {
-  //     return 0;
-  //   }
-  // }
-
-  // function overlapWithAlgorithmForStrategy(rV: number[]) {
-  //   if (rV.length === 0) {
-  //     return 0;
-  //   } else if (rV.length > 0) {
-  //     let duplicateReach = 1;
-  //     for (let i = 0; i < rV.length; i++) {
-  //       const reach = rV[i] / 100;
-  //       duplicateReach *= reach;
-  //     }
-  //     return 100 * duplicateReach;
-  //   } else {
-  //     return 0;
-  //   }
-  // }
-
   return {
-    getProbabilitiesForTouchPoints,
-    complementTouchPoints,
-    collectReachedRespondentsForTouchPoints
+    lineUpProbabilitiesForTouchPoints,
+    complementCountedTouchPoints,
+    filterReachedRespondentsProbabilitiesForCountedTouchPoints
   };
 }

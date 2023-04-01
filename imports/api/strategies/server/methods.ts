@@ -98,12 +98,12 @@ Meteor.methods({
     const populationCountForStrategy = populationForStrategy.reduce((subTotal, current) => subTotal + current.count, 0);
 
     // for each deployed touchpoint only select respondents with a contact probability > 0
-    const respondentsProbabilitiesForTouchPoints = reachDataTool.getProbabilitiesForTouchPoints(
+    const respondentsProbabilitiesForTouchPoints = reachDataTool.lineUpProbabilitiesForTouchPoints(
       touchPointsCounted,
       respondentsProbabilitiesForStrategy
     );
     // add properties to touchpoints
-    const complementedTouchPoints: ComplementedTouchPoint[] = reachDataTool.complementTouchPoints(
+    const complementedTouchPoints: ComplementedTouchPoint[] = reachDataTool.complementCountedTouchPoints(
       touchPointsCounted,
       respondentsProbabilitiesForTouchPoints
     );
