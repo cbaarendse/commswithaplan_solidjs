@@ -132,7 +132,6 @@ export type ComplementedTouchPoint = {
   inputTypeIndex: InputType;
   selected?: boolean;
   maxReachedRespondents?: number;
-  sumOfProbabilities?: number;
   grps?: number;
   averageProbability?: number;
   reach?: number;

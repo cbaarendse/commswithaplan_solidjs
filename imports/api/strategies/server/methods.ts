@@ -114,13 +114,12 @@ Meteor.methods({
 
     // Build non-unique respondents
     // Collect respondents
-    const reachedRespondentsForTouchPoints: Map<TouchPointName, Probability['respondentId'][]> =
-      reachDataTool.collectReachedRespondentsForTouchPoints(
-        deployedComplementedTouchPoints,
-        populationCountForStrategy,
-        respondentsProbabilitiesForTouchPoints,
-        respondentsCountForStrategy
-      );
+    const reachedRespondentsForTouchPoints = reachDataTool.filterReachedRespondentsProbabilitiesForCountedTouchPoints(
+      deployedComplementedTouchPoints,
+      respondentsProbabilitiesForTouchPoints,
+      populationCountForStrategy,
+      respondentsCountForStrategy
+    );
     // For reach calculation: Gather all reached respondents for strategy per touch point, so non-unique
     // TODO: rename everything; check, because sometimes reach == 100%...
     reachedRespondentsForTouchPoints.forEach((reachedRespondentsForTouchPoint) => {
