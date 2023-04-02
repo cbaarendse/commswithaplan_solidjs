@@ -76,7 +76,7 @@ export default function createReachDataTool() {
 
   function filterReachedRespondentsProbabilitiesForCountedTouchPoints(
     touchPoints: ComplementedTouchPoint[],
-    respondents: ReturnType<typeof lineUpProbabilitiesForTouchPoints>,
+    respondents: RespondentOutcome[],
     populationCount: PopulationCountForStrategy,
     respondentsCount: RespondentsCount
   ): RespondentOutcome[] {

@@ -147,7 +147,7 @@ Meteor.methods({
     // }
 
     // Filter probabilities and population
-    const probabilityQuery: {[key: string]: string | {[key: string]: Genders | number}} = {
+    const probabilityQuery = {
       marketName: marketName,
       gender: {
         $in: genders
@@ -164,7 +164,7 @@ Meteor.methods({
     const respondentsProbabilitiesForStrategy = probabilitiesForStrategy.fetch();
     const startAge = ageGroupIndexStart ? ageGroups[ageGroupIndexStart][0] : ageGroups[0][0];
     const endAge = ageGroupIndexEnd ? ageGroups[ageGroupIndexEnd][1] : ageGroups[1][1];
-    const populationQuery: {[key: string]: string | {[key: string]: Genders | number}} = {
+    const populationQuery = {
       market: marketName,
       gender: {
         $in: genders || ['f', 'm', 'x']
@@ -211,8 +211,8 @@ Meteor.methods({
 
     // Unique respondents
     // TODO: array with all respondentIds
-    const reachedRespondentsIds = reachedRespondents.map((respondent) => respondent.respondentId.valueOf);
-    const reachedUniqueRespondentsIds: Set<RespondentOutcome['respondentId']> = new Set(reachedRespondentsIds); // OK
+    const reachedRespondentsIds = reachedRespondents.map((respondent) => respondent.respondentId);
+    const reachedUniqueRespondents: Set<RespondentOutcome['respondentId']> = new Set(reachedRespondentsIds); // OK
     //TODO respondentsForStrategy
     // total reach TODO: check, because sometimes reach == 100%...
     const totalReachForResult = Number.isNaN(reachedUniqueRespondents.size / respondentsCountForStrategy)
