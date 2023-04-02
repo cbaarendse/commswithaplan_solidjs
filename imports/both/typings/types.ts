@@ -163,6 +163,13 @@ export type Probability = {
   [key in TouchPointName]: number;
 };
 
+export type RespondentOutcome = {
+  respondentId: string;
+  touchPointName: TouchPointName;
+  probability: number;
+  reach?: number;
+};
+
 export type Week = {name: string; days: number; monday: string};
 export type Month = {name: string; days: number};
 export type Year = {name: string; days: number};

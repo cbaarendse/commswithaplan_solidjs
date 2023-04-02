@@ -1,10 +1,11 @@
-import {
+import type {
   Probability,
   DeployedTouchPoint,
   ComplementedTouchPoint,
   TouchPointName,
   InputType,
   PopulationCountForStrategy,
+  RespondentOutcome,
   RespondentsCount
 } from '/imports/both/typings/types';
 
@@ -12,7 +13,7 @@ export default function createReachDataTool() {
   function lineUpProbabilitiesForTouchPoints(
     touchPoints: DeployedTouchPoint[],
     probabilities: Probability[]
-  ): {respondentId: string; touchPointName: TouchPointName; probability: number}[] {
+  ): RespondentOutcome[] {
     const respondentsProbabilitiesForTouchPoints: {
       respondentId: string;
       touchPointName: TouchPointName;
@@ -56,7 +57,7 @@ export default function createReachDataTool() {
 
   function complementCountedTouchPoints(
     touchPoints: DeployedTouchPoint[],
-    respondentsProbabilitiesForTouchPoints: ReturnType<typeof lineUpProbabilitiesForTouchPoints>
+    respondentsProbabilitiesForTouchPoints: RespondentOutcome[]
   ): ComplementedTouchPoint[] {
     const complementedTouchPoints = touchPoints.map((touchPoint) => {
       const {name, value} = touchPoint;
@@ -78,38 +79,39 @@ export default function createReachDataTool() {
     respondents: ReturnType<typeof lineUpProbabilitiesForTouchPoints>,
     populationCount: PopulationCountForStrategy,
     respondentsCount: RespondentsCount
-  ): ReturnType<typeof lineUpProbabilitiesForTouchPoints>[number] & {reach: number}[] {
+  ): RespondentOutcome[] {
+    const reachedRespondentsTouchPoints: RespondentOutcome[] = [];
     for (let touchPointIndex = 0; touchPointIndex < touchPoints.length; touchPointIndex++) {
       const thisTouchPoint = touchPoints[touchPointIndex];
-      const respondentsForThisTouchPoint: ReturnType<typeof lineUpProbabilitiesForTouchPoints> = respondents.filter(
+      const respondentsThisTouchPoint: RespondentOutcome[] = respondents.filter(
         (respondent) => thisTouchPoint.name === respondent.touchPointName
       );
-      const sumOfProbalitiesForThisTouchPoint = respondentsForThisTouchPoint.reduce((sum, respondent) => {
+      const sumOfProbalitiesForThisTouchPoint = respondentsThisTouchPoint.reduce((sum, respondent) => {
         return sum + respondent.probability;
       }, 0);
       const bareReach =
-        sumOfProbalitiesForThisTouchPoint && respondentsForThisTouchPoint
-          ? sumOfProbalitiesForThisTouchPoint / respondentsForThisTouchPoint.length
+        sumOfProbalitiesForThisTouchPoint && respondentsThisTouchPoint
+          ? sumOfProbalitiesForThisTouchPoint / respondentsThisTouchPoint.length
           : 0;
 
       // For InputType.Reach:
-      if (respondentsForThisTouchPoint && thisTouchPoint.inputTypeIndex == InputType.Reach) {
+      if (respondentsThisTouchPoint && thisTouchPoint.inputTypeIndex == InputType.Reach) {
         // convert reach input to reached respondents
-        const reachedRespondentsForTouchPointCount = (thisTouchPoint.value / 100) * respondentsCount;
+        const reachedRespondentsTouchPointCount = (thisTouchPoint.value / 100) * respondentsCount;
 
         let contacts = 0;
-        for (let index = 0; index < reachedRespondentsForTouchPointCount; index++) {
-          const thisProbability = respondentsForThisTouchPoint[index];
-          contacts += thisProbability.probability * (populationCount / respondentsCount);
+        for (let index = 0; index < reachedRespondentsTouchPointCount; index++) {
+          const respondent = respondentsThisTouchPoint[index];
+          contacts += respondent.probability * (populationCount / respondentsCount);
           // Add respondent to array with reached respondents for this touchpoint
-          reachedRespondentsForThisTouchPoint.push(thisProbability.respondentId);
+          respondentsThisTouchPoint.push(respondent);
         }
         thisTouchPoint.grps = (contacts / populationCount) * 100;
       }
 
       // For InputType.Contacts, InputType.Grps, InputType.Impressions:
       if (
-        respondentsForThisTouchPoint &&
+        respondentsThisTouchPoint &&
         (thisTouchPoint.inputTypeIndex == InputType.Grps ||
           thisTouchPoint.inputTypeIndex == InputType.Contacts ||
           thisTouchPoint.inputTypeIndex == InputType.Impressions)
@@ -118,29 +120,22 @@ export default function createReachDataTool() {
           thisTouchPoint.inputTypeIndex == InputType.Grps
             ? thisTouchPoint.value
             : (thisTouchPoint.value / populationCount) * 100;
-
-        // continue
-        respondentsForThisTouchPoint.map(
-          (
-            respondent,
-            index,
-            respondentsForThisTouchPoint
-          ): ReturnType<typeof lineUpProbabilitiesForTouchPoints>[number] & {reach: number}[] => {
-            const exponent = thisTouchPoint.grps
-              ? (-respondent.probability * thisTouchPoint.grps) / respondentsForThisTouchPoint.length
-              : 0;
-            // Math.pow(Math.E, 0) = 1, so if exponent == 0, reach = 0
-            const reach = 1 * (1 - Math.pow(Math.E, exponent)) * 100;
-            //TODO: further
-            return Object.assign(respondent, {reach: reach});
-          }
-        );
-        const reachedRespondents = respondentsForThisTouchPoint.filter((respondent) => respondent.reach >= 1);
       }
-      /////////////
-      reachedRespondentsForTouchPoints.push(...reachedRespondents);
+
+      // continue
+      const reachedRespondents = respondentsThisTouchPoint
+        .map((respondent, index, respondentsForThisTouchPoint): Required<RespondentOutcome> => {
+          const exponent = thisTouchPoint.grps
+            ? (-respondent.probability * thisTouchPoint.grps) / respondentsForThisTouchPoint.length
+            : 0;
+          // Math.pow(Math.E, 0) = 1, so if exponent == 0, reach = 0
+          const reach = 1 * (1 - Math.pow(Math.E, exponent)) * 100;
+          return Object.assign(respondent, {reach: reach});
+        })
+        .filter((respondent: Required<RespondentOutcome>) => respondent.reach >= 1);
+      reachedRespondentsTouchPoints.push(...reachedRespondents);
     }
-    return reachedRespondentsForTouchPoints;
+    return reachedRespondentsTouchPoints;
   }
 
   return {
