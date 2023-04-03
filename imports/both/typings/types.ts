@@ -119,14 +119,6 @@ export enum InputType {
   Reach
 }
 
-export const InputTypes = {
-  Contacts: 0,
-  Grps: 1,
-  Impressions: 2,
-  Reach: 3
-};
-Object.freeze(InputTypes);
-
 export type TouchPointDefinition = Omit<Content, 'name'> & {name: TouchPointName} & {
   defaultInputTypeIndex: InputType;
 };

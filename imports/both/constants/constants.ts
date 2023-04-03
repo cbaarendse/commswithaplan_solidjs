@@ -44,6 +44,14 @@ export const TOUCHPOINTSNAMES = [
   'word_of_mouth'
 ];
 
+export const INPUTTYPES = {
+  Contacts: 0,
+  Grps: 1,
+  Impressions: 2,
+  Reach: 3
+};
+Object.freeze(INPUTTYPES);
+
 export const YEARS = [
   DateTime.now().minus({years: 2}).toFormat('YYYY'),
   DateTime.now().minus({years: 1}).toFormat('YYYY'),

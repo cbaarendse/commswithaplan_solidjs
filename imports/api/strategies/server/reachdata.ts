@@ -10,32 +10,24 @@ import type {
 } from '/imports/both/typings/types';
 
 export default function createReachDataTool() {
-  function lineUpProbabilitiesForTouchPoints(
+  function filterRespondentsForTouchPoints(
     touchPoints: DeployedTouchPoint[],
     probabilities: Probability[]
   ): RespondentOutcome[] {
-    const respondentsProbabilitiesForTouchPoints: {
-      respondentId: string;
-      touchPointName: TouchPointName;
-      probability: number;
-    }[] = [];
+    const filteredRespondents: RespondentOutcome[] = [];
     for (let touchPointIndex = 0; touchPointIndex < touchPoints.length; touchPointIndex++) {
-      const respondentsProbabilitiesForThisTouchPoint: {
-        respondentId: string;
-        touchPointName: TouchPointName;
-        probability: number;
-      }[] = [];
+      const respondentsForThisTouchPoint: RespondentOutcome[] = [];
       const thisTouchPointName = touchPoints[touchPointIndex].name;
       for (let probabilityIndex = 0; probabilityIndex < probabilities.length; probabilityIndex++) {
         const thisProbability = probabilities[probabilityIndex];
         if (thisProbability[thisTouchPointName] > 0) {
-          respondentsProbabilitiesForThisTouchPoint.push({
+          respondentsForThisTouchPoint.push({
             respondentId: thisProbability.respondentId,
             touchPointName: thisTouchPointName,
             probability: thisProbability[thisTouchPointName]
           });
         }
-        respondentsProbabilitiesForThisTouchPoint.sort(
+        respondentsForThisTouchPoint.sort(
           (
             a: {
               respondentId: string;
@@ -50,9 +42,13 @@ export default function createReachDataTool() {
           ) => b.probability - a.probability
         );
       }
-      respondentsProbabilitiesForTouchPoints.push(...respondentsProbabilitiesForThisTouchPoint);
+      filteredRespondents.push(...respondentsForThisTouchPoint);
     }
-    return respondentsProbabilitiesForTouchPoints;
+    return filteredRespondents;
+  }
+
+  function countRespondentsForTouchPoints(respondents: RespondentOutcome[]): number {
+    return respondents.map((respondent) => respondent.respondentId).length;
   }
 
   function complementCountedTouchPoints(
@@ -139,7 +135,8 @@ export default function createReachDataTool() {
   }
 
   return {
-    lineUpProbabilitiesForTouchPoints,
+    filterRespondentsForTouchPoints,
+    countRespondentsForTouchPoints,
     complementCountedTouchPoints,
     filterReachedRespondentsProbabilitiesForCountedTouchPoints
   };

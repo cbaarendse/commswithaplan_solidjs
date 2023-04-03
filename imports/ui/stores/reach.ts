@@ -101,7 +101,11 @@ export const sortedByName: Writable<SortedByName> = writable(true, () => {
     console.log('sortedByName closed');
   };
 });
-
+export const respondentsReady: Writable<boolean> = writable(false, () => {
+  () => {
+    console.log('respondentsReady closed');
+  };
+});
 // results
 export const respondentsCountForMarket: Readable<RespondentsCount> = derived(
   [marketName, marketData, useMarketData],

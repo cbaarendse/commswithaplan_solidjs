@@ -1,5 +1,6 @@
 // imports
 import {Meteor} from 'meteor/meteor';
+import {Mongo} from 'meteor/mongo';
 import {Match} from 'meteor/check';
 import createReachDataTool from './reachdata';
 import Probabilities from '../../probabilities/server/probabilities';
@@ -9,20 +10,48 @@ import type {
   ComplementedTouchPoint,
   DeployedTouchPoint,
   Genders,
-  InputType,
-  Probability,
   RespondentOutcome,
   Results,
   Strategy,
   TouchPointName
 } from '/imports/both/typings/types';
+import {INPUTTYPES} from '/imports/both/constants/constants';
 
 // variables
 const reachDataTool = createReachDataTool();
+const preparedRespondents: RespondentOutcome[] = [];
 
 // functions
 
 Meteor.methods({
+  'strategies.prepareRespondents': function (args: {
+    userId: Strategy['userId'];
+    marketName: Strategy['marketName'];
+    genders: Strategy['genders'];
+    ageGroupIndexStart: Strategy['ageGroupIndexStart'];
+    ageGroupIndexEnd: Strategy['ageGroupIndexEnd'];
+    deployment: Strategy['deployment'];
+    ageGroups: AgeGroup[];
+  }): boolean {
+    if (preparedRespondents.length > 0) {
+      preparedRespondents.length = 0;
+    }
+
+    // Filter probabilities for this briefing / strategy
+    const {marketName, ageGroupIndexStart, ageGroupIndexEnd, genders} = args;
+    const touchPoints: DeployedTouchPoint[] = args.deployment;
+    const probabilitiesCursor = Probabilities.find({
+      marketName: marketName,
+      gender: {$in: genders},
+      age_group: {$gte: ageGroupIndexStart, $lte: ageGroupIndexEnd}
+    });
+
+    const probabilities = probabilitiesCursor.fetch();
+    const filteredRespondents = reachDataTool.filterRespondentsForTouchPoints(touchPoints, probabilities);
+    preparedRespondents.push(...filteredRespondents);
+    return preparedRespondents.length > 0;
+  },
+
   // maxValues
   'strategies.maxValuesForTouchPoints': function (args: {
     userId: Strategy['userId'];
@@ -32,20 +61,12 @@ Meteor.methods({
     ageGroupIndexEnd: Strategy['ageGroupIndexEnd'];
     deployment: Strategy['deployment'];
     ageGroups: AgeGroup[];
-  }): {[key: string]: number} {
+  }): {touchPoint: TouchPointName; max: number}[] {
     // Filter probabilities for this briefing / strategy
     const {marketName, ageGroupIndexStart, ageGroupIndexEnd, genders, ageGroups} = args;
-    const touchPointsDeployed: DeployedTouchPoint[] = args.deployment;
-    const respondentsProbabilities = Probabilities.find({
-      marketName: marketName,
-      gender: {$in: genders},
-      age_group: {$gte: ageGroupIndexStart, $lte: ageGroupIndexEnd}
-    });
+    const touchPoints: DeployedTouchPoint[] = args.deployment;
 
-    const respondentsCountForStrategy = respondentsProbabilities.count();
-    const respondentsProbabilitiesForStrategy = respondentsProbabilities.fetch();
-
-    // population for this strategy
+    // population for selected age / gender combination
     const startAge = ageGroupIndexStart ? ageGroups[ageGroupIndexStart][0] : ageGroups[0][0];
     const endAge = ageGroupIndexEnd ? ageGroups[ageGroupIndexEnd][1] : ageGroups[1][1];
     const query: {[key: string]: string | {[key: string]: Genders | number}} = {
@@ -59,56 +80,44 @@ Meteor.methods({
       }
     };
     // Make sure only the counts per age group / gender are being reported in query
-    const projection: {count: number} = {count: 0};
-    projection.count = 1;
+    const projection: {count: number} = {count: 1};
     // Filter right counts for selected age range / gender
-    const populationForStrategy = Populations.find(query, {
+    const population = Populations.find(query, {
       fields: projection
     }).fetch();
 
     // Summarize all filtered counts per age range / gender to one number
-    const populationCountForStrategy = populationForStrategy.reduce((subTotal, current) => subTotal + current.count, 0);
+    const populationCount = population.reduce((subTotal, current) => subTotal + current.count, 0);
+    const respondentsCount = reachDataTool.countRespondentsForTouchPoints(preparedRespondents);
 
-    const maxValues: Map<TouchPointName, number> = new Map();
+    const maxValues: {touchPoint: TouchPointName; max: number}[] = [];
     // for each deployed touchpoint only select respondents with a contact probability > 0
-    const respondentsProbabilitiesForTouchPoints: Map<
-      TouchPointName,
-      Map<Probability['respondentId'], number>
-    > = reachDataTool.getProbabilitiesForTouchPoints(touchPointsDeployed, respondentsProbabilitiesForStrategy); //OK
-
-    touchPointsDeployed.forEach((touchPoint) => {
-      const respondentsProbabilitiesForTouchPoint = respondentsProbabilitiesForTouchPoints.get(touchPoint.name);
-      maxValues.set(touchPoint.name, 100);
+    touchPoints.forEach((touchPoint) => {
+      const respondentsThisTouchPoint = preparedRespondents.filter(
+        (respondent) => touchPoint.name === respondent.touchPointName
+      );
+      const maxForTouchPoint = {touchPoint: touchPoint.name, max: 100};
       if (
-        (touchPoint.inputTypeIndex == InputType.Contacts || touchPoint.inputTypeIndex == InputType.Impressions) &&
-        respondentsProbabilitiesForTouchPoint
+        (touchPoint.inputTypeIndex == INPUTTYPES.Contacts || touchPoint.inputTypeIndex == INPUTTYPES.Impressions) &&
+        respondentsThisTouchPoint
       ) {
-        maxValues.set(
-          touchPoint.name,
-          (respondentsProbabilitiesForTouchPoint.size / respondentsCountForStrategy) * populationCountForStrategy * 5
-        );
-      } else if (touchPoint.inputTypeIndex == InputType.Grps && respondentsProbabilitiesForTouchPoint) {
-        maxValues.set(
-          touchPoint.name,
-          ((respondentsProbabilitiesForTouchPoint.size / respondentsCountForStrategy) *
-            populationCountForStrategy *
-            5) /
-            10000
-        );
-      } else if (touchPoint.inputTypeIndex == InputType.Reach && respondentsProbabilitiesForTouchPoint) {
+        maxForTouchPoint.max = (respondentsThisTouchPoint.length / respondentsCount) * populationCount * 5;
+      } else if (touchPoint.inputTypeIndex == INPUTTYPES.Grps && respondentsThisTouchPoint) {
+        maxForTouchPoint.max = ((respondentsThisTouchPoint.length / respondentsCount) * populationCount * 5) / 10000;
+      } else if (touchPoint.inputTypeIndex == INPUTTYPES.Reach && respondentsThisTouchPoint) {
         console.log(
-          'respondentsProbabilitiesForTouchPoint.size and respondentsCountForStrategy: ',
-          respondentsProbabilitiesForTouchPoint.size,
-          respondentsCountForStrategy,
+          'respondentsThisTouchPoint.length and respondentsCount: ',
+          respondentsThisTouchPoint.length,
+          respondentsCount,
           'for: ',
           touchPoint.name
         );
-
-        const maxReach = respondentsProbabilitiesForTouchPoint.size / respondentsCountForStrategy;
-        maxValues.set(touchPoint.name, Math.max(maxReach, 1));
+        const maxReach = respondentsThisTouchPoint.length / respondentsCount;
+        maxForTouchPoint.max = Math.max(maxReach, 0.01);
       }
+      maxValues.push(maxForTouchPoint);
     });
-    return Object.fromEntries(maxValues);
+    return maxValues;
   },
   // results
   'strategies.calculateResultsWithData': function (args: {
@@ -127,8 +136,8 @@ Meteor.methods({
 
     // filter probabilities for market
     const touchPointsDeployed: DeployedTouchPoint[] = args.deployment;
-    const touchPointsCounted: DeployedTouchPoint[] = touchPointsDeployed.filter((touchPoint) => touchPoint.value > 0);
-    const respondentsCountedForOverlap: number[] = [];
+    const touchPoints: DeployedTouchPoint[] = touchPointsDeployed.filter((touchPoint) => touchPoint.value > 0);
+    const respondentsCountedForOverlap: RespondentOutcome[] = [];
 
     // Checks for login and strategy ownership
     if (!this.userId) {
@@ -146,22 +155,8 @@ Meteor.methods({
     //   );
     // }
 
-    // Filter probabilities and population
-    const probabilityQuery = {
-      marketName: marketName,
-      gender: {
-        $in: genders
-      },
-      age_group: {$gte: ageGroupIndexStart, $lte: ageGroupIndexEnd}
-    };
-    const probabilityProjection: {count: number} = {count: 0};
-    probabilityProjection.count = 1;
-    const probabilitiesForStrategy = Probabilities.find(probabilityQuery, {
-      fields: probabilityProjection
-    });
-    // TODO: from here
-    const respondentsCountForStrategy = probabilitiesForStrategy.count();
-    const respondentsProbabilitiesForStrategy = probabilitiesForStrategy.fetch();
+    // Filter population
+
     const startAge = ageGroupIndexStart ? ageGroups[ageGroupIndexStart][0] : ageGroups[0][0];
     const endAge = ageGroupIndexEnd ? ageGroups[ageGroupIndexEnd][1] : ageGroups[1][1];
     const populationQuery = {
@@ -185,47 +180,40 @@ Meteor.methods({
     // Summarize all filtered counts per age range / gender to one number
     const populationCountForStrategy = populationForStrategy.reduce((subTotal, current) => subTotal + current.count, 0);
 
-    // for each deployed touchpoint only select respondents with a contact probability > 0
-    const respondentsProbabilitiesForTouchPoints = reachDataTool.lineUpProbabilitiesForTouchPoints(
-      touchPointsCounted,
-      respondentsProbabilitiesForStrategy
-    );
     // add properties to touchpoints
     const complementedTouchPoints: ComplementedTouchPoint[] = reachDataTool.complementCountedTouchPoints(
-      touchPointsCounted,
-      respondentsProbabilitiesForTouchPoints
+      touchPoints,
+      preparedRespondents
     );
 
-    const deployedComplementedTouchPoints: ComplementedTouchPoint[] = complementedTouchPoints.filter(
-      (touchPoint) => touchPoint.value > 0
-    );
-
+    const respondentsCount = reachDataTool.countRespondentsForTouchPoints(preparedRespondents);
     // Build non-unique respondents
     // Collect respondents
     const reachedRespondents = reachDataTool.filterReachedRespondentsProbabilitiesForCountedTouchPoints(
-      deployedComplementedTouchPoints,
-      respondentsProbabilitiesForTouchPoints,
+      complementedTouchPoints,
+      preparedRespondents,
       populationCountForStrategy,
-      respondentsCountForStrategy
+      respondentsCount
     );
 
     // Unique respondents
-    // TODO: array with all respondentIds
     const reachedRespondentsIds = reachedRespondents.map((respondent) => respondent.respondentId);
-    const reachedUniqueRespondents: Set<RespondentOutcome['respondentId']> = new Set(reachedRespondentsIds); // OK
+    const reachedUniqueRespondentsIds: Set<RespondentOutcome['respondentId']> = new Set(reachedRespondentsIds);
     //TODO respondentsForStrategy
     // total reach TODO: check, because sometimes reach == 100%...
-    const totalReachForResult = Number.isNaN(reachedUniqueRespondents.size / respondentsCountForStrategy)
+    const totalReachForResult = Number.isNaN(reachedUniqueRespondentsIds.size / respondentsCount)
       ? 0
-      : reachedUniqueRespondents.size / respondentsCountForStrategy;
+      : reachedUniqueRespondentsIds.size / respondentsCount;
+
     // Count respondents for overlap
-    console.log('reachedUniqueRespondentsIds.size :', reachedUniqueRespondents.size);
+    console.log('reachedUniqueRespondentsIds.size :', reachedUniqueRespondentsIds.size);
     // TODO: overlap check
-    reachedUniqueRespondents.forEach((respondent) => {
+    reachedRespondents.forEach((respondent) => {
       let countThisRespondent = true;
-      for (let i = 0; i < deployedComplementedTouchPoints.length; i++) {
+      for (let index = 0; index < complementedTouchPoints.length; index++) {
+        const touchPointName = complementedTouchPoints[index].name;
         if (
-          reachedRespondentsTouchPoints.get(deployedComplementedTouchPoints[i].name)?.includes(respondent) &&
+          reachedRespondents.some((respondent) => touchPointName == respondent.touchPointName) &&
           countThisRespondent
         ) {
           countThisRespondent = true;
@@ -240,14 +228,14 @@ Meteor.methods({
     console.log('respondentsCountedForOverlap in calculate result: ', respondentsCountedForOverlap);
 
     // strategy.overlap
-    const overlapForResult = Number.isNaN(respondentsCountedForOverlap.length / respondentsCountForStrategy)
+    const overlapForResult = Number.isNaN(respondentsCountedForOverlap.length / respondentsCount)
       ? 0
-      : respondentsCountedForOverlap.length / respondentsCountForStrategy;
+      : respondentsCountedForOverlap.length / respondentsCount;
     console.log(
       'respondentsCountedForOverlap.length: ',
       respondentsCountedForOverlap.length,
-      'respondentsCountForStrategy: ',
-      respondentsCountForStrategy
+      'respondentsCount: ',
+      respondentsCount
     );
     console.log('totalReachForResult: ', totalReachForResult, 'overlapForResult: ', overlapForResult);
 
