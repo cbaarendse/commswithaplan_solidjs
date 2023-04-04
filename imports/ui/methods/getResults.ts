@@ -1,6 +1,5 @@
 // imports
 import {Meteor} from 'meteor/meteor';
-import createReachTool from '../functions/reach';
 import {get} from 'svelte/store';
 import {
   ageGroups,
@@ -12,14 +11,15 @@ import {
   marketName,
   results,
   useMarketData,
-  userId
+  userId,
+  respondentsReady
 } from '../stores/reach';
 import {DeployedTouchPoint, Results} from '/imports/both/typings/types';
 
 // variables
 
 export default function getResults() {
-  if (get(marketData) && get(useMarketData)) {
+  if (get(marketData) && get(useMarketData) && get(respondentsReady)) {
     Meteor.callAsync('strategies.calculateResultsWithData', {
       userId: get(userId),
       marketName: get(marketName),

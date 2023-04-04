@@ -5,6 +5,7 @@
   import {marketData, useMarketData, results} from '../../../stores/reach';
   import renew from '../../../methods/renew';
   import adaptMaxValues from '/imports/ui/methods/maxValues';
+  import prepareRespondents from '/imports/ui/methods/prepareRespondents';
 
   // variables
   const converter = createConverter();
@@ -32,6 +33,7 @@
     {disabled}
     bind:checked={$useMarketData}
     on:change={reset}
+    on:change={prepareRespondents}
     on:change={adaptMaxValues}
   />
   <label for="marketdata__checkbox">{message}</label>

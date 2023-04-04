@@ -16,7 +16,8 @@ import {
 
 // variables
 
-export default function getResults() {
+export default function prepareRespondents() {
+  respondentsReady.set(false);
   if (get(marketData) && get(useMarketData)) {
     Meteor.callAsync('strategies.prepareRespondents', {
       userId: get(userId),
@@ -32,4 +33,5 @@ export default function getResults() {
       })
       .catch((error) => console.log('error in prepare respondents', error));
   }
+  console.log('respondentsReady after function: ', get(respondentsReady));
 }

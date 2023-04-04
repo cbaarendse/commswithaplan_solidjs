@@ -2,6 +2,7 @@
 import {Meteor} from 'meteor/meteor';
 import {Mongo} from 'meteor/mongo';
 import {HTMLInputAttributes, HTMLAttributes} from 'svelte/elements';
+import {INPUTTYPE} from '../constants/constants';
 
 // global
 declare global {
@@ -112,25 +113,18 @@ export type TouchPointName =
   | 'website'
   | 'word_of_mouth';
 
-export enum InputType {
-  Contacts,
-  Grps,
-  Impressions,
-  Reach
-}
-
 export type TouchPointDefinition = Omit<Content, 'name'> & {name: TouchPointName} & {
-  defaultInputTypeIndex: InputType;
+  defaultInputTypeIndex: typeof INPUTTYPE[keyof typeof INPUTTYPE];
 };
 export type DeployedTouchPoint = TouchPointDefinition & {
   value: number;
   show: boolean;
-  inputTypeIndex: InputType;
+  inputTypeIndex: typeof INPUTTYPE[keyof typeof INPUTTYPE];
 };
 export type ComplementedTouchPoint = {
   name: TouchPointName;
   value: number;
-  inputTypeIndex: InputType;
+  inputTypeIndex: typeof INPUTTYPE[keyof typeof INPUTTYPE];
   selected?: boolean;
   maxReachedRespondents?: number;
   grps?: number;

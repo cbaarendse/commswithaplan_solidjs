@@ -10,10 +10,12 @@ import {
   marketData,
   marketName,
   maxValues,
+  respondentsReady,
   useMarketData,
   userId
 } from '../stores/reach';
-import {DeployedTouchPoint, InputType} from '/imports/both/typings/types';
+import {DeployedTouchPoint} from '/imports/both/typings/types';
+import {INPUTTYPE} from '../../both/constants/constants';
 
 export default function adaptMaxValues() {
   console.log('adaptMaxValues runs with: ');
@@ -27,7 +29,7 @@ export default function adaptMaxValues() {
     ageGroups: get(ageGroups)
   });
 
-  if (get(marketData) && get(useMarketData)) {
+  if (get(marketData) && get(useMarketData) && get(respondentsReady)) {
     Meteor.callAsync('strategies.maxValuesForTouchPoints', {
       userId: get(userId),
       marketName: get(marketName),
@@ -57,16 +59,16 @@ function setMaxValuesFallBack(touchPoints: DeployedTouchPoint[]) {
   const maxValues: {[key: string]: number} = {};
   touchPoints.forEach((touchPoint) => {
     switch (touchPoint.inputTypeIndex) {
-      case InputType.Impressions:
+      case INPUTTYPE.Impressions:
         maxValues[touchPoint.name] = 4_000_000;
         break;
-      case InputType.Contacts:
+      case INPUTTYPE.Contacts:
         maxValues[touchPoint.name] = 4_000_000;
         break;
-      case InputType.Grps:
+      case INPUTTYPE.Grps:
         maxValues[touchPoint.name] = 3_000;
         break;
-      case InputType.Reach:
+      case INPUTTYPE.Reach:
         maxValues[touchPoint.name] = 100;
         break;
       default:

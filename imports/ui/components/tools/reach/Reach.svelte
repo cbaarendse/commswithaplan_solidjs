@@ -5,24 +5,17 @@
   import Output from './Output.svelte';
   import TouchPoint from './TouchPoint.svelte';
   import sort from '../../../methods/sort';
-  import {onMount} from 'svelte';
   import {language} from '../../../stores/utils';
   import {
-    ageGroupIndexEnd,
-    ageGroupIndexStart,
     createdAt,
     deployment,
-    genders,
     marketData,
-    marketName,
     overlap,
-    populationCountForStrategy,
     results,
     sortedByName,
     strategy,
     totalReach,
-    useMarketData,
-    userId
+    useMarketData
   } from '../../../stores/reach';
   import renew from '../../../methods/renew';
   import getResults from '../../../methods/getResults';

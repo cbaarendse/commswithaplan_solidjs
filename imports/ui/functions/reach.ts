@@ -1,6 +1,7 @@
 // Reach
 // imports
-import {TouchPointDefinition, DeployedTouchPoint, Market, Results, InputType, Strategy} from '../../both/typings/types';
+import {TouchPointDefinition, DeployedTouchPoint, Market, Results, Strategy} from '../../both/typings/types';
+import {INPUTTYPE} from '../../both/constants/constants';
 
 // main function (IIFE closure)
 export default function createReachTool() {
@@ -43,7 +44,7 @@ export default function createReachTool() {
         defaultInputTypeIndex: touchPointDefinition.defaultInputTypeIndex,
         value: 0.0,
         show: true,
-        inputTypeIndex: InputType.Reach
+        inputTypeIndex: INPUTTYPE.Reach
       };
       touchPointsForDeployment.push(touchPointForDeployment);
     }

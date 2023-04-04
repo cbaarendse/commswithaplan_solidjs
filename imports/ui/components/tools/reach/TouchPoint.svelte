@@ -5,7 +5,8 @@
   import NumberInput from './NumberInput.svelte';
   import {language} from '../../../stores/utils';
   import createFormatter from '../../../functions/format';
-  import {DeployedTouchPoint, InputType} from '/imports/both/typings/types';
+  import {DeployedTouchPoint} from '/imports/both/typings/types';
+  import {INPUTTYPE} from '../../../../both/constants/constants';
   //import {notify} from '../../notifications/NotificationsFunctions';
 
   // variables
@@ -60,11 +61,11 @@
       }}
     >
       <span>
-        {#if inputTypeIndex == InputType.Grps}{formatter.toNumberFormat(value, 0)}
-        {:else if inputTypeIndex == InputType.Reach}{formatter.toPercentFormat(
+        {#if inputTypeIndex == INPUTTYPE.Grps}{formatter.toNumberFormat(value, 0)}
+        {:else if inputTypeIndex == INPUTTYPE.Reach}{formatter.toPercentFormat(
             value,
             0
-          )}{:else if inputTypeIndex == InputType.Contacts || inputTypeIndex == InputType.Impressions}{formatter.toMillionsFormat(
+          )}{:else if inputTypeIndex == INPUTTYPE.Contacts || inputTypeIndex == INPUTTYPE.Impressions}{formatter.toMillionsFormat(
             value,
             2
           )}{/if}

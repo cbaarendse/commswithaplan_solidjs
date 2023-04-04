@@ -1,9 +1,9 @@
+import {INPUTTYPE} from '/imports/both/constants/constants';
 import type {
   Probability,
   DeployedTouchPoint,
   ComplementedTouchPoint,
   TouchPointName,
-  InputType,
   PopulationCountForStrategy,
   RespondentOutcome,
   RespondentsCount
@@ -70,13 +70,12 @@ export default function createReachDataTool() {
     return complementedTouchPoints;
   }
 
-  function filterReachedRespondentsProbabilitiesForCountedTouchPoints(
+  function determineReachedRespondents(
     touchPoints: ComplementedTouchPoint[],
     respondents: RespondentOutcome[],
-    populationCount: PopulationCountForStrategy,
-    respondentsCount: RespondentsCount
+    populationCount: PopulationCountForStrategy
   ): RespondentOutcome[] {
-    const reachedRespondentsTouchPoints: RespondentOutcome[] = [];
+    const reachedRespondents: RespondentOutcome[] = [];
     for (let touchPointIndex = 0; touchPointIndex < touchPoints.length; touchPointIndex++) {
       const thisTouchPoint = touchPoints[touchPointIndex];
       const respondentsThisTouchPoint: RespondentOutcome[] = respondents.filter(
@@ -90,54 +89,48 @@ export default function createReachDataTool() {
           ? sumOfProbalitiesForThisTouchPoint / respondentsThisTouchPoint.length
           : 0;
 
-      // For InputType.Reach:
-      if (respondentsThisTouchPoint && thisTouchPoint.inputTypeIndex == InputType.Reach) {
+      // For INPUTTYPE.Reach:
+      if (respondentsThisTouchPoint && thisTouchPoint.inputTypeIndex == INPUTTYPE.Reach) {
         // convert reach input to reached respondents
-        const reachedRespondentsTouchPointCount = (thisTouchPoint.value / 100) * respondentsCount;
-
-        let contacts = 0;
-        for (let index = 0; index < reachedRespondentsTouchPointCount; index++) {
-          const respondent = respondentsThisTouchPoint[index];
-          contacts += respondent.probability * (populationCount / respondentsCount);
-          // Add respondent to array with reached respondents for this touchpoint
-          respondentsThisTouchPoint.push(respondent);
-        }
-        thisTouchPoint.grps = (contacts / populationCount) * 100;
+        const reachThisTouchPoint = thisTouchPoint.value;
+        // Math.log(x) = inv. Math.pow(e, y)
+        const exponent = Math.log(reachThisTouchPoint) - 1;
+        thisTouchPoint.grps = exponent;
       }
 
-      // For InputType.Contacts, InputType.Grps, InputType.Impressions:
+      // For INPUTTYPE.Contacts, INPUTTYPE.Grps, INPUTTYPE.Impressions:
       if (
         respondentsThisTouchPoint &&
-        (thisTouchPoint.inputTypeIndex == InputType.Grps ||
-          thisTouchPoint.inputTypeIndex == InputType.Contacts ||
-          thisTouchPoint.inputTypeIndex == InputType.Impressions)
+        (thisTouchPoint.inputTypeIndex == INPUTTYPE.Grps ||
+          thisTouchPoint.inputTypeIndex == INPUTTYPE.Contacts ||
+          thisTouchPoint.inputTypeIndex == INPUTTYPE.Impressions)
       ) {
         thisTouchPoint.grps =
-          thisTouchPoint.inputTypeIndex == InputType.Grps
+          thisTouchPoint.inputTypeIndex == INPUTTYPE.Grps
             ? thisTouchPoint.value
             : (thisTouchPoint.value / populationCount) * 100;
       }
 
       // continue
-      const reachedRespondents = respondentsThisTouchPoint
-        .map((respondent, index, respondentsForThisTouchPoint): Required<RespondentOutcome> => {
+      const reachedRespondentsThisTouchPoint = respondentsThisTouchPoint
+        .map((respondent, index, respondentsThisTouchPoint): Required<RespondentOutcome> => {
           const exponent = thisTouchPoint.grps
-            ? (-respondent.probability * thisTouchPoint.grps) / respondentsForThisTouchPoint.length
+            ? (-respondent.probability * thisTouchPoint.grps) / respondentsThisTouchPoint.length
             : 0;
           // Math.pow(Math.E, 0) = 1, so if exponent == 0, reach = 0
-          const reach = 1 * (1 - Math.pow(Math.E, exponent)) * 100;
-          return Object.assign(respondent, {reach: reach});
+          const reachThisTouchPoint = 1 * (1 - Math.pow(Math.E, exponent));
+          return Object.assign(respondent, {reach: reachThisTouchPoint});
         })
-        .filter((respondent: Required<RespondentOutcome>) => respondent.reach >= 1);
-      reachedRespondentsTouchPoints.push(...reachedRespondents);
+        .filter((respondent) => respondent.reach >= 1);
+      reachedRespondents.push(...reachedRespondentsThisTouchPoint);
     }
-    return reachedRespondentsTouchPoints;
+    return reachedRespondents;
   }
 
   return {
     filterRespondentsForTouchPoints,
     countRespondentsForTouchPoints,
     complementCountedTouchPoints,
-    filterReachedRespondentsProbabilitiesForCountedTouchPoints
+    determineReachedRespondents
   };
 }

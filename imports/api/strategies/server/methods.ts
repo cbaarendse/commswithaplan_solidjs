@@ -15,7 +15,7 @@ import type {
   Strategy,
   TouchPointName
 } from '/imports/both/typings/types';
-import {INPUTTYPES} from '/imports/both/constants/constants';
+import {INPUTTYPE} from '/imports/both/constants/constants';
 
 // variables
 const reachDataTool = createReachDataTool();
@@ -98,13 +98,13 @@ Meteor.methods({
       );
       const maxForTouchPoint = {touchPoint: touchPoint.name, max: 100};
       if (
-        (touchPoint.inputTypeIndex == INPUTTYPES.Contacts || touchPoint.inputTypeIndex == INPUTTYPES.Impressions) &&
+        (touchPoint.inputTypeIndex == INPUTTYPE.Contacts || touchPoint.inputTypeIndex == INPUTTYPE.Impressions) &&
         respondentsThisTouchPoint
       ) {
         maxForTouchPoint.max = (respondentsThisTouchPoint.length / respondentsCount) * populationCount * 5;
-      } else if (touchPoint.inputTypeIndex == INPUTTYPES.Grps && respondentsThisTouchPoint) {
+      } else if (touchPoint.inputTypeIndex == INPUTTYPE.Grps && respondentsThisTouchPoint) {
         maxForTouchPoint.max = ((respondentsThisTouchPoint.length / respondentsCount) * populationCount * 5) / 10000;
-      } else if (touchPoint.inputTypeIndex == INPUTTYPES.Reach && respondentsThisTouchPoint) {
+      } else if (touchPoint.inputTypeIndex == INPUTTYPE.Reach && respondentsThisTouchPoint) {
         console.log(
           'respondentsThisTouchPoint.length and respondentsCount: ',
           respondentsThisTouchPoint.length,
@@ -134,7 +134,7 @@ Meteor.methods({
     }
     const {userId, marketName, ageGroupIndexStart, ageGroupIndexEnd, genders, ageGroups} = args;
 
-    // filter probabilities for market
+    // filter touchPoints for this strategy
     const touchPointsDeployed: DeployedTouchPoint[] = args.deployment;
     const touchPoints: DeployedTouchPoint[] = touchPointsDeployed.filter((touchPoint) => touchPoint.value > 0);
     const respondentsCountedForOverlap: RespondentOutcome[] = [];
@@ -189,11 +189,10 @@ Meteor.methods({
     const respondentsCount = reachDataTool.countRespondentsForTouchPoints(preparedRespondents);
     // Build non-unique respondents
     // Collect respondents
-    const reachedRespondents = reachDataTool.filterReachedRespondentsProbabilitiesForCountedTouchPoints(
+    const reachedRespondents = reachDataTool.determineReachedRespondents(
       complementedTouchPoints,
       preparedRespondents,
-      populationCountForStrategy,
-      respondentsCount
+      populationCountForStrategy
     );
 
     // Unique respondents
