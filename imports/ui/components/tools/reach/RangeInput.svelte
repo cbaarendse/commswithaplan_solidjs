@@ -24,8 +24,6 @@
   $: step = (max - min) / 100 ?? 0.01;
   $: touchPointDefinition = definitions.filter((definition) => definition.language == $language)[0];
 
-  $: console.log('$maxValues: in RangeInput $: ', $maxValues);
-
   // functions
 </script>
 

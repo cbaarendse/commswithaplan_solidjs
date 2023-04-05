@@ -10,8 +10,10 @@
     createdAt,
     deployment,
     marketData,
+    maxValues,
     overlap,
     results,
+    respondentsReady,
     sortedByName,
     strategy,
     totalReach,
@@ -19,9 +21,11 @@
   } from '../../../stores/reach';
   import renew from '../../../methods/renew';
   import getResults from '../../../methods/getResults';
-  import adaptMaxValues from '/imports/ui/methods/maxValues';
+  import createMaxValues from '/imports/ui/methods/maxValues';
+  import prepareRespondents from '/imports/ui/methods/prepareRespondents';
 
   // variables
+  const setMaxValues = createMaxValues();
   if (!$createdAt) {
     $createdAt = new Date();
   }
@@ -29,13 +33,19 @@
     renew();
   }
   if ($deployment) {
-    adaptMaxValues();
+    setMaxValues.forFormula();
   }
   //sort, based on selected language
   $: {
     const [sortedDeployedTouchPoints, updatedSortedByName] = sort($language);
     deployment.set(sortedDeployedTouchPoints);
     sortedByName.set(updatedSortedByName);
+  }
+  $: if ($marketData && $useMarketData) {
+    prepareRespondents();
+    setMaxValues.forData();
+  } else {
+    setMaxValues.forFormula();
   }
 
   $: console.log('$strategy in $: ', $strategy);
@@ -44,6 +54,8 @@
   $: console.log('$results: in $: ', $results);
   $: console.log('$totalReach: in $: ', $totalReach);
   $: console.log('$overlap: in $: ', $overlap);
+  $: console.log('$respondentsReady: in $: ', $respondentsReady);
+  $: console.log('$maxValues: in $: ', $maxValues);
 
   // functions
 </script>

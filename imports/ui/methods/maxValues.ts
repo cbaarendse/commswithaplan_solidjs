@@ -7,29 +7,25 @@ import {
   ageGroupIndexStart,
   deployment,
   genders,
-  marketData,
   marketName,
   maxValues,
-  respondentsReady,
-  useMarketData,
   userId
 } from '../stores/reach';
-import {DeployedTouchPoint} from '/imports/both/typings/types';
 import {INPUTTYPE} from '../../both/constants/constants';
 
-export default function adaptMaxValues() {
-  console.log('adaptMaxValues runs with: ');
-  console.log({
-    userId: get(userId),
-    marketName: get(marketName),
-    ageGroupIndexStart: get(ageGroupIndexStart),
-    ageGroupIndexEnd: get(ageGroupIndexEnd),
-    genders: get(genders),
-    deployment: get(deployment),
-    ageGroups: get(ageGroups)
-  });
+export default function setMaxValues() {
+  function forData() {
+    console.log('setMaxValues runs with: ');
+    console.log({
+      userId: get(userId),
+      marketName: get(marketName),
+      ageGroupIndexStart: get(ageGroupIndexStart),
+      ageGroupIndexEnd: get(ageGroupIndexEnd),
+      genders: get(genders),
+      deployment: get(deployment),
+      ageGroups: get(ageGroups)
+    });
 
-  if (get(marketData) && get(useMarketData) && get(respondentsReady)) {
     Meteor.callAsync('strategies.maxValuesForTouchPoints', {
       userId: get(userId),
       marketName: get(marketName),
@@ -47,39 +43,39 @@ export default function adaptMaxValues() {
       .catch((error) => {
         if (error) {
           console.log('error in max values: ', error);
-          maxValues.set(setMaxValuesFallBack(get(deployment)));
+          maxValues.set(fallBack());
         }
       });
-  } else {
-    maxValues.set(setMaxValues(get(deployment)));
   }
-}
 
-function setMaxValuesFallBack(touchPoints: DeployedTouchPoint[]) {
-  const maxValues: {[key: string]: number} = {};
-  touchPoints.forEach((touchPoint) => {
-    switch (touchPoint.inputTypeIndex) {
-      case INPUTTYPE.Impressions:
-        maxValues[touchPoint.name] = 4_000_000;
-        break;
-      case INPUTTYPE.Contacts:
-        maxValues[touchPoint.name] = 4_000_000;
-        break;
-      case INPUTTYPE.Grps:
-        maxValues[touchPoint.name] = 3_000;
-        break;
-      case INPUTTYPE.Reach:
-        maxValues[touchPoint.name] = 100;
-        break;
-      default:
-        maxValues[touchPoint.name] = 100;
-    }
-  });
-  return maxValues;
-}
+  function fallBack() {
+    const maxValues: {[key: string]: number} = {};
+    get(deployment).forEach((touchPoint) => {
+      switch (touchPoint.inputTypeIndex) {
+        case INPUTTYPE.Impressions:
+          maxValues[touchPoint.name] = 4_000_000;
+          break;
+        case INPUTTYPE.Contacts:
+          maxValues[touchPoint.name] = 4_000_000;
+          break;
+        case INPUTTYPE.Grps:
+          maxValues[touchPoint.name] = 3_000;
+          break;
+        case INPUTTYPE.Reach:
+          maxValues[touchPoint.name] = 100;
+          break;
+        default:
+          maxValues[touchPoint.name] = 100;
+      }
+    });
+    return maxValues;
+  }
 
-function setMaxValues(touchPoints: DeployedTouchPoint[]) {
-  const maxValues: {[key: string]: number} = {};
-  touchPoints.forEach((touchPoint) => (maxValues[touchPoint.name] = 100));
-  return maxValues;
+  function forFormula() {
+    const maxValues: {[key: string]: number} = {};
+    get(deployment).forEach((touchPoint) => (maxValues[touchPoint.name] = 100));
+    return maxValues;
+  }
+
+  return {forData, fallBack, forFormula};
 }
