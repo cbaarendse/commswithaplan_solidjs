@@ -32,9 +32,9 @@
   if (!$deployment) {
     renew();
   }
-  if ($deployment) {
-    setMaxValues.forFormula();
-  }
+
+  setMaxValues.forFormula();
+
   //sort, based on selected language
   $: {
     const [sortedDeployedTouchPoints, updatedSortedByName] = sort($language);

@@ -11,6 +11,7 @@ import type {
   DeployedTouchPoint,
   Genders,
   RespondentOutcome,
+  RespondentsCount,
   Results,
   Strategy,
   TouchPointName
@@ -20,6 +21,7 @@ import {INPUTTYPE} from '/imports/both/constants/constants';
 // variables
 const reachDataTool = createReachDataTool();
 const preparedRespondents: RespondentOutcome[] = [];
+const respondentsCount: {count: number} = {count: 0};
 
 // functions
 
@@ -47,8 +49,9 @@ Meteor.methods({
     });
 
     const probabilities = probabilitiesCursor.fetch();
-    const filteredRespondents = reachDataTool.filterRespondentsForTouchPoints(touchPoints, probabilities);
-    preparedRespondents.push(...filteredRespondents);
+    respondentsCount.count = probabilitiesCursor.count();
+    const flattenedRespondents = reachDataTool.flattenRespondentsForTouchPoints(touchPoints, probabilities);
+    preparedRespondents.push(...flattenedRespondents);
     return preparedRespondents.length > 0;
   },
 
@@ -88,7 +91,7 @@ Meteor.methods({
 
     // Summarize all filtered counts per age range / gender to one number
     const populationCount = population.reduce((subTotal, current) => subTotal + current.count, 0);
-    const respondentsCount = reachDataTool.countRespondentsForTouchPoints(preparedRespondents);
+    console.log('populationCount in maxValues; ', populationCount);
 
     const maxValues: {touchPoint: TouchPointName; max: number}[] = [];
     // for each deployed touchpoint only select respondents with a contact probability > 0
@@ -101,18 +104,25 @@ Meteor.methods({
         (touchPoint.inputTypeIndex == INPUTTYPE.Contacts || touchPoint.inputTypeIndex == INPUTTYPE.Impressions) &&
         respondentsThisTouchPoint
       ) {
-        maxForTouchPoint.max = (respondentsThisTouchPoint.length / respondentsCount) * populationCount * 5;
+        //TODO: correct following, probably * 10.000
+        maxForTouchPoint.max = (respondentsThisTouchPoint.length / respondentsCount.count) * populationCount * 5;
       } else if (touchPoint.inputTypeIndex == INPUTTYPE.Grps && respondentsThisTouchPoint) {
-        maxForTouchPoint.max = ((respondentsThisTouchPoint.length / respondentsCount) * populationCount * 5) / 10000;
+        maxForTouchPoint.max =
+          ((respondentsThisTouchPoint.length / respondentsCount.count) * populationCount * 5) / 10000;
       } else if (touchPoint.inputTypeIndex == INPUTTYPE.Reach && respondentsThisTouchPoint) {
         console.log(
-          'respondentsThisTouchPoint.length and respondentsCount: ',
+          'respondentsThisTouchPoint.length: ',
           respondentsThisTouchPoint.length,
-          respondentsCount,
+          'respondentsCount.count: ',
+          respondentsCount.count,
+          'populationCount: ',
+          populationCount,
+          'max: ',
+          (respondentsThisTouchPoint.length / respondentsCount.count) * populationCount * 5,
           'for: ',
           touchPoint.name
         );
-        const maxReach = respondentsThisTouchPoint.length / respondentsCount;
+        const maxReach = respondentsThisTouchPoint.length / respondentsCount.count;
         maxForTouchPoint.max = Math.max(maxReach, 0.01);
       }
       maxValues.push(maxForTouchPoint);
@@ -186,7 +196,6 @@ Meteor.methods({
       preparedRespondents
     );
 
-    const respondentsCount = reachDataTool.countRespondentsForTouchPoints(preparedRespondents);
     // Build non-unique respondents
     // Collect respondents
     const reachedRespondents = reachDataTool.determineReachedRespondents(
@@ -200,9 +209,9 @@ Meteor.methods({
     const reachedUniqueRespondentsIds: Set<RespondentOutcome['respondentId']> = new Set(reachedRespondentsIds);
     //TODO respondentsForStrategy
     // total reach TODO: check, because sometimes reach == 100%...
-    const totalReachForResult = Number.isNaN(reachedUniqueRespondentsIds.size / respondentsCount)
+    const totalReachForResult = Number.isNaN(reachedUniqueRespondentsIds.size / respondentsCount.count)
       ? 0
-      : reachedUniqueRespondentsIds.size / respondentsCount;
+      : reachedUniqueRespondentsIds.size / respondentsCount.count;
 
     // Count respondents for overlap
     console.log('reachedUniqueRespondentsIds.size :', reachedUniqueRespondentsIds.size);
@@ -227,14 +236,14 @@ Meteor.methods({
     console.log('respondentsCountedForOverlap in calculate result: ', respondentsCountedForOverlap);
 
     // strategy.overlap
-    const overlapForResult = Number.isNaN(respondentsCountedForOverlap.length / respondentsCount)
+    const overlapForResult = Number.isNaN(respondentsCountedForOverlap.length / respondentsCount.count)
       ? 0
-      : respondentsCountedForOverlap.length / respondentsCount;
+      : respondentsCountedForOverlap.length / respondentsCount.count;
     console.log(
       'respondentsCountedForOverlap.length: ',
       respondentsCountedForOverlap.length,
-      'respondentsCount: ',
-      respondentsCount
+      'respondentsCount.count: ',
+      respondentsCount.count
     );
     console.log('totalReachForResult: ', totalReachForResult, 'overlapForResult: ', overlapForResult);
 

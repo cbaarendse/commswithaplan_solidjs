@@ -6,8 +6,6 @@
   import Fa from 'svelte-fa/src/fa.svelte';
   import {faSort} from '@fortawesome/free-solid-svg-icons';
   import getResults from '/imports/ui/methods/getResults';
-  import adaptMaxValues from '/imports/ui/methods/maxValues';
-  import prepareRespondents from '/imports/ui/methods/prepareRespondents';
 
   //variables
   const converter = createConverter();
@@ -27,8 +25,6 @@
       id="agegroup__select_start"
       bind:value={$ageGroupIndexStart}
       on:change={adaptAgeGroupIndexEnd}
-      on:change={prepareRespondents}
-      on:change={adaptMaxValues}
       on:change={getResults}
     >
       {#each $ageGroups as ageGroup, index}
@@ -39,14 +35,7 @@
       {/each}
     </select>
     <label for="agegroup__select_start"><Fa icon={faSort} color={'var(--ra-teal)'} /></label>
-    <select
-      class="agegroup__select"
-      id="agegroup__select_end"
-      bind:value={$ageGroupIndexEnd}
-      on:change={prepareRespondents}
-      on:change={adaptMaxValues}
-      on:change={getResults}
-    >
+    <select class="agegroup__select" id="agegroup__select_end" bind:value={$ageGroupIndexEnd} on:change={getResults}>
       {#each $ageGroups as ageGroup, index}
         <option value={index} disabled={index < ($ageGroupIndexStart ? $ageGroupIndexStart : 0) + 1}>
           {ageGroup[0]} - {ageGroup[1]}

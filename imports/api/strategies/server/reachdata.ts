@@ -5,12 +5,11 @@ import type {
   ComplementedTouchPoint,
   TouchPointName,
   PopulationCountForStrategy,
-  RespondentOutcome,
-  RespondentsCount
+  RespondentOutcome
 } from '/imports/both/typings/types';
 
 export default function createReachDataTool() {
-  function filterRespondentsForTouchPoints(
+  function flattenRespondentsForTouchPoints(
     touchPoints: DeployedTouchPoint[],
     probabilities: Probability[]
   ): RespondentOutcome[] {
@@ -45,10 +44,6 @@ export default function createReachDataTool() {
       filteredRespondents.push(...respondentsForThisTouchPoint);
     }
     return filteredRespondents;
-  }
-
-  function countRespondentsForTouchPoints(respondents: RespondentOutcome[]): number {
-    return respondents.map((respondent) => respondent.respondentId).length;
   }
 
   function complementCountedTouchPoints(
@@ -128,8 +123,7 @@ export default function createReachDataTool() {
   }
 
   return {
-    filterRespondentsForTouchPoints,
-    countRespondentsForTouchPoints,
+    flattenRespondentsForTouchPoints,
     complementCountedTouchPoints,
     determineReachedRespondents
   };

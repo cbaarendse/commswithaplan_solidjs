@@ -13,7 +13,7 @@ import {
 } from '../stores/reach';
 import {INPUTTYPE} from '../../both/constants/constants';
 
-export default function setMaxValues() {
+export default function createMaxValues() {
   function forData() {
     console.log('setMaxValues runs with: ');
     console.log({

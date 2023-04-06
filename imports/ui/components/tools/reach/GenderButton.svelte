@@ -4,8 +4,6 @@
   import {faPerson, faPersonDress} from '@fortawesome/free-solid-svg-icons';
   import {genders, marketData, useMarketData} from '../../../stores/reach';
   import getResults from '/imports/ui/methods/getResults';
-  import prepareRespondents from '/imports/ui/methods/prepareRespondents';
-  import adaptMaxValues from '/imports/ui/methods/maxValues';
 
   // variables
   $: gendersToWorkWith = new Set($genders) ?? new Set(['f', 'm', 'x']);
@@ -38,8 +36,6 @@
     aria-roledescription="button"
     {disabled}
     on:click|preventDefault|stopPropagation={toggleGenders}
-    on:click|preventDefault|stopPropagation={prepareRespondents}
-    on:click|preventDefault|stopPropagation={adaptMaxValues}
     on:click|preventDefault|stopPropagation={getResults}
   >
     <Fa

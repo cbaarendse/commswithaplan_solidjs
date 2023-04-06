@@ -7,8 +7,6 @@
   import {faSort} from '@fortawesome/free-solid-svg-icons';
   import {DeployedTouchPoint} from '/imports/both/typings/types';
   import {allInputTypes} from '/imports/both/constants/constants';
-  import adaptMaxValues from '/imports/ui/methods/maxValues';
-  import prepareRespondents from '/imports/ui/methods/prepareRespondents';
 
   //variables
   const converter = createConverter();
@@ -31,12 +29,7 @@
   <fieldset>
     <label for={name}>{touchPointDefinition.displayName}</label>
     {#if $useMarketData}
-      <select
-        id={`${name}_inputtype__select`}
-        bind:value={inputTypeIndex}
-        on:change={prepareRespondents}
-        on:change={adaptMaxValues}
-      >
+      <select id={`${name}_inputtype__select`} bind:value={inputTypeIndex}>
         {#each inputTypes as inputType, inputIndex}<option value={inputIndex}>
             {converter.translate(inputType.name, inputTypes, $language)}
           </option>{/each}
