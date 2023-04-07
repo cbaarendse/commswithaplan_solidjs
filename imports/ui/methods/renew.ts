@@ -9,17 +9,20 @@ import createReachTool from '../functions/reach';
 const reachTool = createReachTool();
 
 export default function renew() {
+  console.log('renew runs');
   deployment.set(reachTool.touchPointsForDeployment(touchPointsDefinitions()));
-  get(marketData) && get(useMarketData)
-    ? deployment.update((data) => {
-        return data.map((touchPoint) => {
-          const defaultInputTypeIndexForThisTouchPoint = touchPointsDefinitions().filter(
-            (definition: TouchPointDefinition) => definition.name == touchPoint.name
-          )[0].defaultInputTypeIndex;
-          return {...touchPoint, inputTypeIndex: defaultInputTypeIndexForThisTouchPoint};
-        });
-      })
-    : deployment.update((data) => {
-        return data.map((touchPoint) => Object.assign(touchPoint, {value: 0.0, inputTypeIndex: INPUTTYPE.Reach}));
+  if (get(marketData) && get(useMarketData)) {
+    deployment.update((data) => {
+      return data.map((touchPoint) => {
+        const defaultInputTypeIndexForThisTouchPoint = touchPointsDefinitions().filter(
+          (definition: TouchPointDefinition) => definition.name == touchPoint.name
+        )[0].defaultInputTypeIndex;
+        return {...touchPoint, inputTypeIndex: defaultInputTypeIndexForThisTouchPoint};
       });
+    });
+  } else {
+    deployment.update((data) => {
+      return data.map((touchPoint) => Object.assign(touchPoint, {value: 0.0, inputTypeIndex: INPUTTYPE.Reach}));
+    });
+  }
 }

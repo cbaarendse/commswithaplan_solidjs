@@ -1,6 +1,6 @@
 // Reach
 // imports
-import {TouchPointDefinition, DeployedTouchPoint, Market, Results, Strategy} from '../../both/typings/types';
+import {TouchPointDefinition, DeployedTouchPoint, Market} from '../../both/typings/types';
 import {INPUTTYPE} from '../../both/constants/constants';
 
 // main function (IIFE closure)

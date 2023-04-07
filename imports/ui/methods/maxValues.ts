@@ -68,11 +68,11 @@ export default function createMaxValues() {
           break;
         case INPUTTYPE.Reach:
           fallBackMaxValue.touchPoint = touchPoint.name;
-          fallBackMaxValue.max = 100;
+          fallBackMaxValue.max = 1;
           break;
         default:
           fallBackMaxValue.touchPoint = touchPoint.name;
-          fallBackMaxValue.max = 100;
+          fallBackMaxValue.max = 1;
       }
     });
     maxValues.set(fallBackMaxValues);
@@ -81,7 +81,7 @@ export default function createMaxValues() {
   function forFormula() {
     const maxValuesForFormula: MaxValue[] = [];
     const touchPointsDeployed: DeployedTouchPoint[] = get(deployment);
-    touchPointsDeployed.forEach((touchPoint) => maxValuesForFormula.push({touchPoint: touchPoint.name, max: 100}));
+    touchPointsDeployed.forEach((touchPoint) => maxValuesForFormula.push({touchPoint: touchPoint.name, max: 1}));
     maxValues.set(maxValuesForFormula);
   }
 

@@ -109,21 +109,10 @@ Meteor.methods({
         maxForTouchPoint.max =
           ((respondentsThisTouchPoint.length / respondentsCount.count) * populationCount * 5) / 10000;
       } else if (touchPoint.inputTypeIndex == INPUTTYPE.Reach && respondentsThisTouchPoint) {
-        console.log(
-          'maxValues => respondentsThisTouchPoint.length: ',
-          respondentsThisTouchPoint.length,
-          'respondentsCount.count: ',
-          respondentsCount.count,
-          'populationCount: ',
-          populationCount,
-          'max: ',
-          (respondentsThisTouchPoint.length / respondentsCount.count) * populationCount * 5,
-          'for: ',
-          touchPoint.name
-        );
         const maxReach = respondentsThisTouchPoint.length / respondentsCount.count;
         maxForTouchPoint.max = Math.max(maxReach, 0.01);
       }
+      console.log('maxValues => maxForTouchPoint ', maxForTouchPoint, 'inputTypeIndex: ', touchPoint.inputTypeIndex);
       maxValues.push(maxForTouchPoint);
     });
     return maxValues;
