@@ -18,7 +18,7 @@
   const inputTypes = allInputTypes();
   let inputTypeName = inputTypes[inputTypeIndex].name;
   const min = 0;
-  $: max = $maxValues[name] ?? 1;
+  $: max = $maxValues.filter((maxValue) => maxValue.touchPoint == name)[0].max ?? 1;
   $: step = (max - min) / 100 ?? 0.01;
   $: touchPointDefinition = definitions.filter((definition) => definition.language == $language)[0];
 

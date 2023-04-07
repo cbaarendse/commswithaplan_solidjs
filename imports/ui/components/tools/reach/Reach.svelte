@@ -41,6 +41,8 @@
     deployment.set(sortedDeployedTouchPoints);
     sortedByName.set(updatedSortedByName);
   }
+  // set max value for each touchpoint based on availability of and choice for using data
+  // outcome is based on type of input and gender & age selection, all chosen by user
   $: if ($marketData && $useMarketData) {
     prepareRespondents();
     setMaxValues.forData();

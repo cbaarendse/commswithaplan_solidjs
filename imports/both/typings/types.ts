@@ -158,6 +158,8 @@ export type Probability = {
   [key in TouchPointName]: number;
 };
 
+export type MaxValue = {touchPoint?: TouchPointName; max?: number};
+
 export type RespondentOutcome = {
   respondentId: string;
   touchPointName: TouchPointName;

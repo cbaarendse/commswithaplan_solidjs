@@ -8,11 +8,14 @@ import {
   Results,
   RespondentsCount,
   PopulationCountForStrategy,
-  PopulationCount
+  PopulationCount,
+  MaxValue
 } from '../../both/typings/types';
 import {allMarkets} from '../../both/constants/constants';
+import createMaxValues from '../methods/maxValues';
 
 // variables
+const setMaxValues = createMaxValues();
 const reachTool = createReachTool();
 
 // strategy
@@ -169,7 +172,7 @@ export const population: Readable<number> = derived(
   }
 );
 
-export const maxValues: Writable<Partial<{[key: string]: number}>> = writable({});
+export const maxValues: Writable<MaxValue[]> = writable();
 
 export const results: Writable<Results> = writable([0, 0]);
 

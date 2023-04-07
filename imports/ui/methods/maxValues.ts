@@ -12,6 +12,7 @@ import {
   userId
 } from '../stores/reach';
 import {INPUTTYPE} from '../../both/constants/constants';
+import {DeployedTouchPoint, MaxValue} from '/imports/both/typings/types';
 
 export default function createMaxValues() {
   function forData() {
@@ -43,38 +44,45 @@ export default function createMaxValues() {
       .catch((error) => {
         if (error) {
           console.log('error in max values: ', error);
-          maxValues.set(fallBack());
+          fallBack();
         }
       });
   }
 
   function fallBack() {
-    const maxValues: {[key: string]: number} = {};
+    const fallBackMaxValues: MaxValue[] = [];
     get(deployment).forEach((touchPoint) => {
+      const fallBackMaxValue: MaxValue = {};
       switch (touchPoint.inputTypeIndex) {
         case INPUTTYPE.Impressions:
-          maxValues[touchPoint.name] = 4_000_000;
+          fallBackMaxValue.touchPoint = touchPoint.name;
+          fallBackMaxValue.max = 4_000_000;
           break;
         case INPUTTYPE.Contacts:
-          maxValues[touchPoint.name] = 4_000_000;
+          fallBackMaxValue.touchPoint = touchPoint.name;
+          fallBackMaxValue.max = 4_000_000;
           break;
         case INPUTTYPE.Grps:
-          maxValues[touchPoint.name] = 3_000;
+          fallBackMaxValue.touchPoint = touchPoint.name;
+          fallBackMaxValue.max = 3_000;
           break;
         case INPUTTYPE.Reach:
-          maxValues[touchPoint.name] = 100;
+          fallBackMaxValue.touchPoint = touchPoint.name;
+          fallBackMaxValue.max = 100;
           break;
         default:
-          maxValues[touchPoint.name] = 100;
+          fallBackMaxValue.touchPoint = touchPoint.name;
+          fallBackMaxValue.max = 100;
       }
     });
-    return maxValues;
+    maxValues.set(fallBackMaxValues);
   }
 
   function forFormula() {
-    const maxValues: {[key: string]: number} = {};
-    get(deployment).forEach((touchPoint) => (maxValues[touchPoint.name] = 100));
-    return maxValues;
+    const maxValuesForFormula: MaxValue[] = [];
+    const touchPointsDeployed: DeployedTouchPoint[] = get(deployment);
+    touchPointsDeployed.forEach((touchPoint) => maxValuesForFormula.push({touchPoint: touchPoint.name, max: 100}));
+    maxValues.set(maxValuesForFormula);
   }
 
   return {forData, fallBack, forFormula};

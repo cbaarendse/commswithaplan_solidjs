@@ -104,14 +104,13 @@ Meteor.methods({
         (touchPoint.inputTypeIndex == INPUTTYPE.Contacts || touchPoint.inputTypeIndex == INPUTTYPE.Impressions) &&
         respondentsThisTouchPoint
       ) {
-        //TODO: correct following, probably * 10.000
         maxForTouchPoint.max = (respondentsThisTouchPoint.length / respondentsCount.count) * populationCount * 5;
       } else if (touchPoint.inputTypeIndex == INPUTTYPE.Grps && respondentsThisTouchPoint) {
         maxForTouchPoint.max =
           ((respondentsThisTouchPoint.length / respondentsCount.count) * populationCount * 5) / 10000;
       } else if (touchPoint.inputTypeIndex == INPUTTYPE.Reach && respondentsThisTouchPoint) {
         console.log(
-          'respondentsThisTouchPoint.length: ',
+          'maxValues => respondentsThisTouchPoint.length: ',
           respondentsThisTouchPoint.length,
           'respondentsCount.count: ',
           respondentsCount.count,

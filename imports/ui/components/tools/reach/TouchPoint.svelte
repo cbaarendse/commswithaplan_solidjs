@@ -72,11 +72,11 @@
       </span>
     </button>
   </div>
-  // touch point description
+  <!-- touch point description -->
   <Modal title={definition.displayName} display={displayTouchPointDescription} on:click={dismiss}>
     {definition.description}
   </Modal>
-  // manual input
+  <!-- manual input -->
   <Modal title={definition.displayName} display={displayManualInput} on:click={dismiss}>
     <NumberInput {index} on:submit on:click={dismiss} />
   </Modal>
