@@ -1,7 +1,6 @@
 // imports
 import {deployment, marketData, useMarketData} from '../stores/reach';
 import {get} from 'svelte/store';
-import {TouchPointDefinition} from '/imports/both/typings/types';
 import {INPUTTYPE, touchPointsDefinitions} from '../../both/constants/constants';
 import createReachTool from '../functions/reach';
 
@@ -14,10 +13,7 @@ export default function renew() {
   if (get(marketData) && get(useMarketData)) {
     deployment.update((data) => {
       return data.map((touchPoint) => {
-        const defaultInputTypeIndexForThisTouchPoint = touchPointsDefinitions().filter(
-          (definition: TouchPointDefinition) => definition.name == touchPoint.name
-        )[0].defaultInputTypeIndex;
-        return {...touchPoint, inputTypeIndex: defaultInputTypeIndexForThisTouchPoint};
+        return {...touchPoint, inputTypeIndex: touchPoint.defaultInputTypeIndex};
       });
     });
   } else {

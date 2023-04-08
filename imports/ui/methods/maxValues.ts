@@ -16,7 +16,7 @@ import {DeployedTouchPoint, MaxValue} from '/imports/both/typings/types';
 
 export default function createMaxValues() {
   function forData() {
-    console.log('setMaxValues runs with: ');
+    console.log('setMaxValues.forData runs with: ');
     console.log({
       userId: get(userId),
       marketName: get(marketName),
