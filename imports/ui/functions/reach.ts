@@ -33,30 +33,10 @@ export default function createReachTool() {
     return markets.filter((item: Market) => item.name == marketName)[0].ageGroups;
   }
 
-  function touchPointsForDeployment(touchPointsDefinitions: TouchPointDefinition[]): DeployedTouchPoint[] {
-    console.log('touchPointsForFormula called');
-    const touchPointsForDeployment: DeployedTouchPoint[] = [];
-    for (let index = 0; index < touchPointsDefinitions.length; index++) {
-      const touchPointDefinition = touchPointsDefinitions[index];
-      const touchPointForDeployment: DeployedTouchPoint = {
-        name: touchPointDefinition.name,
-        definitions: touchPointDefinition.definitions,
-        defaultInputTypeIndex: touchPointDefinition.defaultInputTypeIndex,
-        value: 0.0,
-        show: true,
-        inputTypeIndex: INPUTTYPE.Reach
-      };
-      touchPointsForDeployment.push(touchPointForDeployment);
-    }
-    console.log('deployedTouchPoints constructed for formula: ', touchPointsForDeployment);
-    return touchPointsForDeployment;
-  }
-
   return {
     areAllTouchPointsValueZero,
     getAgeGroupsForMarket,
     hide,
-    isShowAll,
-    touchPointsForDeployment
+    isShowAll
   };
 }

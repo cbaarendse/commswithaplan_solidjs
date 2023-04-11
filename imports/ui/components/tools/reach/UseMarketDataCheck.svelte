@@ -4,7 +4,6 @@
   import {translations, language} from '../../../stores/utils';
   import {marketData, useMarketData, results} from '../../../stores/reach';
   import renew from '../../../methods/renew';
-  import prepareRespondents from '/imports/ui/methods/prepareRespondents';
 
   // variables
   const converter = createConverter();

@@ -11,7 +11,6 @@ import type {
   DeployedTouchPoint,
   Genders,
   RespondentOutcome,
-  RespondentsCount,
   Results,
   Strategy,
   TouchPointName

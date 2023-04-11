@@ -12,10 +12,8 @@ import {
   MaxValue
 } from '../../both/typings/types';
 import {allMarkets} from '../../both/constants/constants';
-import createMaxValues from '../methods/maxValues';
 
 // variables
-const setMaxValues = createMaxValues();
 const reachTool = createReachTool();
 
 // strategy
