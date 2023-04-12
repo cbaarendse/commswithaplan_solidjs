@@ -19,18 +19,19 @@
     totalReach,
     useMarketData
   } from '../../../stores/reach';
-  import renew from '../../../methods/renew';
   import getResults from '../../../methods/getResults';
-  import createMaxValues from '/imports/ui/methods/maxValues';
+  import createRenew from '../../../methods/renew';
+  import createMaxValues from '../../../methods/maxValues';
   import prepareRespondents from '/imports/ui/methods/prepareRespondents';
 
   // variables
+  const renew = createRenew();
   const setMaxValues = createMaxValues();
   if (!$createdAt) {
     $createdAt = new Date();
   }
   if (!$deployment) {
-    renew();
+    renew.forFormula();
   }
 
   setMaxValues.forFormula();
@@ -41,13 +42,17 @@
     deployment.set(sortedDeployedTouchPoints);
     sortedByName.set(updatedSortedByName);
   }
-  // set max value for each touchpoint based on availability of and choice for using data
-  // outcome is based on type of input and gender & age selection, all chosen by user
+
   $: if ($marketData && $useMarketData) {
+    renew.forData();
     prepareRespondents();
-    setMaxValues.forData();
   } else {
+    renew.forFormula();
     setMaxValues.forFormula();
+  }
+
+  $: if ($respondentsReady) {
+    setMaxValues.forData();
   }
 
   $: console.log('$strategy in $: ', $strategy);
