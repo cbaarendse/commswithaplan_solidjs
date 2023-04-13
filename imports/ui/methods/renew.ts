@@ -1,6 +1,5 @@
 // imports
 import {deployment} from '../stores/reach';
-import {get} from 'svelte/store';
 import {INPUTTYPE, touchPointsDefinitions} from '../../both/constants/constants';
 import {DeployedTouchPoint, TouchPointDefinition} from '/imports/both/typings/types';
 
@@ -9,14 +8,12 @@ import {DeployedTouchPoint, TouchPointDefinition} from '/imports/both/typings/ty
 export default function createRenew() {
   function forFormula() {
     deployment.set(touchPointsForDeployment(touchPointsDefinitions()));
-    console.log('deployedTouchPoints constructed forFormula: ', get(deployment));
     deployment.update((data) => {
       return data.map((touchPoint) => Object.assign(touchPoint, {value: 0.0, inputTypeIndex: INPUTTYPE.Reach}));
     });
   }
   function forData() {
     deployment.set(touchPointsForDeployment(touchPointsDefinitions()));
-    console.log('deployedTouchPoints constructed forData: ', get(deployment));
     deployment.update((data) => {
       return data.map((touchPoint) => {
         return {...touchPoint, inputTypeIndex: touchPoint.defaultInputTypeIndex};
@@ -28,7 +25,6 @@ export default function createRenew() {
 }
 
 function touchPointsForDeployment(touchPointsDefinitions: TouchPointDefinition[]): DeployedTouchPoint[] {
-  console.log('touchPointsForFormula called');
   const touchPointsForDeployment: DeployedTouchPoint[] = [];
   for (let index = 0; index < touchPointsDefinitions.length; index++) {
     const touchPointDefinition = touchPointsDefinitions[index];

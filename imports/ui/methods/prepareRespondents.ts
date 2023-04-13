@@ -13,7 +13,7 @@ import {
 } from '../stores/reach';
 
 // variables
-
+// TODO: async function, so can be awaited everywhere??
 export default function prepareRespondents() {
   respondentsReady.set(false);
   Meteor.callAsync('strategies.prepareRespondents', {

@@ -3,12 +3,14 @@
   import Fa from 'svelte-fa/src/fa.svelte';
   import {faPerson, faPersonDress} from '@fortawesome/free-solid-svg-icons';
   import {genders, marketData, useMarketData} from '../../../stores/reach';
-  import getResults from '/imports/ui/methods/getResults';
+  import createResults from '../../../methods/results';
 
   // variables
+  const calculateResults = createResults();
   $: gendersToWorkWith = new Set($genders) ?? new Set(['f', 'm', 'x']);
   $: disabled = !$marketData || !$useMarketData;
 
+  // functions
   function toggleGenders() {
     if (gendersToWorkWith) {
       if (gendersToWorkWith.has('f') && gendersToWorkWith.has('m') && gendersToWorkWith.has('x')) {
@@ -25,6 +27,14 @@
         gendersToWorkWith = new Set(['f', 'm', 'x']);
       }
       $genders = Array.from(gendersToWorkWith);
+    }
+  }
+
+  function getResults() {
+    if ($marketData && $useMarketData) {
+      calculateResults.forData();
+    } else {
+      calculateResults.forFormula();
     }
   }
 </script>

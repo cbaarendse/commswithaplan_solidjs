@@ -1,19 +1,27 @@
 <script lang="ts">
   // imports
   import {translations, language} from '../../../stores/utils';
-  import {ageGroupIndexStart, ageGroupIndexEnd, ageGroups} from '../../../stores/reach';
+  import {ageGroupIndexStart, ageGroupIndexEnd, ageGroups, marketData, useMarketData} from '../../../stores/reach';
   import createConverter from '../../../functions/convert';
+  import createResults from '/imports/ui/methods/results';
   import Fa from 'svelte-fa/src/fa.svelte';
   import {faSort} from '@fortawesome/free-solid-svg-icons';
-  import getResults from '/imports/ui/methods/getResults';
 
   //variables
   const converter = createConverter();
+  const calculateResults = createResults();
 
   // functions
   function adaptAgeGroupIndexEnd() {
     if ($ageGroupIndexEnd && $ageGroupIndexStart && $ageGroupIndexEnd - $ageGroupIndexStart < 1) {
       $ageGroupIndexEnd = $ageGroupIndexStart ? $ageGroupIndexStart + 1 : 1;
+    }
+  }
+  function getResults() {
+    if ($marketData && $useMarketData) {
+      calculateResults.forData();
+    } else {
+      calculateResults.forFormula();
     }
   }
 </script>

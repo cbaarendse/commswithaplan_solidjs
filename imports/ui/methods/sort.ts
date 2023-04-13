@@ -28,11 +28,11 @@ function sortByValue(touchPoints: DeployedTouchPoint[]) {
   return touchPoints.sort((a: DeployedTouchPoint, b: DeployedTouchPoint) => b.value - a.value);
 }
 
-export default function sort(language: Language): [DeployedTouchPoint[], boolean] {
-  const touchPoints = get(sortedByName) ? sortByValue(get(deployment)) : sortByName(get(deployment), language);
-  const updatedSortedByName =
+export default function sort(language: Language): void {
+  deployment.set(get(sortedByName) ? sortByValue(get(deployment)) : sortByName(get(deployment), language));
+  sortedByName.set(
     reachTool.isShowAll(get(deployment)) && reachTool.areAllTouchPointsValueZero(get(deployment))
       ? true
-      : !get(sortedByName);
-  return [touchPoints, updatedSortedByName];
+      : !get(sortedByName)
+  );
 }

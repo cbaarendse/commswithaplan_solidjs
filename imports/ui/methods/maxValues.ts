@@ -16,17 +16,6 @@ import {DeployedTouchPoint, MaxValue} from '/imports/both/typings/types';
 
 export default function createMaxValues() {
   function forData() {
-    console.log('setMaxValues.forData runs with: ');
-    console.log({
-      userId: get(userId),
-      marketName: get(marketName),
-      ageGroupIndexStart: get(ageGroupIndexStart),
-      ageGroupIndexEnd: get(ageGroupIndexEnd),
-      genders: get(genders),
-      deployment: get(deployment),
-      ageGroups: get(ageGroups)
-    });
-
     Meteor.callAsync('strategies.maxValuesForTouchPoints', {
       userId: get(userId),
       marketName: get(marketName),

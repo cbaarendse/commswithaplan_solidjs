@@ -19,7 +19,7 @@
     totalReach,
     useMarketData
   } from '../../../stores/reach';
-  import getResults from '../../../methods/getResults';
+  import createResults from '../../../methods/results';
   import createRenew from '../../../methods/renew';
   import createMaxValues from '../../../methods/maxValues';
   import prepareRespondents from '/imports/ui/methods/prepareRespondents';
@@ -27,6 +27,7 @@
   // variables
   const renew = createRenew();
   const setMaxValues = createMaxValues();
+  const calculateResults = createResults();
   if (!$createdAt) {
     $createdAt = new Date();
   }
@@ -38,9 +39,11 @@
 
   //sort, based on selected language
   $: {
-    const [sortedDeployedTouchPoints, updatedSortedByName] = sort($language);
-    deployment.set(sortedDeployedTouchPoints);
-    sortedByName.set(updatedSortedByName);
+    sort($language);
+  }
+
+  $: if (!$marketData || !$useMarketData) {
+    $respondentsReady = false;
   }
 
   $: if ($marketData && $useMarketData) {
@@ -59,12 +62,17 @@
   $: console.log('$marketData: in $: ', $marketData);
   $: console.log('useMarketData: in $: ', $useMarketData);
   $: console.log('$results: in $: ', $results);
-  $: console.log('$totalReach: in $: ', $totalReach);
-  $: console.log('$overlap: in $: ', $overlap);
   $: console.log('$respondentsReady: in $: ', $respondentsReady);
   $: console.log('$maxValues: in $: ', $maxValues);
 
   // functions
+  function getResults() {
+    if ($marketData && $useMarketData) {
+      calculateResults.forData();
+    } else {
+      calculateResults.forFormula();
+    }
+  }
 </script>
 
 <BreadCrumbs />

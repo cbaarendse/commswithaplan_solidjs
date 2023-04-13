@@ -8,6 +8,7 @@
   import createReachTool from '../../../functions/reach';
   import renew from '../../../methods/renew';
   import sort from '../../../methods/sort';
+  import hide from '../../../methods/hide';
   import {language} from '../../../stores/utils';
   import {marketData, deployment, results, sortedByName, useMarketData} from '../../../stores/reach';
   import {CWAPUser} from '../../../../both/typings/types';
@@ -43,15 +44,6 @@
     }
     $results = [0, 0];
   }
-  function hide() {
-    deployment.set(reachTool.hide($deployment));
-  }
-
-  function handleSort() {
-    const [sortedDeployedTouchPoints, updatedSortedByName] = sort($language);
-    deployment.set(sortedDeployedTouchPoints);
-    sortedByName.set(updatedSortedByName);
-  }
 </script>
 
 <div class="container">
@@ -72,7 +64,7 @@
             icon={fa0}
           />{/if}
       </button>
-      <button type="button" on:click|stopPropagation|preventDefault={handleSort}>
+      <button type="button" on:click|stopPropagation|preventDefault={() => sort($language)}>
         {#if $sortedByName}<Fa
             icon={faArrowDownWideShort}
           />{:else if !$sortedByName && reachTool.areAllTouchPointsValueZero($deployment) && reachTool.isShowAll($deployment)}<Fa
@@ -80,7 +72,7 @@
           />{:else}<Fa icon={faArrowDownAZ} />
         {/if}
       </button>
-      <button type="button" on:click|stopPropagation|preventDefault={hide}>
+      <button type="button" on:click|stopPropagation|preventDefault={() => hide()}>
         {#if reachTool.isShowAll($deployment)}<Fa icon={faMinus} />{:else}<Fa icon={faBars} />{/if}
       </button>
       <button
