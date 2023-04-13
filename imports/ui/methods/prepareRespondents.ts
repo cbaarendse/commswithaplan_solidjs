@@ -32,3 +32,26 @@ export default function prepareRespondents() {
 
   console.log('respondentsReady after function: ', get(respondentsReady));
 }
+
+export async function prepareRespondentsAsync() {
+  return Meteor.callAsync('strategies.prepareRespondents', {
+    userId: get(userId),
+    marketName: get(marketName),
+    genders: get(genders),
+    ageGroupIndexStart: get(ageGroupIndexStart),
+    ageGroupIndexEnd: get(ageGroupIndexEnd),
+    deployment: get(deployment),
+    ageGroups: get(ageGroups)
+  });
+  console.log('respondentsReady after function: ', get(respondentsReady));
+}
+
+await prepareRespondentsAsync()
+  .then((result) => {
+    const ready = result;
+  })
+  .catch((error) => {
+    if (error) {
+      console.log('error prepareAsync: ', error);
+    }
+  });
