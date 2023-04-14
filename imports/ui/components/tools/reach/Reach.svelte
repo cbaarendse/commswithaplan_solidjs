@@ -11,12 +11,9 @@
     deployment,
     marketData,
     maxValues,
-    overlap,
     results,
     respondentsReady,
-    sortedByName,
     strategy,
-    totalReach,
     useMarketData
   } from '../../../stores/reach';
   import createResults from '../../../methods/results';
@@ -37,7 +34,6 @@
 
   setMaxValues.forFormula();
 
-  //sort, based on selected language
   $: {
     sort($language);
   }
@@ -49,13 +45,10 @@
   $: if ($marketData && $useMarketData) {
     renew.forData();
     prepareRespondents();
+    setMaxValues.forData();
   } else {
     renew.forFormula();
     setMaxValues.forFormula();
-  }
-
-  $: if ($respondentsReady) {
-    setMaxValues.forData();
   }
 
   $: console.log('$strategy in $: ', $strategy);
@@ -68,6 +61,7 @@
   // functions
   function getResults() {
     if ($marketData && $useMarketData) {
+      prepareRespondents();
       calculateResults.forData();
     } else {
       calculateResults.forFormula();

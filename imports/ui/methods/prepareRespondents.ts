@@ -13,45 +13,20 @@ import {
 } from '../stores/reach';
 
 // variables
-// TODO: async function, so can be awaited everywhere??
-export default function prepareRespondents() {
-  respondentsReady.set(false);
-  Meteor.callAsync('strategies.prepareRespondents', {
-    userId: get(userId),
-    marketName: get(marketName),
-    genders: get(genders),
-    ageGroupIndexStart: get(ageGroupIndexStart),
-    ageGroupIndexEnd: get(ageGroupIndexEnd),
-    deployment: get(deployment),
-    ageGroups: get(ageGroups)
-  })
-    .then((result) => {
-      respondentsReady.set(result);
-    })
-    .catch((error) => console.log('error in prepare respondents', error));
-
-  console.log('respondentsReady after function: ', get(respondentsReady));
+export default async function prepareRespondents() {
+  try {
+    const result = await Meteor.callAsync('strategies.prepareRespondents', {
+      userId: get(userId),
+      marketName: get(marketName),
+      genders: get(genders),
+      ageGroupIndexStart: get(ageGroupIndexStart),
+      ageGroupIndexEnd: get(ageGroupIndexEnd),
+      deployment: get(deployment),
+      ageGroups: get(ageGroups)
+    });
+    console.log('result in async prepare respondents: ', result);
+    respondentsReady.set(result);
+  } catch (error) {
+    console.log('error in async prepare respondents: ', error);
+  }
 }
-
-export async function prepareRespondentsAsync() {
-  return Meteor.callAsync('strategies.prepareRespondents', {
-    userId: get(userId),
-    marketName: get(marketName),
-    genders: get(genders),
-    ageGroupIndexStart: get(ageGroupIndexStart),
-    ageGroupIndexEnd: get(ageGroupIndexEnd),
-    deployment: get(deployment),
-    ageGroups: get(ageGroups)
-  });
-  console.log('respondentsReady after function: ', get(respondentsReady));
-}
-
-await prepareRespondentsAsync()
-  .then((result) => {
-    const ready = result;
-  })
-  .catch((error) => {
-    if (error) {
-      console.log('error prepareAsync: ', error);
-    }
-  });

@@ -6,6 +6,7 @@
   import createResults from '/imports/ui/methods/results';
   import Fa from 'svelte-fa/src/fa.svelte';
   import {faSort} from '@fortawesome/free-solid-svg-icons';
+  import prepareRespondents from '/imports/ui/methods/prepareRespondents';
 
   //variables
   const converter = createConverter();
@@ -19,6 +20,7 @@
   }
   function getResults() {
     if ($marketData && $useMarketData) {
+      prepareRespondents();
       calculateResults.forData();
     } else {
       calculateResults.forFormula();

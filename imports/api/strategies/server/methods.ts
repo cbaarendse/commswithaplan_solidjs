@@ -129,6 +129,8 @@ Meteor.methods({
     if (!Match.test(args, Object) || !Match.test(args.deployment, Array)) {
       throw new Meteor.Error('general.invalid.input', `Invalid input: ${args}`, '[{ "name": "invalidInput" }]');
     }
+    console.log('calculateResultsWithData runs on server');
+
     const {userId, marketName, ageGroupIndexStart, ageGroupIndexEnd, genders, ageGroups} = args;
 
     // filter touchPoints for this strategy
@@ -190,6 +192,7 @@ Meteor.methods({
       preparedRespondents,
       populationCountForStrategy
     );
+    console.log('populationCountForStrategy :', populationCountForStrategy);
 
     // Unique respondents
     const reachedRespondentsIds = reachedRespondents.map((respondent) => respondent.respondentId);
@@ -201,7 +204,6 @@ Meteor.methods({
       : reachedUniqueRespondentsIds.size / respondentsCount.count;
 
     // Count respondents for overlap
-    console.log('reachedUniqueRespondentsIds.size :', reachedUniqueRespondentsIds.size);
     // TODO: overlap check
     reachedRespondents.forEach((respondent) => {
       let countThisRespondent = true;

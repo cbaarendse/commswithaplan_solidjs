@@ -64,7 +64,7 @@ export default function createReachDataTool() {
     });
     return complementedTouchPoints;
   }
-
+  //TODO: check this function, because gives back empty aray, while arguments are all valid
   function determineReachedRespondents(
     touchPoints: ComplementedTouchPoint[],
     respondents: RespondentOutcome[],

@@ -4,6 +4,7 @@
   import {faPerson, faPersonDress} from '@fortawesome/free-solid-svg-icons';
   import {genders, marketData, useMarketData} from '../../../stores/reach';
   import createResults from '../../../methods/results';
+  import prepareRespondents from '/imports/ui/methods/prepareRespondents';
 
   // variables
   const calculateResults = createResults();
@@ -32,6 +33,7 @@
 
   function getResults() {
     if ($marketData && $useMarketData) {
+      prepareRespondents();
       calculateResults.forData();
     } else {
       calculateResults.forFormula();
