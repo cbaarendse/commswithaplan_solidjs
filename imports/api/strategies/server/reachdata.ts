@@ -71,18 +71,13 @@ export default function createReachDataTool() {
     populationCount: PopulationCountForStrategy
   ): RespondentOutcome[] {
     const reachedRespondents: RespondentOutcome[] = [];
+    // loop over deployed touchPoints
     for (let touchPointIndex = 0; touchPointIndex < touchPoints.length; touchPointIndex++) {
       const thisTouchPoint = touchPoints[touchPointIndex];
+
       const respondentsThisTouchPoint: RespondentOutcome[] = respondents.filter(
         (respondent) => thisTouchPoint.name === respondent.touchPointName
       );
-      const sumOfProbalitiesForThisTouchPoint = respondentsThisTouchPoint.reduce((sum, respondent) => {
-        return sum + respondent.probability;
-      }, 0);
-      const bareReach =
-        sumOfProbalitiesForThisTouchPoint && respondentsThisTouchPoint
-          ? sumOfProbalitiesForThisTouchPoint / respondentsThisTouchPoint.length
-          : 0;
 
       // For INPUTTYPE.Reach:
       if (respondentsThisTouchPoint && thisTouchPoint.inputTypeIndex == INPUTTYPE.Reach) {
@@ -90,7 +85,8 @@ export default function createReachDataTool() {
         const reachThisTouchPoint = thisTouchPoint.value;
         // Math.log(x) = inv. Math.pow(e, y)
         const exponent = Math.log(reachThisTouchPoint) - 1;
-        thisTouchPoint.grps = exponent;
+        thisTouchPoint.grps = -exponent;
+        console.log('in determine reached respondents - thisTouchPoint.grps: ', thisTouchPoint.grps);
       }
 
       // For INPUTTYPE.Contacts, INPUTTYPE.Grps, INPUTTYPE.Impressions:

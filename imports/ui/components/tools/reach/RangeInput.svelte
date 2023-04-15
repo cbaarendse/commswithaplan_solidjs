@@ -1,15 +1,18 @@
 <script lang="ts">
   // imports
-  import {maxValues, useMarketData} from '../../../stores/reach';
+  import {marketData, maxValues, useMarketData} from '../../../stores/reach';
   import {language} from '../../../stores/utils';
   import createConverter from '/imports/ui/functions/convert';
   import Fa from 'svelte-fa/src/fa.svelte';
   import {faSort} from '@fortawesome/free-solid-svg-icons';
   import {DeployedTouchPoint} from '/imports/both/typings/types';
   import {allInputTypes} from '/imports/both/constants/constants';
+  import prepareRespondents from '/imports/ui/methods/prepareRespondents';
+  import createMaxValues from '/imports/ui/methods/maxValues';
 
   //variables
   const converter = createConverter();
+  const setMaxValues = createMaxValues();
   export let name: DeployedTouchPoint['name'];
   export let value: DeployedTouchPoint['value'];
   export let inputTypeIndex: DeployedTouchPoint['inputTypeIndex'];
@@ -21,15 +24,23 @@
   $: max = $maxValues.filter((maxValue) => maxValue.touchPoint == name)[0].max ?? 1;
   $: step = (max - min) / 100 ?? 0.01;
   $: touchPointDefinition = definitions.filter((definition) => definition.language == $language)[0];
-
+  //TODO: change inputType should change deployment
   // functions
+  function getMaxValues() {
+    if ($marketData && $useMarketData) {
+      prepareRespondents();
+      setMaxValues.forData();
+    } else {
+      setMaxValues.forFormula();
+    }
+  }
 </script>
 
 <form>
   <fieldset>
     <label for={name}>{touchPointDefinition.displayName}</label>
     {#if $useMarketData}
-      <select id={`${name}_inputtype__select`} bind:value={inputTypeIndex}>
+      <select id={`${name}_inputtype__select`} bind:value={inputTypeIndex} on:change={getMaxValues}>
         {#each inputTypes as inputType, inputIndex}<option value={inputIndex}>
             {converter.translate(inputType.name, inputTypes, $language)}
           </option>{/each}
