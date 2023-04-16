@@ -1,6 +1,5 @@
 // imports
 import {Meteor} from 'meteor/meteor';
-import {Mongo} from 'meteor/mongo';
 import {Match} from 'meteor/check';
 import createReachDataTool from './reachdata';
 import Probabilities from '../../probabilities/server/probabilities';
@@ -98,7 +97,7 @@ Meteor.methods({
       const respondentsThisTouchPoint = preparedRespondents.filter(
         (respondent) => touchPoint.name === respondent.touchPointName
       );
-      const maxForTouchPoint = {touchPoint: touchPoint.name, max: 100};
+      const maxForTouchPoint = {touchPoint: touchPoint.name, max: 1};
       if (
         (touchPoint.inputTypeIndex == INPUTTYPE.Contacts || touchPoint.inputTypeIndex == INPUTTYPE.Impressions) &&
         respondentsThisTouchPoint
@@ -136,7 +135,7 @@ Meteor.methods({
     // filter touchPoints for this strategy
     const touchPointsDeployed: DeployedTouchPoint[] = args.deployment;
     const touchPoints: DeployedTouchPoint[] = touchPointsDeployed.filter((touchPoint) => touchPoint.value > 0);
-    const respondentsCountedForOverlap: RespondentOutcome[] = [];
+    const respondentsForOverlap: RespondentOutcome[] = [];
 
     // Checks for login and strategy ownership
     if (!this.userId) {
@@ -197,8 +196,6 @@ Meteor.methods({
     // Unique respondents
     const reachedRespondentsIds = reachedRespondents.map((respondent) => respondent.respondentId);
     const reachedUniqueRespondentsIds: Set<RespondentOutcome['respondentId']> = new Set(reachedRespondentsIds);
-    //TODO respondentsForStrategy
-    // total reach TODO: check, because sometimes reach == 100%...
     const totalReachForResult = Number.isNaN(reachedUniqueRespondentsIds.size / respondentsCount.count)
       ? 0
       : reachedUniqueRespondentsIds.size / respondentsCount.count;
@@ -219,18 +216,18 @@ Meteor.methods({
         }
       }
       if (countThisRespondent) {
-        respondentsCountedForOverlap.push(respondent);
+        respondentsForOverlap.push(respondent);
       }
     });
-    console.log('respondentsCountedForOverlap in calculate result: ', respondentsCountedForOverlap);
+    console.log('respondentsForOverlap in calculate result: ', respondentsForOverlap);
 
     // strategy.overlap
-    const overlapForResult = Number.isNaN(respondentsCountedForOverlap.length / respondentsCount.count)
+    const overlapForResult = Number.isNaN(respondentsForOverlap.length / respondentsCount.count)
       ? 0
-      : respondentsCountedForOverlap.length / respondentsCount.count;
+      : respondentsForOverlap.length / respondentsCount.count;
     console.log(
       'respondentsCountedForOverlap.length: ',
-      respondentsCountedForOverlap.length,
+      respondentsForOverlap.length,
       'respondentsCount.count: ',
       respondentsCount.count
     );

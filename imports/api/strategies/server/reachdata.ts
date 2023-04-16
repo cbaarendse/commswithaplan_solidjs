@@ -86,7 +86,6 @@ export default function createReachDataTool() {
         // Math.log(x) = inv. Math.pow(e, y)
         const exponent = Math.log(reachThisTouchPoint) - 1;
         thisTouchPoint.grps = -exponent;
-        console.log('in determine reached respondents - thisTouchPoint.grps: ', thisTouchPoint.grps);
       }
 
       // For INPUTTYPE.Contacts, INPUTTYPE.Grps, INPUTTYPE.Impressions:
@@ -112,9 +111,10 @@ export default function createReachDataTool() {
           const reachThisTouchPoint = 1 * (1 - Math.pow(Math.E, exponent));
           return Object.assign(respondent, {reach: reachThisTouchPoint});
         })
-        .filter((respondent) => respondent.reach >= 1);
+        .filter((respondent) => respondent.reach >= 0.01);
       reachedRespondents.push(...reachedRespondentsThisTouchPoint);
     }
+    console.log('in determine reached respondents - reachedRespondents: ', reachedRespondents);
     return reachedRespondents;
   }
 
