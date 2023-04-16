@@ -74,14 +74,14 @@
   <div class="container">
     <Controls />
     <Output />
-    {#each $deployment as { name, show, inputTypeIndex, definitions }, index}
+    {#each $deployment as { name, show, definitions }, index}
       <TouchPoint
         {name}
         {show}
-        {inputTypeIndex}
         {definitions}
         {index}
         bind:value={$deployment[index].value}
+        bind:inputTypeIndex={$deployment[index].inputTypeIndex}
         on:change={getResults}
         on:submit={getResults}
       />

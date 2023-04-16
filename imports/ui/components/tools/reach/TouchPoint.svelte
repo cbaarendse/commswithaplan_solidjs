@@ -50,7 +50,7 @@
     />
   </div>
   <div class="center">
-    <RangeInput {name} {inputTypeIndex} {definitions} bind:value on:input on:change />
+    <RangeInput {name} {definitions} bind:value bind:inputTypeIndex on:input on:change />
   </div>
   <div class="right">
     <button
