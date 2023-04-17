@@ -15,27 +15,25 @@ import {INPUTTYPE} from '../../both/constants/constants';
 import {DeployedTouchPoint, MaxValue} from '/imports/both/typings/types';
 
 export default function createMaxValues() {
-  function forData() {
-    Meteor.callAsync('strategies.maxValuesForTouchPoints', {
-      userId: get(userId),
-      marketName: get(marketName),
-      ageGroupIndexStart: get(ageGroupIndexStart),
-      ageGroupIndexEnd: get(ageGroupIndexEnd),
-      genders: get(genders),
-      deployment: get(deployment),
-      ageGroups: get(ageGroups)
-    })
-      .then((result) => {
-        if (result) {
-          maxValues.set(result);
-        }
-      })
-      .catch((error) => {
-        if (error) {
-          console.log('error in max values: ', error);
-          fallBack();
-        }
-      });
+  async function forData() {
+    try {
+      maxValues.set(
+        await Meteor.callAsync('strategies.maxValuesForTouchPoints', {
+          userId: get(userId),
+          marketName: get(marketName),
+          ageGroupIndexStart: get(ageGroupIndexStart),
+          ageGroupIndexEnd: get(ageGroupIndexEnd),
+          genders: get(genders),
+          deployment: get(deployment),
+          ageGroups: get(ageGroups)
+        })
+      );
+    } catch (error) {
+      if (error) {
+        console.log('error in max values: ', error);
+        fallBack();
+      }
+    }
   }
 
   function fallBack() {

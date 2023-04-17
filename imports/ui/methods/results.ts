@@ -15,20 +15,22 @@ import {DeployedTouchPoint} from '/imports/both/typings/types';
 
 // variables
 export default function createResults() {
-  function forData() {
-    Meteor.callAsync('strategies.calculateResultsWithData', {
-      userId: get(userId),
-      marketName: get(marketName),
-      ageGroupIndexStart: get(ageGroupIndexStart),
-      ageGroupIndexEnd: get(ageGroupIndexEnd),
-      genders: get(genders),
-      deployment: get(deployment),
-      ageGroups: get(ageGroups)
-    })
-      .then((result) => {
-        results.set(result);
-      })
-      .catch((error) => console.log('error in calculate results with data', error));
+  async function forData() {
+    try {
+      results.set(
+        await Meteor.callAsync('strategies.calculateResultsWithData', {
+          userId: get(userId),
+          marketName: get(marketName),
+          ageGroupIndexStart: get(ageGroupIndexStart),
+          ageGroupIndexEnd: get(ageGroupIndexEnd),
+          genders: get(genders),
+          deployment: get(deployment),
+          ageGroups: get(ageGroups)
+        })
+      );
+    } catch (error) {
+      console.log('error in calculate results with data', error);
+    }
   }
 
   function forFormula(): void {
