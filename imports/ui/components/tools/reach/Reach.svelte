@@ -80,6 +80,7 @@
         {show}
         {definitions}
         {index}
+        max={$maxValues.filter((m) => m.touchPoint == name)[0].max || 1}
         bind:value={$deployment[index].value}
         bind:inputTypeIndex={$deployment[index].inputTypeIndex}
         on:change={getResults}

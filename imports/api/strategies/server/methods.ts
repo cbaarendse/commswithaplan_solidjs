@@ -135,7 +135,6 @@ Meteor.methods({
     // filter touchPoints for this strategy
     const touchPointsDeployed: DeployedTouchPoint[] = args.deployment;
     const touchPoints: DeployedTouchPoint[] = touchPointsDeployed.filter((touchPoint) => touchPoint.value > 0);
-    const respondentsForOverlap: RespondentOutcome[] = [];
 
     // Checks for login and strategy ownership
     if (!this.userId) {
@@ -192,6 +191,7 @@ Meteor.methods({
       populationCountForStrategy
     );
     console.log('populationCountForStrategy :', populationCountForStrategy);
+    console.log('reachedRespondents :', reachedRespondents);
 
     // Unique respondents
     const reachedRespondentsIds = reachedRespondents.map((respondent) => respondent.respondentId);
@@ -202,24 +202,14 @@ Meteor.methods({
 
     // Count respondents for overlap
     // TODO: overlap check
-    reachedRespondents.forEach((respondent) => {
-      let countThisRespondent = true;
-      for (let index = 0; index < complementedTouchPoints.length; index++) {
-        const touchPointName = complementedTouchPoints[index].name;
-        if (
-          reachedRespondents.some((respondent) => touchPointName == respondent.touchPointName) &&
-          countThisRespondent
-        ) {
-          countThisRespondent = true;
-        } else {
-          countThisRespondent = false;
-        }
-      }
-      if (countThisRespondent) {
-        respondentsForOverlap.push(respondent);
-      }
-    });
-    console.log('respondentsForOverlap in calculate result: ', respondentsForOverlap);
+    const uniqueTouchPointNames = [...new Set(reachedRespondents.map((respondent) => respondent.touchPointName))];
+    const respondentsForOverlap = reachedRespondents.filter((respondent) =>
+      uniqueTouchPointNames.every((touchPointName) =>
+        reachedRespondents.some(
+          (respon) => respon.respondentId === respondent.respondentId && respon.touchPointName === touchPointName
+        )
+      )
+    );
 
     // strategy.overlap
     const overlapForResult = Number.isNaN(respondentsForOverlap.length / respondentsCount.count)

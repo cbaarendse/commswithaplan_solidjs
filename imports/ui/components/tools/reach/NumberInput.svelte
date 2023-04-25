@@ -1,21 +1,21 @@
 <script lang="ts">
   // imports
-  import type {DeployedTouchPoint} from '../../../../both/typings/types';
+  import type {DeployedTouchPoint, MaxValue} from '../../../../both/typings/types';
   import {translations, language} from '../../../stores/utils';
-  import {deployment, maxValues} from '../../../stores/reach';
+  import {deployment} from '../../../stores/reach';
   import createConverter from '/imports/ui/functions/convert';
 
   // variables
   export let index: number;
+  export let max: MaxValue['max'];
   const min = 0;
-  $: max = $maxValues[name] ?? 100;
-  $: step = (max - min) / 100 ?? 1;
+  $: step = (max ?? 100 - min) / 100;
   const {name, definitions} = $deployment[index];
   let value: DeployedTouchPoint['value'];
   $: definition = definitions.filter((definition) => definition.language == $language)[0];
   const converter = createConverter();
   // TODO: disabled
-  $: disabled = isValid(value, min, max) ? false : true;
+  $: disabled = isValid(value, min, max ?? 100) ? false : true;
 
   // functions
   function isValid(v: DeployedTouchPoint['value'], m: number, mx: number): boolean {

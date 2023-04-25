@@ -5,7 +5,7 @@
   import NumberInput from './NumberInput.svelte';
   import {language} from '../../../stores/utils';
   import createFormatter from '../../../functions/format';
-  import {DeployedTouchPoint} from '/imports/both/typings/types';
+  import {DeployedTouchPoint, MaxValue} from '/imports/both/typings/types';
   import {INPUTTYPE} from '../../../../both/constants/constants';
   //import {notify} from '../../notifications/NotificationsFunctions';
 
@@ -16,6 +16,7 @@
   export let show: DeployedTouchPoint['show'];
   export let inputTypeIndex: DeployedTouchPoint['inputTypeIndex'];
   export let definitions: DeployedTouchPoint['definitions'];
+  export let max: MaxValue['max'];
   $: definition = definitions.filter((definition) => definition.language == $language)[0];
   const formatter = createFormatter();
   let hovered: boolean = false;
@@ -50,7 +51,7 @@
     />
   </div>
   <div class="center">
-    <RangeInput {name} {definitions} bind:value bind:inputTypeIndex on:input on:change />
+    <RangeInput {name} {definitions} {max} bind:value bind:inputTypeIndex on:input on:change />
   </div>
   <div class="right">
     <button
@@ -78,7 +79,7 @@
   </Modal>
   <!-- manual input -->
   <Modal title={definition.displayName} display={displayManualInput} on:click={dismiss}>
-    <NumberInput {index} on:submit on:click={dismiss} />
+    <NumberInput {index} {max} on:submit on:click={dismiss} />
   </Modal>
 </div>
 

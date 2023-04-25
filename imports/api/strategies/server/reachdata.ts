@@ -102,16 +102,19 @@ export default function createReachDataTool() {
       }
 
       // continue
-      const reachedRespondentsThisTouchPoint = respondentsThisTouchPoint
-        .map((respondent, index, respondentsThisTouchPoint): Required<RespondentOutcome> => {
+      const respondentsWithReachThisTouchPoint = respondentsThisTouchPoint.map(
+        (respondent, index, respondentsThisTouchPoint): Required<RespondentOutcome> => {
           const exponent = thisTouchPoint.grps
             ? (-respondent.probability * thisTouchPoint.grps) / respondentsThisTouchPoint.length
             : 0;
           // Math.pow(Math.E, 0) = 1, so if exponent == 0, reach = 0
           const reachThisTouchPoint = 1 * (1 - Math.pow(Math.E, exponent));
           return Object.assign(respondent, {reach: reachThisTouchPoint});
-        })
-        .filter((respondent) => respondent.reach >= 0.01);
+        }
+      );
+      const reachedRespondentsThisTouchPoint = respondentsWithReachThisTouchPoint.filter(
+        (respondent) => respondent.reach >= 0.01
+      );
       reachedRespondents.push(...reachedRespondentsThisTouchPoint);
     }
     console.log('in determine reached respondents - reachedRespondents: ', reachedRespondents);

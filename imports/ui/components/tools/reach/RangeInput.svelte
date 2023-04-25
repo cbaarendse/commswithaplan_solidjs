@@ -1,11 +1,11 @@
 <script lang="ts">
   // imports
-  import {marketData, maxValues, useMarketData} from '../../../stores/reach';
+  import {marketData, useMarketData} from '../../../stores/reach';
   import {language} from '../../../stores/utils';
   import createConverter from '/imports/ui/functions/convert';
   import Fa from 'svelte-fa/src/fa.svelte';
   import {faSort} from '@fortawesome/free-solid-svg-icons';
-  import {DeployedTouchPoint} from '/imports/both/typings/types';
+  import {DeployedTouchPoint, MaxValue} from '/imports/both/typings/types';
   import {allInputTypes} from '/imports/both/constants/constants';
   import prepareRespondents from '/imports/ui/methods/prepareRespondents';
   import createMaxValues from '/imports/ui/methods/maxValues';
@@ -17,12 +17,12 @@
   export let value: DeployedTouchPoint['value'];
   export let inputTypeIndex: DeployedTouchPoint['inputTypeIndex'];
   export let definitions: DeployedTouchPoint['definitions'];
+  export let max: MaxValue['max'];
 
   const inputTypes = allInputTypes();
   let inputTypeName = inputTypes[inputTypeIndex].name;
   const min = 0;
-  $: max = $maxValues.filter((maxValue) => maxValue.touchPoint == name)[0].max ?? 1;
-  $: step = (max - min) / 100 ?? 0.01;
+  $: step = (max ?? 100 - min) / 100;
   $: touchPointDefinition = definitions.filter((definition) => definition.language == $language)[0];
   //TODO: change inputType should change deployment
   // functions
