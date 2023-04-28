@@ -114,17 +114,17 @@ export type TouchPointName =
   | 'word_of_mouth';
 
 export type TouchPointDefinition = Omit<Content, 'name'> & {name: TouchPointName} & {
-  defaultInputTypeIndex: typeof INPUTTYPE[keyof typeof INPUTTYPE];
+  defaultInputTypeIndex: (typeof INPUTTYPE)[keyof typeof INPUTTYPE];
 };
 export type DeployedTouchPoint = TouchPointDefinition & {
   value: number;
   show: boolean;
-  inputTypeIndex: typeof INPUTTYPE[keyof typeof INPUTTYPE];
+  inputTypeIndex: (typeof INPUTTYPE)[keyof typeof INPUTTYPE];
 };
 export type ComplementedTouchPoint = {
   name: TouchPointName;
   value: number;
-  inputTypeIndex: typeof INPUTTYPE[keyof typeof INPUTTYPE];
+  inputTypeIndex: (typeof INPUTTYPE)[keyof typeof INPUTTYPE];
   selected?: boolean;
   maxReachedRespondents?: number;
   grps?: number;
@@ -139,7 +139,7 @@ export type Strategy = {
   createdAt: Date;
   lastChanged: Date;
   deployment: DeployedTouchPoint[];
-  useMarketData?: boolean;
+  useForResults?: 'formula' | 'data';
   ageGroupIndexStart?: number;
   ageGroupIndexEnd?: number;
   genders?: Genders;

@@ -1,13 +1,14 @@
 <script lang="ts">
   import {faSort} from '@fortawesome/free-solid-svg-icons';
   import Fa from 'svelte-fa/src/fa.svelte';
-
-  // imports
-  import {marketName, useMarketData, results} from '../../../stores/reach';
+  import {marketName, useForResults, results} from '../../../stores/reach';
+  import createConverter from '/imports/ui/functions/convert';
   import renew from '../../../methods/renew';
   import {allMarkets} from '../../../../both/constants/constants';
+  import {language, translations} from '/imports/ui/stores/utils';
 
   //variables
+  const converter = createConverter();
 
   // functions
   function reset() {
@@ -17,13 +18,14 @@
 </script>
 
 <fieldset>
+  <legend>{converter.translate('choose_market', $translations, $language)}</legend>
   <select
     class="market"
     name="market"
     id="market__select"
     bind:value={$marketName}
     on:change={() => {
-      $useMarketData = false;
+      $useForResults = 'formula';
     }}
     on:change={reset}
   >

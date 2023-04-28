@@ -2,14 +2,14 @@
   // imports
   import Fa from 'svelte-fa/src/fa.svelte';
   import {faPerson, faPersonDress} from '@fortawesome/free-solid-svg-icons';
-  import {genders, marketData, useMarketData} from '../../../stores/reach';
+  import {genders, marketData, useForResults} from '../../../stores/reach';
   import createResults from '../../../methods/results';
   import prepareRespondents from '/imports/ui/methods/prepareRespondents';
 
   // variables
   const calculateResults = createResults();
   $: gendersToWorkWith = new Set($genders) ?? new Set(['f', 'm', 'x']);
-  $: disabled = !$marketData || !$useMarketData;
+  $: disabled = !$marketData || $useForResults == 'formula';
 
   // functions
   function toggleGenders() {
@@ -32,7 +32,7 @@
   }
 
   function getResults() {
-    if ($marketData && $useMarketData) {
+    if ($marketData && $useForResults == 'data') {
       prepareRespondents();
       calculateResults.forData();
     } else {

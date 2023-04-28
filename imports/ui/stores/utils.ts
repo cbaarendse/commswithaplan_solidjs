@@ -76,6 +76,13 @@ export const translations: Readable<Translation[]> = readable(
       ]
     },
     {
+      name: 'data',
+      definitions: [
+        {language: 'en-GB', displayName: 'data'},
+        {language: 'nl-NL', displayName: 'data'}
+      ]
+    },
+    {
       name: 'docs',
       definitions: [
         {language: 'en-GB', displayName: 'Docs'},
@@ -104,6 +111,13 @@ export const translations: Readable<Translation[]> = readable(
       ]
     },
     {
+      name: 'formula',
+      definitions: [
+        {language: 'en-GB', displayName: 'formula'},
+        {language: 'nl-NL', displayName: 'formule'}
+      ]
+    },
+    {
       name: 'hide',
       definitions: [
         {language: 'en-GB', displayName: 'HIDE'},
@@ -129,6 +143,13 @@ export const translations: Readable<Translation[]> = readable(
       definitions: [
         {language: 'en-GB', displayName: 'Legal'},
         {language: 'nl-NL', displayName: 'Juridisch'}
+      ]
+    },
+    {
+      name: 'choose_market',
+      definitions: [
+        {language: 'en-GB', displayName: 'choose market'},
+        {language: 'nl-NL', displayName: 'kies markt'}
       ]
     },
     {
@@ -216,19 +237,13 @@ export const translations: Readable<Translation[]> = readable(
       ]
     },
     {
-      name: 'using_data',
+      name: 'use',
       definitions: [
-        {language: 'en-GB', displayName: 'uses data'},
-        {language: 'nl-NL', displayName: 'gebruikt data'}
+        {language: 'en-GB', displayName: 'use'},
+        {language: 'nl-NL', displayName: 'gebruik'}
       ]
     },
-    {
-      name: 'using_formula',
-      definitions: [
-        {language: 'en-GB', displayName: 'uses formula'},
-        {language: 'nl-NL', displayName: 'gebruikt formule'}
-      ]
-    },
+
     {
       name: 'work',
       definitions: [

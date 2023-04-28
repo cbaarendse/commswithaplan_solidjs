@@ -1,6 +1,6 @@
 <script lang="ts">
   // imports
-  import {marketData, useMarketData} from '../../../stores/reach';
+  import {marketData, useForResults} from '../../../stores/reach';
   import {language} from '../../../stores/utils';
   import createConverter from '/imports/ui/functions/convert';
   import Fa from 'svelte-fa/src/fa.svelte';
@@ -27,7 +27,7 @@
   //TODO: change inputType should change deployment
   // functions
   function getMaxValues() {
-    if ($marketData && $useMarketData) {
+    if ($marketData && $useForResults == 'data') {
       prepareRespondents();
       setMaxValues.forData();
     } else {
@@ -39,7 +39,7 @@
 <form>
   <fieldset>
     <label for={name}>{touchPointDefinition.displayName}</label>
-    {#if $useMarketData}
+    {#if $useForResults == 'data'}
       <select id={`${name}_inputtype__select`} bind:value={inputTypeIndex} on:change={getMaxValues}>
         {#each inputTypes as inputType, inputIndex}<option value={inputIndex}>
             {converter.translate(inputType.name, inputTypes, $language)}

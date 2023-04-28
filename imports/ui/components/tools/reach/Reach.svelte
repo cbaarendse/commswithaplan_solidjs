@@ -14,7 +14,7 @@
     results,
     respondentsReady,
     strategy,
-    useMarketData
+    useForResults
   } from '../../../stores/reach';
   import createResults from '../../../methods/results';
   import createRenew from '../../../methods/renew';
@@ -38,11 +38,11 @@
     sort($language);
   }
 
-  $: if (!$marketData || !$useMarketData) {
+  $: if (!$marketData || $useForResults == 'formula') {
     $respondentsReady = false;
   }
 
-  $: if ($marketData && $useMarketData) {
+  $: if ($marketData && $useForResults == 'data') {
     renew.forData();
     prepareRespondents();
     setMaxValues.forData();
@@ -53,14 +53,14 @@
 
   $: console.log('$strategy in $: ', $strategy);
   $: console.log('$marketData: in $: ', $marketData);
-  $: console.log('useMarketData: in $: ', $useMarketData);
+  $: console.log('useForResults: in $: ', $useForResults);
   $: console.log('$results: in $: ', $results);
   $: console.log('$respondentsReady: in $: ', $respondentsReady);
   $: console.log('$maxValues: in $: ', $maxValues);
 
   // functions
   function getResults() {
-    if ($marketData && $useMarketData) {
+    if ($marketData && $useForResults == 'data') {
       prepareRespondents();
       calculateResults.forData();
     } else {

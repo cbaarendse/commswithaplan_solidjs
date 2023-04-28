@@ -3,14 +3,14 @@
   import {Meteor} from 'meteor/meteor';
   import GenderButton from './GenderButton.svelte';
   import AgeGroupsSelect from './AgeGroupsSelect.svelte';
-  import UseMarketDataCheck from './UseMarketDataCheck.svelte';
+  import UseForResultsRadio from './UseForResultsRadio.svelte';
   import MarketSelect from './MarketSelect.svelte';
   import createReachTool from '../../../functions/reach';
   import renew from '../../../methods/renew';
   import sort from '../../../methods/sort';
   import hide from '../../../methods/hide';
   import {language} from '../../../stores/utils';
-  import {marketData, deployment, results, sortedByName, useMarketData} from '../../../stores/reach';
+  import {marketData, deployment, results, sortedByName, useForResults} from '../../../stores/reach';
   import {CWAPUser} from '../../../../both/typings/types';
   import Fa from 'svelte-fa/src/fa.svelte';
   import {
@@ -50,8 +50,8 @@
   {#if currentUser}
     <form>
       <MarketSelect />
-      <UseMarketDataCheck />
-      {#if $marketData && $useMarketData}
+      <UseForResultsRadio />
+      {#if $marketData && $useForResults == 'data'}
         <GenderButton />
         <AgeGroupsSelect />
       {/if}

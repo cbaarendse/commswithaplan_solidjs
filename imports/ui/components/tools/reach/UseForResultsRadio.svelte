@@ -2,18 +2,13 @@
   // imports
   import createConverter from '../../../functions/convert';
   import {translations, language} from '../../../stores/utils';
-  import {marketData, useMarketData, results} from '../../../stores/reach';
+  import {marketData, useForResults, results} from '../../../stores/reach';
   import renew from '../../../methods/renew';
 
   // variables
   const converter = createConverter();
   $: disabled = !$marketData;
-  $: message =
-    $marketData && $useMarketData
-      ? converter.translate('using_data', $translations, $language)
-      : $marketData && !$useMarketData
-      ? converter.translate('using_formula', $translations, $language)
-      : converter.translate('no_data', $translations, $language);
+  $: message = converter.translate('use', $translations, $language);
 
   // functions
   function reset() {
@@ -22,17 +17,33 @@
   }
 </script>
 
+<!-- TODO: type = "radio" bind:group -->
 <fieldset>
+  <legend>{message}</legend>
   <input
-    class="checkbox"
-    id="marketdata__checkbox"
-    name="marketdata"
-    type="checkbox"
+    class="radio__button"
+    id="useformula_radio"
+    type="radio"
+    name="use_market_data"
+    value="formula"
+    checked={$useForResults == 'formula'}
     {disabled}
-    bind:checked={$useMarketData}
+    bind:group={$useForResults}
     on:change={reset}
   />
-  <label for="marketdata__checkbox">{message}</label>
+  <label for="useformula__radio">{converter.translate('formula', $translations, $language)}</label>
+  <input
+    class="radio__button"
+    id="usedata__radio"
+    type="radio"
+    name="use_market_data"
+    value="data"
+    checked={$useForResults == 'data'}
+    {disabled}
+    bind:group={$useForResults}
+    on:change={reset}
+  />
+  <label for="usedata__radio">{converter.translate('data', $translations, $language)}</label>
 </fieldset>
 
 <style>
@@ -52,21 +63,21 @@
     padding: 0.2em 0.4em;
   }
 
-  input[type='checkbox'] {
+  input[type='radio'] {
     appearance: none;
     font: inherit;
     height: 1.8rem;
     width: 1.8rem;
     border: 1px solid var(--ra-teal-light);
-    border-radius: 2px;
+    border-radius: 50%;
     color: var(--ra-blue);
     cursor: pointer;
   }
-  input[type='checkbox']:checked {
+  input.radio__button:checked {
     background-color: var(--ra-red);
   }
 
-  input.checkbox:disabled {
+  input.radio__button:disabled {
     background-color: var(--ra-grey-light);
   }
 </style>

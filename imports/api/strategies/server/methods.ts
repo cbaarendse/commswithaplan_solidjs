@@ -206,7 +206,9 @@ Meteor.methods({
     const respondentsForOverlap = reachedRespondents.filter((respondent) =>
       uniqueTouchPointNames.every((touchPointName) =>
         reachedRespondents.some(
-          (respon) => respon.respondentId === respondent.respondentId && respon.touchPointName === touchPointName
+          (innerRespondent) =>
+            innerRespondent.respondentId === respondent.respondentId &&
+            innerRespondent.touchPointName === touchPointName
         )
       )
     );

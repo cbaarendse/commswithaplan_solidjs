@@ -1,7 +1,7 @@
 <script lang="ts">
   // imports
   import {translations, language} from '../../../stores/utils';
-  import {ageGroupIndexStart, ageGroupIndexEnd, ageGroups, marketData, useMarketData} from '../../../stores/reach';
+  import {ageGroupIndexStart, ageGroupIndexEnd, ageGroups, marketData, useForResults} from '../../../stores/reach';
   import createConverter from '../../../functions/convert';
   import createResults from '/imports/ui/methods/results';
   import Fa from 'svelte-fa/src/fa.svelte';
@@ -19,7 +19,7 @@
     }
   }
   function getResults() {
-    if ($marketData && $useMarketData) {
+    if ($marketData && $useForResults == 'data') {
       prepareRespondents();
       calculateResults.forData();
     } else {

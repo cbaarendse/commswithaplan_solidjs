@@ -22,7 +22,7 @@ export const title: Writable<Strategy['title']> = writable('New strategy');
 export const marketName: Writable<Strategy['marketName']> = writable('nl');
 export const createdAt: Writable<Strategy['createdAt']> = writable();
 export const lastChanged: Writable<Strategy['lastChanged']> = writable(new Date());
-export const useMarketData: Writable<Strategy['useMarketData']> = writable(false);
+export const useForResults: Writable<Strategy['useForResults']> = writable('formula');
 export const ageGroupIndexStart: Writable<Strategy['ageGroupIndexStart']> = writable(0);
 export const ageGroupIndexEnd: Writable<Strategy['ageGroupIndexEnd']> = writable(1);
 export const genders: Writable<Strategy['genders']> = writable(['f', 'm', 'x']);
@@ -37,7 +37,7 @@ export const briefing: Readable<Omit<Strategy, 'deployment'>> = derived(
     marketName,
     createdAt,
     lastChanged,
-    useMarketData,
+    useForResults,
     ageGroupIndexStart,
     ageGroupIndexEnd,
     genders,
@@ -51,7 +51,7 @@ export const briefing: Readable<Omit<Strategy, 'deployment'>> = derived(
     $marketName,
     $createdAt,
     $lastChanged,
-    $useMarketData,
+    $useForResults,
     $ageGroupIndexStart,
     $ageGroupIndexEnd,
     $genders,
@@ -65,7 +65,7 @@ export const briefing: Readable<Omit<Strategy, 'deployment'>> = derived(
       marketName: $marketName,
       createdAt: $createdAt,
       lastChanged: $lastChanged,
-      useMarketData: $useMarketData,
+      useForResults: $useForResults,
       ageGroupIndexStart: $ageGroupIndexStart,
       ageGroupIndexEnd: $ageGroupIndexEnd,
       genders: $genders,
@@ -109,9 +109,9 @@ export const respondentsReady: Writable<boolean> = writable(false, () => {
 });
 // results
 export const respondentsCountForMarket: Readable<RespondentsCount> = derived(
-  [marketName, marketData, useMarketData],
-  ([$marketName, $marketData, $useMarketData], set) => {
-    if ($marketName && $marketData && $useMarketData) {
+  [marketName, marketData, useForResults],
+  ([$marketName, $marketData, $useForResults], set) => {
+    if ($marketName && $marketData && $useForResults == 'data') {
       console.log('respondentsCountForMarket client, args sent: ', $marketName);
 
       Meteor.callAsync('probabilities.countRespondentsForMarket', {marketName: $marketName})
@@ -126,12 +126,12 @@ export const respondentsCountForMarket: Readable<RespondentsCount> = derived(
 );
 
 export const populationCountForStrategy: Readable<PopulationCountForStrategy> = derived(
-  [marketName, marketData, useMarketData, genders, ageGroupIndexStart, ageGroupIndexEnd, userId, ageGroups],
+  [marketName, marketData, useForResults, genders, ageGroupIndexStart, ageGroupIndexEnd, userId, ageGroups],
   (
-    [$marketName, $marketData, $useMarketData, $genders, $ageGroupIndexStart, $ageGroupIndexEnd, $userId, $ageGroups],
+    [$marketName, $marketData, $useForResults, $genders, $ageGroupIndexStart, $ageGroupIndexEnd, $userId, $ageGroups],
     set
   ) => {
-    if ($marketData && $useMarketData) {
+    if ($marketData && $useForResults == 'data') {
       Meteor.callAsync('populations.countPopulationForStrategy', {
         userId: $userId,
         marketName: $marketName,
@@ -152,10 +152,10 @@ export const populationCountForStrategy: Readable<PopulationCountForStrategy> = 
 );
 
 export const population: Readable<number> = derived(
-  [marketData, marketName, useMarketData],
-  ([$marketData, $marketName, $useMarketData], set) => {
-    if ($marketData && $useMarketData) {
-      console.log('marketName, useMarketData', $marketName, ' and ', $useMarketData, 'in countPopulationForStrategy');
+  [marketData, marketName, useForResults],
+  ([$marketData, $marketName, $useForResults], set) => {
+    if ($marketData && $useForResults == 'data') {
+      console.log('marketName, useForResults', $marketName, ' and ', $useForResults, 'in countPopulationForStrategy');
 
       Meteor.callAsync('populations.countPopulationForMarket', {
         marketName: $marketName

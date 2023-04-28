@@ -13,7 +13,7 @@
     populationCountForStrategy,
     respondentsCountForMarket,
     totalReach,
-    useMarketData
+    useForResults
   } from '../../../stores/reach';
   // import Spinner from '../../reusable/Spinner.svelte';
 
@@ -38,7 +38,7 @@
 </script>
 
 <div class="container">
-  {#if $useMarketData}
+  {#if $useForResults == 'data'}
     <div class="amounts__container">
       <span>respondents:</span>
       <output>{formatter.toNumberFormat($respondentsCountForMarket, 0)}</output>
