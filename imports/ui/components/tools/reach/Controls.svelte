@@ -6,9 +6,9 @@
   import UseForResultsRadio from './UseForResultsRadio.svelte';
   import MarketSelect from './MarketSelect.svelte';
   import createReachTool from '../../../functions/reach';
-  import renew from '../../../methods/renew';
-  import sort from '../../../methods/sort';
-  import hide from '../../../methods/hide';
+  import renew from '../../../procedures/renew';
+  import sort from '../../../procedures/sort';
+  import hide from '../../../procedures/hide';
   import {language} from '../../../stores/utils';
   import {marketData, deployment, results, sortedByName, useForResults} from '../../../stores/reach';
   import {CWAPUser} from '../../../../both/typings/types';

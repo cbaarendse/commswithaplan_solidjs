@@ -3,7 +3,7 @@
   import createConverter from '../../../functions/convert';
   import {translations, language} from '../../../stores/utils';
   import {marketData, useForResults, results} from '../../../stores/reach';
-  import renew from '../../../methods/renew';
+  import renew from '../../../procedures/renew';
 
   // variables
   const converter = createConverter();

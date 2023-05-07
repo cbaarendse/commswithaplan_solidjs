@@ -3,10 +3,10 @@
   import {translations, language} from '../../../stores/utils';
   import {ageGroupIndexStart, ageGroupIndexEnd, ageGroups, marketData, useForResults} from '../../../stores/reach';
   import createConverter from '../../../functions/convert';
-  import createResults from '/imports/ui/methods/results';
+  import createResults from '/imports/ui/procedures/results';
   import Fa from 'svelte-fa/src/fa.svelte';
   import {faSort} from '@fortawesome/free-solid-svg-icons';
-  import prepareRespondents from '/imports/ui/methods/prepareRespondents';
+  import prepareRespondents from '/imports/ui/procedures/prepareRespondents';
 
   //variables
   const converter = createConverter();

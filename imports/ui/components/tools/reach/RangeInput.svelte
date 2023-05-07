@@ -7,8 +7,8 @@
   import {faSort} from '@fortawesome/free-solid-svg-icons';
   import {DeployedTouchPoint, MaxValue} from '/imports/both/typings/types';
   import {allInputTypes} from '/imports/both/constants/constants';
-  import prepareRespondents from '/imports/ui/methods/prepareRespondents';
-  import createMaxValues from '/imports/ui/methods/maxValues';
+  import prepareRespondents from '/imports/ui/procedures/prepareRespondents';
+  import createMaxValues from '/imports/ui/procedures/maxValues';
 
   //variables
   const converter = createConverter();

@@ -3,7 +3,7 @@
   import Fa from 'svelte-fa/src/fa.svelte';
   import {marketName, useForResults, results} from '../../../stores/reach';
   import createConverter from '/imports/ui/functions/convert';
-  import renew from '../../../methods/renew';
+  import renew from '../../../procedures/renew';
   import {allMarkets} from '../../../../both/constants/constants';
   import {language, translations} from '/imports/ui/stores/utils';
 

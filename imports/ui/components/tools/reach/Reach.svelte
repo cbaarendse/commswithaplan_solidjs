@@ -4,7 +4,7 @@
   import Controls from './Controls.svelte';
   import Output from './Output.svelte';
   import TouchPoint from './TouchPoint.svelte';
-  import sort from '../../../methods/sort';
+  import sort from '../../../procedures/sort';
   import {language} from '../../../stores/utils';
   import {
     createdAt,
@@ -16,10 +16,10 @@
     strategy,
     useForResults
   } from '../../../stores/reach';
-  import createResults from '../../../methods/results';
-  import createRenew from '../../../methods/renew';
-  import createMaxValues from '../../../methods/maxValues';
-  import prepareRespondents from '/imports/ui/methods/prepareRespondents';
+  import createResults from '../../../procedures/results';
+  import createRenew from '../../../procedures/renew';
+  import createMaxValues from '../../../procedures/maxValues';
+  import prepareRespondents from '/imports/ui/procedures/prepareRespondents';
 
   // variables
   const renew = createRenew();

@@ -3,8 +3,8 @@
   import Fa from 'svelte-fa/src/fa.svelte';
   import {faPerson, faPersonDress} from '@fortawesome/free-solid-svg-icons';
   import {genders, marketData, useForResults} from '../../../stores/reach';
-  import createResults from '../../../methods/results';
-  import prepareRespondents from '/imports/ui/methods/prepareRespondents';
+  import createResults from '../../../procedures/results';
+  import prepareRespondents from '/imports/ui/procedures/prepareRespondents';
 
   // variables
   const calculateResults = createResults();
