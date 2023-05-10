@@ -12,6 +12,7 @@ import {
   MaxValue
 } from '../../both/typings/types';
 import {allMarkets} from '../../both/constants/constants';
+import {TouchPointName} from '../../both/typings/types';
 
 // variables
 const reachTool = createReachTool();
@@ -171,6 +172,12 @@ export const population: Readable<number> = derived(
 );
 
 export const maxValues: Writable<MaxValue[]> = writable();
+export const averageProbabilities: Writable<
+  {touchPoint?: TouchPointName | undefined; probability?: number | undefined}[]
+> = writable();
+export const respondentsNotReached: Writable<
+  {touchPoint?: TouchPointName | undefined; respondents?: number | undefined}[]
+> = writable();
 
 export const results: Writable<Results> = writable([0, 0]);
 
