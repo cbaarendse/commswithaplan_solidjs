@@ -14,7 +14,9 @@
     results,
     respondentsReady,
     strategy,
-    useForResults
+    useForResults,
+    averageProbabilities,
+    respondentsNotReached
   } from '../../../stores/reach';
   import createResults from '../../../procedures/results';
   import createRenew from '../../../procedures/renew';
@@ -59,6 +61,8 @@
   $: console.log('useForResults: in $: ', $useForResults);
   $: console.log('$results: in $: ', $results);
   $: console.log('$respondentsReady: in $: ', $respondentsReady);
+  $: console.log('$averageProbabilities: in $: ', $averageProbabilities);
+  $: console.log('$respondentsNotReached: in $: ', $respondentsNotReached);
   $: console.log('$maxValues: in $: ', $maxValues);
 
   // functions

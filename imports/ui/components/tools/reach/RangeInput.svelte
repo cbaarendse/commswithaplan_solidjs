@@ -7,11 +7,12 @@
   import {faSort} from '@fortawesome/free-solid-svg-icons';
   import {DeployedTouchPoint, MaxValue} from '/imports/both/typings/types';
   import {allInputTypes} from '/imports/both/constants/constants';
-  import prepareRespondents from '/imports/ui/procedures/prepareRespondents';
+  import createPrepare from '/imports/ui/procedures/prepare';
   import createMaxValues from '/imports/ui/procedures/maxValues';
 
   //variables
   const converter = createConverter();
+  const prepare = createPrepare();
   const setMaxValues = createMaxValues();
   export let name: DeployedTouchPoint['name'];
   export let value: DeployedTouchPoint['value'];
@@ -28,7 +29,7 @@
   // functions
   function getMaxValues() {
     if ($marketData && $useForResults == 'data') {
-      prepareRespondents();
+      prepare.respondents();
       setMaxValues.forData();
     } else {
       setMaxValues.forFormula();

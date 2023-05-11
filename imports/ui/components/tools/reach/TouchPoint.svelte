@@ -13,6 +13,7 @@
   export let index: number;
   export let name: DeployedTouchPoint['name'];
   export let value: DeployedTouchPoint['value'];
+  export let reach: DeployedTouchPoint['reach'] = 0.99;
   export let show: DeployedTouchPoint['show'];
   export let inputTypeIndex: DeployedTouchPoint['inputTypeIndex'];
   export let definitions: DeployedTouchPoint['definitions'];
@@ -71,6 +72,10 @@
             2
           )}{/if}
       </span>
+      <hr />
+      <span>
+        {formatter.toPercentFormat(reach, 0)}
+      </span>
     </button>
   </div>
   <!-- touch point description -->
@@ -108,11 +113,13 @@
   }
 
   button.input {
+    display: grid;
+    grid-template-rows: 1fr auto 1fr;
     width: var(--button-size-phone);
     height: var(--button-size-phone);
     padding: 0.7em;
     font-size: 1rem;
-    border-radius: 50%;
+    border-radius: 7px;
     border: none;
     background-repeat: no-repeat;
     background-position: center center;
