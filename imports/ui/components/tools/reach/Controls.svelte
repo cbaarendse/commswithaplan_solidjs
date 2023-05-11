@@ -6,7 +6,6 @@
   import UseForResultsRadio from './UseForResultsRadio.svelte';
   import MarketSelect from './MarketSelect.svelte';
   import createReachTool from '../../../functions/reach';
-  import renew from '../../../procedures/renew';
   import sort from '../../../procedures/sort';
   import hide from '../../../procedures/hide';
   import {language} from '../../../stores/utils';
@@ -24,10 +23,12 @@
     faDownload,
     faPlus
   } from '@fortawesome/free-solid-svg-icons';
+  import createRenew from '../../../procedures/renew';
 
   // variables
   let currentUser: CWAPUser | null;
   const reachTool = createReachTool();
+  const renew = createRenew();
 
   $m: {
     currentUser = Meteor.user();
@@ -36,7 +37,11 @@
   // functions
   function reset() {
     if (reachTool.areAllTouchPointsValueZero($deployment)) {
-      renew();
+      if ($marketData && $useForResults == 'data') {
+        renew.forData();
+      } else if ($useForResults == 'formula') {
+        renew.forFormula();
+      }
     } else {
       deployment.update((data) => {
         return data.map((touchPoint) => Object.assign(touchPoint, {value: 0.0}));

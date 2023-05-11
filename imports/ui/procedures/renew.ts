@@ -9,7 +9,9 @@ export default function createRenew() {
   function forFormula() {
     deployment.set(touchPointsForDeployment(touchPointsDefinitions()));
     deployment.update((data) => {
-      return data.map((touchPoint) => Object.assign(touchPoint, {value: 0.0, inputTypeIndex: INPUTTYPE.Reach}));
+      return data.map((touchPoint) =>
+        Object.assign(touchPoint, {value: 0.0, inputTypeIndex: INPUTTYPE.Reach, reach: 0.0})
+      );
     });
   }
   function forData() {

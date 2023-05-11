@@ -1,18 +1,23 @@
 <script lang="ts">
   import {faSort} from '@fortawesome/free-solid-svg-icons';
   import Fa from 'svelte-fa/src/fa.svelte';
-  import {marketName, useForResults, results} from '../../../stores/reach';
+  import {marketData, marketName, useForResults, results} from '../../../stores/reach';
   import createConverter from '/imports/ui/functions/convert';
-  import renew from '../../../procedures/renew';
+  import createRenew from '../../../procedures/renew';
   import {allMarkets} from '../../../../both/constants/constants';
   import {language, translations} from '/imports/ui/stores/utils';
 
   //variables
+  const renew = createRenew();
   const converter = createConverter();
 
   // functions
   function reset() {
-    renew();
+    if ($marketData && $useForResults == 'data') {
+      renew.forData();
+    } else if ($useForResults == 'formula') {
+      renew.forFormula();
+    }
     $results = [0, 0];
   }
 </script>

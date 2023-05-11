@@ -120,6 +120,7 @@ export type DeployedTouchPoint = TouchPointDefinition & {
   value: number;
   show: boolean;
   inputTypeIndex: (typeof INPUTTYPE)[keyof typeof INPUTTYPE];
+  reach?: number;
 };
 export type ComplementedTouchPoint = {
   name: TouchPointName;
@@ -129,7 +130,6 @@ export type ComplementedTouchPoint = {
   maxReachedRespondents?: number;
   grps?: number;
   averageProbability?: number;
-  reach?: number;
 };
 
 export type Strategy = {

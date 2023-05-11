@@ -3,13 +3,14 @@
   import {translations, language} from '../../../stores/utils';
   import {ageGroupIndexStart, ageGroupIndexEnd, ageGroups, marketData, useForResults} from '../../../stores/reach';
   import createConverter from '../../../functions/convert';
+  import createPrepare from '/imports/ui/procedures/prepare';
   import createResults from '/imports/ui/procedures/results';
   import Fa from 'svelte-fa/src/fa.svelte';
   import {faSort} from '@fortawesome/free-solid-svg-icons';
-  import prepareRespondents from '/imports/ui/procedures/prepareRespondents';
 
   //variables
   const converter = createConverter();
+  const prepare = createPrepare();
   const calculateResults = createResults();
 
   // functions
@@ -20,7 +21,9 @@
   }
   function getResults() {
     if ($marketData && $useForResults == 'data') {
-      prepareRespondents();
+      prepare.respondents();
+      prepare.getAverageProbabilities();
+      prepare.getRespondentsNotReached();
       calculateResults.forData();
     } else {
       calculateResults.forFormula();

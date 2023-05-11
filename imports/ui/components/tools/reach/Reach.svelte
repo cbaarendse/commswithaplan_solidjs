@@ -19,10 +19,11 @@
   import createResults from '../../../procedures/results';
   import createRenew from '../../../procedures/renew';
   import createMaxValues from '../../../procedures/maxValues';
-  import prepareRespondents from '/imports/ui/procedures/prepareRespondents';
+  import createPrepare from '/imports/ui/procedures/prepare';
 
   // variables
   const renew = createRenew();
+  const prepare = createPrepare();
   const setMaxValues = createMaxValues();
   const calculateResults = createResults();
   if (!$createdAt) {
@@ -44,7 +45,9 @@
 
   $: if ($marketData && $useForResults == 'data') {
     renew.forData();
-    prepareRespondents();
+    prepare.respondents();
+    prepare.getAverageProbabilities();
+    prepare.getRespondentsNotReached();
     setMaxValues.forData();
   } else {
     renew.forFormula();
@@ -61,9 +64,11 @@
   // functions
   function getResults() {
     if ($marketData && $useForResults == 'data') {
-      prepareRespondents();
+      prepare.respondents();
+      prepare.getAverageProbabilities();
+      prepare.getRespondentsNotReached();
       calculateResults.forData();
-    } else {
+    } else if ($useForResults == 'formula') {
       calculateResults.forFormula();
     }
   }
