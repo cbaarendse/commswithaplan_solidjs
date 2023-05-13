@@ -47,9 +47,9 @@
 
   $: if ($marketData && $useForResults == 'data') {
     renew.forData();
-    prepare.respondents();
-    prepare.getAverageProbabilities();
-    prepare.getRespondentsNotReached();
+    prepare.respondentsForData();
+    prepare.averageProbabilitiesForData();
+    prepare.respondentsNotReachedForData();
     setMaxValues.forData();
   } else {
     renew.forFormula();
@@ -68,9 +68,9 @@
   // functions
   function getResults() {
     if ($marketData && $useForResults == 'data') {
-      prepare.respondents();
-      prepare.getAverageProbabilities();
-      prepare.getRespondentsNotReached();
+      prepare.respondentsForData();
+      prepare.averageProbabilitiesForData();
+      prepare.respondentsNotReachedForData();
       calculateResults.forData();
     } else if ($useForResults == 'formula') {
       calculateResults.forFormula();

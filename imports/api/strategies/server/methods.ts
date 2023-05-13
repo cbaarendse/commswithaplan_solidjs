@@ -60,7 +60,7 @@ Meteor.methods({
     if (!Match.test(args, Object) || !Match.test(args.deployment, Array)) {
       throw new Meteor.Error('general.invalid.input', `Invalid input: ${args}`, '[{ "name": "invalidInput" }]');
     }
-    console.log('filterRespondentsNotReached runs on server');
+    console.log('calculateAverageProbabilities runs on server');
     const result = [];
     const touchPoints = args.deployment;
     //const userId = args.userId;
@@ -82,7 +82,7 @@ Meteor.methods({
     for (let touchPointIndex = 0; touchPointIndex < touchPoints.length; touchPointIndex++) {
       const thisTouchPoint = touchPoints[touchPointIndex];
       const respondentsThisTouchPoint: RespondentOutcome[] = preparedRespondents.filter(
-        (respondent) => thisTouchPoint.name === respondent.touchPointName && respondent.probability > 0
+        (respondent) => thisTouchPoint.name === respondent.touchPoint
       );
       const thisProbabilitiesSum: number = respondentsThisTouchPoint.reduce(
         (sum, respondent) => sum + respondent.probability,
@@ -106,7 +106,7 @@ Meteor.methods({
       throw new Meteor.Error('general.invalid.input', `Invalid input: ${args}`, '[{ "name": "invalidInput" }]');
     }
     console.log('filterRespondentsNotReached runs on server');
-    const result = [];
+    const notReached = [];
     const touchPoints = args.deployment;
     //const userId = args.userId;
     // Checks for login and strategy ownership
@@ -128,15 +128,16 @@ Meteor.methods({
     for (let touchPointIndex = 0; touchPointIndex < touchPoints.length; touchPointIndex++) {
       const thisTouchPoint = touchPoints[touchPointIndex];
       const thisRespondentsNotReached: RespondentOutcome[] = preparedRespondents.filter(
-        (respondent) => thisTouchPoint.name === respondent.touchPointName && respondent.probability === 0
+        (respondent) => thisTouchPoint.name === respondent.touchPoint && respondent.probability === 0
       );
+
       const respondentsNotReachedForThisTouchPoint = {
         touchPoint: thisTouchPoint.name,
         respondentsNotReached: thisRespondentsNotReached.length
       };
-      result.push(respondentsNotReachedForThisTouchPoint);
+      notReached.push(respondentsNotReachedForThisTouchPoint);
     }
-    return result;
+    return notReached;
   },
 
   // maxValues
@@ -181,7 +182,7 @@ Meteor.methods({
     // for each deployed touchpoint only select respondents with a contact probability > 0
     touchPoints.forEach((touchPoint) => {
       const respondentsThisTouchPoint = preparedRespondents.filter(
-        (respondent) => touchPoint.name === respondent.touchPointName
+        (respondent) => touchPoint.name === respondent.touchPoint
       );
       const maxForTouchPoint = {touchPoint: touchPoint.name, max: 1};
       if (
@@ -196,7 +197,6 @@ Meteor.methods({
         const maxReach = respondentsThisTouchPoint.length / respondentsCount.count;
         maxForTouchPoint.max = Math.max(maxReach, 0.01);
       }
-      console.log('maxValues => maxForTouchPoint ', maxForTouchPoint, 'inputTypeIndex: ', touchPoint.inputTypeIndex);
       maxValues.push(maxForTouchPoint);
     });
     return maxValues;
@@ -204,23 +204,18 @@ Meteor.methods({
   // results
   'strategies.calculateResultsWithData': function (args: {
     userId: Strategy['userId'];
-    marketName: Strategy['marketName'];
-    genders: Strategy['genders'];
-    ageGroupIndexStart: Strategy['ageGroupIndexStart'];
-    ageGroupIndexEnd: Strategy['ageGroupIndexEnd'];
     deployment: Strategy['deployment'];
-    ageGroups: AgeGroup[];
+    averageProbabilities: Pick<RespondentOutcome, 'touchPoint' | 'probability'>[];
   }): Results {
     if (!Match.test(args, Object) || !Match.test(args.deployment, Array)) {
       throw new Meteor.Error('general.invalid.input', `Invalid input: ${args}`, '[{ "name": "invalidInput" }]');
     }
     console.log('calculateResultsWithData runs on server');
 
-    const {userId, marketName, ageGroupIndexStart, ageGroupIndexEnd, genders, ageGroups} = args;
+    const {userId} = args;
 
     // filter touchPoints for this strategy
-    const touchPointsDeployed: DeployedTouchPoint[] = args.deployment;
-    const touchPoints: DeployedTouchPoint[] = touchPointsDeployed.filter((touchPoint) => touchPoint.value > 0);
+    const touchPoints: DeployedTouchPoint[] = args.deployment;
 
     // Checks for login and strategy ownership
     if (!this.userId) {
@@ -238,31 +233,6 @@ Meteor.methods({
     //   );
     // }
 
-    // Filter population
-
-    const startAge = ageGroupIndexStart ? ageGroups[ageGroupIndexStart][0] : ageGroups[0][0];
-    const endAge = ageGroupIndexEnd ? ageGroups[ageGroupIndexEnd][1] : ageGroups[1][1];
-    const populationQuery = {
-      market: marketName,
-      gender: {
-        $in: genders || ['f', 'm', 'x']
-      },
-      age: {
-        $gte: startAge,
-        $lte: endAge
-      }
-    };
-    // Make sure only the counts per age group / gender are being reported in query
-    const populationProjection: {count: number} = {count: 0};
-    populationProjection.count = 1;
-    // Filter right counts for selected age range / gender
-    const populationForStrategy = Populations.find(populationQuery, {
-      fields: populationProjection
-    }).fetch();
-
-    // Summarize all filtered counts per age range / gender to one number
-    const populationCountForStrategy = populationForStrategy.reduce((subTotal, current) => subTotal + current.count, 0);
-
     // add properties to touchpoints
     const complementedTouchPoints: ComplementedTouchPoint[] = reachDataTool.complementCountedTouchPoints(
       touchPoints,
@@ -271,12 +241,7 @@ Meteor.methods({
 
     // Build non-unique respondents
     // Collect respondents
-    const reachedRespondents = reachDataTool.determineReachedRespondents(
-      complementedTouchPoints,
-      preparedRespondents,
-      populationCountForStrategy
-    );
-    console.log('populationCountForStrategy :', populationCountForStrategy);
+    const reachedRespondents = reachDataTool.determineReachedRespondents(complementedTouchPoints, preparedRespondents);
     console.log('reachedRespondents :', reachedRespondents);
 
     // Unique respondents
@@ -288,13 +253,12 @@ Meteor.methods({
 
     // Count respondents for overlap
     // TODO: overlap check
-    const uniqueTouchPointNames = [...new Set(reachedRespondents.map((respondent) => respondent.touchPointName))];
+    const uniqueTouchPointNames = [...new Set(reachedRespondents.map((respondent) => respondent.touchPoint))];
     const respondentsForOverlap = reachedRespondents.filter((respondent) =>
-      uniqueTouchPointNames.every((touchPointName) =>
+      uniqueTouchPointNames.every((touchPoint) =>
         reachedRespondents.some(
           (innerRespondent) =>
-            innerRespondent.respondentId === respondent.respondentId &&
-            innerRespondent.touchPointName === touchPointName
+            innerRespondent.respondentId === respondent.respondentId && innerRespondent.touchPoint === touchPoint
         )
       )
     );

@@ -162,7 +162,7 @@ export type MaxValue = {touchPoint?: TouchPointName; max?: number};
 
 export type RespondentOutcome = {
   respondentId: string;
-  touchPointName: TouchPointName;
+  touchPoint: TouchPointName;
   probability: number;
   reach?: number;
 };

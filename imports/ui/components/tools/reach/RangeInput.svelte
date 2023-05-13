@@ -29,7 +29,7 @@
   // functions
   function getMaxValues() {
     if ($marketData && $useForResults == 'data') {
-      prepare.respondents();
+      prepare.respondentsForData();
       setMaxValues.forData();
     } else {
       setMaxValues.forFormula();

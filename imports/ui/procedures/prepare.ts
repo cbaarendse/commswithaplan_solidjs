@@ -16,7 +16,7 @@ import {
 
 // variables
 export default function createPrepare() {
-  async function getAverageProbabilities() {
+  async function averageProbabilitiesForData() {
     try {
       averageProbabilities.set(
         await Meteor.callAsync('strategies.calculateAverageProbabilities', {
@@ -33,7 +33,7 @@ export default function createPrepare() {
       console.log('error in getAverageProbabilities', error);
     }
   }
-  async function getRespondentsNotReached() {
+  async function respondentsNotReachedForData() {
     try {
       respondentsNotReached.set(
         await Meteor.callAsync('strategies.filterRespondentsNotReached', {
@@ -50,7 +50,7 @@ export default function createPrepare() {
       console.log('error in getRespondentsNotReached', error);
     }
   }
-  async function respondents() {
+  async function respondentsForData() {
     try {
       const result = await Meteor.callAsync('strategies.prepareRespondents', {
         userId: get(userId),
@@ -67,5 +67,5 @@ export default function createPrepare() {
       console.log('error in async prepare respondents: ', error);
     }
   }
-  return {getAverageProbabilities, getRespondentsNotReached, respondents};
+  return {averageProbabilitiesForData, respondentsNotReachedForData, respondentsForData};
 }

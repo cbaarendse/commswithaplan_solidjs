@@ -5,10 +5,10 @@ import {Roles} from 'meteor/alanning:roles';
 
 // class
 export default function createAuthorizationManager() {
-  function mayChange(touchPointName: string, userId: string, companyId: string): boolean {
+  function mayChange(touchPoint: string, userId: string, companyId: string): boolean {
     // This check happens just for the ui, real authorisation check happens in validated methods.
     if (
-      Roles.userIsInRole(userId, ['owner', 'companyAdmin', touchPointName], companyId) ||
+      Roles.userIsInRole(userId, ['owner', 'companyAdmin', touchPoint], companyId) ||
       Roles.userIsInRole(userId, 'admin', Roles.GLOBAL_GROUP)
     ) {
       return true;

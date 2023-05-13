@@ -13,37 +13,22 @@ export default function createReachDataTool() {
     touchPoints: DeployedTouchPoint[],
     probabilities: Probability[]
   ): RespondentOutcome[] {
-    const filteredRespondents: RespondentOutcome[] = [];
+    const flattenedRespondents: RespondentOutcome[] = [];
     for (let touchPointIndex = 0; touchPointIndex < touchPoints.length; touchPointIndex++) {
       const respondentsForThisTouchPoint: RespondentOutcome[] = [];
-      const thisTouchPointName = touchPoints[touchPointIndex].name;
+      const thisTouchPoint = touchPoints[touchPointIndex].name;
       for (let probabilityIndex = 0; probabilityIndex < probabilities.length; probabilityIndex++) {
         const thisProbability = probabilities[probabilityIndex];
-        if (thisProbability[thisTouchPointName] > 0) {
-          respondentsForThisTouchPoint.push({
-            respondentId: thisProbability.respondentId,
-            touchPointName: thisTouchPointName,
-            probability: thisProbability[thisTouchPointName]
-          });
-        }
-        respondentsForThisTouchPoint.sort(
-          (
-            a: {
-              respondentId: string;
-              touchPointName: TouchPointName;
-              probability: number;
-            },
-            b: {
-              respondentId: string;
-              touchPointName: TouchPointName;
-              probability: number;
-            }
-          ) => b.probability - a.probability
-        );
+        respondentsForThisTouchPoint.push({
+          respondentId: thisProbability.respondentId,
+          touchPoint: thisTouchPoint,
+          probability: thisProbability[thisTouchPoint]
+        });
       }
-      filteredRespondents.push(...respondentsForThisTouchPoint);
+      respondentsForThisTouchPoint.sort((a: RespondentOutcome, b: RespondentOutcome) => b.probability - a.probability);
+      flattenedRespondents.push(...respondentsForThisTouchPoint);
     }
-    return filteredRespondents;
+    return flattenedRespondents;
   }
 
   function complementCountedTouchPoints(
@@ -53,7 +38,7 @@ export default function createReachDataTool() {
     const complementedTouchPoints = touchPoints.map((touchPoint) => {
       const {name, value} = touchPoint;
       const respondentsProbabilitiesForTouchPoint = respondentsProbabilitiesForTouchPoints.filter(
-        (probability) => name === probability.touchPointName
+        (probability) => name === probability.touchPoint
       );
       // complement touchPoint object
       Object.assign(touchPoint, {
@@ -68,7 +53,7 @@ export default function createReachDataTool() {
   function determineReachedRespondents(
     touchPoints: ComplementedTouchPoint[],
     respondents: RespondentOutcome[],
-    populationCount: PopulationCountForStrategy
+    averageProbabilities: Pick<RespondentOutcome, 'touchPoint' | 'probability'>
   ): RespondentOutcome[] {
     const reachedRespondents: RespondentOutcome[] = [];
     // loop over deployed touchPoints
@@ -76,16 +61,12 @@ export default function createReachDataTool() {
       const thisTouchPoint = touchPoints[touchPointIndex];
 
       const respondentsThisTouchPoint: RespondentOutcome[] = respondents.filter(
-        (respondent) => thisTouchPoint.name === respondent.touchPointName
+        (respondent) => thisTouchPoint.name === respondent.touchPoint
       );
 
       // For INPUTTYPE.Reach:
       if (respondentsThisTouchPoint && thisTouchPoint.inputTypeIndex == INPUTTYPE.Reach) {
-        // convert reach input to reached respondents
-        const reachThisTouchPoint = thisTouchPoint.value;
-        // Math.log(x) = inv. Math.pow(e, y)
-        const exponent = Math.log(reachThisTouchPoint) - 1;
-        thisTouchPoint.grps = -exponent;
+        //TODO:
       }
 
       // For INPUTTYPE.Contacts, INPUTTYPE.Grps, INPUTTYPE.Impressions:
@@ -95,32 +76,26 @@ export default function createReachDataTool() {
           thisTouchPoint.inputTypeIndex == INPUTTYPE.Contacts ||
           thisTouchPoint.inputTypeIndex == INPUTTYPE.Impressions)
       ) {
-        thisTouchPoint.grps =
-          thisTouchPoint.inputTypeIndex == INPUTTYPE.Grps
-            ? thisTouchPoint.value
-            : (thisTouchPoint.value / populationCount) * 100;
+        // continue
+        const respondentsWithReachThisTouchPoint = respondentsThisTouchPoint.map(
+          (respondent, index, respondentsThisTouchPoint): Required<RespondentOutcome> => {
+            const exponent = thisTouchPoint.grps
+              ? (-respondent.probability * thisTouchPoint.grps) / respondentsThisTouchPoint.length
+              : 0;
+            // Math.pow(Math.E, 0) = 1, so if exponent == 0, reach = 0
+            const reachThisTouchPoint = 1 * (1 - Math.pow(Math.E, exponent));
+            return Object.assign(respondent, {reach: reachThisTouchPoint});
+          }
+        );
+        const reachedRespondentsThisTouchPoint = respondentsWithReachThisTouchPoint.filter(
+          (respondent) => respondent.reach >= 0.01
+        );
+        reachedRespondents.push(...reachedRespondentsThisTouchPoint);
       }
-
-      // continue
-      const respondentsWithReachThisTouchPoint = respondentsThisTouchPoint.map(
-        (respondent, index, respondentsThisTouchPoint): Required<RespondentOutcome> => {
-          const exponent = thisTouchPoint.grps
-            ? (-respondent.probability * thisTouchPoint.grps) / respondentsThisTouchPoint.length
-            : 0;
-          // Math.pow(Math.E, 0) = 1, so if exponent == 0, reach = 0
-          const reachThisTouchPoint = 1 * (1 - Math.pow(Math.E, exponent));
-          return Object.assign(respondent, {reach: reachThisTouchPoint});
-        }
-      );
-      const reachedRespondentsThisTouchPoint = respondentsWithReachThisTouchPoint.filter(
-        (respondent) => respondent.reach >= 0.01
-      );
-      reachedRespondents.push(...reachedRespondentsThisTouchPoint);
+      console.log('in determine reached respondents - reachedRespondents: ', reachedRespondents);
+      return reachedRespondents;
     }
-    console.log('in determine reached respondents - reachedRespondents: ', reachedRespondents);
-    return reachedRespondents;
   }
-
   return {
     flattenRespondentsForTouchPoints,
     complementCountedTouchPoints,
