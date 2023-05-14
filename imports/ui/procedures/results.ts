@@ -1,16 +1,7 @@
 // imports
 import {Meteor} from 'meteor/meteor';
 import {get} from 'svelte/store';
-import {
-  ageGroups,
-  ageGroupIndexEnd,
-  ageGroupIndexStart,
-  deployment,
-  genders,
-  marketName,
-  results,
-  userId
-} from '../stores/reach';
+import {deployment, results, userId, averageProbabilities} from '../stores/reach';
 import {DeployedTouchPoint} from '/imports/both/typings/types';
 
 // variables
@@ -20,12 +11,8 @@ export default function createResults() {
       results.set(
         await Meteor.callAsync('strategies.calculateResultsWithData', {
           userId: get(userId),
-          marketName: get(marketName),
-          ageGroupIndexStart: get(ageGroupIndexStart),
-          ageGroupIndexEnd: get(ageGroupIndexEnd),
-          genders: get(genders),
           deployment: get(deployment),
-          ageGroups: get(ageGroups)
+          averageProbabilities: get(averageProbabilities)
         })
       );
     } catch (error) {

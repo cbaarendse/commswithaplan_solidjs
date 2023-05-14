@@ -122,15 +122,6 @@ export type DeployedTouchPoint = TouchPointDefinition & {
   inputTypeIndex: (typeof INPUTTYPE)[keyof typeof INPUTTYPE];
   reach?: number;
 };
-export type ComplementedTouchPoint = {
-  name: TouchPointName;
-  value: number;
-  inputTypeIndex: (typeof INPUTTYPE)[keyof typeof INPUTTYPE];
-  selected?: boolean;
-  maxReachedRespondents?: number;
-  grps?: number;
-  averageProbability?: number;
-};
 
 export type Strategy = {
   userId: string | Mongo.ObjectID;

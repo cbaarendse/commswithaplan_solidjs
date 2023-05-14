@@ -15,11 +15,11 @@ import type {
   TouchPointName
 } from '/imports/both/typings/types';
 import {INPUTTYPE} from '/imports/both/constants/constants';
+import {averageProbabilities} from '/imports/ui/stores/reach';
 
 // variables
 const reachDataTool = createReachDataTool();
 const preparedRespondents: RespondentOutcome[] = [];
-const respondentsCount: {count: number} = {count: 0};
 
 // functions
 
@@ -47,7 +47,6 @@ Meteor.methods({
     });
 
     const probabilities = probabilitiesCursor.fetch();
-    respondentsCount.count = probabilitiesCursor.count();
     const flattenedRespondents = reachDataTool.flattenRespondentsForTouchPoints(touchPoints, probabilities);
     preparedRespondents.push(...flattenedRespondents);
     return preparedRespondents.length > 0;
@@ -189,12 +188,12 @@ Meteor.methods({
         (touchPoint.inputTypeIndex == INPUTTYPE.Contacts || touchPoint.inputTypeIndex == INPUTTYPE.Impressions) &&
         respondentsThisTouchPoint
       ) {
-        maxForTouchPoint.max = (respondentsThisTouchPoint.length / respondentsCount.count) * populationCount * 5;
+        maxForTouchPoint.max = (respondentsThisTouchPoint.length / preparedRespondents.length) * populationCount * 5;
       } else if (touchPoint.inputTypeIndex == INPUTTYPE.Grps && respondentsThisTouchPoint) {
         maxForTouchPoint.max =
-          ((respondentsThisTouchPoint.length / respondentsCount.count) * populationCount * 5) / 10000;
+          ((respondentsThisTouchPoint.length / preparedRespondents.length) * populationCount * 5) / 10000;
       } else if (touchPoint.inputTypeIndex == INPUTTYPE.Reach && respondentsThisTouchPoint) {
-        const maxReach = respondentsThisTouchPoint.length / respondentsCount.count;
+        const maxReach = respondentsThisTouchPoint.length / preparedRespondents.length;
         maxForTouchPoint.max = Math.max(maxReach, 0.01);
       }
       maxValues.push(maxForTouchPoint);
@@ -233,23 +232,17 @@ Meteor.methods({
     //   );
     // }
 
-    // add properties to touchpoints
-    const complementedTouchPoints: ComplementedTouchPoint[] = reachDataTool.complementCountedTouchPoints(
-      touchPoints,
-      preparedRespondents
-    );
-
     // Build non-unique respondents
     // Collect respondents
-    const reachedRespondents = reachDataTool.determineReachedRespondents(complementedTouchPoints, preparedRespondents);
+    const reachedRespondents = reachDataTool.determineReachedRespondents(touchPoints, preparedRespondents);
     console.log('reachedRespondents :', reachedRespondents);
 
     // Unique respondents
     const reachedRespondentsIds = reachedRespondents.map((respondent) => respondent.respondentId);
     const reachedUniqueRespondentsIds: Set<RespondentOutcome['respondentId']> = new Set(reachedRespondentsIds);
-    const totalReachForResult = Number.isNaN(reachedUniqueRespondentsIds.size / respondentsCount.count)
+    const totalReachForResult = Number.isNaN(reachedUniqueRespondentsIds.size / preparedRespondents.length)
       ? 0
-      : reachedUniqueRespondentsIds.size / respondentsCount.count;
+      : reachedUniqueRespondentsIds.size / preparedRespondents.length;
 
     // Count respondents for overlap
     // TODO: overlap check
@@ -264,14 +257,14 @@ Meteor.methods({
     );
 
     // strategy.overlap
-    const overlapForResult = Number.isNaN(respondentsForOverlap.length / respondentsCount.count)
+    const overlapForResult = Number.isNaN(respondentsForOverlap.length / preparedRespondents.length)
       ? 0
-      : respondentsForOverlap.length / respondentsCount.count;
+      : respondentsForOverlap.length / preparedRespondents.length;
     console.log(
       'respondentsCountedForOverlap.length: ',
       respondentsForOverlap.length,
-      'respondentsCount.count: ',
-      respondentsCount.count
+      'preparedRespondents.length: ',
+      preparedRespondents.length
     );
     console.log('totalReachForResult: ', totalReachForResult, 'overlapForResult: ', overlapForResult);
 
