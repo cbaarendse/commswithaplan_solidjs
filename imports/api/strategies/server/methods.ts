@@ -6,7 +6,6 @@ import Probabilities from '../../probabilities/server/probabilities';
 import Populations from '../../populations/populations';
 import type {
   AgeGroup,
-  ComplementedTouchPoint,
   DeployedTouchPoint,
   Genders,
   RespondentOutcome,
@@ -15,7 +14,6 @@ import type {
   TouchPointName
 } from '/imports/both/typings/types';
 import {INPUTTYPE} from '/imports/both/constants/constants';
-import {averageProbabilities} from '/imports/ui/stores/reach';
 
 // variables
 const reachDataTool = createReachDataTool();
@@ -32,7 +30,7 @@ Meteor.methods({
     ageGroupIndexEnd: Strategy['ageGroupIndexEnd'];
     deployment: Strategy['deployment'];
     ageGroups: AgeGroup[];
-  }): boolean {
+  }): number {
     if (preparedRespondents.length > 0) {
       preparedRespondents.length = 0;
     }
@@ -40,16 +38,15 @@ Meteor.methods({
     // Filter probabilities for this briefing / strategy
     const {marketName, ageGroupIndexStart, ageGroupIndexEnd, genders} = args;
     const touchPoints: DeployedTouchPoint[] = args.deployment;
-    const probabilitiesCursor = Probabilities.find({
+    const probabilities = Probabilities.find({
       marketName: marketName,
       gender: {$in: genders},
       age_group: {$gte: ageGroupIndexStart, $lte: ageGroupIndexEnd}
-    });
+    }).fetch();
 
-    const probabilities = probabilitiesCursor.fetch();
     const flattenedRespondents = reachDataTool.flattenRespondentsForTouchPoints(touchPoints, probabilities);
     preparedRespondents.push(...flattenedRespondents);
-    return preparedRespondents.length > 0;
+    return preparedRespondents.length;
   },
 
   'strategies.calculateAverageProbabilities': function (args: {
@@ -235,7 +232,7 @@ Meteor.methods({
     // Build non-unique respondents
     // Collect respondents
     const reachedRespondents = reachDataTool.determineReachedRespondents(touchPoints, preparedRespondents);
-    console.log('reachedRespondents :', reachedRespondents);
+    console.log('reachedRespondents in calculateResultsWithData:', reachedRespondents);
 
     // Unique respondents
     const reachedRespondentsIds = reachedRespondents.map((respondent) => respondent.respondentId);

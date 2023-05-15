@@ -9,6 +9,7 @@ import {
   deployment,
   genders,
   marketName,
+  respondentsCountForStrategy,
   respondentsNotReached,
   respondentsReady,
   userId
@@ -30,7 +31,7 @@ export default function createPrepare() {
         })
       );
     } catch (error) {
-      console.log('error in getAverageProbabilities', error);
+      console.log('error in calculateAverageProbabilities', error);
     }
   }
   async function respondentsNotReachedForData() {
@@ -52,17 +53,19 @@ export default function createPrepare() {
   }
   async function respondentsForData() {
     try {
-      const result = await Meteor.callAsync('strategies.prepareRespondents', {
-        userId: get(userId),
-        marketName: get(marketName),
-        genders: get(genders),
-        ageGroupIndexStart: get(ageGroupIndexStart),
-        ageGroupIndexEnd: get(ageGroupIndexEnd),
-        deployment: get(deployment),
-        ageGroups: get(ageGroups)
-      });
-      console.log('result in async prepare respondents: ', result);
-      respondentsReady.set(result);
+      respondentsCountForStrategy.set(
+        await Meteor.callAsync('strategies.prepareRespondents', {
+          userId: get(userId),
+          marketName: get(marketName),
+          genders: get(genders),
+          ageGroupIndexStart: get(ageGroupIndexStart),
+          ageGroupIndexEnd: get(ageGroupIndexEnd),
+          deployment: get(deployment),
+          ageGroups: get(ageGroups)
+        })
+      );
+      console.log('respondentsCountForStrategy in async prepare respondents: ', respondentsCountForStrategy);
+      respondentsReady.set(get(respondentsCountForStrategy) > 0);
     } catch (error) {
       console.log('error in async prepare respondents: ', error);
     }

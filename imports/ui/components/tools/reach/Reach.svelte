@@ -50,7 +50,7 @@
     prepare.respondentsForData();
     prepare.averageProbabilitiesForData();
     prepare.respondentsNotReachedForData();
-    setMaxValues.forData();
+    setMaxValues.setMaxValues();
   } else {
     renew.forFormula();
     setMaxValues.forFormula();

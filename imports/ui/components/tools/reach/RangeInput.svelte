@@ -1,6 +1,13 @@
 <script lang="ts">
   // imports
-  import {marketData, useForResults} from '../../../stores/reach';
+  import {
+    marketData,
+    useForResults,
+    populationCountForStrategy,
+    respondentsCountForMarket,
+    deployment,
+    respondentsNotReached
+  } from '../../../stores/reach';
   import {language} from '../../../stores/utils';
   import createConverter from '/imports/ui/functions/convert';
   import Fa from 'svelte-fa/src/fa.svelte';
@@ -30,7 +37,12 @@
   function getMaxValues() {
     if ($marketData && $useForResults == 'data') {
       prepare.respondentsForData();
-      setMaxValues.forData();
+      setMaxValues.setMaxValues(
+        $deployment,
+        $respondentsNotReached,
+        $populationCountForStrategy,
+        $respondentsCountForMarket
+      );
     } else {
       setMaxValues.forFormula();
     }

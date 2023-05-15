@@ -2,15 +2,7 @@
 import {writable, Writable, Readable, derived} from 'svelte/store';
 import {Meteor} from 'meteor/meteor';
 import createReachTool from '../functions/reach';
-import {
-  Strategy,
-  SortedByName,
-  Results,
-  RespondentsCount,
-  PopulationCountForStrategy,
-  PopulationCount,
-  MaxValue
-} from '../../both/typings/types';
+import {Strategy, SortedByName, Results, MaxValue} from '../../both/typings/types';
 import {allMarkets} from '../../both/constants/constants';
 import {TouchPointName} from '../../both/typings/types';
 
@@ -109,7 +101,7 @@ export const respondentsReady: Writable<boolean> = writable(false, () => {
   };
 });
 // results
-export const respondentsCountForMarket: Readable<RespondentsCount> = derived(
+export const respondentsCountForMarket: Readable<number> = derived(
   [marketName, marketData, useForResults],
   ([$marketName, $marketData, $useForResults], set) => {
     if ($marketName && $marketData && $useForResults == 'data') {
@@ -126,31 +118,9 @@ export const respondentsCountForMarket: Readable<RespondentsCount> = derived(
   }
 );
 
-export const populationCountForStrategy: Readable<PopulationCountForStrategy> = derived(
-  [marketName, marketData, useForResults, genders, ageGroupIndexStart, ageGroupIndexEnd, userId, ageGroups],
-  (
-    [$marketName, $marketData, $useForResults, $genders, $ageGroupIndexStart, $ageGroupIndexEnd, $userId, $ageGroups],
-    set
-  ) => {
-    if ($marketData && $useForResults == 'data') {
-      Meteor.callAsync('populations.countPopulationForStrategy', {
-        userId: $userId,
-        marketName: $marketName,
-        marketData: $marketData,
-        genders: $genders,
-        ageGroupIndexStart: $ageGroupIndexStart,
-        ageGroupIndexEnd: $ageGroupIndexEnd,
-        ageGroups: $ageGroups
-      })
-        .then((result: PopulationCountForStrategy) => {
-          if (result >= 0) {
-            set(result);
-          }
-        })
-        .catch((error) => console.log('error in populationCountForStrategy ', error));
-    }
-  }
-);
+export const respondentsCountForStrategy: Writable<number> = writable();
+
+export const populationCountForStrategy: Writable<number> = writable();
 
 export const population: Readable<number> = derived(
   [marketData, marketName, useForResults],
@@ -161,7 +131,7 @@ export const population: Readable<number> = derived(
       Meteor.callAsync('populations.countPopulationForMarket', {
         marketName: $marketName
       })
-        .then((result: PopulationCount) => {
+        .then((result: number) => {
           if (result >= 0) {
             set(result);
           }

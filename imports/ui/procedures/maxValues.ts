@@ -12,28 +12,44 @@ import {
   userId
 } from '../stores/reach';
 import {INPUTTYPE} from '../../both/constants/constants';
-import {DeployedTouchPoint, MaxValue} from '/imports/both/typings/types';
+import {DeployedTouchPoint, MaxValue, RespondentOutcome, TouchPointName} from '/imports/both/typings/types';
 
 export default function createMaxValues() {
-  async function forData() {
-    try {
-      maxValues.set(
-        await Meteor.callAsync('strategies.maxValuesForTouchPoints', {
-          userId: get(userId),
-          marketName: get(marketName),
-          ageGroupIndexStart: get(ageGroupIndexStart),
-          ageGroupIndexEnd: get(ageGroupIndexEnd),
-          genders: get(genders),
-          deployment: get(deployment),
-          ageGroups: get(ageGroups)
-        })
-      );
-    } catch (error) {
-      if (error) {
-        console.log('error in max values: ', error);
-        fallBack();
+  function setMaxValues(
+    touchPoints: DeployedTouchPoint[],
+    respondentsNotReached: {touchPoint: TouchPointName; respondents: number}[],
+    populationCount: number,
+    respondentsCountedForStrategy: number
+  ) {
+    // population for selected age / gender combination
+
+    const maxValues: {touchPoint: TouchPointName; max: number}[] = [];
+    // for each deployed touchpoint only select respondents with a contact probability > 0
+    touchPoints.forEach((touchPoint) => {
+      const touchPointName = touchPoint.name;
+      const respondentsNotReachedForThisTouchPoint = respondentsNotReached.filter(
+        (item) => item.touchPoint === touchPointName
+      )[0].respondents;
+      const maxForTouchPoint = {touchPoint: touchPoint.name, max: 1};
+      if (touchPoint.inputTypeIndex == INPUTTYPE.Contacts || touchPoint.inputTypeIndex == INPUTTYPE.Impressions) {
+        maxForTouchPoint.max =
+          ((respondentsCountedForStrategy - respondentsNotReachedForThisTouchPoint) / respondentsCountedForStrategy) *
+          populationCount *
+          5;
+      } else if (touchPoint.inputTypeIndex == INPUTTYPE.Grps) {
+        maxForTouchPoint.max =
+          (((respondentsCountedForStrategy - respondentsNotReachedForThisTouchPoint) / respondentsCountedForStrategy) *
+            populationCount *
+            5) /
+          10000;
+      } else if (touchPoint.inputTypeIndex == INPUTTYPE.Reach) {
+        const maxReach =
+          (respondentsCountedForStrategy - respondentsNotReachedForThisTouchPoint) / respondentsCountedForStrategy;
+        maxForTouchPoint.max = Math.max(maxReach, 1);
       }
-    }
+      maxValues.push(maxForTouchPoint);
+    });
+    return maxValues;
   }
 
   function fallBack() {
@@ -72,5 +88,26 @@ export default function createMaxValues() {
     maxValues.set(maxValuesForFormula);
   }
 
-  return {forData, fallBack, forFormula};
+  return {setMaxValues, fallBack, forFormula};
+}
+
+async function forData() {
+  try {
+    maxValues.set(
+      await Meteor.callAsync('strategies.maxValuesForTouchPoints', {
+        userId: get(userId),
+        marketName: get(marketName),
+        ageGroupIndexStart: get(ageGroupIndexStart),
+        ageGroupIndexEnd: get(ageGroupIndexEnd),
+        genders: get(genders),
+        deployment: get(deployment),
+        ageGroups: get(ageGroups)
+      })
+    );
+  } catch (error) {
+    if (error) {
+      console.log('error in max values: ', error);
+      fallBack();
+    }
+  }
 }

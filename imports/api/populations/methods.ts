@@ -4,7 +4,7 @@ import {Meteor} from 'meteor/meteor';
 import Populations from '../populations/populations';
 
 import {MARKETNAMES} from '../../both/constants/constants';
-import {AgeGroup, Genders, PopulationCountForStrategy, Strategy} from '../../both/typings/types';
+import {AgeGroup, Genders, Strategy} from '../../both/typings/types';
 import {Match} from 'meteor/check';
 
 Meteor.methods({
@@ -48,7 +48,7 @@ Meteor.methods({
     ageGroupIndexEnd: Strategy['ageGroupIndexEnd'];
     userId: Strategy['userId'];
     ageGroups: AgeGroup[];
-  }): PopulationCountForStrategy {
+  }): number {
     const {userId, marketName, genders, ageGroupIndexStart, ageGroupIndexEnd, ageGroups} = args;
     console.log('populations.countPopulationForStrategy runs with: ', {...args}, this.userId);
 

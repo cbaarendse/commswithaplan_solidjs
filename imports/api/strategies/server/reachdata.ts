@@ -1,4 +1,4 @@
-import {INPUTTYPE} from '/imports/both/constants/constants';
+// imports
 import type {Probability, DeployedTouchPoint, RespondentOutcome} from '/imports/both/typings/types';
 
 export default function createReachDataTool() {
@@ -33,7 +33,7 @@ export default function createReachDataTool() {
     // loop over deployed touchPoints
     for (let touchPointIndex = 0; touchPointIndex < touchPoints.length; touchPointIndex++) {
       const thisTouchPoint = touchPoints[touchPointIndex];
-      let reachedRespondentsThisTouchPoint: RespondentOutcome[];
+      let reachedRespondentsThisTouchPoint: RespondentOutcome[] = [];
       const respondentsThisTouchPoint: RespondentOutcome[] = respondents.filter(
         (respondent) => thisTouchPoint.name === respondent.touchPoint
       );
@@ -41,8 +41,7 @@ export default function createReachDataTool() {
         const reached: number = Math.floor(thisTouchPoint.reach * respondents.length);
         reachedRespondentsThisTouchPoint = respondentsThisTouchPoint.slice(0, reached - 1);
       }
-      // TODO: function
-      reachedRespondents.push(reachedRespondentsThisTouchPoint);
+      reachedRespondents.push(...reachedRespondentsThisTouchPoint);
     }
     console.log('in determine reached respondents - reachedRespondents: ', reachedRespondents);
     return reachedRespondents;
