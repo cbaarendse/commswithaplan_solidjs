@@ -41,6 +41,7 @@ export default function createReachDataTool() {
         const reached: number = Math.floor(thisTouchPoint.reach * respondents.length);
         reachedRespondentsThisTouchPoint = respondentsThisTouchPoint.slice(0, reached - 1);
       }
+      // TODO: function
       reachedRespondents.push(reachedRespondentsThisTouchPoint);
     }
     console.log('in determine reached respondents - reachedRespondents: ', reachedRespondents);
