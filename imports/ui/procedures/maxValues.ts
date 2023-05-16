@@ -15,7 +15,8 @@ import {INPUTTYPE} from '../../both/constants/constants';
 import {DeployedTouchPoint, MaxValue, RespondentOutcome, TouchPointName} from '/imports/both/typings/types';
 
 export default function createMaxValues() {
-  function setMaxValues(
+  //TODO: update forData with external arguments
+  function forData(
     touchPoints: DeployedTouchPoint[],
     respondentsNotReached: {touchPoint: TouchPointName; respondents: number}[],
     populationCount: number,
@@ -88,10 +89,10 @@ export default function createMaxValues() {
     maxValues.set(maxValuesForFormula);
   }
 
-  return {setMaxValues, fallBack, forFormula};
+  return {forData, fallBack, forFormula};
 }
 
-async function forData() {
+async function setMaxValues() {
   try {
     maxValues.set(
       await Meteor.callAsync('strategies.maxValuesForTouchPoints', {

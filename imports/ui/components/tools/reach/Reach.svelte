@@ -18,7 +18,7 @@
     averageProbabilities,
     respondentsNotReached
   } from '../../../stores/reach';
-  import createResults from '../../../procedures/results';
+  import createResult from '../../../procedures/results';
   import createRenew from '../../../procedures/renew';
   import createMaxValues from '../../../procedures/maxValues';
   import createPrepare from '/imports/ui/procedures/prepare';
@@ -27,7 +27,7 @@
   const renew = createRenew();
   const prepare = createPrepare();
   const setMaxValues = createMaxValues();
-  const calculateResults = createResults();
+  const calculateResult = createResult();
   if (!$createdAt) {
     $createdAt = new Date();
   }
@@ -50,7 +50,7 @@
     prepare.respondentsForData();
     prepare.averageProbabilitiesForData();
     prepare.respondentsNotReachedForData();
-    setMaxValues.setMaxValues();
+    setMaxValues.forData();
   } else {
     renew.forFormula();
     setMaxValues.forFormula();
@@ -66,14 +66,16 @@
   $: console.log('$maxValues: in $: ', $maxValues);
 
   // functions
+  //TODO: reorganize functions in on:input, perhaps on:change and on:submit (can this be also on:input?)
+  function getResultForTouchPoint() {}
   function getResults() {
     if ($marketData && $useForResults == 'data') {
       prepare.respondentsForData();
       prepare.averageProbabilitiesForData();
       prepare.respondentsNotReachedForData();
-      calculateResults.forData();
+      calculateResult.forData();
     } else if ($useForResults == 'formula') {
-      calculateResults.forFormula();
+      calculateResult.forFormula();
     }
   }
 </script>
@@ -94,6 +96,7 @@
         bind:inputTypeIndex={$deployment[index].inputTypeIndex}
         on:change={getResults}
         on:submit={getResults}
+        on:input={getResultForTouchPoint}
       />
     {/each}
   </div>

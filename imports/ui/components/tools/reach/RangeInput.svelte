@@ -15,12 +15,14 @@
   import {DeployedTouchPoint, MaxValue} from '/imports/both/typings/types';
   import {allInputTypes} from '/imports/both/constants/constants';
   import createPrepare from '/imports/ui/procedures/prepare';
+  import createResult from '/imports/ui/procedures/results';
   import createMaxValues from '/imports/ui/procedures/maxValues';
 
   //variables
   const converter = createConverter();
   const prepare = createPrepare();
   const setMaxValues = createMaxValues();
+  const calculateResult = createResult();
   export let name: DeployedTouchPoint['name'];
   export let value: DeployedTouchPoint['value'];
   export let inputTypeIndex: DeployedTouchPoint['inputTypeIndex'];

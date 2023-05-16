@@ -4,14 +4,14 @@
   import {ageGroupIndexStart, ageGroupIndexEnd, ageGroups, marketData, useForResults} from '../../../stores/reach';
   import createConverter from '../../../functions/convert';
   import createPrepare from '/imports/ui/procedures/prepare';
-  import createResults from '/imports/ui/procedures/results';
+  import createResult from '/imports/ui/procedures/results';
   import Fa from 'svelte-fa/src/fa.svelte';
   import {faSort} from '@fortawesome/free-solid-svg-icons';
 
   //variables
   const converter = createConverter();
   const prepare = createPrepare();
-  const calculateResults = createResults();
+  const calculateResult = createResult();
 
   // functions
   function adaptAgeGroupIndexEnd() {
@@ -24,9 +24,9 @@
       prepare.respondentsForData();
       prepare.averageProbabilitiesForData();
       prepare.respondentsNotReachedForData();
-      calculateResults.forData();
+      calculateResult.forData();
     } else {
-      calculateResults.forFormula();
+      calculateResult.forFormula();
     }
   }
 </script>

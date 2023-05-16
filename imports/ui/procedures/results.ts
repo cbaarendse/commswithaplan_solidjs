@@ -1,11 +1,45 @@
 // imports
 import {Meteor} from 'meteor/meteor';
 import {get} from 'svelte/store';
-import {deployment, results, userId, averageProbabilities} from '../stores/reach';
-import {DeployedTouchPoint} from '/imports/both/typings/types';
+import {
+  averageProbabilities,
+  deployment,
+  populationCountForStrategy,
+  respondentsCountForStrategy,
+  respondentsNotReached,
+  results,
+  userId
+} from '../stores/reach';
+import {DeployedTouchPoint, TouchPointName} from '/imports/both/typings/types';
+import {INPUTTYPE} from '/imports/both/constants/constants';
 
 // variables
-export default function createResults() {
+export default function createResult() {
+  function forTouchPoint(touchPoint: TouchPointName, value: number, inputType: number) {
+    const averageProbability = get(averageProbabilities).find((item) => item.touchPoint === touchPoint)?.probability;
+    const notReached = get(respondentsNotReached).find((item) => item.touchPoint === touchPoint)?.respondents;
+    // formula (1-notReached) * (1-EXP (-averageProbability * contacts/impressions/GRPs))
+    if (averageProbability && notReached) {
+      if (inputType == INPUTTYPE.Contacts && inputType == INPUTTYPE.Impressions) {
+        const reachedPopulation =
+          (1 - notReached / get(respondentsCountForStrategy)) * (1 - Math.pow(Math.E, averageProbability * value));
+        const reach = reachedPopulation / get(populationCountForStrategy);
+        return reach;
+      }
+      if (inputType == INPUTTYPE.Grps) {
+        const reach =
+          (1 - notReached / get(respondentsCountForStrategy)) * (1 - Math.pow(Math.E, averageProbability * value));
+        return reach;
+      }
+      if (inputType == INPUTTYPE.Reach) {
+        const reach = value;
+        return reach;
+      }
+    } else {
+      return 0;
+    }
+  }
+
   async function forData() {
     try {
       results.set(
@@ -49,5 +83,5 @@ export default function createResults() {
     return duplicateReachPortion;
   }
 
-  return {forData, forFormula};
+  return {forTouchPoint, forData, forFormula};
 }

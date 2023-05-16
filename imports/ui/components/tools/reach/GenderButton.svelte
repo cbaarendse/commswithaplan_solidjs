@@ -3,12 +3,12 @@
   import Fa from 'svelte-fa/src/fa.svelte';
   import {faPerson, faPersonDress} from '@fortawesome/free-solid-svg-icons';
   import {genders, marketData, useForResults} from '../../../stores/reach';
-  import createResults from '../../../procedures/results';
+  import createResult from '../../../procedures/results';
   import createPrepare from '/imports/ui/procedures/prepare';
 
   // variables
   const prepare = createPrepare();
-  const calculateResults = createResults();
+  const calculateResult = createResult();
   $: gendersToWorkWith = new Set($genders) ?? new Set(['f', 'm', 'x']);
   $: disabled = !$marketData || $useForResults == 'formula';
 
@@ -37,9 +37,9 @@
       prepare.respondentsForData();
       prepare.averageProbabilitiesForData();
       prepare.respondentsNotReachedForData();
-      calculateResults.forData();
+      calculateResult.forData();
     } else if ($useForResults == 'formula') {
-      calculateResults.forFormula();
+      calculateResult.forFormula();
     }
   }
 </script>
