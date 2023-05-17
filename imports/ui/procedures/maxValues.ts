@@ -1,51 +1,42 @@
 // imports
-import {Meteor} from 'meteor/meteor';
+// imports
 import {get} from 'svelte/store';
 import {
-  ageGroups,
-  ageGroupIndexEnd,
-  ageGroupIndexStart,
   deployment,
-  genders,
-  marketName,
   maxValues,
-  userId
+  populationCountForStrategy,
+  respondentsCountForStrategy,
+  respondentsNotReached
 } from '../stores/reach';
 import {INPUTTYPE} from '../../both/constants/constants';
-import {DeployedTouchPoint, MaxValue, RespondentOutcome, TouchPointName} from '/imports/both/typings/types';
+import {DeployedTouchPoint, MaxValue, TouchPointName} from '/imports/both/typings/types';
 
 export default function createMaxValues() {
-  //TODO: update forData with external arguments
-  function forData(
-    touchPoints: DeployedTouchPoint[],
-    respondentsNotReached: {touchPoint: TouchPointName; respondents: number}[],
-    populationCount: number,
-    respondentsCountedForStrategy: number
-  ) {
-    // population for selected age / gender combination
-
+  function forData() {
     const maxValues: {touchPoint: TouchPointName; max: number}[] = [];
     // for each deployed touchpoint only select respondents with a contact probability > 0
-    touchPoints.forEach((touchPoint) => {
+    get(deployment).forEach((touchPoint) => {
       const touchPointName = touchPoint.name;
-      const respondentsNotReachedForThisTouchPoint = respondentsNotReached.filter(
-        (item) => item.touchPoint === touchPointName
-      )[0].respondents;
+      const respondentsNotReachedForThisTouchPoint =
+        get(respondentsNotReached).filter((item) => item.touchPoint === touchPointName)[0].respondents || 0;
       const maxForTouchPoint = {touchPoint: touchPoint.name, max: 1};
       if (touchPoint.inputTypeIndex == INPUTTYPE.Contacts || touchPoint.inputTypeIndex == INPUTTYPE.Impressions) {
         maxForTouchPoint.max =
-          ((respondentsCountedForStrategy - respondentsNotReachedForThisTouchPoint) / respondentsCountedForStrategy) *
-          populationCount *
+          ((get(respondentsCountForStrategy) - respondentsNotReachedForThisTouchPoint) /
+            get(respondentsCountForStrategy)) *
+          get(populationCountForStrategy) *
           5;
       } else if (touchPoint.inputTypeIndex == INPUTTYPE.Grps) {
         maxForTouchPoint.max =
-          (((respondentsCountedForStrategy - respondentsNotReachedForThisTouchPoint) / respondentsCountedForStrategy) *
-            populationCount *
+          (((get(respondentsCountForStrategy) - respondentsNotReachedForThisTouchPoint) /
+            get(respondentsCountForStrategy)) *
+            get(populationCountForStrategy) *
             5) /
           10000;
       } else if (touchPoint.inputTypeIndex == INPUTTYPE.Reach) {
         const maxReach =
-          (respondentsCountedForStrategy - respondentsNotReachedForThisTouchPoint) / respondentsCountedForStrategy;
+          (get(respondentsCountForStrategy) - respondentsNotReachedForThisTouchPoint) /
+          get(respondentsCountForStrategy);
         maxForTouchPoint.max = Math.max(maxReach, 1);
       }
       maxValues.push(maxForTouchPoint);
@@ -90,25 +81,4 @@ export default function createMaxValues() {
   }
 
   return {forData, fallBack, forFormula};
-}
-
-async function setMaxValues() {
-  try {
-    maxValues.set(
-      await Meteor.callAsync('strategies.maxValuesForTouchPoints', {
-        userId: get(userId),
-        marketName: get(marketName),
-        ageGroupIndexStart: get(ageGroupIndexStart),
-        ageGroupIndexEnd: get(ageGroupIndexEnd),
-        genders: get(genders),
-        deployment: get(deployment),
-        ageGroups: get(ageGroups)
-      })
-    );
-  } catch (error) {
-    if (error) {
-      console.log('error in max values: ', error);
-      fallBack();
-    }
-  }
 }

@@ -37,9 +37,9 @@
       prepare.respondentsForData();
       prepare.averageProbabilitiesForData();
       prepare.respondentsNotReachedForData();
-      calculateResult.forData();
+      calculateResult.totalForData();
     } else if ($useForResults == 'formula') {
-      calculateResult.forFormula();
+      calculateResult.totalForFormula();
     }
   }
 </script>

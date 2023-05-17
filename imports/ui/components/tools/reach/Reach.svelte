@@ -66,16 +66,11 @@
   $: console.log('$maxValues: in $: ', $maxValues);
 
   // functions
-  //TODO: reorganize functions in on:input, perhaps on:change and on:submit (can this be also on:input?)
-  function getResultForTouchPoint() {}
-  function getResults() {
+  function onChange() {
     if ($marketData && $useForResults == 'data') {
-      prepare.respondentsForData();
-      prepare.averageProbabilitiesForData();
-      prepare.respondentsNotReachedForData();
-      calculateResult.forData();
+      calculateResult.totalForData();
     } else if ($useForResults == 'formula') {
-      calculateResult.forFormula();
+      calculateResult.totalForFormula();
     }
   }
 </script>
@@ -94,9 +89,7 @@
         max={$maxValues.filter((m) => m.touchPoint == name)[0].max || 1}
         bind:value={$deployment[index].value}
         bind:inputTypeIndex={$deployment[index].inputTypeIndex}
-        on:change={getResults}
-        on:submit={getResults}
-        on:input={getResultForTouchPoint}
+        on:change={onChange}
       />
     {/each}
   </div>

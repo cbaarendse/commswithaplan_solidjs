@@ -6,6 +6,7 @@
   import createConverter from '/imports/ui/functions/convert';
 
   // variables
+  const converter = createConverter();
   export let index: number;
   export let max: MaxValue['max'];
   const min = 0;
@@ -13,7 +14,6 @@
   const {name, definitions} = $deployment[index];
   let value: DeployedTouchPoint['value'];
   $: definition = definitions.filter((definition) => definition.language == $language)[0];
-  const converter = createConverter();
   // TODO: disabled
   $: disabled = isValid(value, min, max ?? 100) ? false : true;
 

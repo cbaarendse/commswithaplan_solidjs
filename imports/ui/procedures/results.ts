@@ -40,7 +40,7 @@ export default function createResult() {
     }
   }
 
-  async function forData() {
+  async function totalForData() {
     try {
       results.set(
         await Meteor.callAsync('strategies.calculateResultsWithData', {
@@ -54,7 +54,7 @@ export default function createResult() {
     }
   }
 
-  function forFormula(): void {
+  function totalForFormula(): void {
     const totalReach = calculateTotalReach(get(deployment));
     const overlap = calculateOverlap(get(deployment));
     results.set([totalReach, overlap]);
@@ -83,5 +83,5 @@ export default function createResult() {
     return duplicateReachPortion;
   }
 
-  return {forTouchPoint, forData, forFormula};
+  return {forTouchPoint, totalForData, totalForFormula};
 }

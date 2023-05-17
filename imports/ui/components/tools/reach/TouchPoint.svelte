@@ -4,12 +4,16 @@
   import Modal from '../../reusable/Modal.svelte';
   import NumberInput from './NumberInput.svelte';
   import {language} from '../../../stores/utils';
+  import {marketData, useForResults} from '../../../stores/reach';
+  import createResult from '/imports/ui/procedures/results';
   import createFormatter from '../../../functions/format';
   import {DeployedTouchPoint, MaxValue} from '/imports/both/typings/types';
   import {INPUTTYPE} from '../../../../both/constants/constants';
   //import {notify} from '../../notifications/NotificationsFunctions';
 
   // variables
+  const calculateResult = createResult();
+  const formatter = createFormatter();
   export let index: number;
   export let name: DeployedTouchPoint['name'];
   export let value: DeployedTouchPoint['value'];
@@ -19,12 +23,24 @@
   export let definitions: DeployedTouchPoint['definitions'];
   export let max: MaxValue['max'];
   $: definition = definitions.filter((definition) => definition.language == $language)[0];
-  const formatter = createFormatter();
   let hovered: boolean = false;
   let displayManualInput: boolean;
   let displayTouchPointDescription: boolean;
 
   // functions
+  function onInput() {
+    if ($marketData && $useForResults == 'data') {
+      calculateResult.forTouchPoint(name, value, inputTypeIndex);
+    }
+  }
+  function onSubmit() {
+    if ($marketData && $useForResults == 'data') {
+      calculateResult.forTouchPoint(name, value, inputTypeIndex);
+      calculateResult.totalForData();
+    } else if ($useForResults == 'formula') {
+      calculateResult.totalForFormula();
+    }
+  }
   function dismiss(event: MouseEvent | CustomEvent | KeyboardEvent): void {
     if (
       (event instanceof KeyboardEvent && event.key === 'Escape') ||
@@ -52,7 +68,7 @@
     />
   </div>
   <div class="center">
-    <RangeInput {name} {definitions} {max} bind:value bind:inputTypeIndex on:input on:change />
+    <RangeInput {name} {definitions} {max} bind:value bind:inputTypeIndex on:input={onInput} on:change />
   </div>
   <div class="right">
     <button
@@ -84,7 +100,7 @@
   </Modal>
   <!-- manual input -->
   <Modal title={definition.displayName} display={displayManualInput} on:click={dismiss}>
-    <NumberInput {index} {max} on:submit on:click={dismiss} />
+    <NumberInput {index} {max} on:submit={onSubmit} on:click={dismiss} />
   </Modal>
 </div>
 

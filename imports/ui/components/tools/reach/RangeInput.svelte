@@ -1,13 +1,6 @@
 <script lang="ts">
   // imports
-  import {
-    marketData,
-    useForResults,
-    populationCountForStrategy,
-    respondentsCountForMarket,
-    deployment,
-    respondentsNotReached
-  } from '../../../stores/reach';
+  import {marketData, useForResults} from '../../../stores/reach';
   import {language} from '../../../stores/utils';
   import createConverter from '/imports/ui/functions/convert';
   import Fa from 'svelte-fa/src/fa.svelte';
@@ -15,14 +8,12 @@
   import {DeployedTouchPoint, MaxValue} from '/imports/both/typings/types';
   import {allInputTypes} from '/imports/both/constants/constants';
   import createPrepare from '/imports/ui/procedures/prepare';
-  import createResult from '/imports/ui/procedures/results';
   import createMaxValues from '/imports/ui/procedures/maxValues';
 
   //variables
   const converter = createConverter();
   const prepare = createPrepare();
   const setMaxValues = createMaxValues();
-  const calculateResult = createResult();
   export let name: DeployedTouchPoint['name'];
   export let value: DeployedTouchPoint['value'];
   export let inputTypeIndex: DeployedTouchPoint['inputTypeIndex'];
@@ -36,15 +27,10 @@
   $: touchPointDefinition = definitions.filter((definition) => definition.language == $language)[0];
   //TODO: change inputType should change deployment
   // functions
-  function getMaxValues() {
+  function onChangeInputType() {
     if ($marketData && $useForResults == 'data') {
       prepare.respondentsForData();
-      setMaxValues.setMaxValues(
-        $deployment,
-        $respondentsNotReached,
-        $populationCountForStrategy,
-        $respondentsCountForMarket
-      );
+      setMaxValues.forData();
     } else {
       setMaxValues.forFormula();
     }
@@ -55,7 +41,7 @@
   <fieldset>
     <label for={name}>{touchPointDefinition.displayName}</label>
     {#if $useForResults == 'data'}
-      <select id={`${name}_inputtype__select`} bind:value={inputTypeIndex} on:change={getMaxValues}>
+      <select id={`${name}_inputtype__select`} bind:value={inputTypeIndex} on:change={onChangeInputType}>
         {#each inputTypes as inputType, inputIndex}<option value={inputIndex}>
             {converter.translate(inputType.name, inputTypes, $language)}
           </option>{/each}

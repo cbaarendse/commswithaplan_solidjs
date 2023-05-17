@@ -24,9 +24,9 @@
       prepare.respondentsForData();
       prepare.averageProbabilitiesForData();
       prepare.respondentsNotReachedForData();
-      calculateResult.forData();
+      calculateResult.totalForData();
     } else {
-      calculateResult.forFormula();
+      calculateResult.totalForFormula();
     }
   }
 </script>
