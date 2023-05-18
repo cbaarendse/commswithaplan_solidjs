@@ -3,7 +3,7 @@
   import {Meteor} from 'meteor/meteor';
   import GenderButton from './GenderButton.svelte';
   import AgeGroupsSelect from './AgeGroupsSelect.svelte';
-  import UseForResultsRadio from './UseForResultsRadio.svelte';
+  import SourceRadioButton from './SourceRadioButton.svelte';
   import MarketSelect from './MarketSelect.svelte';
   import createReachTool from '../../../functions/reach';
   import sort from '../../../procedures/sort';
@@ -55,7 +55,7 @@
   {#if currentUser}
     <form>
       <MarketSelect />
-      <UseForResultsRadio />
+      <SourceRadioButton />
       {#if $marketData && $useForResults == 'data'}
         <GenderButton />
         <AgeGroupsSelect />

@@ -17,7 +17,7 @@
   }
 </script>
 
-<!-- TODO: type = "radio" bind:group -->
+<!-- TODO: type = "radio" bind:group  execute prepare procudures-->
 <fieldset>
   <legend>{message}</legend>
   <input

@@ -37,7 +37,7 @@ export default function createPrepare() {
   async function respondentsNotReachedForData() {
     try {
       respondentsNotReached.set(
-        await Meteor.callAsync('strategies.filterRespondentsNotReached', {
+        await Meteor.callAsync('strategies.getRespondentsNotReached', {
           userId: get(userId),
           marketName: get(marketName),
           ageGroupIndexStart: get(ageGroupIndexStart),

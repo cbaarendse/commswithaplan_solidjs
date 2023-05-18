@@ -91,7 +91,7 @@ Meteor.methods({
     return result;
   },
 
-  'strategies.filterRespondentsNotReached': function (args: {
+  'strategies.getRespondentsNotReached': function (args: {
     userId: Strategy['userId'];
     deployment: Strategy['deployment'];
   }): {
