@@ -12,11 +12,13 @@ import {INPUTTYPE} from '../../both/constants/constants';
 import {DeployedTouchPoint, MaxValue, TouchPointName} from '/imports/both/typings/types';
 
 export default function createMaxValues() {
-  function forData() {
+  async function forData() {
     const maxValues: {touchPoint: TouchPointName; max: number}[] = [];
     // for each deployed touchpoint only select respondents with a contact probability > 0
     get(deployment).forEach((touchPoint) => {
       const touchPointName = touchPoint.name;
+      console.log('get(respondentsNotReached) in maxValues: ', get(respondentsNotReached));
+
       const respondentsNotReachedForThisTouchPoint =
         get(respondentsNotReached).filter((item) => item.touchPoint === touchPointName)[0].respondents || 0;
       const maxForTouchPoint = {touchPoint: touchPoint.name, max: 1};
@@ -26,6 +28,14 @@ export default function createMaxValues() {
             get(respondentsCountForStrategy)) *
           get(populationCountForStrategy) *
           5;
+        console.log(
+          get(respondentsCountForStrategy),
+          respondentsNotReachedForThisTouchPoint,
+          get(respondentsCountForStrategy),
+          get(populationCountForStrategy)
+        );
+
+        console.log('maxForTouchPoint if contacts / impressions for: ', touchPointName, ' == ', maxForTouchPoint.max);
       } else if (touchPoint.inputTypeIndex == INPUTTYPE.Grps) {
         maxForTouchPoint.max =
           (((get(respondentsCountForStrategy) - respondentsNotReachedForThisTouchPoint) /

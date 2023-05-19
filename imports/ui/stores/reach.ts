@@ -95,12 +95,20 @@ export const sortedByName: Writable<SortedByName> = writable(true, () => {
     console.log('sortedByName closed');
   };
 });
-export const respondentsReady: Writable<boolean> = writable(false, () => {
+
+export const respondentsCountForStrategy: Writable<number> = writable(0, () => {
   () => {
-    console.log('respondentsReady closed');
+    console.log('respondentsCountForStrategy closed');
   };
 });
-// results
+
+export const respondentsReady = derived(
+  [marketData, useForResults, respondentsCountForStrategy],
+  ([$marketData, $useForResults, $respondentsCountForStrategy]) => {
+    return $marketData && $useForResults == 'data' && $respondentsCountForStrategy > 0;
+  }
+);
+
 export const respondentsCountForMarket: Readable<number> = derived(
   [marketName, marketData, useForResults],
   ([$marketName, $marketData, $useForResults], set) => {
@@ -118,11 +126,7 @@ export const respondentsCountForMarket: Readable<number> = derived(
   }
 );
 
-export const respondentsCountForStrategy: Writable<number> = writable();
-
-export const populationCountForStrategy: Writable<number> = writable();
-
-export const population: Readable<number> = derived(
+export const populationCountForMarket: Readable<number> = derived(
   [marketData, marketName, useForResults],
   ([$marketData, $marketName, $useForResults], set) => {
     if ($marketData && $useForResults == 'data') {
@@ -140,11 +144,15 @@ export const population: Readable<number> = derived(
     }
   }
 );
+// TODO: at one point get this from server
+export const populationCountForStrategy: Writable<number> = writable();
 
 export const maxValues: Writable<MaxValue[]> = writable();
+
 export const averageProbabilities: Writable<
   {touchPoint?: TouchPointName | undefined; probability?: number | undefined}[]
 > = writable();
+
 export const respondentsNotReached: Writable<
   {touchPoint?: TouchPointName | undefined; respondents?: number | undefined}[]
 > = writable();

@@ -9,7 +9,7 @@
   import {
     marketName,
     overlap,
-    population,
+    populationCountForMarket,
     populationCountForStrategy,
     respondentsCountForMarket,
     totalReach,
@@ -45,7 +45,7 @@
       <span>population in range:</span>
       <output>{formatter.toMillionsFormat($populationCountForStrategy, 2)}</output>
       <span>population for {$marketName}:</span>
-      <output>{formatter.toMillionsFormat($population, 1)}</output>
+      <output>{formatter.toMillionsFormat($populationCountForMarket, 1)}</output>
     </div>{/if}
   <div class="meter__container">
     <!-- svelte-ignore missing-declaration -->

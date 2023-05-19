@@ -1,23 +1,26 @@
 <script lang="ts">
   // imports
+  import createRenew from '../../../procedures/renew';
   import createConverter from '../../../functions/convert';
   import {translations, language} from '../../../stores/utils';
-  import {marketData, useForResults, results} from '../../../stores/reach';
-  import renew from '../../../procedures/renew';
+  import {marketData, useForResults} from '../../../stores/reach';
 
   // variables
   const converter = createConverter();
+  const renew = createRenew();
   $: disabled = !$marketData;
   $: message = converter.translate('use', $translations, $language);
 
   // functions
-  function reset() {
-    renew();
-    $results = [0, 0];
+  function onChange() {
+    if ($marketData && $useForResults == 'data') {
+      renew.forData();
+    } else {
+      renew.forFormula();
+    }
   }
 </script>
 
-<!-- TODO: type = "radio" bind:group  execute prepare procudures-->
 <fieldset>
   <legend>{message}</legend>
   <input
@@ -29,7 +32,7 @@
     checked={$useForResults == 'formula'}
     {disabled}
     bind:group={$useForResults}
-    on:change={reset}
+    on:change={onChange}
   />
   <label for="useformula__radio">{converter.translate('formula', $translations, $language)}</label>
   <input
@@ -41,7 +44,7 @@
     checked={$useForResults == 'data'}
     {disabled}
     bind:group={$useForResults}
-    on:change={reset}
+    on:change={onChange}
   />
   <label for="usedata__radio">{converter.translate('data', $translations, $language)}</label>
 </fieldset>

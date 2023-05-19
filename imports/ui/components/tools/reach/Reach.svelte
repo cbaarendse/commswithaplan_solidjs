@@ -41,16 +41,15 @@
     sort($language);
   }
 
-  $: if (!$marketData || $useForResults == 'formula') {
-    $respondentsReady = false;
-  }
-
   $: if ($marketData && $useForResults == 'data') {
     renew.forData();
-    prepare.respondentsForData();
-    prepare.averageProbabilitiesForData();
-    prepare.respondentsNotReachedForData();
-    setMaxValues.forData();
+    prepare.respondentsForData().then(() => {
+      prepare.averageProbabilitiesForData().then(() => {
+        prepare.respondentsNotReachedForData().then(() => {
+          setMaxValues.forData();
+        });
+      });
+    });
   } else {
     renew.forFormula();
     setMaxValues.forFormula();
