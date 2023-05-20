@@ -46,7 +46,9 @@
     prepare.respondentsForData().then(() => {
       prepare.averageProbabilitiesForData().then(() => {
         prepare.respondentsNotReachedForData().then(() => {
-          setMaxValues.forData();
+          prepare.populationForStrategy().then(() => {
+            setMaxValues.forData();
+          });
         });
       });
     });

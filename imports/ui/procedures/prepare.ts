@@ -9,6 +9,7 @@ import {
   deployment,
   genders,
   marketName,
+  populationCountForStrategy,
   respondentsCountForStrategy,
   respondentsNotReached,
   userId
@@ -16,6 +17,23 @@ import {
 
 // variables
 export default function createPrepare() {
+  async function populationForStrategy() {
+    try {
+      populationCountForStrategy.set(
+        await Meteor.callAsync('populations.countPopulationForStrategy', {
+          userId: get(userId),
+          marketName: get(marketName),
+          genders: get(genders),
+          ageGroupIndexStart: get(ageGroupIndexStart),
+          ageGroupIndexEnd: get(ageGroupIndexEnd),
+          ageGroups: get(ageGroups)
+        })
+      );
+      console.log('populationsCountForStrategy in async prepare respondents: ', respondentsCountForStrategy);
+    } catch (error) {
+      console.log('error in async prepare respondents: ', error);
+    }
+  }
   async function respondentsForData() {
     try {
       respondentsCountForStrategy.set(
@@ -71,5 +89,5 @@ export default function createPrepare() {
     }
   }
 
-  return {respondentsForData, averageProbabilitiesForData, respondentsNotReachedForData};
+  return {populationForStrategy, respondentsForData, averageProbabilitiesForData, respondentsNotReachedForData};
 }
