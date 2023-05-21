@@ -4,10 +4,8 @@
   import {faPerson, faPersonDress} from '@fortawesome/free-solid-svg-icons';
   import {genders, marketData, useForResults} from '../../../stores/reach';
   import createResult from '../../../procedures/results';
-  import createPrepare from '/imports/ui/procedures/prepare';
 
   // variables
-  const prepare = createPrepare();
   const calculateResult = createResult();
   $: gendersToWorkWith = new Set($genders) ?? new Set(['f', 'm', 'x']);
   $: disabled = !$marketData || $useForResults == 'formula';
@@ -34,9 +32,6 @@
 
   function getResults() {
     if ($marketData && $useForResults == 'data') {
-      prepare.respondentsForData();
-      prepare.averageProbabilitiesForData();
-      prepare.respondentsNotReachedForData();
       calculateResult.totalForData();
     } else if ($useForResults == 'formula') {
       calculateResult.totalForFormula();

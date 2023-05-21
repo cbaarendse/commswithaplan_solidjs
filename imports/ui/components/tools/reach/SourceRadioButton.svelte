@@ -3,7 +3,7 @@
   import createRenew from '../../../procedures/renew';
   import createConverter from '../../../functions/convert';
   import {translations, language} from '../../../stores/utils';
-  import {marketData, useForResults} from '../../../stores/reach';
+  import {marketData, results, useForResults} from '../../../stores/reach';
 
   // variables
   const converter = createConverter();
@@ -18,6 +18,7 @@
     } else {
       renew.forFormula();
     }
+    $results = [0, 0];
   }
 </script>
 

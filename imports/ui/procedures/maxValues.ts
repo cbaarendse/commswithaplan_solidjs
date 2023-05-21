@@ -13,11 +13,11 @@ import {DeployedTouchPoint, MaxValue, TouchPointName} from '/imports/both/typing
 
 export default function createMaxValues() {
   async function forData() {
-    const maxValues: {touchPoint: TouchPointName; max: number}[] = [];
+    const maxValuesForData: {touchPoint: TouchPointName; max: number}[] = [];
     // for each deployed touchpoint only select respondents with a contact probability > 0
     get(deployment).forEach((touchPoint) => {
       const touchPointName = touchPoint.name;
-      console.log('get(respondentsNotReached) in maxValues: ', get(respondentsNotReached));
+      console.log('get(respondentsNotReached) in maxValuesForData: ', get(respondentsNotReached));
 
       const respondentsNotReachedForThisTouchPoint =
         get(respondentsNotReached).filter((item) => item.touchPoint === touchPointName)[0].respondents || 0;
@@ -28,6 +28,7 @@ export default function createMaxValues() {
             get(respondentsCountForStrategy)) *
           get(populationCountForStrategy) *
           5;
+        //TODO: respondentsNotReached Forthistouchpoint is always 0
         console.log(
           get(respondentsCountForStrategy),
           respondentsNotReachedForThisTouchPoint,
@@ -49,9 +50,9 @@ export default function createMaxValues() {
           get(respondentsCountForStrategy);
         maxForTouchPoint.max = Math.max(maxReach, 1);
       }
-      maxValues.push(maxForTouchPoint);
+      maxValuesForData.push(maxForTouchPoint);
     });
-    return maxValues;
+    maxValues.set(maxValuesForData);
   }
 
   function fallBack() {
