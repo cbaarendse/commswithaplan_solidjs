@@ -1,53 +1,46 @@
 // imports
 // imports
-import {get} from 'svelte/store';
-import {
-  deployment,
-  maxValues,
-  populationCountForStrategy,
-  respondentsCountForStrategy,
-  respondentsNotReached
-} from '../stores/reach';
+import {maxValues} from '../stores/reach';
 import {INPUTTYPE} from '../../both/constants/constants';
 import {DeployedTouchPoint, MaxValue, TouchPointName} from '/imports/both/typings/types';
 
 export default function createMaxValues() {
-  async function forData() {
+  function forData(
+    touchPointsDeployed: DeployedTouchPoint[],
+    populationCountForStrategy: number,
+    respondentsCountForStrategy: number
+  ) {
     const maxValuesForData: {touchPoint: TouchPointName; max: number}[] = [];
     // for each deployed touchpoint only select respondents with a contact probability > 0
-    get(deployment).forEach((touchPoint) => {
+    touchPointsDeployed.forEach((touchPoint) => {
       const touchPointName = touchPoint.name;
-      console.log('get(respondentsNotReached) in maxValuesForData: ', get(respondentsNotReached));
-
       const respondentsNotReachedForThisTouchPoint =
-        get(respondentsNotReached).filter((item) => item.touchPoint === touchPointName)[0].respondents || 0;
+        touchPointsDeployed.filter((item) => item.name === touchPointName)[0].respondents || 0;
+      console.log('respondentsNotReachedForThisTouchPoint: ', respondentsNotReachedForThisTouchPoint);
+
       const maxForTouchPoint = {touchPoint: touchPoint.name, max: 1};
       if (touchPoint.inputTypeIndex == INPUTTYPE.Contacts || touchPoint.inputTypeIndex == INPUTTYPE.Impressions) {
         maxForTouchPoint.max =
-          ((get(respondentsCountForStrategy) - respondentsNotReachedForThisTouchPoint) /
-            get(respondentsCountForStrategy)) *
-          get(populationCountForStrategy) *
+          ((respondentsCountForStrategy - respondentsNotReachedForThisTouchPoint) / respondentsCountForStrategy) *
+          populationCountForStrategy *
           5;
-        //TODO: respondentsNotReached Forthistouchpoint is always 0
         console.log(
-          get(respondentsCountForStrategy),
+          respondentsCountForStrategy,
           respondentsNotReachedForThisTouchPoint,
-          get(respondentsCountForStrategy),
-          get(populationCountForStrategy)
+          respondentsCountForStrategy,
+          populationCountForStrategy
         );
 
         console.log('maxForTouchPoint if contacts / impressions for: ', touchPointName, ' == ', maxForTouchPoint.max);
       } else if (touchPoint.inputTypeIndex == INPUTTYPE.Grps) {
         maxForTouchPoint.max =
-          (((get(respondentsCountForStrategy) - respondentsNotReachedForThisTouchPoint) /
-            get(respondentsCountForStrategy)) *
-            get(populationCountForStrategy) *
+          (((respondentsCountForStrategy - respondentsNotReachedForThisTouchPoint) / respondentsCountForStrategy) *
+            populationCountForStrategy *
             5) /
           10000;
       } else if (touchPoint.inputTypeIndex == INPUTTYPE.Reach) {
         const maxReach =
-          (get(respondentsCountForStrategy) - respondentsNotReachedForThisTouchPoint) /
-          get(respondentsCountForStrategy);
+          (respondentsCountForStrategy - respondentsNotReachedForThisTouchPoint) / respondentsCountForStrategy;
         maxForTouchPoint.max = Math.max(maxReach, 1);
       }
       maxValuesForData.push(maxForTouchPoint);
@@ -55,9 +48,9 @@ export default function createMaxValues() {
     maxValues.set(maxValuesForData);
   }
 
-  function fallBack() {
+  function fallBack(touchPointsDeployed: DeployedTouchPoint[]) {
     const fallBackMaxValues: MaxValue[] = [];
-    get(deployment).forEach((touchPoint) => {
+    touchPointsDeployed.forEach((touchPoint) => {
       const fallBackMaxValue: MaxValue = {};
       switch (touchPoint.inputTypeIndex) {
         case INPUTTYPE.Impressions:
@@ -84,10 +77,11 @@ export default function createMaxValues() {
     maxValues.set(fallBackMaxValues);
   }
 
-  function forFormula() {
+  function forFormula(touchPointsDeployed: DeployedTouchPoint[]) {
     const maxValuesForFormula: MaxValue[] = [];
-    const touchPointsDeployed: DeployedTouchPoint[] = get(deployment);
-    touchPointsDeployed.forEach((touchPoint) => maxValuesForFormula.push({touchPoint: touchPoint.name, max: 1}));
+    touchPointsDeployed.forEach((touchPoint: DeployedTouchPoint) =>
+      maxValuesForFormula.push({touchPoint: touchPoint.name, max: 1})
+    );
     maxValues.set(maxValuesForFormula);
   }
 

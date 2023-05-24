@@ -17,6 +17,7 @@
   export let index: number;
   export let name: DeployedTouchPoint['name'];
   export let value: DeployedTouchPoint['value'];
+  //TODO: reach always 99% (-0.99)
   export let reach: DeployedTouchPoint['reach'] = 0.99;
   export let show: DeployedTouchPoint['show'];
   export let inputTypeIndex: DeployedTouchPoint['inputTypeIndex'];

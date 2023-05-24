@@ -16,11 +16,13 @@
     strategy,
     useForResults,
     averageProbabilities,
-    respondentsNotReached
+    respondentsNotReached,
+    respondentsCountForStrategy,
+    populationCountForStrategy
   } from '../../../stores/reach';
   import createResult from '../../../procedures/results';
   import createRenew from '../../../procedures/renew';
-  import createMaxValues from '../../../procedures/maxValues';
+  import createMaxValues from '../../../functions/maxValues';
   import createPrepare from '/imports/ui/procedures/prepare';
 
   // variables
@@ -35,7 +37,7 @@
     renew.forFormula();
   }
 
-  setMaxValues.forFormula();
+  setMaxValues.forFormula($deployment);
 
   $: {
     sort($language);
@@ -43,18 +45,12 @@
 
   $: if ($marketData && $useForResults == 'data') {
     renew.forData();
-    prepare.respondentsForData().then(() => {
-      prepare.averageProbabilitiesForData().then(() => {
-        prepare.respondentsNotReachedForData().then(() => {
-          prepare.populationForStrategy().then(() => {
-            setMaxValues.forData();
-          });
-        });
-      });
-    });
+    prepare.respondentsForData();
+    prepare.populationForStrategy();
+    setMaxValues.forData($deployment, $populationCountForStrategy, $respondentsCountForStrategy);
   } else {
     renew.forFormula();
-    setMaxValues.forFormula();
+    setMaxValues.forFormula($deployment);
   }
 
   $: console.log('$strategy in $: ', $strategy);

@@ -8,7 +8,7 @@
   // variables
   const converter = createConverter();
   const renew = createRenew();
-  $: disabled = !$marketData;
+  $: disabled = $marketData == false;
   $: message = converter.translate('use', $translations, $language);
 
   // functions

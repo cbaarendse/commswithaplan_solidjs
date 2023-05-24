@@ -53,41 +53,5 @@ export default function createPrepare() {
     }
   }
 
-  async function averageProbabilitiesForData() {
-    try {
-      averageProbabilities.set(
-        await Meteor.callAsync('strategies.calculateAverageProbabilities', {
-          userId: get(userId),
-          marketName: get(marketName),
-          ageGroupIndexStart: get(ageGroupIndexStart),
-          ageGroupIndexEnd: get(ageGroupIndexEnd),
-          genders: get(genders),
-          deployment: get(deployment),
-          ageGroups: get(ageGroups)
-        })
-      );
-    } catch (error) {
-      console.log('error in calculateAverageProbabilities', error);
-    }
-  }
-
-  async function respondentsNotReachedForData() {
-    try {
-      respondentsNotReached.set(
-        await Meteor.callAsync('strategies.getRespondentsNotReached', {
-          userId: get(userId),
-          marketName: get(marketName),
-          ageGroupIndexStart: get(ageGroupIndexStart),
-          ageGroupIndexEnd: get(ageGroupIndexEnd),
-          genders: get(genders),
-          deployment: get(deployment),
-          ageGroups: get(ageGroups)
-        })
-      );
-    } catch (error) {
-      console.log('error in getRespondentsNotReached', error);
-    }
-  }
-
-  return {populationForStrategy, respondentsForData, averageProbabilitiesForData, respondentsNotReachedForData};
+  return {populationForStrategy, respondentsForData};
 }

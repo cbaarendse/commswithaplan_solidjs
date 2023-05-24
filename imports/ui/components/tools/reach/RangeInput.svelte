@@ -1,6 +1,13 @@
 <script lang="ts">
   // imports
-  import {marketData, useForResults} from '../../../stores/reach';
+  import {
+    marketData,
+    useForResults,
+    deployment,
+    populationCountForStrategy,
+    respondentsCountForStrategy,
+    respondentsNotReached
+  } from '../../../stores/reach';
   import {language} from '../../../stores/utils';
   import createConverter from '/imports/ui/functions/convert';
   import Fa from 'svelte-fa/src/fa.svelte';
@@ -8,10 +15,12 @@
   import {DeployedTouchPoint, MaxValue} from '/imports/both/typings/types';
   import {allInputTypes} from '/imports/both/constants/constants';
   import createPrepare from '/imports/ui/procedures/prepare';
-  import createMaxValues from '/imports/ui/procedures/maxValues';
+  import createMaxValues from '../../../functions/maxValues';
+  import createRenew from '/imports/ui/procedures/renew';
 
   //variables
   const converter = createConverter();
+  const renew = createRenew();
   const prepare = createPrepare();
   const setMaxValues = createMaxValues();
   export let name: DeployedTouchPoint['name'];
@@ -29,10 +38,19 @@
   // functions
   function onChangeInputType() {
     if ($marketData && $useForResults == 'data') {
+      renew.forData();
       prepare.respondentsForData();
-      setMaxValues.forData();
+      prepare.averageProbabilitiesForData();
+      prepare.populationForStrategy();
+      setMaxValues.forData(
+        $deployment,
+        $populationCountForStrategy,
+        $respondentsCountForStrategy,
+        $respondentsNotReached
+      );
     } else {
-      setMaxValues.forFormula();
+      renew.forFormula();
+      setMaxValues.forFormula($deployment);
     }
   }
 </script>
