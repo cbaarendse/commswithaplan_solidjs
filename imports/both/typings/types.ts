@@ -13,12 +13,12 @@ declare global {
 
 // content
 export type Language = 'en-GB' | 'nl-NL';
-export type Definition = {language: Language; displayName: string; description: string};
-export type Content = {name: string; definitions: Definition[]};
-export type Translation = {name: string; definitions: Omit<Definition, 'description'>[]};
-export type Action = {action: string};
+export type Definition = {language: Language; displayName: string; description: string; action: string};
+export type Content = {name: string; definitions: Omit<Definition, 'action'>[]};
+export type Translation = {name: string; definitions: Omit<Definition, 'description' | 'action'>[]};
+export type Action = {action: string}; // TODO: add to definition, then Omit when appropriate
 export type Link = {link: string};
-export type Actionable = {name: string; definitions: (Definition & Action)[]} & Link;
+export type Actionable = {name: string; definitions: Definition[]} & Link;
 export type Color = {color: string};
 export type Colored = {colored: boolean};
 export type Illustrated = {imgFiles: string[]};
@@ -117,6 +117,9 @@ export type DeployedTouchPoint = TouchPointDefinition & {
   value: number;
   show: boolean;
   inputTypeIndex: (typeof INPUTTYPE)[keyof typeof INPUTTYPE];
+  maxValue?: number;
+  avarageProbability?: number;
+  respondentsNotReached?: number;
   reach?: number;
 };
 
@@ -162,7 +165,9 @@ export type Year = {name: string; days: number};
 // components
 export type Accordion = {visible: boolean};
 export type Brand = Partial<HTMLAttributes<HTMLSpanElement>> & Partial<HTMLElement['style']>;
-export type Card = Partial<Illustrated & Action & Link> & ['article'] & Partial<HTMLElement['style']>;
+export type Card = Partial<Illustrated & Pick<Definition, 'action'> & Link> &
+  ['article'] &
+  Partial<HTMLElement['style']>;
 export type Checkbox = HTMLInputAttributes;
 export type Logo = HTMLAttributes<HTMLDivElement> & Partial<HTMLElement['style']> & Colored;
 export type Input = HTMLInputAttributes;

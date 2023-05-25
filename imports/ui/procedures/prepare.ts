@@ -5,13 +5,11 @@ import {
   ageGroups,
   ageGroupIndexEnd,
   ageGroupIndexStart,
-  averageProbabilities,
   deployment,
   genders,
   marketName,
   populationCountForStrategy,
   respondentsCountForStrategy,
-  respondentsNotReached,
   userId
 } from '../stores/reach';
 
