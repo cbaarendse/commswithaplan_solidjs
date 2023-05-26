@@ -22,7 +22,7 @@ const preparedRespondents: RespondentOutcome[] = [];
 // functions
 
 Meteor.methods({
-  'strategies.collectRespondentsForStrategy': function (args: {
+  'strategies.prepareForResults': function (args: {
     userId: Strategy['userId'];
     marketName: Strategy['marketName'];
     genders: Strategy['genders'];

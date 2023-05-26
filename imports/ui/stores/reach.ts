@@ -96,11 +96,43 @@ export const sortedByName: Writable<SortedByName> = writable(true, () => {
   };
 });
 
-export const respondentsCountForStrategy: Writable<number> = writable(0, () => {
-  () => {
-    console.log('respondentsCountForStrategy closed');
-  };
-});
+export const respondentsCountForStrategy: Readable<number> = derived(
+  [ageGroupIndexEnd, ageGroupIndexStart, ageGroups, deployment, genders, marketData, marketName, useForResults, userId],
+  (
+    [
+      $ageGroupIndexEnd,
+      $ageGroupIndexStart,
+      $ageGroups,
+      $deployment,
+      $genders,
+      $marketData,
+      $marketName,
+      $useForResults,
+      $userId
+    ],
+    set
+  ) => {
+    if ($marketData && $useForResults == 'data') {
+      console.log('marketName, useForResults', $marketName, ' and ', $useForResults, 'in countPopulationForStrategy');
+
+      Meteor.callAsync('strategies.collectRespondentsForStrategy', {
+        userId: $userId,
+        marketName: $marketName,
+        genders: $genders,
+        ageGroupIndexStart: $ageGroupIndexStart,
+        ageGroupIndexEnd: $ageGroupIndexEnd,
+        deployment: $deployment,
+        ageGroups: $ageGroups
+      })
+        .then((result: number) => {
+          if (result >= 0) {
+            set(result);
+          }
+        })
+        .catch((error) => console.log('error in respondentsCountForStrategy in async prepare respondents: ', error));
+    }
+  }
+);
 
 export const respondentsReady = derived(
   [marketData, useForResults, respondentsCountForStrategy],
@@ -145,17 +177,32 @@ export const populationCountForMarket: Readable<number> = derived(
   }
 );
 // TODO: at one point get this from server
-export const populationCountForStrategy: Writable<number> = writable();
+export const populationCountForStrategy: Readable<number> = derived(
+  [ageGroupIndexEnd, ageGroupIndexStart, ageGroups, genders, marketData, marketName, useForResults, userId],
+  (
+    [$ageGroupIndexEnd, $ageGroupIndexStart, $ageGroups, $genders, $marketData, $marketName, $useForResults, $userId],
+    set
+  ) => {
+    if ($marketData && $useForResults == 'data') {
+      console.log('marketName, useForResults', $marketName, ' and ', $useForResults, 'in countPopulationForStrategy');
 
-export const maxValues: Writable<MaxValue[]> = writable();
-
-export const averageProbabilities: Writable<
-  {touchPoint?: TouchPointName | undefined; probability?: number | undefined}[]
-> = writable();
-
-export const respondentsNotReached: Writable<
-  {touchPoint?: TouchPointName | undefined; respondents?: number | undefined}[]
-> = writable();
+      Meteor.callAsync('populations.countPopulationForStrategy', {
+        userId: $userId,
+        marketName: $marketName,
+        genders: $genders,
+        ageGroupIndexStart: $ageGroupIndexStart,
+        ageGroupIndexEnd: $ageGroupIndexEnd,
+        ageGroups: $ageGroups
+      })
+        .then((result: number) => {
+          if (result >= 0) {
+            set(result);
+          }
+        })
+        .catch((error) => console.log('error in populationsCountForStrategy in async prepare respondents: ', error));
+    }
+  }
+);
 
 export const results: Writable<Results> = writable([0, 0]);
 

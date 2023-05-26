@@ -1,5 +1,6 @@
 <script lang="ts">
   // imports
+  import {Meteor} from 'meteor/meteor';
   import BreadCrumbs from '../../reusable/BreadCrumbs.svelte';
   import Controls from './Controls.svelte';
   import Output from './Output.svelte';
@@ -7,27 +8,25 @@
   import sort from '../../../procedures/sort';
   import {language} from '../../../stores/utils';
   import {
+    ageGroupIndexEnd,
+    ageGroupIndexStart,
+    ageGroups,
     createdAt,
     deployment,
+    genders,
     marketData,
-    maxValues,
-    results,
-    respondentsReady,
-    strategy,
-    useForResults,
-    averageProbabilities,
-    respondentsNotReached,
+    marketName,
     respondentsCountForStrategy,
-    populationCountForStrategy
+    populationCountForStrategy,
+    useForResults,
+    userId
   } from '../../../stores/reach';
   import createResult from '../../../procedures/results';
   import createRenew from '../../../procedures/renew';
   import createMaxValues from '../../../functions/maxValues';
-  import createPrepare from '/imports/ui/procedures/prepare';
 
   // variables
   const renew = createRenew();
-  const prepare = createPrepare();
   const setMaxValues = createMaxValues();
   const calculateResult = createResult();
   if (!$createdAt) {
@@ -45,22 +44,26 @@
 
   $: if ($marketData && $useForResults == 'data') {
     renew.forData();
-    prepare.respondentsForData();
-    prepare.populationForStrategy();
-    setMaxValues.forData($deployment, $populationCountForStrategy, $respondentsCountForStrategy);
+    Meteor.callAsync('strategies.prepareDeploymentForResults', {
+      userId: $userId,
+      marketName: $marketName,
+      genders: $genders,
+      ageGroupIndexStart: $ageGroupIndexStart,
+      ageGroupIndexEnd: $ageGroupIndexEnd,
+      deployment: $deployment,
+      ageGroups: $ageGroups
+    })
+      .then((result) => deployment.update((data) => (data = result)))
+      .then((result) =>
+        deployment.update(
+          (data) => (data = setMaxValues.forData(result, $populationCountForStrategy, $respondentsCountForStrategy))
+        )
+      )
+      .catch((error) => console.log('error in strategies.prepareDeploymentForResults; ', error));
   } else {
     renew.forFormula();
     setMaxValues.forFormula($deployment);
   }
-
-  $: console.log('$strategy in $: ', $strategy);
-  $: console.log('$marketData: in $: ', $marketData);
-  $: console.log('useForResults: in $: ', $useForResults);
-  $: console.log('$results: in $: ', $results);
-  $: console.log('$respondentsReady: in $: ', $respondentsReady);
-  $: console.log('$averageProbabilities: in $: ', $averageProbabilities);
-  $: console.log('$respondentsNotReached: in $: ', $respondentsNotReached);
-  $: console.log('$maxValues: in $: ', $maxValues);
 
   // functions
   function onChange() {

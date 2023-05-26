@@ -1,6 +1,5 @@
 // imports
 // imports
-import {maxValues} from '../stores/reach';
 import {INPUTTYPE} from '../../both/constants/constants';
 import {DeployedTouchPoint, MaxValue, TouchPointName} from '/imports/both/typings/types';
 

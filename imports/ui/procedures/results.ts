@@ -1,37 +1,31 @@
 // imports
 import {Meteor} from 'meteor/meteor';
 import {get} from 'svelte/store';
-import {
-  averageProbabilities,
-  deployment,
-  populationCountForStrategy,
-  respondentsCountForStrategy,
-  respondentsNotReached,
-  results,
-  userId
-} from '../stores/reach';
-import {DeployedTouchPoint, TouchPointName} from '/imports/both/typings/types';
+import {deployment, populationCountForStrategy, respondentsCountForStrategy, results, userId} from '../stores/reach';
+import {DeployedTouchPoint} from '/imports/both/typings/types';
 import {INPUTTYPE} from '/imports/both/constants/constants';
 
 // variables
 export default function createResult() {
-  function forTouchPoint(touchPoint: TouchPointName, value: number, inputType: number) {
-    const averageProbability = get(averageProbabilities).find((item) => item.touchPoint === touchPoint)?.probability;
-    const notReached = get(respondentsNotReached).find((item) => item.touchPoint === touchPoint)?.respondents;
+  function forTouchPoint(touchPoint: DeployedTouchPoint) {
+    const averageProbability = touchPoint.avarageProbability;
+    const notReached = touchPoint.respondentsNotReached;
+    const inputTypeIndex = touchPoint.inputTypeIndex;
+    const value = touchPoint.value;
     // formula (1-notReached) * (1-EXP (-averageProbability * contacts/impressions/GRPs))
     if (averageProbability && notReached) {
-      if (inputType == INPUTTYPE.Contacts && inputType == INPUTTYPE.Impressions) {
+      if (inputTypeIndex == INPUTTYPE.Contacts && inputTypeIndex == INPUTTYPE.Impressions) {
         const reachedPopulation =
           (1 - notReached / get(respondentsCountForStrategy)) * (1 - Math.pow(Math.E, averageProbability * value));
         const reach = reachedPopulation / get(populationCountForStrategy);
         return reach;
       }
-      if (inputType == INPUTTYPE.Grps) {
+      if (inputTypeIndex == INPUTTYPE.Grps) {
         const reach =
           (1 - notReached / get(respondentsCountForStrategy)) * (1 - Math.pow(Math.E, averageProbability * value));
         return reach;
       }
-      if (inputType == INPUTTYPE.Reach) {
+      if (inputTypeIndex == INPUTTYPE.Reach) {
         const reach = value;
         return reach;
       }
@@ -45,8 +39,7 @@ export default function createResult() {
       results.set(
         await Meteor.callAsync('strategies.calculateResultsWithData', {
           userId: get(userId),
-          deployment: get(deployment),
-          averageProbabilities: get(averageProbabilities)
+          deployment: get(deployment)
         })
       );
     } catch (error) {

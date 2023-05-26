@@ -14,14 +14,12 @@
   import {faSort} from '@fortawesome/free-solid-svg-icons';
   import {DeployedTouchPoint, MaxValue} from '/imports/both/typings/types';
   import {allInputTypes} from '/imports/both/constants/constants';
-  import createPrepare from '/imports/ui/procedures/prepare';
   import createMaxValues from '../../../functions/maxValues';
   import createRenew from '/imports/ui/procedures/renew';
 
   //variables
   const converter = createConverter();
   const renew = createRenew();
-  const prepare = createPrepare();
   const setMaxValues = createMaxValues();
   export let name: DeployedTouchPoint['name'];
   export let value: DeployedTouchPoint['value'];
@@ -39,15 +37,7 @@
   function onChangeInputType() {
     if ($marketData && $useForResults == 'data') {
       renew.forData();
-      prepare.respondentsForData();
-      prepare.averageProbabilitiesForData();
-      prepare.populationForStrategy();
-      setMaxValues.forData(
-        $deployment,
-        $populationCountForStrategy,
-        $respondentsCountForStrategy,
-        $respondentsNotReached
-      );
+      setMaxValues.forData($deployment, $populationCountForStrategy, $respondentsCountForStrategy);
     } else {
       renew.forFormula();
       setMaxValues.forFormula($deployment);
