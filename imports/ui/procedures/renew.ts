@@ -6,24 +6,29 @@ import {DeployedTouchPoint, TouchPointDefinition} from '/imports/both/typings/ty
 // variables
 
 export default function createRenew() {
-  function forFormula() {
-    deployment.set(touchPointsForDeployment(touchPointsDefinitions()));
-    deployment.update((data) => {
-      return data.map((touchPoint) =>
-        Object.assign(touchPoint, {value: 0.0, inputTypeIndex: INPUTTYPE.Reach, reach: 0.0})
-      );
-    });
-  }
   function forData() {
     deployment.set(touchPointsForDeployment(touchPointsDefinitions()));
     deployment.update((data) => {
       return data.map((touchPoint) => {
-        return {...touchPoint, inputTypeIndex: touchPoint.defaultInputTypeIndex};
+        return {
+          ...touchPoint,
+          inputTypeIndex: touchPoint.defaultInputTypeIndex,
+          averageProbability: 0.0,
+          respondentsNotReached: 0,
+          maxValue: 0.0
+        };
       });
     });
   }
 
-  return {forFormula, forData};
+  function forFormula() {
+    deployment.set(touchPointsForDeployment(touchPointsDefinitions()));
+    deployment.update((data) => {
+      return data.map((touchPoint) => Object.assign(touchPoint, {value: 0.0, inputTypeIndex: INPUTTYPE.Reach}));
+    });
+  }
+
+  return {forData, forFormula};
 }
 
 function touchPointsForDeployment(touchPointsDefinitions: TouchPointDefinition[]): DeployedTouchPoint[] {
