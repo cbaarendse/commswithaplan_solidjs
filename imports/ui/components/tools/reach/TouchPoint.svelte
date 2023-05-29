@@ -7,23 +7,16 @@
   import {marketData, useForResults} from '../../../stores/reach';
   import createResult from '/imports/ui/procedures/results';
   import createFormatter from '../../../functions/format';
-  import {DeployedTouchPoint, MaxValue} from '/imports/both/typings/types';
+  import {DeployedTouchPoint} from '/imports/both/typings/types';
   import {INPUTTYPE} from '../../../../both/constants/constants';
   //import {notify} from '../../notifications/NotificationsFunctions';
 
   // variables
   const calculateResult = createResult();
   const formatter = createFormatter();
+  export let touchPoint: DeployedTouchPoint;
   export let index: number;
-  export let name: DeployedTouchPoint['name'];
-  export let value: DeployedTouchPoint['value'];
-  //TODO: reach always 99% (-0.99)
-  export let reach: DeployedTouchPoint['reach'] = 0.99;
-  export let show: DeployedTouchPoint['show'];
-  export let inputTypeIndex: DeployedTouchPoint['inputTypeIndex'];
-  export let definitions: DeployedTouchPoint['definitions'];
-  export let max: MaxValue['max'];
-  $: definition = definitions.filter((definition) => definition.language == $language)[0];
+  $: definition = touchPoint.definitions.filter((definition) => definition.language == $language)[0];
   let hovered: boolean = false;
   let displayManualInput: boolean;
   let displayTouchPointDescription: boolean;
@@ -31,17 +24,10 @@
   // functions
   function onInput() {
     if ($marketData && $useForResults == 'data') {
-      calculateResult.forTouchPoint(name, value, inputTypeIndex);
+      calculateResult.forTouchPoint(touchPoint);
     }
   }
-  function onSubmit() {
-    if ($marketData && $useForResults == 'data') {
-      calculateResult.forTouchPoint(name, value, inputTypeIndex);
-      calculateResult.totalForData();
-    } else if ($useForResults == 'formula') {
-      calculateResult.totalForFormula();
-    }
-  }
+
   function dismiss(event: MouseEvent | CustomEvent | KeyboardEvent): void {
     if (
       (event instanceof KeyboardEvent && event.key === 'Escape') ||
@@ -55,7 +41,7 @@
 </script>
 
 <svelte:window on:keyup={dismiss} />
-<div class="container" style="display:{show ? 'grid' : 'none'};">
+<div class="container" style="display:{touchPoint.show ? 'grid' : 'none'};">
   <div class="left">
     <button
       class="touchpoint"
@@ -65,11 +51,17 @@
       }}
       on:mouseenter={() => (hovered = true)}
       on:mouseleave={() => (hovered = false)}
-      style="background-image:url(/reach/{name}.png); opacity:{hovered || value > 0 ? 1 : 0.7};"
+      style="background-image:url(/reach/{name}.png); opacity:{hovered || touchPoint.value > 0 ? 1 : 0.7};"
     />
   </div>
   <div class="center">
-    <RangeInput {name} {definitions} {max} bind:value bind:inputTypeIndex on:input={onInput} on:change />
+    <RangeInput
+      {touchPoint}
+      bind:value={touchPoint.value}
+      bind:inputTypeIndex={touchPoint.inputTypeIndex}
+      on:input={onInput}
+      on:change
+    />
   </div>
   <div class="right">
     <button
@@ -80,18 +72,18 @@
       }}
     >
       <span>
-        {#if inputTypeIndex == INPUTTYPE.Grps}{formatter.toNumberFormat(value, 0)}
-        {:else if inputTypeIndex == INPUTTYPE.Reach}{formatter.toPercentFormat(
-            value,
+        {#if touchPoint.inputTypeIndex == INPUTTYPE.Grps}{formatter.toNumberFormat(touchPoint.value, 0)}
+        {:else if touchPoint.inputTypeIndex == INPUTTYPE.Reach}{formatter.toPercentFormat(
+            touchPoint.value,
             0
-          )}{:else if inputTypeIndex == INPUTTYPE.Contacts || inputTypeIndex == INPUTTYPE.Impressions}{formatter.toMillionsFormat(
-            value,
+          )}{:else if touchPoint.inputTypeIndex == INPUTTYPE.Contacts || touchPoint.inputTypeIndex == INPUTTYPE.Impressions}{formatter.toMillionsFormat(
+            touchPoint.value,
             2
           )}{/if}
       </span>
       <hr />
       <span>
-        {formatter.toPercentFormat(reach, 0)}
+        {formatter.toPercentFormat(touchPoint.reach, 0)}
       </span>
     </button>
   </div>
@@ -101,7 +93,7 @@
   </Modal>
   <!-- manual input -->
   <Modal title={definition.displayName} display={displayManualInput} on:click={dismiss}>
-    <NumberInput {index} {max} on:submit={onSubmit} on:click={dismiss} />
+    <NumberInput {index} {touchPoint} on:submit on:click={dismiss} />
   </Modal>
 </div>
 

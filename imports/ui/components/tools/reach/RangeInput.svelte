@@ -5,14 +5,13 @@
     useForResults,
     deployment,
     populationCountForStrategy,
-    respondentsCountForStrategy,
-    respondentsNotReached
+    respondentsCountForStrategy
   } from '../../../stores/reach';
   import {language} from '../../../stores/utils';
   import createConverter from '/imports/ui/functions/convert';
   import Fa from 'svelte-fa/src/fa.svelte';
   import {faSort} from '@fortawesome/free-solid-svg-icons';
-  import {DeployedTouchPoint, MaxValue} from '/imports/both/typings/types';
+  import {DeployedTouchPoint} from '/imports/both/typings/types';
   import {allInputTypes} from '/imports/both/constants/constants';
   import createMaxValues from '../../../functions/maxValues';
   import createRenew from '/imports/ui/procedures/renew';
@@ -21,17 +20,13 @@
   const converter = createConverter();
   const renew = createRenew();
   const setMaxValues = createMaxValues();
-  export let name: DeployedTouchPoint['name'];
-  export let value: DeployedTouchPoint['value'];
-  export let inputTypeIndex: DeployedTouchPoint['inputTypeIndex'];
-  export let definitions: DeployedTouchPoint['definitions'];
-  export let max: MaxValue['max'];
+  export let touchPoint: DeployedTouchPoint;
 
   const inputTypes = allInputTypes();
-  let inputTypeName = inputTypes[inputTypeIndex].name;
+  let inputTypeName = inputTypes[touchPoint.inputTypeIndex].name;
   const min = 0;
-  $: step = (max ?? 100 - min) / 100;
-  $: touchPointDefinition = definitions.filter((definition) => definition.language == $language)[0];
+  $: step = (touchPoint.maxValue ?? 100 - min) / 100;
+  $: touchPointDefinition = touchPoint.definitions.filter((definition) => definition.language == $language)[0];
   //TODO: change inputType should change deployment
   // functions
   function onChangeInputType() {

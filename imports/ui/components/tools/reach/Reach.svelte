@@ -16,14 +16,16 @@
     genders,
     marketData,
     marketName,
-    respondentsCountForStrategy,
     populationCountForStrategy,
+    respondentsCountForStrategy,
+    results,
     useForResults,
     userId
   } from '../../../stores/reach';
   import createResult from '../../../procedures/results';
   import createRenew from '../../../procedures/renew';
   import createMaxValues from '../../../functions/maxValues';
+  import {DeployedTouchPoint} from '/imports/both/typings/types';
 
   // variables
   const renew = createRenew();
@@ -36,7 +38,12 @@
     renew.forFormula();
   }
 
-  setMaxValues.forFormula($deployment);
+  // Set maxValues for deployment for formula
+  deployment.update((data) => {
+    return data.map((touchPoint) => {
+      return Object.assign(touchPoint, {maxValue: 1});
+    });
+  });
 
   $: {
     sort($language);
@@ -53,22 +60,44 @@
       deployment: $deployment,
       ageGroups: $ageGroups
     })
-      .then((result) => deployment.update((data) => (data = result)))
-      .then((result) =>
-        deployment.update(
-          (data) => (data = setMaxValues.forData(result, $populationCountForStrategy, $respondentsCountForStrategy))
-        )
-      )
+      .then((result) => deployment.update((data) => result))
+      .then(() => {
+        const maxValuesForTouchPoints = setMaxValues.calculationForData(
+          $deployment,
+          $respondentsCountForStrategy,
+          $populationCountForStrategy
+        );
+        deployment.update((data) => setMaxValues.forData(data, maxValuesForTouchPoints));
+      })
       .catch((error) => console.log('error in strategies.prepareDeploymentForResults; ', error));
   } else {
     renew.forFormula();
-    setMaxValues.forFormula($deployment);
+    deployment.update((data) => setMaxValues.forFormula(data));
   }
 
   // functions
   function onChange() {
     if ($marketData && $useForResults == 'data') {
-      calculateResult.totalForData();
+      Meteor.callAsync('strategies.calculateResultsWithData', {
+        userId: $userId,
+        deployment: $deployment
+      })
+        .then((result) => results.update((data) => (data = result)))
+        .catch((error) => console.log('error in strategies.calculateResultsWithData in onChange: ', error));
+    } else if ($useForResults == 'formula') {
+      calculateResult.totalForFormula();
+    }
+  }
+  function onSubmit(event: any) {
+    const touchPoint: DeployedTouchPoint = event.detail;
+    if ($marketData && $useForResults == 'data') {
+      calculateResult.forTouchPoint(touchPoint);
+      Meteor.callAsync('strategies.calculateResultsWithData', {
+        userId: $userId,
+        deployment: $deployment
+      })
+        .then((result) => results.update((data) => (data = result)))
+        .catch((error) => console.log('error in strategies.calculateResultsWithData in onSubmit: ', error));
     } else if ($useForResults == 'formula') {
       calculateResult.totalForFormula();
     }
@@ -80,17 +109,8 @@
   <div class="container">
     <Controls />
     <Output />
-    {#each $deployment as { name, show, definitions }, index}
-      <TouchPoint
-        {name}
-        {show}
-        {definitions}
-        {index}
-        max={$maxValues.filter((m) => m.touchPoint == name)[0].max || 1}
-        bind:value={$deployment[index].value}
-        bind:inputTypeIndex={$deployment[index].inputTypeIndex}
-        on:change={onChange}
-      />
+    {#each $deployment as touchPoint, index}
+      <TouchPoint {touchPoint} {index} on:change={onChange} on:submit={() => onSubmit(touchPoint)} />
     {/each}
   </div>
 </section>
