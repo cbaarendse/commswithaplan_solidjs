@@ -51,17 +51,11 @@
       }}
       on:mouseenter={() => (hovered = true)}
       on:mouseleave={() => (hovered = false)}
-      style="background-image:url(/reach/{name}.png); opacity:{hovered || touchPoint.value > 0 ? 1 : 0.7};"
+      style="background-image:url(/reach/{touchPoint.name}.png); opacity:{hovered || touchPoint.value > 0 ? 1 : 0.7};"
     />
   </div>
   <div class="center">
-    <RangeInput
-      {touchPoint}
-      bind:value={touchPoint.value}
-      bind:inputTypeIndex={touchPoint.inputTypeIndex}
-      on:input={onInput}
-      on:change
-    />
+    <RangeInput {touchPoint} on:input={onInput} on:change />
   </div>
   <div class="right">
     <button

@@ -1,25 +1,17 @@
 <script lang="ts">
   // imports
-  import {
-    marketData,
-    useForResults,
-    deployment,
-    populationCountForStrategy,
-    respondentsCountForStrategy
-  } from '../../../stores/reach';
+  import {useForResults} from '../../../stores/reach';
   import {language} from '../../../stores/utils';
   import createConverter from '/imports/ui/functions/convert';
   import Fa from 'svelte-fa/src/fa.svelte';
   import {faSort} from '@fortawesome/free-solid-svg-icons';
   import {DeployedTouchPoint} from '/imports/both/typings/types';
   import {allInputTypes} from '/imports/both/constants/constants';
-  import createMaxValues from '../../../functions/maxValues';
-  import createRenew from '/imports/ui/procedures/renew';
+  import {createEventDispatcher} from 'svelte';
 
   //variables
+  const dispatch = createEventDispatcher();
   const converter = createConverter();
-  const renew = createRenew();
-  const setMaxValues = createMaxValues();
   export let touchPoint: DeployedTouchPoint;
 
   const inputTypes = allInputTypes();
@@ -29,22 +21,17 @@
   $: touchPointDefinition = touchPoint.definitions.filter((definition) => definition.language == $language)[0];
   //TODO: change inputType should change deployment
   // functions
-  function onChangeInputType() {
-    if ($marketData && $useForResults == 'data') {
-      renew.forData();
-      setMaxValues.forData($deployment, $populationCountForStrategy, $respondentsCountForStrategy);
-    } else {
-      renew.forFormula();
-      setMaxValues.forFormula($deployment);
-    }
+
+  function onChange() {
+    dispatch('changeInputType', touchPoint);
   }
 </script>
 
 <form>
   <fieldset>
-    <label for={name}>{touchPointDefinition.displayName}</label>
+    <label for={touchPoint.name}>{touchPointDefinition.displayName}</label>
     {#if $useForResults == 'data'}
-      <select id={`${name}_inputtype__select`} bind:value={inputTypeIndex} on:change={onChangeInputType}>
+      <select id={`${touchPoint.name}_inputtype__select`} bind:value={touchPoint.inputTypeIndex} on:change>
         {#each inputTypes as inputType, inputIndex}<option value={inputIndex}>
             {converter.translate(inputType.name, inputTypes, $language)}
           </option>{/each}
@@ -53,7 +40,16 @@
     {:else}
       <span>{converter.translate(inputTypeName, inputTypes, $language)}</span>
     {/if}
-    <input type="range" {min} {max} {step} id={name} {name} bind:value on:input on:change />
+    <input
+      type="range"
+      {min}
+      {step}
+      max={touchPoint.maxValue}
+      id={touchPoint.name}
+      bind:value={touchPoint.value}
+      on:input
+      on:change
+    />
   </fieldset>
 </form>
 

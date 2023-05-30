@@ -1,21 +1,17 @@
 <script lang="ts">
   // imports
-  import type {DeployedTouchPoint, MaxValue} from '../../../../both/typings/types';
+  import type {DeployedTouchPoint} from '../../../../both/typings/types';
   import {translations, language} from '../../../stores/utils';
-  import {deployment} from '../../../stores/reach';
   import createConverter from '/imports/ui/functions/convert';
 
   // variables
   const converter = createConverter();
-  export let index: number;
-  export let max: MaxValue['max'];
+  export let touchPoint: DeployedTouchPoint;
   const min = 0;
-  $: step = (max ?? 100 - min) / 100;
-  const {name, definitions} = $deployment[index];
-  let value: DeployedTouchPoint['value'];
-  $: definition = definitions.filter((definition) => definition.language == $language)[0];
+  $: step = (touchPoint.maxValue ?? 100 - min) / 100;
+  $: definition = touchPoint.definitions.filter((definition) => definition.language == $language)[0];
   // TODO: disabled
-  $: disabled = isValid(value, min, max ?? 100) ? false : true;
+  $: disabled = isValid(touchPoint.value, min, touchPoint.maxValue ?? 100) ? false : true;
 
   // functions
   function isValid(v: DeployedTouchPoint['value'], m: number, mx: number): boolean {
@@ -27,18 +23,18 @@
 </script>
 
 <form autocomplete="off" on:submit>
-  <label for={name}>{$language === 'nl-NL' ? 'Invoer voor ' : 'Input for '}{definition.displayName}</label>
+  <label for={touchPoint.name}>{$language === 'nl-NL' ? 'Invoer voor ' : 'Input for '}{definition.displayName}</label>
   <input
     class="input__field"
-    {name}
-    id={name}
+    name={touchPoint.name}
+    id={touchPoint.name}
     type="number"
     {min}
-    {max}
+    max={touchPoint.maxValue}
     {step}
     placeholder="{`${converter.translate('input', $translations, $language) + ' 0 - 100'}`},"
     readonly={false}
-    bind:value={$deployment[index].value}
+    bind:value={touchPoint.value}
   />
   <input class="submit__button" type="submit" value={$language === 'nl-NL' ? 'Verstuur' : 'Submit'} {disabled} />
   <input

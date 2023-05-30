@@ -76,7 +76,9 @@
   }
 
   // functions
-  function onChange() {
+  function onChange(event: any) {
+    const touchPoint: DeployedTouchPoint = event.detail;
+    // TODO: if event.target == select if event.target == input
     if ($marketData && $useForResults == 'data') {
       Meteor.callAsync('strategies.calculateResultsWithData', {
         userId: $userId,
@@ -110,7 +112,7 @@
     <Controls />
     <Output />
     {#each $deployment as touchPoint, index}
-      <TouchPoint {touchPoint} {index} on:change={onChange} on:submit={() => onSubmit(touchPoint)} />
+      <TouchPoint {touchPoint} {index} on:change={() => onChange(touchPoint)} on:submit={() => onSubmit(touchPoint)} />
     {/each}
   </div>
 </section>
