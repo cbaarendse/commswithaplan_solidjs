@@ -55,7 +55,7 @@
     />
   </div>
   <div class="center">
-    <RangeInput {touchPoint} on:input={onInput} on:change />
+    <RangeInput {touchPoint} on:input={onInput} on:changeInputType on:change />
   </div>
   <div class="right">
     <button

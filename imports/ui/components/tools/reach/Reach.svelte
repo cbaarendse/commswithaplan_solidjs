@@ -76,19 +76,33 @@
   }
 
   // functions
-  function onChange(event: any) {
+  function onChangeInputType(event: any) {
     const touchPoint: DeployedTouchPoint = event.detail;
+    console.log('touchpoint & deployment before onChangeInputType: ', touchPoint, $deployment);
+    const maxValuesForTouchPoints = setMaxValues.calculationForData(
+      $deployment,
+      $respondentsCountForStrategy,
+      $populationCountForStrategy
+    );
+    deployment.update((data) => setMaxValues.forData(data, maxValuesForTouchPoints));
+    console.log('deployment after onChangeInputType: ', $deployment);
+  }
+
+  function onChange(event: any) {
+    console.log('event in onchange: ', event);
+
+    const touchPoint: DeployedTouchPoint = event;
     // TODO: if event.target == select if event.target == input
-    if ($marketData && $useForResults == 'data') {
-      Meteor.callAsync('strategies.calculateResultsWithData', {
-        userId: $userId,
-        deployment: $deployment
-      })
-        .then((result) => results.update((data) => (data = result)))
-        .catch((error) => console.log('error in strategies.calculateResultsWithData in onChange: ', error));
-    } else if ($useForResults == 'formula') {
-      calculateResult.totalForFormula();
-    }
+    // if ($marketData && $useForResults == 'data') {
+    //   Meteor.callAsync('strategies.calculateResultsWithData', {
+    //     userId: $userId,
+    //     deployment: $deployment
+    //   })
+    //     .then((result) => results.update((data) => (data = result)))
+    //     .catch((error) => console.log('error in strategies.calculateResultsWithData in onChange: ', error));
+    // } else if ($useForResults == 'formula') {
+    //   calculateResult.totalForFormula();
+    // }
   }
   function onSubmit(event: any) {
     const touchPoint: DeployedTouchPoint = event.detail;
@@ -112,7 +126,13 @@
     <Controls />
     <Output />
     {#each $deployment as touchPoint, index}
-      <TouchPoint {touchPoint} {index} on:change={() => onChange(touchPoint)} on:submit={() => onSubmit(touchPoint)} />
+      <TouchPoint
+        {touchPoint}
+        {index}
+        on:changeInputType={onChangeInputType}
+        on:change={() => onChange(touchPoint)}
+        on:submit={() => onSubmit(touchPoint)}
+      />
     {/each}
   </div>
 </section>

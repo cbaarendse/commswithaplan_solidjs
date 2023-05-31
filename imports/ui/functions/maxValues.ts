@@ -9,6 +9,14 @@ export default function createMaxValues() {
     respondentsCountForStrategy: number,
     populationCountForStrategy: number
   ) {
+    // TODO: respondentsCountForStrategy undefined
+    console.log(
+      'arguments in maxValues.calculationForData: ',
+      touchPointsDeployed,
+      respondentsCountForStrategy,
+      populationCountForStrategy
+    );
+
     const maxValuesForData: {touchPoint: TouchPointName; max: number}[] = [];
     // for each deployed touchpoint only select respondents with a contact probability > 0
     touchPointsDeployed.forEach((touchPoint) => {

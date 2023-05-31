@@ -31,7 +31,7 @@
   <fieldset>
     <label for={touchPoint.name}>{touchPointDefinition.displayName}</label>
     {#if $useForResults == 'data'}
-      <select id={`${touchPoint.name}_inputtype__select`} bind:value={touchPoint.inputTypeIndex} on:change>
+      <select id={`${touchPoint.name}_inputtype__select`} bind:value={touchPoint.inputTypeIndex} on:change={onChange}>
         {#each inputTypes as inputType, inputIndex}<option value={inputIndex}>
             {converter.translate(inputType.name, inputTypes, $language)}
           </option>{/each}
