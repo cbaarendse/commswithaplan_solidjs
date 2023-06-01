@@ -22,7 +22,7 @@ const preparedRespondents: RespondentOutcome[] = [];
 // functions
 
 Meteor.methods({
-  'strategies.prepareForResults': function (args: {
+  'strategies.prepareRespondents': function (args: {
     userId: Strategy['userId'];
     marketName: Strategy['marketName'];
     genders: Strategy['genders'];
@@ -136,67 +136,6 @@ Meteor.methods({
     return notReached;
   },
 
-  // maxValues
-  'strategies.maxValuesForTouchPoints': function (args: {
-    userId: Strategy['userId'];
-    marketName: Strategy['marketName'];
-    genders: Strategy['genders'];
-    ageGroupIndexStart: Strategy['ageGroupIndexStart'];
-    ageGroupIndexEnd: Strategy['ageGroupIndexEnd'];
-    deployment: Strategy['deployment'];
-    ageGroups: AgeGroup[];
-  }): {touchPoint: TouchPointName; max: number}[] {
-    // Filter probabilities for this briefing / strategy
-    const {marketName, ageGroupIndexStart, ageGroupIndexEnd, genders, ageGroups} = args;
-    const touchPoints: DeployedTouchPoint[] = args.deployment;
-
-    // population for selected age / gender combination
-    const startAge = ageGroupIndexStart ? ageGroups[ageGroupIndexStart][0] : ageGroups[0][0];
-    const endAge = ageGroupIndexEnd ? ageGroups[ageGroupIndexEnd][1] : ageGroups[1][1];
-    const query: {[key: string]: string | {[key: string]: Genders | number}} = {
-      market: marketName,
-      gender: {
-        $in: genders || ['f', 'm', 'x']
-      },
-      age: {
-        $gte: startAge,
-        $lte: endAge
-      }
-    };
-    // Make sure only the counts per age group / gender are being reported in query
-    const projection: {count: number} = {count: 1};
-    // Filter right counts for selected age range / gender
-    const population = Populations.find(query, {
-      fields: projection
-    }).fetch();
-
-    // Summarize all filtered counts per age range / gender to one number
-    const populationCount = population.reduce((subTotal, current) => subTotal + current.count, 0);
-    console.log('populationCount in maxValues; ', populationCount);
-
-    const maxValues: {touchPoint: TouchPointName; max: number}[] = [];
-    // for each deployed touchpoint only select respondents with a contact probability > 0
-    touchPoints.forEach((touchPoint) => {
-      const respondentsThisTouchPoint = preparedRespondents.filter(
-        (respondent) => touchPoint.name === respondent.touchPoint
-      );
-      const maxForTouchPoint = {touchPoint: touchPoint.name, max: 1};
-      if (
-        (touchPoint.inputTypeIndex == INPUTTYPE.Contacts || touchPoint.inputTypeIndex == INPUTTYPE.Impressions) &&
-        respondentsThisTouchPoint
-      ) {
-        maxForTouchPoint.max = (respondentsThisTouchPoint.length / preparedRespondents.length) * populationCount * 5;
-      } else if (touchPoint.inputTypeIndex == INPUTTYPE.Grps && respondentsThisTouchPoint) {
-        maxForTouchPoint.max =
-          ((respondentsThisTouchPoint.length / preparedRespondents.length) * populationCount * 5) / 10000;
-      } else if (touchPoint.inputTypeIndex == INPUTTYPE.Reach && respondentsThisTouchPoint) {
-        const maxReach = respondentsThisTouchPoint.length / preparedRespondents.length;
-        maxForTouchPoint.max = Math.max(maxReach, 0.01);
-      }
-      maxValues.push(maxForTouchPoint);
-    });
-    return maxValues;
-  },
   // results
   'strategies.calculateResultsWithData': function (args: {
     userId: Strategy['userId'];

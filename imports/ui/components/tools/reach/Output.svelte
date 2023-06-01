@@ -12,6 +12,7 @@
     populationCountForMarket,
     populationCountForStrategy,
     respondentsCountForMarket,
+    respondentsCountForStrategy,
     totalReach,
     useForResults
   } from '../../../stores/reach';
@@ -40,6 +41,8 @@
 <div class="container">
   {#if $useForResults == 'data'}
     <div class="amounts__container">
+      <span>respondents in range:</span>
+      <output>{formatter.toNumberFormat($respondentsCountForStrategy, 0)}</output>
       <span>respondents:</span>
       <output>{formatter.toNumberFormat($respondentsCountForMarket, 0)}</output>
       <span>population in range:</span>

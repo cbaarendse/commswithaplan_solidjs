@@ -113,9 +113,9 @@ export const respondentsCountForStrategy: Readable<number> = derived(
     set
   ) => {
     if ($marketData && $useForResults == 'data') {
-      console.log('marketName, useForResults', $marketName, ' and ', $useForResults, 'in countPopulationForStrategy');
+      console.log('marketName, useForResults', $marketName, ' and ', $useForResults, 'in countRespondentsForStrategy');
 
-      Meteor.callAsync('strategies.collectRespondentsForStrategy', {
+      Meteor.callAsync('strategies.prepareRespondents', {
         userId: $userId,
         marketName: $marketName,
         genders: $genders,

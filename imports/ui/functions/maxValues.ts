@@ -58,7 +58,7 @@ export default function createMaxValues() {
   function forData(touchPointsDeployed: DeployedTouchPoint[], maxValuesForTouchPoints: MaxValue[]) {
     return touchPointsDeployed.map((touchPoint) => {
       const maxValueForTouchPoint = maxValuesForTouchPoints.find((tP) => tP.touchPoint == touchPoint.name);
-      return Object.assign(touchPoint, {maxValue: maxValueForTouchPoint});
+      return Object.assign(touchPoint, {maxValue: maxValueForTouchPoint?.max});
     });
   }
 
