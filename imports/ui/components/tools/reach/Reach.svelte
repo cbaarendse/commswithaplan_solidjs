@@ -8,14 +8,9 @@
   import sort from '../../../procedures/sort';
   import {language} from '../../../stores/utils';
   import {
-    ageGroupIndexEnd,
-    ageGroupIndexStart,
-    ageGroups,
     createdAt,
     deployment,
-    genders,
     marketData,
-    marketName,
     populationCountForStrategy,
     respondentsCountForStrategy,
     results,
@@ -48,17 +43,13 @@
   $: {
     sort($language);
   }
-
+  // TODO: only use dispatch, onChangeBriefing (gender, age), onChangeValue, onSubmitValue, onChangeInputtype, onChangeMarket, onChangeMarketData
+  // Available
   $: if ($marketData && $useForResults == 'data') {
     renew.forData();
-    Meteor.callAsync('strategies.prepareDeploymentForResults', {
+    Meteor.callAsync('strategies.averageProbabilitiesAndNotReachedPerTouchPoint', {
       userId: $userId,
-      marketName: $marketName,
-      genders: $genders,
-      ageGroupIndexStart: $ageGroupIndexStart,
-      ageGroupIndexEnd: $ageGroupIndexEnd,
-      deployment: $deployment,
-      ageGroups: $ageGroups
+      deployment: $deployment
     })
       .then((result) => deployment.update((data) => result))
       .then(() => {
@@ -89,23 +80,23 @@
   }
 
   function onChange(event: any) {
-    console.log('event in onchange: ', event);
-
     const touchPoint: DeployedTouchPoint = event;
-    // TODO: if event.target == select if event.target == input
-    // if ($marketData && $useForResults == 'data') {
-    //   Meteor.callAsync('strategies.calculateResultsWithData', {
-    //     userId: $userId,
-    //     deployment: $deployment
-    //   })
-    //     .then((result) => results.update((data) => (data = result)))
-    //     .catch((error) => console.log('error in strategies.calculateResultsWithData in onChange: ', error));
-    // } else if ($useForResults == 'formula') {
-    //   calculateResult.totalForFormula();
-    // }
+    console.log('touchPoint in onChange: ', touchPoint);
+    if ($marketData && $useForResults == 'data') {
+      calculateResult.forTouchPoint(touchPoint);
+      Meteor.callAsync('strategies.calculateResultsWithData', {
+        userId: $userId,
+        deployment: $deployment
+      })
+        .then((result) => results.update((data) => (data = result)))
+        .catch((error) => console.log('error in strategies.calculateResultsWithData in onChange: ', error));
+    } else if ($useForResults == 'formula') {
+      calculateResult.totalForFormula();
+    }
   }
   function onSubmit(event: any) {
     const touchPoint: DeployedTouchPoint = event.detail;
+    console.log('touchPoint in onSubmit: ', touchPoint);
     if ($marketData && $useForResults == 'data') {
       calculateResult.forTouchPoint(touchPoint);
       Meteor.callAsync('strategies.calculateResultsWithData', {

@@ -49,15 +49,14 @@ Meteor.methods({
     return preparedRespondents.length;
   },
 
-  'strategies.calculateAverageProbabilities': function (args: {
+  'strategies.averageProbabilitiesAndNotReachedPerTouchPoint': function (args: {
     userId: Strategy['userId'];
     deployment: Strategy['deployment'];
-  }): {touchPoint: TouchPointName; averageProbability: number}[] {
+  }): DeployedTouchPoint[] {
     if (!Match.test(args, Object) || !Match.test(args.deployment, Array)) {
       throw new Meteor.Error('general.invalid.input', `Invalid input: ${args}`, '[{ "name": "invalidInput" }]');
     }
     console.log('calculateAverageProbabilities runs on server');
-    const result = [];
     const touchPoints = args.deployment;
     //const userId = args.userId;
     // Checks for login and strategy ownership
@@ -85,62 +84,19 @@ Meteor.methods({
         0
       );
       const thisAverageProbability = thisProbabilitiesSum / respondentsThisTouchPoint.length;
-      const averageForThisTouchPoint = {touchPoint: thisTouchPoint.name, averageProbability: thisAverageProbability};
-      result.push(averageForThisTouchPoint);
-    }
-    return result;
-  },
-
-  'strategies.getRespondentsNotReached': function (args: {
-    userId: Strategy['userId'];
-    deployment: Strategy['deployment'];
-  }): {
-    touchPoint: TouchPointName;
-    respondentsNotReached: number;
-  }[] {
-    if (!Match.test(args, Object) || !Match.test(args.deployment, Array)) {
-      throw new Meteor.Error('general.invalid.input', `Invalid input: ${args}`, '[{ "name": "invalidInput" }]');
-    }
-    console.log('filterRespondentsNotReached runs on server');
-    const notReached = [];
-    const touchPoints = args.deployment;
-    //const userId = args.userId;
-    // Checks for login and strategy ownership
-    if (!this.userId) {
-      throw new Meteor.Error(
-        'users.general.notLoggedIn',
-        'User is not properly logged in',
-        '[{ "name": "notLoggedIn" }]'
-      );
-    }
-    // if (this.userId !== userId) {
-    //   throw new Meteor.Error(
-    //     'Not authorized',
-    //     'You are not authorized to calculate this strategy',
-    //     '[{ "name": "notAuthorized" }]'
-    //   );
-    // }
-
-    for (let touchPointIndex = 0; touchPointIndex < touchPoints.length; touchPointIndex++) {
-      const thisTouchPoint = touchPoints[touchPointIndex];
-      const thisRespondentsNotReached: RespondentOutcome[] = preparedRespondents.filter(
+      const respondentsNotReachedThisTouchPoint: RespondentOutcome[] = preparedRespondents.filter(
         (respondent) => thisTouchPoint.name === respondent.touchPoint && respondent.probability === 0
       );
-
-      const respondentsNotReachedForThisTouchPoint = {
-        touchPoint: thisTouchPoint.name,
-        respondentsNotReached: thisRespondentsNotReached.length
-      };
-      notReached.push(respondentsNotReachedForThisTouchPoint);
+      touchPoints[touchPointIndex].avarageProbability = thisAverageProbability;
+      touchPoints[touchPointIndex].respondentsNotReached = respondentsNotReachedThisTouchPoint.length;
     }
-    return notReached;
+    return touchPoints;
   },
 
   // results
-  'strategies.calculateResultsWithData': function (args: {
+  'strategies.calculateReachAndOverlapWithData': function (args: {
     userId: Strategy['userId'];
     deployment: Strategy['deployment'];
-    averageProbabilities: Pick<RespondentOutcome, 'touchPoint' | 'probability'>[];
   }): Results {
     if (!Match.test(args, Object) || !Match.test(args.deployment, Array)) {
       throw new Meteor.Error('general.invalid.input', `Invalid input: ${args}`, '[{ "name": "invalidInput" }]');
