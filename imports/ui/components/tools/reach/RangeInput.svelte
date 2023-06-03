@@ -22,8 +22,14 @@
   //TODO: change inputType should change deployment
   // functions
 
-  function onChange() {
+  function onChangeInputType() {
     dispatch('changeInputType', touchPoint);
+  }
+  function onInputValue() {
+    dispatch('inputValue', touchPoint);
+  }
+  function onChangeValue() {
+    dispatch('changeValue', touchPoint);
   }
 </script>
 
@@ -31,7 +37,11 @@
   <fieldset>
     <label for={touchPoint.name}>{touchPointDefinition.displayName}</label>
     {#if $useForResults == 'data'}
-      <select id={`${touchPoint.name}_inputtype__select`} bind:value={touchPoint.inputTypeIndex} on:change={onChange}>
+      <select
+        id={`${touchPoint.name}_inputtype__select`}
+        bind:value={touchPoint.inputTypeIndex}
+        on:change={onChangeInputType}
+      >
         {#each inputTypes as inputType, inputIndex}<option value={inputIndex}>
             {converter.translate(inputType.name, inputTypes, $language)}
           </option>{/each}
@@ -47,8 +57,8 @@
       max={touchPoint.maxValue}
       id={touchPoint.name}
       bind:value={touchPoint.value}
-      on:input
-      on:change
+      on:input={onInputValue}
+      on:change={onChangeValue}
     />
   </fieldset>
 </form>

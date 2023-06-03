@@ -1,15 +1,15 @@
 <script lang="ts">
   // imports
+  import {createEventDispatcher} from 'svelte';
   import {translations, language} from '../../../stores/utils';
-  import {ageGroupIndexStart, ageGroupIndexEnd, ageGroups, marketData, useForResults} from '../../../stores/reach';
+  import {ageGroupIndexStart, ageGroupIndexEnd, ageGroups} from '../../../stores/reach';
   import createConverter from '../../../functions/convert';
-  import createResult from '/imports/ui/procedures/results';
   import Fa from 'svelte-fa/src/fa.svelte';
   import {faSort} from '@fortawesome/free-solid-svg-icons';
 
   //variables
+  const dispatch = createEventDispatcher();
   const converter = createConverter();
-  const calculateResult = createResult();
 
   // functions
   function adaptAgeGroupIndexEnd() {
@@ -17,12 +17,9 @@
       $ageGroupIndexEnd = $ageGroupIndexStart ? $ageGroupIndexStart + 1 : 1;
     }
   }
-  function getResults() {
-    if ($marketData && $useForResults == 'data') {
-      calculateResult.totalForData();
-    } else {
-      calculateResult.totalForFormula();
-    }
+
+  function onChangeAgeGroup() {
+    dispatch('changeAgeGroup');
   }
 </script>
 
@@ -33,7 +30,7 @@
       id="agegroup__select_start"
       bind:value={$ageGroupIndexStart}
       on:change={adaptAgeGroupIndexEnd}
-      on:change={getResults}
+      on:change={onChangeAgeGroup}
     >
       {#each $ageGroups as ageGroup, index}
         <option value={index} disabled={false}>

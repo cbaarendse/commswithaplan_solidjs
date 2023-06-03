@@ -1,12 +1,12 @@
 <script lang="ts">
   // imports
+  import {createEventDispatcher} from 'svelte';
   import Fa from 'svelte-fa/src/fa.svelte';
   import {faPerson, faPersonDress} from '@fortawesome/free-solid-svg-icons';
   import {genders, marketData, useForResults} from '../../../stores/reach';
-  import createResult from '../../../procedures/results';
 
   // variables
-  const calculateResult = createResult();
+  const dispatch = createEventDispatcher();
   $: gendersToWorkWith = new Set($genders) ?? new Set(['f', 'm', 'x']);
   $: disabled = !$marketData || $useForResults == 'formula';
 
@@ -30,12 +30,8 @@
     }
   }
 
-  function getResults() {
-    if ($marketData && $useForResults == 'data') {
-      calculateResult.totalForData();
-    } else if ($useForResults == 'formula') {
-      calculateResult.totalForFormula();
-    }
+  function onChangeGender() {
+    dispatch('changeGender');
   }
 </script>
 
@@ -46,7 +42,7 @@
     aria-roledescription="button"
     {disabled}
     on:click|preventDefault|stopPropagation={toggleGenders}
-    on:click|preventDefault|stopPropagation={getResults}
+    on:click|preventDefault|stopPropagation={onChangeGender}
   >
     <Fa
       icon={faPersonDress}

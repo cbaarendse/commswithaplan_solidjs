@@ -1,10 +1,12 @@
 <script lang="ts">
   // imports
+  import {createEventDispatcher} from 'svelte';
   import type {DeployedTouchPoint} from '../../../../both/typings/types';
   import {translations, language} from '../../../stores/utils';
   import createConverter from '/imports/ui/functions/convert';
 
   // variables
+  const dispatch = createEventDispatcher();
   const converter = createConverter();
   export let touchPoint: DeployedTouchPoint;
   const min = 0;
@@ -20,9 +22,12 @@
     }
     return v >= m && v <= mx;
   }
+  function onSubmit() {
+    dispatch('submitValue', touchPoint);
+  }
 </script>
 
-<form autocomplete="off" on:submit>
+<form autocomplete="off" on:submit={onSubmit}>
   <label for={touchPoint.name}>{$language === 'nl-NL' ? 'Invoer voor ' : 'Input for '}{definition.displayName}</label>
   <input
     class="input__field"

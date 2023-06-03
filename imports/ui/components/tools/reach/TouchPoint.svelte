@@ -4,30 +4,20 @@
   import Modal from '../../reusable/Modal.svelte';
   import NumberInput from './NumberInput.svelte';
   import {language} from '../../../stores/utils';
-  import {marketData, useForResults} from '../../../stores/reach';
-  import createResult from '/imports/ui/procedures/results';
   import createFormatter from '../../../functions/format';
   import {DeployedTouchPoint} from '/imports/both/typings/types';
   import {INPUTTYPE} from '../../../../both/constants/constants';
   //import {notify} from '../../notifications/NotificationsFunctions';
 
   // variables
-  const calculateResult = createResult();
   const formatter = createFormatter();
   export let touchPoint: DeployedTouchPoint;
-  export let index: number;
   $: definition = touchPoint.definitions.filter((definition) => definition.language == $language)[0];
   let hovered: boolean = false;
   let displayManualInput: boolean;
   let displayTouchPointDescription: boolean;
 
   // functions
-  function onInput() {
-    if ($marketData && $useForResults == 'data') {
-      calculateResult.forTouchPoint(touchPoint);
-    }
-  }
-
   function dismiss(event: MouseEvent | CustomEvent | KeyboardEvent): void {
     if (
       (event instanceof KeyboardEvent && event.key === 'Escape') ||
@@ -55,7 +45,7 @@
     />
   </div>
   <div class="center">
-    <RangeInput {touchPoint} on:input={onInput} on:changeInputType on:change />
+    <RangeInput {touchPoint} on:inputValue on:changeInputType on:changeValue />
   </div>
   <div class="right">
     <button
@@ -77,7 +67,7 @@
       </span>
       <hr />
       <span>
-        {formatter.toPercentFormat(touchPoint.reach, 0)}
+        {formatter.toPercentFormat(touchPoint.reach ?? 0, 0)}
       </span>
     </button>
   </div>
@@ -87,7 +77,7 @@
   </Modal>
   <!-- manual input -->
   <Modal title={definition.displayName} display={displayManualInput} on:click={dismiss}>
-    <NumberInput {index} {touchPoint} on:submit on:click={dismiss} />
+    <NumberInput {touchPoint} on:submitValue on:click={dismiss} />
   </Modal>
 </div>
 

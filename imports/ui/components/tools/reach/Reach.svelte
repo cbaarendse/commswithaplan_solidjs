@@ -67,7 +67,9 @@
   }
 
   // functions
-  function onChangeInputType(event: any) {
+  function processMarketContext() {}
+  function processBriefing() {}
+  function processInputType(event: any) {
     const touchPoint: DeployedTouchPoint = event.detail;
     console.log('touchpoint & deployment before onChangeInputType: ', touchPoint, $deployment);
     const maxValuesForTouchPoints = setMaxValues.calculationForData(
@@ -79,24 +81,9 @@
     console.log('deployment after onChangeInputType: ', $deployment);
   }
 
-  function onChange(event: any) {
-    const touchPoint: DeployedTouchPoint = event;
-    console.log('touchPoint in onChange: ', touchPoint);
-    if ($marketData && $useForResults == 'data') {
-      calculateResult.forTouchPoint(touchPoint);
-      Meteor.callAsync('strategies.calculateResultsWithData', {
-        userId: $userId,
-        deployment: $deployment
-      })
-        .then((result) => results.update((data) => (data = result)))
-        .catch((error) => console.log('error in strategies.calculateResultsWithData in onChange: ', error));
-    } else if ($useForResults == 'formula') {
-      calculateResult.totalForFormula();
-    }
-  }
-  function onSubmit(event: any) {
+  function processValue(event: any) {
     const touchPoint: DeployedTouchPoint = event.detail;
-    console.log('touchPoint in onSubmit: ', touchPoint);
+    console.log('touchPoint in processValue: ', touchPoint);
     if ($marketData && $useForResults == 'data') {
       calculateResult.forTouchPoint(touchPoint);
       Meteor.callAsync('strategies.calculateResultsWithData', {
@@ -114,15 +101,19 @@
 <BreadCrumbs />
 <section>
   <div class="container">
-    <Controls />
+    <Controls
+      on:changeDataSource={processMarketContext}
+      on:changeMarket={processMarketContext}
+      on:changeGender={processBriefing}
+      on:changeAgeGroup={processBriefing}
+    />
     <Output />
-    {#each $deployment as touchPoint, index}
+    {#each $deployment as touchPoint}
       <TouchPoint
         {touchPoint}
-        {index}
-        on:changeInputType={onChangeInputType}
-        on:change={() => onChange(touchPoint)}
-        on:submit={() => onSubmit(touchPoint)}
+        on:changeInputType={processInputType}
+        on:changeValue={processValue}
+        on:submitValue={processValue}
       />
     {/each}
   </div>

@@ -1,24 +1,20 @@
 <script lang="ts">
+  // imports
+  import {createEventDispatcher} from 'svelte';
   import {faSort} from '@fortawesome/free-solid-svg-icons';
   import Fa from 'svelte-fa/src/fa.svelte';
-  import {marketData, marketName, useForResults, results} from '../../../stores/reach';
+  import {marketName, useForResults} from '../../../stores/reach';
   import createConverter from '/imports/ui/functions/convert';
-  import createRenew from '../../../procedures/renew';
   import {allMarkets} from '../../../../both/constants/constants';
   import {language, translations} from '/imports/ui/stores/utils';
 
   //variables
-  const renew = createRenew();
+  const dispatch = createEventDispatcher();
   const converter = createConverter();
 
   // functions
-  function reset() {
-    if ($marketData && $useForResults == 'data') {
-      renew.forData();
-    } else if ($useForResults == 'formula') {
-      renew.forFormula();
-    }
-    $results = [0, 0];
+  function onChange() {
+    dispatch('changeMarket');
   }
 </script>
 
@@ -32,7 +28,7 @@
     on:change={() => {
       $useForResults = 'formula';
     }}
-    on:change={reset}
+    on:change={onChange}
   >
     {#each allMarkets() as thisMarket}
       <option value={thisMarket.name}>{thisMarket.flag || thisMarket.name}</option>

@@ -9,7 +9,7 @@
   import sort from '../../../procedures/sort';
   import hide from '../../../procedures/hide';
   import {language} from '../../../stores/utils';
-  import {marketData, deployment, results, sortedByName, useForResults} from '../../../stores/reach';
+  import {marketData, deployment, sortedByName, useForResults} from '../../../stores/reach';
   import {CWAPUser} from '../../../../both/typings/types';
   import Fa from 'svelte-fa/src/fa.svelte';
   import {
@@ -23,48 +23,37 @@
     faDownload,
     faPlus
   } from '@fortawesome/free-solid-svg-icons';
-  import createRenew from '../../../procedures/renew';
+  import {createEventDispatcher} from 'svelte';
 
   // variables
   let currentUser: CWAPUser | null;
+  const dispatch = createEventDispatcher();
   const reachTool = createReachTool();
-  const renew = createRenew();
 
   $m: {
     currentUser = Meteor.user();
   }
 
   // functions
-  function reset() {
-    if (reachTool.areAllTouchPointsValueZero($deployment)) {
-      if ($marketData && $useForResults == 'data') {
-        renew.forData();
-      } else if ($useForResults == 'formula') {
-        renew.forFormula();
-      }
-    } else {
-      deployment.update((data) => {
-        return data.map((touchPoint) => Object.assign(touchPoint, {value: 0.0}));
-      });
-    }
-    $results = [0, 0];
+  function onReset() {
+    dispatch('reset');
   }
 </script>
 
 <div class="container">
   {#if currentUser}
     <form>
-      <MarketSelect />
-      <SourceRadioButton />
+      <MarketSelect on:changeMarket />
+      <SourceRadioButton on:changeDataSource />
       {#if $marketData && $useForResults == 'data'}
-        <GenderButton />
-        <AgeGroupsSelect />
+        <GenderButton on:changeGender />
+        <AgeGroupsSelect on:changeAgeGroup />
       {/if}
     </form>
   {/if}
   <div class="operations__container">
     <menu>
-      <button type="button" on:click|stopPropagation|preventDefault={reset}>
+      <button type="button" on:click|stopPropagation|preventDefault={onReset}>
         {#if reachTool.areAllTouchPointsValueZero($deployment)}<Fa icon={faArrowRotateLeft} />{:else}<Fa
             icon={fa0}
           />{/if}
@@ -80,14 +69,7 @@
       <button type="button" on:click|stopPropagation|preventDefault={() => hide()}>
         {#if reachTool.isShowAll($deployment)}<Fa icon={faMinus} />{:else}<Fa icon={faBars} />{/if}
       </button>
-      <button
-        class="save"
-        type="button"
-        on:click|stopPropagation|preventDefault={reset}
-        on:click|stopPropagation|preventDefault={() => {
-          $results = [0, 0];
-        }}
-      >
+      <button class="save" type="button" on:click|stopPropagation|preventDefault={onReset}>
         <Fa icon={faDownload} />
       </button>
     </menu>

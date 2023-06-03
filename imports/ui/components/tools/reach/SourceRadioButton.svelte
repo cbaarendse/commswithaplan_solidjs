@@ -1,24 +1,19 @@
 <script lang="ts">
   // imports
-  import createRenew from '../../../procedures/renew';
   import createConverter from '../../../functions/convert';
   import {translations, language} from '../../../stores/utils';
-  import {marketData, results, useForResults} from '../../../stores/reach';
+  import {marketData, useForResults} from '../../../stores/reach';
+  import {createEventDispatcher} from 'svelte';
 
   // variables
   const converter = createConverter();
-  const renew = createRenew();
+  const dispatch = createEventDispatcher();
   $: disabled = $marketData == false;
   $: message = converter.translate('use', $translations, $language);
 
   // functions
-  function onChange() {
-    if ($marketData && $useForResults == 'data') {
-      renew.forData();
-    } else {
-      renew.forFormula();
-    }
-    $results = [0, 0];
+  function onChangeDataSource() {
+    dispatch('changeDataSource');
   }
 </script>
 
@@ -33,7 +28,7 @@
     checked={$useForResults == 'formula'}
     {disabled}
     bind:group={$useForResults}
-    on:change={onChange}
+    on:change={onChangeDataSource}
   />
   <label for="useformula__radio">{converter.translate('formula', $translations, $language)}</label>
   <input
@@ -45,7 +40,7 @@
     checked={$useForResults == 'data'}
     {disabled}
     bind:group={$useForResults}
-    on:change={onChange}
+    on:change={onChangeDataSource}
   />
   <label for="usedata__radio">{converter.translate('data', $translations, $language)}</label>
 </fieldset>
