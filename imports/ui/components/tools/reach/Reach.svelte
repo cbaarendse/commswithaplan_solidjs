@@ -17,7 +17,7 @@
     useForResults,
     userId
   } from '../../../stores/reach';
-  import createResult from '../../../procedures/results';
+  import createResult from '../../../functions/results';
   import createRenew from '../../../procedures/renew';
   import createMaxValues from '../../../functions/maxValues';
   import {DeployedTouchPoint} from '/imports/both/typings/types';
@@ -44,31 +44,57 @@
     sort($language);
   }
   // TODO: only use dispatch, onChangeBriefing (gender, age), onChangeValue, onSubmitValue, onChangeInputtype, onChangeMarket, onChangeMarketData
-  // Available
-  $: if ($marketData && $useForResults == 'data') {
-    renew.forData();
-    Meteor.callAsync('strategies.averageProbabilitiesAndNotReachedPerTouchPoint', {
+
+  // functions
+  function processMarketContext() {
+    if ($marketData && $useForResults == 'data') {
+      renew.forData();
+      Meteor.callAsync('strategies.averageProbabilitiesAndNotReachedPerTouchPoint', {
+        userId: $userId,
+        deployment: $deployment
+      })
+        .then((result) =>
+          deployment.update((data) => {
+            data = result;
+            return data;
+          })
+        )
+        .then(() => {
+          const maxValuesForTouchPoints = setMaxValues.calculationForData(
+            $deployment,
+            $respondentsCountForStrategy,
+            $populationCountForStrategy
+          );
+          deployment.update((data) => setMaxValues.forData(data, maxValuesForTouchPoints));
+        })
+        .catch((error) => console.log('error in strategies.prepareDeploymentForResults; ', error));
+    } else {
+      renew.forFormula();
+      deployment.update((data) => setMaxValues.forFormula(data));
+    }
+  }
+
+  function processBriefing() {
+    processMarketContext();
+    $deployment.map((touchPoint) => {
+      touchPoint.reach = calculateResult.forTouchPoint(
+        touchPoint,
+        $respondentsCountForStrategy,
+        $populationCountForStrategy
+      );
+      return touchPoint;
+    });
+    $deployment = $deployment;
+    Meteor.callAsync('strategies.calculateReachAndOverlapWithData', {
       userId: $userId,
       deployment: $deployment
     })
-      .then((result) => deployment.update((data) => result))
-      .then(() => {
-        const maxValuesForTouchPoints = setMaxValues.calculationForData(
-          $deployment,
-          $respondentsCountForStrategy,
-          $populationCountForStrategy
-        );
-        deployment.update((data) => setMaxValues.forData(data, maxValuesForTouchPoints));
-      })
-      .catch((error) => console.log('error in strategies.prepareDeploymentForResults; ', error));
-  } else {
-    renew.forFormula();
-    deployment.update((data) => setMaxValues.forFormula(data));
+      .then((result) => results.update((data) => (data = result)))
+      .catch((error) =>
+        console.log('error in strategies.calculateReachAndOverlapWithData in processBriefing: ', error)
+      );
   }
 
-  // functions
-  function processMarketContext() {}
-  function processBriefing() {}
   function processInputType(event: any) {
     const touchPoint: DeployedTouchPoint = event.detail;
     console.log('touchpoint & deployment before onChangeInputType: ', touchPoint, $deployment);
@@ -85,15 +111,20 @@
     const touchPoint: DeployedTouchPoint = event.detail;
     console.log('touchPoint in processValue: ', touchPoint);
     if ($marketData && $useForResults == 'data') {
-      calculateResult.forTouchPoint(touchPoint);
-      Meteor.callAsync('strategies.calculateResultsWithData', {
+      touchPoint.reach = calculateResult.forTouchPoint(
+        touchPoint,
+        $respondentsCountForStrategy,
+        $populationCountForStrategy
+      );
+      console.log('touchPoint with reach?: ', touchPoint);
+      Meteor.callAsync('strategies.calculateReachAndOverlapWithData', {
         userId: $userId,
         deployment: $deployment
       })
         .then((result) => results.update((data) => (data = result)))
-        .catch((error) => console.log('error in strategies.calculateResultsWithData in onSubmit: ', error));
+        .catch((error) => console.log('error in strategies.calculateReachAndOverlapWithData in onSubmit: ', error));
     } else if ($useForResults == 'formula') {
-      calculateResult.totalForFormula();
+      results.set(calculateResult.totalForFormula($deployment));
     }
   }
 </script>

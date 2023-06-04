@@ -40,7 +40,12 @@
       {/each}
     </select>
     <label for="agegroup__select_start"><Fa icon={faSort} color={'var(--ra-teal)'} /></label>
-    <select class="agegroup__select" id="agegroup__select_end" bind:value={$ageGroupIndexEnd} on:change={getResults}>
+    <select
+      class="agegroup__select"
+      id="agegroup__select_end"
+      bind:value={$ageGroupIndexEnd}
+      on:change={onChangeAgeGroup}
+    >
       {#each $ageGroups as ageGroup, index}
         <option value={index} disabled={index < ($ageGroupIndexStart ? $ageGroupIndexStart : 0) + 1}>
           {ageGroup[0]} - {ageGroup[1]}

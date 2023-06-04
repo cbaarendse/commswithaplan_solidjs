@@ -87,7 +87,7 @@ Meteor.methods({
       const respondentsNotReachedThisTouchPoint: RespondentOutcome[] = preparedRespondents.filter(
         (respondent) => thisTouchPoint.name === respondent.touchPoint && respondent.probability === 0
       );
-      touchPoints[touchPointIndex].avarageProbability = thisAverageProbability;
+      touchPoints[touchPointIndex].averageProbability = thisAverageProbability;
       touchPoints[touchPointIndex].respondentsNotReached = respondentsNotReachedThisTouchPoint.length;
     }
     return touchPoints;
@@ -101,7 +101,7 @@ Meteor.methods({
     if (!Match.test(args, Object) || !Match.test(args.deployment, Array)) {
       throw new Meteor.Error('general.invalid.input', `Invalid input: ${args}`, '[{ "name": "invalidInput" }]');
     }
-    console.log('calculateResultsWithData runs on server');
+    console.log('calculateReachAndOverlapWithData runs on server');
 
     const {userId} = args;
 
@@ -127,7 +127,7 @@ Meteor.methods({
     // Build non-unique respondents
     // Collect respondents
     const reachedRespondents = reachDataTool.determineReachedRespondents(touchPoints, preparedRespondents);
-    console.log('reachedRespondents in calculateResultsWithData:', reachedRespondents);
+    console.log('reachedRespondents in calculateReachAndOverlapWithData:', reachedRespondents);
 
     // Unique respondents
     const reachedRespondentsIds = reachedRespondents.map((respondent) => respondent.respondentId);

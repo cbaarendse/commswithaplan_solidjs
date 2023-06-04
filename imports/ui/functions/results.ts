@@ -1,56 +1,53 @@
 // imports
 import {Meteor} from 'meteor/meteor';
-import {get} from 'svelte/store';
-import {deployment, populationCountForStrategy, respondentsCountForStrategy, results, userId} from '../stores/reach';
-import {DeployedTouchPoint} from '/imports/both/typings/types';
+import {DeployedTouchPoint, Results} from '/imports/both/typings/types';
 import {INPUTTYPE} from '/imports/both/constants/constants';
 
 // variables
 export default function createResult() {
-  function forTouchPoint(touchPoint: DeployedTouchPoint) {
-    const averageProbability = touchPoint.avarageProbability;
+  function forTouchPoint(
+    touchPoint: DeployedTouchPoint,
+    respondentsCountForStrategy: number,
+    populationCountForStrategy: number
+  ) {
+    const averageProbability = touchPoint.averageProbability;
     const notReached = touchPoint.respondentsNotReached;
     const inputTypeIndex = touchPoint.inputTypeIndex;
     const value = touchPoint.value;
     // formula (1-notReached) * (1-EXP (-averageProbability * contacts/impressions/GRPs))
+    console.log('input result.forTouchPoint: ', touchPoint, respondentsCountForStrategy, populationCountForStrategy);
+
     if (averageProbability && notReached) {
       if (inputTypeIndex == INPUTTYPE.Contacts && inputTypeIndex == INPUTTYPE.Impressions) {
         const reachedPopulation =
-          (1 - notReached / get(respondentsCountForStrategy)) * (1 - Math.pow(Math.E, averageProbability * value));
-        const reach = reachedPopulation / get(populationCountForStrategy);
+          (1 - notReached / respondentsCountForStrategy) * (1 - Math.pow(Math.E, averageProbability * value));
+        const reach = reachedPopulation / populationCountForStrategy;
+        console.log('output result.forTouchPoint for impressions and contacts: ', reachedPopulation, reach);
         return reach;
       }
+
       if (inputTypeIndex == INPUTTYPE.Grps) {
         const reach =
-          (1 - notReached / get(respondentsCountForStrategy)) * (1 - Math.pow(Math.E, averageProbability * value));
+          (1 - notReached / respondentsCountForStrategy) * (1 - Math.pow(Math.E, averageProbability * value));
+        console.log('output result.forTouchPoint for GRPs: ', reach);
         return reach;
       }
+
       if (inputTypeIndex == INPUTTYPE.Reach) {
         const reach = value;
+        console.log('output result.forTouchPoint reach: ', reach);
         return reach;
       }
     } else {
+      console.log('output result.forTouchPoint all failed: ', 0);
       return 0;
     }
   }
 
-  async function totalForData() {
-    try {
-      results.set(
-        await Meteor.callAsync('strategies.calculateResultsWithData', {
-          userId: get(userId),
-          deployment: get(deployment)
-        })
-      );
-    } catch (error) {
-      console.log('error in calculate results with data', error);
-    }
-  }
-
-  function totalForFormula(): void {
-    const totalReach = calculateTotalReach(get(deployment));
-    const overlap = calculateOverlap(get(deployment));
-    results.set([totalReach, overlap]);
+  function totalForFormula(touchPoints: DeployedTouchPoint[]): Results {
+    const totalReach = calculateTotalReach(touchPoints);
+    const overlap = calculateOverlap(touchPoints);
+    return [totalReach, overlap];
   }
 
   function calculateTotalReach(touchPoints: DeployedTouchPoint[]): number {
@@ -76,5 +73,5 @@ export default function createResult() {
     return duplicateReachPortion;
   }
 
-  return {forTouchPoint, totalForData, totalForFormula};
+  return {forTouchPoint, totalForFormula};
 }

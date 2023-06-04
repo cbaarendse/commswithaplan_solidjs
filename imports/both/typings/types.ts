@@ -118,7 +118,7 @@ export type DeployedTouchPoint = TouchPointDefinition & {
   show: boolean;
   inputTypeIndex: (typeof INPUTTYPE)[keyof typeof INPUTTYPE];
   maxValue?: number;
-  avarageProbability?: number;
+  averageProbability?: number;
   respondentsNotReached?: number;
   reach?: number;
 };
