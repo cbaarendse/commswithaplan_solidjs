@@ -1,5 +1,4 @@
 // imports
-import {Meteor} from 'meteor/meteor';
 import {DeployedTouchPoint, Results} from '/imports/both/typings/types';
 import {INPUTTYPE} from '/imports/both/constants/constants';
 
@@ -18,7 +17,7 @@ export default function createResult() {
     console.log('input result.forTouchPoint: ', touchPoint, respondentsCountForStrategy, populationCountForStrategy);
 
     if (averageProbability && notReached) {
-      if (inputTypeIndex == INPUTTYPE.Contacts && inputTypeIndex == INPUTTYPE.Impressions) {
+      if (inputTypeIndex == INPUTTYPE.Contacts || inputTypeIndex == INPUTTYPE.Impressions) {
         const reachedPopulation =
           (1 - notReached / respondentsCountForStrategy) * (1 - Math.pow(Math.E, averageProbability * value));
         const reach = reachedPopulation / populationCountForStrategy;

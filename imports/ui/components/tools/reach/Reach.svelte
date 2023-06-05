@@ -21,6 +21,7 @@
   import createRenew from '../../../procedures/renew';
   import createMaxValues from '../../../functions/maxValues';
   import {DeployedTouchPoint} from '/imports/both/typings/types';
+  import {dataset_dev} from 'svelte/internal';
 
   // variables
   const renew = createRenew();
@@ -53,24 +54,19 @@
         userId: $userId,
         deployment: $deployment
       })
-        .then((result) =>
-          deployment.update((data) => {
-            data = result;
-            return data;
-          })
-        )
+        .then((result) => ($deployment = result))
         .then(() => {
-          const maxValuesForTouchPoints = setMaxValues.calculationForData(
+          const maxValuesForTouchPoints = setMaxValues.calculateForData(
             $deployment,
             $respondentsCountForStrategy,
             $populationCountForStrategy
           );
-          deployment.update((data) => setMaxValues.forData(data, maxValuesForTouchPoints));
+          $deployment = setMaxValues.forData($deployment, maxValuesForTouchPoints);
         })
-        .catch((error) => console.log('error in strategies.prepareDeploymentForResults; ', error));
+        .catch((error) => console.log('error in strategies.averageProbabilitiesAndNotReachedPerTouchPoint; ', error));
     } else {
       renew.forFormula();
-      deployment.update((data) => setMaxValues.forFormula(data));
+      $deployment = setMaxValues.forFormula($deployment);
     }
   }
 
@@ -85,20 +81,13 @@
       return touchPoint;
     });
     $deployment = $deployment;
-    Meteor.callAsync('strategies.calculateReachAndOverlapWithData', {
-      userId: $userId,
-      deployment: $deployment
-    })
-      .then((result) => results.update((data) => (data = result)))
-      .catch((error) =>
-        console.log('error in strategies.calculateReachAndOverlapWithData in processBriefing: ', error)
-      );
+    calculateReachAndOverlap();
   }
 
   function processInputType(event: any) {
     const touchPoint: DeployedTouchPoint = event.detail;
     console.log('touchpoint & deployment before onChangeInputType: ', touchPoint, $deployment);
-    const maxValuesForTouchPoints = setMaxValues.calculationForData(
+    const maxValuesForTouchPoints = setMaxValues.calculateForData(
       $deployment,
       $respondentsCountForStrategy,
       $populationCountForStrategy
@@ -111,17 +100,34 @@
     const touchPoint: DeployedTouchPoint = event.detail;
     console.log('touchPoint in processValue: ', touchPoint);
     if ($marketData && $useForResults == 'data') {
-      touchPoint.reach = calculateResult.forTouchPoint(
+      const reach = calculateResult.forTouchPoint(
         touchPoint,
         $respondentsCountForStrategy,
         $populationCountForStrategy
       );
+      deployment.update((data) => {
+        //TODO: check
+        const index = data.findIndex((tP) => tP.name == touchPoint.name);
+        data[index].reach = reach;
+        return data;
+      });
       console.log('touchPoint with reach?: ', touchPoint);
+    }
+    calculateReachAndOverlap();
+  }
+
+  function calculateReachAndOverlap() {
+    if ($marketData && $useForResults == 'data') {
       Meteor.callAsync('strategies.calculateReachAndOverlapWithData', {
         userId: $userId,
         deployment: $deployment
       })
-        .then((result) => results.update((data) => (data = result)))
+        .then((result) =>
+          results.update((data) => {
+            data = result;
+            return data;
+          })
+        )
         .catch((error) => console.log('error in strategies.calculateReachAndOverlapWithData in onSubmit: ', error));
     } else if ($useForResults == 'formula') {
       results.set(calculateResult.totalForFormula($deployment));

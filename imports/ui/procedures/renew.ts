@@ -1,5 +1,5 @@
 // imports
-import {deployment} from '../stores/reach';
+import {deployment, results} from '../stores/reach';
 import {INPUTTYPE, touchPointsDefinitions} from '../../both/constants/constants';
 import {DeployedTouchPoint, TouchPointDefinition} from '/imports/both/typings/types';
 
@@ -7,6 +7,7 @@ import {DeployedTouchPoint, TouchPointDefinition} from '/imports/both/typings/ty
 
 export default function createRenew() {
   function forData() {
+    results.set([0, 0]);
     deployment.set(touchPointsForDeployment(touchPointsDefinitions()));
     deployment.update((data) => {
       return data.map((touchPoint) => {
@@ -22,6 +23,7 @@ export default function createRenew() {
   }
 
   function forFormula() {
+    results.set([0, 0]);
     deployment.set(touchPointsForDeployment(touchPointsDefinitions()));
     deployment.update((data) => {
       return data.map((touchPoint) => Object.assign(touchPoint, {value: 0.0, inputTypeIndex: INPUTTYPE.Reach}));

@@ -56,12 +56,12 @@
       }}
     >
       <span>
-        {#if touchPoint.inputTypeIndex == INPUTTYPE.Grps}{formatter.toNumberFormat(touchPoint.value, 0)}
+        {#if touchPoint.inputTypeIndex == INPUTTYPE.Grps}{formatter.toNumberFormat(touchPoint.maxValue ?? 0, 0)}
         {:else if touchPoint.inputTypeIndex == INPUTTYPE.Reach}{formatter.toPercentFormat(
-            touchPoint.value,
+            touchPoint.maxValue ?? 0,
             0
           )}{:else if touchPoint.inputTypeIndex == INPUTTYPE.Contacts || touchPoint.inputTypeIndex == INPUTTYPE.Impressions}{formatter.toMillionsFormat(
-            touchPoint.value,
+            touchPoint.maxValue ?? 0,
             2
           )}{/if}
       </span>

@@ -4,14 +4,14 @@ import {INPUTTYPE} from '../../both/constants/constants';
 import {DeployedTouchPoint, MaxValue, TouchPointName} from '/imports/both/typings/types';
 
 export default function createMaxValues() {
-  function calculationForData(
+  function calculateForData(
     touchPointsDeployed: DeployedTouchPoint[],
     respondentsCountForStrategy: number,
     populationCountForStrategy: number
   ) {
     // TODO: respondentsCountForStrategy undefined
     console.log(
-      'arguments in maxValues.calculationForData: ',
+      'arguments in maxValues.calculateForData: ',
       touchPointsDeployed,
       respondentsCountForStrategy,
       populationCountForStrategy
@@ -97,5 +97,5 @@ export default function createMaxValues() {
     });
   }
 
-  return {calculationForData, forData, fallBack, forFormula};
+  return {calculateForData, forData, fallBack, forFormula};
 }
