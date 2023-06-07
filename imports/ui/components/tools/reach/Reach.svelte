@@ -21,7 +21,6 @@
   import createRenew from '../../../procedures/renew';
   import createMaxValues from '../../../functions/maxValues';
   import {DeployedTouchPoint} from '/imports/both/typings/types';
-  import {dataset_dev} from 'svelte/internal';
 
   // variables
   const renew = createRenew();
@@ -44,10 +43,13 @@
   $: {
     sort($language);
   }
-  // TODO: only use dispatch, onChangeBriefing (gender, age), onChangeValue, onSubmitValue, onChangeInputtype, onChangeMarket, onChangeMarketData
 
   // functions
   function processMarketContext() {
+    // market and data availability
+    // 1. renew
+    // 2. for data: average probabilities & not reached
+    // 3. maxValues
     if ($marketData && $useForResults == 'data') {
       renew.forData();
       Meteor.callAsync('strategies.averageProbabilitiesAndNotReachedPerTouchPoint', {
@@ -71,6 +73,13 @@
   }
 
   function processBriefing() {
+    // gender / age
+    // 1. for data: average probabilities & not reached
+    // 2. maxValues
+    // 3. adjust values that are above maxValue
+    // 4. calculate reach per touchpoint for all touchpoints
+    // 5. calculate reach and overlap
+
     processMarketContext();
     $deployment.map((touchPoint) => {
       touchPoint.reach = calculateResult.forTouchPoint(
@@ -85,6 +94,13 @@
   }
 
   function processInputType(event: any) {
+    // inputType
+    // 1. average probabilities and not reached for this touchpoint
+    // 2. max value for this touchpoint
+    // 3. adjust this value if maxValue
+    // 4. calculate reach per touchpoint for this touchpoint
+    // 5. calculate reach and overlap
+
     const touchPoint: DeployedTouchPoint = event.detail;
     console.log('touchpoint & deployment before onChangeInputType: ', touchPoint, $deployment);
     const maxValuesForTouchPoints = setMaxValues.calculateForData(
@@ -97,6 +113,9 @@
   }
 
   function processValue(event: any) {
+    // value
+    // 1. calculate reach per touchpoint for this touchpoint
+    // 2. calculate reach and overlap
     const touchPoint: DeployedTouchPoint = event.detail;
     console.log('touchPoint in processValue: ', touchPoint);
     if ($marketData && $useForResults == 'data') {
