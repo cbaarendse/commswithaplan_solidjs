@@ -43,36 +43,37 @@
   $: {
     sort($language);
   }
-
+  // TODO: Promise.all
   // functions
-  function processMarketContext() {
+  async function processMarketContext() {
     // market and data availability
     // 1. renew
     // 2. for data: average probabilities & not reached
     // 3. maxValues
     if ($marketData && $useForResults == 'data') {
       renew.forData();
-      Meteor.callAsync('strategies.averageProbabilitiesAndNotReachedPerTouchPoint', {
-        userId: $userId,
-        deployment: $deployment
-      })
-        .then((result) => ($deployment = result))
-        .then(() => {
-          const maxValuesForTouchPoints = setMaxValues.calculateForData(
-            $deployment,
-            $respondentsCountForStrategy,
-            $populationCountForStrategy
-          );
-          $deployment = setMaxValues.forData($deployment, maxValuesForTouchPoints);
-        })
-        .catch((error) => console.log('error in strategies.averageProbabilitiesAndNotReachedPerTouchPoint; ', error));
+      const promises = $deployment.map(
+        async (touchPoint) =>
+          await Meteor.callAsync('strategies.averageProbabilitiesAndNotReachedForTouchPoint', {
+            userId: $userId,
+            touchPoint: touchPoint
+          })
+      );
+      $deployment = await Promise.all(promises);
+
+      const maxValuesForTouchPoints = setMaxValues.calculateForData(
+        $deployment,
+        $respondentsCountForStrategy,
+        $populationCountForStrategy
+      );
+      $deployment = setMaxValues.forData($deployment, maxValuesForTouchPoints);
     } else {
       renew.forFormula();
       $deployment = setMaxValues.forFormula($deployment);
     }
   }
 
-  function processBriefing() {
+  async function processBriefing() {
     // gender / age
     // 1. for data: average probabilities & not reached
     // 2. maxValues
@@ -80,7 +81,7 @@
     // 4. calculate reach per touchpoint for all touchpoints
     // 5. calculate reach and overlap
 
-    processMarketContext();
+    await processMarketContext();
     $deployment.map((touchPoint) => {
       touchPoint.reach = calculateResult.forTouchPoint(
         touchPoint,

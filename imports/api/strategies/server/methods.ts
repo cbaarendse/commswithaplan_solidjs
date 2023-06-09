@@ -3,17 +3,7 @@ import {Meteor} from 'meteor/meteor';
 import {Match} from 'meteor/check';
 import createReachDataTool from './reachdata';
 import Probabilities from '../../probabilities/server/probabilities';
-import Populations from '../../populations/populations';
-import type {
-  AgeGroup,
-  DeployedTouchPoint,
-  Genders,
-  RespondentOutcome,
-  Results,
-  Strategy,
-  TouchPointName
-} from '/imports/both/typings/types';
-import {INPUTTYPE} from '/imports/both/constants/constants';
+import type {AgeGroup, DeployedTouchPoint, RespondentOutcome, Results, Strategy} from '/imports/both/typings/types';
 
 // variables
 const reachDataTool = createReachDataTool();
@@ -49,15 +39,15 @@ Meteor.methods({
     return preparedRespondents.length;
   },
 
-  'strategies.averageProbabilitiesAndNotReachedPerTouchPoint': function (args: {
+  'strategies.averageProbabilitiesAndNotReachedForTouchPoint': function (args: {
     userId: Strategy['userId'];
-    deployment: Strategy['deployment'];
-  }): DeployedTouchPoint[] {
-    if (!Match.test(args, Object) || !Match.test(args.deployment, Array)) {
+    touchPoint: DeployedTouchPoint;
+  }): DeployedTouchPoint {
+    if (!Match.test(args, Object) || !Match.test(args.touchPoint, Object)) {
       throw new Meteor.Error('general.invalid.input', `Invalid input: ${args}`, '[{ "name": "invalidInput" }]');
     }
     console.log('calculateAverageProbabilities runs on server');
-    const touchPoints = args.deployment;
+    const touchPoint = args.touchPoint;
     //const userId = args.userId;
     // Checks for login and strategy ownership
     if (!this.userId) {
@@ -74,23 +64,22 @@ Meteor.methods({
     //     '[{ "name": "notAuthorized" }]'
     //   );
     // }
-    for (let touchPointIndex = 0; touchPointIndex < touchPoints.length; touchPointIndex++) {
-      const thisTouchPoint = touchPoints[touchPointIndex];
-      const respondentsThisTouchPoint: RespondentOutcome[] = preparedRespondents.filter(
-        (respondent) => thisTouchPoint.name === respondent.touchPoint
-      );
-      const thisProbabilitiesSum: number = respondentsThisTouchPoint.reduce(
-        (sum, respondent) => sum + respondent.probability,
-        0
-      );
-      const thisAverageProbability = thisProbabilitiesSum / respondentsThisTouchPoint.length;
-      const respondentsNotReachedThisTouchPoint: RespondentOutcome[] = preparedRespondents.filter(
-        (respondent) => thisTouchPoint.name === respondent.touchPoint && respondent.probability === 0
-      );
-      touchPoints[touchPointIndex].averageProbability = thisAverageProbability;
-      touchPoints[touchPointIndex].respondentsNotReached = respondentsNotReachedThisTouchPoint.length;
-    }
-    return touchPoints;
+
+    const respondentsThisTouchPoint: RespondentOutcome[] = preparedRespondents.filter(
+      (respondent) => touchPoint.name === respondent.touchPoint
+    );
+    const thisProbabilitiesSum: number = respondentsThisTouchPoint.reduce(
+      (sum, respondent) => sum + respondent.probability,
+      0
+    );
+    const thisAverageProbability = thisProbabilitiesSum / respondentsThisTouchPoint.length;
+    const respondentsNotReachedThisTouchPoint: RespondentOutcome[] = preparedRespondents.filter(
+      (respondent) => touchPoint.name === respondent.touchPoint && respondent.probability === 0
+    );
+    touchPoint.averageProbability = thisAverageProbability;
+    touchPoint.respondentsNotReached = respondentsNotReachedThisTouchPoint.length;
+
+    return touchPoint;
   },
 
   // results
