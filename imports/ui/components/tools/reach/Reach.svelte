@@ -78,7 +78,19 @@
     // 5. calculate reach and overlap
 
     await processMarketContextForData();
-    // TODO: // 3.
+    // correct values for maxValue
+    deployment.update((data) => {
+      return data.map((touchPoint) => {
+        return Object.assign(touchPoint, {
+          value:
+            typeof touchPoint.maxValue == 'number'
+              ? touchPoint.value > touchPoint.maxValue
+                ? touchPoint.maxValue
+                : touchPoint.value
+              : 0
+        });
+      });
+    });
     deployment.update((data) => {
       return data.map((touchPoint) => {
         return Object.assign(touchPoint, {
