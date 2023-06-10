@@ -19,12 +19,12 @@
   } from '../../../stores/reach';
   import createResult from '../../../functions/results';
   import createRenew from '../../../procedures/renew';
-  import createMaxValues from '../../../functions/maxValues';
+  import createMaxValue from '../../../functions/maxValues';
   import {DeployedTouchPoint} from '/imports/both/typings/types';
 
   // variables
   const renew = createRenew();
-  const setMaxValues = createMaxValues();
+  const setMaxValue = createMaxValue();
   const calculateResult = createResult();
   if (!$createdAt) {
     $createdAt = new Date();
@@ -34,46 +34,42 @@
   }
 
   // Set maxValues for deployment for formula
-  deployment.update((data) => {
-    return data.map((touchPoint) => {
-      return Object.assign(touchPoint, {maxValue: 1});
-    });
-  });
+  processMarketContextForFormula();
 
   $: {
     sort($language);
   }
   // TODO: Promise.all
   // functions
-  async function processMarketContext() {
-    // market and data availability
-    // 1. renew
-    // 2. for data: average probabilities & not reached
-    // 3. maxValues
-    if ($marketData && $useForResults == 'data') {
-      renew.forData();
-      const promises = $deployment.map(
-        async (touchPoint) =>
-          await Meteor.callAsync('strategies.averageProbabilitiesAndNotReachedForTouchPoint', {
-            userId: $userId,
-            touchPoint: touchPoint
-          })
-      );
-      $deployment = await Promise.all(promises);
-
-      const maxValuesForTouchPoints = setMaxValues.calculateForData(
-        $deployment,
-        $respondentsCountForStrategy,
-        $populationCountForStrategy
-      );
-      $deployment = setMaxValues.forData($deployment, maxValuesForTouchPoints);
-    } else {
-      renew.forFormula();
-      $deployment = setMaxValues.forFormula($deployment);
-    }
+  async function processMarketContextForData() {
+    renew.forData();
+    const promises = $deployment.map(
+      async (touchPoint) =>
+        await Meteor.callAsync('strategies.averageProbabilitiesAndNotReachedForTouchPoint', {
+          userId: $userId,
+          touchPoint: touchPoint
+        })
+    );
+    $deployment = await Promise.all(promises);
+    deployment.update((data) => {
+      return data.map((touchPoint) => {
+        return Object.assign(touchPoint, {
+          maxValue: setMaxValue.forData(touchPoint, $respondentsCountForStrategy, $populationCountForStrategy)
+        });
+      });
+    });
   }
 
-  async function processBriefing() {
+  function processMarketContextForFormula() {
+    renew.forFormula();
+    deployment.update((data) => {
+      return data.map((touchPoint) => {
+        return Object.assign(touchPoint, {maxValue: 1});
+      });
+    });
+  }
+
+  async function processBriefingForData() {
     // gender / age
     // 1. for data: average probabilities & not reached
     // 2. maxValues
@@ -81,16 +77,15 @@
     // 4. calculate reach per touchpoint for all touchpoints
     // 5. calculate reach and overlap
 
-    await processMarketContext();
-    $deployment.map((touchPoint) => {
-      touchPoint.reach = calculateResult.forTouchPoint(
-        touchPoint,
-        $respondentsCountForStrategy,
-        $populationCountForStrategy
-      );
-      return touchPoint;
+    await processMarketContextForData();
+    // TODO: // 3.
+    deployment.update((data) => {
+      return data.map((touchPoint) => {
+        return Object.assign(touchPoint, {
+          reach: calculateResult.forTouchPoint(touchPoint, $respondentsCountForStrategy, $populationCountForStrategy)
+        });
+      });
     });
-    $deployment = $deployment;
     calculateReachAndOverlap();
   }
 
@@ -103,14 +98,8 @@
     // 5. calculate reach and overlap
 
     const touchPoint: DeployedTouchPoint = event.detail;
-    console.log('touchpoint & deployment before onChangeInputType: ', touchPoint, $deployment);
-    const maxValuesForTouchPoints = setMaxValues.calculateForData(
-      $deployment,
-      $respondentsCountForStrategy,
-      $populationCountForStrategy
-    );
-    deployment.update((data) => setMaxValues.forData(data, maxValuesForTouchPoints));
-    console.log('deployment after onChangeInputType: ', $deployment);
+
+    $deployment = setMaxValue.forData($deployment, $respondentsCountForStrategy, $populationCountForStrategy);
   }
 
   function processValue(event: any) {
@@ -159,10 +148,14 @@
 <section>
   <div class="container">
     <Controls
-      on:changeDataSource={processMarketContext}
-      on:changeMarket={processMarketContext}
-      on:changeGender={processBriefing}
-      on:changeAgeGroup={processBriefing}
+      on:changeDataSource={$marketData && $useForResults == 'data'
+        ? processMarketContextForData
+        : processMarketContextForFormula}
+      on:changeMarket={$marketData && $useForResults == 'data'
+        ? processMarketContextForData
+        : processMarketContextForFormula}
+      on:changeGender={processBriefingForData}
+      on:changeAgeGroup={processBriefingForData}
     />
     <Output />
     {#each $deployment as touchPoint}
