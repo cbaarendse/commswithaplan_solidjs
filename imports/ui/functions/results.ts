@@ -18,6 +18,7 @@ export default function createResult() {
 
     if (averageProbability && notReached) {
       if (inputTypeIndex == INPUTTYPE.Contacts || inputTypeIndex == INPUTTYPE.Impressions) {
+        // TODO: check formula
         const reachedPopulation =
           (1 - notReached / respondentsCountForStrategy) * (1 - Math.pow(Math.E, averageProbability * value));
         const reach = reachedPopulation / populationCountForStrategy;
@@ -26,6 +27,7 @@ export default function createResult() {
       }
 
       if (inputTypeIndex == INPUTTYPE.Grps) {
+        // TODO: check formula
         const reach =
           (1 - notReached / respondentsCountForStrategy) * (1 - Math.pow(Math.E, averageProbability * value));
         console.log('output result.forTouchPoint for GRPs: ', reach);
@@ -33,6 +35,7 @@ export default function createResult() {
       }
 
       if (inputTypeIndex == INPUTTYPE.Reach) {
+        // TODO: check formula
         const reach = value;
         console.log('output result.forTouchPoint reach: ', reach);
         return reach;

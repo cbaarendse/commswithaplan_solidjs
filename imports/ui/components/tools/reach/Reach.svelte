@@ -33,13 +33,15 @@
     renew.forFormula();
   }
 
+  $: console.log('deployment = :', $deployment);
+
   // Set maxValues for deployment for formula
   processMarketContextForFormula();
 
   $: {
     sort($language);
   }
-  // TODO: Promise.all
+
   // functions
   async function processMarketContextForData() {
     renew.forData();
@@ -53,9 +55,7 @@
     $deployment = await Promise.all(promises);
     deployment.update((data) => {
       return data.map((touchPoint) => {
-        return Object.assign(touchPoint, {
-          maxValue: setMaxValue.forData(touchPoint, $respondentsCountForStrategy, $populationCountForStrategy)
-        });
+        return setMaxValue.forData(touchPoint, $respondentsCountForStrategy, $populationCountForStrategy);
       });
     });
   }
@@ -76,7 +76,6 @@
     // 3. adjust values that are above maxValue
     // 4. calculate reach per touchpoint for all touchpoints
     // 5. calculate reach and overlap
-
     await processMarketContextForData();
     // correct values for maxValue
     deployment.update((data) => {
@@ -110,79 +109,69 @@
     // 5. calculate reach and overlap
 
     const touchPoint: DeployedTouchPoint = event.detail;
-    const promises = $deployment.map(async (tP) => {
-      if (touchPoint.name == tP.name) {
-        return await Meteor.callAsync('strategies.averageProbabilitiesAndNotReachedForTouchPoint', {
-          userId: $userId,
-          touchPoint: tP
-        });
-      }
-    });
-    $deployment = await Promise.all(promises);
-
     deployment.update((data) => {
-      return data.map((tP) => {
-        if (touchPoint.name == tP.name) {
-          return Object.assign(tP, {
-            maxValue: setMaxValue.forData(tP, $respondentsCountForStrategy, $populationCountForStrategy)
-          });
-        } else {
-          return tP;
-        }
-      });
+      const index = data.findIndex((tP) => touchPoint.name == tP.name);
+      Meteor.callAsync('strategies.averageProbabilitiesAndNotReachedForTouchPoint', {
+        userId: $userId,
+        touchPoint: data[index]
+      })
+        .then((result) => (data[index] = result))
+        .catch((error) => console.log('error in averageProbabilitiesAndRespondentsNotReached: ', error));
+      return data;
     });
 
     deployment.update((data) => {
-      return data.map((tP) => {
-        if (touchPoint.name == tP.name) {
-          return Object.assign(tP, {
-            reach: calculateResult.forTouchPoint(tP, $respondentsCountForStrategy, $populationCountForStrategy)
-          });
-        } else {
-          return tP;
-        }
-      });
+      const index = data.findIndex((tP) => tP.name == touchPoint.name);
+      data[index] = setMaxValue.forData(data[index], $respondentsCountForStrategy, $populationCountForStrategy) || 1;
+      return data;
+    });
+
+    deployment.update((data) => {
+      const index = data.findIndex((tP) => tP.name == touchPoint.name);
+      const reach = calculateResult.forTouchPoint(
+        data[index],
+        $respondentsCountForStrategy,
+        $populationCountForStrategy
+      );
+      data[index].reach = reach;
+      return data;
+    });
+
+    calculateReachAndOverlapForData();
+  }
+
+  function processValueForData(event: any) {
+    // value already updated in component
+    // 1. calculate reach per touchpoint for this touchpoint
+    // 2. calculate reach and overlap
+    const touchPoint: DeployedTouchPoint = event.detail;
+    const reach = calculateResult.forTouchPoint(touchPoint, $respondentsCountForStrategy, $populationCountForStrategy);
+    deployment.update((data) => {
+      const index = data.findIndex((tP) => tP.name == touchPoint.name);
+      data[index].reach = reach;
+      return data;
     });
     calculateReachAndOverlapForData();
   }
 
-  function processValue(event: any) {
-    // value
-    // 1. calculate reach per touchpoint for this touchpoint
-    // 2. calculate reach and overlap
-    const touchPoint: DeployedTouchPoint = event.detail;
-    console.log('touchPoint in processValue: ', touchPoint);
-    if ($marketData && $useForResults == 'data') {
-      const reach = calculateResult.forTouchPoint(
-        touchPoint,
-        $respondentsCountForStrategy,
-        $populationCountForStrategy
-      );
-      deployment.update((data) => {
-        //TODO: check
-        const index = data.findIndex((tP) => tP.name == touchPoint.name);
-        data[index].reach = reach;
-        return data;
-      });
-      console.log('touchPoint with reach?: ', touchPoint);
-    }
-    calculateReachAndOverlap();
+  function processValueForFormula() {
+    // value already updated in component
+    // 1. calculate reach and overlap
+    calculateReachAndOverlapForFormula();
   }
 
   function calculateReachAndOverlapForData() {
-    if ($marketData && $useForResults == 'data') {
-      Meteor.callAsync('strategies.calculateReachAndOverlapWithData', {
-        userId: $userId,
-        deployment: $deployment
-      })
-        .then((result) =>
-          results.update((data) => {
-            data = result;
-            return data;
-          })
-        )
-        .catch((error) => console.log('error in strategies.calculateReachAndOverlapWithData in onSubmit: ', error));
-    }
+    Meteor.callAsync('strategies.calculateReachAndOverlapWithData', {
+      userId: $userId,
+      deployment: $deployment
+    })
+      .then((result) =>
+        results.update((data) => {
+          data = result;
+          return data;
+        })
+      )
+      .catch((error) => console.log('error in strategies.calculateReachAndOverlapWithData in onSubmit: ', error));
   }
   function calculateReachAndOverlapForFormula() {
     results.set(calculateResult.totalForFormula($deployment));
@@ -207,8 +196,8 @@
       <TouchPoint
         {touchPoint}
         on:changeInputType={processInputTypeForData}
-        on:changeValue={processValue}
-        on:submitValue={processValue}
+        on:changeValue={marketData && $useForResults == 'data' ? processValueForData : processValueForFormula}
+        on:submitValue={marketData && $useForResults == 'data' ? processValueForData : processValueForFormula}
       />
     {/each}
   </div>
