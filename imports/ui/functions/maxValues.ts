@@ -11,14 +11,14 @@ export default function createMaxValue() {
   ) {
     // for each deployed touchpoint only select respondents with a contact probability > 0
     const respondentsNotReachedForThisTouchPoint = touchPoint.respondentsNotReached || 0;
-    const maxForTouchPoint = {touchPoint: touchPoint.name, max: 1};
+    let max = 1;
     if (touchPoint.inputTypeIndex == INPUTTYPE.Contacts || touchPoint.inputTypeIndex == INPUTTYPE.Impressions) {
-      maxForTouchPoint.max =
+      max =
         ((respondentsCountForStrategy - respondentsNotReachedForThisTouchPoint) / respondentsCountForStrategy) *
         populationCountForStrategy *
         5;
     } else if (touchPoint.inputTypeIndex == INPUTTYPE.Grps) {
-      maxForTouchPoint.max =
+      max =
         (((respondentsCountForStrategy - respondentsNotReachedForThisTouchPoint) / respondentsCountForStrategy) *
           populationCountForStrategy *
           5) /
@@ -26,10 +26,9 @@ export default function createMaxValue() {
     } else if (touchPoint.inputTypeIndex == INPUTTYPE.Reach) {
       const maxReach =
         (respondentsCountForStrategy - respondentsNotReachedForThisTouchPoint) / respondentsCountForStrategy;
-      maxForTouchPoint.max = Math.max(maxReach, 1);
+      max = Math.max(maxReach, 1);
     }
-
-    return maxForTouchPoint;
+    return Object.assign(touchPoint, {maxValue: max});
   }
 
   function fallBack(touchPointsDeployed: DeployedTouchPoint[]) {

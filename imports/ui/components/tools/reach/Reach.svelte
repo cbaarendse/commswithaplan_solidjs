@@ -98,10 +98,10 @@
         });
       });
     });
-    calculateReachAndOverlap();
+    calculateReachAndOverlapForData();
   }
 
-  function processInputType(event: any) {
+  async function processInputTypeForData(event: any) {
     // inputType
     // 1. average probabilities and not reached for this touchpoint
     // 2. max value for this touchpoint
@@ -110,8 +110,40 @@
     // 5. calculate reach and overlap
 
     const touchPoint: DeployedTouchPoint = event.detail;
+    const promises = $deployment.map(async (tP) => {
+      if (touchPoint.name == tP.name) {
+        return await Meteor.callAsync('strategies.averageProbabilitiesAndNotReachedForTouchPoint', {
+          userId: $userId,
+          touchPoint: tP
+        });
+      }
+    });
+    $deployment = await Promise.all(promises);
 
-    $deployment = setMaxValue.forData($deployment, $respondentsCountForStrategy, $populationCountForStrategy);
+    deployment.update((data) => {
+      return data.map((tP) => {
+        if (touchPoint.name == tP.name) {
+          return Object.assign(tP, {
+            maxValue: setMaxValue.forData(tP, $respondentsCountForStrategy, $populationCountForStrategy)
+          });
+        } else {
+          return tP;
+        }
+      });
+    });
+
+    deployment.update((data) => {
+      return data.map((tP) => {
+        if (touchPoint.name == tP.name) {
+          return Object.assign(tP, {
+            reach: calculateResult.forTouchPoint(tP, $respondentsCountForStrategy, $populationCountForStrategy)
+          });
+        } else {
+          return tP;
+        }
+      });
+    });
+    calculateReachAndOverlapForData();
   }
 
   function processValue(event: any) {
@@ -137,7 +169,7 @@
     calculateReachAndOverlap();
   }
 
-  function calculateReachAndOverlap() {
+  function calculateReachAndOverlapForData() {
     if ($marketData && $useForResults == 'data') {
       Meteor.callAsync('strategies.calculateReachAndOverlapWithData', {
         userId: $userId,
@@ -150,9 +182,10 @@
           })
         )
         .catch((error) => console.log('error in strategies.calculateReachAndOverlapWithData in onSubmit: ', error));
-    } else if ($useForResults == 'formula') {
-      results.set(calculateResult.totalForFormula($deployment));
     }
+  }
+  function calculateReachAndOverlapForFormula() {
+    results.set(calculateResult.totalForFormula($deployment));
   }
 </script>
 
@@ -173,7 +206,7 @@
     {#each $deployment as touchPoint}
       <TouchPoint
         {touchPoint}
-        on:changeInputType={processInputType}
+        on:changeInputType={processInputTypeForData}
         on:changeValue={processValue}
         on:submitValue={processValue}
       />

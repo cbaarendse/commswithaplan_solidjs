@@ -76,10 +76,11 @@ Meteor.methods({
     const respondentsNotReachedThisTouchPoint: RespondentOutcome[] = preparedRespondents.filter(
       (respondent) => touchPoint.name === respondent.touchPoint && respondent.probability === 0
     );
-    touchPoint.averageProbability = thisAverageProbability;
-    touchPoint.respondentsNotReached = respondentsNotReachedThisTouchPoint.length;
 
-    return touchPoint;
+    return Object.assign(touchPoint, {
+      averageProbability: thisAverageProbability,
+      respondentsNotReached: respondentsNotReachedThisTouchPoint.length
+    });
   },
 
   // results
