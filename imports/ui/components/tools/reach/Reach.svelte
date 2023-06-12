@@ -52,7 +52,9 @@
           touchPoint: touchPoint
         })
     );
-    $deployment = await Promise.all(promises);
+    await Promise.all(promises)
+      .then((result) => ($deployment = result))
+      .catch((error) => console.log('error in averageProbabilities... in processmarketcontextfordata: ', error));
     deployment.update((data) => {
       return data.map((touchPoint) => {
         return setMaxValue.forData(touchPoint, $respondentsCountForStrategy, $populationCountForStrategy);
