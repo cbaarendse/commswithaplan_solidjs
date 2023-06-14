@@ -36,7 +36,7 @@ Meteor.methods({
 
     const flattenedRespondents = reachDataTool.flattenRespondentsForTouchPoints(touchPoints, probabilities);
     preparedRespondents.push(...flattenedRespondents);
-    return preparedRespondents.length;
+    return probabilities.length;
   },
 
   'strategies.averageProbabilitiesAndNotReachedForTouchPoint': function (args: {
