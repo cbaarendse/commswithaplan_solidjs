@@ -1,7 +1,7 @@
 <script lang="ts">
   // imports
   import BreadCrumbs from '../../reusable/BreadCrumbs.svelte';
-  import Card from '../../reusable/Card.svelte';
+  import CardCopy from '../../reusable/CardCopy.svelte';
   import {language} from '../../../stores/utils';
   import {consultancyHomeItems} from '../../../stores/consultancy';
   import createConverter from '/imports/ui/functions/convert';
@@ -9,8 +9,8 @@
   // variables
   const converter = createConverter();
   $: expandedConsultancyHomeItems = converter.expandItems<
-    typeof $consultancyHomeItems[number],
-    typeof $consultancyHomeItems[number]['definitions'][0]
+    (typeof $consultancyHomeItems)[number],
+    (typeof $consultancyHomeItems)[number]['definitions'][0]
   >($consultancyHomeItems, $language);
 </script>
 
@@ -18,18 +18,20 @@
 <section>
   <div class="home__flex">
     {#each expandedConsultancyHomeItems as item}
-      <Card
+      <CardCopy
+        let:Title
+        let:Action
+        let:Body
         card={{
-          title: item.displayName,
           color: 'blue',
-          link: item.link,
-          action: item.action,
           fontSize: '0.9em'
         }}
       >
+        <Title>{item.displayName}</Title>
         <!-- @html because of <mark></mark> tags in text -->
-        {@html item.description}
-      </Card>
+        <Body>{@html item.description}</Body>
+        <Action link={item.link}>{item.action}</Action>
+      </CardCopy>
     {/each}
   </div>
 </section>
