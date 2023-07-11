@@ -3,28 +3,19 @@
   import Image from './CardImage.svelte';
   import Title from './CardTitle.svelte';
   import Body from './CardBody.svelte';
-  import Footer from './CardFooter.svelte';
   import Action from './CardAction.svelte';
-
+  import Footer from './CardFooter.svelte';
   // types
-  import type {Card} from '../../../both/typings/types';
 
   // variables
-  export let card: Card;
-  export let imgFiles: string[];
-  export let title: string;
-  export let link: string;
+  export let backgroundColor: CSSStyleDeclaration['backgroundColor'];
+  export let color: CSSStyleDeclaration['color'];
+  export let fontSize: CSSStyleDeclaration['fontSize'];
+  const C = {Image, Title, Body, Action, Footer};
 </script>
 
-<article
-  class="card"
-  style="background-color:{card.backgroundColor}; font-color:{card.color}; font-size:{card.fontSize}"
->
-  <Image {imgFiles} {title} />
-  <Title />
-  <Body />
-  <Footer />
-  <Action {link} />
+<article class="card" style="background-color:{backgroundColor}; font-color:{color}; font-size:{fontSize}">
+  <slot {C} />
 </article>
 
 <style>

@@ -2,6 +2,7 @@
   // imports
   import BreadCrumbs from '../../reusable/BreadCrumbs.svelte';
   import CardCopy from '../../reusable/CardCopy.svelte';
+
   import {language} from '../../../stores/utils';
   import {consultancyHomeItems} from '../../../stores/consultancy';
   import createConverter from '/imports/ui/functions/convert';
@@ -18,19 +19,11 @@
 <section>
   <div class="home__flex">
     {#each expandedConsultancyHomeItems as item}
-      <CardCopy
-        let:Title
-        let:Action
-        let:Body
-        card={{
-          color: 'blue',
-          fontSize: '0.9em'
-        }}
-      >
-        <Title>{item.displayName}</Title>
+      <CardCopy let:C backgroundColor={'--var'} color={'blue'} fontSize={'0.9em'}>
+        <C.Title>{item.displayName}</C.Title>
         <!-- @html because of <mark></mark> tags in text -->
-        <Body>{@html item.description}</Body>
-        <Action link={item.link}>{item.action}</Action>
+        <C.Body>{@html item.description}</C.Body>
+        <C.Action link={item.link}>{item.action}</C.Action>
       </CardCopy>
     {/each}
   </div>
