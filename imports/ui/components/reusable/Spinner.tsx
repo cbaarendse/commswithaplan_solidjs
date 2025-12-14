@@ -1,13 +1,10 @@
-<script lang="ts">
-</script>
-
-<div class="spinner">
-  <div class="circle1" />
-  <div class="circle2" />
-  <div class="circle3" />
-</div>
-
-<style>
+export default function Spinner() {
+  return (
+    <div class="spinner">
+      <div class="circle1" />
+      <div class="circle2" />
+      <div class="circle3" />
+      <style>{`
   div.spinner {
     border: solid 2px var(--ra-red);
     position: relative;
@@ -19,8 +16,6 @@
     animation-delay: 0.2s;
     animation-iteration-count: infinite;
     animation-direction: normal;
-    /* animation-timing-function */
-    /* animation-fill-mode */
     transform: rotate(360deg);
   }
   div.circle1,
@@ -52,4 +47,7 @@
     z-index: 30;
     background-color: var(--ra-red);
   }
-</style>
+      `}</style>
+    </div>
+  );
+}
