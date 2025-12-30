@@ -14,7 +14,7 @@
         "visualize": "meteor --production --extra-packages bundle-visualizer",
         "svelte-check": "svelte-check",
         "lint": "eslint",
-        "mongo": "MONGO_URL='mongodb+srv://cbaarendse:Cbdollardollar5426@cluster0.lnrah.mongodb.net/reachapp?retryWrites=true&w=majority' meteor"
+        "mongo": "MONGO_URL=''"
     },
     "dependencies": {
         "@babel/runtime": "^7.15.4",
