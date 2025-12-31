@@ -1,7 +1,6 @@
 // imports
 import {DateTime} from 'luxon';
 import {language} from '../stores/utils';
-import {get} from 'svelte/store';
 
 // class
 export default function createFormatter() {
@@ -29,13 +28,13 @@ export default function createFormatter() {
     return DateTime.fromJSDate(date).toLocaleString(DateTime.DATETIME_MED);
   }
   function toNumberFormat(value: number, digits: number): string {
-    return new Intl.NumberFormat(get(language), {style: 'decimal', maximumFractionDigits: digits}).format(value);
+    return new Intl.NumberFormat(language(), {style: 'decimal', maximumFractionDigits: digits}).format(value);
   }
   function toPercentFormat(value: number, digits: number): string {
-    return new Intl.NumberFormat(get(language), {style: 'percent', maximumFractionDigits: digits}).format(value);
+    return new Intl.NumberFormat(language(), {style: 'percent', maximumFractionDigits: digits}).format(value);
   }
   function toMillionsFormat(value: number, digits: number): string {
-    return new Intl.NumberFormat(get(language), {
+    return new Intl.NumberFormat(language(), {
       style: 'decimal',
       maximumFractionDigits: digits,
       notation: 'compact'

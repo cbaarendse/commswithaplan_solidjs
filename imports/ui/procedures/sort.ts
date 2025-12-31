@@ -1,7 +1,6 @@
 // imports
 import {DeployedTouchPoint, Language, TouchPointDefinition} from '/imports/both/typings/types';
 import {deployment, sortedByName} from '../stores/reach';
-import {get} from 'svelte/store';
 import createReachTool from '../functions/reach';
 
 // variables
@@ -9,11 +8,14 @@ const reachTool = createReachTool();
 
 // sort
 export default function sort(language: Language): void {
-  deployment.set(get(sortedByName) ? sortByValue(get(deployment)) : sortByName(get(deployment), language));
+  const currentDeployment = deployment();
+  const currentSortedByName = sortedByName();
+
+  deployment.set(currentSortedByName ? sortByValue(currentDeployment) : sortByName(currentDeployment, language));
   sortedByName.set(
-    reachTool.isShowAll(get(deployment)) && reachTool.areAllTouchPointsValueZero(get(deployment))
+    reachTool.isShowAll(currentDeployment) && reachTool.areAllTouchPointsValueZero(currentDeployment)
       ? true
-      : !get(sortedByName)
+      : !currentSortedByName
   );
 }
 
